@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>食完晏晝就想瞓唔係攰，係發電機傳送帶老化｜三高工程師 Duncan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased pb-24">
+
+  <!-- Header -->
+  <header class="bg-amber-900 text-white py-6 px-4 text-center shadow-md">
+    <span class="bg-amber-700 text-amber-200 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">工程思維 · 拆解健康</span>
+    <h1 class="text-2xl md:text-3xl font-bold mt-2 leading-snug">食完晏晝就想瞓？<br><span class="text-amber-300">真相係「細胞發電機」缺電</span></h1>
+    <p class="text-amber-100 text-sm mt-1">三高工程師 Duncan · 拒絕盲目借能量</p>
+  </header>
+
+  <main class="max-w-xl mx-auto px-4 mt-6 space-y-6">
+
+    <!-- Block 1: 自測 -->
+    <section class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+      <div class="flex items-center space-x-2 text-amber-950 font-bold text-lg mb-3">
+        <span class="bg-amber-100 text-amber-800 w-7 h-7 flex items-center justify-center rounded-full text-sm">1</span>
+        <h2>30 秒快速自測：你的疲勞屬於邊種？</h2>
+      </div>
+      <div class="space-y-3 text-base">
+        <label class="flex items-start p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+          <input type="checkbox" id="f1" class="w-5 h-5 text-amber-600 rounded mt-0.5" onchange="calcFatigue()">
+          <span class="ml-3 text-slate-700">食完午餐/晚餐 30 分鐘內，極度睏倦斷電</span>
+        </label>
+        <label class="flex items-start p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+          <input type="checkbox" id="f2" class="w-5 h-5 text-amber-600 rounded mt-0.5" onchange="calcFatigue()">
+          <span class="ml-3 text-slate-700">瞓夠 7-8 個鐘，起身依然覺得好攰、充唔到電</span>
+        </label>
+        <label class="flex items-start p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+          <input type="checkbox" id="f3" class="w-5 h-5 text-amber-600 rounded mt-0.5" onchange="calcFatigue()">
+          <span class="ml-3 text-slate-700">每日必須靠 1-2 杯濃咖啡或濃茶先頂得住</span>
+        </label>
+        <label class="flex items-start p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+          <input type="checkbox" id="f4" class="w-5 h-5 text-amber-600 rounded mt-0.5" onchange="calcFatigue()">
+          <span class="ml-3 text-slate-700">經常覺得體力大不如前，容易腰痠背痛</span>
+        </label>
+      </div>
+
+      <div id="fatigue-result" class="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-sm hidden">
+        <p class="font-bold text-base" id="f-title">分析結果：細胞發電機 (NAD+) 匱乏型</p>
+        <p class="mt-1 text-slate-600" id="f-desc">你嘅疲勞唔係瞓唔夠，而係細胞發電機傳送帶老化，食物熱量轉化唔到可用電量！</p>
+      </div>
+    </section>
+
+    <!-- Block 2: 原理 -->
+    <section class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+      <div class="flex items-center space-x-2 text-amber-950 font-bold text-lg">
+        <span class="bg-amber-100 text-amber-800 w-7 h-7 flex items-center justify-center rounded-full text-sm">2</span>
+        <h2>工程邏輯解密：點解會攰？</h2>
+      </div>
+
+      <div class="bg-red-50 p-4 rounded-xl border border-red-100 text-xs text-red-800 space-y-1">
+        <p class="font-bold text-red-900 text-sm">❌ 飲咖啡只係「向神經借能量」：</p>
+        <p>咖啡因只係遮蔽大腦疲勞訊號，借完能量要還，長期透支只會令發電機更虛弱！</p>
+      </div>
+
+      <div class="bg-amber-50 p-4 rounded-xl border border-amber-100 text-xs text-slate-700 space-y-2">
+        <p class="font-bold text-amber-950 text-sm">⚙️ 發電機與傳送帶 (NAD+) 原理：</p>
+        <p>人體細胞發電機（線粒體）造電需要關鍵傳送帶 <strong>NAD+</strong>。年過 40 歲，NAD+ 水平腰斬，傳送帶減慢，造成「明明食飽，身體細胞依然斷電」。</p>
+      </div>
+    </section>
+
+    <!-- Block 3: 方案 -->
+    <section class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+      <div class="flex items-center space-x-2 text-amber-950 font-bold text-lg mb-1">
+        <span class="bg-amber-100 text-amber-800 w-7 h-7 flex items-center justify-center rounded-full text-sm">3</span>
+        <h2>精準能量修復方案（WhatsApp 下單）</h2>
+      </div>
+
+      <!-- 1 個月 -->
+      <div class="border-2 border-slate-200 rounded-2xl p-4">
+        <h3 class="font-bold text-lg text-slate-900">【入門體驗】1 個月 NAD+ 發電機激活裝</h3>
+        <p class="text-xs text-slate-500 mt-1">恢復發電機基礎電量，告別午後斷電。</p>
+        <button onclick="orderWhatsApp('1個月發電機體驗裝')" class="mt-4 w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 rounded-xl text-sm">
+          WhatsApp 訂購 1 個月裝
+        </button>
+      </div>
+
+      <!-- 3 個月 -->
+      <div class="border-2 border-amber-500 bg-amber-50/40 rounded-2xl p-4 shadow-sm">
+        <span class="bg-amber-500 text-white text-xs font-bold px-3 py-0.5 rounded-full">90天深度重塑 · 主推</span>
+        <h3 class="font-bold text-lg text-slate-900 mt-1">【細胞修復】3 個月發電機與線粒體重塑方案</h3>
+        <p class="text-xs text-slate-500 mt-1">深層提升 NAD+ 水平，重建全日充沛體力與代謝彈性。</p>
+        <button onclick="orderWhatsApp('3個月完整修復方案')" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-base shadow-lg">
+          👉 WhatsApp 訂購 3 個月方案（包順豐）
+        </button>
+      </div>
+    </section>
+
+    <footer class="text-center text-xs text-slate-400 px-4">
+      <p>© 2026 Duncan Chan 三高工程師 · 拒絕盲目保健，從源頭管理</p>
+    </footer>
+  </main>
+
+  <script>
+    let fResult = "一般疲勞";
+    function calcFatigue() {
+      const f1 = document.getElementById('f1').checked;
+      const count = [f1, document.getElementById('f2').checked, document.getElementById('f3').checked, document.getElementById('f4').checked].filter(Boolean).length;
+      const box = document.getElementById('fatigue-result');
+      if (count > 0) {
+        box.classList.remove('hidden');
+        fResult = f1 ? "餐後血糖震盪與發電機缺電型" : "慢性能量透支型";
+      }
+    }
+
+    function orderWhatsApp(plan) {
+      const phone = "85298788564";
+      const text = `你好 Duncan！我剛完成疲勞自測（結果：${fResult}），我想了解及訂購【發電機修復 - ${plan}】，請提供轉數快(FPS)/PayMe 付款詳情。`;
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+  </script>
+</body>
+</html>

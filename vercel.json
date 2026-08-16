@@ -1,0 +1,8 @@
+{
+  "cleanUrls": true,
+  "routes": [
+    { "src": "/nocturia", "dest": "/nocturia.html" },
+    { "src": "/fatigue", "dest": "/fatigue.html" },
+    { "src": "/", "dest": "/index.html" }
+  ]
+}

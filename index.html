@@ -3,54 +3,200 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>三高工程師 Duncan · 健康問題拆解導航</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Health Decoder | 鄧群 Duncan - 健康問題的拆解者</title>
+  <meta name="description" content="有健康問題，先拆解，唔好亂試。為 45–65 歲人士運用工程思維，將零散體感訊號轉化為清晰的管理優先序。">
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    :root {
+      --primary: #0F172A;
+      --accent: #0D9488;
+      --accent-hover: #0F766E;
+      --wa-green: #25D366;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --text: #1E293B;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; line-height: 1.75; color: var(--text); background: var(--bg); }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    
+    /* 導航 */
+    header { background: #FFF; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; padding: 14px 0; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 14px; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 600; padding: 6px 10px; border-radius: 8px; }
+    .nav-links a.active { color: var(--accent); background: #F0FDFA; }
+
+    /* Hero */
+    .hero { padding: 44px 0 32px; text-align: center; }
+    .badge { display: inline-block; background: #CCFBF1; color: #115E59; font-size: 14px; font-weight: 700; padding: 4px 14px; border-radius: 999px; margin-bottom: 16px; }
+    h1 { font-size: 32px; line-height: 1.35; color: var(--primary); margin-bottom: 16px; font-weight: 800; }
+    .hero p { font-size: 19px; color: var(--text-muted); margin-bottom: 24px; }
+    
+    .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 52px; font-size: 18px; font-weight: 700; border-radius: 12px; text-decoration: none; cursor: pointer; border: none; padding: 12px 20px; text-align: center; }
+    .btn-primary { background: var(--accent); color: #FFF; margin-bottom: 12px; }
+    .btn-secondary { background: #E2E8F0; color: var(--primary); }
+
+    /* 卡片與模組 */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    h2 { font-size: 23px; color: var(--primary); margin-bottom: 14px; }
+    
+    /* 普遍難點清單 */
+    .pain-item { border-left: 4px solid var(--accent); padding-left: 14px; margin-bottom: 16px; }
+    .pain-item strong { display: block; color: var(--primary); font-size: 18px; }
+    .pain-item p { font-size: 16px; color: var(--text-muted); margin: 0; }
+
+    /* 6 大核心價值 */
+    .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+    .value-box { background: #F8FAFC; border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+    .value-box strong { display: block; color: var(--accent); font-size: 17px; margin-bottom: 4px; }
+    .value-box p { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin: 0; }
+
+    /* 7 大痛點矩陣 */
+    .topic-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+    .topic-card { background: #FFF; border: 2px solid var(--border); border-radius: 12px; padding: 16px; text-decoration: none; color: var(--text); transition: all 0.2s; display: block; }
+    .topic-card:hover { border-color: var(--accent); background: #F0FDFA; }
+    .topic-card strong { display: block; color: var(--primary); font-size: 18px; margin-bottom: 4px; }
+    .topic-card span { font-size: 14px; color: var(--accent); font-weight: 600; }
+
+    footer { background: #F1F5F9; padding: 24px 0; font-size: 14px; color: #64748B; margin-top: 40px; }
+    @media (max-width: 540px) {
+      .value-grid, .topic-list { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; }
+    }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between p-4">
+<body>
 
-  <main class="max-w-md mx-auto w-full pt-8 pb-12 space-y-6">
-    <div class="text-center space-y-2">
-      <span class="bg-blue-600/30 text-blue-400 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold border border-blue-500/30">科學邏輯 · 源頭管理</span>
-      <h1 class="text-3xl font-bold tracking-tight text-white">有健康問題，先拆解<br><span class="text-amber-400">唔好亂試。</span></h1>
-      <p class="text-slate-400 text-sm">三高工程師 Duncan · 選擇你目前最想了解的課題：</p>
+  <header>
+    <div class="container nav-inner">
+      <a href="/" class="logo">Health<span>Decoder</span></a>
+      <div class="nav-links">
+        <a href="#topics" class="active">7大痛點</a>
+        <a href="/health-map.html">1:1 Health Map</a>
+        <a href="/store.html">商店</a>
+      </div>
     </div>
+  </header>
 
-    <!-- 雙軌導航卡片 -->
-    <div class="space-y-4 pt-4">
-      <!-- 軌道 A 卡片 -->
-      <a href="/nocturia" class="block p-5 bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-blue-500 rounded-2xl transition duration-200 shadow-lg">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-blue-400 bg-blue-950/80 px-2.5 py-1 rounded-md">夜間循環線</span>
-          <span class="text-xs text-slate-400">30 秒自測 →</span>
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="badge">工程思維 × 健康自主權</div>
+      <h1>有健康問題，先拆解，<br>唔好亂試。</h1>
+      <p>睇醫生、食藥，唔代表日常健康管理已經完成。<br>為 45–65 歲人士把散亂的體感訊號，轉化為清晰的管理優先序。</p>
+      <a href="#topics" class="btn btn-primary">探索 7 大痛點深度自測 ↓</a>
+      <a href="/health-map.html" class="btn btn-secondary">了解 90 天 1:1 Health Map 服務 →</a>
+    </section>
+
+    <!-- 模組二：普遍困局 -->
+    <section class="card">
+      <h2>你是否也正經歷這些說不出的健康卡點？</h2>
+      <div class="pain-item">
+        <strong>1. 驗身指標正常，但身體依然很不妥</strong>
+        <p>夜尿、抽筋、疲倦反覆出現，得到的往往只有一句「年紀大就是這樣」。</p>
+      </div>
+      <div class="pain-item">
+        <strong>2. 吃了很多補品，卻越吃越混亂</strong>
+        <p>家裡堆滿保健品，不知道哪種真正對症，更擔心給肝腎帶來額外負擔。</p>
+      </div>
+      <div class="pain-item">
+        <strong>3. 害怕當「冤大頭」被商業推銷</strong>
+        <p>渴望改善健康，但極度戒備誇大不實的神奇仙丹與強硬推銷。</p>
+      </div>
+      <div class="pain-item">
+        <strong>4. 內心最深的隱憂：不想成為子女的負擔</strong>
+        <p>最害怕失去生活自理能力，拖累家人的事業與生活，渴望晚年清醒獨立。</p>
+      </div>
+    </section>
+
+    <!-- 模組三：6 大核心價值 -->
+    <section class="card">
+      <h2>面對健康，我們堅持 6 個不可動搖的原則</h2>
+      <div class="value-grid">
+        <div class="value-box">
+          <strong>① 源頭根治</strong>
+          <p>系統過載不等於器官壞透，從生活與代謝失衡源頭排查。</p>
         </div>
-        <h2 class="text-lg font-bold text-white mt-2">🌙 夜尿多唔係腎虧？</h2>
-        <p class="text-xs text-slate-400 mt-1 leading-relaxed">拆解夜間水泵流體力學、下肢水分滯留與心臟排水機制。</p>
-      </a>
-
-      <!-- 軌道 B 卡片 -->
-      <a href="/fatigue" class="block p-5 bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-amber-500 rounded-2xl transition duration-200 shadow-lg">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-amber-400 bg-amber-950/80 px-2.5 py-1 rounded-md">日間代謝線</span>
-          <span class="text-xs text-slate-400">30 秒自測 →</span>
+        <div class="value-box">
+          <strong>② 精準保健</strong>
+          <p>先求需要，再談補充。食得對、食得精準，絕不盲目亂補。</p>
         </div>
-        <h2 class="text-lg font-bold text-white mt-2">⚡ 食完晏晝就想瞓？</h2>
-        <p class="text-xs text-slate-400 mt-1 leading-relaxed">拆解細胞發電機與 NAD+ 傳送帶老化，拒絕盲目靠咖啡借能量。</p>
-      </a>
-    </div>
+        <div class="value-box">
+          <strong>③ 習慣優化</strong>
+          <p>一次只改一件事。健康靠日常微小習慣累積，沒有一步登天的仙丹。</p>
+        </div>
+        <div class="value-box">
+          <strong>④ 拒絕標籤</strong>
+          <p>年齡是背景不是宿命。「老」絕不是機能退化與忍受病痛的藉口。</p>
+        </div>
+        <div class="value-box">
+          <strong>⑤ 分工明確</strong>
+          <p>醫療負責急救與風險控制；日常生活的飲食作息必須由自己負責。</p>
+        </div>
+        <div class="value-box">
+          <strong>⑥ 預防維護</strong>
+          <p>身體如精密機器，日常保養是對沖未來天價醫療維修成本的投資。</p>
+        </div>
+      </div>
+    </section>
 
-    <!-- WhatsApp 諮詢 -->
-    <div class="text-center pt-6">
-      <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E5%81%A5%E5%BA%B7%E5%95%8F%E9%A1%8C%E6%8B%86%E8%A7%A3" target="_blank" class="inline-flex items-center space-x-2 text-xs text-slate-400 hover:text-emerald-400 transition">
-        <span>💬 直接 WhatsApp 聯絡 Duncan 團隊</span>
-      </a>
-    </div>
+    <!-- 模組四：我們交付的價值 -->
+    <section class="card">
+      <h2>我們不賣仙丹，我們交付「清晰度與秩序感」</h2>
+      <p style="margin-bottom: 12px;">我們運用電子工程的系統邏輯，幫你完成三件事：</p>
+      <ul style="padding-left: 20px; font-size: 16px; color: var(--text-muted); line-height: 1.8;">
+        <li><strong>鎖定第 1 優先序</strong>：透過 Safety Gate 找出當下最值得先處理的槓桿點。</li>
+        <li><strong>1-1-3-1-1 行動計畫</strong>：1個目標、1-3個具體微行動，每天輕鬆做到。</li>
+        <li><strong>誠實資產承諾</strong>：產品只是工具；若評估顯示你不需要，我們寧願你唔好買。</li>
+      </ul>
+    </section>
+
+    <!-- 模組五：7 大痛點矩陣 -->
+    <section class="card" id="topics">
+      <h2>7 大常見體感痛點深度解碼庫</h2>
+      <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 14px;">點選你的主要困擾，進行 2 分鐘自測並獲取專屬分流建議：</p>
+      <div class="topic-list">
+        <a href="/nocturia.html" class="topic-card">
+          <strong>🌙 夜尿頻密</strong>
+          <span>進入自測拆解 →</span>
+        </a>
+        <a href="/nocturia.html" class="topic-card">
+          <strong>⚡ 經常抽筋</strong>
+          <span>進入自測拆解 →</span>
+        </a>
+        <a href="/nocturia.html" class="topic-card">
+          <strong>✋ 手腳麻痺</strong>
+          <span>進入自測拆解 →</span>
+        </a>
+        <a href="/nocturia.html" class="topic-card">
+          <strong>🥱 飯後睏倦</strong>
+          <span>進入自測拆解 →</span>
+        </a>
+        <a href="/nocturia.html" class="topic-card">
+          <strong>🕰️ 半夜扎醒</strong>
+          <span>進入自測拆解 →</span>
+        </a>
+        <a href="/nocturia.html" class="topic-card">
+          <strong>💪 肌肉流失</strong>
+          <span>進入自測拆解 →</span>
+        </a>
+        <a href="/nocturia.html" class="topic-card" style="grid-column: span 2;">
+          <strong>💊 三高藥後遺症（微營養耗損排查）</strong>
+          <span>進入自測拆解 →</span>
+        </a>
+      </div>
+    </section>
   </main>
 
-  <footer class="text-center text-xs text-slate-500 pb-4">
-    <p>© 2026 Duncan Chan 三高工程師 · All Rights Reserved.</p>
+  <footer>
+    <div class="container" style="text-align: center;">
+      <p><strong>專業邊界與免責聲明：</strong>本網站內容為個人健康教育與生活管理建議，非醫療診斷或治療處方。若有急性病徵請尋求註冊醫生診治。</p>
+      <p style="margin-top: 8px;">© 2026 Health Decoder (health-decoder.com). All Rights Reserved.</p>
+    </div>
   </footer>
 
 </body>

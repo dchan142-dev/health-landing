@@ -3,199 +3,338 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Health Decoder | Duncan - 健康問題的拆解者</title>
-  <meta name="description" content="有健康問題，先拆解，唔好亂試。為樂齡人士運用工程思維，將零散體感訊號轉化為清晰的管理優先序。">
+  <title>Health Decoder 健康解碼器 | 三高工程師 Duncan Chan - 有健康問題，先拆解，唔好亂試</title>
+  <meta name="description" content="由香港三高工程師 Duncan Chan 創立。以分子生化機制與工程查線邏輯，拆解中年中老年代謝、睡眠、血管與精力問題。提供 7 大痛點自測、90天 1:1 Health Map 個人健康路徑圖及精準營養管理。">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0F172A',
+              navy: '#1E293B',
+              teal: '#0D9488',
+              emerald: '#059669',
+              light: '#F8FAFC',
+              accent: '#D97706',
+              border: '#E2E8F0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    :root {
-      --primary: #0F172A;
-      --accent: #0D9488;
-      --accent-hover: #0F766E;
-      --wa-green: #25D366;
-      --bg: #F8FAFC;
-      --surface: #FFFFFF;
-      --text: #1E293B;
-      --text-muted: #64748B;
-      --border: #E2E8F0;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; line-height: 1.75; color: var(--text); background: var(--bg); }
-    .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
-    
-    /* 導航 */
-    header { background: #FFF; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; padding: 14px 0; }
-    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
-    .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 14px; }
-    .nav-links a { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 600; padding: 6px 10px; border-radius: 8px; }
-    .nav-links a.active { color: var(--accent); background: #F0FDFA; }
-
-    /* Hero */
-    .hero { padding: 44px 0 32px; text-align: center; }
-    .badge { display: inline-block; background: #CCFBF1; color: #115E59; font-size: 14px; font-weight: 700; padding: 4px 14px; border-radius: 999px; margin-bottom: 16px; }
-    h1 { font-size: 32px; line-height: 1.35; color: var(--primary); margin-bottom: 16px; font-weight: 800; }
-    .hero p { font-size: 19px; color: var(--text-muted); margin-bottom: 24px; }
-    
-    .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 52px; font-size: 18px; font-weight: 700; border-radius: 12px; text-decoration: none; cursor: pointer; border: none; padding: 12px 20px; text-align: center; }
-    .btn-primary { background: var(--accent); color: #FFF; margin-bottom: 12px; }
-    .btn-secondary { background: #E2E8F0; color: var(--primary); }
-
-    /* 卡片與模組 */
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    h2 { font-size: 23px; color: var(--primary); margin-bottom: 14px; }
-    
-    /* 普遍難點清單 */
-    .pain-item { border-left: 4px solid var(--accent); padding-left: 14px; margin-bottom: 16px; }
-    .pain-item strong { display: block; color: var(--primary); font-size: 18px; }
-    .pain-item p { font-size: 16px; color: var(--text-muted); margin: 0; }
-
-    /* 6 大核心價值 */
-    .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
-    .value-box { background: #F8FAFC; border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
-    .value-box strong { display: block; color: var(--accent); font-size: 17px; margin-bottom: 4px; }
-    .value-box p { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin: 0; }
-
-    /* 7 大痛點矩陣 */
-    .topic-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
-    .topic-card { background: #FFF; border: 2px solid var(--border); border-radius: 12px; padding: 16px; text-decoration: none; color: var(--text); transition: all 0.2s; display: block; }
-    .topic-card:hover { border-color: var(--accent); background: #F0FDFA; }
-    .topic-card strong { display: block; color: var(--primary); font-size: 18px; margin-bottom: 4px; }
-    .topic-card span { font-size: 14px; color: var(--accent); font-weight: 600; }
-
-    footer { background: #F1F5F9; padding: 24px 0; font-size: 14px; color: #64748B; margin-top: 40px; }
-    @media (max-width: 540px) {
-      .value-grid, .topic-list { grid-template-columns: 1fr; }
-      h1 { font-size: 28px; }
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang HK", "Microsoft JhengHei", sans-serif; }
   </style>
 </head>
-<body>
+<body class="bg-brand-light text-slate-800 antialiased flex flex-col min-h-screen">
 
-  <header>
-    <div class="container nav-inner">
-      <a href="/" class="logo">Health<span>Decoder</span></a>
-      <div class="nav-links">
-        <a href="#topics" class="active">7大痛點</a>
-        <a href="/health-map.html">1:1 Health Map</a>
-        <a href="/store.html">商店</a>
+  <!-- Header & Navigation -->
+  <header class="bg-white border-b border-brand-border sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-brand-teal text-white flex items-center justify-center font-bold text-xl tracking-wider">
+          HD
+        </div>
+        <div>
+          <span class="text-xl font-bold tracking-tight text-brand-dark block leading-none">Health Decoder</span>
+          <span class="text-xs text-slate-500 font-medium">三高工程師 · 理性生化健康管理</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 font-medium text-slate-600 text-sm">
+        <a href="index.html" class="text-brand-teal font-semibold">首頁</a>
+        <a href="nocturia.html" class="hover:text-brand-teal transition">夜尿專題</a>
+        <a href="assessment.html" class="hover:text-brand-teal transition">7大痛點自測</a>
+        <a href="health-map.html" class="hover:text-brand-teal transition">90天 1:1 Health Map</a>
+        <a href="store.html" class="hover:text-brand-teal transition">精準營養商店</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E5%81%A5%E5%BA%B7%E7%AE%A1%E7%90%86%E8%88%87%E6%9C%8D%E5%8B%99" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-2.5 rounded-lg text-sm font-semibold shadow transition">
+          <i class="fab fa-whatsapp text-lg"></i>
+          <span>WhatsApp 諮詢</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <main class="container">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="badge">工程思維 × 健康自主權</div>
-      <h1>有健康問題，先拆解，<br>唔好亂試。</h1>
-      <p>睇醫生、食藥，唔代表日常健康管理已經完成。<br>為 45–65 歲人士把散亂的體感訊號，轉化為清晰的管理優先序。</p>
-      <a href="#topics" class="btn btn-primary">探索 7 大痛點深度自測 ↓</a>
-      <a href="/health-map.html" class="btn btn-secondary">了解 90 天 1:1 Health Map 服務 →</a>
-    </section>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-white to-slate-50 py-16 sm:py-24 border-b border-brand-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-brand-teal text-xs font-semibold">
+            <i class="fas fa-microscope"></i>
+            <span>以工程邏輯解構生化機制 · 拒絕盲目亂補</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark leading-tight tracking-tight">
+            有健康問題，先拆解，<br><span class="text-brand-teal">唔好亂試。</span>
+          </h1>
+          <p class="text-lg sm:text-xl text-slate-600 leading-relaxed">
+            睇醫生食藥係控制指標；日常飲食、作息與細胞修復係無法外包嘅個人責任。<br class="hidden sm:inline">
+            我們以分子生化學與工程排錯思維，協助 45–65 歲受眾理清核心 Priority，拿回健康自主權。
+          </p>
+          <div class="pt-2 flex flex-col sm:flex-row gap-4">
+            <a href="assessment.html" class="inline-flex items-center justify-center gap-2 bg-brand-teal hover:bg-brand-emerald text-white px-7 py-3.5 rounded-xl font-bold text-base shadow-md transition">
+              <i class="fas fa-clipboard-check"></i>
+              <span>免費進行 7 大痛點自測</span>
+            </a>
+            <a href="health-map.html" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-7 py-3.5 rounded-xl font-bold text-base shadow-sm transition">
+              <i class="fas fa-route text-brand-teal"></i>
+              <span>了解 1:1 Health Map 服務</span>
+            </a>
+          </div>
+          <!-- Trust Stats -->
+          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
+            <div>
+              <div class="text-2xl sm:text-3xl font-black text-brand-dark">30,000+</div>
+              <div class="text-xs text-slate-500 mt-0.5">FB 專頁追蹤者</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-black text-brand-dark">14,000,000+</div>
+              <div class="text-xs text-slate-500 mt-0.5">短影音總播放次數</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-black text-brand-teal">100%</div>
+              <div class="text-xs text-slate-500 mt-0.5">生化與數據導向</div>
+            </div>
+          </div>
+        </div>
 
-    <!-- 模組二：普遍困局 -->
-    <section class="card">
-      <h2>你是否也正經歷這些說不出的健康卡點？</h2>
-      <div class="pain-item">
-        <strong>1. 驗身指標正常，但身體依然很不妥</strong>
-        <p>夜尿、抽筋、疲倦反覆出現，得到的往往只有一句「年紀大就是這樣」。</p>
+        <div class="lg:col-span-5">
+          <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-bl-full -z-0"></div>
+            <div class="relative z-10 space-y-5">
+              <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-full bg-slate-100 border-2 border-brand-teal flex items-center justify-center text-slate-700 text-2xl font-bold overflow-hidden shadow">
+                  <i class="fas fa-user-md text-brand-teal text-3xl"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-brand-dark">Duncan Chan</h3>
+                  <p class="text-xs text-slate-500 font-medium">三高工程師 / Health Decoder 創辦人</p>
+                </div>
+              </div>
+              <p class="text-sm text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100">
+                「身體唔係壞透先入廠大修嘅機器。我哋唔反對醫療，而係主張健康責任不能完全外包。先了解身體訊號嘅底層生化邏輯，排好優先次序，一次只改一件事。」
+              </p>
+              <div class="space-y-2 text-xs text-slate-600">
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-check-circle text-brand-emerald"></i>
+                  <span>香港大學工程背景 ✕ 細胞生化/代謝健康研究</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-check-circle text-brand-emerald"></i>
+                  <span>專注 45–65 歲三高、線粒體、血管與睡眠管理</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-check-circle text-brand-emerald"></i>
+                  <span>堅持「先求需要，再談補充」嘅客觀評估原則</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="pain-item">
-        <strong>2. 吃了很多補品，卻越吃越混亂</strong>
-        <p>家裡堆滿保健品，不知道哪種真正對症，更擔心給肝腎帶來額外負擔。</p>
-      </div>
-      <div class="pain-item">
-        <strong>3. 害怕當「冤大頭」被商業推銷</strong>
-        <p>渴望改善健康，但極度戒備誇大不實的神奇仙丹與強硬推銷。</p>
-      </div>
-      <div class="pain-item">
-        <strong>4. 內心最深的隱憂：不想成為子女的負擔</strong>
-        <p>最害怕失去生活自理能力，拖累家人的事業與生活，渴望晚年清醒獨立。</p>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- 模組三：6 大核心價值 -->
-    <section class="card">
-      <h2>面對健康，我們堅持 6 個不可動搖的原則</h2>
-      <div class="value-grid">
-        <div class="value-box">
-          <strong>① 源頭根治</strong>
-          <p>系統過載不等於器官壞透，從生活與代謝失衡源頭排查。</p>
+  <!-- Core Beliefs & Pillars -->
+  <section class="py-16 bg-white border-b border-brand-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">
+          Health Decoder 六大核心管理價值
+        </h2>
+        <p class="text-slate-600 text-base mt-3">
+          不談奇蹟，不賣焦慮。我們提供一套符合生理機制的理性自我管理體系。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+          <div class="w-10 h-10 rounded-lg bg-teal-100 text-brand-teal flex items-center justify-center text-lg mb-4">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <h4 class="text-lg font-bold text-brand-dark mb-2">1. 從源頭管理</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            不只盯著單一數字或體感症狀，更要理解作息、飲食與代謝的失衡根源，從可控的日常開始主動介入。
+          </p>
         </div>
-        <div class="value-box">
-          <strong>② 精準保健</strong>
-          <p>先求需要，再談補充。食得對、食得精準，絕不盲目亂補。</p>
+
+        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+          <div class="w-10 h-10 rounded-lg bg-teal-100 text-brand-teal flex items-center justify-center text-lg mb-4">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <h4 class="text-lg font-bold text-brand-dark mb-2">2. 精準保健</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            反對人買你又買的盲目進補。堅持「先求需要，再談補充」，嚴格遵循生化靶點與服用時間隔離原則。
+          </p>
         </div>
-        <div class="value-box">
-          <strong>③ 習慣優化</strong>
-          <p>一次只改一件事。健康靠日常微小習慣累積，沒有一步登天的仙丹。</p>
+
+        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+          <div class="w-10 h-10 rounded-lg bg-teal-100 text-brand-teal flex items-center justify-center text-lg mb-4">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h4 class="text-lg font-bold text-brand-dark mb-2">3. 持續微習慣</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            健康依靠日常微小習慣的複利積累，不靠一時決心。堅持「一次只改一件事」，確保執行力與可持續性。
+          </p>
         </div>
-        <div class="value-box">
-          <strong>④ 拒絕標籤</strong>
-          <p>年齡是背景不是宿命。「老」絕不是機能退化與忍受病痛的藉口。</p>
+
+        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+          <div class="w-10 h-10 rounded-lg bg-teal-100 text-brand-teal flex items-center justify-center text-lg mb-4">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h4 class="text-lg font-bold text-brand-dark mb-2">4. 年齡非宿命</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            年齡會帶來機能變化，但「老，不等於只能等壞」。絕不因年齡增長而主動放棄自我檢視與優化的權利。
+          </p>
         </div>
-        <div class="value-box">
-          <strong>⑤ 分工明確</strong>
-          <p>醫療負責急救與風險控制；日常生活的飲食作息必須由自己負責。</p>
+
+        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+          <div class="w-10 h-10 rounded-lg bg-teal-100 text-brand-teal flex items-center justify-center text-lg mb-4">
+            <i class="fas fa-user-shield"></i>
+          </div>
+          <h4 class="text-lg font-bold text-brand-dark mb-2">5. 醫療日常分工</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            醫療與藥物負責控制急性風險與指標；日常飲食、睡眠與線粒體維護則是每個人無法外包的日常功課。
+          </p>
         </div>
-        <div class="value-box">
-          <strong>⑥ 預防維護</strong>
-          <p>身體如精密機器，日常保養是對沖未來天價醫療維修成本的投資。</p>
+
+        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+          <div class="w-10 h-10 rounded-lg bg-teal-100 text-brand-teal flex items-center justify-center text-lg mb-4">
+            <i class="fas fa-tools"></i>
+          </div>
+          <h4 class="text-lg font-bold text-brand-dark mb-2">6. 主動預防維護</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            身體如同一套高精密機組，要在尚有調整空間與儲備機能時主動保養，而非等到系統崩潰才被迫應對。
+          </p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- 模組四：我們交付的價值 -->
-    <section class="card">
-      <h2>我們不賣仙丹，我們交付「清晰度與秩序感」</h2>
-      <p style="margin-bottom: 12px;">我們運用電子工程的系統邏輯，幫你完成三件事：</p>
-      <ul style="padding-left: 20px; font-size: 16px; color: var(--text-muted); line-height: 1.8;">
-        <li><strong>鎖定第 1 優先序</strong>：透過 Safety Gate 找出當下最值得先處理的槓桿點。</li>
-        <li><strong>1-1-3-1-1 行動計畫</strong>：1個目標、1-3個具體微行動，每天輕鬆做到。</li>
-        <li><strong>誠實資產承諾</strong>：產品只是工具；若評估顯示你不需要，我們寧願你唔好買。</li>
-      </ul>
-    </section>
+  <!-- 3 Major Conversion Entry Points + Special Topic -->
+  <section class="py-16 bg-slate-50 border-b border-brand-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">
+          探索專屬您的健康解碼路徑
+        </h2>
+        <p class="text-slate-600 text-base mt-2">根據您目前的健康現況與需求，選擇適合的下一步：</p>
+      </div>
 
-    <!-- 模組五：7 大痛點矩陣 -->
-    <section class="card" id="topics">
-      <h2>7 大常見體感痛點深度解碼庫</h2>
-      <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 14px;">點選你的主要困擾，進行 2 分鐘自測並獲取專屬分流建議：</p>
-      <div class="topic-list">
-        <a href="/nocturia.html" class="topic-card">
-          <strong>🌙 夜尿頻密</strong>
-          <span>進入自測拆解 →</span>
-        </a>
-        <a href="/nocturia.html" class="topic-card">
-          <strong>⚡ 經常抽筋</strong>
-          <span>進入自測拆解 →</span>
-        </a>
-        <a href="/nocturia.html" class="topic-card">
-          <strong>✋ 手腳麻痺</strong>
-          <span>進入自測拆解 →</span>
-        </a>
-        <a href="/nocturia.html" class="topic-card">
-          <strong>🥱 飯後睏倦</strong>
-          <span>進入自測拆解 →</span>
-        </a>
-        <a href="/nocturia.html" class="topic-card">
-          <strong>🕰️ 半夜扎醒</strong>
-          <span>進入自測拆解 →</span>
-        </a>
-        <a href="/nocturia.html" class="topic-card">
-          <strong>💪 肌肉流失</strong>
-          <span>進入自測拆解 →</span>
-        </a>
-        <a href="/nocturia.html" class="topic-card" style="grid-column: span 2;">
-          <strong>💊 三高藥後遺症（微營養耗損排查）</strong>
-          <span>進入自測拆解 →</span>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Featured Special Topic Banner -->
+        <div class="md:col-span-3 bg-gradient-to-r from-teal-900 to-slate-900 text-white rounded-2xl p-8 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 border border-teal-800">
+          <div class="space-y-2">
+            <span class="bg-teal-500/30 text-teal-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-teal-400/30">🔥 專題突破</span>
+            <h3 class="text-2xl font-black tracking-tight">每晚夜尿 2–3 次？不只是年紀大！解密體內水電系統四大故障</h3>
+            <p class="text-slate-300 text-sm max-w-2xl">
+              結合 60 秒故障樹自測、公立醫院西藥避險對照表、24小時生活排程與階梯式生化調理方案。
+            </p>
+          </div>
+          <a href="nocturia.html" class="whitespace-nowrap bg-teal-500 hover:bg-teal-400 text-slate-950 px-6 py-3.5 rounded-xl font-extrabold text-sm shadow-md transition">
+            進入夜尿專題全案 →
+          </a>
+        </div>
+
+        <!-- Entry 1 -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div class="space-y-4">
+            <span class="inline-block bg-teal-50 text-brand-teal text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">第一步 · 探索現況</span>
+            <h3 class="text-xl font-bold text-brand-dark">7 大痛點快速自測</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              涵蓋夜尿頻繁、餐後嗜睡、頑固腰圍、晨起疲勞、肌力流失等體感問題，以工程邏輯分析底層可能的互相影響。
+            </p>
+          </div>
+          <div class="pt-6">
+            <a href="assessment.html" class="block w-full text-center bg-slate-100 hover:bg-brand-teal hover:text-white text-slate-800 font-bold py-3 rounded-xl transition text-sm">
+              開始 3 分鐘自測 →
+            </a>
+          </div>
+        </div>
+
+        <!-- Entry 2 -->
+        <div class="bg-white rounded-2xl border-2 border-brand-teal p-8 shadow-md hover:shadow-lg transition flex flex-col justify-between relative">
+          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-brand-teal text-white text-xs font-bold px-3 py-0.5 rounded-full">
+            Signature 旗艦服務
+          </div>
+          <div class="space-y-4">
+            <span class="inline-block bg-teal-50 text-brand-teal text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">深度釐清 · 行動閉環</span>
+            <h3 class="text-xl font-bold text-brand-dark">90天 1:1 Health Map</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Pre-Map 前置分析 ➔ 1:1 核心面談拆解 ➔ 制定 30 天個人專屬 Action Plan ➔ 30 天實踐覆盤與進階維護。
+            </p>
+          </div>
+          <div class="pt-6">
+            <a href="health-map.html" class="block w-full text-center bg-brand-teal hover:bg-brand-emerald text-white font-bold py-3 rounded-xl transition text-sm">
+              了解服務詳情與預約 →
+            </a>
+          </div>
+        </div>
+
+        <!-- Entry 3 -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div class="space-y-4">
+            <span class="inline-block bg-teal-50 text-brand-teal text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">靶點營養 · 原料嚴選</span>
+            <h3 class="text-xl font-bold text-brand-dark">精準營養官方選品</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              天然水蛭素、高活性納豆激酶、NMN、CoQ10、HMB 雙重蛋白等。嚴謹標明生化機轉與藥物物理隔離指引。
+            </p>
+          </div>
+          <div class="pt-6">
+            <a href="store.html" class="block w-full text-center bg-slate-100 hover:bg-brand-teal hover:text-white text-slate-800 font-bold py-3 rounded-xl transition text-sm">
+              瀏覽精準營養清單 →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="bg-brand-dark text-white py-14">
+    <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+        唔確定自己目前嘅健康 Priority？
+      </h2>
+      <p class="text-slate-300 text-base max-w-2xl mx-auto leading-relaxed">
+        直接透過 WhatsApp 與 Duncan 進行初步對話。我們不會進行推銷，只協助您釐清是否適合進一步整理 Health Map。
+      </p>
+      <div>
+        <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E5%88%9D%E6%AD%A5%E4%BA%86%E8%A7%A3%E6%88%91%E7%9A%84%E5%81%A5%E5%BA%B7Priority%E8%88%87Health%20Map%E6%9C%8D%E5%8B%99" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-3.5 rounded-xl font-bold text-base shadow-lg transition">
+          <i class="fab fa-whatsapp text-xl"></i>
+          <span>即時發送 WhatsApp 訊息</span>
         </a>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <footer>
-    <div class="container" style="text-align: center;">
-      <p><strong>專業邊界與免責聲明：</strong>本網站內容為個人健康教育與生活管理建議，非醫療診斷或治療處方。若有急性病徵請尋求註冊醫生診治。</p>
-      <p style="margin-top: 8px;">© 2026 Health Decoder (health-decoder.com). All Rights Reserved.</p>
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-10 mt-auto border-t border-slate-800 text-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-2 text-slate-300 font-bold text-sm">
+          <span>Health Decoder 健康解碼器</span>
+          <span class="text-slate-600">|</span>
+          <span class="font-normal text-xs text-slate-400">三高工程師 Duncan Chan</span>
+        </div>
+        <div class="flex gap-6">
+          <a href="index.html" class="hover:text-white transition">首頁</a>
+          <a href="nocturia.html" class="hover:text-white transition">夜尿專題</a>
+          <a href="assessment.html" class="hover:text-white transition">7大痛點自測</a>
+          <a href="health-map.html" class="hover:text-white transition">Health Map 服務</a>
+          <a href="store.html" class="hover:text-white transition">精準營養商店</a>
+        </div>
+      </div>
+      <div class="border-t border-slate-800 pt-6 text-slate-500 leading-relaxed space-y-2">
+        <p>⚠️ <strong>臨床安全與醫療聲明</strong>：Health Decoder 平台及 1:1 Health Map 提供之內容、自測分析與營養建議，屬於日常健康管理、營養教育與生活型態優化範疇，絕非醫療診斷、治療、預防處方或替代正式醫療意見。若您有任何急性症狀或已知慢性疾病，請務必諮詢註冊西醫或相關專業醫護人員。服用慢性病處方藥物期間，任何營養補充品均須與西藥保持至少 1 至 2 小時之物理隔離。</p>
+        <p>© 2026 Health Decoder. All rights reserved. 網址：health-decoder.com</p>
+      </div>
     </div>
   </footer>
 

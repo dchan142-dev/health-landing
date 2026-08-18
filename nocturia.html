@@ -3,163 +3,199 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>夜尿多唔係腎虧，真相係循環水泵問題｜三高工程師 Duncan</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>夜尿頻密與睡眠中斷拆解 | Health Decoder</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    :root {
+      --primary: #0F172A;
+      --accent: #0D9488;
+      --wa-green: #25D366;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --text: #1E293B;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --gold: #D97706;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); background: var(--bg); padding-bottom: 60px; }
+    .container { max-width: 740px; margin: 0 auto; padding: 20px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    h1 { font-size: 28px; color: var(--primary); margin-bottom: 12px; font-weight: 800; }
+    h2 { font-size: 22px; color: var(--primary); margin-bottom: 16px; }
+    
+    .nav-bar { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+    .nav-link { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; }
+
+    .quiz-q { margin-bottom: 20px; }
+    .quiz-q p { font-weight: 700; margin-bottom: 10px; }
+    .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+    .opt-btn { background: #F1F5F9; border: 2px solid transparent; padding: 14px; border-radius: 12px; text-align: left; font-size: 17px; cursor: pointer; }
+    .opt-btn.selected { background: #CCFBF1; border-color: var(--accent); color: #0F766E; font-weight: bold; }
+    
+    #result-panel { display: none; margin-top: 24px; }
+    .tier-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
+    .tier-card { border: 2px solid var(--border); border-radius: 14px; padding: 18px; position: relative; background: #FFF; }
+    .tier-card.featured { border-color: var(--gold); background: #FFFDF5; }
+    .tag-ribbon { position: absolute; top: -12px; right: 16px; background: var(--gold); color: #FFF; font-size: 13px; font-weight: 800; padding: 2px 10px; border-radius: 999px; }
+    .tier-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+    .tier-title { font-size: 19px; font-weight: 700; color: var(--primary); }
+    .tier-price { font-size: 20px; font-weight: 800; color: var(--accent); }
+    .tier-desc { font-size: 15px; color: var(--text-muted); margin-bottom: 12px; }
+    
+    .btn-wa { background: var(--wa-green); color: #FFF; font-size: 17px; font-weight: 700; padding: 12px; border-radius: 10px; text-align: center; text-decoration: none; display: block; border: none; cursor: pointer; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased pb-24">
+<body>
 
-  <!-- Header -->
-  <header class="bg-blue-900 text-white py-6 px-4 text-center shadow-md">
-    <span class="bg-blue-700 text-blue-200 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">工程思維 · 拆解健康</span>
-    <h1 class="text-2xl md:text-3xl font-bold mt-2 leading-snug">夜尿多唔係腎虧<br><span class="text-amber-400">真相係「循環水泵」大塞車</span></h1>
-    <p class="text-slate-300 text-sm mt-1">三高工程師 Duncan · 從源頭管理健康</p>
-  </header>
+<div class="container">
+  <div class="nav-bar">
+    <a href="/" class="nav-link">← 返回首頁</a>
+    <a href="/store.html" class="nav-link">🛒 官方商店</a>
+  </div>
 
-  <main class="max-w-xl mx-auto px-4 mt-6 space-y-6">
+  <div class="card">
+    <h1>🌙 夜尿頻密與睡眠中斷深度拆解</h1>
+    <p>夜尿往往是晚間水分分配、下肢微循環滯留與睡眠深度的<strong>系統聯動訊號</strong>。請完成以下 4 道自測，系統將即時產出合適的應對路徑：</p>
+  </div>
 
-    <!-- Block 1: 30秒自測 -->
-    <section class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-      <div class="flex items-center space-x-2 text-blue-900 font-bold text-lg mb-3">
-        <span class="bg-blue-100 text-blue-800 w-7 h-7 flex items-center justify-center rounded-full text-sm">1</span>
-        <h2>30 秒快速自測：你的夜尿屬於邊種？</h2>
+  <!-- 自測卡片 -->
+  <div class="card" id="quiz-box">
+    <h2>📋 體感訊號自測</h2>
+
+    <div class="quiz-q" id="q1">
+      <p>1. 平均每晚夜間起床去廁所次數？</p>
+      <div class="quiz-opts">
+        <button class="opt-btn" onclick="setOpt(1, '1次或以下', 1)">1 次或以下</button>
+        <button class="opt-btn" onclick="setOpt(1, '2-3次', 2)">2–3 次（睡眠被打斷）</button>
+        <button class="opt-btn" onclick="setOpt(1, '4次以上', 3)">4 次或以上（嚴重困擾）</button>
       </div>
-      <p class="text-sm text-slate-500 mb-4">請勾選符合你情況的項目（可多選）：</p>
-      
-      <div class="space-y-3 text-base">
-        <label class="flex items-start p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
-          <input type="checkbox" id="q1" class="w-5 h-5 text-blue-600 rounded mt-0.5" onchange="calcQuiz()">
-          <span class="ml-3 text-slate-700">每晚固定起身 2 次或以上，嚴重中斷睡眠</span>
-        </label>
-        <label class="flex items-start p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
-          <input type="checkbox" id="q2" class="w-5 h-5 text-blue-600 rounded mt-0.5" onchange="calcQuiz()">
-          <span class="ml-3 text-slate-700">臨瞓前就算唔飲水，半夜依然照樣有尿意</span>
-        </label>
-        <label class="flex items-start p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
-          <input type="checkbox" id="q3" class="w-5 h-5 text-blue-600 rounded mt-0.5" onchange="calcQuiz()">
-          <span class="ml-3 text-slate-700">下晝對腳容易脹、鞋變緊，或者半夜容易腳抽筋</span>
-        </label>
-        <label class="flex items-start p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
-          <input type="checkbox" id="q4" class="w-5 h-5 text-blue-600 rounded mt-0.5" onchange="calcQuiz()">
-          <span class="ml-3 text-slate-700">晚飯偏愛食飯麵澱粉，或有三高/血液循環困擾</span>
-        </label>
+    </div>
+
+    <div class="quiz-q" id="q2">
+      <p>2. 起床後對次日精神與體能干擾度？</p>
+      <div class="quiz-opts">
+        <button class="opt-btn" onclick="setOpt(2, '輕微', 1)">影響不大，能再次入睡</button>
+        <button class="opt-btn" onclick="setOpt(2, '中度疲累', 2)">白天明顯疲累、頭沉重</button>
+        <button class="opt-btn" onclick="setOpt(2, '極度焦慮', 3)">嚴重焦慮、體能顯著滑落</button>
       </div>
+    </div>
 
-      <!-- 自測結論 -->
-      <div id="quiz-result" class="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-sm hidden">
-        <p class="font-bold text-base" id="result-title">分析結果：典型「下肢水泵回流過載型」</p>
-        <p class="mt-1 text-slate-600" id="result-desc">你嘅夜尿好可能唔係膀胱問題，而係日間下肢積水，夜晚平躺後洪水回流心臟逼腎臟排水！</p>
+    <div class="quiz-q" id="q3">
+      <p>3. 伴隨最明顯的身體特徵？（決定 C1/C2 分流）</p>
+      <div class="quiz-opts">
+        <button class="opt-btn" onclick="setOpt(3, 'C1_微循環', 1)">A. 夜間手腳冰冷、容易抽筋、下肢微浮腫</button>
+        <button class="opt-btn" onclick="setOpt(3, 'C2_能量修復', 2)">B. 整夜淺眠多夢、醒後無恢復感、全身乏力</button>
       </div>
-    </section>
+    </div>
 
-    <!-- Block 2: 工程原理拆解 -->
-    <section class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-      <div class="flex items-center space-x-2 text-blue-900 font-bold text-lg">
-        <span class="bg-blue-100 text-blue-800 w-7 h-7 flex items-center justify-center rounded-full text-sm">2</span>
-        <h2>工程邏輯解密：點解會咁？</h2>
+    <div class="quiz-q" id="q4">
+      <p>4. 是否有突發排尿劇痛、血尿或急性惡化？（Safety Gate）</p>
+      <div class="quiz-opts">
+        <button class="opt-btn" onclick="setOpt(4, '無紅旗', 0)">沒有，屬於長期慢性困擾</button>
+        <button class="opt-btn" onclick="setOpt(4, '有紅旗', 99)">有出現急性疼痛或出血</button>
       </div>
+    </div>
 
-      <div class="bg-red-50 p-4 rounded-xl border border-red-100">
-        <p class="font-bold text-red-900 text-sm">❌ 坊間常見三大謬誤：</p>
-        <ul class="text-xs text-red-800 mt-2 space-y-1 list-disc list-inside">
-          <li>以為老咗膀胱縮細、腎虛無得救（盲目認命）</li>
-          <li>臨瞓前死忍唔飲水（導致血液黏稠更危險）</li>
-          <li>一有夜尿就狂食補腎丸、偏方涼茶</li>
-        </ul>
-      </div>
+    <button class="btn-wa" onclick="renderResult()" style="background: var(--accent);">查看我的專屬分析與解決方案 →</button>
+  </div>
 
-      <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
-        <p class="font-bold text-blue-950 text-sm">⚙️ 工程師的物理真相【水泵流體力學】：</p>
-        <p class="text-xs text-slate-700 mt-2 leading-relaxed">
-          1. <strong>日間站立久坐</strong>：心臟水泵回流泵力減弱，水分因地心吸力沉積喺下肢（小腿大塞車）。<br>
-          2. <strong>夜晚平躺睡覺</strong>：重力消失，下肢幾百毫升水分瞬間如洪水湧返心臟。<br>
-          3. <strong>心臟被迫排水</strong>：心臟為免負荷過重，釋放訊號逼腎臟加班排水——<strong>這就是你半夜狂起身的真正源頭！</strong>
-        </p>
-      </div>
+  <!-- 結果面板 -->
+  <div id="result-panel">
+    <div class="card">
+      <h2 id="res-title"></h2>
+      <p id="res-desc" style="color: var(--text-muted); margin-bottom: 16px;"></p>
+      <div class="tier-grid" id="res-tiers"></div>
+    </div>
+  </div>
+</div>
 
-      <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900">
-        💡 <strong>日常第一步微行動</strong>：傍晚 5-6 點抬腿 15 分鐘，晚餐減少精緻澱粉，先把下肢積水在白天排走。
-      </div>
-    </section>
+<script>
+  const ans = {};
+  function setOpt(q, text, score) {
+    ans[`q${q}`] = { text, score };
+    const box = document.getElementById(`q${q}`);
+    box.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+    event.target.classList.add('selected');
+  }
 
-    <!-- Block 3: 解決方案卡片 -->
-    <section class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-      <div class="flex items-center space-x-2 text-blue-900 font-bold text-lg mb-1">
-        <span class="bg-blue-100 text-blue-800 w-7 h-7 flex items-center justify-center rounded-full text-sm">3</span>
-        <h2>精準改善方案（WhatsApp 專屬訂購）</h2>
-      </div>
-      <p class="text-xs text-slate-500">「先需要，後補充」— 針對水泵回流與血管彈性的科學工具：</p>
+  function renderResult() {
+    if (!ans.q1 || !ans.q2 || !ans.q3 || !ans.q4) { alert("請先完成所有 4 道題目！"); return; }
+    const panel = document.getElementById('result-panel');
+    const title = document.getElementById('res-title');
+    const desc = document.getElementById('res-desc');
+    const tierBox = document.getElementById('res-tiers');
+    tierBox.innerHTML = "";
 
-      <!-- 1 個月裝 -->
-      <div class="border-2 border-slate-200 rounded-2xl p-4 relative hover:border-blue-500 transition">
-        <h3 class="font-bold text-lg text-slate-900">【入門體驗】1 個月循環水泵體驗裝</h3>
-        <p class="text-xs text-slate-500 mt-1">適合：初步感受夜間循環回流、測試體感改善。</p>
-        <ul class="text-xs text-slate-600 mt-3 space-y-1">
-          <li>✓ 支持微循環與心血管泵力原料</li>
-          <li>✓ 附送《Duncan 夜間水分與生活排程指引》</li>
-        </ul>
-        <button onclick="orderWhatsApp('1個月體驗裝')" class="mt-4 w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 rounded-xl text-sm flex items-center justify-center space-x-2 shadow">
-          <span>WhatsApp 訂購 1 個月裝</span>
-        </button>
-      </div>
-
-      <!-- 3 個月裝 (主推) -->
-      <div class="border-2 border-amber-500 bg-amber-50/40 rounded-2xl p-4 relative shadow-sm">
-        <span class="absolute -top-3 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-0.5 rounded-full">最多人選擇 · 完整修復</span>
-        <h3 class="font-bold text-lg text-slate-900">【完整重塑】3 個月循環與深睡修復方案</h3>
-        <p class="text-xs text-slate-500 mt-1">適合：長期夜尿 2 次以上、渴望徹底重塑血管彈性與深睡。</p>
-        <ul class="text-xs text-slate-700 mt-3 space-y-1 font-medium">
-          <li>✓ 完整 90 天心血管微循環深度支持配方</li>
-          <li>✓ 附送《21 天夜間水分與抗夜尿實戰手冊》</li>
-          <li>✓ 尊享 Duncan 團隊 WhatsApp 30 天進度追蹤</li>
-        </ul>
-        <button onclick="orderWhatsApp('3個月完整方案')" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-base flex items-center justify-center space-x-2 shadow-lg">
-          <span>👉 WhatsApp 訂購 3 個月方案（包順豐）</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- 免責 -->
-    <footer class="text-center text-xs text-slate-400 px-4 space-y-2">
-      <p>⚠️ 安全提示：本頁面為健康生活管理資訊，不構成醫療診斷。如伴隨突發劇痛、血尿或急性水腫，請立即就醫。</p>
-      <p>© 2026 Duncan Chan 三高工程師 · All Rights Reserved.</p>
-    </footer>
-
-  </main>
-
-  <script>
-    let userResult = "一般檢測";
-
-    function calcQuiz() {
-      const q1 = document.getElementById('q1').checked;
-      const q2 = document.getElementById('q2').checked;
-      const q3 = document.getElementById('q3').checked;
-      const q4 = document.getElementById('q4').checked;
-      const count = [q1, q2, q3, q4].filter(Boolean).length;
-      const box = document.getElementById('quiz-result');
-      
-      if (count > 0) {
-        box.classList.remove('hidden');
-        if (q3 || q1) {
-          userResult = "下肢水泵滯留型";
-          document.getElementById('result-title').innerText = "分析結果：典型「下肢水泵回流過載型」";
-          document.getElementById('result-desc').innerText = "你嘅夜尿主要源於白天水分積聚小腿，夜晚平躺後引發心臟代償性排水！";
-        } else {
-          userResult = "代謝與生活作息型";
-          document.getElementById('result-title').innerText = "分析結果：「代謝節律與水分排程型」";
-          document.getElementById('result-desc').innerText = "建議調整晚餐碳水比例與睡前飲水節奏，減輕腎臟夜間負擔。";
-        }
+    if (ans.q4.score === 99) {
+      title.innerText = "🚨 結果 A：建議優先尋求專科醫療評估";
+      desc.innerText = "你的訊號涉及急性醫療紅旗，非一般生活方式調整範疇。安全第一，請先由醫生進行診斷。";
+      tierBox.innerHTML = `<button class="btn-wa" onclick="goWA('醫療轉介諮詢', '諮詢')">透過 WhatsApp 協助整理現狀以便就診</button>`;
+    } else if (ans.q1.score >= 3 || (ans.q1.score >= 2 && ans.q2.score >= 3)) {
+      title.innerText = "🎯 結果 B：多重系統卡點，推薦 90 天 1:1 Health Map";
+      desc.innerText = "你的夜尿已造成重度系統疲勞，多項生活習慣互相干擾。建議由 Duncan 進行 90 天深度系統管理。";
+      tierBox.innerHTML = `
+        <div class="tier-card featured">
+          <div class="tag-ribbon">旗艦服務推薦</div>
+          <div class="tier-header">
+            <span class="tier-title">90 天 1:1 Health Map 深度管理服務</span>
+          </div>
+          <div class="tier-desc">Pre-Map 背景分析 + 60分鐘深度拆解 + 1-1-3-1-1 行動手冊 + 30/60/90天三次覆盤。</div>
+          <button class="btn-wa" onclick="goWA('90天 1:1 Health Map 旗艦服務', '申請審核')">WhatsApp 申請 90 天 1:1 預約審核</button>
+        </div>`;
+    } else {
+      if (ans.q3.score === 1) {
+        title.innerText = "💡 結果 C1：微循環滯留與晚間水份分配卡點";
+        desc.innerText = "分析顯示你的夜間起床主要與末梢微循環流速慢有關。以下為針對微循環調理的三階梯方案：";
+        renderTiers(tierBox, "C1_微循環暢通", [
+          { tag: "🌟 90天深層重塑 (75折)", title: "90 天微循環全面暢通套裝 (3盒水蛭素+納豆)", price: "HK$ 1,530", orig: "HK$ 2,040", desc: "系統性重塑末梢微循環流速，附贈 90 天晚間水分管理指引。", feat: true },
+          { tag: "30天起步體驗 (85折)", title: "30 天夜間安睡循環組 (1盒水蛭素+納豆)", price: "HK$ 578", orig: "HK$ 680", desc: "適合第一個月驗證體感改善。", feat: false },
+          { tag: "單品散買 (無折扣)", title: "天然水蛭素單瓶體驗", price: "HK$ 680", orig: "", desc: "單瓶試用，門檻低無套裝折扣。", feat: false }
+        ]);
+      } else {
+        title.innerText = "💡 結果 C2：細胞修復力與粒線體能量衰退卡點";
+        desc.innerText = "分析顯示你醒後無恢復感，主因在於細胞 NAD+ 偏低。以下為針對細胞賦能的三階梯方案：";
+        renderTiers(tierBox, "C2_細胞能量修復", [
+          { tag: "🌟 90天深層重塑 (75折)", title: "90 天細胞逆齡賦能旗艦套裝 (3套NMN+Q10)", price: "HK$ 2,205", orig: "HK$ 2,940", desc: "系統性提升細胞 ATP 產能與夜間自噬修復。", feat: true },
+          { tag: "30天起步體驗 (85折)", title: "30 天細胞能量重啟組 (1套NMN+Q10)", price: "HK$ 833", orig: "HK$ 980", desc: "重啟白日活力與夜間修復體感。", feat: false },
+          { tag: "單品散買 (無折扣)", title: "NMN 單瓶體驗", price: "HK$ 980", orig: "", desc: "單瓶試用，總金額低但無套裝優惠。", feat: false }
+        ]);
       }
     }
+    panel.style.display = "block";
+    panel.scrollIntoView({ behavior: 'smooth' });
+  }
 
-    function orderWhatsApp(plan) {
-      const phone = "85298788564"; 
-      const text = `你好 Duncan！我剛完成夜尿自測（結果：${userResult}），我想了解及訂購【夜尿水泵修復 - ${plan}】，請提供轉數快(FPS)/PayMe 付款詳情。`;
-      const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank');
-    }
-  </script>
+  function renderTiers(box, cat, list) {
+    list.forEach(t => {
+      const el = document.createElement('div');
+      el.className = `tier-card ${t.feat ? 'featured' : ''}`;
+      el.innerHTML = `
+        ${t.tag ? `<div class="tag-ribbon">${t.tag}</div>` : ''}
+        <div class="tier-header">
+          <span class="tier-title">${t.title}</span>
+          <div>
+            ${t.orig ? `<span style="font-size:14px; text-decoration:line-through; color:#94A3B8; margin-right:6px;">${t.orig}</span>` : ''}
+            <span class="tier-price">${t.price}</span>
+          </div>
+        </div>
+        <div class="tier-desc">${t.desc}</div>
+        <button class="btn-wa" onclick="goWA('${cat} - ${t.title}', '${t.price}')">選擇此方案並透過 WhatsApp 訂購 →</button>
+      `;
+      box.appendChild(el);
+    });
+  }
+
+  function goWA(plan, prc) {
+    const phone = "85291234567"; // 替換為你的 WhatsApp
+    const msg = `你好 Duncan，我完成了【夜尿與睡眠自測】。\n` +
+                `・夜間起床：${ans.q1.text}\n` +
+                `・疲累程度：${ans.q2.text}\n` +
+                `・伴隨訊號：${ans.q3.text}\n` +
+                `-------------------\n` +
+                `我想選擇的方案是：【${plan}】(${prc})\n` +
+                `請教接下來的付款與配送/預約安排！`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+</script>
 </body>
 </html>

@@ -1,8 +1,17 @@
 {
+  "version": 2,
   "cleanUrls": true,
-  "routes": [
-    { "src": "/nocturia", "dest": "/nocturia.html" },
-    { "src": "/fatigue", "dest": "/fatigue.html" },
-    { "src": "/", "dest": "/index.html" }
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
   ]
 }
+

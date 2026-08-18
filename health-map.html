@@ -3,104 +3,265 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>90 天 1:1 Health Map 旗艦健康管理服務 | Health Decoder</title>
-  <style>
-    :root {
-      --primary: #0F172A;
-      --accent: #0D9488;
-      --wa-green: #25D366;
-      --bg: #F8FAFC;
-      --surface: #FFFFFF;
-      --text: #1E293B;
-      --text-muted: #64748B;
-      --border: #E2E8F0;
-      --gold: #D97706;
+  <title>90天 1:1 Health Map 個人健康路徑圖 | Health Decoder</title>
+  <meta name="description" content="專為 45–65 歲健康迷惘者打造的閉環式健康諮詢與路徑管理。Pre-Map 分析、1:1 拆解面談、30天 Action Plan、30天覆檢 Review 與持續保養。">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0F172A',
+              navy: '#1E293B',
+              teal: '#0D9488',
+              emerald: '#059669',
+              light: '#F8FAFC',
+              accent: '#D97706',
+              border: '#E2E8F0'
+            }
+          }
+        }
+      }
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; line-height: 1.75; color: var(--text); background: var(--bg); }
-    .container { max-width: 740px; margin: 0 auto; padding: 20px; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 26px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    h1 { font-size: 28px; color: var(--primary); margin-bottom: 12px; font-weight: 800; line-height: 1.35; }
-    h2 { font-size: 22px; color: var(--primary); margin-bottom: 14px; }
-    
-    .nav-bar { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
-    .nav-link { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; }
-
-    .step-box { display: flex; gap: 14px; margin-bottom: 18px; }
-    .step-num { width: 32px; height: 32px; background: var(--accent); color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; flex-shrink: 0; margin-top: 4px; }
-    .step-text strong { display: block; font-size: 18px; color: var(--primary); }
-    .step-text p { font-size: 16px; color: var(--text-muted); margin: 0; }
-
-    .btn-wa { display: block; width: 100%; background: var(--wa-green); color: #FFF; text-align: center; font-size: 19px; font-weight: 700; padding: 16px; border-radius: 12px; text-decoration: none; border: none; cursor: pointer; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35); }
-    .badge-gold { background: #FEF3C7; color: var(--gold); font-size: 14px; font-weight: 700; padding: 4px 12px; border-radius: 999px; display: inline-block; margin-bottom: 10px; }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang HK", "Microsoft JhengHei", sans-serif; }
   </style>
 </head>
-<body>
+<body class="bg-brand-light text-slate-800 antialiased flex flex-col min-h-screen">
 
-<div class="container">
-  <div class="nav-bar">
-    <a href="/" class="nav-link">← 返回首頁</a>
-    <a href="/store.html" class="nav-link">🛒 官方商店</a>
-  </div>
+  <!-- Header -->
+  <header class="bg-white border-b border-brand-border sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-brand-teal text-white flex items-center justify-center font-bold text-xl tracking-wider">
+          HD
+        </div>
+        <div>
+          <span class="text-xl font-bold tracking-tight text-brand-dark block leading-none">Health Decoder</span>
+          <span class="text-xs text-slate-500 font-medium">90天 1:1 Health Map 服務</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 font-medium text-slate-600 text-sm">
+        <a href="index.html" class="hover:text-brand-teal transition">首頁</a>
+        <a href="nocturia.html" class="hover:text-brand-teal transition">夜尿專題</a>
+        <a href="assessment.html" class="hover:text-brand-teal transition">7大痛點自測</a>
+        <a href="health-map.html" class="text-brand-teal font-semibold">90天 1:1 Health Map</a>
+        <a href="store.html" class="hover:text-brand-teal transition">精準營養商店</a>
+      </nav>
+      <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E4%BA%86%E8%A7%A3%E4%B8%A6%E9%A0%90%E7%B4%84%20Health%20Map%20%E6%9C%8D%E5%8B%99" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-2 rounded-lg text-sm font-semibold shadow transition">
+        <i class="fab fa-whatsapp text-lg"></i>
+        <span>預約諮詢</span>
+      </a>
+    </div>
+  </header>
 
-  <div class="card">
-    <span class="badge-gold">90 天旗艦深度管理服務</span>
-    <h1>中年後的健康自主權：<br>90 天個人化健康系統重塑</h1>
-    <p style="color: var(--text-muted);">不是一次性問答，更不是推銷產品。我們用 90 天時間，透過工程邏輯幫你完成<strong>現狀拆解 ➔ 鎖定第 1 優先序 ➔ 建立自主習慣 ➔ 3 次正式覆盤</strong>。</p>
-  </div>
-
-  <div class="card">
-    <h2>為什麼我們只做 90 天閉環？</h2>
-    <p>30 天只夠驗證單一習慣或工具的初步體感；人體的細胞代謝重啟、微循環修復與生活模式固化，需要完整的 90 天週期。我們不提供無止境的諮詢，我們追求的是<strong>讓你在 90 天後具備獨立管理自己健康的能力</strong>。</p>
-  </div>
-
-  <div class="card">
-    <h2>4 大標準化交付規格</h2>
-    <div class="step-box">
-      <div class="step-num">1</div>
-      <div class="step-text">
-        <strong>Pre-Map 生活背景與安全審核 (Safety Gate)</strong>
-        <p>會前詳細收集作息、用藥與困擾，排除急性醫療紅旗，安全永遠高於改善。</p>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-white to-slate-50 py-16 border-b border-brand-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-brand-teal text-xs font-semibold">
+        <i class="fas fa-compass"></i>
+        <span>閉環式健康管理系統 · 拒絕無底洞推銷</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-brand-dark tracking-tight leading-tight">
+        不是再給你一堆健康資訊，<br>
+        而是幫你把問題整理清楚，<span class="text-brand-teal">找出 Priority。</span>
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        許多人試過很多方法、食過不少保健品，但依然感到不妥。問題往往不是缺乏資訊，而是未曾把零碎的症狀與習慣排好優先次序。
+      </p>
+      <div class="pt-4 flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#process" class="inline-flex items-center justify-center gap-2 bg-brand-teal hover:bg-brand-emerald text-white px-8 py-3.5 rounded-xl font-bold text-base shadow transition">
+          <i class="fas fa-stream"></i>
+          <span>查看完整交付流程</span>
+        </a>
+        <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%201%3A1%20Health%20Map%20Session" target="_blank" class="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-3.5 rounded-xl font-bold text-base shadow transition">
+          <i class="fab fa-whatsapp text-lg"></i>
+          <span>直接預約 Health Map</span>
+        </a>
       </div>
     </div>
-    <div class="step-box">
-      <div class="step-num">2</div>
-      <div class="step-text">
-        <strong>60 分鐘 1:1 深度面談拆解</strong>
-        <p>由 Duncan 親自對話，找出體感背後的聯動 Pattern，共同確立唯一核心目標。</p>
-      </div>
-    </div>
-    <div class="step-box">
-      <div class="step-num">3</div>
-      <div class="step-text">
-        <strong>1-1-3-1-1 個人專屬行動手冊</strong>
-        <p>1個目標、1-3個具體微行動、清晰時間框架與觀察標準，拒絕資訊過載。</p>
-      </div>
-    </div>
-    <div class="step-box">
-      <div class="step-num">4</div>
-      <div class="step-text">
-        <strong>90 天自主執行 ＆ 3 次正式覆盤 (Day 30 / 60 / 90)</strong>
-        <p>落實「量測 ➔ 學習 ➔ 微調 ➔ 再量測」，根據真實數據決定下一步。</p>
-      </div>
-    </div>
-  </div>
+  </section>
 
-  <div class="card" style="background: #F0FDFA; border-color: var(--accent);">
-    <h2>我們嚴格挑選服務對象</h2>
-    <p style="font-size: 16px; margin-bottom: 12px;">為確保交付品質，每月僅接受限額預約。本服務<strong>不適合</strong>只想找現成仙丹、期待單次解決所有問題的人士；<strong>專門適合</strong>願意為自己健康負責、渴望守護晚年自理尊嚴的朋友。</p>
-    <button class="btn-wa" onclick="applyHealthMap()">💬 提交背景並透過 WhatsApp 申請預約</button>
-  </div>
-</div>
+  <!-- Why Health Map -->
+  <section class="py-16 bg-white border-b border-brand-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-4">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark">
+            為什麼我們堅持「閉環式 Cycle」？
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            市面上的健康服務常讓客戶感到困惑：要麼是一次性推銷大量產品，要麼是無休止的付費檢測。
+          </p>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            Health Map 堅持以 <strong>清晰的起點、具體的 Action Plan、30天實踐觀察、1次正式 Review 覆盤</strong>，構成一個可控、透明的健康管理循環。
+          </p>
+          <ul class="space-y-3 pt-2 text-sm text-slate-700 font-medium">
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand-teal"></i>
+              <span><strong>Clarity</strong>：看懂現況與生活模式背後的生化邏輯</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand-teal"></i>
+              <span><strong>Priority</strong>：從十個想改的事情中，挑出最值得先做的第 1 步</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand-teal"></i>
+              <span><strong>Action</strong>：制定可執行、不勉強的 30 天習慣與營養策略</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand-teal"></i>
+              <span><strong>Review</strong>：以體感與數據驗證成效，決定下一步維護方向</span>
+            </li>
+          </ul>
+        </div>
 
-<script>
-  function applyHealthMap() {
-    const phone = "85291234567"; // 替換為你的 WhatsApp
-    const msg = `你好 Duncan，我想申請預約【90 天 1:1 Health Map 旗艦服務】。\n` +
-                `我想處理的主要健康困擾是：______\n` +
-                `請教我接下來的 Pre-Map 審核與時間安排！`;
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-  }
-</script>
+        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 space-y-6">
+          <h3 class="text-lg font-bold text-brand-dark border-b border-slate-200 pb-3">Health Map 不做與會做的事</h3>
+          <div class="space-y-4 text-xs sm:text-sm">
+            <div class="flex items-start gap-3">
+              <span class="text-rose-500 font-bold">❌ 不做：</span>
+              <span class="text-slate-600">不作疾病診斷、不開處方藥、不強迫推銷套餐、不鼓勵隨意停藥或減藥。</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-emerald-600 font-bold">✅ 會做：</span>
+              <span class="text-slate-600">以工程排錯邏輯梳理體感訊號、評估生活與飲食干擾源、排定 Priority、給予精準營養指引。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5-Step Delivery Flow -->
+  <section id="process" class="py-16 bg-slate-50 border-b border-brand-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark">
+          Health Map 標準交付流程
+        </h2>
+        <p class="text-slate-600 text-sm mt-2">每位客戶均會完整經歷以下 5 個階段：</p>
+      </div>
+
+      <div class="space-y-8 relative before:absolute before:inset-0 before:left-8 md:before:left-1/2 before:w-0.5 before:bg-slate-200">
+        
+        <!-- Step 1 -->
+        <div class="relative flex flex-col md:flex-row items-center gap-8">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-4 border-brand-teal text-brand-teal font-black text-xl shadow z-10">
+            01
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-grow w-full md:w-5/12">
+            <span class="text-xs font-bold text-brand-teal uppercase">Stage 1 · 前置準備</span>
+            <h4 class="text-lg font-bold text-brand-dark mt-1">Pre-Map Health Intake 表格填寫</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              在正式見面前，收集您的生活作息、主觀困擾、既有體檢數據及過去嘗試。避免在面談中浪費時間詢問基本資料。
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative flex flex-col md:flex-row-reverse items-center gap-8">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-4 border-brand-teal text-brand-teal font-black text-xl shadow z-10">
+            02
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-grow w-full md:w-5/12">
+            <span class="text-xs font-bold text-brand-teal uppercase">Stage 2 · 核心會面</span>
+            <h4 class="text-lg font-bold text-brand-dark mt-1">1:1 Health Map 專屬拆解 Session</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              45–60 分鐘線上/線下面談。執行 Safety Gate 排除紅旗，利用生化邏輯交叉比對訊號，產生 Clarity Moment。
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative flex flex-col md:flex-row items-center gap-8">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-4 border-brand-teal text-brand-teal font-black text-xl shadow z-10">
+            03
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-grow w-full md:w-5/12">
+            <span class="text-xs font-bold text-brand-teal uppercase">Stage 3 · 交付方案</span>
+            <h4 class="text-lg font-bold text-brand-dark mt-1">制定 30 天 Personal Action Plan</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              交付專屬 Health Map 圖譜與 30 天行動手冊。明確標註：Priority 1、每日 2 個微習慣、精準營養卡位時間。
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="relative flex flex-col md:flex-row-reverse items-center gap-8">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-4 border-brand-teal text-brand-teal font-black text-xl shadow z-10">
+            04
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-grow w-full md:w-5/12">
+            <span class="text-xs font-bold text-brand-teal uppercase">Stage 4 · 自主實踐</span>
+            <h4 class="text-lg font-bold text-brand-dark mt-1">30-Day 自主實踐與體感追蹤</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              在日常生活中自主執行方案。不給予沉重的心理負擔，專注觀察單一變量帶來的體感與精神回饋。
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="relative flex flex-col md:flex-row items-center gap-8">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-4 border-brand-teal text-brand-teal font-black text-xl shadow z-10">
+            05
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-grow w-full md:w-5/12">
+            <span class="text-xs font-bold text-brand-teal uppercase">Stage 5 · 覆盤與維護</span>
+            <h4 class="text-lg font-bold text-brand-dark mt-1">30-Day Review 覆檢與下一步決策</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              正式覆檢執行數據與體感改善。根據客觀事實決定：繼續鞏固、微調方向、進入長期保養或進行下一個 Cycle。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety Gate Warning -->
+  <section class="py-12 bg-white border-b border-brand-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+        <h3 class="text-base font-bold text-brand-dark flex items-center gap-2">
+          <i class="fas fa-shield-virus text-brand-teal"></i>
+          <span>我們的 Safety Gate 臨床安全防線</span>
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          Health Map 嚴格遵守「安全高於改善 (Safety > Improvement)」。若在 Pre-Map 或會面中發現客戶具有急性紅旗症狀（如急性心絞痛、進行性神經缺失、不明發熱等）或嚴重臨床異常，我們會立即中止生活型態介入，並主動建議客戶優先至專科醫療機構就診。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Box -->
+  <section class="bg-brand-navy text-white py-16">
+    <div class="max-w-3xl mx-auto px-4 text-center space-y-6">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+        準備好為自己做一次清清楚楚的健康整理？
+      </h2>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+        每次 Health Map 均由 Duncan Chan 親自進行前置分析與面談。名額按週限量預約，以確保每位客戶之交付深度。
+      </p>
+      <div class="pt-2">
+        <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%201%3A1%20Health%20Map%20Session%EF%BC%8C%E8%AB%8B%E5%95%8F%E6%9C%80%E8%BF%91%E5%8F%AF%E9%A0%90%E7%B4%84%E6%99%82%E9%96%93%E8%88%87%E6%94%B6%E8%B2%BB%E5%AE%89%E6%8E%92%EF%BC%9F" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-4 rounded-xl font-bold text-base shadow-xl transition">
+          <i class="fab fa-whatsapp text-xl"></i>
+          <span>透過 WhatsApp 查詢空檔與預約</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-8 text-xs">
+    <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
+      <p>© 2026 Health Decoder 健康解碼器 · 三高工程師 Duncan Chan</p>
+      <p class="text-slate-500">本服務為健康管理與生活型態諮詢，非醫療行為。</p>
+    </div>
+  </footer>
+
 </body>
 </html>

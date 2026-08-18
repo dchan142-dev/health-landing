@@ -3,176 +3,314 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>精準保養單品商店 | Health Decoder</title>
-  <style>
-    :root {
-      --primary: #0F172A;
-      --accent: #0D9488;
-      --wa-green: #25D366;
-      --bg: #F8FAFC;
-      --surface: #FFFFFF;
-      --text: #1E293B;
-      --text-muted: #64748B;
-      --border: #E2E8F0;
+  <title>精準營養選品與生化對策商店 | Health Decoder 健康解碼器</title>
+  <meta name="description" content="三高工程師嚴選：天然水蛭素、納豆激酶、NMN、CoQ10、HMB 雙重蛋白及專利益生菌。以分子生化靶點為本，堅持先求需要再談補充。">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0F172A',
+              navy: '#1E293B',
+              teal: '#0D9488',
+              emerald: '#059669',
+              light: '#F8FAFC',
+              accent: '#D97706',
+              border: '#E2E8F0'
+            }
+          }
+        }
+      }
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; line-height: 1.6; color: var(--text); background: var(--bg); padding-bottom: 110px; }
-    .container { max-width: 740px; margin: 0 auto; padding: 20px; }
-    h1 { font-size: 26px; color: var(--primary); margin-bottom: 8px; font-weight: 800; }
-    .subtitle { font-size: 16px; color: var(--text-muted); margin-bottom: 20px; }
-    
-    .nav-bar { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
-    .nav-link { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; }
-
-    .product-card { background: var(--surface); border: 2px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 14px; display: flex; gap: 14px; align-items: flex-start; }
-    .product-card.selected { border-color: var(--accent); background: #F0FDFA; }
-    .check-box { width: 22px; height: 22px; accent-color: var(--accent); margin-top: 4px; cursor: pointer; }
-    .product-info { flex: 1; }
-    .product-title { font-size: 19px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
-    .product-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; }
-    
-    .pack-selector { display: flex; gap: 8px; flex-wrap: wrap; }
-    .pack-btn { background: #F1F5F9; border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
-    .pack-btn.active { background: #CCFBF1; border-color: var(--accent); color: #0F766E; }
-
-    .floating-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #FFF; border-top: 1px solid var(--border); padding: 12px 20px; box-shadow: 0 -4px 16px rgba(0,0,0,0.06); z-index: 100; }
-    .floating-inner { max-width: 740px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-    .btn-wa { background: var(--wa-green); color: #FFF; font-size: 17px; font-weight: 700; padding: 12px 20px; border-radius: 12px; border: none; cursor: pointer; text-decoration: none; }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang HK", "Microsoft JhengHei", sans-serif; }
   </style>
 </head>
-<body>
+<body class="bg-brand-light text-slate-800 antialiased flex flex-col min-h-screen">
 
-<div class="container">
-  <div class="nav-bar">
-    <a href="/" class="nav-link">← 返回首頁</a>
-    <a href="/health-map.html" class="nav-link">1:1 Health Map</a>
-  </div>
+  <!-- Header -->
+  <header class="bg-white border-b border-brand-border sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-brand-teal text-white flex items-center justify-center font-bold text-xl tracking-wider">
+          HD
+        </div>
+        <div>
+          <span class="text-xl font-bold tracking-tight text-brand-dark block leading-none">Health Decoder</span>
+          <span class="text-xs text-slate-500 font-medium">精準營養官方選品</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 font-medium text-slate-600 text-sm">
+        <a href="index.html" class="hover:text-brand-teal transition">首頁</a>
+        <a href="nocturia.html" class="hover:text-brand-teal transition">夜尿專題</a>
+        <a href="assessment.html" class="hover:text-brand-teal transition">7大痛點自測</a>
+        <a href="health-map.html" class="hover:text-brand-teal transition">90天 1:1 Health Map</a>
+        <a href="store.html" class="text-brand-teal font-semibold">精準營養商店</a>
+      </nav>
+      <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E7%B2%BE%E6%BA%96%E7%87%9F%E9%A4%8A%E9%81%B8%E5%93%81" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-2 rounded-lg text-sm font-semibold shadow transition">
+        <i class="fab fa-whatsapp text-lg"></i>
+        <span>WhatsApp 選品諮詢</span>
+      </a>
+    </div>
+  </header>
 
-  <h1>🛒 精準保養單品商店</h1>
-  <p class="subtitle">堅持「先需要，後補充；產品只是支持工具」原則。提供單品散買與多件補貨特惠，勾選後一鍵透過 WhatsApp 安排。</p>
+  <!-- Store Hero Banner -->
+  <section class="py-12 bg-white border-b border-brand-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-brand-teal text-xs font-semibold">
+        <i class="fas fa-pills"></i>
+        <span>先求需要 · 再談補充 · 嚴格物理隔離西藥 1–2 小時</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
+        生化靶點導向 · 精準營養選品
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto">
+        保健品不是食得越多越好。我們依據微血管循環、線粒體修復、抗糖化及肌肉維持等分子機制，嚴選具備臨床實證與高生物利用度之成分。
+      </p>
+    </div>
+  </section>
 
-  <!-- 單品 1: NMN -->
-  <div class="product-card" id="card-nmn">
-    <input type="checkbox" class="check-box" id="chk-nmn" onchange="handleCheck('nmn')">
-    <div class="product-info">
-      <div class="product-title">高純度 NMN 膠囊</div>
-      <div class="product-desc">提升細胞 NAD+ 濃度，支援粒線體能量生成與夜間自噬修復。</div>
-      <div class="pack-selector" id="pack-nmn">
-        <button class="pack-btn active" onclick="setPack('nmn', 1, 980, '單瓶 (無折扣)')">1 瓶 (HK$ 980)</button>
-        <button class="pack-btn" onclick="setPack('nmn', 3, 2500, '3 瓶特惠 (85折)')">3 瓶 (HK$ 2,500)</button>
-        <button class="pack-btn" onclick="setPack('nmn', 6, 4410, '6 瓶特惠 (75折)')">6 瓶 (HK$ 4,410)</button>
+  <!-- Product Grid -->
+  <main class="py-12 flex-grow">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <!-- Category 1: Vascular & Circulation -->
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
+          <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center text-sm font-bold">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <h2 class="text-xl font-bold text-brand-dark">循環與血管內皮微循環對策</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Product 1 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <span class="inline-block bg-rose-50 text-rose-700 text-xs font-bold px-2.5 py-0.5 rounded-md">微血管疏通</span>
+              <h3 class="text-lg font-bold text-brand-dark">天然高活性水蛭素 (Natural Hirudin)</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                <strong>【生化機制】</strong>直接且具高度特異性結合凝血酶 (Thrombin)，輔助改善微小血管高凝狀態與末梢血液微循環。
+              </p>
+              <div class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100 space-y-1">
+                <div>🎯 <strong>適合體感</strong>：手腳冰冷、晨起頭昏沉重、微循環不順。</div>
+                <div>⚠️ <strong>安全提示</strong>：服用西藥薄血藥者須諮詢；手術前 1–2 週停用。</div>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E3%80%90%E5%A4%A9%E7%84%B6%E6%B0%B4%E8%9B%AD%E7%B4%A0%E3%80%91%E7%9A%84%E9%81%A9%E7%94%A8%E6%80%A7%E8%88%87%E8%A9%B3%E6%83%85" target="_blank" class="block w-full text-center bg-brand-teal hover:bg-brand-emerald text-white font-bold py-2.5 rounded-xl text-xs transition">
+                <i class="fab fa-whatsapp mr-1"></i> WhatsApp 查詢選品
+              </a>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <span class="inline-block bg-rose-50 text-rose-700 text-xs font-bold px-2.5 py-0.5 rounded-md">纖溶活性</span>
+              <h3 class="text-lg font-bold text-brand-dark">高活性納豆激酶 (Nattokinase 2000FU+)</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                <strong>【生化機制】</strong>輔助水解纖維蛋白 (Fibrin)，激活人體內源性組織型纖溶酶原激活劑 (t-PA)，維持血管通暢度。
+              </p>
+              <div class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100 space-y-1">
+                <div>🎯 <strong>適合體感</strong>：久坐不動、血流緩慢、餐後血液黏稠感。</div>
+                <div>⚠️ <strong>安全提示</strong>：建議晚飯後或睡前服用，隔開西藥 1–2 小時。</div>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E3%80%90%E7%B4%8D%E8%B1%86%E6%BF%80%E9%85%B6%E3%80%91%E7%9A%84%E9%81%A9%E7%94%A8%E6%80%A7%E8%88%87%E8%A9%B3%E6%83%85" target="_blank" class="block w-full text-center bg-brand-teal hover:bg-brand-emerald text-white font-bold py-2.5 rounded-xl text-xs transition">
+                <i class="fab fa-whatsapp mr-1"></i> WhatsApp 查詢選品
+              </a>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <span class="inline-block bg-rose-50 text-rose-700 text-xs font-bold px-2.5 py-0.5 rounded-md">抗氧化保護</span>
+              <h3 class="text-lg font-bold text-brand-dark">三七提取物 ✕ 原花青素 (OPC)</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                <strong>【生化機制】</strong>富含三七總皂苷與高濃度葡萄籽提取物，減少自由基對血管內皮損傷，提升微血管彈性。
+              </p>
+              <div class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100 space-y-1">
+                <div>🎯 <strong>適合體感</strong>：眼周微絲血管充血、易瘀、體能耐力偏低。</div>
+                <div>⚠️ <strong>安全提示</strong>：日常抗氧化保養，孕婦及出血體質忌用。</div>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E3%80%90%E4%B8%89%E4%B8%83%E8%88%87%E8%91%A1%E8%90%84%E7%B1%BD%E8%90%83%E5%8F%96%E7%89%A9%E3%80%91%E8%A9%B3%E6%83%85" target="_blank" class="block w-full text-center bg-brand-teal hover:bg-brand-emerald text-white font-bold py-2.5 rounded-xl text-xs transition">
+                <i class="fab fa-whatsapp mr-1"></i> WhatsApp 查詢選品
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Category 2: Mitochondrial & Cellular Energy -->
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-bold">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h2 class="text-xl font-bold text-brand-dark">細胞線粒體與能量代謝對策</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Product 4 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <span class="inline-block bg-amber-50 text-amber-700 text-xs font-bold px-2.5 py-0.5 rounded-md">NAD+ 前體</span>
+              <h3 class="text-lg font-bold text-brand-dark">高純度 β-NMN (煙醯胺單核苷酸)</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                <strong>【生化機制】</strong>直接轉化為細胞核心輔酶 NAD+，激活 Sirtuins 長壽蛋白家族，支持 DNA 修復與線粒體呼吸鏈。
+              </p>
+              <div class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100 space-y-1">
+                <div>🎯 <strong>適合體感</strong>：45歲以上精力斷崖式下降、日常腦霧、熬夜後修復慢。</div>
+                <div>⚠️ <strong>安全提示</strong>：早晨空腹或隨早餐服用最佳。</div>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E3%80%90NMN%20%E7%85%99%E9%86%AF%E8%83%BA%E5%96%AE%E6%A0%B8%E8%8B%B7%E9%85%B8%E3%80%91%E8%A9%B3%E6%83%85" target="_blank" class="block w-full text-center bg-brand-teal hover:bg-brand-emerald text-white font-bold py-2.5 rounded-xl text-xs transition">
+                <i class="fab fa-whatsapp mr-1"></i> WhatsApp 查詢選品
+              </a>
+            </div>
+          </div>
+
+          <!-- Product 5 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <span class="inline-block bg-amber-50 text-amber-700 text-xs font-bold px-2.5 py-0.5 rounded-md">ATP 合成</span>
+              <h3 class="text-lg font-bold text-brand-dark">還原型輔酶 Q10 (Ubiquinol)</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                <strong>【生化機制】</strong>電子傳遞鏈必備輔因子，參與 95% 人體 ATP 能量生成，同時提供強效脂溶性抗氧化防禦。
+              </p>
+              <div class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100 space-y-1">
+                <div>🎯 <strong>適合體感</strong>：服用降膽固醇藥 (Statin) 容易肌肉酸痛、心悸胸悶。</div>
+                <div>⚠️ <strong>安全提示</strong>：隨含油脂餐點服用以提高吸收率。</div>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E3%80%90%E9%82%84%E5%8E%9F%E5%9E%8B%E8%BC%94%E9%85%B6%20Q10%E3%80%91%E8%A9%B3%E6%83%85" target="_blank" class="block w-full text-center bg-brand-teal hover:bg-brand-emerald text-white font-bold py-2.5 rounded-xl text-xs transition">
+                <i class="fab fa-whatsapp mr-1"></i> WhatsApp 查詢選品
+              </a>
+            </div>
+          </div>
+
+          <!-- Product 6 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <span class="inline-block bg-amber-50 text-amber-700 text-xs font-bold px-2.5 py-0.5 rounded-md">AMPK 激活</span>
+              <h3 class="text-lg font-bold text-brand-dark">高純度絞股藍總皂苷 (Gynostemma)</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                <strong>【生化機制】</strong>天然激活細胞能量感測器 AMPK，促進脂肪酸氧化分解，輔助調控餐後葡萄糖轉運。
+              </p>
+              <div class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100 space-y-1">
+                <div>🎯 <strong>適合體感</strong>：餐後嗜睡、腹部脂肪代謝遲緩、糖耐量偏低。</div>
+                <div>⚠️ <strong>安全提示</strong>：餐前半小時沖泡飲用更佳。</div>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E3%80%90%E7%B5%9绞%E8%82%A1%E8%97%8D%E7%B8%BD%E7%9A%82%E8%8B%B7%E3%80%91%E8%A9%B3%E6%83%85" target="_blank" class="block w-full text-center bg-brand-teal hover:bg-brand-emerald text-white font-bold py-2.5 rounded-xl text-xs transition">
+                <i class="fab fa-whatsapp mr-1"></i> WhatsApp 查詢選品
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Category 3: Muscle & Gut Health -->
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
+          <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center text-sm font-bold">
+            <i class="fas fa-dumbbell"></i>
+          </div>
+          <h2 class="text-xl font-bold text-brand-dark">肌力維持與腸道微生態對策</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Product 7 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <span class="inline-block bg-teal-50 text-brand-teal text-xs font-bold px-2.5 py-0.5 rounded-md">肌少防禦</span>
+              <h3 class="text-lg font-bold text-brand-dark">HMB (β-羥基-β-甲基丁酸鹽) ✕ 雙重蛋白</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                <strong>【生化機制】</strong>直接下調泛素-蛋白酶體途徑，抑制肌肉蛋白降解，同時刺激 mTORC1 促進肌肉蛋白合成。
+              </p>
+              <div class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100 space-y-1">
+                <div>🎯 <strong>適合體感</strong>：45歲以上肌肉無力、行樓梯腳軟、抽筋頻繁。</div>
+                <div>⚠️ <strong>安全提示</strong>：每日配合適度負重或阻力運動效果倍增。</div>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E3%80%90HMB%20%E9%9B%99%E9%87%8D%E8%9B%8B%E7%99%BD%E3%80%91%E8%A9%B3%E6%83%85" target="_blank" class="block w-full text-center bg-brand-teal hover:bg-brand-emerald text-white font-bold py-2.5 rounded-xl text-xs transition">
+                <i class="fab fa-whatsapp mr-1"></i> WhatsApp 查詢選品
+              </a>
+            </div>
+          </div>
+
+          <!-- Product 8 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <span class="inline-block bg-teal-50 text-brand-teal text-xs font-bold px-2.5 py-0.5 rounded-md">菌群重塑</span>
+              <h3 class="text-lg font-bold text-brand-dark">專利 IDCC 專科複合益生菌 (含益生元)</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                <strong>【生化機制】</strong>定殖腸道黏膜，產生短鏈脂肪酸 (SCFA, 丁酸/乙酸)，修復腸道緊密連接蛋白，減低內毒素 (LPS) 入血。
+              </p>
+              <div class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100 space-y-1">
+                <div>🎯 <strong>適合體感</strong>：飯後易脹氣、消化慢、排便不順、免疫力低下。</div>
+                <div>⚠️ <strong>安全提示</strong>：若服用抗生素，須間隔至少 2 小時。</div>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E3%80%90IDCC%20%E5%B0%88%E5%88%A9%E7%9B%8A%E7%94%9F%E8%8F%8C%E3%80%91%E8%A9%B3%E6%83%85" target="_blank" class="block w-full text-center bg-brand-teal hover:bg-brand-emerald text-white font-bold py-2.5 rounded-xl text-xs transition">
+                <i class="fab fa-whatsapp mr-1"></i> WhatsApp 查詢選品
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Ordering Process Guide -->
+  <section class="py-12 bg-white border-t border-brand-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6">
+      <h3 class="text-xl font-bold text-brand-dark">官方選品訂購與諮詢流程</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs sm:text-sm text-slate-600">
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div class="font-bold text-brand-dark mb-1">1. WhatsApp 溝通確認</div>
+          <p>先告知您的體感狀況或正在服用的藥物，確認該成分是否符合您的 Priority。</p>
+        </div>
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div class="font-bold text-brand-dark mb-1">2. 專屬方案與配送</div>
+          <p>確認配方後，透過 Cosway 正品專賣店渠道或順豐速運安全配送至港澳地區。</p>
+        </div>
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div class="font-bold text-brand-dark mb-1">3. 服用時間卡位指導</div>
+          <p>提供專屬服藥物理隔離時間表，確保營養品與西藥安全協同、不相沖。</p>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- 單品 2: CoQ10 -->
-  <div class="product-card" id="card-coq10">
-    <input type="checkbox" class="check-box" id="chk-coq10" onchange="handleCheck('coq10')">
-    <div class="product-info">
-      <div class="product-title">水溶性輔酶 CoQ10</div>
-      <div class="product-desc">細胞粒線體電子傳遞核心輔酶，為心肌與肌肉細胞提供強效抗氧化。</div>
-      <div class="pack-selector" id="pack-coq10">
-        <button class="pack-btn active" onclick="setPack('coq10', 1, 380, '單瓶 (無折扣)')">1 瓶 (HK$ 380)</button>
-        <button class="pack-btn" onclick="setPack('coq10', 3, 970, '3 瓶特惠 (85折)')">3 瓶 (HK$ 970)</button>
-        <button class="pack-btn" onclick="setPack('coq10', 6, 1710, '6 瓶特惠 (75折)')">6 瓶 (HK$ 1,710)</button>
-      </div>
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-8 text-xs">
+    <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
+      <p>© 2026 Health Decoder 健康解碼器 · 三高工程師 Duncan Chan</p>
+      <p class="text-slate-500">本商店列載之營養品屬膳食補充劑，不能替代藥物治療。</p>
     </div>
-  </div>
+  </footer>
 
-  <!-- 單品 3: 水蛭素 -->
-  <div class="product-card" id="card-hirudin">
-    <input type="checkbox" class="check-box" id="chk-hirudin" onchange="handleCheck('hirudin')">
-    <div class="product-info">
-      <div class="product-title">天然水蛭素膠囊</div>
-      <div class="product-desc">天然抗凝血酶物質，專門改善微血管流速，舒緩末梢麻痺與夜間抽筋。</div>
-      <div class="pack-selector" id="pack-hirudin">
-        <button class="pack-btn active" onclick="setPack('hirudin', 1, 680, '單盒 (無折扣)')">1 盒 (HK$ 680)</button>
-        <button class="pack-btn" onclick="setPack('hirudin', 3, 1730, '3 盒特惠 (85折)')">3 盒 (HK$ 1,730)</button>
-        <button class="pack-btn" onclick="setPack('hirudin', 6, 3060, '6 盒特惠 (75折)')">6 盒 (HK$ 3,060)</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 單品 4: 益生菌 -->
-  <div class="product-card" id="card-probiotics">
-    <input type="checkbox" class="check-box" id="chk-probiotics" onchange="handleCheck('probiotics')">
-    <div class="product-info">
-      <div class="product-title">IDCC 專利多菌株益生菌</div>
-      <div class="product-desc">韓國專利雙層包埋，調節腸道屏障與短鏈脂肪酸生成，支援代謝平穩。</div>
-      <div class="pack-selector" id="pack-probiotics">
-        <button class="pack-btn active" onclick="setPack('probiotics', 1, 420, '單盒 (無折扣)')">1 盒 (HK$ 420)</button>
-        <button class="pack-btn" onclick="setPack('probiotics', 3, 1130, '3 盒特惠 (9折)')">3 盒 (HK$ 1,130)</button>
-        <button class="pack-btn" onclick="setPack('probiotics', 6, 2010, '6 盒特惠 (8折)')">6 盒 (HK$ 2,010)</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="floating-bar">
-  <div class="floating-inner">
-    <div>
-      <div style="font-size: 14px; color: var(--text-muted);">已選 <span id="cart-count" style="font-weight:bold; color:var(--accent);">0</span> 項</div>
-      <div style="font-size: 19px; font-weight: 800; color: var(--primary);" id="cart-total">HK$ 0</div>
-    </div>
-    <button class="btn-wa" onclick="checkoutWA()">WhatsApp 發送訂單明細 →</button>
-  </div>
-</div>
-
-<script>
-  const products = {
-    nmn: { name: "高純度 NMN 膠囊", spec: "1 瓶 (HK$ 980)", price: 980 },
-    coq10: { name: "水溶性輔酶 CoQ10", spec: "1 瓶 (HK$ 380)", price: 380 },
-    hirudin: { name: "天然水蛭素膠囊", spec: "1 盒 (HK$ 680)", price: 680 },
-    probiotics: { name: "IDCC 專利益生菌", spec: "1 盒 (HK$ 420)", price: 420 }
-  };
-  const cart = {};
-
-  function setPack(id, qty, price, specText) {
-    products[id].spec = `${qty}件裝 - ${specText}`;
-    products[id].price = price;
-    const box = document.getElementById(`pack-${id}`);
-    box.querySelectorAll('.pack-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-
-    if (document.getElementById(`chk-${id}`).checked) {
-      cart[id] = { ...products[id] };
-      updateUI();
-    }
-  }
-
-  function handleCheck(id) {
-    const chk = document.getElementById(`chk-${id}`);
-    const card = document.getElementById(`card-${id}`);
-    if (chk.checked) {
-      cart[id] = { ...products[id] };
-      card.classList.add('selected');
-    } else {
-      delete cart[id];
-      card.classList.remove('selected');
-    }
-    updateUI();
-  }
-
-  function updateUI() {
-    const keys = Object.keys(cart);
-    document.getElementById('cart-count').innerText = keys.length;
-    let sum = 0;
-    keys.forEach(k => sum += cart[k].price);
-    document.getElementById('cart-total').innerText = `HK$ ${sum.toLocaleString()}`;
-  }
-
-  function checkoutWA() {
-    const keys = Object.keys(cart);
-    if (keys.length === 0) { alert("請先勾選想訂購的單品！"); return; }
-    let str = "";
-    let total = 0;
-    keys.forEach((k, idx) => {
-      str += `${idx + 1}. ${cart[k].name}【${cart[k].spec}】— HK$ ${cart[k].price}\n`;
-      total += cart[k].price;
-    });
-    const msg = `你好 Duncan，我在【health-decoder 商店】挑選了以下單品：\n\n${str}\n・預估總額：HK$ ${total.toLocaleString()}\n請教付款與送貨安排！`;
-    window.open(`https://wa.me/85291234567?text=${encodeURIComponent(msg)}`, '_blank');
-  }
-</script>
 </body>
 </html>

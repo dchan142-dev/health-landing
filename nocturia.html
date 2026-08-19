@@ -1,527 +1,657 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-HK" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>每晚夜尿 2–3 次？解密體內水電系統故障 | 三高工程師 Health Decoder</title>
-  <meta name="description" content="三高工程師 Duncan Chan 策劃：60秒夜尿成因自測、處境診斷、影音生化拆解、對應成因之改善指南與生活解決方向、方案切換及 WhatsApp 直通諮詢。">
+  <title>【三高工程師】長者夜尿 5 大成因自測與系統化修復指南 | health-decoder.com</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
             brand: {
-              dark: '#0F172A',
-              navy: '#1E293B',
               teal: '#0D9488',
+              darkteal: '#0F766E',
               emerald: '#059669',
-              light: '#F8FAFC',
-              accent: '#D97706',
-              border: '#E2E8F0'
+              navy: '#0F172A',
+              slate: '#1E293B',
+              border: '#E2E8F0',
+              accent: '#F59E0B'
             }
           }
         }
       }
     }
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang HK", "Microsoft JhengHei", sans-serif; }
-    html { scroll-behavior: smooth; }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+    }
   </style>
 </head>
-<body class="bg-brand-light text-slate-800 antialiased flex flex-col min-h-screen pb-24">
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-teal-100 selection:text-teal-900">
 
-  <!-- Header & Navigation -->
-  <header class="bg-white border-b border-brand-border sticky top-0 z-50 shadow-sm">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-2.5">
-        <div class="w-9 h-9 rounded-lg bg-brand-teal text-white flex items-center justify-center font-bold text-lg">
-          HD
+  <!-- Sticky Top Navigation -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-brand-teal text-white flex items-center justify-center font-black text-xl shadow-md">
+          🩺
         </div>
         <div>
-          <span class="text-lg font-bold tracking-tight text-brand-dark block leading-none">Health Decoder</span>
-          <span class="text-[11px] text-slate-500 font-medium">夜尿專題 · 診斷與改善漏斗</span>
+          <span class="text-xs uppercase tracking-wider font-bold text-teal-600 block">Health Decoder</span>
+          <span class="font-extrabold text-lg sm:text-xl text-slate-900 leading-tight">三高工程師 · 健康解碼</span>
         </div>
-      </a>
+      </div>
       <div class="flex items-center gap-3">
-        <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E5%A4%9C%E5%B0%BF%E8%99%95%E5%A2%83%E8%88%87%E6%94%B9%E5%96%84%E6%96%B9%E6%A1%88" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold shadow transition">
-          <i class="fab fa-whatsapp text-base"></i>
+        <a href="#quiz-section" class="hidden sm:inline-flex text-xs font-bold text-teal-700 bg-teal-50 hover:bg-teal-100 px-4 py-2 rounded-lg transition">
+          1 分鐘快速排查
+        </a>
+        <a href="https://wa.me/85292497678?text=%E4%BD%A0%E5%A5%BD%E4%B8%89%E9%AB%98%E5%B7%A5%E7%A8%8B%E5%B8%AB%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%AE%E8%A9%A2%E5%A4%9C%E5%B0%BF%E6%94%B9%E5%96%84%E6%96%B9%E6%A1%88" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-bold shadow transition">
+          <i class="fab fa-whatsapp text-lg"></i>
           <span>WhatsApp 諮詢</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Header Banner -->
-  <section class="bg-gradient-to-b from-white to-slate-50 py-10 border-b border-brand-border text-center">
-    <div class="max-w-3xl mx-auto px-4 space-y-3">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-brand-teal text-xs font-semibold">
-        <i class="fas fa-microscope"></i>
-        <span>打破腎虛迷思 · 清楚看懂你目前的夜尿處境與解決方向</span>
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-b from-white to-slate-100 py-12 sm:py-16 border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6">
+      <div class="inline-flex items-center gap-2 bg-teal-50 border border-teal-200 text-teal-800 text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span>
+        長者 ✕ 照顧者必讀 · 系統查線大字版
       </div>
-      <h1 class="text-2xl sm:text-4xl font-extrabold text-brand-dark tracking-tight leading-tight">
-        每晚夜尿 2–3 次？不只是年紀大！<br><span class="text-brand-teal">解密體內水電系統故障</span>
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight">
+        每晚起夜 2–3 次？<br class="sm:hidden">
+        <span class="text-teal-600 underline decoration-teal-300 decoration-wavy">不要只怪長者「腎虛」！</span>
       </h1>
-      <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
-        分清是「晚上尿液產太多 (流量問題)」還是「膀胱太小裝不下 (容量問題)」。透過自我檢查，清楚看懂您目前的身體處境。
+      <p class="text-sm sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+        夜尿不是單一老化，而是體內「<strong>管路（血管）、泵浦（肌肉心臟）、水箱（膀胱）與感應器（大腦神經）</strong>」的多重系統故障。
+        運用工程邏輯 1 分鐘排查五大成因與西藥干擾，對症修復！
       </p>
+
+      <!-- Video Placeholder -->
+      <div class="max-w-3xl mx-auto aspect-video bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border-4 border-white flex flex-col items-center justify-center text-white relative group cursor-pointer">
+        <div class="w-16 h-16 rounded-full bg-teal-600 text-white flex items-center justify-center text-2xl pl-1 shadow-lg group-hover:scale-110 transition duration-300">
+          <i class="fas fa-play"></i>
+        </div>
+        <div class="mt-4 text-center">
+          <div class="font-bold text-base sm:text-lg">【3分鐘精華短片】長者夜尿 5 大成因 生化與流體生活化解構</div>
+          <div class="text-xs text-slate-400 mt-1">Vimeo 專屬高清嵌入 · 無廣告分流干擾</div>
+        </div>
+      </div>
+
+      <div class="pt-4 flex flex-wrap justify-center gap-4">
+        <a href="#quiz-section" class="bg-brand-teal hover:bg-brand-darkteal text-white px-8 py-4 rounded-xl font-black text-base shadow-lg hover:shadow-teal-500/30 transition duration-200 inline-flex items-center gap-2">
+          <span>開始 60 秒故障樹全景自測</span>
+          <i class="fas fa-arrow-down"></i>
+        </a>
+        <a href="#chronotherapy" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-6 py-4 rounded-xl font-bold text-base shadow-sm transition inline-flex items-center gap-2">
+          <i class="fas fa-clock text-teal-600"></i>
+          <span>查看 24H 生活日程表</span>
+        </a>
+      </div>
     </div>
   </section>
 
-  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-12">
-
-    <!-- 模組 1：成因檢查 (問卷區) -->
-    <section id="module-1" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
-      <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
-        <div class="w-8 h-8 rounded-full bg-brand-teal text-white flex items-center justify-center font-bold text-sm">
-          1
+  <!-- Interactive Quiz Engine Section -->
+  <section id="quiz-section" class="py-16 bg-slate-100 border-b border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center space-y-3 mb-10">
+        <div class="inline-block bg-teal-100 text-teal-800 text-xs font-black px-3 py-1 rounded-full uppercase">
+          Quiz Engine 系統查線
         </div>
-        <div>
-          <h2 class="text-lg font-bold text-brand-dark">模組 1：成因檢查（60秒故障樹自測）</h2>
-          <p class="text-xs text-slate-500">大字版 ✕ 5 大成因與西藥排查</p>
-        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900">
+          夜尿五大成因 ✕ 6 大維度全景排查清單
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600">
+          請根據長者或您過去 1 個月的真實體感勾選，系統將自動演算並相容「混合式成因（Mixed Etiology）」：
+        </p>
       </div>
 
-      <form id="quizForm" class="space-y-6">
-        
-        <!-- Q1: 次數與尿量體感 -->
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
-          <label class="text-sm sm:text-base font-bold text-brand-dark block">
-            Q1. 【夜尿次數與單次尿量體感】
-          </label>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-            <label class="p-2.5 bg-white border border-slate-200 rounded-lg text-center cursor-pointer hover:bg-teal-50">
-              <input type="radio" name="q1_freq" value="1次" class="mr-1" checked> 1 次（輕微）
-            </label>
-            <label class="p-2.5 bg-white border border-slate-200 rounded-lg text-center cursor-pointer hover:bg-teal-50">
-              <input type="radio" name="q1_freq" value="2次" class="mr-1"> 2 次（已影響睡眠）
-            </label>
-            <label class="p-2.5 bg-white border border-slate-200 rounded-lg text-center cursor-pointer hover:bg-teal-50">
-              <input type="radio" name="q1_freq" value="3-4次" class="mr-1"> 3–4 次（較嚴重）
-            </label>
-            <label class="p-2.5 bg-white border border-slate-200 rounded-lg text-center cursor-pointer hover:bg-teal-50">
-              <input type="radio" name="q1_freq" value="5次以上" class="mr-1"> 5 次以上
-            </label>
+      <form id="nocturiaForm" class="space-y-6">
+
+        <!-- Dimension 1: 出水量與起夜頻率 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center font-black text-sm">1</span>
+            <h3 class="font-extrabold text-base sm:text-lg text-slate-900">出水量與起夜頻率（流量 vs 容量基礎判定）</h3>
           </div>
-          <div class="pt-2 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-            <label class="p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-teal-50 flex items-start gap-2">
-              <input type="radio" name="q1_vol" value="A_large" class="mt-0.5" checked>
-              <div>
-                <span class="font-bold text-brand-dark block">【選項 A · 量大】每次尿量挺多的（>250ml，裝滿大半杯）</span>
-                <span class="text-slate-500">提示膀胱正常，是「晚上尿液產太多 (流量問題)」</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+            <label class="cursor-pointer">
+              <input type="radio" name="d1_flow" value="NP_large" class="peer sr-only" checked>
+              <div class="p-4 rounded-xl border border-slate-200 peer-checked:border-teal-600 peer-checked:bg-teal-50/50 hover:bg-slate-50 transition">
+                <div class="font-bold text-slate-900 flex items-center gap-2">
+                  <span class="text-blue-600">🌊</span> 單次尿量充足（>250 mL）
+                </div>
+                <p class="text-xs text-slate-500 mt-1">每次排尿像裝滿大半杯，但一晚要起來 2 次以上（提示夜間多尿 NP / 容量過載）</p>
               </div>
             </label>
-            <label class="p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-teal-50 flex items-start gap-2">
-              <input type="radio" name="q1_vol" value="B_small" class="mt-0.5">
-              <div>
-                <span class="font-bold text-brand-dark block">【選項 B · 量小】感覺好急，但每次只有一點點（<150ml）</span>
-                <span class="text-slate-500">提示是「膀胱太小裝不下或過敏痙攣 (容量問題)」</span>
+            <label class="cursor-pointer">
+              <input type="radio" name="d1_flow" value="CAP_small" class="peer sr-only">
+              <div class="p-4 rounded-xl border border-slate-200 peer-checked:border-teal-600 peer-checked:bg-teal-50/50 hover:bg-slate-50 transition">
+                <div class="font-bold text-slate-900 flex items-center gap-2">
+                  <span class="text-amber-600">⚡</span> 每次只有一點點（<150 mL）
+                </div>
+                <p class="text-xs text-slate-500 mt-1">每次尿量極少甚至幾滴，但頻繁覺得急迫、憋不住（提示膀胱敏感或出口阻抗）</p>
               </div>
             </label>
           </div>
-        </div>
-
-        <!-- Q2: 下肢水腫與平躺回流 -->
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <label class="text-sm sm:text-base font-bold text-brand-dark block">
-            Q2. 【下肢水腫與平躺水分】（可多選）
-          </label>
-          <div class="space-y-1.5 text-xs sm:text-sm">
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q2" value="傍晚鞋緊/小腿腫脹" class="q2-item rounded text-brand-teal">
-              <span>傍晚鞋子變緊、腳踝或小腿有明顯襪痕凹陷</span>
-            </label>
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q2" value="睡下前半夜尿多" class="q2-item rounded text-brand-teal">
-              <span>剛睡下頭 2–4 小時（前半夜）特別容易一直醒來小便</span>
-            </label>
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q2" value="小腿無力/走路慢" class="q2-item rounded text-brand-teal">
-              <span>平時走路慢、雙腿無力、小腿第二心臟肌泵退化</span>
-            </label>
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" id="q2_none" value="none" class="rounded text-brand-teal" onchange="handleMutualExclusive('q2')">
-              <span class="text-slate-500">🚫 以上皆無 / 不符合</span>
+          <div class="pt-1">
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer text-xs sm:text-sm">
+              <input type="checkbox" name="d1_watery" value="ADH_deficiency" class="w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700"><strong>單次尿量極大且清澈如清水</strong>（夜間尿液未濃縮，提示下視丘 ADH 節律衰退）</span>
             </label>
           </div>
         </div>
 
-        <!-- Q3: 小便排尿體感 -->
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <label class="text-sm sm:text-base font-bold text-brand-dark block">
-            Q3. 【小便時的體感特徵】（可多選）
-          </label>
-          <div class="space-y-1.5 text-xs sm:text-sm">
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q3" value="尿等待/尿流變細" class="q3-item rounded text-brand-teal">
-              <span>小便要等一陣子才出，尿流變細或斷續</span>
+        <!-- Dimension 2: 排尿動作與出口阻抗 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center font-black text-sm">2</span>
+            <h3 class="font-extrabold text-base sm:text-lg text-slate-900">排尿動作與出口阻抗（前列腺與逼尿肌狀況）</h3>
+          </div>
+          <div class="space-y-2 text-xs sm:text-sm">
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d2_symptoms" value="BPH_hesitancy" class="d2-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">站在馬桶前要等數秒才出尿（尿等待），尿流變細、斷斷續續（前列腺 BPH 阻塞）</span>
             </label>
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q3" value="突發尿急忍不住" class="q3-item rounded text-brand-teal">
-              <span>突發尿意非常急迫，完全憋不住（急迫性）</span>
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d2_symptoms" value="PVR_retention" class="d2-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">排完後總覺得膀胱底還有尿液殘留，感覺「尿不乾淨」（殘餘尿 PVR 高）</span>
             </label>
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q3" value="殘尿感尿不乾淨" class="q3-item rounded text-brand-teal">
-              <span>尿完後總覺得裡面還殘留尿液（尿不乾淨）</span>
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d2_symptoms" value="OAB_urgency" class="d2-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">突發強烈尿急感，完全忍不住，常需急奔廁所（逼尿肌過動 OAB / 平滑肌痙攣）</span>
             </label>
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" id="q3_none" value="none" class="rounded text-brand-teal" onchange="handleMutualExclusive('q3')">
-              <span class="text-slate-500">🚫 以上皆無 / 不符合</span>
+            <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+              <input type="checkbox" id="d2_none" value="none" class="w-4 h-4 text-teal-600 rounded mt-0.5" onchange="handleMutualExclusive('d2')">
+              <span class="text-slate-500">🚫 以上皆無 / 排尿順暢無阻抗</span>
             </label>
           </div>
         </div>
 
-        <!-- Q4: 睡眠品質與呼吸 -->
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <label class="text-sm sm:text-base font-bold text-brand-dark block">
-            Q4. 【睡眠呼吸與品質】（可多選）
-          </label>
-          <div class="space-y-1.5 text-xs sm:text-sm">
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q4" value="大聲打鼾/呼吸暫停" class="q4-item rounded text-brand-teal">
-              <span>睡覺會大聲打鼾、曾暫停呼吸或晨起口乾（OSA 警報）</span>
+        <!-- Dimension 3: 下肢流體與肌肉動力 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center font-black text-sm">3</span>
+            <h3 class="font-extrabold text-base sm:text-lg text-slate-900">下肢流體與肌肉動力（Starling 力學與小腿肌泵）</h3>
+          </div>
+          <div class="space-y-2 text-xs sm:text-sm">
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d3_symptoms" value="Starling_edema" class="d3-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">傍晚覺得鞋子變緊、腳踝或小腿有明顯襪印、按壓有凹陷（微血管日間漏水）</span>
             </label>
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q4" value="淺眠微覺醒順便想尿" class="q4-item rounded text-brand-teal">
-              <span>睡得很淺、容易驚醒，醒來「順便」想尿（偽性夜尿）</span>
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d3_symptoms" value="Early_night_peak" class="d3-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">剛睡下頭 2–4 小時（前半夜）起夜最頻繁（平躺後重力消失，體液倒灌回心臟 ANP 暴衝）</span>
             </label>
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q4" value="整天口渴/喝多尿多" class="q4-item rounded text-brand-teal">
-              <span>整天都很口渴、喝多尿多（血糖偏高滲透性利尿）</span>
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d3_symptoms" value="Muscle_pump_weak" class="d3-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">平時走路步伐慢、雙腿無力、久坐久站少運動（腓腸肌「第二心臟」肌肉泵萎縮）</span>
             </label>
-            <label class="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" id="q4_none" value="none" class="rounded text-brand-teal" onchange="handleMutualExclusive('q4')">
-              <span class="text-slate-500">🚫 以上皆無 / 不符合</span>
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d3_symptoms" value="Spine_numbness" class="d3-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">臀部至大腿經常有發麻或針刺感（腰椎退化壓迫神經根與微循環缺血）</span>
+            </label>
+            <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+              <input type="checkbox" id="d3_none" value="none" class="w-4 h-4 text-teal-600 rounded mt-0.5" onchange="handleMutualExclusive('d3')">
+              <span class="text-slate-500">🚫 以上皆無 / 下肢無水腫且力量充沛</span>
             </label>
           </div>
         </div>
 
-        <!-- Q5: 常用公立醫院西藥排查 -->
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <label class="text-sm sm:text-base font-bold text-brand-dark block">
-            Q5. 【公立醫院西藥審查】目前是否有服用以下處方藥？（可多選）
-          </label>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
-            <label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q5" value="降血壓藥(CCB如Amlodipine)" class="q5-item rounded text-brand-teal">
-              <span>降血壓藥 (CCB 類如 Amlodipine)</span>
+        <!-- Dimension 4: 代謝、黏膜與心腸軸 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center font-black text-sm">4</span>
+            <h3 class="font-extrabold text-base sm:text-lg text-slate-900">代謝、黏膜與消化內環境（內分泌與心腸軸）</h3>
+          </div>
+          <div class="space-y-2 text-xs sm:text-sm">
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d4_symptoms" value="Diabetes_osmotic" class="d4-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">全天經常口乾口渴、多飲多尿（血糖偏高或糖尿病史，滲透性利尿）</span>
             </label>
-            <label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q5" value="他汀類降脂藥(Statins)" class="q5-item rounded text-brand-teal">
-              <span>他汀類降血脂藥 (Statins)</span>
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d4_symptoms" value="Menopause_GSM" class="d4-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">女性停經後尿道乾澀、容易反覆發炎感冒（更年期黏膜萎縮與防護力下降）</span>
             </label>
-            <label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q5" value="通血管藥(Aspirin/Plavix)" class="q5-item rounded text-brand-teal">
-              <span>阿斯匹靈 / 通血管藥 (Aspirin / Plavix)</span>
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d4_symptoms" value="Gut_leaky_halitosis" class="d4-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">容易胃脹、消化排空慢、有口氣或腸道吸收差（腸漏/胃酸不足與心腸軸微血管發炎）</span>
             </label>
-            <label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q5" value="胃藥(PPI/Omeprazole)" class="q5-item rounded text-brand-teal">
-              <span>胃藥 / 抑酸劑 (PPI 如 Omeprazole)</span>
-            </label>
-            <label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" name="q5" value="薄血藥(Warfarin)" class="q5-item rounded text-brand-teal">
-              <span>薄血藥 (Warfarin 華法林)</span>
-            </label>
-            <label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer">
-              <input type="checkbox" id="q5_none" value="none" class="rounded text-brand-teal" onchange="handleMutualExclusive('q5')">
-              <span class="text-slate-500">🚫 沒有服用上述西藥</span>
+            <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+              <input type="checkbox" id="d4_none" value="none" class="w-4 h-4 text-teal-600 rounded mt-0.5" onchange="handleMutualExclusive('d4')">
+              <span class="text-slate-500">🚫 以上皆無 / 代謝與消化一切正常</span>
             </label>
           </div>
         </div>
 
-        <div class="text-center pt-2">
-          <button type="button" onclick="runDiagnosis()" class="w-full sm:w-auto bg-brand-teal hover:bg-brand-emerald text-white px-8 py-3.5 rounded-xl font-bold text-sm shadow-md transition">
-            生成我的成因診斷與當前處境 →
+        <!-- Dimension 5: 睡眠結構與神經門控 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center font-black text-sm">5</span>
+            <h3 class="font-extrabold text-base sm:text-lg text-slate-900">睡眠結構與呼吸門控（偽性夜尿與中樞干擾）</h3>
+          </div>
+          <div class="space-y-2 text-xs sm:text-sm">
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d5_symptoms" value="OSA_apnea" class="d5-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700"><strong>睡覺會大聲打鼾、曾有呼吸暫停或晨起頭痛口乾</strong>（⚠️ OSA 氣道負壓拉扯心臟分泌 ANP · 醫療紅線）</span>
+            </label>
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer">
+              <input type="checkbox" name="d5_symptoms" value="Light_sleep_N3" class="d5-item w-4 h-4 text-teal-600 rounded mt-0.5">
+              <span class="text-slate-700">睡得很淺、容易驚醒，醒來後「順便」想去排少許尿（大腦缺乏 N3 慢波深層睡眠）</span>
+            </label>
+            <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+              <input type="checkbox" id="d5_none" value="none" class="w-4 h-4 text-teal-600 rounded mt-0.5" onchange="handleMutualExclusive('d5')">
+              <span class="text-slate-500">🚫 以上皆無 / 睡眠深沉安穩</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Dimension 6: 公立醫院現行西藥排查 -->
+        <div class="bg-amber-50/70 p-6 rounded-2xl border-2 border-amber-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 border-b border-amber-200 pb-3">
+            <span class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-black text-sm">6</span>
+            <div>
+              <h3 class="font-extrabold text-base sm:text-lg text-slate-900">公立醫院現行西藥審查（對齊梁太真實處方 ✕ 安全避險）</h3>
+              <p class="text-xs text-amber-800">精準排查藥物副作用與吸收衝突，確保 100% 臨床相容安全</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-white border border-amber-100 hover:border-amber-400 cursor-pointer">
+              <input type="checkbox" name="d6_meds" value="Amlodipine" class="d6-item w-4 h-4 text-amber-600 rounded mt-0.5">
+              <span class="text-slate-800"><strong>降血壓藥</strong>（如 Amlodipine 氨氯地平 等 CCB 類，易致腳腫）</span>
+            </label>
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-white border border-amber-100 hover:border-amber-400 cursor-pointer">
+              <input type="checkbox" name="d6_meds" value="Aspirin" class="d6-item w-4 h-4 text-amber-600 rounded mt-0.5">
+              <span class="text-slate-800"><strong>抗血小板藥</strong>（如 Aspirin 阿斯匹靈 / Plavix，防中風紅線）</span>
+            </label>
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-white border border-amber-100 hover:border-amber-400 cursor-pointer">
+              <input type="checkbox" name="d6_meds" value="PPI_gastric" class="d6-item w-4 h-4 text-amber-600 rounded mt-0.5">
+              <span class="text-slate-800"><strong>強效胃藥</strong>（如 Pantoprazole / 抑酸劑，致固體鈣不溶）</span>
+            </label>
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-white border border-amber-100 hover:border-amber-400 cursor-pointer">
+              <input type="checkbox" name="d6_meds" value="Statin_lipid" class="d6-item w-4 h-4 text-amber-600 rounded mt-0.5">
+              <span class="text-slate-800"><strong>降血脂藥</strong>（如 Rosuvastatin 等 Statin 類，耗竭 CoQ10）</span>
+            </label>
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-white border border-amber-100 hover:border-amber-400 cursor-pointer">
+              <input type="checkbox" name="d6_meds" value="Hospital_calcium" class="d6-item w-4 h-4 text-amber-600 rounded mt-0.5">
+              <span class="text-slate-800"><strong>公立醫院碳酸鈣</strong>（Calcium Carbonate，難吸收致便秘）</span>
+            </label>
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-white border border-amber-100 hover:border-amber-400 cursor-pointer">
+              <input type="checkbox" name="d6_meds" value="Diuretics_diabetes" class="d6-item w-4 h-4 text-amber-600 rounded mt-0.5">
+              <span class="text-slate-800"><strong>降糖藥 (Metformin) 或 利尿藥</strong>（水丸，晚服加重夜尿）</span>
+            </label>
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-white border border-amber-100 hover:border-amber-400 cursor-pointer sm:col-span-2">
+              <input type="checkbox" name="d6_meds" value="Warfarin" class="d6-item w-4 h-4 text-amber-600 rounded mt-0.5">
+              <span class="text-slate-800"><strong>薄血藥</strong>（Warfarin 華法林 · 🚫 絕對禁用維生素 K2）</span>
+            </label>
+            <label class="flex items-start gap-3 p-2.5 rounded-xl bg-amber-100/50 hover:bg-amber-100 cursor-pointer sm:col-span-2">
+              <input type="checkbox" id="d6_none" value="none" class="w-4 h-4 text-amber-600 rounded mt-0.5" onchange="handleMutualExclusive('d6')">
+              <span class="text-amber-900 font-bold">🚫 沒有服用上述西藥</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="text-center pt-4">
+          <button type="button" onclick="calculateDeepDiagnosis()" class="w-full sm:w-auto bg-brand-teal hover:bg-brand-darkteal text-white px-12 py-4 rounded-xl font-black text-lg shadow-xl hover:shadow-teal-500/40 transition transform active:scale-95">
+            即時解碼我的夜尿系統故障代碼 ➔
           </button>
         </div>
+
       </form>
-    </section>
 
-    <!-- 模組 2：診斷結果與當前處境 (Result Box - 清楚告訴客人她現在的處境) -->
-    <section id="module-2" class="bg-white p-6 sm:p-8 rounded-2xl border-2 border-brand-teal shadow-xl space-y-6">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full bg-teal-100 text-brand-teal flex items-center justify-center font-bold text-sm">
-            2
+      <!-- Diagnosis Report Modal/Card -->
+      <div id="diagnosisCard" class="hidden mt-12 bg-white p-6 sm:p-8 rounded-3xl border-2 border-brand-teal shadow-2xl space-y-6">
+        
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-teal-100 text-teal-800 flex items-center justify-center font-black text-2xl">
+              📋
+            </div>
+            <div>
+              <h3 class="text-lg sm:text-xl font-black text-slate-900">專屬夜尿系統故障診斷報告</h3>
+              <p class="text-xs text-slate-500">三高工程師 · 分子生化與流體力學演算輸出</p>
+            </div>
           </div>
-          <h2 class="text-lg font-bold text-brand-dark">模組 2：診斷結果（您現在的身體處境）</h2>
-        </div>
-        <span id="resultBadge" class="bg-teal-50 text-brand-teal text-xs font-bold px-3 py-1 rounded-full border border-teal-200">
-          處境分析
-        </span>
-      </div>
-
-      <div class="space-y-4">
-        <!-- 處境具體描述卡片 -->
-        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2.5">
-          <div class="flex items-center gap-2 text-xs font-bold text-brand-dark">
-            <i class="fas fa-user-check text-brand-teal"></i>
-            <span>您目前的身體真實處境解讀：</span>
-          </div>
-          <p id="situationText" class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-            根據您的問卷回饋，您目前正面臨<strong>「日間下肢水分蓄積 ＋ 夜間平躺體液回湧心臟」</strong>的系統處境。白天微血管滲漏將水分積在下肢，晚上平躺後重力消失，體液倒灌回心臟，迫使心房大量分泌利鈉肽 (ANP)，在前半夜產生大量稀釋尿水。
-          </p>
+          <span id="resultBadge" class="bg-teal-50 text-teal-700 border border-teal-200 text-xs sm:text-sm font-black px-4 py-1.5 rounded-full">
+            計算中...
+          </span>
         </div>
 
-        <!-- 混合成因佔比進度條 -->
-        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-xs sm:text-sm font-bold text-brand-dark flex items-center gap-2">
-              <i class="fas fa-chart-pie text-brand-teal"></i>
-              <span>混合成因可能性佔比分析：</span>
-            </h3>
-            <span class="text-[11px] text-slate-500 font-medium">生化權重演算</span>
+        <div class="space-y-4">
+          <!-- Primary Diagnosis -->
+          <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+            <div class="font-black text-base sm:text-lg text-slate-900 flex items-center gap-2" id="resultTitle">
+              診斷標題
+            </div>
+            <div class="text-xs sm:text-sm text-slate-600 leading-relaxed" id="resultAnalysis">
+              病理分析描述...
+            </div>
           </div>
-          <div id="causePercentageBars" class="space-y-2.5 pt-1">
-            <!-- Populated by JS -->
-          </div>
-        </div>
 
-        <!-- 用藥安全避險提醒 -->
-        <div id="drugSafetyBox" class="bg-amber-50 p-4 rounded-xl border border-amber-200 text-xs sm:text-sm text-amber-900 space-y-1.5">
-          <div class="font-bold flex items-center gap-1.5">
-            <i class="fas fa-shield-alt text-amber-600"></i>
-            <span>西藥安全避險提醒：</span>
+          <!-- Medication Safety Warning Box -->
+          <div id="medWarningBox" class="hidden bg-amber-50 p-5 rounded-2xl border border-amber-200 space-y-2 text-xs sm:text-sm text-amber-900">
+            <div class="font-bold flex items-center gap-2 text-amber-800">
+              <i class="fas fa-shield-alt text-base"></i>
+              <span>公立醫院西藥安全防禦指示：</span>
+            </div>
+            <div id="medWarningContent" class="leading-relaxed space-y-1">
+              <!-- Dynamically populated -->
+            </div>
           </div>
-          <div id="drugSafetyText" class="text-xs leading-relaxed space-y-1">
-            <p>• 恪守西藥與保健品間隔至少 2 小時之物理隔離原則。</p>
+
+          <!-- Actionable Blueprint -->
+          <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-200 text-xs sm:text-sm text-emerald-950 space-y-2">
+            <div class="font-bold flex items-center gap-2 text-emerald-800 text-base">
+              <i class="fas fa-check-circle"></i>
+              <span>工程師精準修復指引：</span>
+            </div>
+            <div id="resultAction" class="leading-relaxed space-y-1.5">
+              <!-- Dynamically populated -->
+            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 模組 3：成因解說 (影音 + 簡單文字圖片描述) -->
-    <section id="module-3" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
-      <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
-        <div class="w-8 h-8 rounded-full bg-brand-teal text-white flex items-center justify-center font-bold text-sm">
-          3
+        <!-- WhatsApp Dispatch & Anchor Jump -->
+        <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row gap-4 justify-between items-center">
+          <a href="#offerings" class="text-xs sm:text-sm text-brand-teal font-black hover:underline flex items-center gap-1">
+            <span>查看精準卡位方案組合</span>
+            <i class="fas fa-arrow-down"></i>
+          </a>
+          <a id="whatsappShareBtn" href="#" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-3.5 rounded-xl text-sm font-black shadow-lg hover:shadow-green-500/30 transition">
+            <i class="fab fa-whatsapp text-xl"></i>
+            <span>將診斷發送至 WhatsApp 獲取個人化排程</span>
+          </a>
         </div>
-        <div>
-          <h2 class="text-lg font-bold text-brand-dark">模組 3：成因解說（影音 ✕ 簡單文字圖片）</h2>
-          <p class="text-xs text-slate-500">左側短影音 ✕ 右側簡單文字與圖片拆解機轉</p>
-        </div>
+
       </div>
 
-      <!-- Cause 1 Video Card -->
-      <div id="card-cause-1" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-slate-50 p-5 rounded-xl border border-slate-200">
-        <div class="md:col-span-5 aspect-video bg-slate-900 rounded-xl overflow-hidden shadow relative flex flex-col items-center justify-center text-white">
-          <div class="w-12 h-12 rounded-full bg-brand-teal/90 flex items-center justify-center text-lg pl-1 shadow">
-            <i class="fas fa-play"></i>
+    </div>
+  </section>
+
+  <!-- 24-Hour Chronotherapy Protocol -->
+  <section id="chronotherapy" class="py-16 bg-white border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+        <div class="inline-block bg-teal-50 text-teal-700 text-xs font-black px-3 py-1 rounded-full uppercase">
+          Chronotherapy Protocol
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900">
+          24 小時整合型生活干預日程表
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600">
+          透過「時差分離法」，避開西藥衝突，在睡前提前排空組織液，阻斷夜間心房利鈉肽（ANP）暴衝：
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+        
+        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+          <div class="font-extrabold text-teal-700 flex items-center gap-2 text-base">
+            <span>🌅 07:00 – 08:30</span>
+            <span class="text-xs font-normal text-slate-500">【晨間啟動與分子鐘錨定】</span>
           </div>
-          <span class="text-[11px] text-slate-300 mt-2 font-medium">Reels 60s：白天積水，晚上回流</span>
+          <ul class="list-disc list-inside text-slate-700 space-y-1 leading-relaxed">
+            <li>測量晨起空腹血壓；準時服用醫院 <strong>PPI 胃藥與降壓藥 (Amlodipine)</strong>。</li>
+            <li>接受 20–30 分鐘戶外陽光直射（錨定下視丘 SCN 主生物鐘，確保夜間 ADH 分泌）。</li>
+            <li>穿戴 15–20 mmHg 日間漸進式壓力襪。</li>
+          </ul>
         </div>
-        <div class="md:col-span-7 space-y-2 text-xs sm:text-sm">
-          <span class="text-[10px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded">成因 ① · 流量問題</span>
-          <h3 class="font-bold text-brand-dark text-base">白天腳腫，晚上尿多（下肢平躺回流型 NP）</h3>
-          <p class="text-slate-600 leading-relaxed">
-            白天站立久坐使水分積在雙腳（傍晚鞋緊）；晚上平躺後水分回流心臟，心房受牽拉分泌大量利鈉肽 (ANP)，後半夜排出大量稀釋尿水。
-          </p>
-        </div>
-      </div>
 
-      <!-- Cause 2 Video Card -->
-      <div id="card-cause-2" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-slate-50 p-5 rounded-xl border border-slate-200">
-        <div class="md:col-span-5 aspect-video bg-slate-900 rounded-xl overflow-hidden shadow relative flex flex-col items-center justify-center text-white">
-          <div class="w-12 h-12 rounded-full bg-brand-teal/90 flex items-center justify-center text-lg pl-1 shadow">
-            <i class="fas fa-play"></i>
+        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+          <div class="font-extrabold text-teal-700 flex items-center gap-2 text-base">
+            <span>☀️ 10:00 – 10:30</span>
+            <span class="text-xs font-normal text-slate-500">【蛋白質與細胞能量高峰】</span>
           </div>
-          <span class="text-[11px] text-slate-300 mt-2 font-medium">Reels 60s：水箱太小裝不下</span>
+          <ul class="list-disc list-inside text-slate-700 space-y-1 leading-relaxed">
+            <li><strong>（與晨間西藥間隔 2 小時）</strong>溫水沖服：ORIYEN 蛋白高營素（雙蛋白+HMB，活化小腿腓腸肌泵）。</li>
+            <li>補充：ORIYEN 天然酵母 NMN 15000（重注線粒體 NAD+ 燃料池）。</li>
+          </ul>
         </div>
-        <div class="md:col-span-7 space-y-2 text-xs sm:text-sm">
-          <span class="text-[10px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded">成因 ② · 容量問題</span>
-          <h3 class="font-bold text-brand-dark text-base">前列腺肥大 ✕ 膀胱過敏痙攣</h3>
-          <p class="text-slate-600 leading-relaxed">
-            前列腺壓迫尿道，或逼尿肌微循環缺血導致過度緊張，水箱有效容量銳減，每次只能裝一點點尿就引發強烈急迫感。
-          </p>
+
+        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+          <div class="font-extrabold text-teal-700 flex items-center gap-2 text-base">
+            <span>🥗 12:30 – 13:00</span>
+            <span class="text-xs font-normal text-slate-500">【午餐隨餐微循環疏通】</span>
+          </div>
+          <ul class="list-disc list-inside text-slate-700 space-y-1 leading-relaxed">
+            <li>隨餐服用：ORIYEN 強心血管通（水蛭素+Q10）+ 蝦青素（利用午餐油脂提升吸收）。</li>
+            <li>完成全日 70%–80% 飲水量；久坐每小時做 30 次坐姿提踵（踮腳尖）。</li>
+            <li>14:00 後嚴格截止咖啡因、濃茶；利尿劑若有服用務必於此時前完成。</li>
+          </ul>
         </div>
+
+        <div class="bg-amber-50/80 p-5 rounded-2xl border-2 border-amber-200 space-y-2">
+          <div class="font-extrabold text-amber-800 flex items-center gap-2 text-base">
+            <span>🚨 17:00 – 18:30</span>
+            <span class="text-xs font-bold text-amber-700">【傍晚液體回流黃金截斷期（關鍵！）】</span>
+          </div>
+          <ul class="list-disc list-inside text-amber-950 space-y-1 leading-relaxed">
+            <li>脫下壓力襪，使用 SE 紅光按摩帶 包覆小腿肚震動 15 分鐘。</li>
+            <li>配合<strong>平躺抬腿高於心臟 15–30 公分持續 30–45 分鐘</strong>。</li>
+            <li><strong>【工程目的】</strong>：強制下肢積水在睡前提前回流排清，阻斷夜間 ANP 暴衝！</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+          <div class="font-extrabold text-teal-700 flex items-center gap-2 text-base">
+            <span>🍲 18:30 – 19:30</span>
+            <span class="text-xs font-normal text-slate-500">【晚餐代謝降負】</span>
+          </div>
+          <ul class="list-disc list-inside text-slate-700 space-y-1 leading-relaxed">
+            <li>晚餐嚴格極低鈉（鹽 < 1.5g）、低升糖，徹底去汁去湯；晚餐後停止大口灌水。</li>
+            <li>晚餐後補充：Nn 三效益生菌 調理心腸軸，阻斷毒素入血破壞血管。</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+          <div class="font-extrabold text-teal-700 flex items-center gap-2 text-base">
+            <span>🌙 21:30 – 22:00</span>
+            <span class="text-xs font-normal text-slate-500">【睡前神經降溫與二次排空】</span>
+          </div>
+          <ul class="list-disc list-inside text-slate-700 space-y-1 leading-relaxed">
+            <li>補充：Nn 液鈣鎂 D3（微米化甘胺酸鎂），放鬆逼尿肌平滑肌，延長 N3 慢波睡眠。</li>
+            <li>實施 10 分鐘箱式呼吸（Box Breathing）+ 反向凱格爾骨盆底放鬆。</li>
+            <li>就寢前實施「<strong>二次排尿法</strong>」，徹底排空殘餘尿後入睡。</li>
+          </ul>
+        </div>
+
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- 模組 4：改善指南 (對應用戶成因，講清楚重點及解決方向) -->
-    <section id="module-4" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
-      <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
-        <div class="w-8 h-8 rounded-full bg-brand-teal text-white flex items-center justify-center font-bold text-sm">
-          4
+  <!-- Product Offering Matrix -->
+  <section id="offerings" class="py-16 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+        <div class="inline-block bg-teal-50 text-teal-700 text-xs font-black px-3 py-1 rounded-full uppercase">
+          Product Solutions
         </div>
-        <div>
-          <h2 class="text-lg font-bold text-brand-dark">模組 4：對應成因之改善重點與解決方向</h2>
-          <p class="text-xs text-slate-500">依據您的處境與成因，提供精確的生活與物理介入對策</p>
-        </div>
-      </div>
-
-      <!-- Dynamic Targeted Action Card (根據客人成因動態顯示) -->
-      <div id="dynamicTargetedGuidance" class="bg-teal-50/70 p-5 rounded-xl border border-teal-200 space-y-3">
-        <!-- Populated by JS based on user's diagnosis -->
-      </div>
-
-      <!-- 全天黃金時程摘要 (左右雙欄) -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-slate-50 p-5 rounded-xl border border-slate-200">
-        <div class="md:col-span-5 bg-teal-950 text-white rounded-xl p-5 flex flex-col justify-center items-center text-center space-y-2 aspect-video">
-          <i class="fas fa-bed text-3xl text-teal-400"></i>
-          <span class="font-bold text-sm">傍晚 17:00–18:30 關鍵防守</span>
-          <span class="text-[10px] text-teal-200">平躺抬腿 15–30cm 躺 20–30 分鐘 · 提前排清組織液</span>
-        </div>
-        <div class="md:col-span-7 space-y-1.5 text-xs text-slate-700">
-          <div class="font-bold text-brand-dark text-sm">🗓️ 一日保養黃金時間表：</div>
-          <p>🌅 <strong>早晨</strong>：按時服西藥，曬太陽 20 分鐘（校正生物鐘）。</p>
-          <p>☀️ <strong>上午</strong>：蛋白質與微循環營養（與西藥隔開 2 小時）。</p>
-          <p>🥗 <strong>午餐</strong>：隨餐補充脂溶性營養。</p>
-          <p>🌆 <strong>傍晚 ⭐</strong>：抬腿 20 分鐘 ＋ 18:00 前完成 80% 飲水，晚餐嚴格控鈉！</p>
-          <p>🌙 <strong>睡前</strong>：睡前二次排尿法 (Double Voiding) ＋ 放鬆膀胱平滑肌。</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 模組 5：方案選擇 Tab (3 階梯點選切換 - 模組化結構) -->
-    <section id="module-5" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
-      <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
-        <div class="w-8 h-8 rounded-full bg-brand-teal text-white flex items-center justify-center font-bold text-sm">
-          5
-        </div>
-        <div>
-          <h2 class="text-lg font-bold text-brand-dark">模組 5：方案選擇 Tab（3 階梯點選切換）</h2>
-          <p class="text-xs text-slate-500">依據個人需求選擇適合的調理階梯（方案內容持續更新中）</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <button type="button" id="tab-plan1" onclick="switchPlan(1)" class="plan-tab p-4 rounded-xl border-2 border-brand-teal bg-teal-50 text-brand-dark text-left transition shadow-sm relative">
-          <span class="absolute -top-2.5 right-3 bg-brand-teal text-white text-[10px] font-bold px-2 py-0.5 rounded-full">⭐ 主力方案</span>
-          <div class="font-black text-sm">方案 1：90天深層重塑套裝</div>
-          <div class="text-xs text-brand-teal font-extrabold mt-1">HK$ 1,530</div>
-        </button>
-
-        <button type="button" id="tab-plan2" onclick="switchPlan(2)" class="plan-tab p-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition">
-          <div class="font-bold text-sm">方案 2：30天起步體驗組</div>
-          <div class="text-xs text-slate-600 font-bold mt-1">HK$ 578</div>
-        </button>
-
-        <button type="button" id="tab-plan3" onclick="switchPlan(3)" class="plan-tab p-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition">
-          <div class="font-bold text-sm">方案 3：單品散買體驗</div>
-          <div class="text-xs text-slate-600 font-bold mt-1">HK$ 680</div>
-        </button>
-      </div>
-    </section>
-
-    <!-- 模組 6：所選方案詳細內容 (Detail Box 左右雙欄) -->
-    <section id="module-6" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
-      <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
-        <div class="w-8 h-8 rounded-full bg-brand-teal text-white flex items-center justify-center font-bold text-sm">
-          6
-        </div>
-        <div>
-          <h2 class="text-lg font-bold text-brand-dark">模組 6：所選方案詳細內容 (Detail Box)</h2>
-          <p class="text-xs text-slate-500">左側產品圖 ✕ 右側詳細規格與食用指引</p>
-        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900">
+          階梯式夜尿系統修復方案
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600">
+          從 30 天快速建立體感，到 90 天細胞週期系統性重塑：
+        </p>
       </div>
 
-      <div id="planDetailContent" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-slate-50 p-6 rounded-xl border border-slate-200">
-        <!-- Populated by JS -->
-      </div>
-    </section>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-    <!-- 模組 7：WhatsApp 購買 / 諮詢按鈕 (全寬主 CTA) -->
-    <section id="module-7" class="space-y-3">
-      <div class="text-center">
-        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">模組 7 · 一鍵封裝發送</span>
+        <!-- Offering A: 30D Quick Ignition -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <span class="text-xs font-extrabold bg-blue-50 text-blue-700 px-3 py-1 rounded-full uppercase">30 天起步組</span>
+            <h3 class="text-xl font-black text-slate-900">夜間水循環疏通破冰組</h3>
+            <div class="text-3xl font-black text-slate-900">HK$ 1,280 <span class="text-xs font-normal text-slate-400 line-through">HK$ 1,620</span></div>
+            <ul class="text-xs sm:text-sm text-slate-600 space-y-2">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-teal-600 mt-1"></i>
+                <span><strong>ORIYEN 強心血管通 (SKU 36282) × 1 盒</strong>：天然水蛭素 120 ATU + Q10，修復血管內皮，消除白天漏水。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-teal-600 mt-1"></i>
+                <span><strong>Nn 液鈣鎂 D3 (SKU 34316) × 1 盒</strong>：微米化甘胺酸鎂，放鬆逼尿肌平滑肌，延長深層睡眠。</span>
+              </li>
+            </ul>
+          </div>
+          <a href="https://wa.me/85292497678?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E8%A8%82%E8%B3%BC%E3%80%9030%E5%A4%A9%E5%A4%9C%E5%B0%BF%E8%B5%B7%E6%AD%A5%E7%B5%84%E3%80%91(HK$1280)" target="_blank" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-center py-3.5 rounded-xl font-bold text-sm shadow transition">
+            選購 30 天起步組
+          </a>
+        </div>
+
+        <!-- Offering B: 90D Reset (Flagship Main) -->
+        <div class="bg-white p-6 rounded-3xl border-2 border-brand-teal shadow-xl flex flex-col justify-between space-y-6 relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-teal text-white text-[11px] font-black uppercase px-4 py-1 rounded-full shadow">
+            ⭐ 90天細胞週期主力推薦
+          </div>
+          <div class="space-y-4 pt-2">
+            <span class="text-xs font-extrabold bg-teal-50 text-teal-700 px-3 py-1 rounded-full uppercase">90 天系統重構</span>
+            <h3 class="text-xl font-black text-slate-900">心腎血管 ✕ 腓腸肌泵重構組</h3>
+            <div class="text-3xl font-black text-teal-600">HK$ 4,980 <span class="text-xs font-normal text-slate-400 line-through">HK$ 6,880</span></div>
+            <ul class="text-xs sm:text-sm text-slate-600 space-y-2">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-teal-600 mt-1"></i>
+                <span><strong>強心血管通 (SKU 36282) × 3 盒</strong>：完整 90 天重塑微血管抗滲透彈性。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-teal-600 mt-1"></i>
+                <span><strong>天然酵母 NMN 15000 (SKU 36281) × 3 盒</strong>：活化 SCN 分子鐘，恢復夜間 ADH 分泌。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-teal-600 mt-1"></i>
+                <span><strong>蛋白高營素含 HMB (SKU 36283) × 3 盒</strong>：強化小腿第二心臟肌泵，阻斷積水。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-teal-600 mt-1"></i>
+                <span><strong>三效益生菌 (SKU 34331) × 3 盒</strong>：調理心腸軸，降低全身血管發炎滲漏。</span>
+              </li>
+              <li class="pt-2 text-xs text-teal-800 font-bold bg-teal-50 p-2.5 rounded-lg border border-teal-100">
+                🎁 專屬權益：贈送「72 小時連續排尿日記 (FVC) 專家人工審查」1 次
+              </li>
+            </ul>
+          </div>
+          <a href="https://wa.me/85292497678?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E8%A8%82%E8%B3%BC%E3%80%9090%E5%A4%A9%E5%BF%83%E8%85%8E%E8%A1%80%E7%AE%A1%E7%B3%BB%E7%B5%B1%E9%87%8D%E6%A7%8B%E7%B5%84%E3%80%91(HK$4980)" target="_blank" class="w-full bg-brand-teal hover:bg-brand-darkteal text-white text-center py-3.5 rounded-xl font-bold text-sm shadow-lg hover:shadow-teal-500/30 transition">
+            啟動 90 天全系統重構方案
+          </a>
+        </div>
+
+        <!-- Offering C: 90D Ultimate Physical + Bio -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <span class="text-xs font-extrabold bg-purple-50 text-purple-700 px-3 py-1 rounded-full uppercase">90 天頂配旗艦</span>
+            <h3 class="text-xl font-black text-slate-900">全維物理 ✕ 生化旗艦逆轉組</h3>
+            <div class="text-3xl font-black text-slate-900">HK$ 6,680 <span class="text-xs font-normal text-slate-400 line-through">HK$ 8,860</span></div>
+            <ul class="text-xs sm:text-sm text-slate-600 space-y-2">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-teal-600 mt-1"></i>
+                <span>包含 90 天重構組全套生化修復營養補劑。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-teal-600 mt-1"></i>
+                <span><strong>SE 紅光光療按摩帶 (SKU 0368，原價 $1,980)</strong>：660nm+850nm 雙光理療與震動，傍晚高效引流下肢。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-teal-600 mt-1"></i>
+                <span>包含門市 Tanita 體組成檢測 + 1 次 Health Map 深度查線諮詢。</span>
+              </li>
+            </ul>
+          </div>
+          <a href="https://wa.me/85292497678?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E9%A0%90%E8%A8%82%E3%80%9090%E5%A4%A9%E5%85%A8%E7%B6%AD%E6%97%97%E8%89%A6%E9%80%86%E8%BD%89%E7%B5%84%E3%80%91(HK$6680)" target="_blank" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-center py-3.5 rounded-xl font-bold text-sm shadow transition">
+            預訂全維物理生化旗艦組
+          </a>
+        </div>
+
       </div>
-      <a id="waMainSubmitBtn" href="#" target="_blank" class="w-full flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 px-6 rounded-2xl font-black text-base sm:text-lg shadow-xl hover:shadow-2xl transition transform hover:-translate-y-0.5">
-        <i class="fab fa-whatsapp text-2xl"></i>
-        <span id="waBtnLabel">WhatsApp 一鍵諮詢下單：【方案 1：90天深層重塑套裝】(HK$ 1,530)</span>
-      </a>
-      <p class="text-center text-[11px] text-slate-400">
-        點擊將自動帶入您的自測處境、成因佔比、用藥備註與所選方案，直接發送至 Duncan Chan 官方 WhatsApp (85298788564)
+    </div>
+  </section>
+
+  <!-- High-Ticket 1-on-1 Health Map Section -->
+  <section class="py-16 bg-slate-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6">
+      <span class="inline-block bg-teal-900/60 border border-teal-700 text-teal-300 text-xs font-bold px-3 py-1 rounded-full uppercase">
+        VIP 專屬門市深度查線
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
+        【Health Map】90 天一對一客製化生化工程諮詢
+      </h2>
+      <p class="text-slate-300 text-xs sm:text-base max-w-2xl mx-auto leading-relaxed">
+        如果您試過多種方法依然每晚醒來多次，或者合併有高血壓、心血管與多重西藥衝突（如梁太案例）：您需要的是一次由工程師主導的「全身生理數據深度查線」。
       </p>
-    </section>
 
-    <!-- 次要引流區（未成交直接引流回 FB / WhatsApp 群組，無 Lead Magnet） -->
-    <section class="bg-slate-100 rounded-2xl p-6 text-center space-y-3 border border-slate-200">
-      <h3 class="text-base font-bold text-brand-dark">想先觀察或交流更多健康問題？</h3>
-      <p class="text-slate-600 text-xs max-w-lg mx-auto">
-        歡迎直接加入我們的 Facebook 專頁與 WhatsApp 私享交流群，與三高工程師社群一同學習。
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left pt-4 max-w-2xl mx-auto text-xs sm:text-sm">
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-1">
+          <div class="font-bold text-teal-400">📊 醫療級 Tanita 體組成分析</div>
+          <p class="text-slate-400">精準測量細胞內外水分比 (ECW/TBW) 與內臟脂肪分布。</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-1">
+          <div class="font-bold text-teal-400">🔬 甲襞顯微與微循環掃描</div>
+          <p class="text-slate-400">觀察末梢血管流速、微血管管徑與組織滲透狀態。</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-1">
+          <div class="font-bold text-teal-400">📝 72H 排尿日記 (FVC) 精讀</div>
+          <p class="text-slate-400">計算夜間多尿指數 (NPi) 與膀胱容量真實儲存係數。</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-1">
+          <div class="font-bold text-teal-400">🗓️ 個人化服藥時間窗藍圖</div>
+          <p class="text-slate-400">結合公立醫院處方藥，排定防相沖時間表與 90 天 VIP 追蹤。</p>
+        </div>
+      </div>
+
+      <div class="pt-4">
+        <a href="https://wa.me/85292497678?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%E3%80%90%E9%96%80%E5%B8%82%201%3A1%20Health%20Map%20%E5%A4%9C%E5%B0%BF%E6%B7%B1%E5%BA%A6%E6%9F%A5%E7%B7%9A%E8%AB%AE%E8%A9%A2%E3%80%91" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-4 rounded-xl font-black text-base shadow-xl transition">
+          <i class="fab fa-whatsapp text-xl"></i>
+          <span>預約三高工程師門市諮詢（每日限額 2 名）</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Lead Magnet -->
+  <section class="py-14 bg-white border-t border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6">
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900">未準備好購買產品？先領取免費 24H 作息指南</h3>
+      <p class="text-slate-600 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
+        健康管理第一步在於建立正確作息。三高工程師團隊整理了一份《24 小時夜間水循環生活管理時程指南 PDF》，詳細列出傍晚抬腿動作圖解與 Amlodipine 最佳服藥時間。
       </p>
-      <div class="flex flex-col sm:flex-row justify-center gap-3 pt-1">
-        <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E5%8A%A0%E5%85%A5%E3%80%90%E4%B8%89%E9%AB%98%E5%B7%A5%E7%A8%8B%E5%B8%AB%20%C2%B7%20%E6%B0%B4%E5%BE%AA%E7%92%B0%E8%88%87%E9%95%B7%E8%80%85%E5%81%A5%E5%BA%B7%E3%80%91%E4%BA%A4%E6%B5%81%E7%BE%A4" target="_blank" class="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow hover:bg-[#20bd5a] transition">
-          <i class="fab fa-whatsapp text-sm"></i>
+      <div class="flex flex-col sm:flex-row justify-center gap-4 pt-2">
+        <a href="https://wa.me/85292497678?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E5%85%8D%E8%B2%BB%E9%A0%98%E5%8F%96%E3%80%8A24%E5%B0%8F%E6%99%82%E5%A4%9C%E9%96%93%E6%B0%B4%E5%BE%AA%E7%92%B0%E7%94%9F%E6%B4%BB%E7%AE%A1%E7%90%86%E6%99%82%E7%A8%8B%E6%8C%87%E5%8D%97%20PDF%E3%80%8B" target="_blank" class="inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-brand-teal hover:text-white text-slate-800 px-6 py-3 rounded-xl font-bold text-xs sm:text-sm transition">
+          <i class="fas fa-file-pdf text-rose-500"></i>
+          <span>免費領取 24H 生活管理指南 PDF</span>
+        </a>
+        <a href="https://wa.me/85292497678?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E5%8A%A0%E5%85%A5%E3%80%90%E4%B8%89%E9%AB%98%E5%B7%A5%E7%A8%8B%E5%B8%AB%20%C2%B7%20%E6%B0%B4%E5%BE%AA%E7%92%B0%E8%88%87%E9%95%B7%E8%80%85%E5%81%A5%E5%BA%B7%E3%80%91%E4%BA%A4%E6%B5%81%E7%BE%A4" target="_blank" class="inline-flex items-center justify-center gap-2 bg-brand-teal hover:bg-brand-darkteal text-white px-6 py-3 rounded-xl font-bold text-xs sm:text-sm transition">
+          <i class="fab fa-whatsapp"></i>
           <span>加入 WhatsApp 交流群</span>
         </a>
-        <a href="https://www.facebook.com" target="_blank" class="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow hover:bg-blue-700 transition">
-          <i class="fab fa-facebook-f text-sm"></i>
-          <span>追蹤 Facebook 專頁</span>
-        </a>
       </div>
-    </section>
-
-  </main>
-
-  <!-- Sticky Bottom CTA for Mobile -->
-  <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 z-40 sm:hidden shadow-lg flex items-center justify-between gap-3">
-    <div>
-      <span class="text-[10px] text-slate-500 block leading-none">當前選取</span>
-      <span id="mobilePlanTitle" class="text-xs font-bold text-brand-dark">方案 1 (HK$ 1,530)</span>
     </div>
-    <a id="waStickyBtn" href="#" target="_blank" class="bg-[#25D366] text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow">
-      <i class="fab fa-whatsapp text-sm"></i>
-      <span>WhatsApp 諮詢</span>
-    </a>
-  </div>
+  </section>
 
   <!-- Footer -->
-  <footer class="bg-slate-900 text-slate-400 py-6 text-xs text-center border-t border-slate-800">
-    <div class="max-w-4xl mx-auto px-4 space-y-1">
+  <footer class="bg-slate-900 text-slate-400 py-8 text-xs border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 text-center space-y-3">
       <p>© 2026 Health Decoder 健康解碼器 · 三高工程師 Duncan Chan (health-decoder.com)</p>
-      <p class="text-slate-500">
-        ⚠️ <strong>臨床安全聲明</strong>：本專題為日常健康管理與生活型態指引，非醫療處方。服藥請恪守 2 小時隔離原則。
+      <p class="text-slate-500 max-w-2xl mx-auto leading-relaxed">
+        ⚠️ <strong>臨床安全聲明</strong>：本專題內容、自測排查與日常指引屬於營養生化科普與健康生活管理範疇，非醫療行為與處方。若有急性血尿、劇烈疼痛、胸痛或重度打鼾窒息，請即時就醫。
       </p>
     </div>
   </footer>
 
-  <!-- Interactive JavaScript Engine -->
+  <!-- Deep Diagnosis JavaScript Engine -->
   <script>
-    let currentPlan = 1;
-    let mixedCausesSummary = "下肢水分回流 (60%) ＋ 膀胱敏感/壓迫 (30%) ＋ 慢波睡眠缺乏 (10%)";
-    let currentMedNote = "未偵測到特殊西藥衝突，恪守 2 小時隔離原則";
-    let currentSituationSummary = "日間下肢水分蓄積 ＋ 夜間平躺體液回湧心臟";
-
-    const planData = {
-      1: {
-        title: "方案 1：90天深層重塑套裝",
-        price: "HK$ 1,530",
-        origPrice: "HK$ 2,040",
-        discount: "75 折 (現省 HK$ 510)",
-        specs: "天然高活性水蛭素 ✕ 納豆激酶 (3 盒，完整 90 天細胞週期) 或 薄血藥專用「心腸軸零凝血方案」",
-        dosage: "每日 2 粒隨午餐服用，修復毛細血管內皮屏障",
-        bonus: "🎁 贈送：72H 排尿日記人工審查 1 次",
-        imgDesc: "【90天深層重塑套裝】高清 3 盒裝"
-      },
-      2: {
-        title: "方案 2：30天起步體驗組",
-        price: "HK$ 578",
-        origPrice: "HK$ 680",
-        discount: "85 折 (現省 HK$ 102)",
-        specs: "天然高活性水蛭素 ✕ 納豆激酶 (1 盒，30 天驗證)",
-        dosage: "每日 2 粒隨午餐服用，體驗 7–14 天消除傍晚腳腫",
-        bonus: "標準配送與服用指導",
-        imgDesc: "【30天起步體驗組】1 盒裝"
-      },
-      3: {
-        title: "方案 3：單品散買體驗",
-        price: "HK$ 680",
-        origPrice: "HK$ 680",
-        discount: "原價 (無折扣)",
-        specs: "天然高活性水蛭素 ✕ 納豆激酶 (單盒)",
-        dosage: "單盒日常保養",
-        bonus: "標準電子收據與順豐配送",
-        imgDesc: "【單品散買】單盒裝"
-      }
-    };
-
+    // Mutual Exclusion Handler
     function handleMutualExclusive(group) {
-      const noneCheckbox = document.getElementById(group + '_none');
+      const noneCb = document.getElementById(group + '_none');
       const items = document.querySelectorAll('.' + group + '-item');
-      if (noneCheckbox.checked) {
+      if (noneCb && noneCb.checked) {
         items.forEach(cb => cb.checked = false);
       }
     }
@@ -530,241 +660,147 @@
       cb.addEventListener('change', function() {
         const group = this.className.split('-')[0];
         if (group && this.checked) {
-          const noneCheckbox = document.getElementById(group + '_none');
-          if (noneCheckbox) noneCheckbox.checked = false;
+          const noneCb = document.getElementById(group + '_none');
+          if (noneCb) noneCb.checked = false;
         }
       });
     });
 
-    function runDiagnosis() {
-      const q1_vol = document.querySelector('input[name="q1_vol"]:checked').value;
-      const q2_items = Array.from(document.querySelectorAll('input[name="q2"]:checked')).map(c => c.value);
-      const q3_items = Array.from(document.querySelectorAll('input[name="q3"]:checked')).map(c => c.value);
-      const q4_items = Array.from(document.querySelectorAll('input[name="q4"]:checked')).map(c => c.value);
-      const q5_items = Array.from(document.querySelectorAll('input[name="q5"]:checked')).map(c => c.value);
+    // Deep Diagnosis Calculation Engine
+    function calculateDeepDiagnosis() {
+      const flowType = document.querySelector('input[name="d1_flow"]:checked').value;
+      const isWatery = document.querySelector('input[name="d1_watery"]').checked;
 
-      let scoreC1 = 0; // 下肢水分平躺回流 (NP)
-      let scoreC2 = 0; // 膀胱逼尿肌缺血 / 前列腺壓迫
-      let scoreC3 = 0; // SCN 生物鐘中樞節律 / ADH 匱乏 / 血糖
-      let scoreC4 = 0; // 慢波睡眠缺乏 / 呼吸負壓 (OSA)
+      const d2_checked = Array.from(document.querySelectorAll('input[name="d2_symptoms"]:checked')).map(c => c.value);
+      const d3_checked = Array.from(document.querySelectorAll('input[name="d3_symptoms"]:checked')).map(c => c.value);
+      const d4_checked = Array.from(document.querySelectorAll('input[name="d4_symptoms"]:checked')).map(c => c.value);
+      const d5_checked = Array.from(document.querySelectorAll('input[name="d5_symptoms"]:checked')).map(c => c.value);
+      const d6_meds = Array.from(document.querySelectorAll('input[name="d6_meds"]:checked')).map(c => c.value);
 
-      if (q1_vol === 'A_large') {
-        scoreC1 += 3;
-        scoreC3 += 2;
+      let types = [];
+      let titles = [];
+      let analyses = [];
+      let actions = [];
+      let medWarnings = [];
+
+      // Category 5-A: OSA Red Line
+      if (d5_checked.includes('OSA_apnea')) {
+        types.push('Type 5-A (醫療紅線)');
+        titles.push('🚨 睡眠呼吸負壓型 (OSA)');
+        analyses.push('• <strong>上氣道塌陷與胸腔負壓</strong>：嚴重打鼾引發胸腔巨大負壓，物理牽拉心房分泌大量心房利鈉肽（ANP），強迫腎臟夜間排水。此狀況補劑無法代替醫療，首要為醫院耳鼻喉/睡眠專科檢查或評估 CPAP 呼吸器。');
+        actions.push('• 請優先至醫院進行多項睡眠電圖 (PSG) 檢查，評估配戴 CPAP 陽壓呼吸器。');
+      }
+
+      // Category 1-A: Starling Edema Return
+      if (d3_checked.includes('Starling_edema') || d3_checked.includes('Early_night_peak') || d6_meds.includes('Amlodipine') || (flowType === 'NP_large' && !d3_checked.includes('none'))) {
+        types.push('Type 1-A');
+        titles.push('🌊 下肢水分平躺回流型 (夜間多尿 NP)');
+        analyses.push('• <strong>Starling 微血管力學失衡</strong>：白天微血管通透性增加（或受 Amlodipine 降壓藥擴張微血管影響），體液漏入下肢組織間隙。夜間平躺後重力消失，體液倒灌回心臟，觸發 ANP 暴衝排水。');
+        actions.push('• <strong>傍晚 17:00–18:30 抬腿 30–45 分鐘</strong>（腳踝高於心臟 15–30cm，睡前提前排空組織液）。');
+        actions.push('• 補充 <strong>ORIYEN 強心血管通 (水蛭素+Q10)</strong> 修復血管內皮緊密連接，對沖漏水。');
+      }
+
+      // Category 1-B: Central ADH deficiency
+      if (isWatery || (flowType === 'NP_large' && d3_checked.length === 0)) {
+        types.push('Type 1-B');
+        titles.push('🧠 中樞 SCN 分子鐘衰退型');
+        analyses.push('• <strong>抗利尿激素 (ADH) 節律失調</strong>：下視丘視交叉上核 (SCN) 老化或 NAD+ 能量耗竭，夜間未能脈衝分泌 ADH，腎集尿管水通道蛋白 AQP2 未轉位，排出大量清澈稀釋尿。');
+        actions.push('• 晨起立即接受 <strong>20–30 分鐘戶外陽光直射</strong>（錨定 SCN 主時鐘）。');
+        actions.push('• 補充 <strong>ORIYEN 天然酵母 NMN 15000 (500mg)</strong> 提升 NAD+ 活化鐘基因。');
+      }
+
+      // Category 2: Bladder & Outlet Obstruction
+      if (flowType === 'CAP_small' || d2_checked.includes('BPH_hesitancy') || d2_checked.includes('PVR_retention') || d2_checked.includes('OAB_urgency')) {
+        let sub = d2_checked.includes('BPH_hesitancy') ? '前列腺 BPH 阻塞' : '逼尿肌敏化/過動 OAB';
+        types.push('Type 2');
+        titles.push(`⚡ 膀胱容積受限 ✕ ${sub}`);
+        analyses.push('• <strong>有效儲尿空間狹小</strong>：前列腺物理壓迫致殘餘尿 (PVR) 偏高，或逼尿肌慢性缺血抽搐，水箱實質容量大幅縮小，稍有微量尿液即引發急迫感。');
+        actions.push('• 實施睡前<strong>「二次排尿法 (Double Voiding)」</strong>徹底排空殘尿；14:00 後截斷咖啡因。');
+        actions.push('• 補充 <strong>Nn 液鈣鎂 D3 (甘胺酸鎂)</strong> 放鬆逼尿肌平滑肌與骨盆底肌。');
+      }
+
+      // Category 3: Muscle Pump & Spine Numbness
+      if (d3_checked.includes('Muscle_pump_weak') || d3_checked.includes('Spine_numbness')) {
+        types.push('Type 3');
+        titles.push('🦵 小腿肌泵衰退 ✕ 腰椎神經壓迫');
+        analyses.push('• <strong>第二心臟動力不足與神經缺血</strong>：小腿腓腸肌質量下降，抗重力擠壓血液回流受阻；腰椎退化伴隨微循環高阻力，放大臀腿神經缺血麻痺感。');
+        actions.push('• 補充 <strong>ORIYEN 蛋白高營素 (含 HMB)</strong> 重建小腿肌肉量；日間每小時做 30 次坐姿提踵。');
+        actions.push('• 練琴/久坐於腰後配置支撐靠墊，每日執行 2–3 次「抱膝貼胸」神經物理減壓。');
+      }
+
+      // Category 4: Metabolic, Endocrine & Gut-Heart
+      if (d4_checked.includes('Diabetes_osmotic') || d4_checked.includes('Menopause_GSM') || d4_checked.includes('Gut_leaky_halitosis')) {
+        types.push('Type 4');
+        titles.push('🧬 代謝滲透 ✕ 更年期黏膜 ✕ 心腸軸微生態');
+        analyses.push('• <strong>黏膜屏障受損與高糖利尿</strong>：高血糖滲透性利尿，或女性雌激素缺乏致泌尿黏膜萎縮；腸道菌群失衡 (LPS 內毒素) 加重微血管通透性。');
+        actions.push('• 補充 <strong>Nn 三效益生菌</strong> 修復腸道黏膜緊密連接，切斷內毒素入血血管發炎鏈。');
+        actions.push('• 晚餐嚴格極低鈉低升糖，徹底戒除精緻碳水。');
+      }
+
+      // Category 5-B: Light Sleep
+      if (d5_checked.includes('Light_sleep_N3')) {
+        types.push('Type 5-B');
+        titles.push('🌙 慢波睡眠缺乏 ✕ 偽性夜尿');
+        analyses.push('• <strong>大腦感覺門控失效</strong>：大腦缺乏 N3 慢波深層睡眠，頻繁微覺醒解除了排尿抑制中樞，醒來「順便」想尿。');
+        actions.push('• 睡前 15 分鐘溫水足浴 + <strong>箱式呼吸法 (Box Breathing)</strong> 快速切換至副交感神經。');
+        actions.push('• 補充 <strong>Nn 液鈣鎂 D3</strong> 延長深層修復睡眠。');
+      }
+
+      // Default Fallback
+      if (types.length === 0) {
+        types.push('Type 1-A');
+        titles.push('🌊 下肢水分平躺回流型');
+        analyses.push('• 根據基礎排查，您的夜尿主要源於日間體液重力下沉，夜間平躺後水分倒灌心臟引發排洪。');
+        actions.push('• 傍晚 17:00 平躺抬腿 30 分鐘 + 睡前二次排尿。');
+      }
+
+      // Medication Warnings & Safety Guardrails (Aligned with Leung Tai)
+      if (d6_meds.includes('Aspirin')) {
+        medWarnings.push('• ⚠️ <strong>正服用 Aspirin (阿斯匹靈/通血管)</strong>：【核心安全紅線】嚴禁併用高劑量溶栓（如納豆激酶）或強效活血成分。水蛭素配方劑量減半並間隔 2 小時，或切換為心腸軸零凝血安全方案。');
+      }
+      if (d6_meds.includes('Amlodipine')) {
+        medWarnings.push('• 🟢 <strong>正服用 Amlodipine (CCB 降壓藥)</strong>：此藥擴張前毛細血管是導致腳腫與夜尿的直接誘因。強心血管通（原花青素）能修復微血管內皮，對沖水腫副作用。');
+      }
+      if (d6_meds.includes('PPI_gastric') || d6_meds.includes('Hospital_calcium')) {
+        medWarnings.push('• ⚠️ <strong>正服用 PPI 胃藥 / 公立醫院碳酸鈣</strong>：胃藥強效抑酸使碳酸鈣無法解離吸收，易在腸道結塊便秘並在關節沉積假性痛風 (CPPD)。<strong>全面改用免胃酸解離之「Nn 液鈣鎂 D3」</strong>。');
+      }
+      if (d6_meds.includes('Statin_lipid')) {
+        medWarnings.push('• 🟢 <strong>正服用 Statin 降脂藥</strong>：Statin 阻斷 CoQ10 合成引發心肌與肌肉乏力。強烈建議隨餐補充水溶性輔酶 Q10 與 NMN 填補能量池。');
+      }
+      if (d6_meds.includes('Warfarin')) {
+        medWarnings.push('• 🚨 <strong>正服用 Warfarin (薄血藥)</strong>：【絕對禁忌】絕對禁用含維生素 K2、納豆激酶之產品！');
+      }
+
+      // Render Result to DOM
+      const isMixed = types.length > 1;
+      document.getElementById('resultBadge').textContent = isMixed ? `複合混合型 (${types.join(' + ')})` : types[0];
+      document.getElementById('resultTitle').innerHTML = isMixed ? `🔴 複合混合式故障型態：${titles.join(' ＋ ')}` : `🔵 單一核心故障型態：${titles[0]}`;
+      document.getElementById('resultAnalysis').innerHTML = analyses.join('<br><br>');
+      document.getElementById('resultAction').innerHTML = actions.map(a => `<div>${a}</div>`).join('');
+
+      const medBox = document.getElementById('medWarningBox');
+      const medContent = document.getElementById('medWarningContent');
+      if (medWarnings.length > 0) {
+        medContent.innerHTML = medWarnings.join('<br>');
+        medBox.classList.remove('hidden');
       } else {
-        scoreC2 += 4;
+        medBox.classList.add('hidden');
       }
 
-      if (q2_items.some(s => s.includes('小腿腫脹'))) scoreC1 += 4;
-      if (q2_items.some(s => s.includes('前半夜尿多'))) scoreC1 += 3;
-      if (q2_items.some(s => s.includes('小腿無力'))) scoreC1 += 3;
+      // WhatsApp Share Link Generation
+      const waMessage = `你好Duncan，我剛完成了【夜尿 5 大成因全景自測】：
+- 流量判定：${flowType === 'NP_large' ? '單次尿量多' : '單次尿量少'}
+- 判定型態：${isMixed ? '複合混合型' : types[0]} - ${titles.join(' + ')}
+- 西藥背景：${d6_meds.join(', ') || '無'}
 
-      if (q3_items.some(s => s.includes('尿流變細'))) scoreC2 += 3;
-      if (q3_items.some(s => s.includes('突發尿急'))) scoreC2 += 3;
-      if (q3_items.some(s => s.includes('殘尿感'))) scoreC2 += 3;
+我想向三高工程師請教適合我嘅生活作息排程與精準調理方案！`;
 
-      if (q4_items.some(s => s.includes('打鼾'))) scoreC4 += 5;
-      if (q4_items.some(s => s.includes('淺眠'))) {
-        scoreC4 += 3;
-        scoreC3 += 2;
-      }
-      if (q4_items.some(s => s.includes('口渴'))) scoreC3 += 4;
+      document.getElementById('whatsappShareBtn').href = `https://wa.me/85292497678?text=${encodeURIComponent(waMessage)}`;
 
-      if (q5_items.some(m => m.includes('CCB'))) scoreC1 += 3;
-
-      if (scoreC1 === 0 && scoreC2 === 0 && scoreC3 === 0 && scoreC4 === 0) {
-        scoreC1 = 6;
-        scoreC2 = 3;
-        scoreC4 = 1;
-      }
-
-      let totalScore = scoreC1 + scoreC2 + scoreC3 + scoreC4;
-      if (totalScore === 0) totalScore = 1;
-
-      let pctC1 = Math.round((scoreC1 / totalScore) * 100);
-      let pctC2 = Math.round((scoreC2 / totalScore) * 100);
-      let pctC3 = Math.round((scoreC3 / totalScore) * 100);
-      let pctC4 = 100 - (pctC1 + pctC2 + pctC3);
-      if (pctC4 < 0) { pctC4 = 0; }
-
-      const causesList = [
-        { id: 1, name: "🌊 下肢水分平躺回流型 (NP)", pct: pctC1, color: "bg-blue-600", desc: "日間水分滲漏下肢，平躺水分流回心臟引發 ANP 排水" },
-        { id: 2, name: "⚡ 前列腺肥大 ✕ 膀胱過敏痙攣", pct: pctC2, color: "bg-amber-500", desc: "前列腺壓迫或逼尿肌緊張，水箱有效容量縮小" },
-        { id: 3, name: "🔋 中樞 SCN 節律 ✕ 血糖滲透性利尿", pct: pctC3, color: "bg-purple-600", desc: "抗利尿激素不足或高血糖帶走水分引發利尿" },
-        { id: 4, name: "🌙 慢波睡眠缺乏 ✕ 呼吸負壓 (OSA)", pct: pctC4, color: "bg-rose-500", desc: "大腦睡不沉微覺醒順便尿，或嚴重打鼾氣道負壓" }
-      ].filter(c => c.pct > 0).sort((a, b) => b.pct - a.pct);
-
-      let barsHtml = causesList.map(c => `
-        <div class="space-y-1">
-          <div class="flex justify-between items-center text-xs">
-            <span class="font-bold text-brand-dark">${c.name}</span>
-            <span class="font-black text-brand-teal text-sm">${c.pct}%</span>
-          </div>
-          <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
-            <div class="${c.color} h-2.5 rounded-full transition-all duration-700" style="width: ${c.pct}%"></div>
-          </div>
-          <p class="text-[10px] text-slate-500">${c.desc}</p>
-        </div>
-      `).join('');
-
-      document.getElementById('causePercentageBars').innerHTML = barsHtml;
-
-      mixedCausesSummary = causesList.map(c => `${c.name.split(' ')[1]} (${c.pct}%)`).join(' ＋ ');
-
-      // Update Situation (處境)
-      const topCause = causesList[0];
-      let situationDesc = "";
-      if (topCause.id === 1) {
-        situationDesc = "您目前的身體真實處境：<strong>【日間下肢水分蓄積 ＋ 夜間平躺體液倒灌】</strong>。白天微血管通透性過大將水分積在下肢（傍晚鞋緊），晚上平躺後重力消失，體液倒灌回心臟引發心房利鈉肽 (ANP) 暴衝，導致前半夜排出大量稀釋尿水。";
-        currentSituationSummary = "下肢水分蓄積與平躺體液倒灌";
-      } else if (topCause.id === 2) {
-        situationDesc = "您目前的身體真實處境：<strong>【膀胱水箱有效容量縮小 ✕ 逼尿肌過敏】</strong>。前列腺肥大造成出口阻抗，或逼尿肌微循環缺血痙攣，每次只裝幾十毫升即觸發強烈急迫感。";
-        currentSituationSummary = "水箱容量縮小與逼尿肌過敏";
-      } else if (topCause.id === 3) {
-        situationDesc = "您目前的身體真實處境：<strong>【中樞抗利尿激素分泌不足 / 高血糖滲透利尿】</strong>。生物鐘 SCN 退化使腎臟夜間失去濃縮尿液訊號，排出清澈如水的未濃縮尿。";
-        currentSituationSummary = "中樞生物鐘節律退化/多尿";
-      } else {
-        situationDesc = "您目前的身體真實處境：<strong>【慢波睡眠結構破碎 ✕ 假性夜尿】</strong>。深層慢波睡眠不足引發頻繁微覺醒，或上氣道負壓牽拉心房排水。";
-        currentSituationSummary = "深層慢波缺乏/假性夜尿";
-      }
-      document.getElementById('situationText').innerHTML = situationDesc;
-
-      // Update Module 4 Targeted Guidance
-      let guidanceHtml = "";
-      if (topCause.id === 1) {
-        guidanceHtml = `
-          <div class="font-bold text-brand-dark text-sm flex items-center gap-2">
-            <i class="fas fa-check-circle text-teal-600"></i>
-            <span>針對您處境的改善重點與解決方向（下肢水分回流）：</span>
-          </div>
-          <ul class="space-y-1.5 text-xs text-slate-700 list-disc list-inside">
-            <li><strong>傍晚提前排空（核心！）</strong>：17:00–18:30 平躺抬腳 15–30cm 躺 20–30 分鐘，讓下肢積水在睡前經腎臟排清。</li>
-            <li><strong>水分與控鈉斷點</strong>：18:00 前完成全天 80% 喝水，晚餐鹽量嚴格控制在 1.5g 以內。</li>
-            <li><strong>修復血管內皮防滲</strong>：補充天然水蛭素與 Q10，減少白天微血管漏水。</li>
-          </ul>
-        `;
-      } else if (topCause.id === 2) {
-        guidanceHtml = `
-          <div class="font-bold text-brand-dark text-sm flex items-center gap-2">
-            <i class="fas fa-check-circle text-teal-600"></i>
-            <span>針對您處境的改善重點與解決方向（膀胱過敏/容量縮小）：</span>
-          </div>
-          <ul class="space-y-1.5 text-xs text-slate-700 list-disc list-inside">
-            <li><strong>睡前二次排尿法 (Double Voiding)</strong>：排尿後走動 30 秒，再度坐下身體前傾二次排空。</li>
-            <li><strong>放鬆逼尿肌</strong>：睡前補充微米化鎂放鬆膀胱平滑肌，睡前 15 分鐘溫敷下腹（恥骨上方）。</li>
-            <li><strong>14:00 後截斷刺激源</strong>：嚴禁咖啡因、濃茶與辛辣食物。</li>
-          </ul>
-        `;
-      } else {
-        guidanceHtml = `
-          <div class="font-bold text-brand-dark text-sm flex items-center gap-2">
-            <i class="fas fa-check-circle text-teal-600"></i>
-            <span>針對您處境的改善重點與解決方向（生物鐘與睡眠）：</span>
-          </div>
-          <ul class="space-y-1.5 text-xs text-slate-700 list-disc list-inside">
-            <li><strong>晨間 SCN 錨定</strong>：起床 30 分鐘內戶外曬太陽 20 分鐘，校正大腦生物鐘。</li>
-            <li><strong>重塑慢波睡眠</strong>：睡前微米化鈣鎂安定神經，配合箱式呼吸法。</li>
-            <li><strong>嚴重打鼾檢查</strong>：若有睡眠呼吸暫停，優先配合醫療配戴 CPAP 消除胸腔負壓。</li>
-          </ul>
-        `;
-      }
-      document.getElementById('dynamicTargetedGuidance').innerHTML = guidanceHtml;
-
-      // Drug safety note
-      let medNotes = [];
-      if (q5_items.some(m => m.includes('Warfarin'))) {
-        medNotes.push("🛑 <strong>吃薄血藥 (Warfarin) 警示</strong>：絕對不能吃含維生素 K2、水蛭素、納豆激酶的保健品！已為您切換為<strong>「NMN ＋ 專用益生菌 ＋ 蝦青素 ＋ Q10」心腸軸零凝血風險安全方案</strong>。");
-      }
-      if (q5_items.some(m => m.includes('Statins'))) {
-        medNotes.push("⚠️ <strong>吃他汀類降脂藥</strong>：建議搭配輔酶 Q10 彌補心肌能量耗損，緩解肌肉酸痛。");
-      }
-      if (q5_items.some(m => m.includes('Amlodipine'))) {
-        medNotes.push("✅ <strong>吃 Amlodipine 降壓藥</strong>：易引起腳腫，天然水蛭素有助修復內皮屏障對沖副作用。");
-      }
-      if (q5_items.some(m => m.includes('PPI'))) {
-        medNotes.push("⚠️ <strong>吃胃藥/抑酸劑</strong>：傳統鈣片難以吸收易致便秘（便秘會壓迫膀胱加重夜尿！）。請改用不依賴胃酸解離之「微米化鈣鎂」。");
-      }
-      if (q5_items.some(m => m.includes('Aspirin'))) {
-        medNotes.push("🟡 <strong>吃阿斯匹靈</strong>：血管保健品請與阿斯匹靈隔開至少 2 小時。");
-      }
-      if (medNotes.length === 0) {
-        medNotes.push("• 恪守西藥與保健品間隔至少 2 小時之物理隔離原則。");
-      }
-
-      currentMedNote = medNotes.join("<br>");
-      document.getElementById('drugSafetyText').innerHTML = currentMedNote;
-
-      updateWhatsAppLinks();
-
-      document.getElementById('module-2').scrollIntoView({ behavior: 'smooth' });
+      const diagCard = document.getElementById('diagnosisCard');
+      diagCard.classList.remove('hidden');
+      diagCard.scrollIntoView({ behavior: 'smooth' });
     }
-
-    function switchPlan(planNum) {
-      currentPlan = planNum;
-      
-      for (let i = 1; i <= 3; i++) {
-        const tab = document.getElementById('tab-plan' + i);
-        if (i === planNum) {
-          tab.className = "plan-tab p-4 rounded-xl border-2 border-brand-teal bg-teal-50 text-brand-dark text-left transition shadow-sm relative";
-        } else {
-          tab.className = "plan-tab p-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition";
-        }
-      }
-
-      const p = planData[planNum];
-      const detailContainer = document.getElementById('planDetailContent');
-      detailContainer.innerHTML = `
-        <div class="md:col-span-5 bg-white p-4 rounded-xl border border-slate-200 aspect-square flex flex-col items-center justify-center text-center shadow-sm">
-          <div class="w-20 h-20 bg-teal-100 text-brand-teal rounded-2xl flex items-center justify-center text-3xl mb-2">
-            <i class="fas fa-box-open"></i>
-          </div>
-          <span class="font-bold text-xs text-brand-dark">${p.imgDesc}</span>
-          <span class="text-[10px] text-brand-teal mt-1 font-semibold">${p.discount}</span>
-        </div>
-        <div class="md:col-span-7 space-y-2 text-xs sm:text-sm">
-          <div class="flex items-baseline justify-between border-b border-slate-200 pb-2">
-            <h4 class="font-black text-base text-brand-dark">${p.title}</h4>
-            <div class="text-right">
-              <span class="text-base font-black text-brand-teal">${p.price}</span>
-              <span class="text-[11px] text-slate-400 line-through block">${p.origPrice}</span>
-            </div>
-          </div>
-          <div class="space-y-1 text-slate-600 pt-1">
-            <p>📦 <strong>包含內容</strong>：${p.specs}</p>
-            <p>💊 <strong>食用指引</strong>：${p.dosage}</p>
-            <p class="text-emerald-700 font-bold">${p.bonus}</p>
-          </div>
-        </div>
-      `;
-
-      document.getElementById('mobilePlanTitle').textContent = `${p.title.split('：')[0]} (${p.price})`;
-
-      updateWhatsAppLinks();
-    }
-
-    function updateWhatsAppLinks() {
-      const p = planData[currentPlan];
-      document.getElementById('waBtnLabel').textContent = `WhatsApp 一鍵諮詢下單：【${p.title}】(${p.price})`;
-
-      const cleanMedNote = currentMedNote.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-
-      const waMsg = `你好 Duncan，我完成了【夜尿專頁處境自測】：
-・目前身體處境：${currentSituationSummary}
-・混合成因佔比：${mixedCausesSummary}
-・用藥安全備註：${cleanMedNote}
--------------------
-我想諮詢的改善方案是：【${p.title}】(${p.price})
-請教接下來的具體安排與建議！`;
-
-      const finalUrl = `https://wa.me/85298788564?text=${encodeURIComponent(waMsg)}`;
-      document.getElementById('waMainSubmitBtn').href = finalUrl;
-      document.getElementById('waStickyBtn').href = finalUrl;
-    }
-
-    // Initial Load
-    runDiagnosis();
-    switchPlan(1);
-    updateWhatsAppLinks();
   </script>
 
 </body>

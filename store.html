@@ -21,73 +21,75 @@
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
 
-    <header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-rose-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-                    <i class="fa-solid fa-code text-white text-lg"></i>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                    <i class="fa-solid fa-heart-pulse text-white text-lg"></i>
                 </div>
-                <span class="font-bold text-xl tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Nexus Web Craft</span>
+                <span class="font-bold text-xl tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Vitality BioLab</span>
             </div>
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
-                <a href="#features" class="hover:text-white transition">核心技術</a>
-                <a href="#shop" class="hover:text-white transition text-indigo-400 font-semibold">線上商店</a>
-                <a href="#interactive-3d" class="hover:text-white transition">3D 互動</a>
-                <a href="#components" class="hover:text-white transition">介面組件</a>
+                <a href="#shop" class="hover:text-white transition">保健品專區</a>
+                <a href="#interactive-3d" class="hover:text-white transition">3D 分子結構展示</a>
+                <a href="#features" class="hover:text-white transition">科學認證</a>
+                <a href="#playground" class="hover:text-white transition">營養計算沙盒</a>
             </nav>
             <div class="flex items-center space-x-4">
                 <!-- Shopping Cart Trigger Button -->
-                <button onclick="toggleCartModal()" class="relative p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition">
+                <button onclick="toggleCartModal()" class="relative p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition flex items-center gap-2">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center hidden">0</span>
+                    <span class="hidden sm:inline text-xs font-semibold">購物車</span>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center hidden">0</span>
                 </button>
-                <button onclick="showToast('歡迎體驗頂級網頁工藝！')" class="hidden sm:inline-block px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition shadow-lg shadow-indigo-600/20 active:scale-95">
-                    立即聯絡
+                <button onclick="showToast('感謝您的蒞臨！營養諮詢師隨時為您服務。')" class="hidden sm:inline-block px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm transition shadow-lg shadow-emerald-600/20 active:scale-95">
+                    線上營養諮詢
                 </button>
             </div>
         </div>
     </header>
 
-    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/30 via-slate-950/0 to-slate-950/0 pointer-events-none"></div>
+    <section class="relative pt-36 pb-24 md:pt-48 md:pb-36 overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/40 via-slate-950/0 to-slate-950/0 pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto">
-                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-6">
-                    <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-                    <span>次世代前端開發</span>
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-6">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>COSWAY 尊尚保健與全方位營養方案</span>
                 </div>
-                <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white mb-6 leading-tight">
-                    打破極限，打造頂級的 <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-rose-400 bg-clip-text text-transparent">數位互動網頁</span>
+                <h1 class="text-4xl sm:text-7xl font-black tracking-tight text-white mb-8 leading-[1.1]">
+                    守護全家健康，開啟 <span class="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">黃金活力新生活</span>
                 </h1>
-                <p class="text-slate-400 text-lg sm:text-xl mb-10 font-light leading-relaxed">
-                    我們融合美學設計、極致效能與 3D 視覺渲染，為您呈獻超越想像的網頁端解決方案。
+                <p class="text-slate-400 text-lg sm:text-2xl mb-12 font-light leading-relaxed max-w-2xl mx-auto">
+                    嚴選國際頂級天然草本萃取、專利益生菌與多重維生素，給您純淨、高效且安全的健康防護。
                 </p>
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#shop" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold shadow-xl shadow-indigo-600/30 transition text-center">
-                        瀏覽線上商店
+                    <a href="#shop" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold shadow-2xl shadow-emerald-600/30 transition text-center">
+                        瀏覽保健品目錄
                     </a>
                     <a href="#interactive-3d" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white font-semibold transition text-center">
-                        體驗 3D 互動視覺
+                        檢視 3D 分子結構
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NEW SECTION: E-Commerce Product Storefront -->
-    <section id="shop" class="py-20 border-t border-slate-900 bg-slate-900/30">
+    <!-- E-Commerce Product Storefront -->
+    <section id="shop" class="py-24 border-t border-slate-900 bg-slate-900/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div>
-                    <span class="text-indigo-400 text-xs font-semibold uppercase tracking-wider block mb-2">精選商品陳列</span>
-                    <h2 class="text-3xl font-bold text-white">探索我們的創新數位與實體產品</h2>
+                    <span class="text-emerald-400 text-xs font-semibold uppercase tracking-wider block mb-2">精選保健品陳列</span>
+                    <h2 class="text-3xl font-bold text-white">COSWAY 旗艦營養與健康組合</h2>
                 </div>
                 <!-- Category Filter Buttons -->
                 <div class="flex flex-wrap gap-2">
-                    <button onclick="filterProducts('all')" class="category-btn px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold transition active:scale-95" data-category="all">全部商品</button>
-                    <button onclick="filterProducts('digital')" class="category-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition active:scale-95" data-category="digital">數位資產</button>
-                    <button onclick="filterProducts('hardware')" class="category-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition active:scale-95" data-category="hardware">硬體周邊</button>
-                    <button onclick="filterProducts('service')" class="category-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition active:scale-95" data-category="service">客製服務</button>
+                    <button onclick="filterProducts('all')" class="category-btn px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold transition active:scale-95" data-category="all">全部商品</button>
+                    <button onclick="filterProducts('immunity')" class="category-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition active:scale-95" data-category="immunity">免疫護理</button>
+                    <button onclick="filterProducts('vitality')" class="category-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition active:scale-95" data-category="vitality">日常活力</button>
+                    <button onclick="filterProducts('beauty')" class="category-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition active:scale-95" data-category="beauty">青春美妍</button>
+                    <button onclick="filterProducts('set')" class="category-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition active:scale-95" data-category="set">尊尚套裝</button>
                 </div>
             </div>
 
@@ -101,17 +103,17 @@
     <section id="interactive-3d" class="py-20 border-t border-slate-900 bg-slate-950/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-white mb-3">即時 3D 互動視覺渲染</h2>
-                <p class="text-slate-400 text-sm">直接在瀏覽器中運用 Three.js 呈現流暢的 3D 幾何動畫</p>
+                <h2 class="text-3xl font-bold text-white mb-3">生物活性分子即時 3D 渲染</h2>
+                <p class="text-slate-400 text-sm">探索保健成分的立體結構與純淨細胞吸收模型</p>
             </div>
             <div class="relative w-full h-[400px] sm:h-[500px] rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl">
                 <div id="webgl-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
                 <div class="absolute bottom-6 left-6 right-6 sm:left-auto sm:right-6 bg-slate-950/80 backdrop-blur-md border border-slate-800 p-4 rounded-2xl flex items-center justify-between gap-4 pointer-events-none">
                     <div>
-                        <div class="text-xs font-semibold text-indigo-400">WebGL 核心運作中</div>
-                        <div class="text-sm font-medium text-white">點擊並拖曳以旋轉 3D 物件</div>
+                        <div class="text-xs font-semibold text-emerald-400">分子模型運作中</div>
+                        <div class="text-sm font-medium text-white">點擊並拖曳以旋轉 3D 結構</div>
                     </div>
-                    <button onclick="toggleRotationSpeed()" class="pointer-events-auto px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition">
+                    <button onclick="toggleRotationSpeed()" class="pointer-events-auto px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition">
                         切換轉速
                     </button>
                 </div>
@@ -122,31 +124,31 @@
     <section id="features" class="py-20 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="p-8 rounded-3xl bg-slate-900/50 border border-slate-800/80 hover:border-indigo-500/50 transition group">
-                    <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-2xl mb-6 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-bolt"></i>
+                <div class="p-8 rounded-3xl bg-slate-900/50 border border-slate-800/80 hover:border-emerald-500/50 transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-seedling"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">極速載入優化</h3>
+                    <h3 class="text-xl font-bold text-white mb-3">100% 天然純淨萃取</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">
-                        精簡的程式碼架構與現代化建構工具，確保網頁在任何行動裝置與桌機上均能秒開。
+                        嚴選全球無汙染產地植物精華，保留最高活性成分，給身體最無負擔的滋養。
                     </p>
                 </div>
-                <div class="p-8 rounded-3xl bg-slate-900/50 border border-slate-800/80 hover:border-indigo-500/50 transition group">
-                    <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-mobile-screen-button"></i>
+                <div class="p-8 rounded-3xl bg-slate-900/50 border border-slate-800/80 hover:border-emerald-500/50 transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-flask"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">完美響應式設計</h3>
+                    <h3 class="text-xl font-bold text-white mb-3">科學臨床實證</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">
-                        完全適配手機、平板與超寬螢幕，提供無縫且一致的流暢使用者體驗。
+                        每款保健品均經過嚴格實驗室檢驗與生物利用率測試，確保卓越吸收效果。
                     </p>
                 </div>
-                <div class="p-8 rounded-3xl bg-slate-900/50 border border-slate-800/80 hover:border-indigo-500/50 transition group">
-                    <div class="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 text-2xl mb-6 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-shield-halved"></i>
+                <div class="p-8 rounded-3xl bg-slate-900/50 border border-slate-800/80 hover:border-emerald-500/50 transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-award"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">高安全性防護</h3>
+                    <h3 class="text-xl font-bold text-white mb-3">國際品質認證</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">
-                        嚴格遵循網頁安全標準，杜絕常見漏洞，確保使用者數據絕對隱私安全。
+                        符合 GMP、ISO 及多項國際食品安全標準，讓您全家食用安心無虞。
                     </p>
                 </div>
             </div>
@@ -156,25 +158,25 @@
     <section id="playground" class="py-20 border-t border-slate-900 bg-slate-900/20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-white mb-3">互動組件沙盒</h2>
-                <p class="text-slate-400 text-sm">親身體驗我們打造的互動控制器與即時反饋元件</p>
+                <h2 class="text-3xl font-bold text-white mb-3">每日營養需求計算沙盒</h2>
+                <p class="text-slate-400 text-sm">自訂您的日常保健膠囊攝取與水分補充建議</p>
             </div>
             <div class="p-8 sm:p-10 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl">
                 <div class="space-y-6">
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2">調整計數器數值</label>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">調整每日建議膠囊份量</label>
                         <div class="flex items-center space-x-4">
                             <button onclick="updateCounter(-1)" class="w-12 h-12 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xl flex items-center justify-center transition active:scale-95">-</button>
-                            <span id="counter-value" class="text-3xl font-black text-indigo-400 w-16 text-center">0</span>
+                            <span id="counter-value" class="text-3xl font-black text-emerald-400 w-16 text-center">2</span>
                             <button onclick="updateCounter(1)" class="w-12 h-12 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xl flex items-center justify-center transition active:scale-95">+</button>
-                            <button onclick="resetCounter()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium transition">重設</button>
+                            <button onclick="resetCounter()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium transition">重設標準</button>
                         </div>
                     </div>
                     <div class="pt-6 border-t border-slate-800">
-                        <label class="block text-sm font-medium text-slate-300 mb-2">即時文字同步輸入</label>
-                        <input type="text" id="live-input" oninput="syncText(this.value)" placeholder="在此輸入文字..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition">
+                        <label class="block text-sm font-medium text-slate-300 mb-2">健康備忘錄與飲食筆記</label>
+                        <input type="text" id="live-input" oninput="syncText(this.value)" placeholder="在此輸入您的健康目標或備忘..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 transition">
                         <div class="mt-3 p-4 rounded-xl bg-slate-950 border border-slate-800/80 text-slate-400 text-sm">
-                            即時預覽：<span id="live-output" class="text-white font-medium">（尚無輸入）</span>
+                            即時記錄：<span id="live-output" class="text-white font-medium">（尚無記錄）</span>
                         </div>
                     </div>
                 </div>
@@ -183,7 +185,7 @@
     </section>
 
     <footer class="py-12 border-t border-slate-900 bg-slate-950 text-center text-slate-500 text-sm">
-        <p>&copy; 2026 Nexus Web Craft. All rights reserved. 採用 HTML5、Tailwind CSS 與 Three.js 構建。</p>
+        <p>&copy; 2026 COSWAY Health & BioLab. All rights reserved. 採用高品質保健品配方與國際生技標準打造。</p>
     </footer>
 
     <!-- Cart Slide-over / Modal -->
@@ -193,7 +195,7 @@
             <div class="w-screen max-w-md bg-slate-900 border-l border-slate-800 flex flex-col shadow-2xl">
                 <div class="p-6 border-b border-slate-800 flex items-center justify-between">
                     <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-cart-shopping text-indigo-400"></i> 您的購物車
+                        <i class="fa-solid fa-cart-shopping text-emerald-400"></i> 保健品購物車
                     </h3>
                     <button onclick="toggleCartModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
                         <i class="fa-solid fa-xmark"></i>
@@ -207,31 +209,33 @@
                         <span class="text-slate-400 text-sm">總計金額</span>
                         <span id="cart-total" class="text-2xl font-black text-white">NT$ 0</span>
                     </div>
-                    <button onclick="checkoutCart()" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold shadow-lg shadow-indigo-600/30 transition">
-                        前往結帳
+                    <button onclick="checkoutCart()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold shadow-lg shadow-emerald-600/30 transition">
+                        確認訂購保健方案
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Custom Toast Notification System (Replaces alert) -->
+    <!-- Custom Toast Notification System -->
     <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
-        <div class="px-6 py-4 rounded-2xl bg-indigo-600 text-white font-medium shadow-2xl shadow-indigo-600/40 flex items-center space-x-3">
+        <div class="px-6 py-4 rounded-2xl bg-emerald-600 text-white font-medium shadow-2xl shadow-emerald-600/40 flex items-center space-x-3">
             <i class="fa-solid fa-circle-check text-lg"></i>
             <span id="toast-message">提示訊息</span>
         </div>
     </div>
 
     <script>
-        // Mock Product Database
+        // COSWAY Spreadsheet Product Database
         const products = [
-            { id: 1, name: 'Nexus 3D 互動引擎模板', category: 'digital', price: 2800, badge: '熱銷', image: 'https://placehold.co/600x400/1e1b4b/818cf8?text=Nexus+3D+Engine', desc: '高度最佳化的 Three.js 網頁 3D 模板，內建互動旋轉與光源特效。' },
-            { id: 2, name: 'CyberDash 開發者機械鍵盤', category: 'hardware', price: 4500, badge: '新品', image: 'https://placehold.co/600x400/0f172a/38bdf8?text=Mechanical+Keyboard', desc: '專為前端工程師打造的極致手感 RGB 機械鍵盤，支援三模連線。' },
-            { id: 3, name: '企業級網頁效能優化諮詢', category: 'service', price: 12000, badge: '專業', image: 'https://placehold.co/600x400/311042/e879f9?text=Performance+Audit', desc: '一對一診斷您的網站瓶頸，全面提升 Google Lighthouse 評分至 95+。' },
-            { id: 4, name: 'UI/UX 頂級元件設計套件庫', category: 'digital', price: 1600, badge: '熱門', image: 'https://placehold.co/600x400/09090b/a1a1aa?text=UI+Kit+Pro', desc: '包含 100+ 種高質感 Tailwind CSS 響應式互動組件與網頁區塊。' },
-            { id: 5, name: 'NeoDesk 鋁合金筆電支架', category: 'hardware', price: 1280, badge: '精選', image: 'https://placehold.co/600x400/18181b/f43f5e?text=Laptop+Stand', desc: '符合人體工學的堅固支架，有效改善長時間寫扣的頸椎負擔。' },
-            { id: 6, name: '全端網頁客製化開發專案', category: 'service', price: 35000, badge: '客製', image: 'https://placehold.co/600x400/022c22/34d399?text=Custom+Web+Dev', desc: '從零到有打造符合您企業需求的頂級品牌形象網站與後台系統。' }
+            { id: 1, name: 'COSWAY 頂級蜂膠滴劑 EX', category: 'immunity', price: 1680, badge: '熱銷', image: 'https://placehold.co/600x400/064e3b/34d399?text=Propolis+Drop', desc: '嚴選高純度巴西綠蜂膠，強效防護日常外在威脅，全方位提升免疫力。' },
+            { id: 2, name: '多重專利活性益生菌膠囊', category: 'immunity', price: 1350, badge: '人氣', image: 'https://placehold.co/600x400/022c22/6ee7b7?text=Probiotics+Pro', desc: '每顆含有 300 億專利活性乳酸菌，調整腸道菌叢生態，順暢有感。' },
+            { id: 3, name: '活力綜合維生素B群發泡錠', category: 'vitality', price: 880, badge: '日常', image: 'https://placehold.co/600x400/042f2e/2dd4bf?text=Vitamin+B+Complex', desc: '高單位維生素 B1、B6、B12 與維生素 C，迅速為身體充電、揮別疲勞。' },
+            { id: 4, name: '深海極萃 Omega-3 魚油軟膠囊', category: 'vitality', price: 1980, badge: '首選', image: 'https://placehold.co/600x400/042f2e/5eead4?text=Omega-3+Fish+Oil', desc: '高濃度 85% EPA/DHA，純淨無重金屬汙染，守護心血管與思緒清晰。' },
+            { id: 5, name: '冰晶番茄白藜蘆醇青春飲', category: 'beauty', price: 2280, badge: '新品', image: 'https://placehold.co/600x400/134e4a/99f6e4?text=Resveratrol+Drink', desc: '結合專利冰晶番茄與高純度白藜蘆醇，養顏美容、綻放透亮光澤。' },
+            { id: 6, name: '膠原蛋白胜肽珍珠粉美妍包', category: 'beauty', price: 1580, badge: '熱賣', image: 'https://placehold.co/600x400/044e54/22d3ee?text=Collagen+Pearl', desc: '小分子魚膠原蛋白搭配奈米珍珠粉，鎖水保濕、彈潤由內而外。' },
+            { id: 7, name: 'COSWAY 尊尚全家健康防護超級套裝', category: 'set', price: 5600, badge: '特惠', image: 'https://placehold.co/600x400/022f40/38bdf8?text=Family+Wellness+Set', desc: '包含蜂膠滴劑、B群、魚油與益生菌，滿足全家人一整季的全面健康防護。' },
+            { id: 8, name: '凍齡美妍奢華養生禮盒', category: 'set', price: 4200, badge: '限量', image: 'https://placehold.co/600x400/082f49/7dd3fc?text=Anti-Aging+Gift+Box', desc: '白藜蘆醇飲品與膠原蛋白完美結合，送禮自用皆相宜的頂級保養組合。' }
         ];
 
         let cart = [];
@@ -245,12 +249,12 @@
 
             filtered.forEach(product => {
                 const card = document.createElement('div');
-                card.className = 'p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between group';
+                card.className = 'p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between group';
                 card.innerHTML = `
                     <div>
                         <div class="relative w-full h-48 rounded-2xl overflow-hidden mb-6 bg-slate-950">
                             <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-indigo-600/90 backdrop-blur-md text-white text-xs font-semibold">
+                            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-emerald-600/90 backdrop-blur-md text-white text-xs font-semibold">
                                 ${product.badge}
                             </span>
                         </div>
@@ -258,8 +262,8 @@
                         <p class="text-slate-400 text-sm mb-4 line-clamp-2">${product.desc}</p>
                     </div>
                     <div class="flex items-center justify-between pt-4 border-t border-slate-800/80">
-                        <span class="text-xl font-black text-indigo-400">NT$ ${product.price.toLocaleString()}</span>
-                        <button onclick="addToCart(${product.id})" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition shadow-lg shadow-indigo-600/20 active:scale-95 flex items-center gap-2">
+                        <span class="text-xl font-black text-emerald-400">NT$ ${product.price.toLocaleString()}</span>
+                        <button onclick="addToCart(${product.id})" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition shadow-lg shadow-emerald-600/20 active:scale-95 flex items-center gap-2">
                             <i class="fa-solid fa-plus"></i> 加入購物車
                         </button>
                     </div>
@@ -272,7 +276,7 @@
         function filterProducts(category) {
             document.querySelectorAll('.category-btn').forEach(btn => {
                 if (btn.dataset.category === category) {
-                    btn.className = 'category-btn px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold transition active:scale-95';
+                    btn.className = 'category-btn px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold transition active:scale-95';
                 } else {
                     btn.className = 'category-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition active:scale-95';
                 }
@@ -330,7 +334,7 @@
                 div.innerHTML = `
                     <div>
                         <div class="text-sm font-bold text-white mb-1">${item.name}</div>
-                        <div class="text-xs text-indigo-400 font-semibold">NT$ ${item.price.toLocaleString()} × ${item.qty}</div>
+                        <div class="text-xs text-emerald-400 font-semibold">NT$ ${item.price.toLocaleString()} × ${item.qty}</div>
                     </div>
                     <div class="flex items-center space-x-2">
                         <button onclick="changeQty(${item.id}, -1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs flex items-center justify-center">-</button>
@@ -366,7 +370,7 @@
                 showToast('購物車是空的，無法結帳');
                 return;
             }
-            showToast('模擬結帳成功！感謝您的訂購 🎉');
+            showToast('保健方案訂購成功！感謝您的信賴 🎉');
             cart = [];
             updateCartUI();
             toggleCartModal();
@@ -386,25 +390,25 @@
         }
 
         // Counter Logic
-        let count = 0;
+        let count = 2;
         function updateCounter(val) {
-            count += val;
+            count = Math.max(1, count + val);
             document.getElementById('counter-value').textContent = count;
         }
         function resetCounter() {
-            count = 0;
+            count = 2;
             document.getElementById('counter-value').textContent = count;
-            showToast('計數器已重設');
+            showToast('份量已重設為標準');
         }
 
         // Live Input Sync
         function syncText(val) {
             const output = document.getElementById('live-output');
-            output.textContent = val.trim() === '' ? '（尚無輸入）' : val;
+            output.textContent = val.trim() === '' ? '（尚無記錄）' : val;
         }
 
         // Three.js 3D Interactive Animation
-        let scene, camera, renderer, cube, sphere, torus;
+        let scene, camera, renderer, torus;
         let rotationSpeed = 0.01;
         let isDragging = false;
         let previousMousePosition = { x: 0, y: 0 };
@@ -424,14 +428,14 @@
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
             scene.add(ambientLight);
 
-            const pointLight = new THREE.PointLight(0x6366f1, 2);
+            const pointLight = new THREE.PointLight(0x10b981, 2);
             pointLight.position.set(5, 5, 5);
             scene.add(pointLight);
 
-            // Center Torus Knot (Futuristic geometric shape)
+            // Center Torus Knot (Biological active molecule model)
             const geometry = new THREE.TorusKnotGeometry(1, 0.3, 128, 32);
             const material = new THREE.MeshStandardMaterial({
-                color: 0x6366f1,
+                color: 0x10b981,
                 roughness: 0.2,
                 metalness: 0.8,
                 wireframe: false
@@ -494,7 +498,7 @@
         function toggleRotationSpeed() {
             if (rotationSpeed === 0.01) {
                 rotationSpeed = 0.03;
-                showToast('已加速 3D 旋轉');
+                showToast('已加速分子旋轉');
             } else if (rotationSpeed === 0.03) {
                 rotationSpeed = 0.0;
                 showToast('已暫停自動旋轉');

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Map 1:1 專人健康管理跟進服務 | Health-decoder.com</title>
+  <link rel="stylesheet" href="../shared/css/global-style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand">🔬 Health Decoder 健康解碼</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">首頁</a></li>
+      <li><a href="../nocturia/index.html">夜尿專題漏斗</a></li>
+      <li><a href="../store/index.html">官方商店</a></li>
+      <li><a href="index.html" class="active">Health Map 1:1 服務</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../index.html">首頁</a> &gt; <span>Health Map 1:1 專人健康管理</span>
+  </div>
+
+  <header>
+    <span class="badge-tag" style="background: #f3e8ff; color: #7e22ce;">👑 High-Ticket 深度健康跟進</span>
+    <h1>Health Map 1:1 專人健康管理服務</h1>
+    <p style="font-size: 16px; color: var(--text-muted); max-width: 720px; margin: 0 auto;">
+      不再盲目試錯。由 Duncan 以工程師邏輯親自為您進行全方位生化指標拆解、個人化生活作息重塑與專屬營養 Protocol 深度跟進。
+    </p>
+  </header>
+
+  <h2>▍服務核心價值與適合對象</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="color: var(--primary);">🎯 適合對象</h3>
+      <ul style="padding-left: 20px; font-size: 14px; color: #334155; line-height: 1.8;">
+        <li>體檢報告反覆出現紅字，西醫囑咐「觀察」卻不知從何改善者</li>
+        <li>長期受多重問題困擾（如：嚴重夜尿 + 頑固血糖 + 慢性疲勞）</li>
+        <li>正在服用多種藥物，希望安全進行營養與作息調理者</li>
+        <li>追求極致抗衰老與長壽（Longevity）高淨值人士</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 style="color: var(--primary);">🔬 服務交付內容</h3>
+      <ul style="padding-left: 20px; font-size: 14px; color: #334155; line-height: 1.8;">
+        <li><b>深度生化指標拆解：</b>從胰島素阻抗、線粒體功能、自律神經與發炎鏈條逐一剖析</li>
+        <li><b>1 對 1 視訊／面談諮詢：</b>90 分鐘專屬深度策略會議</li>
+        <li><b>專屬 90 天 Health Map Protocol：</b>量身訂製飲食、物理理療與精準營養方案</li>
+        <li><b>專屬 WhatsApp 週期性追蹤：</b>確保行動落地與動態調整</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>▍預約諮詢申請</h2>
+  <div class="form-card">
+    <p style="font-size: 14px; color: #475569; margin-bottom: 15px;">為確保服務品質，Health Map 1:1 每月僅開放有限名額。請填寫基本資料，我們將於 24 小時內與您聯繫：</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>您的姓名 *</label>
+        <input type="text" id="hmName" placeholder="例如：陳大文" required>
+      </div>
+      <div class="form-group">
+        <label>聯絡電話 (WhatsApp) *</label>
+        <input type="tel" id="hmPhone" placeholder="例如：91234567" required>
+      </div>
+      <div class="form-group full">
+        <label>您目前最希望改善的核心健康困擾 *</label>
+        <input type="text" id="hmProblem" placeholder="例如：夜尿每晚4次、血糖偏高、經常白天無精神..." required>
+      </div>
+    </div>
+
+    <button id="hmSubmitBtn" class="btn-whatsapp" onclick="handleHMSubmit()" style="margin-top: 10px;">
+      <span>📲 提交申請並直接 WhatsApp 諮詢 Duncan</span>
+    </button>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Health-decoder.com 健康解碼. All Rights Reserved.</p>
+</footer>
+
+<script src="../shared/js/site-config.js"></script>
+<script>
+  function handleHMSubmit() {
+    const name = document.getElementById('hmName').value.trim();
+    const phone = document.getElementById('hmPhone').value.trim();
+    const problem = document.getElementById('hmProblem').value.trim();
+
+    if (!name || !phone || !problem) {
+      alert('請完整填寫姓名、電話及核心健康困擾！');
+      return;
+    }
+
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0,10).replace(/-/g,"");
+    const orderId = `HMAP-${dateStr}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+    const payload = {
+      topic: "Health Map 諮詢",
+      orderId: orderId,
+      timestamp: now.toLocaleString('zh-HK'),
+      name: name,
+      phone: phone,
+      address: "1:1 諮詢服務預約",
+      hasElevator: "N/A",
+      causeTitle: "Health Map 深度健康管理",
+      itemsDetail: `核心困擾：${problem}`,
+      subtotal: 0,
+      shipping: 0,
+      total: 0
+    };
+
+    try {
+      if (SITE_CONFIG.GOOGLE_SHEET_WEBAPP_URL && !SITE_CONFIG.GOOGLE_SHEET_WEBAPP_URL.includes("xxxxYOUR_DEPLOY_IDxxxx")) {
+        fetch(SITE_CONFIG.GOOGLE_SHEET_WEBAPP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }
+    } catch (e) {
+      console.warn('Sheet error:', e);
+    }
+
+    const msg = `您好 Duncan！我想申請【Health Map 1:1 專人健康管理跟進服務】：
+
+🔖 【預約編號】${orderId}
+👤 【申請人資料】
+姓名：${name}
+電話：${phone}
+核心困擾：${problem}
+
+希望能預約專屬諮詢時間，謝謝！`;
+
+    window.open(`https://wa.me/${SITE_CONFIG.MERCHANT_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+</script>
+
+</body>
+</html>

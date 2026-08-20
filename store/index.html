@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>官方商店全產品貨架 | Health-decoder.com 健康解碼</title>
+  <link rel="stylesheet" href="../shared/css/global-style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand">🔬 Health Decoder 健康解碼</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">首頁</a></li>
+      <li><a href="../nocturia/index.html">夜尿專題漏斗</a></li>
+      <li><a href="index.html" class="active">官方商店</a></li>
+      <li><a href="../health-map/index.html">Health Map 1:1 服務</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../index.html">首頁</a> &gt; <span>官方商店貨架</span>
+  </div>
+
+  <header>
+    <span class="badge-tag">🛒 官方嚴選生化營養與物理理療品</span>
+    <h1>Health Decoder 官方商店</h1>
+    <p style="color: var(--text-muted);">所有產品均經過嚴格生化機理審核，支持自由搭配單品或選購各專題特惠套裝。單筆訂單滿 <strong>HK$400 即享免運費送貨上門</strong>！</p>
+  </header>
+
+  <h2>▍全品項產品貨架</h2>
+  <div class="grid-3" id="storeGrid"></div>
+
+  <div class="summary-card" style="margin-top: 35px;">
+    <h3>🛒 商店購物車與即時結算</h3>
+    <div id="storeCartList" style="margin-bottom: 15px; font-size: 14px; color: #334155;">
+      <em>尚未挑選任何單品</em>
+    </div>
+    <div class="sum-row">
+      <span>商品總額：</span>
+      <span id="storeSubtotal">HK$ 0</span>
+    </div>
+    <div class="sum-row">
+      <span>預估運費：</span>
+      <span id="storeShipping">HK$ 0</span>
+    </div>
+    <div id="storeShippingNotice" class="shipping-tip" style="background: #e0f2fe; color: #0284c7;">
+      💡 單一訂單滿 HK$400 即享免運費送貨上門！
+    </div>
+    <div class="sum-total">
+      <span>應付總金額：</span>
+      <span id="storeTotal">HK$ 0</span>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <h3>📦 填寫收件人資料</h3>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>收件人姓名 *</label>
+        <input type="text" id="storeCustName" placeholder="例如：陳大文" required>
+      </div>
+      <div class="form-group">
+        <label>聯絡電話 (WhatsApp) *</label>
+        <input type="tel" id="storeCustPhone" placeholder="例如：91234567" required>
+      </div>
+      <div class="form-group full">
+        <label>送貨地址 (僅限港九新界及東涌) *</label>
+        <input type="text" id="storeCustAddress" placeholder="例如：九龍旺角彌敦道XXX號XX大廈XX樓XX室" required>
+      </div>
+      <div class="form-group full">
+        <label>是否有升降機（電梯）直達？ *</label>
+        <select id="storeCustElevator">
+          <option value="有升降機直達">有升降機直達 (無額外附加費)</option>
+          <option value="無升降機 (需每層+$50現金予派件員)">無升降機 (需每層+$50現金予派件員)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button id="storeSubmitBtn" class="btn-whatsapp" onclick="handleStoreCheckout()">
+    <span>📲 提交商店訂單並前往 WhatsApp 結算</span>
+  </button>
+
+  <div class="terms-box">
+    <h4>📦 一般網店訂單送貨條款</h4>
+    <ul>
+      <li><strong>免運費門檻：</strong>單一訂單淨金額滿 <strong>HK$400</strong>，享免費送貨上門服務。</li>
+      <li><strong>未達門檻之運費計算：</strong>少於 HK$400 且總重 ≤ 9kg 收取 <strong>HK$40</strong> 運費；超過 9kg 每超出 1kg 加收 HK$10。每單上限 25kg。</li>
+      <li><strong>送貨範圍：</strong>僅限港島、九龍、新界及東涌（離島、馬灣及禁區不適用）。</li>
+      <li><strong>無升降機直達：</strong>無電梯需以現金繳付每層 <strong>HK$50</strong> 附加費予派件人員。</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Health-decoder.com 健康解碼. All Rights Reserved.</p>
+</footer>
+
+<script src="../shared/js/site-config.js"></script>
+<script>
+  const products = [{"id": "SE_RED_LIGHT", "file": "prod-se-red-light.html", "name": "SE 紅光光療按摩帶", "spec": "1條裝 (含控制器/充電線)", "origin": "韓國設計 / 台灣製造", "price": 2580, "badge": "物理光療與微循環賦能", "category": "物理理療 / 循環", "summary": "專為改善夜尿、下肢水腫與骨盆底肌痙攣設計的 630nm 紅光 + 850nm 近紅外線（Photobiomodulation, PBM）理療儀。", "mechanism": "紅光與近紅外線能精準穿透小腿腓腸肌與骨盆底深層組織，作用於細胞線粒體細胞色素 C 氧化酶（Cytochrome c oxidase），顯著促進一氧化氮（NO）釋放與 ATP 合成。<br><br><b>使用時機與效益：</b><br>1. <b>傍晚敷貼小腿（17:00~19:00）：</b>提前驅動日間下肢組織蓄積的水分經由靜脈與淋巴回流排泄，阻斷夜間平躺後心房鈉尿肽（ANP）的暴衝。<br>2. <b>睡前敷貼下腹／薦椎：</b>850nm 近紅外線促進膀胱逼尿肌微血管擴張，配合微震動放鬆提肛肌群痙攣，降低排尿阻抗。", "usage": "每日傍晚於兩側小腿各使用 15-20 分鐘；或睡前於下腹部／腰薦椎部位使用 15 分鐘。"}, {"id": "NMN_15000", "file": "prod-nmn-15000.html", "name": "ORIYEN 天然酵母NMN 15000 Premium", "spec": "150克 (5克 x 30包)", "origin": "台灣 (天然發酵萃取)", "price": 2488, "badge": "NAD+ 前驅物與中樞生物鐘修復", "category": "細胞能量 / 生物鐘", "summary": "高純度天然酵母發酵 NMN，修復血管內皮 SIRT1-eNOS 軸，鞏固下視丘視交叉上核 (SCN) 分子鐘震盪。", "mechanism": "<b>1. 活化 SIRT1–eNOS 軸：</b>提升血管內皮細胞內 NAD+ 濃度，促使內皮型一氧化氮合酶（eNOS）去乙醯化並恢復活性，產生充足 NO 舒張血管，顯著降低微血管濾過係數，從細胞根源阻止日間下肢組織漏水。<br><b>2. 鞏固中樞 SCN 分子鐘：</b>下視丘視交叉上核（SCN）神經元高度依賴 NAD+ 維持 CLOCK/BMAL1 基因轉錄震盪，恢復夜間抗利尿激素（ADH/AVP）脈衝分泌。<br><b>3. 逼尿肌與肌肉線粒體賦能：</b>保護逼尿肌線粒體 mPTP 孔，提升排尿收縮力，降低殘餘尿量 (PVR)。", "usage": "每日早晨空腹或早餐前食用 1 包，以溫水沖服或直接口服含服吸收。"}, {"id": "CARDIO_PASS", "file": "prod-cardio-pass.html", "name": "ORIYEN 強心血管通", "spec": "380毫克 x 60粒", "origin": "日本", "price": 1990, "badge": "微血管膠原修復與微血栓清除", "category": "血管內皮 / 循環", "summary": "日本高濃度原花青素（葡萄籽萃取物）+ 天然水蛭素（非薄血藥患者首選），專門加固微血管壁並促進靜脈回流。", "mechanism": "<b>1. 葡萄籽原花青素（OPC）：</b>交聯微血管壁膠原蛋白與彈性蛋白，抑制基質金屬蛋白酶（MMPs），阻斷血管內皮發炎與組織液滲漏。<br><b>2. 天然水蛭素：</b>高選擇性抗微血栓，改善下肢遠端微循環血流速度，加速靜脈與淋巴引流。<br><br><span style='color:#b91c1c;'>⚠️ <b>注意：</b>正在服用 Warfarin、Eliquis 等處方薄血藥之患者，請選用果蔬酵素心腸軸替代方案。</span>", "usage": "每日 2 次，每次 1 粒，飯後搭配溫水食用。"}, {"id": "ENZYME", "file": "prod-enzyme.html", "name": "ORIYEN 綜合果蔬酵素 (10天份量)", "spec": "1件裝 (深度發酵萃取液)", "origin": "台灣", "price": 602, "badge": "心腸軸修復與腸漏發炎阻斷", "category": "心腸軸 / 腸道發炎", "summary": "薄血藥患者後備方案核心。富含有機酸、發酵後生元與短鏈脂肪酸（SCFA），切斷腸漏發炎鏈條。", "mechanism": "當患者服用薄血藥無法使用水蛭素時，心腸軸（Gut-Heart Axis）是最佳替代途徑。深度發酵果蔬萃取富含短鏈脂肪酸（SCFA，如丁酸）、多酚與後生元，能修復腸道黏膜緊密連接（Claudin-1 / ZO-1），切斷「腸漏症 ➔ 內毒素（LPS）入血 ➔ 全身微血管內皮 TLR4 發炎滲漏」鏈條。完全不影響血液凝血指數（INR/PT），100% 安全安心！", "usage": "每日 1-2 次，每次取適量以溫冷開水稀釋後飲用（30天完整調理需 3 件裝）。"}, {"id": "PROBIOTICS", "file": "prod-probiotics.html", "name": "Nn 三效益生菌- 長者配方", "spec": "2克 x 30包", "origin": "韓國", "price": 409, "badge": "專一性腸道黏膜與神經免疫調節", "category": "腸道微生態 / 免疫", "summary": "專為中熟齡長者配方，含專利鼠李糖乳桿菌與乳雙歧桿菌株，強化腸道微生態屏障。", "mechanism": "定殖於腸道黏膜上皮，抑制革蘭氏陰性有害菌增殖，減少 LPS 內毒素釋放；活化腸道 GPR41/43 受體，下調夜間交感神經高張，輔助自律神經在夜間順利切換至副交感放鬆模式。", "usage": "每日 1 包，隨餐或餐後直接倒入口中配溫水食用。"}, {"id": "CAL_MAG", "file": "prod-cal-mag-d3.html", "name": "Nn 液鈣鎂D3 (15天份量)", "spec": "15包/盒 (液態微米化)", "origin": "美國原料 / 台灣製造", "price": 241, "badge": "逼尿肌放鬆與大腦感覺門控安定", "category": "神經調節 / 平滑肌", "summary": "微米化離子鈣鎂搭配活性維生素 D3，雙向調節平滑肌張力與中樞神經膜電位。", "mechanism": "<b>1. 鎂離子（天然鈣通道阻斷劑）：</b>阻斷逼尿肌與骨盆底肌內鈣離子暴衝，放鬆高張痙攣的排尿肌群，擴大夜間有效膀胱儲尿量。<br><b>2. 大腦感覺門控：</b>抑制大腦興奮性 NMDA 受體，活化 GABA 抑制路徑，減少大腦半夜微覺醒引起的假性夜尿。<br><b>3. 微米化劑型：</b>吸收平穩快速，不刺激胃酸、不引發便秘，避免硬便壓迫前列腺與膀胱。", "usage": "每日 1 包（睡前 1 小時食用效果最佳；30天調理需 2 盒）。"}, {"id": "ASTAXANTHIN", "file": "prod-astaxanthin.html", "name": "Nn 蝦青素 (Astaxanthin)", "spec": "30粒 / 盒", "origin": "日本原料 / 台灣製造", "price": 276, "badge": "神經外膜屏障保護與抗糖化", "category": "抗氧化 / 神經屏障", "summary": "強效跨膜極性抗氧化劑，能穿透神經外膜屏障（PNB）與血腦屏障，保護自主神經與微血管。", "mechanism": "<b>1. 保護周邊自主神經：</b>清除神經內膜微血管過量自由基（ROS），下調 NF-κB 發炎訊號。<br><b>2. 阻斷 AGEs 糖化終產物：</b>防止神經髓鞘脂質過氧化與軸突變性，顯著減緩糖尿病周邊自主神經（DAN）與膀胱三角區神經過敏。", "usage": "每日 1 粒，隨餐食用（脂溶性成份配合餐中油脂吸收最佳）。"}, {"id": "EPO", "file": "prod-epo-1000.html", "name": "Nn 月見草油 1000", "spec": "1000毫克 x 50/60粒", "origin": "紐西蘭原料 / 台灣製造", "price": 196, "badge": "骨盆腔微循環與抗炎前列腺素", "category": "女性健康 / 骨盆循環", "summary": "天然 γ-次亞麻油酸 (GLA)，轉化為抗炎前列腺素 PGE1，改善骨盆底與尿道黏膜血流。", "mechanism": "GLA 經由體內 DGLA 途徑生成前列腺素 PGE1，能強效舒張微血管、抑制血小板凝集，顯著改善骨盆腔深層微循環，降低膀胱三角區黏膜神經過敏性充血。", "usage": "每日 1-2 粒，飯後溫水吞服。"}, {"id": "FISH_OIL", "file": "prod-fish-oil-1000.html", "name": "Nn 奧米加-3 深海魚油 1000", "spec": "1000毫克 x 100粒", "origin": "挪威深海原料 / 台灣製造", "price": 253, "badge": "全身微血管內皮抗炎修復", "category": "血管抗炎 / 脂質代謝", "summary": "挪威純淨深海 EPA / DHA，生成消退素 (Resolvins)，切斷微血管慢性發炎滲漏。", "mechanism": "EPA 與 DHA 是體內消退素（Resolvins）的前驅物，能抑制血管內皮細胞 NF-κB 途徑，降低內毒素引發的血管壁通透性異常，減少體液在組織間隙的滲漏與水腫蓄積。", "usage": "每日 1-2 粒，隨餐或飯後食用。"}, {"id": "PROTEIN", "file": "prod-protein-hmb.html", "name": "ORIYEN 蛋白高營素 (HMB+雙優蛋白)", "spec": "47克 x 10包", "origin": "台灣", "price": 339, "badge": "小腿肌泵重建與抗肌少症", "category": "肌肉修復 / 肌泵重建", "summary": "HMB + 乳清/大豆雙源優質蛋白 + 維生素 D3/K2/膽鹼，專一性修復小腿第二心臟肌群。", "mechanism": "<b>1. HMB + 雙優蛋白：</b>直接抑制泛素-蛋白酶體途徑（減少肌肉流失），活化 mTORC1 蛋白質合成訊號，增加小腿腓腸肌與比目魚肌截面積。<br><b>2. 維生素 D3 + K2 (MK-7)：</b>引導鈣質入骨，防止大動脈與骨盆腔微血管鈣化。<br><b>3. 葉酸 + 膽鹼：</b>加速同半胱胺酸（Homocysteine）代謝，保護神經內膜微血管。", "usage": "每日 1 包，以 250ml 溫水沖泡飲用（30天完整調理建議 3 盒）。"}, {"id": "FITNESS_X", "file": "prod-smart-fitness-x.html", "name": "Smart Fitness-X 律動拍打機", "spec": "1部裝 (家用旗艦版)", "origin": "台灣製造", "price": 22990, "badge": "垂直律動物理療法 (WBV)", "category": "物理律動 / 肌少症", "summary": "100% 精準垂直正弦波律動，被動活化小腿深層肌泵與肌肉線粒體 AMPK 酵素。", "mechanism": "透過每秒規律的垂直正弦波振動，刺激骨骼肌肌腱本體感受器產生牽張反射，被動式引導小腿深層肌肉群進行高頻微收縮，驅動靜脈與淋巴瓣膜運動，將下肢血液強效泵回心臟；同時活化 AMPK 改善全身胰島素阻抗。", "usage": "每日傍晚站立或坐姿腳踏使用 15-20 分鐘，輕鬆被動強化小腿肌泵。"}, {"id": "Q10", "file": "prod-q10.html", "name": "Nn 水溶性輔酶Q10", "spec": "30毫克 x 30粒", "origin": "日本原料 / 台灣製造", "price": 321, "badge": "心肌線粒體與微血管賦能", "category": "心肌能量 / 循環", "summary": "專利水溶化高吸收配方 CoQ10，直接為心肌與血管內皮細胞線粒體電子傳遞鏈（ETC）補充關鍵輔酶，強化心臟泵血效能與靜脈回流力。", "mechanism": "<b>1. 心肌泵血與前負荷調節：</b>輔酶 Q10 是線粒體複合物 I 與 II 傳遞電子生成 ATP 的核心載體。提升心肌細胞能量代謝，有助於平穩日間心輸出量，減少下肢靜脈鬱血。<br><b>2. 協同 NMN 活化微血管內皮：</b>與 NMN 形成雙重線粒體抗氧化保護網，防止一氧化氮（NO）被自由基氧化破壞，維持微血管正常舒縮彈性，減輕微血管滲漏。", "usage": "每日 1 粒，隨餐食用（水溶性微乳化劑型吸收率為一般脂溶性 Q10 的 3 倍以上）。"}];
+  let cart = {};
+
+  function renderStore() {
+    const grid = document.getElementById('storeGrid');
+    grid.innerHTML = '';
+    products.forEach(p => {
+      const qty = cart[p.id] || 0;
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div>
+          <span class="badge-tag">${p.category}</span>
+          <h3 style="font-size: 16px; margin: 6px 0;"><a href="products/${p.file}" class="prod-link">${p.name} ↗</a></h3>
+          <p style="font-size: 12px; color: #64748b; margin-bottom: 8px;">規格：${p.spec} | 產地：${p.origin}</p>
+          <p style="font-size: 13px; color: #475569; margin-bottom: 12px;">${p.summary.slice(0, 50)}...</p>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <strong style="color: var(--primary); font-size: 16px;">HK$ ${p.price.toLocaleString()}</strong>
+            <div class="qty-ctrl">
+              <button class="qty-btn" onclick="updateStoreQty('${p.id}', -1)">-</button>
+              <input type="text" class="qty-inp" value="${qty}" readonly>
+              <button class="qty-btn" onclick="updateStoreQty('${p.id}', 1)">+</button>
+            </div>
+          </div>
+          <a href="products/${p.file}" class="btn-secondary" style="margin: 0; padding: 6px; font-size: 13px; width: 100%;">查看深度生化報告 ➔</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    calculateStoreTotal();
+  }
+
+  function updateStoreQty(pid, delta) {
+    const cur = cart[pid] || 0;
+    const nxt = Math.max(0, cur + delta);
+    if (nxt === 0) delete cart[pid];
+    else cart[pid] = nxt;
+    renderStore();
+  }
+
+  function calculateStoreTotal() {
+    let subtotal = 0;
+    let listHtml = [];
+    products.forEach(p => {
+      const q = cart[p.id] || 0;
+      if (q > 0) {
+        const itemTot = q * p.price;
+        subtotal += itemTot;
+        listHtml.push(`<li>${p.name} x ${q} ── HK$ ${itemTot.toLocaleString()}</li>`);
+      }
+    });
+
+    let shipping = 0;
+    const noticeEl = document.getElementById('storeShippingNotice');
+    if (subtotal > 0) {
+      if (subtotal >= 400) {
+        shipping = 0;
+        noticeEl.innerHTML = '✅ 已享 <strong>免費送貨上門</strong>（滿 HK$400 免運費）';
+        noticeEl.style.color = '#15803d';
+        noticeEl.style.background = '#dcfce7';
+      } else {
+        shipping = 40;
+        noticeEl.innerHTML = `⚠️ 訂單未滿 HK$400，需收取基本運費 <strong>HK$40</strong>（還差 HK$${400 - subtotal} 即可免運）`;
+        noticeEl.style.color = '#b45309';
+        noticeEl.style.background = '#fef3c7';
+      }
+    } else {
+      shipping = 0;
+      noticeEl.innerHTML = '💡 單一訂單滿 HK$400 即享免運費送貨上門！';
+      noticeEl.style.color = '#0284c7';
+      noticeEl.style.background = '#e0f2fe';
+    }
+
+    const total = subtotal + shipping;
+    document.getElementById('storeCartList').innerHTML = listHtml.length > 0 ? `<ul style="padding-left:18px;margin:0;">${listHtml.join('')}</ul>` : '<em>尚未挑選任何單品</em>';
+    document.getElementById('storeSubtotal').innerText = `HK$ ${subtotal.toLocaleString()}`;
+    document.getElementById('storeShipping').innerText = subtotal > 0 ? (shipping === 0 ? 'HK$ 0 (免運費)' : `HK$ ${shipping}`) : 'HK$ 0';
+    document.getElementById('storeTotal').innerText = `HK$ ${total.toLocaleString()}`;
+
+    return { subtotal, shipping, total };
+  }
+
+  async function handleStoreCheckout() {
+    const { subtotal, shipping, total } = calculateStoreTotal();
+    if (subtotal === 0) {
+      alert('請先在貨架挑選產品數量！');
+      return;
+    }
+
+    const name = document.getElementById('storeCustName').value.trim();
+    const phone = document.getElementById('storeCustPhone').value.trim();
+    const address = document.getElementById('storeCustAddress').value.trim();
+    const elevator = document.getElementById('storeCustElevator').value;
+
+    if (!name || !phone || !address) {
+      alert('請完整填寫收件人姓名、聯絡電話及送貨地址！');
+      return;
+    }
+
+    const submitBtn = document.getElementById('storeSubmitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span>⏳ 正在記錄訂單並跳轉 WhatsApp...</span>';
+
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0,10).replace(/-/g,"");
+    const orderId = `STORE-${dateStr}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+    let itemsForMsg = [];
+    let itemsForSheet = [];
+    products.forEach(p => {
+      const q = cart[p.id] || 0;
+      if (q > 0) {
+        itemsForMsg.push(`・${p.name} x ${q} (HK$${q * p.price})`);
+        itemsForSheet.push(`${p.name} x${q}`);
+      }
+    });
+
+    const orderPayload = {
+      topic: "官方商店",
+      orderId: orderId,
+      timestamp: now.toLocaleString('zh-HK'),
+      name: name,
+      phone: phone,
+      address: address,
+      hasElevator: elevator,
+      causeTitle: "商店單品自由選購",
+      itemsDetail: itemsForSheet.join('; '),
+      subtotal: subtotal,
+      shipping: shipping,
+      total: total
+    };
+
+    try {
+      if (SITE_CONFIG.GOOGLE_SHEET_WEBAPP_URL && !SITE_CONFIG.GOOGLE_SHEET_WEBAPP_URL.includes("xxxxYOUR_DEPLOY_IDxxxx")) {
+        fetch(SITE_CONFIG.GOOGLE_SHEET_WEBAPP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderPayload)
+        });
+      }
+    } catch (e) {
+      console.warn('Sheet error:', e);
+    }
+
+    const shippingDesc = shipping === 0 ? "HK$0 (已滿$400免運)" : `HK$${shipping} (未達免運門檻)`;
+    const msg = `您好！我在 Health-decoder.com 官方商店提交了訂購清單：
+
+🔖 【訂單編號】${orderId}
+📋 【訂購項目】
+${itemsForMsg.join('\n')}
+
+💰 【金額結算】
+・商品總額：HK$ ${subtotal.toLocaleString()}
+・基本運費：${shippingDesc}
+・應付總計：HK$ ${total.toLocaleString()}
+
+📦 【收件人資料】
+姓名：${name}
+電話：${phone}
+送貨地址：${address}
+升降機狀況：${elevator}
+
+請確認訂單及提供線下付款方式（轉數快 FPS / PayMe / 銀行轉帳），謝謝！`;
+
+    const waUrl = `https://wa.me/${SITE_CONFIG.MERCHANT_PHONE}?text=${encodeURIComponent(msg)}`;
+
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<span>📲 提交商店訂單並前往 WhatsApp 結算</span>';
+      window.open(waUrl, '_blank');
+    }, 600);
+  }
+
+  renderStore();
+</script>
+
+</body>
+</html>

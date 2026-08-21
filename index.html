@@ -2,106 +2,147 @@
 <html lang="zh-HK">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Health-decoder.com 健康解碼 | 系統工程學與代謝健康中心</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Health Decoder | 鄧群 Duncan - 健康問題的拆解者</title>
+  <meta name="description" content="守護中年後的自主與尊嚴。以工程思維拆解健康困擾，提供個人化 Health Map 30 天行動管理，拒絕盲目試錯。">
+  <meta property="og:title" content="Health Decoder | 鄧群 Duncan - 健康問題的拆解者">
+  <meta property="og:description" content="有健康問題，先拆解，唔好亂試。醫療可以求助，健康不能完全外包。">
+  <meta property="og:url" content="https://health-decoder.com">
+  <meta property="og:type" content="website">
   <link rel="stylesheet" href="shared/css/global-style.css">
 </head>
 <body>
 
+<!-- 頂部導航 -->
 <nav class="navbar">
   <div class="nav-container">
-    <a href="index.html" class="nav-brand">🔬 Health Decoder 健康解碼</a>
+    <a href="index.html" class="nav-brand">🔬 Health<span>Decoder</span> 健康解碼</a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">首頁</a></li>
-      <li><a href="nocturia/index.html">夜尿專題漏斗</a></li>
+      <li><a href="nocturia/index.html">夜尿專題自測</a></li>
       <li><a href="store/index.html">官方商店</a></li>
-      <li><a href="health-map/index.html">Health Map 1:1 服務</a></li>
+      <li><a href="health-map/index.html">Health Map 1:1</a></li>
+      <li><a href="https://wa.me/85298788564" target="_blank" style="color: var(--color-wa); font-weight: 700;">💬 諮詢專線</a></li>
     </ul>
   </div>
 </nav>
 
-<div class="container">
-  <header>
-    <span class="badge-tag">🔬 白袍工程師的系統生物學觀點</span>
-    <h1>醫療可以求助，健康不能完全外包</h1>
-    <p style="font-size: 16px; color: var(--text-muted); max-width: 720px; margin: 0 auto 20px auto;">
-      我們不講空泛的心靈雞湯，用「系統工程學」與「細胞生物化學邏輯」看待人體。健康管理是一項「保護一生積蓄、防範天價醫療大修」的防禦性資產投資。
+<main class="container">
+  <!-- Hero Section -->
+  <header style="text-align: center; margin-bottom: 20px;">
+    <div class="badge">🔬 工程思維 × 細胞代謝 × 健康自主權</div>
+    <h1>有健康問題，先拆解，<br>唔好盲目亂試。</h1>
+    <p class="lead-text" style="max-width: 700px; margin: 0 auto 16px auto;">
+      睇醫生唔代表健康管理已經完成。我們不講空泛心靈雞湯，用「系統工程學」看待人體，為 40–70 歲人士將散亂的身體警號，轉化為清晰、可執行的 30 天管理方向。
     </p>
   </header>
 
-  <h2>▍核心專題自測與解決方案</h2>
-  <div class="grid-2">
-    <div class="card">
+  <!-- Bento Grid 模組化版面 -->
+  <div class="bento-grid">
+    <!-- 主卡 1: 夜尿專題自測漏斗 (佔 7 欄) -->
+    <div class="bento-card bento-col-7 highlight">
       <div>
-        <span class="badge-tag">熱門專題 01</span>
-        <h3>🌙 夜尿循環與生理自測漏斗</h3>
-        <p style="font-size: 14px; color: #475569;">
-          每晚起夜 2 次以上？小腿水腫、逼尿肌缺血、DAN 神經病變還是睡眠生物鐘紊亂？8 題精準定位 5 大根源成因，獲取 30 天專屬調理協議。
+        <span class="badge">🔥 核心專題 01</span>
+        <h2 style="margin-top: 0; font-size: 22px;">🌙 夜尿多唔係腎虧，真相係「循環水泵大塞車」</h2>
+        <p style="font-size: 17px; color: var(--color-text-muted); margin-bottom: 16px;">
+          日間水分滯留小腿，半夜一平躺水泵將血液推回軀幹，引發「體液重分配」瘋狂排尿。6 大維度全景自測，即時計算你的 5 大生化成因佔比與 30 天調理協議。
         </p>
       </div>
-      <a href="nocturia/index.html" class="btn-primary" style="margin-top: 15px;">進入夜尿自測系統 ➔</a>
+      <a href="nocturia/index.html" class="btn btn-primary" style="margin-top: 10px;">
+        進入 60 秒夜尿成因自測 ➔
+      </a>
     </div>
 
-    <div class="card" style="background: #fafafa; border-style: dashed;">
+    <!-- 主卡 2: 白袍工程師人設數據 (佔 5 欄) -->
+    <div class="bento-card bento-col-5">
       <div>
-        <span class="badge-tag" style="background: #e2e8f0; color: #64748b;">籌備中專題 02</span>
-        <h3>⚡ 餐後斷電與午後腦霧 (飯氣攻心)</h3>
-        <p style="font-size: 14px; color: #64748b;">
-          食完晏即刻似被拔掉電源？粒線體 ATP 生成阻滯與胰島素阻抗機理解構，重塑全天充沛能量。（即將上線）
+        <span class="badge" style="background: #F1F5F9; color: var(--color-primary);">👨‍🔬 創辦人簡介</span>
+        <h3 style="font-size: 20px; color: var(--color-primary); margin-bottom: 6px;">Duncan Chan 鄧群</h3>
+        <p style="font-size: 15px; color: var(--color-accent); font-weight: 700; margin-bottom: 10px;">
+          香港白袍工程師 ✕ 生化代謝研究
+        </p>
+        <p style="font-size: 15px; color: var(--color-text-muted); margin-bottom: 12px;">
+          累計 14,000,000+ 短影音播放量 · 30K+ 專頁追蹤。堅持「醫療負責緊急滅火，日常習慣守護防禦資產」。
         </p>
       </div>
-      <button class="btn-secondary" disabled style="background: #e2e8f0; color: #94a3b8; border-color: #cbd5e1; cursor: not-allowed;">籌備中敬請期待</button>
+      <a href="https://wa.me/85298788564" target="_blank" class="btn btn-secondary" style="font-size: 16px; min-height: 46px;">
+        💬 與 Duncan 預約 1:1 對話
+      </a>
+    </div>
+
+    <!-- 次卡 3: 官方共用商店 (佔 6 欄) -->
+    <div class="bento-card bento-col-6">
+      <div>
+        <span class="badge" style="background: #FEF3C7; color: #B45309;">🛒 精準保養工具庫</span>
+        <h3>12 款生化級單品與全效營養庫</h3>
+        <p style="font-size: 16px; color: var(--color-text-muted);">
+          堅持「先需要，後補充；產品只是行動支持工具」原則。展示高純度 NMN、水溶性 Q10、SE 紅光帶、專利益生菌等，單一訂單滿 HK$400 即享免運費送貨上門。
+        </p>
+      </div>
+      <a href="store/index.html" class="btn btn-secondary" style="margin-top: 12px; border-color: var(--color-accent); color: var(--color-accent);">
+        瀏覽官方商店貨架 ➔
+      </a>
+    </div>
+
+    <!-- 次卡 4: 尊榮 Health Map 服務 (佔 6 欄) -->
+    <div class="bento-card bento-col-6">
+      <div>
+        <span class="badge" style="background: #F3E8FF; color: #7E22CE;">👑 高階專人服務</span>
+        <h3>Health Map 1:1 閉環健康諮詢</h3>
+        <p style="font-size: 16px; color: var(--color-text-muted);">
+          包含 Pre-Map 調查、60 分鐘生化數據深度拆解、1-1-3-1-1 個人行動手冊與 30 天覆盤。不給 10 個無效建議，只鎖定當下最值得先處理的第一優先。
+        </p>
+      </div>
+      <a href="health-map/index.html" class="btn btn-secondary" style="margin-top: 12px; border-color: #7E22CE; color: #7E22CE;">
+        了解 30-Day Starter Cycle ➔
+      </a>
+    </div>
+
+    <!-- 次卡 5: 西藥排查與避險宣告 (佔 12 欄) -->
+    <div class="bento-card bento-col-12 warning-box">
+      <div>
+        <h4 style="color: #991B1B; display: flex; align-items: center; gap: 8px;">
+          ⚠️ 西藥機轉排查與安全邊界宣告 (Safety Gate)
+        </h4>
+        <p style="font-size: 16px; color: #7F1D1D; margin: 6px 0 0 0;">
+          食緊降血壓藥（如 CCB 鈣離子阻斷劑）或利尿劑？部分西藥會直接改變水分代謝與微循環阻力。我們堅持「專業分工原則」，絕不要求客戶隨意停藥或改藥，先從日常作息與生理機轉排查相沖。
+        </p>
+      </div>
+    </div>
+
+    <!-- 社群與全渠道矩陣 (佔 12 欄) -->
+    <div class="bento-card bento-col-12" style="background: #F0FDF4; border: 1px solid #BBF7D0; text-align: center;">
+      <h3 style="color: #166534; justify-content: center; margin-bottom: 8px;">🌱 連結官方渠道與私密交流社群</h3>
+      <p style="font-size: 16px; color: #374151; margin-bottom: 16px;">
+        獲取每日健康解碼短片、最新生化文獻拆解與私密社群專屬個案討論：
+      </p>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://wa.me/85298788564" target="_blank" class="btn btn-wa" style="width: auto; padding: 10px 18px; font-size: 15px; min-height: 44px;">💬 WhatsApp 官方專線</a>
+        <a href="https://chat.whatsapp.com/LPHAndy6hjH8gRLVzZacrw" target="_blank" class="btn btn-primary" style="background: #128C7E; width: auto; padding: 10px 18px; font-size: 15px; min-height: 44px;">👥 VIP WhatsApp 社群</a>
+        <a href="https://www.facebook.com/share/g/1CCM9AMEyw/" target="_blank" class="btn btn-primary" style="background: #1877F2; width: auto; padding: 10px 18px; font-size: 15px; min-height: 44px;">📘 VIP Facebook 社群</a>
+        <a href="https://www.facebook.com/share/1GPoV9gghy/?mibextid=wwXIfr" target="_blank" class="btn btn-primary" style="background: #4267B2; width: auto; padding: 10px 18px; font-size: 15px; min-height: 44px;">🚩 Facebook 粉專</a>
+        <a href="https://www.instagram.com/health.decoder.duncan/" target="_blank" class="btn btn-primary" style="background: #E1306C; width: auto; padding: 10px 18px; font-size: 15px; min-height: 44px;">📷 Instagram 官方</a>
+      </div>
     </div>
   </div>
 
-  <h2>▍官方商店與健康管理服務</h2>
-  <div class="grid-2">
-    <div class="card">
-      <div>
-        <span class="badge-tag" style="background: #fef3c7; color: #b45309;">🛒 官方產品庫</span>
-        <h3>精選單品與全效營養庫</h3>
-        <p style="font-size: 14px; color: #475569;">
-          展示 12 款嚴選生化級單品（NMN、水溶性 Q10、紅光帶、益生菌、律動機等），滿 HK$400 即享免運費送貨上門。
-        </p>
-      </div>
-      <a href="store/index.html" class="btn-primary" style="background: #0284c7;">瀏覽官方商店貨架 ➔</a>
+  <!-- 免責聲明區塊 -->
+  <footer class="disclaimer-box">
+    <strong>專業邊界與免責聲明：</strong>
+    本網站內容及 Health Map 服務為個人生活習慣管理、健康教育與行動建議，絕非醫療診斷或治療處方。若出現突發急性症狀或嚴重疾病，請務必尋求註冊西醫或醫療專業人士診治。<br><br>
+    <div class="footer-links">
+      <a href="index.html">首頁</a> | 
+      <a href="nocturia/index.html">夜尿專題自測</a> | 
+      <a href="store/index.html">官方商店</a> | 
+      <a href="health-map/index.html">Health Map 服務</a> | 
+      <a href="https://wa.me/85298788564" target="_blank">WhatsApp 聯絡</a>
     </div>
-
-    <div class="card">
-      <div>
-        <span class="badge-tag" style="background: #f3e8ff; color: #7e22ce;">👑 尊榮高客單服務</span>
-        <h3>Health Map 1:1 專人健康管理</h3>
-        <p style="font-size: 14px; color: #475569;">
-          針對多重慢性困擾與高階健康追求者，由 Duncan 提供深度生化數據拆解、生活作息與客製化 Protocol 全程跟進。
-        </p>
-      </div>
-      <a href="health-map/index.html" class="btn-primary" style="background: #7e22ce;">了解 Health Map 服務 ➔</a>
+    <div style="margin-top: 10px; font-size: 14px; color: #94A3B8; text-align: center;">
+      © 2026 Health Decoder (health-decoder.com). All Rights Reserved. 醫療可以求助，健康不能完全外包。
     </div>
-  </div>
+  </footer>
+</main>
 
-  <div class="mechanism-card" style="text-align: center; margin-top: 30px;">
-    <h4 style="justify-content: center; font-size: 17px;">🌱 連結 Duncan 官方渠道與私密交流群</h4>
-    <p style="font-size: 14px; color: #374151; margin-bottom: 15px;">獲取每日健康解碼短片、最新生化文獻拆解與私密社群專屬個案討論：</p>
-    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-      <a href="https://wa.me/85298788564" target="_blank" class="btn-primary" style="background: #25d366; width: auto; padding: 10px 18px; font-size: 14px;">💬 WhatsApp 官方專線</a>
-      <a href="https://chat.whatsapp.com/LPHAndy6hjH8gRLVzZacrw" target="_blank" class="btn-primary" style="background: #128c7e; width: auto; padding: 10px 18px; font-size: 14px;">👥 WhatsApp 私密社群</a>
-      <a href="https://www.facebook.com/share/g/1CCM9AMEyw/" target="_blank" class="btn-primary" style="background: #1877f2; width: auto; padding: 10px 18px; font-size: 14px;">📘 Facebook 私密社群</a>
-      <a href="https://www.facebook.com/share/1GPoV9gghy/?mibextid=wwXIfr" target="_blank" class="btn-primary" style="background: #4267B2; width: auto; padding: 10px 18px; font-size: 14px;">🚩 Facebook 粉專</a>
-      <a href="https://www.instagram.com/health.decoder.duncan/" target="_blank" class="btn-primary" style="background: #e1306c; width: auto; padding: 10px 18px; font-size: 14px;">📷 Instagram</a>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-links">
-    <a href="index.html">首頁</a> | 
-    <a href="nocturia/index.html">夜尿專題</a> | 
-    <a href="store/index.html">官方商店</a> | 
-    <a href="health-map/index.html">Health Map</a> | 
-    <a href="https://wa.me/85298788564">聯絡我們</a>
-  </div>
-  <p>© 2026 Health-decoder.com 健康解碼. All Rights Reserved. 醫療可以求助，健康不能完全外包。</p>
-</footer>
-
+<script src="shared/js/site-config.js"></script>
 </body>
 </html>

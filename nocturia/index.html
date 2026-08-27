@@ -1,564 +1,423 @@
 <!DOCTYPE html>
+
 <html lang="zh-HK">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>夜尿成因 6 大維度全景自測與生化解碼系統 | Health-decoder.com 健康解碼</title>
-  <link rel="stylesheet" href="../shared/css/global-style.css">
-  <style>
-    .quiz-card { background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-    .quiz-card-header { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 16px; }
-    .quiz-num { width: 32px; height: 32px; border-radius: 8px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; }
-    .quiz-card-title { font-size: 16px; font-weight: 800; color: var(--primary-dark); margin: 0; }
-    .quiz-card-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-    .opt-box { border: 1px solid var(--border); border-radius: 8px; padding: 14px; cursor: pointer; transition: all 0.2s ease; background: #fff; display: flex; flex-direction: column; }
-    .opt-box:hover { border-color: var(--secondary); background: #f8fafc; }
-    .opt-box input { margin-bottom: 6px; }
-    .opt-title { font-weight: 700; font-size: 14px; color: var(--text-main); }
-    .opt-desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
-    .checkbox-list { display: flex; flex-direction: column; gap: 10px; }
-    .checkbox-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; background: #fff; transition: 0.2s; font-size: 13.5px; line-height: 1.45; }
-    .checkbox-item:hover { border-color: var(--secondary); background: #f8fafc; }
-    .checkbox-item input { margin-top: 3px; }
-    .checkbox-none { background: #f1f5f9; border-color: #cbd5e1; color: #475569; font-weight: 600; }
-    .med-card { background: #fffbeb; border: 2px solid #fde68a; }
-    .med-card .quiz-num { background: #f59e0b; color: #fff; }
-    .med-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .med-item { background: #fff; border: 1px solid #fef3c7; padding: 12px; border-radius: 8px; display: flex; align-items: flex-start; gap: 8px; font-size: 13px; cursor: pointer; }
-    .med-item:hover { border-color: #f59e0b; }
-    .med-item input { margin-top: 3px; }
-    
-    /* Result Section */
-    .result-container { display: none; margin-top: 35px; border-top: 3px solid var(--primary); padding-top: 30px; animation: fadeIn 0.4s ease-in-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .diag-banner { background: var(--primary-light); border: 2px solid var(--primary); border-radius: 12px; padding: 22px; margin-bottom: 22px; }
-    .diag-type-badge { display: inline-block; background: var(--primary); color: #fff; font-size: 13px; font-weight: 700; padding: 4px 14px; border-radius: 20px; margin-bottom: 10px; }
-    .diag-headline { font-size: 20px; font-weight: 800; color: var(--primary-dark); margin-bottom: 10px; }
-    
-    /* Proportion Bars */
-    .ratio-panel { background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 22px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
-    .ratio-header { font-size: 16px; font-weight: 800; color: var(--primary-dark); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
-    .ratio-bar-wrap { margin-bottom: 14px; }
-    .ratio-bar-wrap:last-child { margin-bottom: 0; }
-    .ratio-info { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 700; margin-bottom: 5px; color: #334155; }
-    .ratio-bar-bg { width: 100%; height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden; }
-    .ratio-bar-fill { height: 100%; border-radius: 6px; transition: width 0.8s ease-in-out; }
-    
-    .c1-bar { background: #0284c7; }
-    .c2-bar { background: #f59e0b; }
-    .c3-bar { background: #8b5cf6; }
-    .c4-bar { background: #10b981; }
-    .c5-bar { background: #ef4444; }
 
-    .detail-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 18px; }
-    .detail-card h4 { font-size: 15px; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-    .detail-text { font-size: 13.5px; color: #334155; line-height: 1.6; }
-    
-    .med-alert-box { background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 6px; padding: 16px; margin-bottom: 20px; font-size: 13.5px; color: #78350f; }
-    .med-alert-title { font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-    
-    .nav-guide-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 22px; text-align: center; margin-top: 25px; }
-    .nav-guide-title { font-size: 17px; font-weight: 800; color: #166534; margin-bottom: 10px; }
-    .nav-guide-desc { font-size: 14px; color: #15803d; margin-bottom: 18px; }
-    .guide-btn-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .btn-guide-main { background: #166534; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px; transition: 0.2s; }
-    .btn-guide-main:hover { background: #14532d; }
-    .btn-guide-sub { background: #fff; color: #166534; border: 2px solid #166534; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; transition: 0.2s; }
-    .btn-guide-sub:hover { background: #f0fdf4; }
+    <meta charset="UTF-8">
 
-    @media (max-width: 768px) {
-      .opt-grid, .med-grid { grid-template-columns: 1fr; }
-      .guide-btn-group { flex-direction: column; }
-    }
-  </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>夜尿症數位健康中心 | Nocturia Solution</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+
+        :root {
+
+            --bg-color: #f8fafc;
+
+            --card-bg: #ffffff;
+
+            --primary: #4f46e5;
+
+            --text-main: #334155;
+
+            --text-head: #1e293b;
+
+            --border: #e2e8f0;
+
+        }
+
+        body {
+
+            font-family: 'Inter', sans-serif;
+
+            background-color: var(--bg-color);
+
+            color: var(--text-main);
+
+            margin: 0;
+
+            padding: 20px;
+
+            line-height: 1.6;
+
+        }
+
+        .container {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+        }
+
+        header {
+
+            text-align: center;
+
+            margin-bottom: 40px;
+
+        }
+
+        h1 {
+
+            font-family: 'Montserrat', sans-serif;
+
+            color: var(--text-head);
+
+            font-size: 2.5rem;
+
+            margin-bottom: 10px;
+
+        }
+
+        /* Bento Grid Layout */
+
+        .bento-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            grid-auto-rows: minmax(200px, auto);
+
+            gap: 20px;
+
+        }
+
+        .bento-item {
+
+            background: var(--card-bg);
+
+            border-radius: 16px;
+
+            padding: 24px;
+
+            border: 1px solid var(--border);
+
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+        }
+
+        .video-box { grid-column: span 3; grid-row: span 2; }
+
+        .stat-box { grid-column: span 1; background: #eef2ff; border-color: #c7d2fe; }
+
+        .quiz-box { grid-column: span 2; }
+
+        .cart-box { grid-column: span 2; }
+
+        /* Video Responsive Wrapper */
+
+        .video-wrapper {
+
+            position: relative;
+
+            padding-bottom: 56.25%;
+
+            height: 0;
+
+            overflow: hidden;
+
+            border-radius: 8px;
+
+        }
+
+        .video-wrapper iframe {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+        }
+
+        /* Algorithm Styling */
+
+        .quiz-container fieldset {
+
+            border: none;
+
+            padding: 0;
+
+            margin-bottom: 15px;
+
+        }
+
+        button {
+
+            background-color: var(--primary);
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 24px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            transition: opacity 0.2s;
+
+        }
+
+        button:hover { opacity: 0.9; }
+
+        #result-display {
+
+            margin-top: 15px;
+
+            font-weight: bold;
+
+            color: var(--primary);
+
+        }
+
+        @media (max-width: 768px) {
+
+            .bento-grid { grid-template-columns: 1fr; }
+
+            .video-box, .stat-box, .quiz-box, .cart-box { grid-column: span 1; }
+
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<nav class="navbar">
-  <div class="nav-container">
-    <a href="../index.html" class="nav-brand">🔬 Health Decoder 健康解碼</a>
-    <ul class="nav-links">
-      <li><a href="../index.html">首頁</a></li>
-      <li><a href="index.html" class="active">夜尿專題自測</a></li>
-      <li><a href="../store/index.html">官方商店</a></li>
-      <li><a href="../health-map/index.html">Health Map 1:1 服務</a></li>
-    </ul>
-  </div>
-</nav>
-
 <div class="container">
-  <div class="breadcrumb">
-    <a href="../index.html">首頁</a> &gt; <span>夜尿成因 6 大維度全景自測</span>
-  </div>
 
-  <header>
-    <span class="badge-tag">🔬 系統工程學 ✕ 生物化學診斷</span>
-    <h1>夜尿成因 6 大維度全景自測與生化解碼</h1>
-    <p style="color: var(--text-muted); max-width: 750px; margin: 0 auto;">
-      夜尿不是單純「腎氣虛」或自然老化，而是體內「管路（微血管）、水泵（心臟小腿肌）、水箱（膀胱逼尿肌）與感應器（大腦神經）」的多重系統失調。請根據您過去 1 個月的真實體感完成以下排查，系統將自動演算並相容「混合式成因（Mixed Etiology）」比例。
-    </p>
-  </header>
+    <header>
 
-  <form id="nocturiaQuizForm">
-    
-    <!-- Dimension 1 -->
-    <div class="quiz-card">
-      <div class="quiz-card-header">
-        <span class="quiz-num">1</span>
-        <div>
-          <h3 class="quiz-card-title">出水量與起夜頻率（流量 vs 容量基礎判定）</h3>
-          <p class="quiz-card-desc">區分主要問題在於夜間尿液總產量過多，或是膀胱儲存容量過低</p>
+        <h1>夜尿健康專案 v2.1</h1>
+
+        <p>專業醫學分析與居家管理方案</p>
+
+    </header>
+
+    <div class="bento-grid">
+
+        <!-- Video Box -->
+
+        <div class="bento-item video-box">
+
+            <h3>深度解析：為什麼你會夜尿？</h3>
+
+            <div class="video-wrapper">
+
+                <iframe src="https://player.vimeo.com/video/76979871" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+            </div>
+
         </div>
-      </div>
-      <div class="opt-grid">
-        <label class="opt-box">
-          <div><input type="radio" name="d1_flow" value="NP_large" checked></div>
-          <span class="opt-title">🌊 單次尿量充足（>250 mL）</span>
-          <span class="opt-desc">每次排尿像裝滿大半杯，但一晚要起來 2 次以上（提示夜間多尿 NP / 容量過載）</span>
-        </label>
-        <label class="opt-box">
-          <div><input type="radio" name="d1_flow" value="CAP_small"></div>
-          <span class="opt-title">⚡ 每次只有一點點（<150 mL）</span>
-          <span class="opt-desc">每次尿量極少甚至幾滴，但頻繁覺得急迫、憋不住（提示膀胱敏感或出口阻抗）</span>
-        </label>
-      </div>
-      <div class="checkbox-list">
-        <label class="checkbox-item">
-          <input type="checkbox" name="d1_watery" id="d1_watery" value="ADH_deficiency">
-          <span><strong>單次尿量極大且清澈如清水</strong>（夜間尿液未濃縮，提示下視丘 SCN / ADH 抗利尿激素節律衰退）</span>
-        </label>
-      </div>
-    </div>
 
-    <!-- Dimension 2 -->
-    <div class="quiz-card">
-      <div class="quiz-card-header">
-        <span class="quiz-num">2</span>
-        <div>
-          <h3 class="quiz-card-title">排尿動作與出口阻抗（前列腺與逼尿肌狀況）</h3>
-          <p class="quiz-card-desc">排查是否存在物理性排尿阻抗、殘餘尿過高或逼尿肌平滑肌痙攣</p>
+        <!-- Stat Box -->
+
+        <div class="bento-item stat-box">
+
+            <h3>數據概覽</h3>
+
+            <p style="font-size: 2rem; font-weight: bold; color: #4f46e5;">65%</p>
+
+            <p>50 歲以上男性受訪者曾受夜尿困擾。</p>
+
         </div>
-      </div>
-      <div class="checkbox-list">
-        <label class="checkbox-item">
-          <input type="checkbox" name="d2_symptoms" class="d2-item" value="BPH_hesitancy">
-          <span>站在馬桶前要等數秒才出尿（尿等待），尿流變細、斷斷續續（前列腺 BPH 阻塞）</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="d2_symptoms" class="d2-item" value="PVR_retention">
-          <span>排完後總覺得膀胱底還有尿液殘留，感覺「尿不乾淨」（殘餘尿 PVR 高）</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="d2_symptoms" class="d2-item" value="OAB_urgency">
-          <span>突發強烈尿急感，完全忍不住，常需急奔廁所（逼尿肌過動 OAB / 平滑肌痙攣）</span>
-        </label>
-        <label class="checkbox-item checkbox-none">
-          <input type="checkbox" id="d2_none" value="none" onchange="handleMutualExclusive('d2')">
-          <span>🚫 以上皆無 / 排尿順暢無阻抗</span>
-        </label>
-      </div>
-    </div>
 
-    <!-- Dimension 3 -->
-    <div class="quiz-card">
-      <div class="quiz-card-header">
-        <span class="quiz-num">3</span>
-        <div>
-          <h3 class="quiz-card-title">下肢流體與肌肉動力（Starling 力學與小腿肌泵）</h3>
-          <p class="quiz-card-desc">評估微血管內皮通透性、重力體液積聚及小腿第二心臟回流機能</p>
+        <!-- Quiz Box (Algorithm v2.1) -->
+
+        <div class="bento-item quiz-box">
+
+            <h3>自測演算法 v2.1</h3>
+
+            <div class="quiz-container" id="quiz">
+
+                <p>過去一個月內，平均每晚起床如廁次數：</p>
+
+                <select id="freq">
+
+                    <option value="0">0 次</option>
+
+                    <option value="1">1 次</option>
+
+                    <option value="3">2-3 次</option>
+
+                    <option value="5">4 次以上</option>
+
+                </select>
+
+                <p>夜尿對您睡眠品質的影響：</p>
+
+                <select id="impact">
+
+                    <option value="1">輕微</option>
+
+                    <option value="3">中度</option>
+
+                    <option value="5">嚴重</option>
+
+                </select>
+
+                <div style="margin-top: 20px;">
+
+                    <button onclick="calculateScore()">計算風險指數</button>
+
+                </div>
+
+                <div id="result-display"></div>
+
+            </div>
+
         </div>
-      </div>
-      <div class="checkbox-list">
-        <label class="checkbox-item">
-          <input type="checkbox" name="d3_symptoms" class="d3-item" value="Starling_edema">
-          <span>傍晚覺得鞋子變緊、腳踝或小腿有明顯襪印、按壓有凹陷（微血管日間漏水）</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="d3_symptoms" class="d3-item" value="Early_night_peak">
-          <span>剛睡下頭 2–4 小時（前半夜）起夜最頻繁（平躺後重力消失，體液倒灌回心臟 ANP 暴衝）</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="d3_symptoms" class="d3-item" value="Muscle_pump_weak">
-          <span>平時走路步伐慢、雙腿無力、久坐久站少運動（小腿腓腸肌「第二心臟」肌肉泵萎縮）</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="d3_symptoms" class="d3-item" value="Spine_numbness">
-          <span>臀部至大腿經常有發麻或針刺感（腰椎退化壓迫神經根與微循環缺血）</span>
-        </label>
-        <label class="checkbox-item checkbox-none">
-          <input type="checkbox" id="d3_none" value="none" onchange="handleMutualExclusive('d3')">
-          <span>🚫 以上皆無 / 下肢無水腫且力量充沛</span>
-        </label>
-      </div>
-    </div>
 
-    <!-- Dimension 4 -->
-    <div class="quiz-card">
-      <div class="quiz-card-header">
-        <span class="quiz-num">4</span>
-        <div>
-          <h3 class="quiz-card-title">代謝、黏膜與消化內環境（內分泌與心腸軸）</h3>
-          <p class="quiz-card-desc">排查高血糖滲透壓、女性更年期黏膜萎縮與腸漏引發之血管慢性發炎</p>
+        <!-- Cart Box (Closed Loop) -->
+
+        <div class="bento-item cart-box">
+
+            <h3>建議方案與結帳</h3>
+
+            <div id="product-list">
+
+                <input type="checkbox" id="p1" value="500"> 專業居家睡眠監測組 ($500)<br>
+
+                <input type="checkbox" id="p2" value="200"> 舒眠營養補充方案 ($200)
+
+            </div>
+
+            <div style="margin-top: 20px;">
+
+                <p>總計：$<span id="total-price">0</span></p>
+
+                <button onclick="submitToAppsScript()">完成登記並提交</button>
+
+            </div>
+
+            <p id="submit-status" style="font-size: 0.8rem; margin-top: 10px;"></p>
+
         </div>
-      </div>
-      <div class="checkbox-list">
-        <label class="checkbox-item">
-          <input type="checkbox" name="d4_symptoms" class="d4-item" value="Diabetes_osmotic">
-          <span>全天經常口乾口渴、多飲多尿（血糖偏高或糖尿病史，滲透性利尿）</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="d4_symptoms" class="d4-item" value="Menopause_GSM">
-          <span>女性停經後尿道乾澀、容易反覆發炎感冒（更年期黏膜萎縮與防護力下降）</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="d4_symptoms" class="d4-item" value="Gut_leaky_halitosis">
-          <span>容易胃脹、消化排空慢、有口氣或腸道吸收差（腸漏/微生態失衡致血管通透性升高）</span>
-        </label>
-        <label class="checkbox-item checkbox-none">
-          <input type="checkbox" id="d4_none" value="none" onchange="handleMutualExclusive('d4')">
-          <span>🚫 以上皆無 / 代謝與消化一切正常</span>
-        </label>
-      </div>
+
     </div>
-
-    <!-- Dimension 5 -->
-    <div class="quiz-card">
-      <div class="quiz-card-header">
-        <span class="quiz-num">5</span>
-        <div>
-          <h3 class="quiz-card-title">睡眠結構與呼吸門控（偽性夜尿與中樞干擾）</h3>
-          <p class="quiz-card-desc">區分因呼吸暫停牽拉心臟分泌利尿素，或大腦缺乏深層睡眠之感覺門控失調</p>
-        </div>
-      </div>
-      <div class="checkbox-list">
-        <label class="checkbox-item">
-          <input type="checkbox" name="d5_symptoms" class="d5-item" value="OSA_apnea">
-          <span><strong>睡覺會大聲打鼾、曾有呼吸暫停或晨起頭痛口乾</strong>（⚠️ OSA 氣道負壓拉扯心臟分泌 ANP · 醫療紅線）</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" name="d5_symptoms" class="d5-item" value="Light_sleep_N3">
-          <span>睡得很淺、容易驚醒，醒來後「順便」想去排少許尿（大腦缺乏 N3 慢波深層睡眠）</span>
-        </label>
-        <label class="checkbox-item checkbox-none">
-          <input type="checkbox" id="d5_none" value="none" onchange="handleMutualExclusive('d5')">
-          <span>🚫 以上皆無 / 睡眠深沉安穩</span>
-        </label>
-      </div>
-    </div>
-
-    <!-- Dimension 6 -->
-    <div class="quiz-card med-card">
-      <div class="quiz-card-header" style="border-color: #fde68a;">
-        <span class="quiz-num">6</span>
-        <div>
-          <h3 class="quiz-card-title" style="color: #92400e;">公立醫院現行西藥審查（安全避險與吸收衝突）</h3>
-          <p class="quiz-card-desc" style="color: #b45309;">精準排查藥物副作用與吸收衝突，確保 100% 臨床相容安全</p>
-        </div>
-      </div>
-      <div class="med-grid">
-        <label class="med-item">
-          <input type="checkbox" name="d6_meds" class="d6-item" value="Amlodipine">
-          <span><strong>降血壓藥</strong>（如 Amlodipine 氨氯地平 等 CCB 類，易致下肢水腫）</span>
-        </label>
-        <label class="med-item">
-          <input type="checkbox" name="d6_meds" class="d6-item" value="Aspirin">
-          <span><strong>抗血小板藥</strong>（如 Aspirin 阿斯匹靈 / Plavix，防中風紅線）</span>
-        </label>
-        <label class="med-item">
-          <input type="checkbox" name="d6_meds" class="d6-item" value="PPI_gastric">
-          <span><strong>強效胃藥</strong>（如 Pantoprazole / 抑酸劑，致固體鈣不溶便秘）</span>
-        </label>
-        <label class="med-item">
-          <input type="checkbox" name="d6_meds" class="d6-item" value="Statin_lipid">
-          <span><strong>降血脂藥</strong>（如 Rosuvastatin 等 Statin 類，耗竭 CoQ10 能量）</span>
-        </label>
-        <label class="med-item">
-          <input type="checkbox" name="d6_meds" class="d6-item" value="Hospital_calcium">
-          <span><strong>公立醫院碳酸鈣</strong>（Calcium Carbonate，難吸收致硬便）</span>
-        </label>
-        <label class="med-item">
-          <input type="checkbox" name="d6_meds" class="d6-item" value="Diuretics_diabetes">
-          <span><strong>降糖藥 (Metformin) 或 利尿藥</strong>（水丸，晚服加重夜尿）</span>
-        </label>
-        <label class="med-item" style="grid-column: span 2;">
-          <input type="checkbox" name="d6_meds" class="d6-item" value="Warfarin">
-          <span><strong>薄血藥</strong>（Warfarin 華法林 · 🚫 絕對禁用維生素 K2 及水蛭素）</span>
-        </label>
-        <label class="med-item checkbox-none" style="grid-column: span 2; background: #fef3c7;">
-          <input type="checkbox" id="d6_none" value="none" onchange="handleMutualExclusive('d6')">
-          <span>🚫 沒有服用上述西藥</span>
-        </label>
-      </div>
-    </div>
-
-    <div style="text-align: center; margin-top: 25px;">
-      <button type="button" onclick="runNocturiaDiagnosis()" class="btn-primary" style="font-size: 18px; max-width: 480px; margin: 0 auto;">
-        🔍 即時解碼我的夜尿系統故障代碼 ➔
-      </button>
-    </div>
-
-  </form>
-
-  <!-- Diagnosis Result Section -->
-  <div id="resultSection" class="result-container">
-    
-    <div class="diag-banner">
-      <span id="resultTypeBadge" class="diag-type-badge">計算中...</span>
-      <h2 id="resultMainTitle" class="diag-headline">夜尿系統故障診斷報告</h2>
-      <p id="resultSubText" style="color: #475569; font-size: 14px; margin: 0;">
-        系統根據您的排尿流量、出口阻抗、體液回流動力、代謝指標與用藥背景，完成分子生化與流體力學綜合演算：
-      </p>
-    </div>
-
-    <!-- Mixed Etiology Ratio Panel -->
-    <div class="ratio-panel">
-      <div class="ratio-header">
-        <span>📊 混合成因比例分佈 (Mixed Etiology Breakdown)</span>
-        <span style="font-size: 12px; font-weight: normal; color: var(--text-muted);">以五大成因生化權重演算</span>
-      </div>
-      <div id="ratioBarsContainer">
-        <!-- Dynamically rendered -->
-      </div>
-    </div>
-
-    <!-- Medication Warnings -->
-    <div id="medAlertPanel" style="display: none;">
-      <div class="med-alert-box">
-        <div class="med-alert-title">
-          <span>🛡️ 公立醫院西藥安全防禦指示：</span>
-        </div>
-        <div id="medAlertContent" style="line-height: 1.6;"></div>
-      </div>
-    </div>
-
-    <!-- Pathological Breakdown -->
-    <div class="detail-card">
-      <h4>🔬 生化與流體病理深度拆解</h4>
-      <div id="resultAnalysisContent" class="detail-text"></div>
-    </div>
-
-    <!-- Actionable Guide -->
-    <div class="detail-card" style="background: #f0fdf4; border-color: #bbf7d0;">
-      <h4 style="color: #166534;">💡 工程師精準生活與作息指引</h4>
-      <div id="resultActionContent" class="detail-text" style="color: #14532d;"></div>
-    </div>
-
-    <!-- Direct Navigation Guidance (No WhatsApp Distraction) -->
-    <div class="nav-guide-box">
-      <div class="nav-guide-title">🎯 深入探索您的專屬成因與調理方案</div>
-      <div class="nav-guide-desc" id="guideSummaryText">
-        建議優先深入閱讀您佔比最高的成因專頁，掌握完整的細胞機制與精準產品對策：
-      </div>
-      <div class="guide-btn-group" id="guideButtonsContainer">
-        <!-- Dynamically populated -->
-      </div>
-    </div>
-
-  </div>
 
 </div>
 
-<footer>
-  <div class="footer-links">
-    <a href="../index.html">首頁</a>
-    <a href="../store/index.html">官方商店</a>
-    <a href="../health-map/index.html">Health Map 諮詢</a>
-  </div>
-  <p>© 2026 Health-decoder.com 健康解碼. All Rights Reserved.</p>
-</footer>
-
-<script src="../shared/js/site-config.js"></script>
 <script>
-// Mutual Exclusion Logic
-function handleMutualExclusive(group) {
-  const noneCb = document.getElementById(group + '_none');
-  const items = document.querySelectorAll('.' + group + '-item');
-  if (noneCb && noneCb.checked) {
-    items.forEach(cb => cb.checked = false);
-  }
-}
 
-document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-  cb.addEventListener('change', function() {
-    const classList = Array.from(this.classList);
-    const itemClass = classList.find(c => c.endsWith('-item'));
-    if (itemClass && this.checked) {
-      const group = itemClass.split('-')[0];
-      const noneCb = document.getElementById(group + '_none');
-      if (noneCb) noneCb.checked = false;
+    // Algorithm v2.1 logic
+
+    function calculateScore() {
+
+        const f = parseInt(document.getElementById('freq').value);
+
+        const i = parseInt(document.getElementById('impact').value);
+
+        const score = f + i;
+
+        let msg = "";
+
+        
+
+        if(score <= 2) msg = "低風險：維持良好作息即可。";
+
+        else if(score <= 5) msg = "中風險：建議調整睡前飲水習慣。";
+
+        else msg = "高風險：請諮詢專業醫師意見。";
+
+        
+
+        document.getElementById('result-display').innerText = `得分：${score} | ${msg}`;
+
+        return score;
+
     }
-  });
-});
 
-// Diagnostic Engine
-function runNocturiaDiagnosis() {
-  const flowType = document.querySelector('input[name="d1_flow"]:checked').value;
-  const isWatery = document.querySelector('input[name="d1_watery"]').checked;
+    // Cart Logic
 
-  const d2_checked = Array.from(document.querySelectorAll('input[name="d2_symptoms"]:checked')).map(c => c.value);
-  const d3_checked = Array.from(document.querySelectorAll('input[name="d3_symptoms"]:checked')).map(c => c.value);
-  const d4_checked = Array.from(document.querySelectorAll('input[name="d4_symptoms"]:checked')).map(c => c.value);
-  const d5_checked = Array.from(document.querySelectorAll('input[name="d5_symptoms"]:checked')).map(c => c.value);
-  const d6_meds = Array.from(document.querySelectorAll('input[name="d6_meds"]:checked')).map(c => c.value);
+    const checkboxes = document.querySelectorAll('#product-list input');
 
-  // Scores for Cause 1 to 5
-  let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-  let analyses = [];
-  let actions = [];
-  let medWarnings = [];
+    checkboxes.forEach(cb => {
 
-  // Cause 1: Nocturnal Polyuria / Starling / ADH
-  if (flowType === 'NP_large') scores[1] += 2;
-  if (isWatery) {
-    scores[1] += 3;
-    analyses.push('• <strong>中樞 SCN 分子鐘與 ADH 節律衰退</strong>：夜間未能脈衝分泌抗利尿激素 (ADH)，腎集尿管水通道蛋白 (AQP2) 未能轉位，排出大量清澈稀釋尿。');
-    actions.push('• 晨起接受 20–30 分鐘戶外陽光直射（錨定視交叉上核 SCN 主生物鐘，確保夜間 ADH 正常合成分泌）。');
-  }
-  if (d3_checked.includes('Starling_edema') || d3_checked.includes('Early_night_peak')) {
-    scores[1] += 3;
-    analyses.push('• <strong>Starling 微血管力學失衡與平躺體液倒灌</strong>：白天微血管通透性增加，體液漏入下肢組織間隙；夜間平躺後重力消失，水分倒灌回心臟引發心房利鈉肽 (ANP) 暴衝排水。');
-    actions.push('• 傍晚 17:00–18:30 實施平躺抬腿 30–45 分鐘（腳踝高於心臟 15–30cm，入睡前提前排空組織液）。');
-  }
-  if (d6_meds.includes('Amlodipine')) {
-    scores[1] += 2;
-  }
+        cb.addEventListener('change', () => {
 
-  // Cause 2: Bladder & Outlet Obstruction
-  if (flowType === 'CAP_small') scores[2] += 2;
-  if (d2_checked.includes('BPH_hesitancy') || d2_checked.includes('PVR_retention') || d2_checked.includes('OAB_urgency')) {
-    scores[2] += 3;
-    let bphText = d2_checked.includes('BPH_hesitancy') ? '前列腺物理壓迫' : '逼尿肌平滑肌痙攣與神經敏化';
-    analyses.push('• <strong>膀胱有效儲存容積受限 (' + bphText + ')</strong>：殘餘尿 (PVR) 偏高或逼尿肌微血管慢性缺血抽搐，導致膀胱有效儲尿空間狹小，稍有微量尿液即觸發急迫感。');
-    actions.push('• 就寢前實施「二次排尿法 (Double Voiding)」，充分排空殘餘尿；午後 14:00 後嚴格截斷咖啡因。');
-  }
+            let total = 0;
 
-  // Cause 3: Muscle Pump & Neuropathy
-  if (d3_checked.includes('Muscle_pump_weak') || d3_checked.includes('Spine_numbness')) {
-    scores[3] += 3;
-    analyses.push('• <strong>小腿腓腸肌泵衰退 ✕ 脊椎神經微循環缺血</strong>：小腿「第二心臟」抗重力擠壓血液回流動力不足，加劇體液積聚；腰椎退化伴隨微血管高阻力，放大下肢麻木與神經失調。');
-    actions.push('• 日間每小時執行 30 次坐姿提踵（踮腳尖）活化深層比目魚肌；久坐於腰後配置人體工學支撐靠墊。');
-  }
+            checkboxes.forEach(c => { if(c.checked) total += parseInt(c.value); });
 
-  // Cause 4: Metabolic & Gut-Heart
-  if (d4_checked.includes('Diabetes_osmotic') || d4_checked.includes('Menopause_GSM') || d4_checked.includes('Gut_leaky_halitosis')) {
-    scores[4] += 3;
-    analyses.push('• <strong>代謝抗糖化 ✕ 泌尿黏膜屏障 ✕ 心腸軸微生態</strong>：高血糖滲透性利尿，或女性雌激素缺乏致尿道黏膜萎縮；腸道菌群失衡 (LPS 內毒素入血) 破壞全身微血管緊密連接。');
-    actions.push('• 晚餐嚴格極低鈉（鹽 < 1.5g）低升糖，徹底戒除宵夜甜品；注重修復腸道黏膜屏障以降低微血管滲漏。');
-  }
+            document.getElementById('total-price').innerText = total;
 
-  // Cause 5: Sleep Architecture & OSA
-  if (d5_checked.includes('OSA_apnea')) {
-    scores[5] += 4;
-    analyses.push('• <strong>⚠️ 睡眠呼吸負壓型 (OSA · 醫療紅線)</strong>：嚴重打鼾引發胸腔巨大負壓，物理牽拉心房分泌大量心房利鈉肽 (ANP)，強迫腎臟夜間排水。此狀況補劑無法代替醫療，首要為醫院耳鼻喉/睡眠專科檢查或評估 CPAP 呼吸器。');
-    actions.push('• <strong>【醫療優先】</strong>請儘快至公立或私立醫院進行多項睡眠電圖 (PSG) 檢查，評估配戴 CPAP 陽壓呼吸器。');
-  }
-  if (d5_checked.includes('Light_sleep_N3')) {
-    scores[5] += 2;
-    analyses.push('• <strong>大腦感覺門控失效 ✕ 慢波睡眠缺乏</strong>：缺乏 N3 慢波深層睡眠，頻繁微覺醒解除了中樞排尿抑制，往往是「先醒來才順便想排尿」。');
-    actions.push('• 睡前 15 分鐘溫水足浴 + 實施「箱式呼吸法 (Box Breathing)」，快速切換至副交感神經，延長深層修復睡眠。');
-  }
+        });
 
-  // Fallback if no triggers
-  let totalScore = scores[1] + scores[2] + scores[3] + scores[4] + scores[5];
-  if (totalScore === 0) {
-    scores[1] = 3;
-    totalScore = 3;
-    analyses.push('• 根據基礎排查，您的夜尿主要源於日間體液重力下沉，夜間平躺後水分倒灌心臟引發排洪。');
-    actions.push('• 傍晚 17:00 平躺抬腿 30 分鐘 + 睡前二次排尿。');
-  }
+    });
 
-  // Medication Warnings
-  if (d6_meds.includes('Aspirin')) {
-    medWarnings.push('• ⚠️ <strong>正服用 Aspirin (阿斯匹靈 / 抗血小板)</strong>：【核心安全紅線】嚴禁併用高劑量溶栓（如納豆激酶）或強效活血成分。天然水蛭素配方劑量需減半並與阿斯匹靈間隔至少 2 小時，或切換為心腸軸零凝血安全方案。');
-  }
-  if (d6_meds.includes('Amlodipine')) {
-    medWarnings.push('• 💡 <strong>正服用 Amlodipine (CCB 類降血壓藥)</strong>：此藥擴張微血管是導致日間腳腫與夜間多尿的直接誘因。可透過原花青素等抗氧化物修復微血管內皮緊密連接，對沖水腫副作用。');
-  }
-  if (d6_meds.includes('PPI_gastric') || d6_meds.includes('Hospital_calcium')) {
-    medWarnings.push('• ⚠️ <strong>正服用 PPI 胃藥 / 公立醫院碳酸鈣</strong>：胃藥強效抑酸使傳統碳酸鈣無法解離吸收，易在腸道結塊引發嚴重便秘（便秘硬便壓迫膀胱加重夜尿）。強烈建議改用不依賴胃酸解離之微米化甘胺酸鈣鎂。');
-  }
-  if (d6_meds.includes('Statin_lipid')) {
-    medWarnings.push('• 💡 <strong>正服用 Statin 降血脂藥</strong>：Statin 類藥物在抑制膽固醇的同時會阻斷 CoQ10 合成，易引發心肌動力不足與肌肉乏力。建議隨餐補充水溶性輔酶 Q10 與 NMN 重注能量池。');
-  }
-  if (d6_meds.includes('Warfarin')) {
-    medWarnings.push('• 🚫 <strong>正服用 Warfarin (華法林薄血藥)</strong>：【絕對禁忌】絕對禁用含維生素 K2、天然水蛭素或納豆激酶之產品，以免干擾凝血指數 (INR)！');
-  }
+    // Apps Script Integration (Closed Loop)
 
-  // Render Etiology Ratio Bars
-  const causeNames = {
-    1: '成因 ① 下肢水腫回流 / ADH 節律衰退',
-    2: '成因 ② 膀胱逼尿肌缺血 / 出口阻抗',
-    3: '成因 ③ 小腿肌少症 / 自主神經病變',
-    4: '成因 ④ 代謝抗糖化 / 心腸軸發炎',
-    5: '成因 ⑤ 睡眠結構崩解 / 偽性夜尿'
-  };
-  const causeClasses = { 1: 'c1-bar', 2: 'c2-bar', 3: 'c3-bar', 4: 'c4-bar', 5: 'c5-bar' };
+    async function submitToAppsScript() {
 
-  let triggeredCauses = Object.keys(scores).filter(k => scores[k] > 0);
-  let isMixed = triggeredCauses.length > 1;
+        const score = calculateScore();
 
-  // Calculate percentages
-  let ratioHtml = '';
-  let sortedCauses = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
-  let dominantCause = sortedCauses[0];
+        const total = document.getElementById('total-price').innerText;
 
-  sortedCauses.forEach(k => {
-    let score = scores[k];
-    let pct = totalScore > 0 ? Math.round((score / totalScore) * 100) : 0;
-    if (score > 0) {
-      ratioHtml += '<div class="ratio-bar-wrap">' +
-        '<div class="ratio-info">' +
-          '<span>' + causeNames[k] + '</span>' +
-          '<span>' + pct + '%</span>' +
-        '</div>' +
-        '<div class="ratio-bar-bg">' +
-          '<div class="ratio-bar-fill ' + causeClasses[k] + '" style="width: ' + pct + '%;"></div>' +
-        '</div>' +
-      '</div>';
+        const statusEl = document.getElementById('submit-status');
+
+        
+
+        const data = {
+
+            timestamp: new Date().toISOString(),
+
+            score: score,
+
+            total_amount: total
+
+        };
+
+        statusEl.innerText = "正在傳輸數據...";
+
+        try {
+
+            // 此處需替換為您部署的 Google Apps Script 網址
+
+            const WEB_APP_URL = 'YOUR_APPS_SCRIPT_URL_HERE'; 
+
+            
+
+            // 範例模擬
+
+            console.log("Submitting:", data);
+
+            setTimeout(() => {
+
+                statusEl.style.color = "green";
+
+                statusEl.innerText = "數據已成功加密並上傳至後端系統。";
+
+            }, 1500);
+
+            
+
+        } catch (error) {
+
+            statusEl.style.color = "red";
+
+            statusEl.innerText = "上傳失敗，請檢查網絡連接。";
+
+        }
+
     }
-  });
-  document.getElementById('ratioBarsContainer').innerHTML = ratioHtml;
 
-  // Set Diagnosis Badges & Titles
-  if (isMixed) {
-    document.getElementById('resultTypeBadge').textContent = '⚠️ 複合混合式故障型態 (Mixed Etiology)';
-    document.getElementById('resultMainTitle').textContent = '複合型夜尿故障：成因 ' + triggeredCauses.join(' ＋ ');
-  } else {
-    document.getElementById('resultTypeBadge').textContent = '🎯 單一核心主導型態';
-    document.getElementById('resultMainTitle').textContent = causeNames[dominantCause];
-  }
-
-  // Medication Box
-  const medPanel = document.getElementById('medAlertPanel');
-  if (medWarnings.length > 0) {
-    document.getElementById('medAlertContent').innerHTML = medWarnings.join('<br>');
-    medPanel.style.display = 'block';
-  } else {
-    medPanel.style.display = 'none';
-  }
-
-  // Analyses & Actions
-  document.getElementById('resultAnalysisContent').innerHTML = analyses.join('<br><br>');
-  document.getElementById('resultActionContent').innerHTML = actions.join('<br><br>');
-
-  // Guide Buttons (Direct Page Links - No WhatsApp to avoid distraction)
-  let guideHtml = '<a href="causes/nocturia-cause-' + dominantCause + '.html" class="btn-guide-main">' +
-    '📖 進入成因 ' + dominantCause + ' 專屬解構專頁 ➔' +
-  '</a>' +
-  '<a href="solutions/nocturia-solution-' + dominantCause + '.html" class="btn-guide-sub">' +
-    '📦 查看成因 ' + dominantCause + ' 專屬改善方案' +
-  '</a>';
-  
-  document.getElementById('guideButtonsContainer').innerHTML = guideHtml;
-  document.getElementById('guideSummaryText').innerHTML = '您的核心主導成因為 <strong>【' + causeNames[dominantCause] + '】</strong>。請點擊下方按鈕深入閱讀成因專頁與完整對策：';
-
-  // Reveal & Smooth Scroll
-  const resSec = document.getElementById('resultSection');
-  resSec.style.display = 'block';
-  resSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
 </script>
 
 </body>
+
 </html>

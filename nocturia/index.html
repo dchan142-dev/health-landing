@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>夜尿專題解碼 ✕ 個人專屬自測與改善方案 | Health Decoder</title>
+  <title>夜尿初步自我診斷問卷及數據收集系統 ✕ 專屬改善方案 | Health Decoder</title>
   <meta name="description" content="半夜頻繁起「身」，成晚無覺好瞓？搞清楚源頭，先可以治本。Duncan Chan 以工程師邏輯與代謝底層解碼，助你找出夜尿真正成因，重建不求人的自理底氣。">
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -308,7 +308,7 @@
     }
 
     /* ==========================================================================
-       4. BLOCK B: QUIZ ENGINE (v2.1)
+       4. BLOCK B: QUIZ ENGINE (MOD-NOCT-QUIZ 6 CARDS STRUCTURE)
        ========================================================================== */
     #block-b {
       background-color: #f1f5f9;
@@ -334,7 +334,15 @@
       margin-bottom: 1rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: space-between;
+    }
+    .card-type-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      background-color: #e2e8f0;
+      color: #475569;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
     }
     .form-input-text {
       width: 100%;
@@ -409,7 +417,7 @@
       background-color: #fef3c7;
       color: #b45309;
       font-weight: 800;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       padding: 0.5rem 1.25rem;
       border-radius: var(--radius-md);
       margin-bottom: 1rem;
@@ -420,6 +428,41 @@
       font-weight: 900;
       color: #0f172a;
       margin-bottom: 1rem;
+    }
+    .breakdown-box {
+      background-color: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.25rem 0;
+      text-align: left;
+    }
+    .breakdown-bar-wrap {
+      margin-bottom: 0.75rem;
+    }
+    .breakdown-bar-wrap:last-child {
+      margin-bottom: 0;
+    }
+    .breakdown-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #334155;
+    }
+    .breakdown-progress-bg {
+      width: 100%;
+      height: 10px;
+      background-color: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .breakdown-progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      border-radius: 999px;
+      transition: width 0.5s ease-out;
     }
     .disclaimer-box {
       font-size: 0.9rem;
@@ -934,29 +977,33 @@
     </section>
 
     <!-- ======================================================================
-         BLOCK B: 6-DIMENSION QUIZ ENGINE (v2.1)
+         BLOCK B: 6-DIMENSION QUIZ ENGINE (MOD-NOCT-QUIZ 100% 正版六大卡片題庫)
          ====================================================================== -->
     <section id="block-b">
       <div class="container">
         <div class="section-title-wrap">
-          <span class="section-tag">初步自測</span>
-          <h2 class="section-title">📋 請完成以下問卷作初步自我診斷</h2>
+          <span class="section-tag">初步自測系統</span>
+          <h2 class="section-title">夜尿初步自我診斷問卷及數據收集系統</h2>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.25rem;">請完成以下 6 大維度體感排查，釐清流量與容量本質</p>
         </div>
 
         <form id="quizForm" class="quiz-form" onsubmit="event.preventDefault(); submitQuiz();">
           
-          <!-- 基本資料 -->
+          <!-- 步驟 1：基本健康參數區塊 -->
           <div class="form-group-card">
-            <div class="form-group-title">👤 基本資料</div>
-            <div class="form-row-item">
-              <label for="userName">如何稱呼你：</label>
-              <input type="text" id="userName" class="form-input-text" placeholder="例如：陳先生 / 鄒太" required>
+            <div class="form-group-title">
+              <span>👤 步驟 1：基本健康參數</span>
             </div>
             
             <div class="form-row-item">
-              <label>生理性別：</label>
+              <label for="userName">您的稱呼：</label>
+              <input type="text" id="userName" class="form-input-text" placeholder="例如：陳生 / 李太 / 王小姐" required>
+            </div>
+            
+            <div class="form-row-item">
+              <label>性別：</label>
               <div class="radio-grid radio-grid-2">
-                <label class="option-label">
+                <label class="option-label active">
                   <input type="radio" name="gender" value="男" checked> 男士
                 </label>
                 <label class="option-label">
@@ -968,116 +1015,178 @@
             <div class="form-row-item">
               <label>年齡區間：</label>
               <div class="radio-grid">
-                <label class="option-label"><input type="radio" name="ageGroup" value="45歲以下"> 45 歲以下</label>
-                <label class="option-label"><input type="radio" name="ageGroup" value="46–55"> 46–55 歲</label>
-                <label class="option-label active"><input type="radio" name="ageGroup" value="56–65" checked> 56–65 歲</label>
-                <label class="option-label"><input type="radio" name="ageGroup" value="65–75"> 65–75 歲</label>
-                <label class="option-label"><input type="radio" name="ageGroup" value="75歲以上"> 75 歲以上</label>
+                <label class="option-label"><input type="radio" name="ageGroup" value="49歲或以下"> 49 歲或以下</label>
+                <label class="option-label"><input type="radio" name="ageGroup" value="50–59歲"> 50 – 59 歲</label>
+                <label class="option-label active"><input type="radio" name="ageGroup" value="60–69歲" checked> 60 – 69 歲</label>
+                <label class="option-label"><input type="radio" name="ageGroup" value="70歲或以上"> 70 歲或以上</label>
               </div>
             </div>
           </div>
 
-          <!-- 維度 1 -->
+          <!-- 卡片 1【出水量與起夜頻率】（單選） -->
           <div class="form-group-card">
-            <div class="form-group-title">維度 ①：日間下肢與水分狀態</div>
-            <div class="checkbox-grid">
+            <div class="form-group-title">
+              <span>卡片 1【出水量與起夜頻率】</span>
+              <span class="card-type-badge">單選</span>
+            </div>
+            <div class="radio-grid">
               <label class="option-label">
-                <input type="checkbox" name="c1_sym" value="10"> 下午或傍晚鞋子變緊、腳踝腳背有水腫凹痕，襪口勒痕深。
+                <input type="radio" name="q1_flow" value="1A" required>
+                <span><strong>選項 1A：</strong>單次尿量充足，每次排尿像裝滿大半杯，一晚要起來 2 次或以上</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="c1_sym" value="10"> 晚上剛平躺睡覺頭 2–4 小時前半夜，特別容易被大量尿意憋醒（每次尿量充足）。
+                <input type="radio" name="q1_flow" value="1B">
+                <span><strong>選項 1B：</strong>每次只有一點點，每次尿量極少甚至幾滴，頻繁覺得急迫</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="c1_none" onchange="handleNoneCheckbox('c1')"> 以上皆無
+                <input type="radio" name="q1_flow" value="1C">
+                <span><strong>選項 1C：</strong>單次尿量極大且清澈如清水</span>
               </label>
             </div>
           </div>
 
-          <!-- 維度 2 -->
+          <!-- 卡片 2【排尿動作與出口阻抗】（單選） -->
           <div class="form-group-card">
-            <div class="form-group-title">維度 ②：排尿體感與順暢度</div>
-            <div class="checkbox-grid">
+            <div class="form-group-title">
+              <span>卡片 2【排尿動作與出口阻抗】</span>
+              <span class="card-type-badge">單選</span>
+            </div>
+            <div class="radio-grid">
               <label class="option-label">
-                <input type="checkbox" name="c2_sym" value="10"> 半夜頻繁起夜（2–5次），但企喺馬桶前半天尿唔出或尿流細弱中斷。
+                <input type="radio" name="q2_resist" value="2A" required>
+                <span><strong>選項 2A：</strong>站在馬桶前要等數秒才出尿，尿流變細、斷斷續續</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="c2_sym" value="10"> 每次排尿量極少（只有幾滴或一小口），排完仍覺得膀胱未清乾淨。
+                <input type="radio" name="q2_resist" value="2B">
+                <span><strong>選項 2B：</strong>排完後總覺得膀胱底還有尿液殘留</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="c2_none" onchange="handleNoneCheckbox('c2')"> 以上皆無
+                <input type="radio" name="q2_resist" value="2C">
+                <span><strong>選項 2C：</strong>突發強烈尿急感，完全忍不住</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q2_resist" value="2D">
+                <span><strong>選項 2D：</strong>排尿順暢無阻抗</span>
               </label>
             </div>
           </div>
 
-          <!-- 維度 3 -->
+          <!-- 卡片 3【下肢流體與肌肉動力】（可多選，設互斥選項） -->
           <div class="form-group-card">
-            <div class="form-group-title">維度 ③：下肢力量與行動自理</div>
+            <div class="form-group-title">
+              <span>卡片 3【下肢流體與肌肉動力】</span>
+              <span class="card-type-badge">可多選</span>
+            </div>
             <div class="checkbox-grid">
               <label class="option-label">
-                <input type="checkbox" name="c3_sym" value="10"> 雙腿容易發軟無力、小腿肌肉流失萎縮變幼、行樓梯吃力。
+                <input type="checkbox" name="q3_fluid" value="3A" onchange="handleMutualExclusive('q3', this)">
+                <span><strong>選項 3A：</strong>傍晚覺得鞋子變緊、腳踝或小腿有明顯襪印或凹陷</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="c3_sym" value="10"> 半夜摸黑起夜步態不穩，曾有失去平衡或跌倒心驚經歷。
+                <input type="checkbox" name="q3_fluid" value="3B" onchange="handleMutualExclusive('q3', this)">
+                <span><strong>選項 3B：</strong>剛睡下頭 2–4 小時（前半夜）起夜最頻繁</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="c3_none" onchange="handleNoneCheckbox('c3')"> 以上皆無
+                <input type="checkbox" name="q3_fluid" value="3C" onchange="handleMutualExclusive('q3', this)">
+                <span><strong>選項 3C：</strong>平時走路步伐慢、雙腿無力、久坐久站少運動</span>
+              </label>
+              <label class="option-label">
+                <input type="checkbox" name="q3_fluid" value="3D" onchange="handleMutualExclusive('q3', this)">
+                <span><strong>選項 3D：</strong>臀部至大腿經常有發麻或針刺感</span>
+              </label>
+              <label class="option-label">
+                <input type="checkbox" name="q3_fluid_none" value="3E" onchange="handleNoneSelect('q3', this)">
+                <span><strong>選項 3E：</strong>下肢無水腫且力量充沛（無上述情況）</span>
               </label>
             </div>
           </div>
 
-          <!-- 維度 4 -->
+          <!-- 卡片 4【代謝、黏膜與消化內環境】（可多選，設互斥選項） -->
           <div class="form-group-card">
-            <div class="form-group-title">維度 ④：代謝指標與腸胃狀態</div>
+            <div class="form-group-title">
+              <span>卡片 4【代謝、黏膜與消化內環境】</span>
+              <span class="card-type-badge">可多選</span>
+            </div>
             <div class="checkbox-grid">
               <label class="option-label">
-                <input type="checkbox" name="c4_sym" value="10"> 經常感到口乾舌燥、飲多尿多，或有血糖偏高、胰島素阻抗情況。
+                <input type="checkbox" name="q4_metabolic" value="4A" onchange="handleMutualExclusive('q4', this)">
+                <span><strong>選項 4A：</strong>全天經常口乾口渴、多飲多尿</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="c4_sym" value="10"> 伴隨腸胃脹氣、消化不良或長期便秘（硬便壓迫膀胱）。
+                <input type="checkbox" name="q4_metabolic" value="4B" onchange="handleMutualExclusive('q4', this)">
+                <span><strong>選項 4B：</strong>女性停經後尿道乾澀、容易反覆不適</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="c4_none" onchange="handleNoneCheckbox('c4')"> 以上皆無
+                <input type="checkbox" name="q4_metabolic" value="4C" onchange="handleMutualExclusive('q4', this)">
+                <span><strong>選項 4C：</strong>容易胃脹、消化排空慢、有口氣或吸收差</span>
+              </label>
+              <label class="option-label">
+                <input type="checkbox" name="q4_metabolic_none" value="4D" onchange="handleNoneSelect('q4', this)">
+                <span><strong>選項 4D：</strong>代謝與消化一切正常（無上述情況）</span>
               </label>
             </div>
           </div>
 
-          <!-- 維度 5 -->
+          <!-- 卡片 5【睡眠結構與呼吸門控】（可多選，設互斥選項） -->
           <div class="form-group-card">
-            <div class="form-group-title">維度 ⑤：睡眠質素與呼吸狀態</div>
+            <div class="form-group-title">
+              <span>卡片 5【睡眠結構與呼吸門控】</span>
+              <span class="card-type-badge">可多選</span>
+            </div>
             <div class="checkbox-grid">
               <label class="option-label">
-                <input type="checkbox" name="c5_sym" value="10"> 睡眠極淺、少少聲音就醒，醒咗之後先覺得有尿意而順便去廁所。
+                <input type="checkbox" name="q5_sleep" value="5A" onchange="handleMutualExclusive('q5', this)">
+                <span><strong>選項 5A：</strong>睡覺會大聲打鼾、曾有呼吸暫停或晨起頭痛口乾</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="c5_sym" value="10"> 夜間有嚴重打鼾、睡眠呼吸暫停或晨起口乾頭重現象。
+                <input type="checkbox" name="q5_sleep" value="5B" onchange="handleMutualExclusive('q5', this)">
+                <span><strong>選項 5B：</strong>睡得很淺、容易驚醒，醒來後順便想去排少許尿</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="c5_none" onchange="handleNoneCheckbox('c5')"> 以上皆無
+                <input type="checkbox" name="q5_sleep_none" value="5C" onchange="handleNoneSelect('q5', this)">
+                <span><strong>選項 5C：</strong>睡眠深沉安穩（無上述情況）</span>
               </label>
             </div>
           </div>
 
-          <!-- 維度 6: 西藥佐證與避險 -->
+          <!-- 卡片 6【現行西藥排查】（可多選，設互斥選項） -->
           <div class="form-group-card">
-            <div class="form-group-title">維度 ⑥：日常西藥服用情況（避險與佐證）</div>
+            <div class="form-group-title">
+              <span>卡片 6【現行西藥排查】</span>
+              <span class="card-type-badge">可多選</span>
+            </div>
             <div class="checkbox-grid">
               <label class="option-label">
-                <input type="checkbox" name="med" value="CCB"> 降血壓藥（如鈣離子阻斷劑 CCB / 氨氯地平 Amlodipine）
+                <input type="checkbox" name="q6_meds" value="6A" onchange="handleMutualExclusive('q6', this)">
+                <span><strong>選項 6A：</strong>降血壓藥（如 Amlodipine 氨氯地平 等 CCB 類）</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="med" value="Warfarin" id="medWarfarin"> 薄血藥 / 通血丸（如華法林 Warfarin）
+                <input type="checkbox" name="q6_meds" value="6B" onchange="handleMutualExclusive('q6', this)">
+                <span><strong>選項 6B：</strong>抗血小板藥（如 Aspirin 阿斯匹靈、Plavix）</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="med" value="PPI"> 胃藥（質子泵抑制劑 PPI）
+                <input type="checkbox" name="q6_meds" value="6C" onchange="handleMutualExclusive('q6', this)">
+                <span><strong>選項 6C：</strong>強效胃藥（如 Pantoprazole、Omeprazole 等抑酸劑）</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="med" value="Diuretic"> 利尿劑（Diuretics）
+                <input type="checkbox" name="q6_meds" value="6D" onchange="handleMutualExclusive('q6', this)">
+                <span><strong>選項 6D：</strong>降血脂藥（如 Rosuvastatin、Atorvastatin 等 Statin 類）</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="med" value="SGLT2"> 降糖藥 / 排糖藥
+                <input type="checkbox" name="q6_meds" value="6E" onchange="handleMutualExclusive('q6', this)">
+                <span><strong>選項 6E：</strong>公立醫院碳酸鈣（Calcium Carbonate）</span>
               </label>
               <label class="option-label">
-                <input type="checkbox" name="med_none" onchange="handleNoneCheckbox('med')"> 以上皆無
+                <input type="checkbox" name="q6_meds" value="6F" onchange="handleMutualExclusive('q6', this)">
+                <span><strong>選項 6F：</strong>降糖藥（如 Metformin）或 利尿藥（水丸）</span>
+              </label>
+              <label class="option-label">
+                <input type="checkbox" name="q6_meds" value="6G" id="medWarfarin" onchange="handleMutualExclusive('q6', this)">
+                <span><strong>選項 6G：</strong>薄血藥（如 Warfarin 華法林）</span>
+              </label>
+              <label class="option-label">
+                <input type="checkbox" name="q6_meds_none" value="6H" onchange="handleNoneSelect('q6', this)">
+                <span><strong>選項 6H：</strong>沒有服用上述西藥</span>
               </label>
             </div>
           </div>
@@ -1094,15 +1203,23 @@
          ====================================================================== -->
     <section id="block-c" class="gated-block">
       <div class="container">
-        <div class="result-badge" id="resCauseBadge">診斷分析完成</div>
+        <div class="result-badge" id="resCauseBadge">自測診斷分析完成</div>
         <h2 class="result-title" id="resCauseTitle">主要成因：成因 ①：下肢水腫平躺回流型</h2>
         
+        <!-- Mixed Breakdown Progress Bars -->
+        <div class="breakdown-box">
+          <div style="font-weight: 700; font-size: 1.05rem; color: #0f172a; margin-bottom: 0.75rem;">📊 您的 5 大成因綜合分析比例：</div>
+          <div id="breakdownBarsContainer">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
         <div class="loss-aversion-banner" id="resLossBanner">
           <!-- Injected via JS -->
         </div>
 
         <div class="disclaimer-box">
-          ⚠️ 本自測僅供個人自我健康評估參考，不作醫療診斷用途。
+          ⚠️ 【免責聲明】本問卷為初步自我健康評估工具，結果僅供生活調理與個人參考用途。若夜尿情況嚴重或伴隨急性不適，請尋求註冊醫生或專科醫療人員進行正式檢查與診斷。
         </div>
 
         <button class="btn btn-gold" onclick="scrollToBlock('block-d')">
@@ -1893,69 +2010,99 @@
     let isUnlocked = false;
 
     /* --------------------------------------------------------------------------
-       2. QUIZ CALCULATION ENGINE (v2.1)
+       2. MUTUAL EXCLUSION & QUIZ LOGIC
        -------------------------------------------------------------------------- */
-    function handleNoneCheckbox(group) {
-      if (group === 'med') {
-        const noneBox = document.querySelector('input[name="med_none"]');
-        if (noneBox.checked) {
-          document.querySelectorAll('input[name="med"]').forEach(cb => cb.checked = false);
-        }
-      } else {
-        const noneBox = document.querySelector(`input[name="${group}_none"]`);
-        if (noneBox.checked) {
-          document.querySelectorAll(`input[name="${group}_sym"]`).forEach(cb => cb.checked = false);
-        }
+    function handleMutualExclusive(groupName, element) {
+      if (element.checked) {
+        const noneBox = document.querySelector(`input[name="${groupName}_none"]`) || document.querySelector(`input[name="${groupName}_fluid_none"]`) || document.querySelector(`input[name="${groupName}_metabolic_none"]`) || document.querySelector(`input[name="${groupName}_sleep_none"]`) || document.querySelector(`input[name="${groupName}_meds_none"]`);
+        if (noneBox) noneBox.checked = false;
       }
     }
 
-    // Auto uncheck 'none' if any sym is selected
-    document.addEventListener('change', (e) => {
-      if (e.target.name && e.target.name.endsWith('_sym')) {
-        const group = e.target.name.split('_')[0];
-        const noneBox = document.querySelector(`input[name="${group}_none"]`);
-        if (noneBox && e.target.checked) noneBox.checked = false;
+    function handleNoneSelect(groupName, noneElement) {
+      if (noneElement.checked) {
+        let nameAttr = '';
+        if (groupName === 'q3') nameAttr = 'q3_fluid';
+        else if (groupName === 'q4') nameAttr = 'q4_metabolic';
+        else if (groupName === 'q5') nameAttr = 'q5_sleep';
+        else if (groupName === 'q6') nameAttr = 'q6_meds';
+        
+        document.querySelectorAll(`input[name="${nameAttr}"]`).forEach(cb => {
+          cb.checked = false;
+        });
       }
-      if (e.target.name === 'med') {
-        const noneBox = document.querySelector('input[name="med_none"]');
-        if (noneBox && e.target.checked) noneBox.checked = false;
-      }
-    });
+    }
 
     function submitQuiz() {
       const name = document.getElementById('userName').value.trim() || '讀者';
       const gender = document.querySelector('input[name="gender"]:checked').value;
       const age = document.querySelector('input[name="ageGroup"]:checked').value;
 
-      // 1. Raw Scores
+      // 1. Scoring Matrix Calculation
       let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-      for (let i = 1; i <= 5; i++) {
-        document.querySelectorAll(`input[name="c${i}_sym"]:checked`).forEach(cb => {
-          scores[i] += parseInt(cb.value, 10);
-        });
-      }
 
-      // Check Warfarin
-      const warfarinBox = document.getElementById('medWarfarin');
-      isWarfarin = warfarinBox ? warfarinBox.checked : false;
+      // Card 1
+      const q1Val = document.querySelector('input[name="q1_flow"]:checked') ? document.querySelector('input[name="q1_flow"]:checked').value : '';
+      if (q1Val === '1A') scores[1] += 3;
+      else if (q1Val === '1B') scores[2] += 3;
+      else if (q1Val === '1C') scores[1] += 4;
 
-      // 2. Multipliers (Only when rawScore > 0)
-      const isSenior = (age === '65–75' || age === '75歲以上');
-      const medChecked = Array.from(document.querySelectorAll('input[name="med"]:checked')).map(cb => cb.value);
+      // Card 2
+      const q2Val = document.querySelector('input[name="q2_resist"]:checked') ? document.querySelector('input[name="q2_resist"]:checked').value : '';
+      if (q2Val === '2A') scores[2] += 3;
+      else if (q2Val === '2B') scores[2] += 2;
+      else if (q2Val === '2C') scores[2] += 3;
 
+      // Card 3
+      document.querySelectorAll('input[name="q3_fluid"]:checked').forEach(cb => {
+        if (cb.value === '3A') scores[1] += 3;
+        if (cb.value === '3B') scores[1] += 4;
+        if (cb.value === '3C') scores[3] += 3;
+        if (cb.value === '3D') scores[3] += 2;
+      });
+
+      // Card 4
+      document.querySelectorAll('input[name="q4_metabolic"]:checked').forEach(cb => {
+        if (cb.value === '4A') scores[4] += 3;
+        if (cb.value === '4B') scores[4] += 3;
+        if (cb.value === '4C') scores[4] += 2;
+      });
+
+      // Card 5
+      document.querySelectorAll('input[name="q5_sleep"]:checked').forEach(cb => {
+        if (cb.value === '5A') scores[5] += 4;
+        if (cb.value === '5B') scores[5] += 3;
+      });
+
+      // Card 6 (Meds)
+      const medChecked = Array.from(document.querySelectorAll('input[name="q6_meds"]:checked')).map(cb => cb.value);
+      isWarfarin = medChecked.includes('6G');
+
+      // 2. Multipliers & Med Correlations (Only when rawScore > 0)
       for (let i = 1; i <= 5; i++) {
         if (scores[i] > 0) {
-          if (isSenior) scores[i] *= 1.2;
-          if (i === 2 && gender === '男') scores[i] *= 1.25; // Men higher BPH risk
-          
-          // Med correlations
-          if (i === 1 && medChecked.includes('CCB')) scores[i] += 10;
-          if (i === 2 && medChecked.includes('PPI')) scores[i] += 10;
-          if (i === 4 && medChecked.includes('SGLT2')) scores[i] += 10;
+          if (gender === '男' && i === 2) scores[2] *= 1.15;
+          if (gender === '女' && i === 4) scores[4] *= 1.15;
+          if ((age === '60–69歲' || age === '70歲或以上') && i === 1) scores[1] *= 1.10;
+
+          if (i === 1 && medChecked.includes('6A')) scores[1] += 10;
+          if (i === 2 && medChecked.includes('6C')) scores[2] += 10;
+          if (i === 4 && medChecked.includes('6F')) scores[4] += 10;
         }
       }
 
-      // 3. Determine Primary Cause
+      // 3. Percentage Normalization & Primary Cause
+      const totalScore = scores[1] + scores[2] + scores[3] + scores[4] + scores[5];
+      let breakdownPercentages = {};
+      
+      if (totalScore > 0) {
+        for (let i = 1; i <= 5; i++) {
+          breakdownPercentages[i] = Math.round((scores[i] / totalScore) * 100);
+        }
+      } else {
+        breakdownPercentages = { 1: 100, 2: 0, 3: 0, 4: 0, 5: 0 };
+      }
+
       let maxScore = -1;
       let primaryCause = 1;
       const priorityOrder = [1, 2, 3, 4, 5]; // Flat tie-breaking
@@ -1967,25 +2114,70 @@
         }
       });
 
-      // If all 0, default to 1
-      if (maxScore <= 0) {
-        primaryCause = 1;
-      }
+      if (maxScore <= 0) primaryCause = 1;
 
       currentCauseId = primaryCause;
 
+      // 4. Send Silent Webhook to Google Sheets (Quiz_Leads)
+      const payload = {
+        action: "log_quiz_submission",
+        timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19),
+        name: name,
+        gender: gender,
+        age_group: age,
+        q1_flow: q1Val,
+        q2_resist: q2Val,
+        q3_fluid: Array.from(document.querySelectorAll('input[name="q3_fluid"]:checked')).map(cb => cb.value).join(', '),
+        q4_metabolic: Array.from(document.querySelectorAll('input[name="q4_metabolic"]:checked')).map(cb => cb.value).join(', '),
+        q5_sleep: Array.from(document.querySelectorAll('input[name="q5_sleep"]:checked')).map(cb => cb.value).join(', '),
+        q6_meds: medChecked.join(', '),
+        primary_etiology: CAUSE_DATA[primaryCause].badge,
+        mixed_breakdown: `C1: ${breakdownPercentages[1]}% | C2: ${breakdownPercentages[2]}% | C3: ${breakdownPercentages[3]}% | C4: ${breakdownPercentages[4]}% | C5: ${breakdownPercentages[5]}%`,
+        safety_flags: isWarfarin ? "Warfarin (啟動心腸軸零凝血方案)" : "無特殊抗凝衝突",
+        follow_up_status: "自測待跟進"
+      };
+
+      try {
+        fetch("https://script.google.com/macros/s/AKfycbzUniversal_Order_Receiver/exec", {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify(payload)
+        }).catch(e => console.log("Quiz webhook sent"));
+      } catch (err) {
+        console.log("Quiz catch");
+      }
+
       // Unlock and render
-      unlockGatedBlocks(primaryCause);
+      unlockGatedBlocks(primaryCause, breakdownPercentages);
     }
 
-    function unlockGatedBlocks(causeId) {
+    function unlockGatedBlocks(causeId, percentages) {
       isUnlocked = true;
       const cause = CAUSE_DATA[causeId];
 
       // Update Block C
-      document.getElementById('resCauseBadge').textContent = `自測判定：主要成因 ⑤ 大維度排查`;
+      document.getElementById('resCauseBadge').textContent = `自測判定完成：${cause.name}`;
       document.getElementById('resCauseTitle').textContent = `主要成因：${cause.badge}`;
       document.getElementById('resLossBanner').textContent = cause.lossBanner;
+
+      // Render Progress Bars
+      let barsHtml = '';
+      for (let i = 1; i <= 5; i++) {
+        const pct = percentages[i] || 0;
+        barsHtml += `
+          <div class="breakdown-bar-wrap">
+            <div class="breakdown-bar-label">
+              <span>${CAUSE_DATA[i].badge}</span>
+              <span>${pct}%</span>
+            </div>
+            <div class="breakdown-progress-bg">
+              <div class="breakdown-progress-fill" style="width: ${pct}%;"></div>
+            </div>
+          </div>
+        `;
+      }
+      document.getElementById('breakdownBarsContainer').innerHTML = barsHtml;
 
       // Update Block D
       document.getElementById('blockDTitle').textContent = `成因解碼：${cause.name}`;

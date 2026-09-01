@@ -1481,11 +1481,8 @@
           <div id="causeRatioList"></div>
         </div>
 
-        <!-- 3. 痛點直擊最壞情況 (大字級粗體 18px · 純文字 · 零引號) -->
+        <!-- 3. 痛點直擊最壞情況 (大字級粗體 18px · 純文字 · 零引號 · 零標籤) -->
         <div class="fear-quote-box">
-          <div style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; font-weight: 800;">
-            【痛點直擊 ➔ 最大鑊後果】
-          </div>
           <div id="fearQuoteText" style="font-size: 18px; font-weight: 700; line-height: 1.65;">
             腳腫著鞋緊只係開始！最大鑊係源頭漏水倒灌，引發心臟衰竭，連行路都成問題，最後成為屋企人沉重嘅負累！
           </div>
@@ -2334,6 +2331,28 @@
       selectedCauseId = winningCause;
       renderGatedContent(selectedCauseId, ratios);
 
+      // 異步發送自測數據至 Apps Script 自測數據庫
+      if (APPS_SCRIPT_WEBHOOK_URL) {
+        try {
+          const quizData = {
+            type: "quiz",
+            topicName: "夜尿自測記錄",
+            timestamp: new Date().toISOString(),
+            name: userName,
+            gender: document.getElementById('quizGender').value,
+            age: ageVal,
+            primaryCause: CAUSES_DATA[winningCause].name,
+            ratios: ratios
+          };
+          fetch(APPS_SCRIPT_WEBHOOK_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(quizData)
+          }).catch(err => console.log('Quiz webhook:', err));
+        } catch (e) {}
+      }
+
       // 解鎖畫面
       document.getElementById('gated-content').style.display = 'block';
       scrollToId('blockC');
@@ -2530,9 +2549,8 @@
         item.style.borderRadius = 'var(--radius-lg)';
         item.style.padding = '18px 20px';
         item.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div style="margin-bottom: 8px;">
             <span style="font-weight: 800; font-size: 16px; color: var(--color-primary);">${t.name}（${t.age} · ${t.role}）</span>
-            <span style="font-size: 12px; background: var(--color-accent-light); color: var(--color-accent-text); padding: 2px 8px; border-radius: 4px; font-weight: 700;">30 天調理用家</span>
           </div>
           <p style="font-size: 14.5px; color: var(--color-text-muted); margin-bottom: 4px;"><strong>原本困擾：</strong>${t.issue}</p>
           <p style="font-size: 14.5px; color: var(--color-text-muted); margin-bottom: 8px;"><strong>調理方案：</strong>${t.solution}</p>
@@ -2617,7 +2635,9 @@
       const orderId = "HD-" + dateStr + "-" + randomSix;
 
       const orderData = {
+        type: "order",
         orderId: orderId,
+        topicName: "夜尿專題",
         timestamp: now.toISOString(),
         causeId: selectedCauseId,
         causeName: CAUSES_DATA[selectedCauseId].name,

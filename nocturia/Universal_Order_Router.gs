@@ -14,7 +14,9 @@ function doPost(e) {
   try {
     var rawData = e.postData.contents;
     var data = JSON.parse(rawData);
-    var timestamp = new Date();
+    var now = new Date();
+    // 強制格式化為香港時區 (Asia/Hong_Kong, GMT+8) 標準字串，杜絕試算表時區漂移
+    var timestampHK = Utilities.formatDate(now, "Asia/Hong_Kong", "yyyy/MM/dd HH:mm:ss");
     
     // 分流一：自測問卷記錄 ➔ 寫入【自測數據庫】
     if (data.type === "quiz" || data.topic === "夜尿自測記錄") {
@@ -32,7 +34,7 @@ function doPost(e) {
       }
       
       quizSheet.appendRow([
-        timestamp,
+        timestampHK,
         data.name || "未填寫",
         data.gender || "",
         data.age || "",
@@ -60,11 +62,11 @@ function doPost(e) {
         orderSheet.getRange(1, 1, 1, 13).setFontWeight("bold").setBackground("#F1F5F9");
       }
       
-      var orderId = data.orderId || ("HD-" + Utilities.formatDate(timestamp, "Asia/Hong_Kong", "yyyyMMdd-HHmmss"));
+      var orderId = data.orderId || ("HD-" + Utilities.formatDate(now, "Asia/Hong_Kong", "yyyyMMdd-HHmmss"));
       
       orderSheet.appendRow([
         orderId,
-        timestamp,
+        timestampHK,
         data.topicName || "夜尿專題",
         data.recipient ? data.recipient.name || "" : data.name || "",
         data.recipient ? data.recipient.phone || "" : data.phone || "",

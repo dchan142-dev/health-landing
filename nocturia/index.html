@@ -959,49 +959,69 @@
     .hero-trust-desc { font-size: 15px; color: var(--color-text-muted); margin-top: 4px; line-height: 1.6; }
     .hero-trust-url { font-size: 13px; color: var(--color-text-sub); margin-top: 4px; font-weight: 500; }
 
-    /* Block G 單鍵高質感卡片 (僅保留 Pop-up B) */
-    .product-single-card {
+    /* Block G 兩行流與雙按鍵 */
+    .product-two-row {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
-      padding: 18px 20px;
+      padding: 16px 18px;
       margin-bottom: 14px;
       box-shadow: var(--shadow-sm);
     }
-    .p-card-top {
+    .p-row-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 8px;
       gap: 12px;
     }
-    .p-card-name {
-      font-size: 17.5px;
+    .p-name-text {
+      font-size: 17px;
       font-weight: 800;
       color: var(--color-primary);
       flex: 1;
     }
-    .p-card-desc {
-      font-size: 15px;
-      color: var(--color-text-muted);
-      line-height: 1.55;
+    .p-row-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
     }
-    .btn-more-b {
+    .p-benefit-text {
+      font-size: 14.5px;
+      color: var(--color-text-muted);
+      flex: 1;
+      line-height: 1.5;
+    }
+    .btn-detail {
+      background: var(--color-primary);
+      color: #FFF;
+      padding: 7px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s ease;
+    }
+    .btn-detail:hover { background: var(--color-primary-dark); }
+    .btn-more {
       background: var(--color-accent-light);
       color: var(--color-accent-text);
-      border: 1.5px solid var(--color-accent);
-      padding: 8px 16px;
-      font-size: 14px;
-      font-weight: 800;
+      border: 1px solid var(--color-accent);
+      padding: 5px 12px;
+      font-size: 13px;
+      font-weight: 700;
       border-radius: var(--radius-sm);
       cursor: pointer;
       flex-shrink: 0;
       transition: all 0.2s ease;
     }
-    .btn-more-b:hover { background: var(--color-accent); color: #FFF; }
+    .btn-more:hover { background: var(--color-accent); color: #FFF; }
 
-    /* Block H 單品選購行 (產品名稱 + 價格 + 產品詳情按鍵 + 數量調節) */
-    .h-single-item-row {
+    /* Block H 單行與雙行選購 */
+    .h-single-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1011,39 +1031,7 @@
       border-radius: var(--radius-md);
       margin-bottom: 10px;
       box-shadow: var(--shadow-sm);
-      gap: 12px;
     }
-    .h-item-info {
-      flex: 1;
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .h-item-title {
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--color-primary);
-    }
-    .h-item-price {
-      color: var(--color-accent-text);
-      font-weight: 800;
-      font-size: 15px;
-    }
-    .btn-detail-h {
-      background: var(--color-primary);
-      color: #FFF;
-      padding: 6px 12px;
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: var(--radius-sm);
-      border: none;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: background 0.2s ease;
-    }
-    .btn-detail-h:hover { background: var(--color-primary-dark); }
-
     .h-bundle-card {
       background: var(--color-surface);
       border: 2px solid var(--color-accent);
@@ -1052,7 +1040,7 @@
       margin-bottom: 14px;
       box-shadow: var(--shadow-md);
     }
-    .qty-control { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .qty-control { display: flex; align-items: center; gap: 8px; }
     .qty-btn {
       width: 32px;
       height: 32px;
@@ -1192,6 +1180,95 @@
       transition: transform 0.2s ease;
     }
     .elevator-btn:hover { transform: scale(1.08); background: var(--color-primary-dark); }
+  
+    /* Block M: 常見 Q&A 手風琴專區 */
+    .qa-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .qa-item {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .qa-item[open] {
+      background: var(--color-surface);
+      border-color: var(--color-accent);
+      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.08);
+    }
+    .qa-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-primary);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      line-height: 1.5;
+    }
+    .qa-summary::-webkit-details-marker {
+      display: none;
+    }
+    .qa-q-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex: 1;
+      padding-right: 12px;
+    }
+    .qa-q-tag {
+      color: var(--color-accent);
+      font-weight: 800;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .qa-toggle-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-sub);
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+    .qa-toggle-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .qa-item[open] .qa-toggle-icon {
+      transform: rotate(180deg);
+      color: var(--color-accent);
+    }
+    .qa-answer {
+      padding: 0 20px 20px 20px;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--color-text-main);
+      border-top: 1px solid var(--color-border);
+      margin-top: 4px;
+      padding-top: 16px;
+    }
+    .qa-strategy-box {
+      background: #F1F5F9;
+      border-left: 3px solid var(--color-accent);
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      margin: 10px 0;
+      font-size: 14.5px;
+    }
+
   </style>
 </head>
 <body>
@@ -1457,57 +1534,28 @@
     <!-- 自測判定後動態解鎖畫面 (Block C 至 Block I 初始隱藏) -->
     <div id="gated-content" style="display: none;">
 
-      <!-- Block C: 診斷結果判定 ✕ 最壞情況直擊 (100% 還原 Version 5 高質感架構) -->
+      <!-- Block C: 診斷結果判定 ✕ 最壞情況直擊 -->
       <section id="blockC" class="section-card">
-        
-        <!-- 1. 深色成因判定卡片 -->
-        <div class="diagnosis-highlight-card">
-          <div style="font-size: 15px; font-weight: 700; color: #5EEAD4; margin-bottom: 6px;">
-            🏷️ 系統判定主要成因為：
-          </div>
-          <h2 id="diagPrimaryTitle" style="color: #FFFFFF; font-size: 26px; margin: 10px 0; font-weight: 900;">
-            【成因 ①：下肢水腫平躺回流型】
-          </h2>
-          <p id="diagPrimaryDesc" style="color: #CBD5E1; font-size: 16.5px; line-height: 1.65; margin: 0;">
-            你的膀胱容量正常，核心問題在於日間「下肢微血管滲漏」積聚水分，夜間平躺後體液倒灌回流至軀幹與心臟，刺激心房大量釋放 ANP 心房鈉尿肽，強迫腎臟夜間加班排水。
-          </p>
+        <div style="font-size: 15px; font-weight: 700; color: var(--color-accent); text-transform: uppercase; margin-bottom: 6px;">自我診斷結果</div>
+        <h2 id="result-main-title" style="margin: 0 0 16px 0; font-size: 26px; font-weight: 900; color: var(--color-primary);">
+          主要成因：成因 ①：下肢水腫平躺回流型
+        </h2>
+
+        <!-- 最壞情況直擊 (純文字 · 零引號) -->
+        <div id="result-worst-case" style="background: #FEF2F2; border-left: 4px solid #EF4444; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 18px 20px; color: #991B1B; font-size: 16px; font-weight: 700; line-height: 1.65; margin-bottom: 20px;">
+          腳腫著鞋緊只係開始！最大鑊係源頭漏水倒灌，引發心臟衰竭，連行路都成問題，最後成為屋企人沉重嘅負累！
         </div>
 
-        <!-- 2. 五大成因佔比進度條 -->
-        <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 24px; box-shadow: var(--shadow-sm);">
-          <h4 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 800; color: var(--color-primary);">
-            📊 混合式成因佔比綜合演算結果
-          </h4>
-          <div id="causeRatioList"></div>
+        <div style="font-size: 13.5px; color: var(--color-text-sub); margin-bottom: 20px; border-top: 1px solid var(--color-border); padding-top: 12px;">
+          ⚠️ 本自測僅供個人自我健康評估參考，不作醫療診斷用途。
         </div>
 
-        <!-- 3. 痛點直擊最壞情況 (大字級粗體 18px · 純文字 · 零引號 · 零標籤) -->
-        <div class="fear-quote-box">
-          <div id="fearQuoteText" style="font-size: 18px; font-weight: 700; line-height: 1.65;">
-            腳腫著鞋緊只係開始！最大鑊係源頭漏水倒灌，引發心臟衰竭，連行路都成問題，最後成為屋企人沉重嘅負累！
-          </div>
-        </div>
-
-        <!-- 4. 薄血藥避險警告 (動態顯示 · 合規醫囑標準版) -->
-        <div id="thinBloodAlert" class="warning-gold-box" style="display: none;">
-          <div style="font-weight: 800; font-size: 17px; margin-bottom: 6px;">⚠️ 臨床用藥避險警告：偵測到您正在服用薄血藥</div>
-          <p style="margin: 0; font-size: 15px; color: #78350F; line-height: 1.65;">
-            您的凝血功能正受藥物調控，在決定自行使用任何與藥物有潛在衝突的食物/保健品之前，請先諮詢你的主診醫生。
-          </p>
-        </div>
-
-        <!-- 5. 完整專業免責聲明 (100% 完整法律宣告 · 零刪減) -->
-        <div style="background: var(--color-primary-light); border-radius: var(--radius-md); padding: 16px 20px; font-size: 14px; color: var(--color-text-sub); margin-bottom: 24px; line-height: 1.65;">
-          ⚠️ <strong>專業免責聲明：</strong>本自測僅供個人自我健康評估參考，內容基於用戶主觀填寫之體感數據進行邏輯推演。本系統不作任何形式的正式醫療診斷、醫療建議或處方指引。如有醫療需求，請諮詢執業醫師。
-        </div>
-
-        <!-- 6. 行動按鍵 (純文字 · 零符號) -->
         <button type="button" class="btn-primary" onclick="scrollToId('blockD')">
           想知點解？按此為你解碼！
         </button>
       </section>
 
-      <!-- Block D: 成因解碼 (16:9 Vimeo 影音 ＋ 單一緊湊灰色背景框 ＋ 大字級共鳴金句) -->
+      <!-- Block D: 成因解碼 (16:9 Vimeo 影音 ＋ 單一緊湊灰色背景框) -->
       <section id="blockD" class="section-card">
         <h2 id="block-d-title" style="margin-top: 0;">成因解碼：下肢水腫平躺回流型</h2>
         
@@ -1531,8 +1579,7 @@
           </div>
         </div>
 
-        <!-- 大字級共鳴金句 (17px 粗體) -->
-        <div style="background: var(--color-accent-light); border-radius: var(--radius-md); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 17px; color: var(--color-accent-text); margin-bottom: 20px; line-height: 1.6;">
+        <div style="background: var(--color-accent-light); border-radius: var(--radius-md); padding: 14px 18px; text-align: center; font-weight: 800; font-size: 16px; color: var(--color-accent-text); margin-bottom: 20px;">
           拒將退化當宿命，從源頭除錯，守住不求人的自理底氣。
         </div>
 
@@ -1541,7 +1588,7 @@
         </button>
       </section>
 
-      <!-- Block E: 生活上嘅改善小貼士 (16:9 Vimeo 動作影音 ＋ 單一緊湊微習慣框 ＋ 大字級局限警告) -->
+      <!-- Block E: 生活上嘅改善小貼士 (16:9 Vimeo 動作影音 ＋ 單一緊湊微習慣框) -->
       <section id="blockE" class="section-card">
         <h2 style="margin-top: 0;">生活上嘅改善小貼士</h2>
         
@@ -1550,17 +1597,20 @@
         </div>
 
         <!-- 單一緊湊微習慣框 -->
-        <div id="block-e-steps" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow-sm);"></div>
+        <div id="block-e-steps" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow-sm);">
+          <!-- Injected dynamically in single compact container -->
+        </div>
 
-        <!-- 大字級局限警告 (17px 粗體 · 純文字) -->
-        <div id="block-e-warn" style="background: #FFFBEB; border-left: 4px solid #F59E0B; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 16px 20px; color: #92400E; font-size: 17px; font-weight: 700; line-height: 1.65; margin-bottom: 20px;"></div>
+        <div id="block-e-warn" style="background: #FFFBEB; border-left: 4px solid #F59E0B; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 16px 18px; color: #92400E; font-size: 15px; font-weight: 700; line-height: 1.65; margin-bottom: 20px;">
+          <!-- Warning in pure text -->
+        </div>
 
         <button type="button" class="btn-primary" onclick="scrollToId('blockF')">
           想知有咩重點營養和保健方法，可從源頭去改善
         </button>
       </section>
 
-      <!-- Block F: 重點營養和保健 (16:9 Vimeo 生化影音 ＋ 純生化營養機制 ＋ 恢復專屬共鳴橫幅) -->
+      <!-- Block F: 重點營養和保健 (16:9 Vimeo 生化影音 ＋ 純生化營養機制 ＋ 單一緊湊框) -->
       <section id="blockF" class="section-card">
         <h2 style="margin-top: 0;">重點營養和保健</h2>
         
@@ -1569,11 +1619,8 @@
         </div>
 
         <!-- 單一緊湊生化機轉框 (100% 零商品名) -->
-        <div id="block-f-nutrition" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; font-size: 15.5px; color: var(--color-text-main); line-height: 1.75; box-shadow: var(--shadow-sm);"></div>
-
-        <!-- 恢復情感共鳴金句橫幅 (17px–18px 粗體 · 純文字 · 零引號) -->
-        <div id="block-f-emotion" style="background: var(--color-accent-light); border-radius: var(--radius-md); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 17px; color: var(--color-accent-text); margin-bottom: 20px; line-height: 1.6;">
-          用極小嘅代價，從源頭改善血管漏水，換返雙腳輕盈同終生自理，唔使成為負累，安心做自己想做嘅事。
+        <div id="block-f-nutrition" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; font-size: 15.5px; color: var(--color-text-main); line-height: 1.75; box-shadow: var(--shadow-sm);">
+          <!-- Injected dynamically in single container -->
         </div>
 
         <button type="button" class="btn-primary" onclick="scrollToId('blockG')">
@@ -1581,33 +1628,40 @@
         </button>
       </section>
 
-      <!-- Block G: 精選專屬保健方案 (零副標題 ✕ 僅保留 Pop-up B「想知更多」 ✕ 大尺寸全寬置中按鍵) -->
+      <!-- Block G: 精選專屬保健方案 (手機兩行流 ✕ 雙獨立按鍵 ✕ 雙彈窗解耦) -->
       <section id="blockG" class="section-card">
-        <h2 style="margin-top: 0; margin-bottom: 20px;">精選專屬保健方案</h2>
+        <h2 style="margin-top: 0;">精選專屬保健方案</h2>
+        <p style="color: var(--color-text-muted); font-size: 14.5px; margin-bottom: 18px;">
+          對應診斷成因之專屬單品，點擊按鈕可查看完整官方規格與修復機轉
+        </p>
 
         <div id="block-g-products-list">
-          <!-- Dynamically populated Single Action Cards with Pop-up B only -->
+          <!-- Dynamically populated 2-row cards -->
         </div>
 
         <div style="margin-top: 24px;">
-          <button type="button" class="btn-accent" style="width: 100%; font-size: 18px; font-weight: 800; padding: 16px 28px; text-align: center;" onclick="scrollToId('blockH')">
+          <button type="button" class="btn-accent" onclick="scrollToId('blockH')">
             馬上行動！選取適合自己的改善方案
           </button>
         </div>
       </section>
 
-      <!-- Block H: 選取適合自己的專屬方案 (四層扁平選購架構 ✕ 單品行自帶「產品詳情」Pop-up A ✕ 唯一訂單編號雙軌下單) -->
+      <!-- Block H: 選取適合自己的專屬方案 (四層扁平選購架構 ✕ 成因動態過濾 ✕ 雙軌下單) -->
       <section id="blockH" class="section-card">
         <h2 style="margin-top: 0;">選取適合自己的改善方案</h2>
 
-        <!-- 第一層：單品選購列表 (產品名稱 + 價格 + 「產品詳情」按鈕 + 數量調節) -->
+        <!-- 第一層：單品選購列表 (單行極簡，零小字) -->
         <div style="margin-bottom: 24px;">
-          <div id="block-h-single-products"></div>
+          <div id="block-h-single-products">
+            <!-- Dynamically populated single items -->
+          </div>
         </div>
 
         <!-- 第二層：30 天主力套裝列表 (雙行緊湊，高調特惠價與折數) -->
         <div style="margin-bottom: 24px;">
-          <div id="block-h-bundles"></div>
+          <div id="block-h-bundles">
+            <!-- Dynamically populated bundle cards -->
+          </div>
         </div>
 
         <!-- 第三層：購物車與動態運費計算 (預設 $0，滿 $400 免費) -->
@@ -1653,20 +1707,22 @@
               <span style="font-size: 14px; font-weight: 600;">大廈設有升降機直達（若無升降機需現場自付每層 HKD 50 樓梯費）</span>
             </label>
           </div>
-          <button type="button" class="btn-accent" style="font-size: 18px; padding: 16px; width: 100%; font-weight: 800;" onclick="submitOrderDualTrack()">
+          <button type="button" class="btn-accent" style="font-size: 18px; padding: 16px;" onclick="submitOrderDualTrack()">
             確認送出訂單
           </button>
         </form>
       </section>
 
-      <!-- Block J: 用家真實見證 ＆ 1對1專屬健康管理跟進服務導流 (實體綠色高對比度按鈕) -->
+      <!-- Block J: 用家真實見證 ＆ 1對1專屬健康管理跟進服務導流 -->
       <section id="blockJ" class="section-card">
         <h2 style="margin-top: 0;">用家真實見證</h2>
         
         <!-- 依成因動態注入雙列見證 (香港本土稱謂) -->
-        <div id="block-j-testimonials" style="display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 24px;"></div>
+        <div id="block-j-testimonials" style="display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 24px;">
+          <!-- Dynamically Injected -->
+        </div>
 
-        <!-- 1 對 1 導流卡片 (實體綠底白字高對比度按鈕) -->
+        <!-- 1 對 1 導流卡片 (親筆定稿版) -->
         <div style="background: var(--color-primary); color: #FFF; border-radius: var(--radius-xl); padding: 28px 24px; text-align: center;">
           <h3 style="font-size: 20px; font-weight: 800; color: #FFF; margin-bottom: 8px;">
             擔心無效果？驚自己唔識處理？覺得要堅持唔易？
@@ -1675,23 +1731,187 @@
             1對1嘅專屬健康管理跟進服務，可能適合你
           </p>
           <div style="max-width: 380px; margin: 0 auto;">
-            <a href="https://health-decoder.com/health-map" target="_blank" class="btn-accent" style="display: block; text-decoration: none; text-align: center; padding: 14px 20px; font-size: 17px; font-weight: 800; color: #FFFFFF; background: var(--color-accent); border-radius: var(--radius-md);">
+            <a href="https://health-decoder.com/health-map" target="_blank" class="btn-accent" style="display: block; text-decoration: none;">
               一對一專屬健康管理跟進服務
             </a>
           </div>
         </div>
       </section>
 
-      <!-- Block L: 社群引流區 (官方真連結 ✕ 品牌標準配色) -->
+      
+      <!-- Block M: 常見問題與生化疑難解答 (Q&A 專區) -->
+      <section id="blockM" class="section-card">
+        <h2 style="margin-top: 0; margin-bottom: 6px;">常見問題與生化疑難解答</h2>
+        <p style="color: var(--color-text-sub); font-size: 15px; margin-top: 0; margin-bottom: 24px;">
+          Health Decoder 健康解碼 ｜ 專屬調理與保健常見 Q＆A
+        </p>
+
+        <div class="qa-accordion">
+          <!-- Q1 -->
+          <details class="qa-item">
+            <summary class="qa-summary">
+              <div class="qa-q-wrap">
+                <span class="qa-q-tag">Q1</span>
+                <span>市面上有好多改善健康問題嘅產品，我哋嘅方案有咩唔同？</span>
+              </div>
+              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </summary>
+            <div class="qa-answer">
+              坊間產品多數針對單一問題治標。我哋進一步堅守【源頭根治】同【精準保健】核心理念，透過評估系統同大家梳理體感訊號及因果關係。搞清楚身體底層代謝邊度失衡，再作針對性精準應對，自然可以真正告別反覆不適，一切治本為先。
+            </div>
+          </details>
+
+          <!-- Q2 -->
+          <details class="qa-item">
+            <summary class="qa-summary">
+              <div class="qa-q-wrap">
+                <span class="qa-q-tag">Q2</span>
+                <span>年紀大咗，身體退化好似好正常，呢啲保健調理真係有用？</span>
+              </div>
+              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </summary>
+            <div class="qa-answer">
+              我哋強烈倡導【拒絕標籤】，年齡純粹係數字，絕對唔應該將退化當成宿命。身體各種慢性徵狀正正係求救訊號。我哋強調【預防維護】，從今日開始修復底層代謝，絕對可以守住不求人嘅自理底氣，將健康重新掌握喺自己手中，莫等災病臨頭先方知覆水難收。
+            </div>
+          </details>
+
+          <!-- Q3 -->
+          <details class="qa-item">
+            <summary class="qa-summary">
+              <div class="qa-q-wrap">
+                <span class="qa-q-tag">Q3</span>
+                <span>網頁上嘅自我診斷同推薦方案安全嗎？會唔會誇大療效？</span>
+              </div>
+              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </summary>
+            <div class="qa-answer">
+              絕對安全。我哋堅守【分工明確】原則，病症交畀醫生正視，預防同營養管理交畀我哋。我哋堅持唔做醫療診斷、唔開處方藥物、唔承接急性急救，同樣拒絕誇大療效推銷。若果系統偵測到用藥衝突，例如正服用薄血藥，我哋會發出嚴格避險警告，強烈建議大家先諮詢主診醫生。
+            </div>
+          </details>
+
+          <!-- Q4 -->
+          <details class="qa-item">
+            <summary class="qa-summary">
+              <div class="qa-q-wrap">
+                <span class="qa-q-tag">Q4</span>
+                <span>買咗保健方案之後，怕無法堅持或者遇到問題唔知點算好？</span>
+              </div>
+              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </summary>
+            <div class="qa-answer">
+              我哋深信【行之以漸】，健康始於微小習慣。大家喺服用期間有任何疑問，隨時可以聯絡我哋解答疑難。針對有更高要求、希望徹底蛻變嘅朋友，我哋特別安排高階專屬健康管理跟進服務，提供進階一對一貼心陪跑教練方案。專屬服務會同大家深入評估，共同制定三十天極簡生活同營養微習慣閉環，將保健精準融入日常。
+            </div>
+          </details>
+
+          <!-- Q5 -->
+          <details class="qa-item">
+            <summary class="qa-summary">
+              <div class="qa-q-wrap">
+                <span class="qa-q-tag">Q5</span>
+                <span>呢啲方案真係保證有效？大概需要幾耐先見到明顯改善？</span>
+              </div>
+              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </summary>
+            <div class="qa-answer">
+              實際效果會因應個人體質同執行度有所不同。我哋採用天然方案，依靠營養同習慣逐步調理。神經科學指出21至30天係適應新常態嘅關鍵過渡期。要讓身體完成細胞更新同代謝重組，醫學黃金週期正係90天。根據多年跟進個案經驗，堅持90天或以上，大部分案主徵狀都有明確改善。唔少三高個案更獲主診醫生認可減少藥量，只要畀身體足夠時間，系統一定會畀出正向回饋。
+            </div>
+          </details>
+
+          <!-- Q6 -->
+          <details class="qa-item">
+            <summary class="qa-summary">
+              <div class="qa-q-wrap">
+                <span class="qa-q-tag">Q6</span>
+                <span>網上購買嘅送貨安排係點樣？</span>
+              </div>
+              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </summary>
+            <div class="qa-answer">
+              流程簡單透明。購物滿港幣400元即享免運費，未滿則酌收港幣40元物流處理費。送貨範圍覆蓋全港主要地區、東涌及順豐速運自提點。若地址為唐樓或無升降機直達，屆時需現場支付樓梯搬運費。
+            </div>
+          </details>
+
+          <!-- Q7 -->
+          <details class="qa-item">
+            <summary class="qa-summary">
+              <div class="qa-q-wrap">
+                <span class="qa-q-tag">Q7</span>
+                <span>暫時未準備好購買，可以先了解多啲嗎？</span>
+              </div>
+              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </summary>
+            <div class="qa-answer">
+              當然可以。調理身體最重要係自己覺得安心。暫時未準備好嘅朋友，歡迎免費加入Duncan Chan嘅WhatsApp及Facebook健康社群。大家可以先接收正確健康資訊，感受工程師邏輯結合代謝底層解碼嘅理念，準備好再一齊開展專屬調理旅程。
+            </div>
+          </details>
+
+          <!-- Q8 -->
+          <details class="qa-item">
+            <summary class="qa-summary">
+              <div class="qa-q-wrap">
+                <span class="qa-q-tag">Q8</span>
+                <span>開始服用方案或改變飲食後，身體會出現好轉反應嗎？出現不適應該點處理？</span>
+              </div>
+              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </summary>
+            <div class="qa-answer">
+              <p style="margin-top: 0; margin-bottom: 10px;">
+                喺生理學上，我哋稱呢段過程為【代謝適應期】。身體修復底層機制時需要時間重新平衡，有機會出現容易疲倦、大小便微調或口乾等短暫過渡反應。面對呢啲徵狀，我哋總結出兩種應對策略：
+              </p>
+              <div class="qa-strategy-box">
+                <strong>策略一 迎難而上</strong><br>
+                維持原有份量，短時間內讓身體盡快適應，克服戒斷反應。做法比較激進，效果非常明顯。
+              </div>
+              <div class="qa-strategy-box">
+                <strong>策略二 循序漸進</strong><br>
+                先短暫停服或減量，等徵狀減退後再以較小份量重新開始。做法溫和，同樣符合行之以漸理念。
+              </div>
+              <p style="margin-bottom: 0; margin-top: 10px;">
+                我哋一律堅守分工明確底線。若果調理期間出現劇痛或無法忍受嘅不適，請立刻暫停並尋求主診醫生協助。
+              </p>
+            </div>
+          </details>
+
+          <!-- Q9 -->
+          <details class="qa-item">
+            <summary class="qa-summary">
+              <div class="qa-q-wrap">
+                <span class="qa-q-tag">Q9</span>
+                <span>如果目前已經有睇醫生同定時服藥，仲需唔需要透過保健品去調理身體？</span>
+              </div>
+              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </summary>
+            <div class="qa-answer">
+              睇醫生同食藥係處理疾病嘅首要步驟，負責控制症狀好似救火。我哋嘅營養調理方案正正填補【預防維護】同【源頭根治】嘅空間，好似火熄滅後重新修補牆身，重建底層代謝。兩者【分工明確】相輔相成。長期食藥令代謝系統處於高負荷狀態，更加需要精準營養支援細胞修復。鞏固好基礎，日後自然有機會喺主診醫生評估下慢慢減藥。
+            </div>
+          </details>
+
+          <!-- Q10 -->
+          <details class="qa-item">
+            <summary class="qa-summary">
+              <div class="qa-q-wrap">
+                <span class="qa-q-tag">Q10</span>
+                <span>市面上有好多購買保健品嘅選擇，Health Decoder 嘅方案同服務有咩獨特優勢？</span>
+              </div>
+              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </summary>
+            <div class="qa-answer">
+              坊間有好多渠道，我哋最大分別係提供一套完整嘅【精準保健】系統。我哋深信【源頭根治】，會幫大家梳理體感訊號同因果關係，確保每一款營養都精準對應身體真正需求。大家喺服用期間遇到任何狀況，隨時可以向我哋發問解答疑難。針對希望徹底蛻變嘅朋友，我哋會推薦高階專屬健康管理跟進服務，提供進階一對一指導。我哋堅守【預防維護】同【分工明確】，唔做誇大推銷，專注做好營養管理，穩穩陣陣將大家嘅自理底氣建立起嚟。
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- Block L: 社群引流區 (原版 100% 還原) -->
       <section id="blockL" class="section-card" style="text-align: center;">
         <h2 style="justify-content: center; margin-top: 0;">
           暫時未準備好？免費加入 Duncan Chan 健康群組。
         </h2>
         <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 18px;">
-          <a href="https://chat.whatsapp.com/LPHAndy6hjH8gRLVzZacrw" target="_blank" style="background: #25D366; color: #FFFFFF; padding: 12px 22px; font-size: 15.5px; font-weight: 800; border-radius: var(--radius-md); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow-sm);">
+          <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E5%85%8D%E8%B2%BB%E5%8A%A0%E5%85%A5WhatsApp%E5%81%A5%E5%BA%B7%E7%A4%BE%E7%BE%A4" target="_blank" class="btn-primary" style="padding: 12px 20px; font-size: 15px; text-decoration: none; width: auto;">
             點我加入 WhatsApp 健康社群
           </a>
-          <a href="https://www.facebook.com/groups/duncanhealthylife" target="_blank" style="background: #1877F2; color: #FFFFFF; padding: 12px 22px; font-size: 15.5px; font-weight: 800; border-radius: var(--radius-md); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow-sm);">
+          <a href="https://www.facebook.com" target="_blank" class="btn-outline" style="padding: 12px 20px; font-size: 15px; text-decoration: none; width: auto;">
             點我加入 Facebook 健康社群
           </a>
         </div>
@@ -1714,7 +1934,7 @@
     </div>
   </div>
 
-  <!-- Block K: 逐級向上平滑導航引擎 (右下角 [ ↑ ] 10 級狀態機) -->
+  <!-- Block K: 逐級向上平滑導航引擎 (右下角 [ ↑ ] 11 級狀態機) -->
   <button type="button" class="elevator-btn" id="elevator-btn" onclick="handleElevatorUp()">
     ↑
   </button>
@@ -1730,7 +1950,9 @@
       </div>
 
       <!-- 滾動內容主體 (獨立滾動，防穿透) -->
-      <div class="modal-scroll-body" id="modalContent"></div>
+      <div class="modal-scroll-body" id="modalContent">
+        <!-- Dynamically Injected -->
+      </div>
 
       <!-- 固底全寬關閉按鈕 -->
       <div class="modal-bottom-bar">
@@ -1741,7 +1963,7 @@
 
   <!-- 前端完整核心數據庫與邏輯引擎 -->
   <script>
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyI9xziST5C5hwjqKC3a0dEpBjwskAzPmR4iE-Ij47TRxW-4-jxn0jJ0UvdtedAS8acbw/exec"; 
+    const APPS_SCRIPT_WEBHOOK_URL = ""; 
     const DUNCAN_WHATSAPP_PHONE = "85298788564";
 
     let savedScrollY = 0;
@@ -1749,7 +1971,7 @@
     let isWarfarinUser = false;
     let cart = {};
 
-    // 12 款單品官方完整主庫 (100% 官方 CSV 數據 ✕ 純淨產地 ✕ 法定 6 大欄位 ✕ 去紅色警示化)
+    // 12 款單品官方完整主庫 (100% 官方 CSV 數據 ✕ 純淨產地 ✕ 法定 7 大欄位)
     const PRODUCTS_DB = [
       {
         id: "36281",
@@ -1762,8 +1984,8 @@
         intro: "採用專利天然酵母發酵 NMN（每包 500mg），迅速轉化為 NAD+ 激活長壽基因 SIRT1 與 PARP1 DNA 修復酶，抗老效能高於合成 NMN。揉合繡球菌麥角硫因（20mg/包）清除自由基並提升血液 GABA 含量 4 倍以助眠抗醣化；天山雪蓮（100mg/包）與白藜蘆醇（100mg/包）強效抗氧修復細胞；配合脂質體維他命 C 與 Double Nutri 專利微脂體技術，吸收率提升 2.33 倍。",
         target: "工作壓力大經常熬夜人士、希望改善睡眠品質與抗初老者、30 歲以上中老年人（關注心腦血管與三高問題）、追求全方位抗氧美肌人士。",
         ingredients: "天然酵母粉（含 NMN 500mg/包）、繡球菌萃取物粉（含麥角硫因 EGT 20mg/包）、天山雪蓮培養物（100mg/包）、葡萄皮萃取粉（含白藜蘆醇 100mg/包）、脂質體抗壞血酸粉（維他命 C 30mg/包）、難消化性麥芽糊精、營養酵母粉（含維生素 B 群）、Double Nutri 專利微脂體包覆技術。",
-        usage: "每日 1 包，加入常溫水沖飲；可與綜合維他命、益生菌、膠原蛋白等基礎營養品一同搭配食用。NMN 為天然營養前體，非藥物或荷爾蒙，無生理依賴性；配方溫和不刺激腸胃。",
-        warning: "孕婦、哺乳期婦女、長期服藥者食用前建議先諮詢專業醫師意見。",
+        usage: "每日 1 包，沖水飲用；可與綜合維他命、益生菌、膠原蛋白等基礎營養品一同搭配食用。",
+        warning: "NMN 為天然營養前體，非藥物或荷爾蒙，無生理依賴性；配方溫和不刺激腸胃；孕婦、哺乳期婦女、長期服藥者食用前建議先諮詢專業醫師意見。",
         mechanisms: {
           1: "活化 SIRT1–eNOS 血管修復軸：提升血管內皮細胞內 NAD+ 濃度，活化去乙醯化酶 SIRT1，促使內皮型一氧化氮合酶（eNOS）恢復活性並釋放充足 NO 舒張血管，顯著降低微血管通透性與濾過係數，從細胞源頭封堵日間下肢組織漏水；同時修復下視丘視交叉上核（SCN）神經元分子鐘，鞏固夜間抗利尿激素正常脈衝分泌。",
           2: "重塑逼尿肌 ATP 能量代謝：排尿阻抗導致逼尿肌平滑肌高壓收縮，引發微血管反覆缺血損傷與細胞能量耗竭。NMN 能快速提升細胞內 NAD+ 水平，維護粒線體電子傳遞鏈產能，防止粒線體通透性轉變孔（mPTP）開放，改善逼尿肌缺血性纖維化，提升排尿收縮力並顯著降低殘餘尿量（PVR），擴大夜間有效儲尿容量。",
@@ -1853,8 +2075,8 @@
         intro: "採用美國專利 MicroActive™ 水溶性輔酶 Q10（美國專利號 US Patent No. 7,030,102），能完全溶解於水，吸收率比傳統結晶 Q10 高出 300%、比油溶性 Q10 高出 200%，體內持續釋放超過 24 小時，3 週內血中濃度提升 2 倍。為心肌源源不絕供應能量以強化心臟動力，保持血管彈性，對抗自由基抗老；特別能有效消除服用降膽固醇藥（他汀類 Statins）所引發的嚴重肌肉疲勞、痠痛與無力感。",
         target: "特別適合服用降膽固醇藥（他汀類 Statins）人士（消除藥物引起的疲勞副作用）、關注心血管健康者、經常體力透支精神不振者、純素食者。",
         ingredients: "美國專利 MicroActive™ 水溶性輔酶 Q10（每粒 30mg）、微晶纖維素、磷酸三鈣、二氧化硅、硬脂酸鎂、植物純素膠囊。",
-        usage: "每日 1 粒，植物膠囊純素可食；打破傳統脂溶性限制，不限時間空腹食用皆能高效吸收。配方溫和，空腹食用吸收良好。",
-        warning: "特殊體質者食用前可先諮詢醫師。",
+        usage: "每日 1 粒，植物膠囊純素可食；打破傳統脂溶性限制，不限時間空腹食用皆能高效吸收。",
+        warning: "配方溫和，空腹食用吸收良好；特殊體質者食用前可先諮詢醫師。",
         mechanisms: {
           1: "強化心肌水泵與回流動力（薄血藥用家專屬）：專利 MicroActive 水溶性 CoQ10 吸收率高出傳統 300%，直達心肌與微血管平滑肌粒線體提供 ATP 能量，增強心臟泵血效能，消除日間下肢血液與淋巴循環滯留，維持正常液體回流。"
         }
@@ -1870,8 +2092,8 @@
         intro: "採用頂級 AstaREAL® 天然雨生紅球藻超臨界 CO2 萃取，分子小且具高度親脂性，抗氧化力為維生素 C 的 6000 倍、CoQ10 的 800 倍、維生素 E 的 500 倍。能穿透血腦與視網膜屏障直達全身器官，改善視力與眼部疲勞，降低脂質氧化以保護心血管，減緩年齡相關之記憶力減退與腦部老化，增加皮膚含水量並消除下肢水腫。",
         target: "長時間使用手機電腦的螢幕族或學生、長期久站或久坐工作人士、長期煙酒應酬缺乏運動者、年長人士及三高關注者、外食飲食不均衡者。",
         ingredients: "橄欖油、明膠軟膠囊、水、甘油、雨生紅球藻提取物（提供純天然左旋蝦青素 Astaxanthin 4mg）、混合生育酚（天然維生素 E）。",
-        usage: "每日 1 粒餐後隨水服用；脂溶性營養素隨餐吸收更佳；建議每天持續攝取至一個月以上以感受效益。提取自微藻，無貝類海產過敏原；不與常見抗血壓、降膽固醇西藥產生相互作用；對海產過敏和服用西藥者可安心食用。",
-        warning: "軟膠囊含動物明膠，不適合素食者；孕婦、哺乳期及兒童食用前建議先諮詢醫師。",
+        usage: "每日 1 粒餐後隨水服用；脂溶性營養素隨餐吸收更佳；建議每天持續攝取至一個月以上以感受效益。",
+        warning: "軟膠囊含明膠，不適合素食者；提取自微藻，無貝類海產過敏原；不與常見抗血壓、降膽固醇西藥產生相互作用；孕婦、哺乳期及兒童食用前建議先諮詢醫師。",
         mechanisms: {
           1: "跨膜清除血管自由基（薄血藥用家專屬）：獨特雙極性分子結構能跨越細胞膜雙層，深層清除微血管內皮活性氧（ROS），抑制脂質過氧化，鞏固下肢微血管物理強度，防止血管漏水。",
           2: "下調 NF-κB 與 COX-2 骨盆發炎：強力抑制前列腺與逼尿肌無菌性慢性發炎，改善骨盆腔深層微循環，降低膀胱三角區 TRPV1 敏感神經受體的過度興奮。",
@@ -2076,11 +2298,10 @@
     const CAUSES_DATA = {
       1: {
         id: 1,
-        name: "成因 ①：下肢水腫平躺回流型",
+        name: "下肢水腫平躺回流型",
         vimeoD: "1221800824",
         vimeoE: "1221800825",
         vimeoF: "1221800822",
-        desc: "你的膀胱容量正常，核心問題在於日間「下肢微血管滲漏」積聚水分，夜間平躺後體液倒灌回流至軀幹與心臟，刺激心房大量釋放 ANP 心房鈉尿肽，強迫腎臟夜間加班排水。",
         worstCase: "腳腫著鞋緊只係開始！最大鑊係源頭漏水倒灌，引發心臟衰竭，連行路都成問題，最後成為屋企人沉重嘅負累！",
         bio: "日間直立時，下肢微血管內皮通透性過高，體液漏入組織間隙形成隱性水腫；夜間平躺重力消除，水泵（心血管）將血液推回軀幹，引發 ANP 暴衝超量利尿。同時 SCN 生物鐘老化導致抗利尿激素 (ADH) 夜間脈衝分泌不足。",
         eng: "如同日間下水管漏水積聚地下室，夜晚水泵倒抽回頂樓水箱造成被迫洩洪。",
@@ -2096,7 +2317,8 @@
           "3. <strong>深紅光與近紅外線物理理療：</strong>630nm/850nm 光波活化小腿肌肉粒線體 ATP 與微血管舒張，傍晚提早驅動下肢積水代謝回流。",
           "4. <strong>心腸軸修復微血管（薄血藥專屬）：</strong>利用乳桿菌、短鏈脂肪酸與多酚修復腸道黏膜，切斷內毒素入血引致嘅血管滲漏，零凝血風險。"
         ],
-        emotionQuote: "用極小嘅代價，從源頭改善血管漏水，換返雙腳輕盈同終生自理，唔使成為負累，安心做自己想做嘅事。",
+        allowedProducts: ["36281", "36282", "36248", "34331", "34278", "34269", "0368"],
+        allowedBundles: ["A1", "A2"],
         testimonials: [
           { name: "梁先生", age: "72歲", role: "退休攝影", issue: "傍晚腳腫鞋緊，半夜起夜 3–4 次，白天頭昏疲倦。", solution: "傍晚抬腿 20 分鐘 ＋ 睡前控水 ＋ 紅光帶溫敷 ＋ NMN / 強心通", quote: "雙腳放鬆晒，半夜唔使係咁起身，又可以同老友出去影相，個人輕鬆好多！" },
           { name: "鄒太", age: "65歲", role: "家庭主婦", issue: "服薄血藥下肢易脹，聚餐總急著跑廁所離席。", solution: "低鈉少鹽 ＋ 心腸軸益生菌與深層發酵酵素", quote: "肚子舒服晒，夜晚安穩瞓到天光，同家人食飯唔使再急住離席！" }
@@ -2104,11 +2326,10 @@
       },
       2: {
         id: 2,
-        name: "成因 ②：膀胱逼尿肌缺血出口型",
+        name: "膀胱逼尿肌缺血出口型",
         vimeoD: "1221800823",
         vimeoE: "1221800939",
         vimeoF: "1221800942",
-        desc: "核心問題在於下尿路出口阻抗增加，導致逼尿肌長期代償性高壓收縮而引發微血管缺血與平滑肌纖維化，膀胱有效儲尿空間縮小且易有殘餘尿。",
         worstCase: "企喺廁所前面痾唔到只係開始！最大鑊係會引致膀胱癱瘓，終生插住尿袋，連正常自己小便嘅尊嚴都無埋！",
         bio: "排尿阻抗迫使逼尿肌平滑肌高壓收縮，引發微血管反覆缺血-再灌注損傷，細胞內 ATP 枯竭，平滑肌纖維化失代償，導致膀胱有效儲尿量降低。",
         eng: "如同水龍頭出口堵塞，加壓水泵過載發熱損壞，水箱有效容量縮水。",
@@ -2124,7 +2345,8 @@
           "3. <strong>天然蝦青素 ＋ γ-次亞麻油酸（GLA）：</strong>抑制骨盆腔慢性無菌發炎，改善局部微循環並降低膀胱神經敏化。",
           "4. <strong>深紅光與近紅外線物理理療：</strong>敷貼下腹或薦椎促進骨盆腔微血管釋放 NO，配合微震動放鬆提肛肌群痙攣。"
         ],
-        emotionQuote: "從源頭修復逼尿肌平滑肌能量，擴大膀胱儲尿容量，換返每晚安穩熟睡，守住小便嘅尊嚴同自理底氣。",
+        allowedProducts: ["36281", "34269", "34103", "34316", "0368"],
+        allowedBundles: ["B"],
         testimonials: [
           { name: "昌先生", age: "68歲", role: "職業司機", issue: "站在馬桶前等好耐先出尿，尿流細弱，半夜要起 4 次。", solution: "睡前下腹紅光溫敷 ＋ 液鈣鎂 ＋ NMN 調理", quote: "排尿順暢好多，唔使再企喺度死忍苦等，夜晚起身次數少咗大半！" },
           { name: "馮太", age: "58歲", role: "退休人士", issue: "突發強烈尿急感，常常憋不住，每晚睡不安穩。", solution: "液鈣鎂放鬆骨盆底肌 ＋ 月見草油 ＋ 蝦青素調養", quote: "骨盆底肌肉無再咁緊繃，尿急感舒緩咗好多，跳舞同瞓覺都好安心！" }
@@ -2132,11 +2354,10 @@
       },
       3: {
         id: 3,
-        name: "成因 ③：小腿肌少肌泵衰退型",
+        name: "小腿肌少肌泵衰退型",
         vimeoD: "1221800943",
         vimeoE: "1221800941",
         vimeoF: "1221801066",
-        desc: "核心問題在於小腿第二心臟肌泵功能減退與自律神經調節遲緩，日間無法提供足夠靜脈回流壓力，夜間體液代謝節律失調引發多尿。",
         worstCase: "雙腳發軟行路無力只係開始！最大鑊係肌肉壞死，半夜跌倒骨折，從此長期臥床坐輪椅，徹底失去行動自由！",
         bio: "小腿腓腸肌是下肢第二心臟。肌肉流失導致日間無法擠壓靜脈血回心，夜間倒灌水腫；長期高血糖或老化破壞神經髓鞘，膀胱本體感覺遲鈍。",
         eng: "增壓抽水水泵功率嚴重衰減，電路控制信號失靈，污水倒流回灌。",
@@ -2152,7 +2373,8 @@
           "3. <strong>天然蝦青素：</strong>跨膜清除神經微血管氧化自由基，減緩自主神經退化。",
           "4. <strong>全身垂直律動物理療法：</strong>精準垂直正弦律動引發牽張反射，被動活化深層肌泵與體液回流。"
         ],
-        emotionQuote: "及早重建小腿第二心臟肌泵，修復自主神經傳導，換返雙腳穩健有力，唔使驚半夜跌倒，守住行動自由。",
+        allowedProducts: ["36281", "36283", "34269", "38207"],
+        allowedBundles: ["C1", "C2"],
         testimonials: [
           { name: "鄧先生", age: "75歲", role: "退休教師", issue: "雙腿無力行路慢，小腿鬆軟，半夜摸黑起夜好驚跌倒。", solution: "雙蛋白 ＋ HMB 重建小腿肌力 ＋ NMN ＋ 律動拍打機", quote: "對腳踩落地下有力好多，小腿實淨返，半夜唔使再心慌慌驚跌倒！" },
           { name: "廖女士", age: "62歲", role: "退休文員", issue: "腳趾末梢發麻發冷，白天久坐，夜晚頻繁起尿。", solution: "雙蛋白營養 ＋ 蝦青素保護神經髓鞘 ＋ 傍晚散步鍛鍊", quote: "手腳末端暖返，麻木刺痛感消退咗，成晚安睡唔使反覆折騰！" }
@@ -2160,11 +2382,10 @@
       },
       4: {
         id: 4,
-        name: "成因 ④：代謝滲透壓心腸軸型",
+        name: "代謝滲透壓心腸軸型",
         vimeoD: "1221801095",
         vimeoE: "1221801098",
         vimeoF: "1221801096",
-        desc: "核心問題在於血糖波動引發腎小球高滲透性利尿，以及腸道黏膜屏障受損（腸漏）導致慢性微血管發炎與滲透壓失衡。",
         worstCase: "口乾腸胃脹只係開始！最大鑊係源頭毒素入血，拖到腎功能衰竭要洗腎，下半生健康徹底崩潰！",
         bio: "尿糖過高產生滲透壓強行拉扯水分造成多尿；腸漏症使 LPS 內毒素穿透黏膜入血，破壞血管內皮屏障，加劇夜間水腫與倒灌。",
         eng: "水中溶入大量高濃度雜質產生強大吸力，管路內壁發炎滲水超載。",
@@ -2179,7 +2400,8 @@
           "2. <strong>心腸軸原理修復血管發炎：</strong>利用乳桿菌、短鏈脂肪酸、多酚與後生元修復腸道屏障，阻斷內毒素入血發炎；調降夜間交感神經。",
           "3. <strong>高純度 Omega-3 ＋ γ-次亞麻油酸（GLA）：</strong>生成消退素抑制全身慢性發炎，降低微血管滲漏並維護黏膜微循環。"
         ],
-        emotionQuote: "從源頭修復心腸軸黏膜屏障，平穩全天與夜間滲透壓，消除全身慢性發炎，換返身體輕盈同真正嘅心腎健康。",
+        allowedProducts: ["36281", "36248", "34331", "34103", "34274"],
+        allowedBundles: ["D"],
         testimonials: [
           { name: "蘇女士", age: "53歲", role: "精品店老闆", issue: "更年期後尿道乾澀，口渴多飲多尿，半夜起夜口乾舌燥。", solution: "深海魚油 ＋ 月見草油修復黏膜 ＋ 專利益生菌調理腸道", quote: "口舌生津舒服晒，黏膜不再乾澀敏感，整個人氣色精神好咗好多！" },
           { name: "陳先生", age: "60歲", role: "外食族", issue: "外食多糖多油，血糖指標偏高，夜間滲透利尿頻頻起夜。", solution: "NMN 提升胰島素敏感度 ＋ 綜合果蔬酵素 ＋ 益生菌重塑心腸軸", quote: "血糖平穩好多，半夜唔使再口渴狂飲水同係咁去廁所，身體好輕盈！" }
@@ -2187,11 +2409,10 @@
       },
       5: {
         id: 5,
-        name: "成因 ⑤：睡眠結構崩解偽性夜尿型",
+        name: "睡眠結構崩解偽性夜尿型",
         vimeoD: "1221801124",
         vimeoE: "1221801234",
         vimeoF: "1221801236",
-        desc: "核心問題在於深層慢波睡眠結構瓦解或呼吸門控失效，大腦處於淺睡或微覺醒狀態下，中樞抗利尿激素分泌紊亂並誤判微小積尿訊號。",
         worstCase: "瞓得淺少少聲就醒只係開始！最大鑊係大腦同神經受損，演變成中風抑鬱或者腦退化！",
         bio: "缺乏深層慢波睡眠使大腦感覺門控失效，微小膀胱充盈即可觸發微覺醒；睡眠呼吸中止引發胸腔負壓，刺激心臟分泌利尿激素。",
         eng: "火警感應器過度靈敏，微弱煙霧即觸發全樓警鈴強行喚醒熟睡者。",
@@ -2205,7 +2426,8 @@
           "1. <strong>NAD+ 前驅物（NMN）：</strong>修復中樞 SCN 分子鐘基因轉錄震盪，校準晝夜生理時鐘，恢復夜間抗利尿激素分泌。",
           "2. <strong>活性鎂離子：</strong>調節中樞神經膜電位，平復交感神經張力，減少夜間淺睡驚醒頻率。"
         ],
-        emotionQuote: "校準晝夜生理時鐘與深層慢波睡眠，平復交感神經，一覺安睡到天光，第二朝醒返精神飽滿。",
+        allowedProducts: ["36281", "34316"],
+        allowedBundles: ["E"],
         testimonials: [
           { name: "郭先生", age: "50歲", role: "企業主管", issue: "工作壓力大，瞓得極淺，少少聲就醒順便起夜，白天昏昏欲睡。", solution: "NMN 重塑生物鐘 ＋ 睡前液鈣鎂安定神經門控", quote: "入睡快咗好多，能夠進入深層睡眠，第二朝醒返精神飽滿！" },
           { name: "林太", age: "63歲", role: "家庭主婦", issue: "睡覺打鼾嚴重，曾有呼吸暫停，半夜心跳加速被尿意驚醒。", solution: "側睡體位 ＋ 睡前呼吸放鬆 ＋ 液鈣鎂 ＋ NMN", quote: "打鼾聲細咗好多，半夜無再心慌驚醒，一覺瞓到天光嘅感覺真係太好！" }
@@ -2309,88 +2531,31 @@
         }
       }
 
-      // 計算 5 大成因佔比 (百分比)
-      const totalRaw = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
-      let ratios = {};
+      // 平分決勝 (1 > 2 > 3 > 4 > 5)
       let maxScore = -1;
       let winningCause = 1;
-
       for (let c = 1; c <= 5; c++) {
-        let pct = Math.round((scores[c] / totalRaw) * 100);
-        ratios[c] = pct;
         if (scores[c] > maxScore) {
           maxScore = scores[c];
           winningCause = c;
         }
       }
-      if (maxScore <= 0) {
-        winningCause = 1;
-        ratios = { 1: 100, 2: 0, 3: 0, 4: 0, 5: 0 };
-      }
+      if (maxScore <= 0) winningCause = 1;
 
       selectedCauseId = winningCause;
-      renderGatedContent(selectedCauseId, ratios);
-
-      // 異步發送自測數據至 Apps Script 自測數據庫
-      if (APPS_SCRIPT_WEBHOOK_URL) {
-        try {
-          const quizData = {
-            type: "quiz",
-            topicName: "夜尿自測記錄",
-            timestamp: new Date().toISOString(),
-            name: userName,
-            gender: document.getElementById('quizGender').value,
-            age: ageVal,
-            primaryCause: CAUSES_DATA[winningCause].name,
-            ratios: ratios
-          };
-          fetch(APPS_SCRIPT_WEBHOOK_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(quizData)
-          }).catch(err => console.log('Quiz webhook:', err));
-        } catch (e) {}
-      }
+      renderGatedContent(selectedCauseId);
 
       // 解鎖畫面
       document.getElementById('gated-content').style.display = 'block';
       scrollToId('blockC');
     }
 
-    function renderGatedContent(causeId, ratios) {
+    function renderGatedContent(causeId) {
       const cData = CAUSES_DATA[causeId];
 
-      // Block C 完整渲染
-      document.getElementById('diagPrimaryTitle').innerText = `【${cData.name}】`;
-      document.getElementById('diagPrimaryDesc').innerText = cData.desc;
-      document.getElementById('fearQuoteText').innerText = cData.worstCase;
-
-      // 5 大成因佔比長條圖渲染
-      let ratioHtml = '';
-      for (let c = 1; c <= 5; c++) {
-        const pct = ratios[c] || 0;
-        ratioHtml += `
-          <div class="ratio-bar-wrap">
-            <div class="ratio-info">
-              <span>${CAUSES_DATA[c].name}</span>
-              <span>${pct}%</span>
-            </div>
-            <div class="ratio-bar-bg">
-              <div class="ratio-bar-fill c${c}-bar" style="width: ${pct}%;"></div>
-            </div>
-          </div>
-        `;
-      }
-      document.getElementById('causeRatioList').innerHTML = ratioHtml;
-
-      // 薄血藥避險警示
-      const thinAlert = document.getElementById('thinBloodAlert');
-      if (isWarfarinUser) {
-        thinAlert.style.display = 'block';
-      } else {
-        thinAlert.style.display = 'none';
-      }
+      // Block C
+      document.getElementById('result-main-title').innerText = `主要成因：成因 0${causeId}：${cData.name}`;
+      document.getElementById('result-worst-case').innerText = cData.worstCase;
 
       // Block D
       document.getElementById('block-d-title').innerText = `成因解碼：${cData.name}`;
@@ -2419,41 +2584,12 @@
         nutHtml += `<div style="border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 12px;">${n}</div>`;
       });
       document.getElementById('block-f-nutrition').innerHTML = nutHtml;
-      document.getElementById('block-f-emotion').innerText = cData.emotionQuote;
 
-      // 成因專屬產品與套裝動態分流計算 (Cause & Warfarin Dynamic Filtering)
-      let allowedProducts = [];
-      let allowedBundles = [];
+      // Block G
+      renderBlockG(cData.allowedProducts, causeId);
 
-      if (causeId === 1) {
-        if (isWarfarinUser) {
-          // 成因一 有服薄血藥：6 款（排除強心血管通）
-          allowedProducts = ["36281", "36248", "34331", "34278", "34269", "0368"];
-          allowedBundles = ["A2"];
-        } else {
-          // 成因一 沒服薄血藥：3 款核心單品
-          allowedProducts = ["36281", "36282", "0368"];
-          allowedBundles = ["A1"];
-        }
-      } else if (causeId === 2) {
-        allowedProducts = ["36281", "34269", "34103", "34316", "0368"];
-        allowedBundles = ["B"];
-      } else if (causeId === 3) {
-        allowedProducts = ["36281", "36283", "34269", "38207"];
-        allowedBundles = ["C1", "C2"];
-      } else if (causeId === 4) {
-        allowedProducts = ["36281", "36248", "34331", "34103", "34274"];
-        allowedBundles = ["D"];
-      } else if (causeId === 5) {
-        allowedProducts = ["36281", "34316"];
-        allowedBundles = ["E"];
-      }
-
-      // Block G (單鍵 Pop-up B)
-      renderBlockG(allowedProducts, causeId);
-
-      // Block H (單品自帶「產品詳情」Pop-up A)
-      renderBlockH(allowedProducts, allowedBundles);
+      // Block H
+      renderBlockH(cData.allowedProducts, cData.allowedBundles);
 
       // Block J
       renderBlockJ(cData.testimonials);
@@ -2465,37 +2601,39 @@
       PRODUCTS_DB.forEach(prod => {
         if (!allowedProductIds.includes(prod.id)) return;
         const card = document.createElement('div');
-        card.className = 'product-single-card';
+        card.className = 'product-two-row';
         const benefitText = prod.shortDesc || "從源頭深度調理代謝平衡";
         card.innerHTML = `
-          <div class="p-card-top">
-            <div class="p-card-name">${prod.name}</div>
-            <button type="button" onclick="openMechanismModal('${prod.id}', ${causeId})" class="btn-more-b">
+          <div class="p-row-top">
+            <div class="p-name-text">${prod.name}</div>
+            <button type="button" onclick="openProductModal('${prod.id}')" class="btn-detail">
+              產品詳情
+            </button>
+          </div>
+          <div class="p-row-bottom">
+            <div class="p-benefit-text">${benefitText}</div>
+            <button type="button" onclick="openMechanismModal('${prod.id}', ${causeId})" class="btn-more">
               想知更多
             </button>
           </div>
-          <div class="p-card-desc">${benefitText}</div>
         `;
         container.appendChild(card);
       });
     }
 
     function renderBlockH(allowedProductIds, allowedBundleIds) {
-      // 1. 單品選購列表 (產品名稱 + 價格 + 「產品詳情」按鈕 + 數量調節)
+      // 1. 單品選購列表 (單行極簡，零小字)
       const singleContainer = document.getElementById('block-h-single-products');
       singleContainer.innerHTML = '';
       PRODUCTS_DB.forEach(prod => {
         if (!allowedProductIds.includes(prod.id)) return;
         const row = document.createElement('div');
-        row.className = 'h-single-item-row';
+        row.className = 'h-single-row';
         row.innerHTML = `
-          <div class="h-item-info">
-            <span class="h-item-title">${prod.name}</span>
-            <span class="h-item-price">HKD ${prod.price.toLocaleString()}</span>
+          <div style="flex: 1; cursor: pointer;" onclick="openProductModal('${prod.id}')">
+            <span style="font-weight: 700; font-size: 15.5px; color: var(--color-primary);">${prod.name}</span>
+            <span style="color: var(--color-accent); font-weight: 800; font-size: 15px; margin-left: 10px;">HKD ${prod.price.toLocaleString()}</span>
           </div>
-          <button type="button" onclick="openProductModal('${prod.id}')" class="btn-detail-h">
-            產品詳情
-          </button>
           <div class="qty-control">
             <button type="button" class="qty-btn" onclick="updateCart('prod_${prod.id}', -1, ${prod.price}, '${prod.name}')">-</button>
             <span id="qty_prod_${prod.id}" class="qty-val">0</span>
@@ -2510,6 +2648,10 @@
       bundleContainer.innerHTML = '';
       BUNDLES_DB.forEach(b => {
         if (!allowedBundleIds.includes(b.id)) return;
+        if (selectedCauseId === 1) {
+          if (isWarfarinUser && b.id === 'A1') return;
+          if (!isWarfarinUser && b.id === 'A2') return;
+        }
         const bCard = document.createElement('div');
         bCard.className = 'h-bundle-card';
         bCard.innerHTML = `
@@ -2549,8 +2691,9 @@
         item.style.borderRadius = 'var(--radius-lg)';
         item.style.padding = '18px 20px';
         item.innerHTML = `
-          <div style="margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <span style="font-weight: 800; font-size: 16px; color: var(--color-primary);">${t.name}（${t.age} · ${t.role}）</span>
+            <span style="font-size: 12px; background: var(--color-accent-light); color: var(--color-accent-text); padding: 2px 8px; border-radius: 4px; font-weight: 700;">30 天調理用家</span>
           </div>
           <p style="font-size: 14.5px; color: var(--color-text-muted); margin-bottom: 4px;"><strong>原本困擾：</strong>${t.issue}</p>
           <p style="font-size: 14.5px; color: var(--color-text-muted); margin-bottom: 8px;"><strong>調理方案：</strong>${t.solution}</p>
@@ -2626,19 +2769,8 @@
       let shipping = (subtotal >= 400) ? 0 : 40;
       let total = subtotal + shipping;
 
-      // 前端生成唯一標準訂單編號 HD-YYYYMMDD-XXXXXX
-      const now = new Date();
-      const dateStr = now.getFullYear().toString() +
-        String(now.getMonth() + 1).padStart(2, '0') +
-        String(now.getDate()).padStart(2, '0');
-      const randomSix = Math.floor(100000 + Math.random() * 900000);
-      const orderId = "HD-" + dateStr + "-" + randomSix;
-
       const orderData = {
-        type: "order",
-        orderId: orderId,
-        topicName: "夜尿專題",
-        timestamp: now.toISOString(),
+        timestamp: new Date().toISOString(),
         causeId: selectedCauseId,
         causeName: CAUSES_DATA[selectedCauseId].name,
         recipient: { name, phone, address, hasLift: hasLift ? "有升降機" : "無升降機（需行樓梯）" },
@@ -2648,11 +2780,10 @@
         total
       };
 
-      // 軌道一：WhatsApp 對話喚起 (帶入唯一訂單編號)
+      // 軌道一：WhatsApp 對話喚起
       const liftText = hasLift ? "有升降機" : "無升降機（唐樓需現場付樓梯費）";
       const waText = `【Health Decoder 夜尿專題訂單】%0A` +
-        `訂單編號：${orderId}%0A` +
-        `主診斷成因：${CAUSES_DATA[selectedCauseId].name}%0A` +
+        `主診斷成因：成因 0${selectedCauseId} - ${CAUSES_DATA[selectedCauseId].name}%0A` +
         `收件人：${encodeURIComponent(name)}%0A` +
         `聯絡電話：${encodeURIComponent(phone)}%0A` +
         `送貨地址：${encodeURIComponent(address)} (${encodeURIComponent(liftText)})%0A%0A` +
@@ -2681,10 +2812,12 @@
       window.open(waUrl, '_blank');
     }
 
-    // Modal 彈窗控制 (零滑動凍結：開關期間主頁背景 100% 紋絲不動)
+    // Modal 彈窗控制 (防滾動穿透與座標鎖定)
     function openModalWithLock(title, contentHtml) {
       savedScrollY = window.scrollY;
-      document.documentElement.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${savedScrollY}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalContent').innerHTML = contentHtml;
@@ -2693,12 +2826,11 @@
 
     function closeModal() {
       document.getElementById('globalModal').style.display = 'none';
-      document.documentElement.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
       document.body.style.overflow = '';
-      const prevBehavior = document.documentElement.style.scrollBehavior;
-      document.documentElement.style.scrollBehavior = 'auto';
       window.scrollTo(0, savedScrollY);
-      document.documentElement.style.scrollBehavior = prevBehavior;
     }
 
     function handleModalBackdropClick(e) {
@@ -2718,7 +2850,7 @@
       }
     }
 
-    // 彈窗 A：產品詳情 (法定 6 大模組，深色背景 + 獨立純白圖框，零價格零折扣，注意事項去紅色化)
+    // 彈窗 A：產品詳情 (法定 6 大模組，深色背景 + 獨立純白圖框，零價格零折扣)
     function openProductModal(prodId) {
       const prod = PRODUCTS_DB.find(p => p.id === prodId);
       if (!prod) return;
@@ -2773,8 +2905,8 @@
               <span style="color: #CBD5E1; line-height: 1.65;">${prod.usage}</span>
             </div>
             <div style="border-top: 1px solid #374151; padding-top: 10px; margin-top: 10px;">
-              <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">注意事項：</span>
-              <span style="color: #CBD5E1; line-height: 1.65;">${prod.warning}</span>
+              <span style="font-weight: 800; color: #F87171; display: block; margin-bottom: 4px;">注意事項：</span>
+              <span style="color: #FCA5A5; line-height: 1.65;">${prod.warning}</span>
             </div>
           </div>
         </div>
@@ -2796,7 +2928,7 @@
             <img src="${prod.img}" alt="${prod.name}">
           </div>
           <div style="margin-top: 14px;">
-            <div style="font-weight: 800; font-size: 16px; color: #D4A343; margin-bottom: 8px;">${cData.name} 專屬修復機轉</div>
+            <div style="font-weight: 800; font-size: 16px; color: #D4A343; margin-bottom: 8px;">成因 ${causeId}：${cData.name} 專屬修復機轉</div>
             <p style="color: #E2E8F0; line-height: 1.75; font-size: 15px;">${mechText}</p>
           </div>
         </div>
@@ -2834,11 +2966,11 @@
       openModalWithLock(`${bundle.name} · 套裝明細`, html);
     }
 
-    // Block K: 10 級逆向向上平滑導航狀態機
+    // Block K: 11 級逆向向上平滑導航狀態機
     function handleElevatorUp() {
       const isGatedUnlocked = document.getElementById("gated-content").style.display === "block";
       const sectionSequence = isGatedUnlocked
-        ? ["blockA", "blockC", "blockD", "blockE", "blockF", "blockG", "blockH", "blockJ", "blockL", "blockI"]
+        ? ["blockA", "blockC", "blockD", "blockE", "blockF", "blockG", "blockH", "blockJ", "blockM", "blockL", "blockI"]
         : ["blockA", "blockB"];
       const scrollPos = window.scrollY + 120;
       let targetSection = sectionSequence[0];

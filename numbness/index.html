@@ -1725,9 +1725,10 @@
 
   <!-- JavaScript 核心邏輯 -->
   <script>
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyVnC2d_B4T7E1cQ4U5eH0g3n7a8b9c0d/exec"; 
+    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
     const DUNCAN_WHATSAPP_PHONE = "85298788564";
     const TOPIC_NAME = "手腳麻痺";
+    const QUIZ_TOPIC_NAME = "手腳麻痺自測記錄";
 
     let savedScrollY = 0;
     let selectedCauseId = 1;
@@ -2588,6 +2589,29 @@
 
       renderGatedContent(selectedCauseId, ratios);
 
+      // 異步發送自測數據至 Apps Script 自測數據庫
+      if (APPS_SCRIPT_WEBHOOK_URL) {
+        try {
+          const quizData = {
+            type: "quiz",
+            topicName: QUIZ_TOPIC_NAME,
+            timestamp: new Date().toISOString(),
+            name: userName,
+            gender: document.getElementById('quizGender') ? document.getElementById('quizGender').value : "",
+            age: ageVal,
+            primaryCause: `成因 0${winningCause}：${CAUSES_DATA[winningCause].name}`,
+            ratios: ratios
+          };
+          fetch(APPS_SCRIPT_WEBHOOK_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(quizData)
+          }).catch(err => console.log('Quiz webhook:', err));
+        } catch (e) {}
+      }
+
+
       // 解鎖畫面
       document.getElementById('gated-content').style.display = 'block';
       scrollToId('blockC');
@@ -2842,21 +2866,40 @@
       let shipping = (subtotal >= 400) ? 0 : 40;
       let total = subtotal + shipping;
 
+      // 前端生成唯一標準訂單編號 HD-YYYYMMDD-XXXXXX
+      const now = new Date();
+      const dateStr = now.getFullYear().toString() +
+        String(now.getMonth() + 1).padStart(2, '0') +
+        String(now.getDate()).padStart(2, '0');
+      const randomSix = Math.floor(100000 + Math.random() * 900000);
+      const orderId = "HD-" + dateStr + "-" + randomSix;
+
       const orderData = {
-        timestamp: new Date().toISOString(),
+        type: "order",
+        orderId: orderId,
         topicName: TOPIC_NAME,
-        causeId: selectedCauseId,
-        causeName: CAUSES_DATA[selectedCauseId].name,
-        recipient: { name, phone, address, hasLift: hasLift ? "有升降機" : "無升降機（需行樓梯）" },
+        recipient: name,
+        name: name,
+        phone: phone,
+        address: address,
+        hasLift: hasLift,
+        hasElevator: hasLift ? "有升降機直達" : "無升降機",
+        primaryCause: `成因 0${selectedCauseId}：${CAUSES_DATA[selectedCauseId].name}`,
+        causeName: `成因 0${selectedCauseId}：${CAUSES_DATA[selectedCauseId].name}`,
+        causeTitle: `成因 0${selectedCauseId}：${CAUSES_DATA[selectedCauseId].name}`,
+        itemsSummary: orderItems.join("；\n"),
         items: orderItems,
-        subtotal,
-        shipping,
-        total
+        itemsDetail: orderItems.join("；\n"),
+        subtotal: subtotal,
+        shipping: shipping,
+        total: total,
+        timestamp: new Date().toISOString()
       };
 
       // 軌道一：WhatsApp 對話喚起
       const liftText = hasLift ? "有升降機" : "無升降機（唐樓需現場付樓梯費）";
       const waText = `【Health Decoder 手腳麻痺專題訂單】%0A` +
+        `訂單編號：${orderId}%0A` +
         `主診斷成因：成因 0${selectedCauseId} - ${CAUSES_DATA[selectedCauseId].name}%0A` +
         `收件人：${encodeURIComponent(name)}%0A` +
         `聯絡電話：${encodeURIComponent(phone)}%0A` +

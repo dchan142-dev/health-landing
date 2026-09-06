@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Health Decoder｜半夜抽筋全景成因自測 ✕ 醫學工程解碼 ✕ 專屬調養方案</title>
+  <title>Health Decoder｜半夜扎醒全景成因自測 ✕ 醫學工程解碼 ✕ 專屬調養方案</title>
   <style>
 
     /* ==========================================================================
@@ -1322,7 +1322,7 @@
 
     <!-- Block A: 頂部 Hero 區 ✕ 極速自測引導 -->
     <section id="blockA" class="section-card" style="text-align: center;">
-      <h1 style="font-size: 30px; font-weight: 900; line-height: 1.35; color: var(--color-primary); margin-bottom: 8px;">半夜突發小腿抽筋，<br>痛到標眼淚成晚無覺好瞓？</h1>
+      <h1 style="font-size: 30px; font-weight: 900; line-height: 1.35; color: var(--color-primary); margin-bottom: 8px;">半夜三點反覆扎醒，<br>痛到標眼淚成晚無覺好瞓？</h1>
       <div style="font-size: 20px; font-weight: 800; color: var(--color-accent); margin-bottom: 20px;">
         搞清楚源頭，先可以治本。
       </div>
@@ -1374,209 +1374,123 @@
       </div>
 
       <!-- 第一部分：紅旗急症排除 -->
+      
+      <!-- 維度 1：睡眠時間與半夜醒來時間 (單選) -->
       <div class="quiz-group">
         <div class="quiz-group-header">
-          <div class="quiz-num">!</div>
-          <div>
-            <div class="quiz-title">安全第一：危急紅旗狀況篩查【單選】</div>
-          </div>
+          <div class="quiz-badge">1</div>
+          <div class="quiz-title">維度 1：睡眠時間與半夜醒來的時間通常是？【單選】</div>
         </div>
-        <div class="options-grid">
+        <div class="options-container">
           <label class="option-label">
-            <input type="radio" name="dim_redflag" value="RF_DVT">
-            <span><strong>單側小腿突發紅腫熱痛：</strong>單側小腿突然劇烈腫脹、發紅發熱，並有明顯壓痛（⚠️ 提示疑似深靜脈血栓，請勿大力按摩）。</span>
+            <input type="radio" name="dim1" value="D1_A" checked>
+            <span><strong>晚上 8–9 點入睡，凌晨 3–4 點自然醒來：</strong>睡眠時數已充足（6–8小時），身體已完成睡眠週期自然清醒。</span>
           </label>
           <label class="option-label">
-            <input type="radio" name="dim_redflag" value="RF_PAOD">
-            <span><strong>腳部冰冷蒼白發紫：</strong>腳趾或腳掌嚴重冰冷、摸不到脈搏，伴隨下肢靜止性劇痛（⚠️ 提示疑似周邊動脈嚴重缺血）。</span>
+            <input type="radio" name="dim1" value="D1_B">
+            <span><strong>晚上 11–12 點後入睡，但在凌晨 3–4 點反覆醒來且難以入睡：</strong>入睡時間正常，但後半夜睡眠維持中斷，醒後輾轉反側難以復睡。</span>
           </label>
           <label class="option-label">
-            <input type="radio" name="dim_redflag" value="RF_NEURO">
-            <span><strong>肌肉持續自主跳動或萎縮：</strong>伴隨廣泛肌肉不受控抽搐、明顯無力萎縮或步態嚴重障礙。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim_redflag" value="NONE" checked>
-            <span><strong>以上皆無：</strong>抽筋通常在幾分鐘內或牽拉伸展後自行緩解。</span>
+            <input type="radio" name="dim1" value="D1_C">
+            <span><strong>睡無定時，作息混亂，半夜總會醒來：</strong>就寢時間極不規律，日夜光照錯位，體內晝夜節律相位偏移。</span>
           </label>
         </div>
       </div>
 
-      <!-- 維度 1：日常型態與力學誘發 -->
+      <!-- 維度 2：半夜扎醒瞬間之最先感受 (單選，權重極高) -->
       <div class="quiz-group">
         <div class="quiz-group-header">
-          <div class="quiz-num">1</div>
-          <div>
-            <div class="quiz-title">維度 1：睡眠姿勢與日間肌肉狀態【多選】</div>
-          </div>
+          <div class="quiz-badge">2</div>
+          <div class="quiz-title">維度 2：半夜扎醒的那一瞬間，您「最先」感受到的是什麼？【單選 · 表型定調】</div>
         </div>
-        <div class="options-grid">
+        <div class="options-container">
           <label class="option-label">
-            <input type="checkbox" name="dim1" value="D1_A">
-            <span><strong>腳尖長期自然下垂：</strong>平躺睡覺時腳尖自然向下伸直（跖屈），或習慣趴睡使小腿肌肉縮到最短。</span>
+            <input type="radio" name="dim2" value="D2_A" checked>
+            <span><strong>呼吸異常：</strong>大喘氣、胸悶、被自己的大聲打鼾嗆醒，或晨起覺得嚴重口乾口苦。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim1" value="D1_B">
-            <span><strong>棉被厚重壓迫腳背：</strong>睡眠時棉被較厚重，直接壓迫腳掌使腳踝被迫向下壓。</span>
+            <input type="radio" name="dim2" value="D2_B">
+            <span><strong>身體感強烈：</strong>心跳驟然加速、心悸、冒冷汗、發抖或半夜有強烈飢餓感。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim1" value="D1_C">
-            <span><strong>白天肌肉過度疲勞：</strong>白天曾長時間走路、搬重物、突然增加運動量或雙腿過度勞累。</span>
+            <input type="radio" name="dim2" value="D2_C">
+            <span><strong>像鬧鐘一樣自動醒來：</strong>沒有任何不適，就是在凌晨固定時間異常清醒，精神毫無睡意。</span>
           </label>
-          <label class="option-label none-opt">
-            <input type="checkbox" id="dim1_none" value="NONE" onchange="toggleDimNone('dim1')">
-            <span style="font-weight: 700; color: #92400E;">🚫 以上皆無</span>
+          <label class="option-label">
+            <input type="radio" name="dim2" value="D2_D">
+            <span><strong>物理刺激強烈：</strong>強烈尿意必須去廁所、胃酸湧上心口灼熱、環境太熱或關節痠痛。</span>
+          </label>
+          <label class="option-label">
+            <input type="radio" name="dim2" value="D2_E">
+            <span><strong>腦袋異常清醒：</strong>思緒瞬間高速運轉、反覆盤算明日待辦事項、焦慮擔心睡不回去。</span>
           </label>
         </div>
       </div>
 
-      <!-- 維度 2：周邊循環與微血管動態 -->
+      <!-- 維度 3：生活軌跡與紅旗警訊深度排查 (可多選) -->
       <div class="quiz-group">
         <div class="quiz-group-header">
-          <div class="quiz-num">2</div>
-          <div>
-            <div class="quiz-title">維度 2：下肢水分滯留與循環狀態【多選】</div>
-          </div>
+          <div class="quiz-badge">3</div>
+          <div class="quiz-title">維度 3：回顧過去一個月，您是否常出現以下情況？【可多選】</div>
         </div>
-        <div class="options-grid">
+        <div class="options-container">
           <label class="option-label">
-            <input type="checkbox" name="dim2" value="D2_A">
-            <span><strong>白天長時間久站或久坐：</strong>因工作或生活習慣，白天連續站立或坐著數小時缺乏活動。</span>
+            <input type="checkbox" name="dim3" value="D3_1" class="dim3-item">
+            <span><strong>呼吸與睡眠：</strong>睡覺時曾被同住家人反映有大聲打鼾，或白天明顯感到極度嗜睡倦怠。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim2" value="D2_B">
-            <span><strong>傍晚小腿沉重或水腫：</strong>到了下午或傍晚，雙腿有明顯沉重感、著鞋變緊，或按壓小腿有輕微凹陷。</span>
+            <input type="checkbox" name="dim3" value="D3_2" class="dim3-item">
+            <span><strong>飲食與代謝：</strong>晚餐或睡前若吃了大量精緻澱粉、甜食宵夜，半夜更容易驚醒心慌。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim2" value="D2_C">
-            <span><strong>下肢靜脈曲張浮現：</strong>小腿表面可見明顯青筋凸起、蜘蛛網狀或蚯蚓狀擴張血管。</span>
+            <input type="checkbox" name="dim3" value="D3_3" class="dim3-item">
+            <span><strong>光照與節律：</strong>白天極少接觸戶外自然陽光，或習慣在睡前床上長時間滑手機看螢幕。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim2" value="D2_D">
-            <span><strong>走動易痠脹乏力：</strong>白天連續行路一段距離後，小腿深層容易感到痠痛緊繃，需坐下休息方能緩解。</span>
+            <input type="checkbox" name="dim3" value="D3_4" class="dim3-item">
+            <span><strong>水分與酒精：</strong>傍晚或睡前有飲酒習慣，或半夜醒來多數是因為膀胱脹滿去洗手間。</span>
           </label>
-          <label class="option-label none-opt">
-            <input type="checkbox" id="dim2_none" value="NONE" onchange="toggleDimNone('dim2')">
-            <span style="font-weight: 700; color: #92400E;">🚫 以上皆無</span>
+          <label class="option-label">
+            <input type="checkbox" name="dim3" value="D3_5" class="dim3-item">
+            <span><strong>壓力與神經：</strong>白天壓力大時半夜醒來機率倍增，醒後對時鐘秒針聲音或光線極度敏感。</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="dim3" value="NONE" id="dim3_none" onchange="toggleDimNone('dim3')">
+            <span><strong>🚫 以上皆無</strong></span>
           </label>
         </div>
       </div>
 
-      <!-- 維度 3：神經傳導與代謝微環境 -->
+      <!-- 維度 4：香港主流醫療與藥物副作用隱藏排查 (可多選) -->
       <div class="quiz-group">
         <div class="quiz-group-header">
-          <div class="quiz-num">3</div>
-          <div>
-            <div class="quiz-title">維度 3：腰背神經與全身代謝指標【多選】</div>
-          </div>
+          <div class="quiz-badge">4</div>
+          <div class="quiz-title">維度 4：您目前是否有長期服用以下醫生處方或自行購買的藥物/補充品？【可多選】</div>
         </div>
-        <div class="options-grid">
+        <div class="options-container">
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_A">
-            <span><strong>腰背痠痛或坐骨神經放射感：</strong>平時經常有腰痠、下背痛，或感覺痛楚沿著臀部、大腿向小腿放射。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_B">
-            <span><strong>雙腳對稱麻木或刺痛：</strong>腳趾或足底常有像穿了襪子般的發麻、燒灼感、針刺或螞蟻爬行感。</span>
+            <input type="checkbox" name="dim4" value="D4_1" class="dim4-item">
+            <span><strong>降血壓藥 (去水丸/利尿劑) 或 胃酸抑制劑/碳酸鈣片 (公立醫院常配)：</strong>利尿劑促使夜間膀胱充盈；胃藥與碳酸鈣易引發腸胃脹氣便秘等管道高壓刺激。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_C">
-            <span><strong>飲食常攝取甜食油炸：</strong>日常偏好精緻甜食、高溫油炸食品、外食煎炸或加工快餐。</span>
+            <input type="checkbox" name="dim4" value="D4_2" class="dim4-item">
+            <span><strong>降血糖藥物 (如甲福明 Metformin) 或 胰島素注射：</strong>藥物作用易在後半夜引發潛在的夜間低血糖反應，刺激交感神經反調節喚醒。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_D">
-            <span><strong>中央肥胖或脂肪肝：</strong>有大肚腩（腰圍超標）、被診斷有脂肪肝、高血糖或代謝症候群。</span>
-          </label>
-          <label class="option-label none-opt">
-            <input type="checkbox" id="dim3_none" value="NONE" onchange="toggleDimNone('dim3')">
-            <span style="font-weight: 700; color: #92400E;">🚫 以上皆無</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- 維度 4：現行西藥審查 -->
-      <div class="quiz-group">
-        <div class="quiz-group-header">
-          <div class="quiz-num">4</div>
-          <div>
-            <div class="quiz-title">維度 4：現行長期服用西藥審查【多選】</div>
-          </div>
-        </div>
-        <div class="options-grid">
-          <label class="option-label">
-            <input type="checkbox" name="dim4" value="MED_STATIN">
-            <span><strong>降膽固醇藥（他汀類 Statins）：</strong>如 Rosuvastatin、Atorvastatin、Simvastatin 等。</span>
+            <input type="checkbox" name="dim4" value="D4_3" class="dim4-item">
+            <span><strong>降膽固醇藥 (他汀類藥物 Statins)：</strong>常見副作用為干擾細胞能量及肌肉痠痛，形成持續性周邊疼痛刺激。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="MED_DIURETIC">
-            <span><strong>降血壓藥 - 去水丸（利尿劑）：</strong>如 Lasix、Hydrochlorothiazide、Indapamide 等。</span>
+            <input type="checkbox" name="dim4" value="D4_4" class="dim4-item">
+            <span><strong>坊間安眠藥、鎮靜劑：</strong>長期使用反映出潛在對睡眠的焦慮制約，且無法解決缺氧或夜尿等根本病因。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="MED_CCB">
-            <span><strong>降血壓藥 - 鈣離子阻斷劑（CCB）：</strong>如 Amlodipine（氨氯地平）、Norvasc 等。</span>
+            <input type="checkbox" name="dim4" value="D4_5" id="med_warfarin" class="dim4-item">
+            <span><strong>薄血藥 / 通血丸 (如 Warfarin / Aspirin / Plavix) ⚠️ 臨床安全防線：</strong>凝血功能受調控中，系統將自動啟動零凝血衝突之溫和修復方案。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="MED_PPI">
-            <span><strong>強效胃藥（制酸劑）：</strong>如 Omeprazole、Pantoprazole 等 PPI 抑酸劑。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim4" value="MED_CALCIUM">
-            <span><strong>碳酸鈣片（非複方無機鈣片）：</strong>長期服用純碳酸鈣補充劑。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" id="med_warfarin" name="dim4" value="MED_WARFARIN">
-            <span><strong>薄血藥 / 通血丸：</strong>如 Warfarin（華法林）、Aspirin（阿斯匹靈）、Plavix（波立維）或新型抗凝藥。</span>
-          </label>
-          <label class="option-label none-opt">
-            <input type="checkbox" id="dim4_none" value="NONE" onchange="toggleDimNone('dim4')">
-            <span style="font-weight: 700; color: #92400E;">🚫 沒有服用上述西藥</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- 維度 5：動作與被動牽伸測試 -->
-      <div class="quiz-group">
-        <div class="quiz-group-header">
-          <div class="quiz-num">5</div>
-          <div>
-            <div class="quiz-title">維度 5：小腿牽伸反應測試【單選】</div>
-          </div>
-        </div>
-        <div class="options-grid">
-          <label class="option-label">
-            <input type="radio" name="dim5" value="D5_A" checked>
-            <span><strong>牽張拉伸非常有效：</strong>面牆做弓箭步伸展小腿，劇痛與肌肉硬結能在 1–3 分鐘內明顯鬆解。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim5" value="D5_B">
-            <span><strong>效果有限或反覆發作：</strong>拉筋雖稍有舒緩，但深層緊繃沉重感仍在，當晚容易反覆再次抽搐。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim5" value="D5_C">
-            <span><strong>完全無法拉伸：</strong>小腿伴隨明顯紅腫熱痛或冰冷發白，無法進行任何牽引動作。</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- 維度 6：理學回血與水腫測試 -->
-      <div class="quiz-group">
-        <div class="quiz-group-header">
-          <div class="quiz-num">6</div>
-          <div>
-            <div class="quiz-title">維度 6：末梢回血與皮膚凹陷測試【單選】</div>
-          </div>
-        </div>
-        <div class="options-grid">
-          <label class="option-label">
-            <input type="radio" name="dim6" value="D6_A" checked>
-            <span><strong>正常健康狀態：</strong>腳背脈搏搏動清晰，趾甲按壓發白後 2 秒內恢復紅潤，小腿皮膚按壓無凹痕。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim6" value="D6_B">
-            <span><strong>微血管回血緩慢（>3秒）：</strong>雙足摸起來偏涼，趾甲按壓發白後需超過 3 秒才緩慢轉紅。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim6" value="D6_C">
-            <span><strong>組織間質水腫（凹陷不回彈）：</strong>用手指輕按小腿前側脛骨皮膚 5 秒，放開後有明顯凹陷，需數秒才緩慢平復。</span>
+            <input type="checkbox" name="dim4" value="NONE" id="dim4_none" onchange="toggleDimNone('dim4')">
+            <span><strong>🚫 沒有服用上述西藥</strong></span>
           </label>
         </div>
       </div>
@@ -1586,7 +1500,7 @@
           請按此提交，以了解真正成因
         </button>
       </div>
-    </section>
+</section>
 
     <!-- 自測判定後動態解鎖畫面 (Block C 至 Block I 初始隱藏) -->
     <div id="gated-content" style="display: none;">
@@ -1643,7 +1557,7 @@
 
       <!-- Block D: 成因解碼 (16:9 Vimeo 影音 ＋ 單一緊湊灰色背景框 ＋ 大字級共鳴金句) -->
       <section id="blockD" class="section-card">
-        <h2 id="block-d-title" style="margin-top: 0;">成因解碼：成因 01：力學與姿勢型</h2>
+        <h2 id="block-d-title" style="margin-top: 0;">成因解碼：成因 01：呼吸與夜間缺氧型</h2>
         
         <div class="video-container">
           <iframe id="vimeo-block-d" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
@@ -1654,13 +1568,13 @@
           <div style="margin-bottom: 14px;">
             <div style="font-weight: 800; font-size: 16px; color: var(--color-primary); margin-bottom: 4px;">🔬 生理流體力學與倒灌機理</div>
             <p id="block-d-bio" style="margin: 0; font-size: 15.5px; color: var(--color-text-muted); line-height: 1.7;">
-              睡覺平躺時，腳尖在重力與棉被壓迫下自然下垂（跖屈），小腿腓腸肌與比目魚肌長時間處於「極度縮短」狀態。此時肌腱內負責監測張力並發出放鬆訊號的「高爾基腱器官（GTO）」活性降至最低，失去了對運動神經元的「自體抑制（Autogenic Inhibition）」煞車保護。如果白天肌肉過度疲勞，或伴隨長者肌少症（Sarcopenia），神經缺乏抑制煞車，稍微受冷或輕微翻身，運動神經元便失控爆發高頻去極化放電，引發肌肉強烈痙攣。
+              睡眠中平躺仰臥時，咽喉軟組織受重力牽引自然後墜；若同時伴隨呼吸道黏膜慢性發炎、過敏微水腫或分泌物過度黏稠，上呼吸道管腔便會發生動態塌陷與阻塞（即睡眠呼吸障礙／間歇性缺氧）。此時體內血氧飽和度驟跌、二氧化碳迅速堆積，大腦呼吸中樞偵測到窒息危機，被迫緊急啟動交感神經並大劑量釋放兒茶酚胺（壓力荷爾蒙），強烈活化大腦網狀結構引發「微覺醒（Cortical Arousal）」，強制將患者從深度睡眠震醒以恢復咽喉肌張力。
             </p>
           </div>
           <div style="border-top: 1px solid var(--color-border); padding-top: 14px;">
             <div style="font-weight: 800; font-size: 16px; color: var(--color-accent-text); margin-bottom: 4px;">⚙️ 系統工程比喻</div>
             <p id="block-d-eng" style="margin: 0; font-size: 15.5px; color: var(--color-text-muted); line-height: 1.7;">
-              就像汽車在下坡路段時「腳煞車與手煞車」同時失靈，只要油門稍微被碰到一下，車子就瞬間失控暴衝。
+              就像智慧工廠的「主通風進氣管線」在負壓下被壓扁堵塞，氧氣濃度警報器瞬間拉響最高級警報，中央監控系統被迫中斷夜間維護排程，強制全廠緊急開機重啟排風。
             </p>
           </div>
         </div>
@@ -1707,7 +1621,8 @@
 
         <!-- 恢復情感共鳴金句橫幅 (17px–18px 粗體 · 純文字 · 零引號) -->
         <div id="block-f-emotion" style="background: var(--color-accent-light); border-radius: var(--radius-md); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 17px; color: var(--color-accent-text); margin-bottom: 20px; line-height: 1.6;">
-          用物理重律動重置神經煞車，以充沛細胞能量解開肌肉鎖死，找回夜夜放鬆安眠的底氣！
+          打開暢通無阻的夜間進氣閥門，撲滅氣道黏膜發炎水腫，享受深層含氧量守護的沉靜好眠！
+________________
         </div>
 
         <button type="button" class="btn-primary" onclick="scrollToId('blockG')">
@@ -2058,828 +1973,651 @@
 
     // 12 款單品官方完整主庫 (100% 官方 CSV 數據 ✕ 純淨產地 ✕ 法定 6 大欄位 ✕ 去紅色警示化)
     const PRODUCTS_DB = [
-    {
-        "id": "36281",
-        "name": "ORIYEN 天然酵母NMN 15000 Premium",
-        "shortDesc": "活化粒線體產能，深層修復神經髓鞘",
-        "price": 2488,
-        "img": "/images/products/36281.webp",
-        "spec": "150克 (5克 x 30包)",
-        "origin": "台灣",
-        "intro": "採用專利天然酵母發酵 NMN（每包 500mg），迅速轉化為 NAD+ 激活長壽基因 SIRT1 與 PARP1 DNA 修復酶。揉合繡球菌麥角硫因（20mg/包）提升血液 GABA 含量 4 倍以助眠抗醣化；天山雪蓮與白藜蘆醇強效抗氧修復細胞；配合脂質體維他命 C 與 Double Nutri 專利微脂體技術，吸收率提升 2.33 倍。直擊細胞粒線體能量衰退，修復神經軸突與微血管。",
-        "target": "夜間抽筋頻發、小腿神經異常放電、中老年細胞抗老、微循環障礙、粒線體能量枯竭者。",
-        "ingredients": "天然酵母粉（含 NMN 500mg/包）、繡球菌萃取物粉（含麥角硫因 EGT 20mg/包）、天山雪蓮培養物（100mg/包）、葡萄皮萃取粉（含白藜蘆醇 100mg/包）、脂質體維他命 C（30mg/包）、綜合維生素 B 群、Double Nutri 專利微脂體包覆技術。",
-        "usage": "每日早上 1 包，倒入 150ml 常溫水混合後直接飲用。",
-        "warning": "NMN 為天然營養前體，非藥物或荷爾蒙，無生理依賴性；配方溫和不刺激腸胃；孕婦、哺乳期及長期服藥者建議先諮詢醫師。",
-        "mechanisms": {
-            "2": "活化內皮 SIRT1–eNOS 軸，促進微血管新生（Angiogenesis）與下肢深層組織灌注，改善夜間末梢缺血缺氧。",
-            "3": "專利麥角硫因（EGT）顯著提升體內抑制性神經遞質 GABA 達 4 倍，深層平息神經元激惹；NMN 提供充足 NAD+ 修復神經軸突與受損髓鞘，提高神經去極化放電閾值。",
-            "4": "快速補充細胞 NAD+，激活 SIRT1 與粒線體呼吸鏈生物合成，麥角硫因清除晚期糖基化終產物（AGEs），解決高糖高胰島素引發的粒線體功能障礙，恢復充足 ATP 供應鈣泵。"
-        }
-    },
-    {
-        "id": "36282",
-        "name": "ORIYEN 強心血管通",
-        "shortDesc": "天然水蛭素溶栓，暢通下肢微循環",
-        "price": 1990,
-        "img": "/images/products/36282.webp",
-        "spec": "380毫克 x 60粒",
-        "origin": "日本",
-        "intro": "日本製造皇牌心血管與微循環清淤引流配方。精選六大活性成分深層淨化血管：天然水蛭素（120 ATU）直接阻斷血管廢物生成；高含量濃縮納豆激酶（1000 FU）溶解微血管纖維蛋白積聚；三七提取物促進一氧化氮（NO）生成以舒張血管平滑肌；日本專利 PureSorb-Q™-40-NF 水溶輔酶 Q10 增強心肌泵血動力；專利絞股藍 Fatabolizer® 淨脂；葡萄籽提取物 OPC 強化管壁膠原結構。",
-        "target": "日間下肢水腫淤血、下肢微循環不良、經常手腳冰冷、三高關注者、夜間因缺血缺氧抽筋之非薄血藥人群。",
-        "ingredients": "天然水蛭素（120 ATU）、專利日清水溶輔酶 Q10（PureSorb-Q™ 50mg）、納豆激酶（1000 FU）、三七提取物（5mg）、專利絞股藍提取物（5mg）、葡萄籽提取物（5mg）。",
-        "usage": "每日食用 1 至 2 粒，建議早晚服用（服用西藥人士請相隔 1 至 2 小時）。避免與茶、咖啡同時服用。",
-        "warning": "正在服用抗凝血藥（薄血藥/Warfarin/阿司匹林）人士切勿服用，以免產生交互作用；孕婦、哺乳期婦女慎用；15 歲以下兒童不宜食用。",
-        "mechanisms": {
-            "2": "天然水蛭素（120 ATU）直接阻斷血管廢物生成，納豆激酶（1000 FU）溶解微血管纖維蛋白積聚，三七活化 eNOS 促進自身 NO 生成擴張血管，專利水溶 Q10 提升心肌泵血動力，全方位暢通下肢微血管，防止夜間平躺時微血管缺血缺氧誘發抽筋。"
-        }
-    },
-    {
-        "id": "36283",
-        "name": "ORIYEN 蛋白高營素",
-        "shortDesc": "專利HMB強化肌力，重置神經煞車",
-        "price": 339,
-        "img": "/images/products/36283.webp",
-        "spec": "47克 x 10包",
-        "origin": "台灣",
-        "intro": "專為樂齡人士研發的科學均衡營養配方，主打「補肌 · 護心 · 強免疫」。結合每 100ml 含 0.5g 獨特 HMB 攔截肌肉分解，雙重優質高蛋白（每份含 13g 大豆蛋白與濃縮乳清蛋白）提供完整胺基酸重建肌群；搭配 GreenD3™ 專利維他命 D3 與 K2 固骨入鈣，SoFiber™ 專利水溶性纖維促進腸道吸收，並富含膽鹼、葉酸及 25 種維他命與礦物質。",
-        "target": "長者肌少過勞、小腿肌肉流失無力、夜間短縮性抽筋、起身站立乏力、需強化下肢抗疲勞耐力者。",
-        "ingredients": "HMB（β-羥基-β-甲基丁酸）、大豆分離蛋白、濃縮乳清蛋白、GreenD3™ 專利維他命 D3、維他命 K2、SoFiber™ 專利水溶性纖維、膽鹼、葉酸、綜合維生素與礦物質（鐵、鋅、磷等）。",
-        "usage": "每日 1 次，每次 1 包。將粉劑溶解於 200 毫升溫水中，充分攪拌後飲用。建議早餐時段或運動後飲用最佳。",
-        "warning": "低糖配方（每份僅 1.4g 糖），糖尿病患者可安心適量飲用；乳糖不耐受者耐受度高。",
-        "mechanisms": {
-            "1": "提供 13g 大豆與乳清雙蛋白原料，特添 0.5g/100ml HMB 精準攔截肌肉分解訊號，配合專利 D3/K2 固骨補肌，逆轉長者肌少症，強化小腿腓腸肌支撐力與抗疲勞耐力，為神經系統重建天然抑制煞車。"
-        }
-    },
-    {
-        "id": "36248",
-        "name": "ORIYEN 綜合果蔬酵素",
-        "shortDesc": "深層修復腸道屏障，阻斷發炎滲漏",
-        "price": 602,
-        "img": "/images/products/36248.webp",
-        "spec": "300毫升",
-        "origin": "日本",
-        "intro": "日本 730 天（整整 2 年）長效微生物精工深層發酵！嚴選 66 種無污染果蔬植物精華，特添羽衣甘藍、舞茸及大麥嫩葉。富含有機酸、發酵多酚與後生元短鏈脂肪酸（SCFA），強效修復腸黏膜緊密連接蛋白（Claudin-1/ZO-1），增厚黏液屏障；從源頭截斷 LPS 內毒素入血造成的全身微血管發炎通透性（Kf 升高），終止日間下肢組織漏水水腫與夜間水壓失衡抽筋。",
-        "target": "所有夜間抽筋/水腫的心腸軸根源調理、日間下肢水腫按壓凹陷、腸漏微血管發炎、消化不良者（薄血藥患者首選）。",
-        "ingredients": "66 種天然果蔬發酵原液（羽衣甘藍、舞茸、大麥嫩葉、蘆筍、明日葉、青花椰菜、生薑等）、有機酸、發酵多酚、消化酶。",
-        "usage": "每日 1 次，每次 30 毫升，以 2 倍 40℃ 以下冷水或溫水稀釋飲用。早起空腹或午餐前飲用最佳。",
-        "warning": "酵素活性對高溫敏感，水溫切勿超過 40℃；天然微生物發酵無化學添加；薄血藥患者可安心使用，100% 不影響凝血功能。",
-        "mechanisms": {
-            "2": "日本 2 年深層發酵富含發酵代謝物與後生元有機酸，修復腸黏膜緊密連接（Claudin-1/ZO-1），截斷 LPS 內毒素入血導致的微血管內皮發炎，降低微血管通透性（Kf），終止日間下肢組織漏水（Third-Spacing），避免夜間平躺水壓劇變引發痙攣。",
-            "4": "上游深層中和過氧化脂質，阻斷腸漏，促進營養代謝酶活性，加速體內毒素排泄，減輕粒線體氧化壓力。"
-        }
-    },
-    {
-        "id": "34331",
-        "name": "Nn 三效益生菌- 長者配方",
-        "shortDesc": "調節血管微生態，強化鈣鎂離子吸收",
-        "price": 409,
-        "img": "/images/products/34331.webp",
-        "spec": "2克 x 30包",
-        "origin": "韓國",
-        "intro": "銀髮族專屬「護骨健心」防護盾。針對長者好菌流失與消化液減少痛點，精選 4 種 IDCC 專利雙歧桿菌（心腦血管友善菌種），結合低 FODMAP 益生元、後生元（熱處理 17 菌株），特添 10µg 維他命 D3。採用專利 4 重包覆技術，提升腸道吸附力 10.8 倍，存活率高達 90%，每包保證 100 億活菌直達腸道，修復腸黏膜屏障，截斷 LPS 內毒素入血。",
-        "target": "長者腸道機能退化、排便不規律、消化差、關注骨骼健康與骨質疏鬆、下肢微循環障礙及抽筋水腫者。",
-        "ingredients": "4 種 IDCC 專利雙歧桿菌（乳雙岐桿菌、短雙岐桿菌、長雙岐桿菌、兩歧雙歧桿菌）、低 FODMAP 益生元、後生元（熱處理 17 菌株）、維他命 D3（10µg/包）。",
-        "usage": "每日餐後服用 1 袋。撕開包裝直接倒在舌頭上溶解吞服，或加入常溫水飲用。",
-        "warning": "益生菌對溫度敏感，切勿使用超過 40℃ 溫熱水沖泡；若長期服用處方藥，請間隔 2 小時食用。",
-        "mechanisms": {
-            "2": "4 大 IDCC 專利心腦血管友善雙歧桿菌發酵產生丁酸等短鏈脂肪酸（SCFA），抑制 HDAC 並調降夜間交感神經興奮；特添維他命 D3 強化腸道鈣鎂通道吸收與骨質密度，無凝血干擾，安心修復血管微生態。",
-            "4": "調節腸道微生態，產生天然短鏈脂肪酸抑制全身慢性低度發炎，維護黏膜免疫屏障，減少代謝滲透壓負荷。"
-        }
-    },
-    {
-        "id": "34307",
-        "name": "Nn 腸快適",
-        "shortDesc": "專利後生元精華，即效修復腸黏膜",
-        "price": 314,
-        "img": "/images/products/34307.webp",
-        "spec": "20毫升 x 15包",
-        "origin": "馬來西亞",
-        "intro": "革命性專利 Totipro™ 後生元液態精華，不受胃酸破壞與抗生素影響，無需冷藏即可即效修復腸黏膜緊密連接。結合 Mushroom Guard™ 混合菇菌萃取（含 35% β-葡聚糖及 40% 蘑菇多糖）、菊苣纖維（益生元）與針葉櫻桃生物類黃酮，富含消化酶，能迅速阻斷內毒素入血、抗氧化並改善腸胃微生態。",
-        "target": "服用抗生素期間腸黏膜受損者、經常腹脹便秘、外食少蔬果、自律神經緊繃及下肢微循環水腫抽筋者。",
-        "ingredients": "Totipro™ 專利後生元（4 種乳酸菌發酵精華含消化酶）、Mushroom Guard™ 6 種混合菇菌萃取、菊苣纖維、針葉櫻桃及柑橘類生物類黃酮。",
-        "usage": "12 歲以上兒童及成人每日 1–2 包，撕開即飲。",
-        "warning": "本品為奶素產品，純素者不宜。",
-        "mechanisms": {
-            "2": "Totipro™ 專利後生元為非活菌活性精華，不受抗生素與胃酸影響，即效修復腸黏膜緊密屏障，阻斷內毒素入血誘發血管發炎滲漏。"
-        }
-    },
-    {
-        "id": "34278",
-        "name": "Nn 水溶性輔酶Q10",
-        "shortDesc": "專利水溶長效釋放，消除他汀肌痛斷電",
-        "price": 321,
-        "img": "/images/products/34278.webp",
-        "spec": "30粒/瓶",
-        "origin": "馬來西亞",
-        "intro": "細胞粒線體能量「火星塞」！採用美國專利 MicroActive® 水溶性技術（US Patent 7,030,102），吸收率高出傳統結晶型 300%、油溶型 200%，具備 24 小時長效持續釋放機制，3 週提升體內 Q10 濃度 2 倍。直接為心肌與骨骼肌粒線體呼吸鏈注能，生成大量 ATP 供應肌漿網鈣泵（SERCA）解開肌肉痙攣卡死；並精準回補他汀類降脂藥（Statins）阻斷甲羥戊酸途徑所耗竭的 Q10，徹底消除藥物性肌肉痠痛無力與抽筋。",
-        "target": "服用降膽固醇他汀類藥物人士、夜間小腿抽筋肌肉卡死、心肌動力不足、微血管彈性減退、極度疲勞者。",
-        "ingredients": "MicroActive® 專利水溶性輔酶 Q10（300mg 含高活性 CoQ10）、微晶纖維素、植物性膠囊成分。",
-        "usage": "每日 1 次，每次 1 至 2 粒。專利水溶技術突破傳統限制，空腹或飯後均可高效吸收。",
-        "warning": "植物膠囊純素可食。服用降膽固醇藥（Statins）者嚴禁擅自停藥，應每天搭配本品以消除藥物耗竭副反應。",
-        "mechanisms": {
-            "2": "專利 MicroActive® 水溶技術 24 小時釋放，為心肌與血管平滑肌細胞注能，增強心臟容量代償力與下肢微循環血流灌注。",
-            "4": "作為粒線體能量傳遞核心「火星塞」，直擊呼吸鏈產能關鍵，驅動大量 ATP 生成，供應肌漿網鈣泵（SERCA）迅速將鈣離子收回肌漿網，解開肌肉卡死狀態。",
-            "5": "他汀類降脂藥（Statins）阻斷甲羥戊酸途徑耗竭肌肉 Q10 引發肌病；本品直接高倍吸收回補被耗竭的 Q10，消除藥物引起的肌肉疲勞、痠痛無力與抽筋。"
-        }
-    },
-    {
-        "id": "34269",
-        "name": "Nn 蝦青素",
-        "shortDesc": "微藻跨膜抗氧化，撲滅微血管慢性發炎",
-        "price": 276,
-        "img": "/images/products/34269.webp",
-        "spec": "30粒/盒",
-        "origin": "馬來西亞",
-        "intro": "地表最強抗氧化之王！嚴選日本 AstaREAL® 天然雨生紅球藻超臨界萃取，抗氧化力為維他命 C 的 6000 倍、CoQ10 的 800 倍。獨特跨膜極性結構能直接穿透血腦屏障（BBB）、神經外膜屏障（PNB）與粒線體雙層膜，撲滅微血管內皮發炎，阻斷 NF-κB 與 COX-2 發炎途徑，中和過氧化脂質，保護神經周邊微循環與粒線體呼吸鏈，且完全無出血或抗凝藥物干擾風險。",
-        "target": "薄血藥/抗凝劑患者下肢微循環發炎水腫、高血糖微血管病變神經發麻、粒線體脂質過氧化損傷、長者抽筋者。",
-        "ingredients": "AstaREAL® 天然雨生紅球藻萃取物（高活性天然蝦青素 4mg）、天然橄欖油、混合生育酚（維他命 E）。",
-        "usage": "每日 1 次，每次 1 至 2 粒，隨餐或餐後油脂性飲食服用最佳。",
-        "warning": "非素食產品（明膠軟膠囊）。由微藻提取，無甲殼海鮮過敏原，海鮮過敏者可安全食用；不與降血壓、血糖西藥相沖。",
-        "mechanisms": {
-            "2": "具備強效微藻抗氧化力，直接貫穿微血管內皮雙層膜撲滅慢性發炎，降低微血管通透性滲漏，改善下肢靜脈水腫，且完全無出血或抗凝西藥衝突風險。",
-            "4": "直接穿透粒線體雙層膜，中和外食劣質壞油堆積之脂質過氧化物，保護呼吸鏈複合物免受自由基破壞，維持 ATP 產能。"
-        }
-    },
-    {
-        "id": "34316",
-        "name": "Nn 液鈣鎂D3",
-        "shortDesc": "微米液體高吸收，迅速平息神經肌肉痙攣",
-        "price": 241,
-        "img": "/images/products/34316.webp",
-        "spec": "15包/盒 (20ml x 15包)",
-        "origin": "台灣",
-        "intro": "革命性液態微米化護骨解痙配方。採用專利 doubleNUTRI™ 雙營技術，吸收率高達普通鈣片 2.6 倍。每包含高活性鈣 500mg、微米鎂 20mg、維他命 D3 500IU 及發酵巴西莓萃取物（抗 AGEs）。微米鎂作為天然鈣通道阻斷劑與神經平滑肌鬆弛劑，迅速阻斷神經肌肉異常興奮放電；微米離子型不依賴胃酸解離，不便秘不脹氣，快速回補利尿劑造成的電解質流失。",
-        "target": "半夜抽筋、神經抽搐異常放電、服用利尿劑/降血壓藥致離子流失者、肌肉緊繃卡壓神經、骨質疏鬆長者、胃酸不足者。",
-        "ingredients": "檸檬酸鈣（高活性鈣 500mg）、磷酸鎂（鎂 20mg）、維他命 D3（500IU）、發酵巴西莓萃取液、紫胡蘿蔔濃縮汁。",
-        "usage": "兒童（2–12 歲）每日 1 包；成人及 12 歲以上每天 1–2 包。飲用前請搖勻，睡前 30–60 分鐘飲用效果尤佳。",
-        "warning": "純素配方。植物萃取可能微有沉澱屬正常現象；每日鈣攝取量上限不宜超過 2000mg。",
-        "mechanisms": {
-            "5": "高活性微米液態專利 doubleNUTRI™，快速回補降壓利尿劑強迫排出的鈣、鎂離子；高吸收鎂離子生理性阻斷鈣通道，迅速降低神經肌肉接頭異常興奮閾值，平息痙攣抽搐。"
-        }
-    },
-    {
-        "id": "34328",
-        "name": "Nn 關節靈C+",
-        "shortDesc": "專利二型膠原蛋白，修復脊椎減輕卡壓",
-        "price": 439,
-        "img": "/images/products/34328.webp",
-        "spec": "6克 x 30包",
-        "origin": "馬來西亞",
-        "intro": "雙專利健關修復配方，3 星期顯著減痛！嚴選西班牙 Bioiberica 專利二型膠原蛋白（Type II Collagen）修補脊椎與關節軟骨結構、減輕神經根擠壓；搭配美國 Balchem 純天然 OptiMSM™ 專利有機硫，迅速消退發熱腫痛並潤滑關節；協同高吸水軟骨素與維他命 C 促進膠原合成，深層減輕腰椎退化對坐骨神經根的壓迫。",
-        "target": "腰椎退化、坐骨神經卡壓、神經根擠壓引發下肢麻木抽搐、關節痠痛僵硬、中老年關節勞損者。",
-        "ingredients": "專利二型膠原蛋白、OptiMSM™ 專利有機硫、軟骨素、維他命 C。",
-        "usage": "每日 2 次，每次 1 包，餐後服用。將粉末溶於一杯室溫水中飲用。",
-        "warning": "成分含動物來源二型膠原蛋白，非素食產品。",
-        "mechanisms": {
-            "3": "專利二型膠原蛋白結合 OptiMSM™ 有機硫與軟骨素，修復受損退化的腰椎與關節軟骨，消除關節無菌發炎腫脹，減輕脊椎神經根卡壓，阻斷異常放電傳導。"
-        }
-    },
-    {
-        "id": "34274",
-        "name": "Nn 奧米加-3深海魚油1000",
-        "shortDesc": "高純度DHA滋養神經，消退血管發炎",
-        "price": 253,
-        "img": "/images/products/34274.webp",
-        "spec": "50粒/瓶",
-        "origin": "馬來西亞",
-        "intro": "純淨無重金屬小型魚類分子蒸餾專利萃取！每粒含 1000mg 高濃度 Pronova Pure™ 專利魚油，總 Omega-3 濃度高達 65%（含 360mg EPA ＋ 240mg DHA）。高純度 DHA 滋養神經元突觸與神經髓鞘磷脂雙分子層，修復受損神經傳導電纜；EPA 轉化為消退素（Resolvins）撲滅神經內膜微血管發炎，改善末梢組織缺血缺氧發麻，並輔助腸道益菌生長維護心腸軸。",
-        "target": "周邊神經發麻刺痛、腰椎神經髓鞘受損、三高心腦血管硬化、微循環障礙、關節慢性炎性疼痛族群。",
-        "ingredients": "Pronova Pure™ 專利深海小型魚油（每粒含 EPA 360mg、DHA 240mg，Omega-3 總含量 65%）、明膠、甘油、純水。",
-        "usage": "每日 1 至 2 粒，隨餐或餐後脂質飲食服用，藉由飲食油脂協同達到最高吸收率。",
-        "warning": "正服用抗凝血藥（Warfarin/薄血藥）或有出血傾向、近期手術者請先諮詢醫生；孕婦可安心食用高純度 DHA。",
-        "mechanisms": {
-            "3": "高純度 DHA 滋養神經髓鞘磷脂層，修復受損絕緣皮；EPA 轉化為抗炎消退素，撲滅神經內膜微血管發炎，提升神經傳導穩定性。"
-        }
-    },
-    {
-        "id": "36261",
-        "name": "ORIYEN 山藥烏梅球",
-        "shortDesc": "濃縮烏梅中和乳酸，加速排空肌肉痠痛",
-        "price": 241,
-        "img": "/images/products/36261.webp",
-        "spec": "230毫克 x 150粒",
-        "origin": "日本",
-        "intro": "傳統智慧與現代養生升級配方！嚴選日本濃縮烏梅原汁（富含有機酸與檸檬酸，強力中和體液酸性、加速乳酸代謝排空、消除肌肉僵硬痠痛）、營養山藥（健脾益氣整腸）、天然蜂蜜（潤燥清熱）及食用竹炭（微孔結構物理吸附血液與消化道毒素廢物）。溫和重塑酸鹼平衡，改善血液循環與手腳冰冷。",
-        "target": "白天小腿肌肉過度疲勞痠痛、乳酸堆積小腿僵硬、手腳冰冷氣血不順、肌肉過勞抽筋者。",
-        "ingredients": "濃縮烏梅原汁、新鮮山藥萃取物、純天然蜂蜜、微米級食用竹炭粉。",
-        "usage": "每日食用 5 粒，飯後直接嚼食或配溫水吞服。",
-        "warning": "純素友好。性質溫和，特別適合經常外食、肌肉過勞者日常調養。",
-        "mechanisms": {
-            "1": "濃縮烏梅原汁富含有機酸與檸檬酸，強力中和體內乳酸，加速排空日間肌肉過勞堆積的酸性廢物，消除小腿肌肉緊繃與僵硬；竹炭吸附代謝廢物，山藥整腸健胃。"
-        }
-    },
-    {
-        "id": "36277",
-        "name": "ORIYEN 肝再生",
-        "shortDesc": "強化肝臟解毒排毒，代謝外食壞油殘留",
-        "price": 514,
-        "img": "/images/products/36277.webp",
-        "spec": "15毫升 x 30包",
-        "origin": "台灣",
-        "intro": "7 大天然護肝成分結合 Double Nutri™ 專利雙營乳化微粒技術，吸收率極致提升，科研實證 2 星期逆轉肝機能！嚴選專利青棗幼果萃取、專利冷凍乾燥青花菜苗（高濃度蘿蔔硫素）、牛磺酸、朝鮮薊、穀胱甘肽（GSH 重金屬與化學藥物解毒大師）、大豆卵磷脂 PPC 及薑黃。強化肝臟生物轉化與排毒，切斷外食壞油毒素、藥物殘留及糖脂代謝混亂。",
-        "target": "脂肪肝、高糖高脂外食族、三高代謝症候群、長期服用西藥蓄積毒素者、經常熬夜飲酒應酬者。",
-        "ingredients": "專利青棗幼果萃取、專利西蘭花苗萃取（蘿蔔硫素）、穀胱甘肽（GSH）、大豆卵磷脂（含 PPC）、牛磺酸、朝鮮薊萃取、薑黃萃取。",
-        "usage": "一般保健每日 1 包；加強保健每日 2 包；餐前或睡前直接飲用。",
-        "warning": "純素配方，素食者安心食用。若有嚴重肝功能衰竭請遵醫囑。",
-        "mechanisms": {
-            "4": "專利青花菜苗蘿蔔硫素激活 Nrf2 排毒途徑，高生物利用度穀胱甘肽（GSH）與大豆卵磷脂 PPC 強效轉化代謝外食劣質壞油與脂質過氧化物，改善脂肪肝與胰島素阻抗。"
-        }
-    },
-    {
-        "id": "36245",
-        "name": "ORIYEN 倍俐暢",
-        "shortDesc": "吸附腸道油脂毒素，阻斷毒素二次吸收",
-        "price": 609,
-        "img": "/images/products/36245.webp",
-        "spec": "5克 x 25包",
-        "origin": "台灣",
-        "intro": "U'Dtox 混合微粒核芯三層包覆技術，確保好菌與活性成分不受胃酸破壞直達腸道！集結乳酸菌、菊糖（膳食纖維益生元）、紅藻萃取物及柑橘萃取物。強效吸附腸道滯留宿便、多餘油脂與過氧化代謝毒素，阻斷毒素經由腸肝循環二次吸收進入血液，為肝臟排毒大幅減負，撲滅微血管慢性發炎。",
-        "target": "宿便堆積、便秘、外食油膩煎炸壞油體質、代謝毒素超載致血管發炎、抽筋心腸軸排毒者。",
-        "ingredients": "U'Dtox 活性乳酸菌微粒、菊糖（膳食纖維）、紅藻萃取物、柑橘萃取物。",
-        "usage": "每日 1 包，直接倒入口中搭配 300 毫升冷開水或加入果汁飲用。餐前餐後均可。",
-        "warning": "零脂肪、低鈉，無番瀉葉、蘆薈素或乳糖等刺激性瀉劑，溫和無依賴性。",
-        "mechanisms": {
-            "4": "U'Dtox 微粒包覆益生菌與高活性水溶纖維，強效吸附腸道滯留油脂與過氧化代謝廢物，阻斷腸肝循環二次吸收，全面淨化內環境。"
-        }
-    },
-    {
-        "id": "36246",
-        "name": "ORIYEN 金體素",
-        "shortDesc": "低GI微量全營養，減輕夜間代謝負擔",
-        "price": 638,
-        "img": "/images/products/36246.webp",
-        "spec": "40克 x 15包",
-        "origin": "台灣",
-        "intro": "天然微量全營養低 GI 代餐首選！嚴選超過 100 種天然微量營養與蔬果穀物成分，吸收率高達 60%。富含天然植物優質蛋白、不飽和脂肪酸（Omega-3 & 9）、多種維生素及高膳食纖維。每份僅約 100–150 大卡，完美配合 5:2 輕斷食與晚餐輕慢食，切斷夜間高血糖、高胰島素與糖毒性，減輕肝腎代謝負擔，並為肌肉神經修復提供全套微量營養基底。",
-        "target": "外食肥胖脂肪肝、夜間代謝負擔過重抽筋、高血糖胰島素阻抗、需全營養修復神經肌肉者。",
-        "ingredients": "100 種以上天然蔬果穀物精華、植物性蛋白質、亞麻仁油（Omega-3/9）、綜合維生素與礦物質、天然膳食纖維。",
-        "usage": "每日 1 包。倒入杯中以 300 毫升 50–60℃ 溫開水攪拌均勻飲用。可作為晚餐代餐或營養補充。",
-        "warning": "天然全食物配方，低 GI 無人工化學合成添加物。糖尿病患者代餐時請維持監測血糖。",
-        "mechanisms": {
-            "4": "100 種天然微量全營養低 GI 代餐，配合 5:2 輕斷食或晚餐輕慢食，切斷夜間高胰島素與高糖毒性，消除體內糖化終產物（AGEs），降低粒線體代謝負擔。"
-        }
-    },
-    {
-        "id": "34294",
-        "name": "Nn 三高淨脂素",
-        "shortDesc": "天然香檸檬多酚，安全調脂不沖西藥",
-        "price": 272,
-        "img": "/images/products/34294.webp",
-        "spec": "800毫克 x 60粒",
-        "origin": "馬來西亞",
-        "intro": "義大利卡拉布里亞 Bergamonte® 專利香檸檬精華！富含獨特 HMGF 多酚成分與超高抗氧化多酚（ORAC 高達 22,269），臨床試驗證實 30 天顯著改善三高指數達 36%。有效清除血管多餘壞膽固醇、燃燒內臟脂肪，強效對抗糖化終產物（AGEs）對微血管的破壞；最關鍵的是天然 HMGF 完全不干擾他汀類藥物，無紅麴橘黴素肝腎毒性疑慮，安全輔助三高降脂。",
-        "target": "服用他汀降脂藥需輔助調脂人士、三高代謝症候群、手腳麻木血管阻滯、脂肪肝、高糖飲食血管糖化硬化者。",
-        "ingredients": "Bergamonte® 專利香檸檬萃取物（含高濃度 HMGF、新橙皮苷、柚皮苷、芸香苷多酚）。",
-        "usage": "每日 2 次，每次食用 1–2 錠，餐前以溫水服用為佳。",
-        "warning": "源自天然超級水果，可與他汀類西藥安全併用（建議間隔 1–2 小時）；未經醫生指示切勿擅自停用處方降脂藥。",
-        "mechanisms": {
-            "5": "天然 Bergamonte® 香檸檬 HMGF 多酚成分，不經細胞色素 P450 代謝，與他汀類降脂西藥完全無相沖干擾，安全協助調節血脂與對抗微血管糖化，保護神經血管。"
-        }
-    },
-    {
-        "id": "0368",
-        "name": "SE 紅光光療按摩帶",
-        "shortDesc": "近紅外線深層消炎，活化細胞大量產能",
-        "price": 2580,
-        "img": "/images/products/0368.webp",
-        "demoImg1": "/images/products/0368-demo1.webp",
-        "demoImg2": "/images/products/0368-demo2.webp",
-        "spec": "1條裝 (含控制器/充電線)",
-        "origin": "台灣",
-        "intro": "結合 630nm 可見紅光與 850nm 近紅外線雙光譜物理理療。紅光作用於皮膚表層促進膠原生成；近紅外線具備強大穿透力，深入皮下組織、關節腔與韌帶。光能被細胞粒線體細胞色素 C 氧化酶吸收以激發 ATP 合成，促進局部微循環。配合內建四組震動按摩器（3 種強度），物理放鬆緊繃筋膜，舒緩肩頸僵硬、下背痛、膝關節退化與經期腹部不適。",
-        "target": "久坐久站小腿僵硬痠痛、腰椎坐骨神經受壓抽筋、長者退化性關節僵硬、下肢微循環滯留水腫者。",
-        "ingredients": "630nm 紅光 ＋ 850nm 近紅外線（共 122 組 LED / 366 個發光晶片）、四組震動按摩模組、2000mAh 電池、10 分鐘自動定時、Type-C 充電。",
-        "usage": "每天使用 1–2 次，每次 10–20 分鐘；前 10 分鐘敷腰椎下背部消除神經根卡壓，後 10 分鐘敷小腿肚放鬆肌筋膜。",
-        "warning": "避免照射眼睛；懷孕婦女、惡性腫瘤、皮膚有開放性傷口或濕疹部位避免直接照射；850nm 近紅外線為肉眼不可見光，紅光亮起即運作正常。",
-        "mechanisms": {
-            "1": "包覆小腿腹，高頻微震動物理放鬆僵硬攣縮的肌筋膜，解開結節；630nm 紅光促進微循環。",
-            "2": "照射小腿促進一氧化氮（NO）釋放與微血管新生（Angiogenesis），加速深靜脈回流，消除淤血缺氧。",
-            "3": "重點敷於「腰椎/下背部」，850nm 近紅外線深層穿透椎管消除神經根水腫發炎，震動放鬆豎脊肌，解除神經根擠壓。",
-            "4": "PBM 光生物調節作用直接刺激粒線體細胞色素 C 氧化酶，爆發性合成 ATP 供應肌漿網鈣泵（SERCA），將游離鈣離子收回肌漿網，解開肌肉卡死。",
-            "5": "舒緩局部藥物性引發的肌肉敏感、痠痛與緊繃。"
-        }
-    },
-    {
-        "id": "38207",
-        "name": "Smart Fitness X 律動拍打機",
-        "shortDesc": "垂直律動釋放NO，骨骼肌幫浦強效回流",
-        "price": 22990,
-        "img": "/images/products/38207.webp",
-        "spec": "1部裝",
-        "origin": "台灣",
-        "intro": "100% 垂直正弦律動 × 專利腳底穴位拍打雙核心養生儀！垂直律動引發微血管流體剪切力，直接激活內皮 eNOS 釋放自體一氧化氮（NO），強效擴張微血管；透過肌梭牽張反射引發每秒高頻被動收縮，骨骼肌幫浦強效將下肢深靜脈淤血與淋巴液泵回腔靜脈；刺激骨骼分化釋放骨鈣素與脂聯素，大幅提升胰島素敏感度；拍打湧泉穴平衡自律神經，拉升副交感張力，提高神經放電閾值。",
-        "target": "長者肌少症肌力不足、下肢靜脈曲張浮腫、夜間抽筋頻發、缺乏運動代謝緩慢、自律神經失調者。",
-        "ingredients": "合金鋼機身、高精密正弦波垂直律動馬達（振幅 2mm，重力加速度 0.68G）、微電腦 7 段速度控制器、足底穴位拍打模組（湧泉/里內庭/獨膚/足心）。",
-        "usage": "自動定時每次 15 分鐘。晨起站立律動 15 分鐘（啟動肌泵與 NO）；睡前 1 小時使用低速檔 15 分鐘（引流靜脈水腫、重置 GTO 煞車、喚醒副交感神經）。",
-        "warning": "最大承重 120Kg。不適用人士：孕婦、骨折或開放傷口未癒合者、六歲以下孩童。",
-        "mechanisms": {
-            "1": "小腿舒壓模式以精準垂直正弦律動被動牽張極短縮小腿肌群，重置高爾基腱器官（GTO）抑制煞車；肌梭 TVR 牽張反射增加肌群質量。",
-            "2": "【流體剪切力生化轉導】剪切力刺激血管內皮細胞 eNOS 活化，大量釋放自體 NO 強效擴張微血管；骨骼肌幫浦強效將下肢深靜脈淤血泵回心臟。",
-            "3": "低速檔帶動脊椎微動牽引減壓；拍打足底湧泉穴刺激副交感神經，提高神經異常放電閾值。",
-            "4": "【機械生物力學轉導】重力刺激骨骼分泌骨鈣素與脂肪分泌脂聯素，大幅提升全身胰島素敏感度，活化肌肉 AMPK，改善糖代謝障礙。",
-            "5": "低速檔溫和平衡自律神經與全身體液分布，改善利尿劑引起的血液動力失衡。"
-        }
+  {
+    "id": "34334",
+    "name": "Nn 強效脂質維他命C",
+    "shortDesc": "穩定黏膜肥大細胞，消退氣道微水腫",
+    "price": 179.0,
+    "img": "/images/products/34334.webp",
+    "spec": "60克(2克x 30包)",
+    "origin": "韓國",
+    "intro": "革新專利磷脂雙層微囊包裹技術，吸收率提升70%，體內長效停留高2.5倍。結合550mg脂質維他命C、黑接骨木果花青素、鋅、硒與維他命D3，築起5合1抗炎抗水腫防護網。",
+    "target": "呼吸道黏膜易充血水腫、夜間通氣阻抗高、打鼾微覺醒者。",
+    "ingredients": "高吸收脂質維他命C (550mg)、黑接骨木果、鋅(Zinc)、維他命D3、硒(Selenium)。",
+    "usage": "每日1包，粉末直接倒舌頭溶解或溶於冷水飲用。",
+    "warning": "含有奶類，全素食者不宜；溫和不刺激腸胃。",
+    "mechanisms": {
+      "1": "【對應Block F抗氧化與抗充血】高生物利用度維他命C與鋅直接穩定呼吸道肥大細胞膜，抑制組織胺釋放，清除自由基，快速減輕咽喉與鼻腔黏膜充血水腫，降低夜間呼吸氣道阻抗。"
     }
+  },
+  {
+    "id": "36278",
+    "name": "ORIYEN 虎乳芝蟲草菌絲體",
+    "shortDesc": "深層調理呼吸道，維持夜間進氣通暢",
+    "price": 309.0,
+    "img": "/images/products/36278.webp",
+    "spec": "710毫克x 30顆",
+    "origin": "馬來西亞",
+    "intro": "馬來西亞國寶級虎乳芝搭配4倍濃縮冬蟲夏草與針葉櫻桃維他命C。從根源深層調理肺與氣道，降低氣道黏膜對組織胺的敏感反應，稀釋呼吸道黏液，消退氣道微水腫。",
+    "target": "夜間打鼾、容易呼吸不暢、咽喉黏液黏稠、晨起口乾或有睡眠呼吸障礙(OSA)傾向者。",
+    "ingredients": "有機培植虎乳芝、4倍濃縮冬蟲夏草菌絲體、針葉櫻桃(天然維他命C)。",
+    "usage": "每日1-2顆，飯後服用。",
+    "warning": "孕婦及授乳婦女食用前請諮詢醫生；中重度OSA患者應配合醫師評估使用CPAP呼吸器。",
+    "mechanisms": {
+      "1": "【對應Block F氣道黏膜屏障】虎乳芝與蟲草多醣體具備顯著抗炎與修復呼吸道黏膜上皮功能，針葉櫻桃降低氣道對組織胺的反應，減少氣道微水腫與黏液分泌，維持夜間進氣閥門通暢，預防間歇性缺氧引發交感神經微覺醒。"
+    }
+  },
+  {
+    "id": "34269",
+    "name": "Nn 蝦青素",
+    "shortDesc": "超強跨膜抗氧化，撲滅微血管發炎",
+    "price": 276.0,
+    "img": "/images/products/34269.webp",
+    "spec": "30粒/盒",
+    "origin": "馬來西亞",
+    "intro": "地表最強抗氧化之王！嚴選日本AstaREAL®天然雨生紅球藻超臨界萃取，抗氧化力為維他命C的6000倍、CoQ10的800倍。獨特跨膜極性結構能直接穿透血腦屏障(BBB)、神經外膜屏障(PNB)與粒線體雙層膜，撲滅微血管內皮發炎，阻斷NF-κB與COX-2發炎途徑，中和過氧化脂質，保護神經周邊微循環與粒線體呼吸鏈，且完全無出血或抗凝藥物干擾風險。",
+    "target": "薄血藥患者末梢微循環發炎發麻、高血糖微血管病變、自體免疫發炎風暴、粒線體過氧化脂質損傷者。",
+    "ingredients": "AstaREAL®天然雨生紅球藻萃取物(高活性天然蝦青素)、天然橄欖油、混合生育酚(維他命E)。",
+    "usage": "每日1次，每次1至2粒，隨餐或餐後油脂性飲食服用最佳。",
+    "warning": "非素食產品(明膠軟膠囊)。由微藻提取，無甲殼海鮮過敏原，海鮮過敏者可安全食用；不與降血壓、血糖西藥相沖。",
+    "mechanisms": {
+      "2": "微藻超強抗氧化力，直接貫穿微血管內皮雙層膜撲滅慢性發炎，改善微血管通透性，且完全無出血或抗凝西藥衝突風險，暢通神經微循環。",
+      "4": "【對應Block F骨盆腔深層抗炎】蝦青素直接穿透骨盆腔微血管雙層膜，強力下調NF-κB與COX-2發炎訊號，改善骨盆底與膀胱三角區微循環缺血，消退無菌性微發炎，顯著降低黏膜下感覺神經高敏性，終結假警報。"
+    }
+  },
+  {
+    "id": "34278",
+    "name": "Nn 水溶性輔酶Q10",
+    "shortDesc": "為粒線體充能，拉平夜間供電曲線",
+    "price": 321.0,
+    "img": "/images/products/34278.webp",
+    "spec": "30粒/盒",
+    "origin": "馬來西亞",
+    "intro": "美國專利MicroActive®水溶性技術，吸收率比傳統脂溶性高300%，體內24小時持續釋放。作為細胞發電廠(粒線體)電子傳遞鏈關鍵樞紐，直接支援細胞能量合成。",
+    "target": "夜間能量調節異常、容易心悸驚醒、服用他汀類降膽固醇西藥(Statins)致Q10耗損者。",
+    "ingredients": "MicroActive® 水溶性輔酶Q10 (含30mg CoQ10)、微晶纖維素。",
+    "usage": "每日1次，每次1至2粒，空腹亦可吸收。",
+    "warning": "植物膠囊純素可食；對沖他汀類西藥副作用，安全無衝突。",
+    "mechanisms": {
+      "2": "【對應Block F粒線體基線發電】輔酶Q10維持肝臟與神經細胞粒線體ATP產能，拉平夜間能量供電曲線，支援肝臟平穩進行夜間「糖質新生」，避免因能量驟降而啟動大腦的備用發電機(腎上腺素)。"
+    }
+  },
+  {
+    "id": "34307",
+    "name": "Nn 腸快適",
+    "shortDesc": "專利後生元修復腸道，阻斷內毒素入血",
+    "price": 314.0,
+    "img": "/images/products/34307.webp",
+    "spec": "20毫升 x 15包",
+    "origin": "馬來西亞",
+    "intro": "革命性專利Totipro™後生元液態精華，不受胃酸破壞與抗生素影響，無需冷藏即可即效修復腸黏膜緊密連接。結合Mushroom Guard™混合菇菌萃取(含35% β-葡聚糖及40%蘑菇多糖)、菊苣纖維(益生元)與針葉櫻桃生物類黃酮，富含消化酶，能迅速阻斷內毒素入血、抗氧化並改善腸胃微生態。",
+    "target": "手腳發麻微循環不良、經常腹脹便秘、服用抗生素期間腸黏膜受損、自律神經緊繃者。",
+    "ingredients": "Totipro™專利後生元(4種乳酸菌發酵精華含消化酶)、Mushroom Guard™6種混合菇菌萃取、菊苣纖維、針葉櫻桃及柑橘類生物類黃酮。",
+    "usage": "兒童(2-12歲)每日1包；12歲以上兒童及成人每日1-2包，撕開即飲。",
+    "warning": "本品為奶素產品，純素者不宜。若有持續嚴重腸胃不適應儘快就醫。",
+    "mechanisms": {
+      "2": "專利Totipro™後生元為非活菌活性精華，不受抗生素與胃酸破壞，即效修復腸道黏膜緊密屏障，阻斷LPS內毒素入血誘發微血管發炎與通透性滲漏，暢通微血管灌注。",
+      "5": "專利Totipro™後生元為非活菌活性精華，不受抗生素與胃酸破壞，即效修復腸道黏膜緊密屏障，阻斷LPS內毒素入血誘發微血管發炎與通透性滲漏，暢通微血管灌注。大腦的焦慮警報系統與腸道微生態息息相關。此配方主打透過「腸腦軸連線」來調節情緒與睡眠，幫助找回好心情與好睡眠。其黃金三角組合（益生菌、益生元、後生元）能從腸道根源重塑神經傳導物質的生成環境，協助冷卻HPA壓力軸的暴走警報。"
+    }
+  },
+  {
+    "id": "34316",
+    "name": "Nn 液鈣鎂D3",
+    "shortDesc": "微米液態鈣鎂，放鬆自律神經平穩膜電位",
+    "price": 241.0,
+    "img": "/images/products/34316.webp",
+    "spec": "20包/盒",
+    "origin": "台灣",
+    "intro": "專利doubleNUTRI™雙營技術微米化液態鈣鎂，吸收率高達傳統鈣片2.6倍。不依賴胃酸解離，絕不引起腸道結塊便秘，是平穩自律神經與膜電位的核心礦物質。",
+    "target": "半夜反覆心悸、冒冷汗驚醒、自律神經亢奮、胃酸分泌不足或服用胃藥(PPI)者。",
+    "ingredients": "微米高活性鈣(500mg)、鎂(20mg)、維他命D3(500IU)、發酵巴西莓萃取物。",
+    "usage": "成人每日1-2包，睡前30-60分鐘飲用最佳，微米液態免配水。",
+    "warning": "純素配方，微米技術不依賴胃酸，服用強效胃藥(PPI)者亦可完美吸收且不致便秘。",
+    "mechanisms": {
+      "2": "【對應Block F神經膜電位穩定】活性鎂作為天然NMDA受體阻斷劑與神經鬆弛劑，改善胰島素敏感度，阻斷細胞內鈣暴衝，放鬆自律神經，平穩夜間膜電位，抑制腎上腺素與皮質醇反調節荷爾蒙暴衝。",
+      "4": "doubleNUTRI™專利微米鎂作為天然鈣通道阻斷劑(CCB)與肌肉鬆弛劑，迅速阻斷胞內鈣暴衝，放鬆緊繃壓迫神經的頸腰肌肉與骨盆底筋膜，安定神經異常放電，解除物理卡壓。",
+      "5": "NMDA阻斷與壓力軸冷卻：針對過度神經質、隨時拉響警報的安保系統，鎂離子是不可或缺的硬件冷卻劑。液鈣鎂D3採用專利微米級液態雙營技術，將吸收率提升了2.6倍，確保營養能高效被身體利用。配方中的鎂（20mg）能協同鈣質發揮強大作用，下調過度活躍的HPA壓力軸並阻斷NMDA受體的異常亢奮。配合維他命D3調節情緒的功能，這套組合能引導大腦順利由交感神經的「戰鬥」狀態，切換至副交感神經的「修復」模式。"
+    }
+  },
+  {
+    "id": "34331",
+    "name": "Nn 三效益生菌- 長者配方",
+    "shortDesc": "心腦友善專利好菌，調節微生態抗滲漏",
+    "price": 409.0,
+    "img": "/images/products/34331.webp",
+    "spec": "2克 x 30包",
+    "origin": "韓國",
+    "intro": "銀髮族專屬「護骨健心」防護盾。針對長者好菌流失與消化液減少痛點，精選4種IDCC專利雙歧桿菌(心腦血管友善菌種)，結合低FODMAP益生元、後生元(熱處理17菌株)，特添10µg維他命D3。採用專利4重包覆技術(蛋白質、麥芽糊精、玻尿酸、水溶性聚合物)，提升腸道吸附力10.8倍，存活率高達90%，每包保證100億活菌直達腸道，修復腸黏膜屏障，截斷LPS內毒素入血。",
+    "target": "60歲以上長者、腸道機能退化、排便不規律、消化差、關注骨骼健康與骨質疏鬆、關注心血管健康及微循環障礙者。",
+    "ingredients": "4種IDCC專利雙歧桿菌(乳雙岐桿菌、短雙岐桿菌、長雙岐桿菌、兩歧雙歧桿菌)、低FODMAP益生元、後生元(熱處理17菌株)、維他命D3 (10µg/包)。",
+    "usage": "每日餐後服用1袋。撕開包裝直接倒在舌頭上溶解吞服，或加入室溫水、冷水或果汁中飲用。",
+    "warning": "益生菌對溫度敏感，切勿使用溫熱水沖泡(超過40℃會破壞活性)；若長期服用慢性病處方藥，請與藥物間隔2小時食用。",
+    "mechanisms": {
+      "2": "4大IDCC專利心腦血管友善雙歧桿菌發酵產生丁酸等短鏈脂肪酸(SCFA)，抑制HDAC並調降夜間交感神經興奮；特添維他命D3強化腸道鈣鎂通道吸收與骨質密度，無凝血干擾，安心修復血管微生態。",
+      "4": "【對應Block F心腸軸抗炎機制】益生菌與後生元產生短鏈脂肪酸(SCFA丁酸)，修復腸黏膜緊密連接(Tight Junctions)，阻絕LPS內毒素入血。從源頭降低白天微血管通透性與組織間隙積水，大幅減輕夜間平躺後水分倒灌引發的心房利尿鈉肽(ANP)暴衝夜尿。"
+    }
+  },
+  {
+    "id": "36248",
+    "name": "ORIYEN 綜合果蔬酵素",
+    "shortDesc": "730天深層發酵多酚，截斷發炎毒素滲漏",
+    "price": 602.0,
+    "img": "/images/products/36248.webp",
+    "spec": "300毫升/瓶",
+    "origin": "日本",
+    "intro": "日本730天(整整2年)長效微生物精工深層發酵！嚴選66種無污染果蔬植物精華，特添羽衣甘藍(芥蘭素抗氧)、舞茸(高活性β-葡聚糖)及大麥嫩葉(鹼性葉綠素之王)。【心腸軸核心機制】：富含有機酸、發酵多酚與後生元短鏈脂肪酸(SCFA)，強效修復腸黏膜緊密連接蛋白(Claudin-1/ZO-1/Occludin)，增厚MUC2黏液屏障；從源頭截斷革蘭氏陰性菌脂多醣(LPS, 內毒素)入血造成的全身微血管發炎通透性(Kf升高)，終止日間下肢組織漏水水腫與神經微血管損傷；同時促進胃腸完全水解蛋白質與微量營養，阻斷未完全消化抗原入血誘發自體免疫攻擊神經。",
+    "target": "手腳發麻冰冷、日間下肢微血管發炎水腫、腸漏致自體免疫失調攻擊神經、高糖高脂外食壞油體質、消化吸收障礙者。",
+    "ingredients": "66種天然果蔬發酵原液(羽衣甘藍、舞茸、大麥嫩葉、蘆筍、明日葉、青花椰菜、生薑等66種植物複合精華)、有機酸、多酚、消化酶。",
+    "usage": "每日1次，每次30毫升，以2倍40℃以下冷水或溫水稀釋飲用。早起空腹或午餐前飲用最佳。",
+    "warning": "酵素活性對高溫敏感，水溫切勿超過40℃；天然微生物發酵無化學添加。",
+    "mechanisms": {
+      "2": "日本2年深層發酵富含發酵多酚與後生元有機酸，修復腸黏膜緊密連接(Claudin-1/ZO-1)，截斷LPS內毒素入血導致的微血管內皮發炎(TLR4途徑)，降低微血管通透性(Kf)，終止微血管發炎滲漏與水腫，恢復神經周邊微循環血流。",
+      "4": "【對應Block F促排空與微生態】發酵酵素促進胃腸排空與消化，減少夜間胃酸上逆及腹脹對迷走神經的物理刺激；豐富多酚與SCFA前驅物結合內皮GPR41/43受體，擴張微血管並抑制TMAO毒素生成，協同修復骨盆腔與全身微循環。",
+      "5": "日本2年深層發酵富含發酵多酚與後生元有機酸，修復腸黏膜緊密連接(Claudin-1/ZO-1)，截斷LPS內毒素入血導致的微血管內皮發炎(TLR4途徑)，降低微血管通透性(Kf)，終止微血管發炎滲漏與水腫，恢復神經周邊微循環血流。大腦的焦慮警報系統與腸道微生態息息相關。此配方主打透過「腸腦軸連線」來調節情緒與睡眠，幫助找回好心情與好睡眠。其黃金三角組合（益生菌、益生元、後生元）能從腸道根源重塑神經傳導物質的生成環境，協助冷卻HPA壓力軸的暴走警報。"
+    }
+  },
+  {
+    "id": "36281",
+    "name": "ORIYEN 天然酵母NMN 15000 Premium",
+    "shortDesc": "補充細胞NAD+，校準下視丘生物鐘",
+    "price": 2488.0,
+    "img": "/images/products/36281.webp",
+    "spec": "150克 (5克 x 30包)",
+    "origin": "台灣",
+    "intro": "高純度天然酵母發酵NMN(每包500mg)，採用Double Nutri專利微脂體奈米包覆技術，吸收率提升2.33倍。完美揉合麥角硫因(20mg，提升GABA達4倍放鬆神經、抗糖化AGEs)、天山雪蓮植物幹細胞(修復再生)、白藜蘆醇(100mg，協同激活長壽基因SIRT1)及脂質體維他命C。直擊細胞粒線體能量(ATP)衰退，修復受損DNA與神經軸突，改善胰島素阻抗，促進微血管新生與下肢灌注。",
+    "target": "糖尿病周邊神經病變(DAN)手腳麻木刺痛、微循環障礙血管硬化、粒線體能量枯竭、自體免疫神經受損、化療/藥物神經毒性者。",
+    "ingredients": "天然酵母NMN(500mg/包)、繡球菌萃取麥角硫因(20mg/包)、天山雪蓮組織培養物(100mg/包)、葡萄皮萃取白藜蘆醇(100mg/包)、脂質體維他命C(30mg/包)、維生素B群。",
+    "usage": "每日早上1包，倒入150ml常溫水混合後直接服用。",
+    "warning": "孕婦、哺乳期婦女、長期服藥者食用前請先諮詢醫生意見。本品為天然營養前體，無依賴性。",
+    "mechanisms": {
+      "2": "活化內皮SIRT1–eNOS軸，促使內皮一氧化氮合酶去乙醯化，釋放充足NO擴張血管，促進微血管新生與末梢深層灌注，解除血管狹窄缺血發麻。",
+      "3": "【對應Block F視交叉上核SCN修復】NMN及時補充下視丘SCN細胞內的NAD+峰值，活化SIRT1去乙醯化分子鐘基因(CLOCK/BMAL1/PER2)，校準中樞晝夜節律；促進夜間抗利尿激素(ADH)脈衝分泌，修復後半夜睡眠維持力。",
+      "4": "快速補充細胞NAD+，激活SIRT1與粒線體呼吸鏈生物合成，麥角硫因清除晚期糖基化終產物(AGEs)，解決高糖高胰島素引發的粒線體功能障礙，恢復充足ATP供應。",
+      "5": "中樞神經系統在後半夜反覆暴走、陷入死鎖自檢循環，會大量透支大腦的能量儲備。天然酵母NMN能迅速轉化為NAD+，直接參與粒線體的ATP細胞能量合成機制，為疲憊的大腦神經元提供深層修復的基礎底層能量。更關鍵的是，該NMN配方中蘊含的麥角硫因（EGT）能顯著提升血液中的GABA含量達4倍，有效促使腦神經放鬆、大幅降低壓力並提升睡眠品質。這完美補足了理療中急需的「中樞抑制性遞質」，幫助大腦阻斷越想睡越焦慮的惡性條件反射。"
+    }
+  },
+  {
+    "id": "38207",
+    "name": "Smart Fitness X 律動拍打機",
+    "shortDesc": "垂直律動激發NO，排空下肢深靜脈淤血",
+    "price": 22990.0,
+    "img": "/images/products/38207.webp",
+    "spec": "1部裝",
+    "origin": "台灣",
+    "intro": "100%垂直正弦律動 × 專利腳底穴位拍打雙核心養生儀！【生化與神經機械力學轉導四大未載明機制】：\n1.【流體剪切力促NO】：垂直律動引發微血管流體剪切力，直接激活內皮eNOS釋放自體一氧化氮(NO)，強效擴張微血管、改善缺血缺氧。\n2.【肌梭牽張TVR與肌肉幫浦】：透過肌梭牽張反射引發每秒高頻被動收縮，刺激肌纖維增生；骨骼肌幫浦強效將下肢深靜脈淤血與淋巴液泵回腔靜脈。\n3.【激活MSCs、骨鈣素與脂聯素】：垂直重力刺激骨骼，促使骨髓間葉幹細胞(MSCs)分化釋放未羧化骨鈣素，並刺激脂肪細胞釋放脂聯素，大幅提升胰島素敏感度，活化AMPK，改善糖代謝障礙。\n4.【腳底湧泉穴平衡自律神經】：拍打湧泉穴與足心本體感受器，經脊髓上行調節腦幹與下視丘，抑制交感神經高亢，拉升副交感(迷走神經)張力，提高神經放電閾值。",
+    "target": "手腳麻木冰冷、糖尿病胰島素阻抗、下肢靜脈水腫淤血、自律神經失調、缺乏運動代謝緩慢者。",
+    "ingredients": "合金鋼機身、高精密正弦波垂直律動馬達(振幅2mm，重力加速度0.68G)、微電腦7段速度控制器、足底穴位拍打模組(湧泉/里內庭/獨膚/足心)。",
+    "usage": "自動定時每次15分鐘。晨起或傍晚站立/坐姿律動15分鐘(啟動肌泵與NO)；睡前1小時使用低速檔15分鐘(引流靜脈水腫、重置GTO煞車、喚醒副交感神經)。",
+    "warning": "最大承重120Kg。不適用人士：孕婦(孕前1個月至產後1個月)、骨折或開放傷口未癒合者、六歲以下孩童。",
+    "mechanisms": {
+      "2": "【流體剪切力促NO】：律動剪切力刺激血管內皮eNOS活化，大量釋放自體NO強效擴張微血管；骨骼肌幫浦排空深靜脈淤血，宛如被動式「血管體操」。"
+    }
+  },
+  {
+    "id": "36283",
+    "name": "ORIYEN 蛋白高營素",
+    "shortDesc": "雙源蛋白補充色胺酸，充足褪黑激素原料",
+    "price": 339.0,
+    "img": "/images/products/36283.webp",
+    "spec": "47克x 10包",
+    "origin": "台灣",
+    "intro": "雙專利微囊+微脂體技術(吸收率240%)。雙源優質蛋白(含豐富色胺酸原料)結合GreenD3™專利維他命D3+K2、B群、葉酸、膽鹼與微量元素。",
+    "target": "日常光照不足、缺乏合成血清素與褪黑激素營養原料、後半夜睡眠驅動力崩潰者。",
+    "ingredients": "HMB、雙重優質蛋白(大豆+乳清)、專利維他命D3+K2、綜合B群、葉酸。",
+    "usage": "每日早餐飲用1包，溶解於200毫升溫水。",
+    "warning": "低糖(1.4g)零膽固醇，糖尿病患者適用；輕微乳糖不耐者亦可安心飲用。",
+    "mechanisms": {
+      "3": "【對應Block F節律基因與褪黑激素原料】專利維他命D3調節大腦中樞晝夜節律基因表現；雙源蛋白提供豐富天然左旋色胺酸，配合維他命B群輔酶，在白天合成血清素，入夜後方有充足原料轉化為天然褪黑激素。"
+    }
+  },
+  {
+    "id": "34103",
+    "name": "Nn 月見草油1000",
+    "shortDesc": "轉化抗炎前列腺素，降低周邊神經敏化",
+    "price": 196.0,
+    "img": "/images/products/34103.webp",
+    "spec": "1000毫克x 50粒",
+    "origin": "紐西蘭",
+    "intro": "",
+    "target": "",
+    "ingredients": "",
+    "usage": "",
+    "warning": "",
+    "mechanisms": {
+      "4": "月見草油中的 GLA 轉化為抗炎前列腺素 ，改善骨盆腔微循環，降低膀胱三角區神經敏化。"
+    }
+  },
+  {
+    "id": "0368",
+    "name": "SE 紅光光療按摩帶",
+    "shortDesc": "PBM雙光理療，爆發性合成ATP放鬆肌肉",
+    "price": 2580.0,
+    "img": "/images/products/0368.webp",
+    "spec": "1件裝 (主機+控制器)",
+    "origin": "台灣",
+    "intro": "近紅外線雙光物理光生物調節(PBM)與深層高頻震動按摩雙效合一！具備122組高密度雙晶LED(630nm可見紅光修復表皮微血管，850nm近紅外線深層穿透椎管、關節與神經根)。光波被粒線體細胞色素C氧化酶吸收，爆發性生成ATP供應肌漿網鈣泵(SERCA)收回鈣離子放鬆痙攣肌肉；敷於腰背部直接消退神經根水腫發炎，敷於小腿刺激血管內皮釋放一氧化氮(NO)並解除肌筋膜黏連。",
+    "target": "頸腰椎骨刺壓迫神經麻痛、腕隧道症候群、夜間小腿扎醒、小腿深靜脈淤血水腫、肩頸下背僵硬、退化性關節炎人士。",
+    "ingredients": "醫療級波長雙光譜LED晶片(630nm可見紅光 + 850nm不可見近紅外線，比例1:2)、4組微型高頻振動馬達、2000mAh大容量鋰電池、超薄人體工學軟帶。",
+    "usage": "每天使用1-2次，每次10-20分鐘(智能定時)。扎醒麻痺者：前10分鐘敷腰背薦椎解除神經卡壓，後10分鐘敷小腿腹/足底激發微循環與ATP。",
+    "warning": "孕婦、惡性腫瘤、急性開放性傷口或嚴重急性發炎處避免照射。850nm為肉眼不可見光譜，燈珠看似微弱為正常現象。",
+    "mechanisms": {
+      "4": "PBM光生物調節直接刺激細胞色素C氧化酶，爆發性合成ATP供應肌漿網鈣泵(SERCA)解開肌肉收縮卡死。",
+      "5": "【對應Block F迷走神經重置】紅光溫熱與物理微震動能深層放鬆後枕部顱底緊繃肌筋膜，釋放迷走神經幹周邊張力；光波能量促進局部血液循環，強制引導大腦由交感警戒切換為副交感修復模式，切斷焦慮清醒的死鎖迴路。物理光療是重置迷走神經的極佳介入手段。此設備能配合按摩震動放鬆緊繃的交感神經，緩解高壓帶來的心身疲勞，全面改善睡眠品質。其850nm近紅外線能深入皮下組織，刺激線粒體產生三磷酸腺苷（ATP），為細胞修復提供能量。睡前將紅光帶應用於後枕部或肩頸，能物理性阻斷安保系統的過度神經質反應。"
+    }
+  },
+  {
+    "id": "34330",
+    "name": "Nn 三效益生菌- 護腸免疫配",
+    "shortDesc": "專利雙歧桿菌定殖，鞏固腸腦軸神經屏障",
+    "price": 409.0,
+    "img": "/images/products/34330.webp",
+    "spec": "2克x 30包",
+    "origin": "韓國",
+    "intro": "三大皇牌優勢：黃金組合 × 頂尖包覆 × 高效存活； 益生菌、益生元、後生元黃金三角組合：結合8大專利IDCC高品質益生菌、低FODMAP益生元、後生元（熱處理17菌株）以及10mg鋅，相輔相成，從根源調整體質，打造壞菌難侵的健康微生態。專利 4 重包覆技術；一般益生菌往往在抵達腸道前就被胃酸消滅？本產品採用先進的 4 重包覆防護網：蛋白質：阻隔空氣，避免氧化；麥芽糊精：提高吸附力，確保穩定繁殖；玻尿酸：阻隔水份，避免過早活化；水溶性聚合物：強力抵抗胃酸破壞；實證數據：能有效提升腸道吸附力達10.8倍，讓益生菌存活率高達90%，每包更保證含100億活性益菌直達戰場！",
+    "target": "飲食失衡人士； 免疫力較差人士； 腸道敏感人士；排便不順人士；生活壓力大人士；需體重管理人士",
+    "ingredients": "8種IDCC專利益生菌：鼠李糖桿菌、乳雙岐桿菌、植物乳桿菌、短雙岐桿菌、羅伊氏乳桿菌、乾酪乳桿菌、嗜熱鏈球菌、唾液乳酸桿菌；低FODMAP益生元；後生元（熱處理17菌株）；鋅 (10mg)",
+    "usage": "每日餐後服用1包，粉末直接倒舌頭溶解或以冷水沖飲。",
+    "warning": "益生菌忌高溫；完全無出血或抗凝血西藥衝突風險，薄血藥(Warfarin/阿斯匹靈)患者首選。",
+    "mechanisms": {
+      "5": "大腦的焦慮警報系統與腸道微生態息息相關。此配方主打透過「腸腦軸連線」來調節情緒與睡眠，幫助找回好心情與好睡眠。其黃金三角組合（益生菌、益生元、後生元）能從腸道根源重塑神經傳導物質的生成環境，協助冷卻HPA壓力軸的暴走警報。"
+    }
+  }
 ];
 
-    // 專屬套裝官方主庫
     const BUNDLES_DB = [
-    {
-        "id": "A1",
-        "code": "Cramp_Set_A1",
-        "name": "半夜抽筋舒緩套A1",
-        "causeId": 1,
-        "isWarfarinSafe": false,
-        "img": "/images/packages/Cramp_Set_A1.webp",
-        "price": 16876,
-        "origPrice": 26828,
-        "discount": "63折",
-        "save": 9952,
-        "itemsSummary": "ORIYEN 山藥烏梅球 x 1 瓶、ORIYEN 蛋白高營素 x 3 盒、SE 紅光光療按摩帶 x 1 條裝、Smart Fitness X 律動拍打機 x 1 部裝",
-        "desc": "30天旗艦調養。高營素重建小腿肌群質量抗疲勞；山藥烏梅球加速排空日間肌肉乳酸堆積；律動機被動牽張極短縮肌纖維重置 GTO 煞車；紅光帶深層放鬆肌筋膜，四效終結力學抽筋。"
-    },
-    {
-        "id": "A2",
-        "code": "Cramp_Set_A2",
-        "name": "半夜抽筋舒緩套A2",
-        "causeId": 1,
-        "isWarfarinSafe": false,
-        "img": "/images/packages/Cramp_Set_A2.webp",
-        "price": 2886,
-        "origPrice": 3838,
-        "discount": "72折",
-        "save": 952,
-        "itemsSummary": "ORIYEN 山藥烏梅球 x 1 瓶、ORIYEN 蛋白高營素 x 3 盒、SE 紅光光療按摩帶 x 1 條裝",
-        "desc": "30天基礎實惠。高營素補充雙蛋白與 HMB 鞏固肌力；烏梅球中和乳酸消除肌肉痠痛；紅光帶照射放鬆緊繃小腿肌筋膜。"
-    },
-    {
-        "id": "B1",
-        "code": "Cramp_Set_B1",
-        "name": "半夜抽筋舒緩套B1",
-        "causeId": 2,
-        "isWarfarinSafe": false,
-        "img": "/images/packages/Cramp_Set_B1.webp",
-        "price": 19238,
-        "origPrice": 30048,
-        "discount": "64折",
-        "save": 10810,
-        "itemsSummary": "ORIYEN 強心血管通 x 1 瓶、ORIYEN 天然酵母NMN 15000 Premium x 1 包裝、SE 紅光光療按摩帶 x 1 條裝、Smart Fitness X 律動拍打機 x 1 部裝",
-        "desc": "30天旗艦血管款。天然水蛭素與納豆激酶溶解微血管血栓；NMN 活化內皮釋放 NO 促微血管新生；律動機剪切力泵回深靜脈淤血；紅光帶促進微循環灌注，終止夜間平躺缺血缺氧抽筋。"
-    },
-    {
-        "id": "B2",
-        "code": "Cramp_Set_B2",
-        "name": "半夜抽筋舒緩套B2",
-        "causeId": 2,
-        "isWarfarinSafe": false,
-        "img": "/images/packages/Cramp_Set_B2.webp",
-        "price": 5248,
-        "origPrice": 7058,
-        "discount": "74折",
-        "save": 1810,
-        "itemsSummary": "ORIYEN 強心血管通 x 1 瓶、ORIYEN 天然酵母NMN 15000 Premium x 1 包裝、SE 紅光光療按摩帶 x 1 條裝",
-        "desc": "30天營養理療款。強心血管通溶解微血栓引流下肢靜脈；NMN 改善血管通透性防漏水；紅光光療帶提早排走組織積聚水分。"
-    },
-    {
-        "id": "B3",
-        "code": "Cramp_Set_B3",
-        "name": "半夜抽筋舒緩套B3",
-        "causeId": 2,
-        "isWarfarinSafe": true,
-        "img": "/images/packages/Cramp_Set_B3.webp",
-        "price": 20454,
-        "origPrice": 31498,
-        "discount": "65折",
-        "save": 11044,
-        "itemsSummary": "【適合薄血藥用家】Nn 蝦青素 x 1 盒、Nn 水溶性輔酶Q10 x 1 瓶、Nn 腸快適 x 1 盒、Nn 三效益生菌 x 1 盒、ORIYEN 綜合果蔬酵素 x 3 瓶、ORIYEN 天然酵母NMN 15000 x 1 包裝、SE 紅光光療按摩帶 x 1 條裝、Smart Fitness X 律動拍打機 x 1 部裝",
-        "desc": "30天薄血藥旗艦款。深層發酵果蔬酵素與益生菌修復腸黏膜屏障，截斷內毒素入血；蝦青素貫穿微血管撲滅發炎；水溶 Q10 與 NMN 為心血管充能；律動機物理剪切力釋放自身 NO，100% 不與薄血西藥相沖。"
-    },
-    {
-        "id": "B4",
-        "code": "Cramp_Set_B4",
-        "name": "半夜抽筋舒緩套B4",
-        "causeId": 2,
-        "isWarfarinSafe": true,
-        "img": "/images/packages/Cramp_Set_B4.webp",
-        "price": 6464,
-        "origPrice": 8508,
-        "discount": "76折",
-        "save": 2044,
-        "itemsSummary": "【適合薄血藥用家】Nn 蝦青素 x 1 盒、Nn 水溶性輔酶Q10 x 1 瓶、Nn 腸快適 x 1 盒、Nn 三效益生菌 x 1 盒、ORIYEN 綜合果蔬酵素 x 3 瓶、ORIYEN 天然酵母NMN 15000 x 1 包裝、SE 紅光光療按摩帶 x 1 條裝",
-        "desc": "30天薄血藥營養款。心腸軸酵素益生菌截斷發炎滲漏源頭；蝦青素與 Q10 穩固微血管抗氧化；紅光帶促進小腿水分代謝回流，安全不影響凝血機能。"
-    },
-    {
-        "id": "C1",
-        "code": "Cramp_Set_C1",
-        "name": "半夜抽筋舒緩套C1",
-        "causeId": 3,
-        "isWarfarinSafe": false,
-        "img": "/images/packages/Cramp_Set_C1.webp",
-        "price": 18265,
-        "origPrice": 28750,
-        "discount": "64折",
-        "save": 10485,
-        "itemsSummary": "Nn 奧米加-3深海魚油1000 x 1 瓶、Nn 關節靈C+ x 1 盒、ORIYEN 天然酵母NMN 15000 Premium x 1 包裝、SE 紅光光療按摩帶 x 1 條裝、Smart Fitness X 律動拍打機 x 1 部裝",
-        "desc": "30天神經減壓旗艦款。二型膠原蛋白＋MSM 修復退化腰椎軟骨減輕神經根擠壓；NMN 專利麥角硫因提升 4 倍 GABA 鎮靜神經激惹；魚油 DHA 滋養髓鞘絕緣皮；紅光帶敷腰椎消除神經水腫；律動機微動牽引減壓。"
-    },
-    {
-        "id": "C2",
-        "code": "Cramp_Set_C2",
-        "name": "半夜抽筋舒緩套C2",
-        "causeId": 3,
-        "isWarfarinSafe": false,
-        "img": "/images/packages/Cramp_Set_C2.webp",
-        "price": 4275,
-        "origPrice": 5760,
-        "discount": "74折",
-        "save": 1485,
-        "itemsSummary": "Nn 奧米加-3深海魚油1000 x 1 瓶、Nn 關節靈C+ x 1 盒、ORIYEN 天然酵母NMN 15000 Premium x 1 包裝、SE 紅光光療按摩帶 x 1 條裝",
-        "desc": "30天神經修復營養款。關節靈 C+ 減輕脊椎卡壓；NMN 與魚油平息神經元異常放電並修復髓鞘；紅光帶深層穿透腰椎消炎止痛。"
-    },
-    {
-        "id": "D1",
-        "code": "Cramp_Set_D1",
-        "name": "半夜抽筋舒緩套D1",
-        "causeId": 4,
-        "isWarfarinSafe": false,
-        "img": "/images/packages/Cramp_Set_D1.webp",
-        "price": 21437,
-        "origPrice": 32660,
-        "discount": "66折",
-        "save": 11223,
-        "itemsSummary": "Nn 水溶性輔酶Q10 x 1 瓶、ORIYEN 天然酵母NMN 15000 x 1 包裝、Nn 蝦青素 x 1 盒、ORIYEN 肝再生 x 1 盒、ORIYEN 綜合果蔬酵素 x 3 瓶、ORIYEN 金體素 x 1 盒、Nn 三效益生菌 x 1 盒、SE 紅光光療按摩帶 x 1 條裝、Smart Fitness X 律動拍打機 x 1 部裝",
-        "desc": "30天粒線體代謝閉環款。NMN 與水溶 Q10 直擊呼吸鏈產能供應 ATP 解鎖鈣泵；蝦青素中和壞油脂質過氧化；金體素低 GI 代餐減負；肝再生與酵素排除糖毒壞油；律動機提升全身胰島素敏感度；紅光帶激發粒線體產能。"
-    },
-    {
-        "id": "D2",
-        "code": "Cramp_Set_D2",
-        "name": "半夜抽筋舒緩套D2",
-        "causeId": 4,
-        "isWarfarinSafe": false,
-        "img": "/images/packages/Cramp_Set_D2.webp",
-        "price": 7447,
-        "origPrice": 9670,
-        "discount": "77折",
-        "save": 2223,
-        "itemsSummary": "Nn 水溶性輔酶Q10 x 1 瓶、ORIYEN 天然酵母NMN 15000 x 1 包裝、Nn 蝦青素 x 1 盒、ORIYEN 肝再生 x 1 盒、ORIYEN 綜合果蔬酵素 x 3 瓶、ORIYEN 金體素 x 1 盒、Nn 三效益生菌 x 1 盒、SE 紅光光療按摩帶 x 1 條裝",
-        "desc": "30天代謝排毒營養款。專利水溶 Q10 與 NMN 重啟細胞 ATP 產能；低 GI 金體素配合肝再生與酵素修復心腸軸並代謝壞油；紅光帶直接為小腿粒線體充能。"
-    },
-    {
-        "id": "E1",
-        "code": "Cramp_Set_E1",
-        "name": "半夜抽筋舒緩套E1",
-        "causeId": 5,
-        "isWarfarinSafe": false,
-        "img": "/images/packages/Cramp_Set_E1.webp",
-        "price": 16647,
-        "origPrice": 26404,
-        "discount": "63折",
-        "save": 9757,
-        "itemsSummary": "Nn 水溶性輔酶Q10 x 1 瓶、Nn 三高淨脂素 x 1 瓶、Nn 液鈣鎂D3 x 2 盒、SE 紅光光療按摩帶 x 1 條裝、Smart Fitness X 律動拍打機 x 1 部裝",
-        "desc": "30天藥源性調養旗艦款。專利微米液鈣鎂快速回補降壓利尿劑排出的鈣鎂離子，鎂阻斷神經異常放電；水溶 Q10 高倍回補他汀降脂藥耗損的輔酶，消除肌肉痠痛；三高淨脂素天然調脂不沖西藥；律動機平衡自律神經與體液分布。"
-    },
-    {
-        "id": "E2",
-        "code": "Cramp_Set_E2",
-        "name": "半夜抽筋舒緩套E2",
-        "causeId": 5,
-        "isWarfarinSafe": false,
-        "img": "/images/packages/Cramp_Set_E2.webp",
-        "price": 2657,
-        "origPrice": 3414,
-        "discount": "78折",
-        "save": 757,
-        "itemsSummary": "Nn 水溶性輔酶Q10 x 1 瓶、Nn 三高淨脂素 x 1 瓶、Nn 液鈣鎂D3 x 2 盒、SE 紅光光療按摩帶 x 1 條裝",
-        "desc": "30天藥源性營養款。微米液鈣鎂迅速平衡離子通道；專利水溶 Q10 回補粒線體原料消除肌肉疲勞無力；紅光光療帶舒緩神經肌肉敏感。"
-    }
+  {
+    "id": "A1",
+    "code": "NoctAwaken_Set_A1",
+    "name": "緩解扎醒30天套裝A1",
+    "causeId": 1,
+    "isWarfarinSafe": true,
+    "img": "/images/packages/NoctAwaken_Set_A1.webp",
+    "price": 425,
+    "origPrice": 488,
+    "discount": "87折",
+    "save": 63,
+    "itemsSummary": "Nn 強效脂質維他命C x 1 盒、ORIYEN 虎乳芝蟲草菌絲體 x 1 盒",
+    "desc": "30天進氣通暢。專利脂質維C穩定氣道黏膜肥大細胞，消退充血微水腫；國寶級虎乳芝深層調理肺道，減少黏液分泌，維持夜間呼吸道物理通暢，告別缺氧微覺醒。"
+  },
+  {
+    "id": "B1",
+    "code": "NoctAwaken_Set_B1",
+    "name": "緩解扎醒30天套裝B1",
+    "causeId": 2,
+    "isWarfarinSafe": true,
+    "img": "/images/packages/NoctAwaken_Set_B1.webp",
+    "price": 19030,
+    "origPrice": 29400,
+    "discount": "65折",
+    "save": 10370,
+    "itemsSummary": "Nn 水溶性輔酶Q10 x 1、Nn 液鈣鎂D3 x 2、Nn 蝦青素 x 1、Nn 腸快適 x 2、Nn 三效益生菌 x 1、ORIYEN 綜合果蔬酵素 x 3、ORIYEN 天然酵母NMN x 1、Smart Fitness X 律動拍打機 x 1",
+    "desc": "30天旗艦全效。Q10支援粒線體能量合成；微米鈣鎂穩定神經膜電位；NMN修復細胞產能；酵素益生菌重塑心腸軸阻斷發炎；律動機垂直律動激發NO與排空淤血，全面平撫夜間代謝供電震盪。"
+  },
+  {
+    "id": "B2",
+    "code": "NoctAwaken_Set_B2",
+    "name": "緩解扎醒30天套裝B2",
+    "causeId": 2,
+    "isWarfarinSafe": true,
+    "img": "/images/packages/NoctAwaken_Set_B2.webp",
+    "price": 5040,
+    "origPrice": 6410,
+    "discount": "79折",
+    "save": 1370,
+    "itemsSummary": "Nn 水溶性輔酶Q10 x 1、Nn 液鈣鎂D3 x 2、Nn 蝦青素 x 1、Nn 腸快適 x 2、Nn 三效益生菌 x 1、ORIYEN 綜合果蔬酵素 x 3、ORIYEN 天然酵母NMN x 1",
+    "desc": "30天純營養修復。高活性Q10結合微米液鈣鎂平穩自律神經與反調節荷爾蒙，搭配NMN充能粒線體與心腸軸益生酵素，從源頭終結夜間低血糖反彈驚醒。"
+  },
+  {
+    "id": "C1",
+    "code": "NoctAwaken_Set_C1",
+    "name": "緩解扎醒30天套裝C1",
+    "causeId": 3,
+    "isWarfarinSafe": true,
+    "img": "/images/packages/NoctAwaken_Set_C1.webp",
+    "price": 2677,
+    "origPrice": 3505,
+    "discount": "76折",
+    "save": 828,
+    "itemsSummary": "ORIYEN 天然酵母NMN 15000 x 1、ORIYEN 蛋白高營素 x 3",
+    "desc": "30天節律重校。天然酵母NMN及時補充下視丘SCN細胞NAD+，校準生物鐘中樞；雙源優質蛋白提供天然左旋色胺酸與B群，白天合成血清素，入夜轉化充足褪黑激素，守護後半夜深睡。"
+  },
+  {
+    "id": "D1",
+    "code": "NoctAwaken_Set_D1",
+    "name": "緩解扎醒30天套裝D1",
+    "causeId": 4,
+    "isWarfarinSafe": true,
+    "img": "/images/packages/NoctAwaken_Set_D1.webp",
+    "price": 6245,
+    "origPrice": 8237,
+    "discount": "76折",
+    "save": 1992,
+    "itemsSummary": "Nn 月見草油 x 1、Nn 蝦青素 x 1、Nn 液鈣鎂D3 x 2、Nn 三效益生菌 x 1、ORIYEN 綜合果蔬酵素 x 3、ORIYEN 天然酵母NMN x 1、SE 紅光光療按摩帶 x 1",
+    "desc": "30天周邊管道解壓。紅光帶深層理療改善微循環；益生菌酵素阻斷腸漏發炎降低白天微血管滲漏；微米鈣鎂放鬆骨盆底肌群，徹底消除夜尿倒灌與周邊感覺神經假警報。"
+  },
+  {
+    "id": "E1",
+    "code": "NoctAwaken_Set_E1",
+    "name": "緩解扎醒30天套裝E1",
+    "causeId": 5,
+    "isWarfarinSafe": true,
+    "img": "/images/packages/NoctAwaken_Set_E1.webp",
+    "price": 6296,
+    "origPrice": 8393,
+    "discount": "75折",
+    "save": 2097,
+    "itemsSummary": "ORIYEN 天然酵母NMN x 1、Nn 液鈣鎂D3 x 2、Nn 腸快適 x 2、Nn 三效益生菌(護腸免疫) x 1、ORIYEN 綜合果蔬酵素 x 3、SE 紅光光療按摩帶 x 1",
+    "desc": "30天中樞安保冷卻。專利麥角硫因與NMN提升大腦GABA抑制遞質達4倍；微米鎂阻斷NMDA受體過度亢奮；後生元與益生菌調節腦腸軸，平息大腦失控警報與焦慮死鎖。"
+  }
 ];
 
-    // 5 大成因詳細文案與影音配置庫 (對齊 SSOT)
     const CAUSES_DATA = {
   "1": {
     "id": 1,
-    "name": "成因 01：力學與姿勢型",
-    "worstCase": "小腿短縮緊繃只係開始！最大鑊係肌肉過勞萎縮，半夜劇痛失足跌倒骨折，從此長期臥床失去行動自理能力！",
-    "bio": "睡覺平躺時，腳尖在重力與棉被壓迫下自然下垂（跖屈），小腿腓腸肌與比目魚肌長時間處於「極度縮短」狀態。此時肌腱內負責監測張力並發出放鬆訊號的「高爾基腱器官（GTO）」活性降至最低，失去了對運動神經元的「自體抑制（Autogenic Inhibition）」煞車保護。如果白天肌肉過度疲勞，或伴隨長者肌少症（Sarcopenia），神經缺乏抑制煞車，稍微受冷或輕微翻身，運動神經元便失控爆發高頻去極化放電，引發肌肉強烈痙攣。",
-    "eng": "就像汽車在下坡路段時「腳煞車與手煞車」同時失靈，只要油門稍微被碰到一下，車子就瞬間失控暴衝。",
+    "name": "成因 01：呼吸與夜間缺氧型",
+    "worstCase": "半夜扎醒大喘氣口乾只係開始！最大鑊係長期大腦缺氧血壓暴衝，引發夜間急性中風同心肌梗塞，徹底摧毀心血管！",
+    "bio": "睡眠中平躺仰臥時，咽喉軟組織受重力牽引自然後墜；若同時伴隨呼吸道黏膜慢性發炎、過敏微水腫或分泌物過度黏稠，上呼吸道管腔便會發生動態塌陷與阻塞（即睡眠呼吸障礙／間歇性缺氧）。此時體內血氧飽和度驟跌、二氧化碳迅速堆積，大腦呼吸中樞偵測到窒息危機，被迫緊急啟動交感神經並大劑量釋放兒茶酚胺（壓力荷爾蒙），強烈活化大腦網狀結構引發「微覺醒（Cortical Arousal）」，強制將患者從深度睡眠震醒以恢復咽喉肌張力。",
+    "eng": "就像智慧工廠的「主通風進氣管線」在負壓下被壓扁堵塞，氧氣濃度警報器瞬間拉響最高級警報，中央監控系統被迫中斷夜間維護排程，強制全廠緊急開機重啟排風。",
     "steps": [
       {
-        "title": "第 1 步｜睡前弓箭步牽伸（重置 GTO 煞車）",
-        "desc": "每天睡前面對牆壁，雙手扶牆做「弓箭步」伸展後腿小腿肚 3–5 分鐘，被動拉長極度短縮的肌纖維，重新喚醒 GTO 的神經煞車抑制訊號。 2."
+        "title": "第 1 步｜側睡重力位移法",
+        "desc": "睡眠時使用專用側睡枕，或在背後放置支撐靠墊，維持穩定側臥姿勢，藉由側向重力防止舌根向後垂直下墜阻擋呼吸道。 2."
       },
       {
-        "title": "第 2 步｜釋放腳背重壓與維持踝關節中立",
-        "desc": "睡覺時切勿將厚重棉被緊緊包裹壓在腳背上；可將被角放鬆，或在床尾放置一塊薄枕讓腳底輕頂，防止腳尖自然下垂跖屈。 3."
+        "title": "第 2 步｜晚餐嚴格落實「抗充血低黏液原則」",
+        "desc": "睡前 4 小時完全避開高黏稠全脂乳製品（牛奶、全脂起司）與精緻糖，大幅減少咽喉分泌物的黏稠度與黏膜充血。 3."
       },
       {
-        "title": "第 3 步｜白天進行微深蹲與提踵運動",
-        "desc": "白天扶椅背適度進行踮腳尖（小腿提踵）與微深蹲，鍛鍊腓腸肌與比目魚肌抗疲勞耐力，預防肌肉因白天過勞而在夜間過度敏感。"
+        "title": "第 3 步｜睡前鼻腔溫生理鹽水通氣護理",
+        "desc": "睡前以 37℃ 等張溫生理鹽水沖洗鼻腔，配合物理性擴張通氣鼻貼，降低上呼吸道進氣阻抗。"
       }
     ],
-    "warn": "拉筋放鬆只係緩解表面緊繃，肌力流失先係根源！放任小腿肌肉萎縮，難道要等到跌倒臥床先嚟後悔？",
+    "warn": "洗鼻與側睡只適用於輕度黏膜充血，結構性氣道重度塌陷（中重度 OSA）才是致命主因！放任間歇性缺氧，心血管與中風風險將隨時飆升，切勿用生活小招代替專業醫療檢查！",
     "nutrition": [
-      "<strong>【實證物理理療】1. 物理牽張與牽張反射刺激（重置 GTO 煞車）：</strong>透過溫和垂直微動或被動牽張刺激下肢骨骼肌牽張反射，被動牽拉極限短縮的小腿肌群，快速喚醒高爾基腱器官（GTO）神經抑制煞車訊號；同時活化小腿第二心臟肌泵，加速日間過勞乳酸的排空。",
-      "<strong>【實證物理理療】2. 局部肌筋膜微震鬆解：</strong>針對僵硬攣縮的肌纖維進行物理微震動，化解深層結節，解除肌筋膜張力。",
-      "<strong>【細胞生化關鍵營養】1. 避開傳統碳酸鈣，選擇易吸收鈣並補足「鎂質」：</strong>傳統碳酸鈣不易吸收且容易造成腸道結塊便秘；而「鎂質」是天然的生理性鈣通道調節劑（CCB），能迅速平衡神經肌肉接頭膜電位，阻斷胞內鈣離子異常暴衝，強制放鬆痙攣肌纖維，重塑穩定的神經肌肉放鬆機制。",
-      "<strong>【細胞生化關鍵營養】2. 為肌漿網鈣幫浦充能：</strong>輔酶 Q10 與 NAD+： 肌肉放鬆比收縮更消耗 ATP 能量。肌漿網上的鈣幫浦（SERCA）必須消耗大量能量才能將游離鈣回收倉庫。補足驅動粒線體產能的輔酶 Q10 與促進能量代謝的 NAD+，確保夜間細胞能量不掉線，肌肉才能在收縮後順利解開鎖死。"
+      "<strong>【實證物理理療】1. 醫療紅旗排查（重度器質性 OSA 標準）：</strong>若伴隨大聲打鼾、被自己嗆醒、睡眠呼吸中斷或晨起嚴重口乾頭痛，首要任務是進行多項睡眠生理檢查（PSG），臨床一線治療黃金標準為配戴「連續正壓呼吸器（CPAP）」以物理氣壓強制撐開氣道，非任何營養補充品所能取代。",
+      "<strong>【實證物理理療】2. 口咽肌群肌力訓練（MFT）：</strong>針對輕度塌陷或軟組織鬆弛者，每日進行 10 分鐘舌肌向上推頂上顎與吞嚥肌力訓練，強化頦舌肌張力，減少睡眠中的軟組織塌陷。",
+      "<strong>【細胞生化關鍵營養】1. 穩定呼吸道黏膜屏障，減少發炎充血：</strong>呼吸道夜間塌陷常與黏膜慢性發炎、過敏水腫息息相關。補充具備呼吸道黏膜修復與調節免疫特性的植物多醣與天然抗氧化成分，下調肥大細胞對組織胺的敏感性，消退氣道微水腫與黏液分泌，維持夜間物理通暢。",
+      "<strong>【細胞生化關鍵營養】2. 強化抗氧化防禦，保護氣道上皮細胞：</strong>補充足量抗氧化維生素與微量元素（如維生素 C、鋅），降低呼吸道氧化壓力，改善夜間氣道阻抗。"
     ],
+    "emotionQuote": "打開暢通無阻的夜間進氣閥門，撲滅氣道黏膜發炎水腫，享受深層含氧量守護的沉靜好眠！\n________________",
     "allowedProducts": [
-      "36283",
-      "36261",
-      "0368",
-      "38207"
+      "34334",
+      "36278"
     ],
     "allowedBundles": [
-      "A1",
-      "A2"
+      "A1"
     ],
+    "desc": "你的大腦神經大致正常，核心問題在於夜間平躺時呼吸道軟組織塌陷與黏膜充血水腫，引發間歇性缺氧，大腦呼吸中樞偵測到窒息危機，被迫緊急啟動交感神經將您震醒以恢復呼吸氣道張力。",
     "testimonials": [
       {
-        "name": "陳先生",
-        "age": "68歲",
-        "role": "退休公務員",
-        "issue": "半夜小腿突然扯住抽筋痛醒，落床拉筋好耐先鬆，第二朝小腿仲酸痛。",
-        "solution": "睡前弓箭步牽伸 ＋ 蛋白高營素補肌 ＋ 紅光帶小腿放鬆",
-        "quote": "飲咗高營素配合紅光帶，小腿肌肉有力咗，半夜再無突然扯實痛醒，成晚瞓得好安樂！"
+        "name": "關先生",
+        "age": "58歲",
+        "role": "業務主管",
+        "issue": "平時打鼾嚴重，半夜經常大喘氣驚醒、口乾舌燥，第二朝頭痛無精神。",
+        "solution": "側睡枕 ＋ 睡前溫鹽水通氣 ＋ 脂質維C ＋ 虎乳芝蟲草",
+        "quote": "呼吸道通暢好多，半夜唔再俾自己嗆醒，晨早起身喉嚨好舒服，精神飽滿！"
       },
       {
-        "name": "張太",
-        "age": "62歲",
-        "role": "家庭主婦",
-        "issue": "買餸行多兩步小腿就緊，夜晚平躺腳尖一下垂就抽筋。",
-        "solution": "床尾墊枕中立位 ＋ 山藥烏梅球排乳酸 ＋ 律動機被動牽伸",
-        "quote": "依家白天行路雙腳好輕快，夜晚小腿唔再抽住，終於有一覺瞓到天光嘅感覺！"
+        "name": "何太",
+        "age": "63歲",
+        "role": "退休教師",
+        "issue": "一瞓低就覺得咽喉黏液好黏稠，半夜醒咗之後好難再入睡。",
+        "solution": "抗充血低黏液晚餐 ＋ 虎乳芝調理 ＋ 口咽肌力訓練",
+        "quote": "痰涎少咗好多，呼吸平穩安靜，終於可以一覺瞓到天光！"
       }
     ],
-    "desc": "你的神經與血管大致正常，核心問題在於睡眠姿勢使小腿肌纖維極度短縮，高爾基腱器官（GTO）煞車失靈，加上白天肌肉過度疲勞，稍微刺激即觸發劇烈痙攣。",
-    "emotionQuote": "用物理重律動重置神經煞車，以充沛細胞能量解開肌肉鎖死，找回夜夜放鬆安眠的底氣！",
     "vimeoD": "",
     "vimeoE": "",
     "vimeoF": ""
   },
   "2": {
     "id": 2,
-    "name": "成因 02：血管動力型",
-    "worstCase": "腳沉著鞋緊只係開始！最大鑊係微血管嚴重缺氧壞死，下肢靜脈潰瘍甚至引發深層靜脈血栓，演變成致命肺栓塞！",
-    "bio": "白天久站或久坐導致下肢靜脈水壓升高；若同時伴隨「心腸軸（Gut-Heart Axis）」失衡，腸黏膜緊密連接蛋白受損引發「腸漏症」，革蘭氏陰性菌內毒素（LPS）滲漏入血，結合血管內皮 TLR4 受體啟動發炎反應，使微血管通透性（Kf）大增，大量水分滲入下肢組織間隙（Third-Spacing 水腫）。夜間平躺後重力消失，下肢積液大量回流，血管內外水壓驟變壓迫小腿深層微血管，引發局部急性「缺血與缺氧」。肌肉因得不到足夠氧氣排除乳酸等酸性廢物，隨即觸發痙攣警報。",
-    "eng": "就像農田的灌溉渠道淤積嚴重，平時管壁到處漏水（微血管滲漏）；到了夜間水壓突然劇烈波動，反而把細小支流壓扁堵死，導致局部泥土（小腿肌）因缺水缺氧而龜裂乾枯。",
+    "name": "成因 02：夜間生理與代謝喚醒型",
+    "worstCase": "半夜心跳加速冒冷汗驚醒只係開始！最大鑊係粒線體全面斷電同胰島素阻抗惡化，全身血管神經嚴重糖化，最後器官機能衰竭！",
+    "bio": "常見於長期攝取精緻糖與超加工食品引發的高胰島素血症與粒線體功能受損。入睡後 3–4 小時，白天過量分泌的胰島素可能將血糖壓制得過低（反應性低血糖），加上粒線體產能障礙導致肝臟無法平穩進行「糖質新生」提供夜間基線能量。大腦神經元對葡萄糖匱乏極度敏感，一旦偵測到細胞供能斷崖式下跌，便會立刻啟動自我防衛機制，指令腎上腺釋放腎上腺素、皮質醇與胰高血糖素等「反調節荷爾蒙」。強烈的自律神經交感放電會促使心跳驟然加速、冒冷汗，將大腦從深層睡眠強制踢回清醒狀態。",
+    "eng": "就像夜間智慧工廠的主供電壓突然暴跌，中央系統誤以為遭遇斷電危機，緊急啟動「備用柴油發電機（腎上腺素）」，巨大的引擎轟鳴聲瞬間把所有沉睡中的工人強制震醒。",
     "steps": [
       {
-        "title": "第 1 步｜白天活動穿著醫療級壓力襪",
-        "desc": "容易水腫或有靜脈曲張者，白天活動時穿著合適級數的彈性襪，對抗重力，減少微血管向組織間質滲漏液體。 2."
+        "title": "第 1 步｜落實睡前「緩釋供能餐盤」",
+        "desc": "晚餐以優質蛋白質搭配高水溶性纖維與低 GI 原型碳水。若經常在凌晨 3 點心悸或飢餓醒來，睡前 30 分鐘可微量攝取一小匙純無糖堅果醬或一顆水煮蛋，維持整夜血糖基線平穩。 2."
       },
       {
-        "title": "第 2 步｜傍晚 17",
-        "desc": "30 抬腿 15–20 分鐘： 洗完澡或晚餐前，將雙腿墊高於心臟水平 15 分鐘，在睡前提前引導下肢滯留水分回流排泄，避免夜間平躺時水壓驟變倒灌。 3."
+        "title": "第 2 步｜晚餐徹底戒斷精緻糖與高糖水果",
+        "desc": "晚餐與睡前嚴格杜絕精緻甜食、含糖飲料與高升糖宵夜，切斷入睡後的胰島素暴衝與反彈性低血糖。 3."
       },
       {
-        "title": "第 3 步｜坐姿常做腳踝幫浦踩踏",
-        "desc": "坐著看電視或工作時，反覆將腳踝像踩油門一樣「上下踩踏勾起」，藉由肌肉自主收縮擠壓深靜脈，促進下肢血液回流心臟。"
+        "title": "第 3 步｜晚餐後 15 分鐘平糖慢步法",
+        "desc": "飯後進行 15 分鐘輕鬆步行，誘導骨骼肌細胞膜 GLUT4 葡萄糖轉運蛋白活化，平抑餐後血糖波峰。"
       }
     ],
-    "warn": "抬腿消腫只係治標，血管內皮發炎滲漏先係根源！拖到靜脈栓塞倒灌心肺，就真係後悔莫及！",
+    "warn": "睡前吃蛋墊胃只是應急緩衝，粒線體能量轉換失靈才是核心！放任代謝震盪與胰島素阻抗，全身神經與血管將持續處於斷電危機！",
     "nutrition": [
-      "<strong>【實證物理理療】1. 下肢微循環流體刺激：</strong>運用溫和動態微動或肢體擺動，刺激血管內皮釋放自體一氧化氮（NO），擴張微血管，並藉肌肉幫浦排空深靜脈淤血。",
-      "<strong>【實證物理理療】2. 睡前溫熱微循環導引：</strong>睡前進行溫水足浴或下肢溫敷，改善微血管床灌注，加速沉積酸性代謝廢物排除。",
-      "<strong>【細胞生化關鍵營養】1. 以強效抗氧化保護微血管內皮，改善通透性：</strong>下肢靜脈水腫與抽筋往往源於微血管內皮慢性發炎、通透性過高。補充足夠的高活性抗氧化物質（如天然類胡蘿蔔素、多酚），撲滅內皮慢性發炎，減少水分向組織間隙滲漏，維持微血管在夜間的健康舒張功能。",
-      "<strong>【細胞生化關鍵營養】2. 改善脂質代謝與血液黏稠度：</strong>提升肝臟對過氧化脂質的解毒轉化能力，清除血液中的黏稠沉積物與糖化廢物，改善下肢深靜脈回流阻力，預防平躺後微血管缺血缺氧。",
-      "<strong>【細胞生化關鍵營養】3. 補充優質 Omega-3 脂肪酸抗炎消退：</strong>補充高純度 EPA/DHA 抑制微血管發炎，並維護細胞膜結構完整。"
+      "<strong>【實證物理理療】1. 餐後分段微動平糖法：</strong>餐後散步平抑餐後血糖與胰島素震盪波峰，避免入睡後發生反應性低血糖反彈。",
+      "<strong>【實證物理理療】2. 上腹區睡前溫熱敷：</strong>睡前以溫熱墊置於上腹區 15–20 分鐘，促進肝膽內臟微循環，舒緩內臟交感神經張力。",
+      "<strong>【細胞生化關鍵營養】1. 避開碳酸鈣，以「易吸收鈣 ＋ 活性鎂」穩定自律神經：</strong>選擇不造成消化負擔的易吸收鈣型態，並特別重視「鎂質」的攝取。活性鎂有助於改善周邊胰島素敏感度、抑制大腦 NMDA 受體過度興奮；協同鈣質放鬆自律神經與全身平滑肌，平穩夜間膜電位，減少反調節荷爾蒙（腎上腺素）的突發性釋放。",
+      "<strong>【細胞生化關鍵營養】2. 維持粒線體基線發電：</strong>輔酶 Q10： 粒線體能量供應不足會使肝臟夜間釋放葡萄糖的能力出現斷崖式波動。補足輔酶 Q10 支援細胞能量代謝，拉平夜間能量供電曲線，避免系統因能量驟降而強制喚醒大腦。"
     ],
+    "emotionQuote": "鋪平夜間代謝供電曲線，安撫半夜暴衝的腎上腺素，讓身心平穩深睡到破曉！\n________________",
     "allowedProducts": [
-      "36281",
-      "36282",
-      "36248",
-      "34331",
-      "34307",
-      "34278",
       "34269",
-      "0368",
+      "34278",
+      "34307",
+      "34316",
+      "34331",
+      "36248",
+      "36281",
       "38207"
     ],
     "allowedBundles": [
       "B1",
-      "B2",
-      "B3",
-      "B4"
+      "B2"
     ],
+    "desc": "核心問題在於夜間血糖代謝震盪與細胞粒線體產能不足，入睡數小時後引發反應性低血糖，大腦偵測到供能不足，緊急指令腎上腺釋放腎上腺素等反調節荷爾蒙將大腦強制踢回清醒狀態。",
     "testimonials": [
       {
-        "name": "梁先生",
-        "age": "70歲",
-        "role": "退休司機",
-        "issue": "日間雙腳浮腫著鞋好緊，半夜一伸直隻腳就抽筋痛醒，要坐起拍打幾分鐘。",
-        "solution": "傍晚抬腿 15 分鐘 ＋ 強心血管通 ＋ NMN ＋ 紅光光療帶",
-        "quote": "下肢水腫消晒，夜晚對腳暖笠笠，再無半夜痛醒抽筋，個人精神晒！"
+        "name": "趙先生",
+        "age": "54歲",
+        "role": "IT顧問",
+        "issue": "夜晚常吃甜食宵夜，半夜三點幾心跳突然加速、冒冷汗驚醒，成身好似斷電。",
+        "solution": "戒斷睡前精緻糖 ＋ 飯後慢步 ＋ 水溶性Q10 ＋ 微米液鈣鎂",
+        "quote": "半夜唔再心慌慌驚醒，心跳好平穩，白朝開會精神集中好多！"
       },
       {
-        "name": "鄒太",
-        "age": "66歲",
-        "role": "退休教師",
-        "issue": "長期服用薄血藥，腳踝傍晚水腫凹陷，成日擔心抽筋又唔敢亂食通血產品。",
-        "solution": "心腸軸酵素益生菌 ＋ 蝦青素 ＋ 水溶Q10 ＋ 律動機溫和引流",
-        "quote": "好放心呢套心腸軸配方，完全無同薄血藥相沖，腳腫退咗，半夜抽筋徹底斷尾！"
+        "name": "麥太",
+        "age": "60歲",
+        "role": "會計經理",
+        "issue": "晚飯後血糖不穩，凌晨經常餓醒心悸，之後輾轉反側無法入眠。",
+        "solution": "緩釋供能餐盤 ＋ 水溶Q10 ＋ 天然酵母NMN ＋ 酵素益生菌",
+        "quote": "體內能量供電拉平咗，半夜無再突然嚇醒，個人充滿活力！"
       }
     ],
-    "desc": "核心問題在於日間下肢靜脈水壓過高與微血管滲漏積水，夜間平躺重力消失後體液劇烈波動，壓迫小腿深層微血管引發急性缺血缺氧。",
-    "emotionQuote": "打通下肢微血管末梢微循環，排空淤積水腫與缺氧，換回雙腳輕盈溫暖，一覺熟睡到天光！",
     "vimeoD": "",
     "vimeoE": "",
     "vimeoF": ""
   },
   "3": {
     "id": 3,
-    "name": "成因 03：神經病變型",
-    "worstCase": "腰痠腳麻只係開始！最大鑊係脊椎神經根持續受壓壞死，下肢肌肉癱瘓無力，連正常企穩行路都做唔到！",
-    "bio": "常見於腰椎退化（腰椎間盤突出、骨刺、椎管狹窄）壓迫到支配小腿的坐骨神經根（L4–S1），或是周邊神經自然老化與退化。神經根或神經纖維外層的「髓鞘絕緣皮」受損磨損，使下運動神經元的「靜止膜電位」向點火閾值漂移（興奮閾值降低，處於超敏激惹狀態）。此時神經傳導高度不穩定，微小的生理刺激就會引發神經訊號走火與短路，造成小腿肌肉突發性強直收縮。",
-    "eng": "就像牆壁裡的總電線外層絕緣橡膠皮被老鼠咬爛磨破，裡面的銅線裸露在外，稍微震動或碰觸就會引發短路走火、爆出大量電火花。",
+    "name": "成因 03：晝夜節律失配型",
+    "worstCase": "凌晨固定時間早醒異常清醒只係開始！最大鑊係下視丘分子鐘崩潰同抗利尿節律退化，後半夜睡眠維持力徹底瓦解，加速腦部神經退化！",
+    "bio": "人體晝夜節律由下視丘「視交叉上核（SCN，生理主時鐘）」統籌調控。若日間戶外自然光接觸不足、夜間過度暴露於人造高色溫藍光，或隨著年齡增長 SCN 基因調節能力減退，主時鐘的「石英震盪頻率」便會發生相位偏移。這會導致大腦松果體合成褪黑激素的波峰提早結束，而覺醒荷爾蒙（皮質醇）過早於凌晨爬升；同時伴隨腦下垂體夜間「抗利尿激素（ADH）」脈衝分泌衰退，使得後半夜睡眠維持能力斷崖式崩潰，在凌晨固定時間異常清醒。",
+    "eng": "就像中央控制台的「主時鐘信號被環境雜訊嚴重干擾」，在凌晨三點就誤以為是早晨七點，強行提早切換成全廠開工模式。",
     "steps": [
       {
-        "title": "第 1 步｜溫敷「腰椎與下背部」",
-        "desc": "若抽筋常伴隨腰痠或坐骨神經放射感，溫敷神經根源頭的「腰部與薦椎」比單純溫敷小腿更為有效，能直接消退神經根水腫。 2."
+        "title": "第 1 步｜嚴格固定晨間起床時間",
+        "desc": "無論前一晚幾點入睡所睡眠品質如何，每日皆在固定時間起床，強迫錨定中樞生理時鐘相位。 2."
       },
       {
-        "title": "第 2 步｜側睡雙膝中間夾枕頭",
-        "desc": "習慣側睡的長輩，在兩膝之間夾一顆厚度適中的枕頭，維持骨盆與腰椎水平排列，減少坐骨神經的牽拉與卡壓。 3."
+        "title": "第 2 步｜晨起 30 分鐘接觸戶外自然日光",
+        "desc": "起床後走出戶外接觸陽光 15–20 分鐘（不配戴墨鏡），向大腦發送高強度「白天已開始」的校時信號，重設入夜倒數計時器。 3."
       },
       {
-        "title": "第 3 步｜避免久坐深陷矮軟沙發",
-        "desc": "避免長時間癱坐在過軟過低的沙發上，保持腰椎自然前凸生理曲度，保護神經根不受擠壓。"
+        "title": "第 3 步｜日落後色溫階梯遞減",
+        "desc": "日落後關閉刺眼白光頂燈，切換至暖黃低照度間接照明；睡前 1 小時停用高亮度 3C 藍光螢幕。"
       }
     ],
-    "warn": "熱敷腰背只係緩衝，神經絕緣皮剝落先係核心！放任神經根受壓壞死，到時神經癱瘓就無法挽回！",
+    "warn": "單純早起曬太陽只是外部對時，中樞分子鐘基因老化才是根本！若中樞分子鐘持續失序，晝夜節律崩塌將引發全身自律神經大混亂！",
     "nutrition": [
-      "<strong>【實證物理理療】1. 深層光熱透熱理療：</strong>利用深層光熱穿透椎管與神經根，活化局部微循環與細胞產能，消除神經根水腫與無菌性發炎，解除物理卡壓。",
-      "<strong>【實證物理理療】2. 脊椎微動牽引與穴位平衡：</strong>低速垂直微動牽引腰薦椎，刺激足底本體感受器，拉升副交感活性，提高運動神經元放電閾值。",
-      "<strong>【細胞生化關鍵營養】1. 重建小腿肌力與抗分解防護（優質蛋白質 ＋ 必需胺基酸）：</strong>長者抽筋常與肌少症相伴。補充足量高生物價蛋白質與防止肌肉分解的營養因子，配合維生素 D3 固骨補肌，重塑小腿肌肉的耐疲勞度，減輕日間過勞在夜間引發的神經敏感。",
-      "<strong>【細胞生化關鍵營養】2. 神經髓鞘脂質膜修復（Omega-3 DHA）：</strong>高純度 DHA 滋養神經髓鞘磷脂層，活性 B 群與葉酸輔助清除同半胱胺酸，減少神經訊號漏電走火引發的突發痙攣。"
+      "<strong>【實證物理理療】1. 晨間戶外自然日光校時（行為基石）：</strong>起床 30 分鐘內走出戶外接觸自然光 15–20 分鐘，向視交叉上核發送強效重置信號（不可被任何補充品取代）。",
+      "<strong>【實證物理理療】2. 體溫下潛物理導引：</strong>睡前 90 分鐘進行 40–42℃ 溫熱足浴或泡澡，促使入睡時周邊血管散熱、核心深層體溫順利下降，誘發天然深層睡眠波。",
+      "<strong>【細胞生化關鍵營養】1. 下視丘中樞分子鐘能量修復：</strong>NAD+： 大腦視交叉上核（SCN）的晝夜節律調控高度依賴細胞內 NAD+ 水平。提升 NAD+ 能活化細胞長壽蛋白（SIRT1/SIRT3），修復分子鐘基因的精準運轉，促使夜間抗利尿激素（ADH）恢復健康脈衝分泌，避免後半夜睡眠維持力崩跌。",
+      "<strong>【細胞生化關鍵營養】2. 提升中樞抑制性遞質：</strong>GABA： 攝取有助於中樞神經安定的天然抗氧化物，拉升大腦內抑制性神經傳導物質 GABA 水平，降低大腦皮質在夜間的異常激惹狀態，協助大腦順利進入休眠模式。"
     ],
+    "emotionQuote": "從基因與中樞校正內在生理時鐘，拉升腦部深層放鬆訊號，找回順應天地的熟睡節奏！\n________________",
     "allowedProducts": [
       "36281",
-      "34328",
-      "34274",
-      "0368",
-      "38207"
+      "36283"
     ],
     "allowedBundles": [
-      "C1",
-      "C2"
+      "C1"
     ],
+    "desc": "核心問題在於大腦下視丘視交叉上核（SCN 生理主時鐘）相位偏移，分子鐘基因調控減退，褪黑激素過早停止分泌而皮質醇過早爬升，造成後半夜睡眠維持能力斷崖式崩潰。",
     "testimonials": [
       {
-        "name": "何先生",
-        "age": "71歲",
-        "role": "工程師退休",
-        "issue": "腰椎第四五節退化壓住坐骨神經，一扯親條腰，成條小腿就抽搐麻痛。",
-        "solution": "紅光帶敷下背腰椎 ＋ 關節靈C+ ＋ NMN ＋ 魚油",
-        "quote": "敷腰真係靈過敷小腿！條腰鬆咗，腰神經無再被壓住，半夜抽筋自然消失！"
+        "name": "馮太",
+        "age": "67歲",
+        "role": "退休人士",
+        "issue": "每逢凌晨三點半準時清醒，像鬧鐘一樣，腦袋異常清醒但身體好疲倦。",
+        "solution": "晨起接觸自然光20分鐘 ＋ 蛋白高營素 ＋ 天然酵母NMN",
+        "quote": "中樞生物鐘重新校準，後半夜可以繼續安穩深睡，唔再定時早醒！"
       },
       {
-        "name": "馬太",
-        "age": "64歲",
-        "role": "退休文員",
-        "issue": "常常半夜小腿像觸電一樣劇烈抽縮，伴隨腳趾針刺發麻感。",
-        "solution": "側睡夾枕 ＋ 律動機低速牽引 ＋ 專利麥角硫因 NMN",
-        "quote": "做完律動機整個人神經好放鬆，觸電感無咗，瞓得好沉好舒服！"
+        "name": "陸先生",
+        "age": "61歲",
+        "role": "設計總監",
+        "issue": "長期對電腦屏幕工作，生理時鐘紊亂，後半夜極容易早醒且難以入睡。",
+        "solution": "日落後色溫階梯遞減 ＋ 補充NMN修復分子鐘 ＋ 蛋白高營素",
+        "quote": "身體找回自然日夜節律，夜晚好快自然入睡，深睡時間大幅增加！"
       }
     ],
-    "desc": "核心問題在於腰椎退化骨刺壓迫坐骨神經根，或神經髓鞘絕緣皮磨損，神經放電閾值漂移降低，微小刺激即引發神經短路走火大抽筋。",
-    "emotionQuote": "消除神經根深層受壓，修復神經髓鞘保護皮，重塑強韌下肢肌力，踏出每一步都踏實安心！",
     "vimeoD": "",
     "vimeoE": "",
     "vimeoF": ""
   },
   "4": {
     "id": 4,
-    "name": "成因 04：代謝與細胞能量型",
-    "worstCase": "肚腩脹外食油膩只係開始！最大鑊係粒線體能量徹底枯竭，糖毒性侵蝕全身微血管，拖到器官衰竭健康全盤崩潰！",
-    "bio": "在肌肉生理學中，肌肉「收縮」依賴鈣離子釋放，但肌肉「放鬆」其實比收縮更消耗能量！肌肉放鬆必須依靠三磷酸腺苷（ATP）驅動肌漿網上的「鈣離子幫浦（SERCA）」，逆著濃度梯度將游離鈣離子收回肌漿網儲存。若飲食充斥精緻糖、超加工食品或劣質油炸壞油（過氧化脂質），引發高胰島素血症與粒線體呼吸鏈損傷，細胞 ATP 產能將斷崖式下跌。收縮後因缺乏足夠 ATP 驅動鈣泵，鈣離子卡在肌原纖維中無法回收，肌肉纖維便持續鎖死在緊繃收縮狀態，形成劇痛抽筋。",
-    "eng": "就像工廠的電動機械爪抓緊重物（收縮）後，總發電機（粒線體）突然沒電，機械爪因斷電無法鬆開（鈣泵缺 ATP 停擺），整具機械手臂死死卡在原位。",
+    "name": "成因 04：周邊生理與藥物干擾型",
+    "worstCase": "頻繁夜尿或者胃酸湧心口只係開始！最大鑊係西藥副作用掏空微量元素同腸漏毒素入血，導致微血管慢性滲漏發炎，引發腎衰竭！",
+    "bio": "白天久站久坐或因「心腸軸失衡（腸漏症導致內毒素 LPS 入血，引發微血管慢性發炎與通透性大增）」，使大量水分滲入下肢組織間質形成水腫。夜間平躺入睡後，重力壓迫消失，下肢積存的數百毫升體液迅速回流至心臟與肺部，導致心房容量瞬間負荷過重。心臟為了自我保護，緊急釋放大量「心房利尿鈉肽（ANP）」，強迫腎臟劇烈排水，引發「夜間多尿（Nocturnal Polyuria）」，膀胱急遽充盈直接向大腦發出中斷警報；若合併胃食道逆流刺激迷走神經，或服用利尿劑、降壓藥，周邊感覺神經會源源不絕向中樞發送實體痛覺或充盈訊號。",
+    "eng": "就像工廠底層的「儲水槽（膀胱）頻繁被暴衝的污水管倒灌淹沒」，或者「排污管道逆流（胃酸）腐蝕閥門」，感覺感測器只能連續向主機發出硬體緊急中斷信號。",
     "steps": [
       {
-        "title": "第 1 步｜睡前 40℃ 溫水泡腳 15 分鐘",
-        "desc": "泡腳屬於深層熱透療法，能有效擴張微血管、改善局部血液微灌注，活化細胞粒線體呼吸酶，為夜間鈣泵充能。 2."
+        "title": "第 1 步｜睡前 2 小時落實水分斷點",
+        "desc": "睡前嚴格避免大口牛飲；晚餐完全避開高番茄酸、洋蔥、生大蒜、黑巧克力與高油脂油炸物，防止胃酸逆流。 2."
       },
       {
-        "title": "第 2 步｜睡前 3 小時徹底戒除精緻糖與甜食",
-        "desc": "避免晚餐或睡前進食精緻糕點、含糖飲料及宵夜，防止夜間高胰島素血症與水鈉滯留，減輕粒線體代謝負擔。 3."
+        "title": "第 2 步｜傍晚 17",
+        "desc": "30 重力位移抬腿： 傍晚洗澡前或晚餐前，平躺將雙腿墊高於心臟水平 15–20 分鐘，在白天提早引導下肢積水回流排出，打破夜間平躺後的倒灌利尿循環。 3."
       },
       {
-        "title": "第 3 步｜嚴格替換高溫油炸壞油",
-        "desc": "徹底戒除反覆油炸物與超加工食品，日常改用富含抗氧化多酚的特級初榨橄欖油，中斷過氧化脂質對粒線體膜的破壞。"
+        "title": "第 3 步｜睡眠維持左側臥位",
+        "desc": "利用胃部解剖結構向左傾斜的特點，夜間維持左側臥，使胃食道交界處高於胃酸液面，物理性阻斷胃酸上逆。"
       }
     ],
-    "warn": "戒甜泡腳只係減輕負擔，粒線體發電機熄火先係危機！放任能量枯竭，全身細胞機能將全面失序！",
+    "warn": "睡前少喝水只是減少水庫進水，日間微血管滲漏與靜脈回流不良才是真兇！若放任下肢積液夜間倒灌，心臟負擔將與日俱增！",
     "nutrition": [
-      "<strong>【實證物理理療】1. 中低強度有氧活動激發粒線體新生：</strong>規律活動活化骨骼肌能量路徑，增加肌肉粒線體密度。",
-      "<strong>【實證物理理療】2. 深層光熱理療為細胞充能：</strong>利用特定波長光療照射大肌群，活化粒線體呼吸酶，促進 ATP 生成。",
-      "<strong>【細胞生化關鍵營養】1. 支援粒線體能量合成：</strong>輔酶 Q10： 作為電子傳遞鏈的核心輔酶，驅動 ATP 生成，為肌漿網鈣幫浦（SERCA）提供充足動力，加速游離鈣回收，解除抽筋鎖死。",
-      "<strong>【細胞生化關鍵營養】2. 保護粒線體雙層膜免受脂質過氧化破壞：</strong>攝取具備穿透細胞雙層膜能力的抗氧化物，中和外食壞油堆積的過氧化脂質，防止呼吸鏈複合物受損。",
-      "<strong>【細胞生化關鍵營養】3. 深海 Omega-3 維護細胞膜流動性：</strong>維護粒線體內膜完整性，維持肌肉細胞正常能量轉換。"
+      "<strong>【實證物理理療】1. 下肢動態循環排空（促進淋巴與靜脈回流）：</strong>日間透過溫和下肢運動或被動律動，活化小腿第二心臟肌泵，提早排空滯留體液，瓦解夜間平躺後水分倒灌引發的心房利尿鈉肽（ANP）暴衝與夜尿警報。",
+      "<strong>【實證物理理療】2. 排除器質性前列腺梗阻醫療紅旗：</strong>若夜尿伴隨排尿困難、滴尿或細弱，應前往泌尿科排查攝護腺肥大（BPH）等器質性問題。",
+      "<strong>【細胞生化關鍵營養】1. 心腸軸微生態抗炎，減少微血管滲漏：</strong>透過有助於產生短鏈脂肪酸（SCFA）的益生菌與發酵多酚，修復腸黏膜屏障，阻絕內毒素（LPS）滲入體循環引發微血管慢性發炎，從源頭降低白天組織間隙積水水腫，減少夜間平躺後體液回流心臟的負擔。",
+      "<strong>【細胞生化關鍵營養】2. 骨盆腔微循環深層抗發炎：</strong>攝取天然強效抗氧化物質，穿透微血管雙層膜下調發炎反應，改善骨盆底與膀胱三角區的微循環缺血，降低感覺神經的高敏感性。"
     ],
+    "emotionQuote": "卸下下肢積水倒灌與周邊管道高壓，排除夜間假警報，還大腦整夜無雜訊的沉靜安寧！\n________________",
     "allowedProducts": [
-      "36281",
-      "34278",
+      "34103",
       "34269",
-      "36277",
-      "36248",
-      "36246",
+      "34316",
       "34331",
-      "36245",
-      "0368",
-      "38207"
+      "36248",
+      "36281",
+      "0368"
     ],
     "allowedBundles": [
-      "D1",
-      "D2"
+      "D1"
     ],
+    "desc": "核心問題在於周邊實質物理刺激：日間下肢水分滯留於夜間平躺後回流倒灌，引發心房利尿鈉肽（ANP）暴衝夜尿，或胃酸逆流刺激迷走神經，感覺神經源源不絕向大腦中樞發送中斷警報。",
     "testimonials": [
       {
         "name": "鄧先生",
-        "age": "58歲",
-        "role": "餐飲業老闆",
-        "issue": "經常外食重油甜食，有大肚腩同脂肪肝，半夜小腿肌肉硬到好似石塊咁解唔開。",
-        "solution": "晚餐輕慢食金體素 ＋ NMN＋水溶Q10 ＋ 肝再生排毒 ＋ 睡前泡腳",
-        "quote": "戒咗宵夜再食呢套粒線體組合，成個人精神輕盈咗，半夜肌肉即刻識自己放鬆！"
+        "age": "70歲",
+        "role": "退休公務員",
+        "issue": "每晚平躺後頻繁尿意強烈醒來兩三次，胃酸又成日湧上心口發熱灼痛。",
+        "solution": "傍晚抬腿15分鐘 ＋ 睡前控水 ＋ 三效益生菌 ＋ 綜合果蔬酵素",
+        "quote": "夜尿次數由3次減到0至1次，胃酸都無再反流，成晚一覺瞓到天光！"
       },
       {
-        "name": "李女士",
-        "age": "61歲",
-        "role": "文職主管",
-        "issue": "有糖尿病前期，血糖一波動夜晚就抽筋，小腿繃緊到第二日都行唔郁。",
-        "solution": "低GI飲食 ＋ 蝦青素 ＋ 綜合酵素 ＋ 紅光帶理療",
-        "quote": "血糖穩咗，下半身微循環通晒，依家晚晚安穩熟睡，無再抽筋痛醒！"
+        "name": "梁太",
+        "age": "64歲",
+        "role": "退休護士",
+        "issue": "長期服用降血壓藥下肢水腫，夜間平躺小便特別多，關節痠痛容易醒。",
+        "solution": "心腸軸益生菌 ＋ 蝦青素抗炎 ＋ 紅光帶溫敷下肢",
+        "quote": "腳腫消退晒，夜晚唔使頻繁跑洗手間，四肢溫暖放鬆好瞓！"
       }
     ],
-    "desc": "核心問題在於高糖外食壞油損害粒線體，細胞 ATP 能量枯竭，肌肉收縮後缺乏足夠能量驅動鈣離子幫浦（SERCA）回收游離鈣，肌肉纖維持續鎖死痙攣。",
-    "emotionQuote": "啟動細胞粒線體發電機，為肌肉放鬆注入源源能量，徹底瓦解反覆抽筋卡死！",
     "vimeoD": "",
     "vimeoE": "",
     "vimeoF": ""
   },
   "5": {
     "id": 5,
-    "name": "成因 05：藥源性干擾型",
-    "worstCase": "食降壓降脂藥只係開始！最大鑊係核心輔酶同電解質被強制抽乾，肌肉神經深度病變，連抬起雙腿都無晒力氣！",
-    "bio": "長輩日常服用的慢性病西藥所帶來的生化副反應：① 降壓去水丸（利尿劑）：強迫腎臟排出水分，同時帶走大量鈣、鎂、鉀等重要電解質。鎂離子是人體天然的「鈣離子通道阻斷劑」與神經平滑肌鬆弛劑，血鎂過低會使神經肌肉接頭的興奮閾值暴跌，胞內鈣暴衝引發痙攣。② 降膽固醇他汀類藥物（Statins）：阻斷肝臟甲羥戊酸途徑，抑制膽固醇合成的同時，也強行阻斷了人體合成「輔酶 Q10」的途徑，使骨骼肌細胞內 Q10 耗竭超過 50%，引發藥物性肌病與抽搐。③ 降血壓鈣通道阻斷劑（CCB）：容易引發周邊水腫，加劇夜間下肢組織水壓失衡。",
-    "eng": "就像電腦系統安裝了不相容的軟體更新，運作時把系統不可或缺的散熱與供電元件（Q10 與電解質平衡）強制拔除，導致硬體核心（神經肌肉接頭）衝突當機。",
+    "name": "成因 05：中樞過度警覺型",
+    "worstCase": "醒咗之後腦袋高速運轉反覆諗嘢只係開始！最大鑊係大腦安保系統同壓力軸徹底失控，演變成頑固性慢性失眠同自律神經癱瘓！",
+    "bio": "在經歷偶發的夜間驚醒後，患者大腦對「醒來」產生繼發性焦慮與挫折感，逐漸形成病態的「制約性喚醒（Conditioned Arousal）」。床鋪在潛意識中被大腦編碼成一個「焦慮的戰場」，而非放鬆的安全港灣。一旦在後半夜出現生理性淺眠轉換，杏仁核與下視丘-腦下垂體-腎上腺（HPA）壓力軸便瞬間暴走，中樞促醒神經傳導物質暴衝，使得大腦皮質陷入高速運轉、反覆盤算明日待辦事項，形成「越想睡越焦慮、越焦慮越清醒」的神經死鎖迴路。",
+    "eng": "就像中央主機的「安保防火牆防禦層級開得太高、過度神經質」，哪怕只是一陣微風吹過，防火牆立刻判定遭遇嚴重黑客入侵，拉響全面警報並進入無休止的死鎖自檢循環。",
     "steps": [
       {
-        "title": "第 1 步｜定期攜帶藥袋向主診醫師諮詢",
-        "desc": "記錄抽筋發作頻率與服藥時間的關聯，請主治醫師評估微調利尿劑或降脂藥劑量或劑型，嚴禁自行擅自停藥。 2."
+        "title": "第 1 步｜嚴格實行刺激控制（醒 20 分鐘堅決離床）",
+        "desc": "半夜醒來若超過 20 分鐘仍無法復睡，立刻起身離開床鋪與臥室，到昏暗安靜角落靜坐或閱讀枯燥紙本書，直到再次產生睏意才回床，堅決打破「床 = 焦慮清醒」的條件反射。 2."
       },
       {
-        "title": "第 2 步｜嚴禁使用黑框警告偏方「奎寧（Quinine）」",
-        "desc": "民間傳聞喝通寧水或奎寧藥物治抽筋，美國 FDA 早已發布黑框警告，奎寧具備致命性心律不整與凝血異常副作用，切勿嘗試。 3."
+        "title": "第 2 步｜嚴禁白天過度補眠與賴床",
+        "desc": "不要因昨夜多醒而於白天補眠或躺床，維持入夜後足夠的「腺苷睡眠驅動力（Sleep Pressure）」。 3."
       },
       {
-        "title": "第 3 步｜白天少量多次補充天然溫水",
-        "desc": "服用利尿劑去水丸的人士，白天需均勻補充足夠水分，避免因嚴重缺水造成血液濃縮與電解質劇烈失衡。"
+        "title": "第 3 步｜睡前書寫「大腦傾倒清單（Brain Dump）」",
+        "desc": "睡前 1 小時把所有明日待辦事項與焦慮思緒具體寫在筆記本上，向潛意識發出「今日進度已妥善存檔」的完結信號。"
       }
     ],
-    "warn": "多飲水只係補充水分，離子流失與 Q10 耗竭先係元兇！放任藥物副反應抽乾粒線體，肌肉將持續病變無力！ * Block E：重點營養與理療 1. 實證物理與理療介入： 1. 1. 處方審核與用藥回顧： 記錄服藥時間點與抽筋頻率，主動尋求主治醫師評估利尿劑、降脂藥（Statins）或降壓藥劑量，嚴禁擅自盲目停藥。 2. 2. 溫和神經肌肉接頭平撫： 透過日常溫和伸展與足浴，減緩藥物對神經肌肉接頭膜電位的急性干擾。 2. 細胞與生化關鍵營養： 1. 1. 精準回補被西藥耗損的「輔酶 Q10」： 他汀類降脂西藥在抑制膽固醇的同時，會阻斷體內合成 Q10 的生化途徑，導致肌肉粒線體 Q10 大幅流失。及時補充高活性輔酶 Q10，能重新啟動肌肉能量發電，緩解藥物性肌病與抽搐。 2. 2. 修復腸道黏膜屏障，降低微血管滲漏水腫： 藉由益生菌代謝產物（短鏈脂肪酸）調節微生態，修復腸黏膜緊密連接，切斷內毒素入血造成的微血管通透性過高，減少下肢組織積水水腫。 3. 3. 維持體液微環境酸鹼平衡： 攝取富含有機酸的天然食材，協助中和肌肉細胞外液酸性代謝物，加速乳酸排空。 3. 情感共鳴金句： 精準修復心腸軸與體液微環境，無須擅自停用常規西藥，輕鬆化解藥源性抽搐痠痛！",
+    "warn": "躺在床上硬逼自己數綿羊只會加劇大腦焦慮，神經迴路死鎖才是病根！放任制約性喚醒惡化，將演變為頑固性慢性失眠！",
     "nutrition": [
-      "<strong>【實證物理理療】1. 處方審核與用藥回顧：</strong>記錄服藥時間點與抽筋頻率，主動尋求主治醫師評估利尿劑、降脂藥（Statins）或降壓藥劑量，嚴禁擅自盲目停藥。",
-      "<strong>【實證物理理療】2. 溫和神經肌肉接頭平撫：</strong>透過日常溫和伸展與足浴，減緩藥物對神經肌肉接頭膜電位的急性干擾。",
-      "<strong>【細胞生化關鍵營養】1. 精準回補被西藥耗損的「輔酶 Q10」：</strong>他汀類降脂西藥在抑制膽固醇的同時，會阻斷體內合成 Q10 的生化途徑，導致肌肉粒線體 Q10 大幅流失。及時補充高活性輔酶 Q10，能重新啟動肌肉能量發電，緩解藥物性肌病與抽搐。",
-      "<strong>【細胞生化關鍵營養】2. 修復腸道黏膜屏障，降低微血管滲漏水腫：</strong>藉由益生菌代謝產物（短鏈脂肪酸）調節微生態，修復腸黏膜緊密連接，切斷內毒素入血造成的微血管通透性過高，減少下肢組織積水水腫。",
-      "<strong>【細胞生化關鍵營養】3. 維持體液微環境酸鹼平衡：</strong>攝取富含有機酸的天然食材，協助中和肌肉細胞外液酸性代謝物，加速乳酸排空。"
+      "<strong>【實證物理理療】1. 後枕部深層放鬆與迷走神經重置：</strong>睡前以溫熱敷或溫和按摩放鬆後枕部顱底緊繃肌筋膜，釋放迷走神經幹張力，引導大腦由交感警戒切換為副交感修復模式。",
+      "<strong>【實證物理理療】2. CBT-I 刺激控制法（唯一一線治本黃金標準）：</strong>醒超過 20 分鐘堅決離床，打破「床 = 焦慮清醒」的條件反射；配合生理性嘆氣呼吸法快速降低心率。",
+      "<strong>【細胞生化關鍵營養】1. 中樞抑制性遞質與壓力軸冷卻（GABA ＋ 活性鎂）：</strong>透過天然營養途徑提升大腦抑制性傳導物質 GABA，協同活性鎂離子阻斷過度亢奮的 NMDA 受體，下調過度活躍的 HPA 壓力軸，平息大腦失控的自省警報迴路。"
     ],
+    "emotionQuote": "為緊繃防禦的大腦安保系統卸載防線，引導自律神經重歸平靜，沉入踏實安穩的無夢深眠！",
     "allowedProducts": [
-      "34278",
+      "34307",
       "34316",
-      "34294",
-      "0368",
-      "38207"
+      "34330",
+      "36248",
+      "36281",
+      "0368"
     ],
     "allowedBundles": [
-      "E1",
-      "E2"
+      "E1"
     ],
+    "desc": "核心問題在於經歷偶發夜醒後形成「制約性喚醒」，大腦安保系統防禦層級過高，HPA 壓力軸暴走，中樞促醒神經傳導物質暴衝，使得大腦皮質陷入高速運轉與焦慮死鎖迴路。",
     "testimonials": [
       {
-        "name": "黃先生",
-        "age": "73歲",
-        "role": "退休公務員",
-        "issue": "食咗降膽固醇藥幾年，兩條小腿成日無力痠痛，半夜經常無端端抽搐拉扯痛醒。",
-        "solution": "每日補充專利水溶輔酶Q10 ＋ 微米液鈣鎂 ＋ 睡前紅光帶",
-        "quote": "無停西藥，只係補返 Q10 同液體鈣鎂，隻腳痠痛無晒，半夜抽筋完全無再發作！"
+        "name": "許女士",
+        "age": "49歲",
+        "role": "企業高管",
+        "issue": "半夜一醒腦袋立刻高速運轉反覆盤算工作，越想訓越焦慮心跳快，難以復睡。",
+        "solution": "醒20分鐘離床刺激控制 ＋ 睡前傾倒清單 ＋ 微米液鈣鎂 ＋ NMN",
+        "quote": "大腦防線放鬆晒，焦慮感消失，半夜醒咗都能夠幾分鐘內自然睡返！"
       },
       {
-        "name": "林太",
-        "age": "67歲",
-        "role": "退休主婦",
-        "issue": "食緊降血壓去水丸，醫生話離子流失，半夜小腿經常抽筋痛到叫出聲。",
-        "solution": "白天定時補溫水 ＋ 睡前飲用微米液鈣鎂D3 ＋ 三高淨脂素",
-        "quote": "液體鈣鎂好快吸收，完全唔熱氣唔便秘，夜晚瞓得好踏實，雙腳終於唔再抽痛！"
+        "name": "鍾先生",
+        "age": "56歲",
+        "role": "金融分析師",
+        "issue": "長期高壓精神緊繃，對周圍聲光極度敏感，半夜少少動靜就全醒。",
+        "solution": "迷走神經重置呼吸法 ＋ 後枕部溫敷 ＋ 腸快適後生元 ＋ 益生菌",
+        "quote": "神經安保系統平靜好多，整個人從容放鬆，重拾深層無夢好眠！"
       }
     ],
-    "desc": "核心問題在於慢性病西藥干擾：利尿劑強迫排出鈣鎂離子使神經異常興奮，他汀降脂藥耗竭骨骼肌輔酶 Q10 逾 50% 造成藥物性肌病。",
-    "emotionQuote": "精準修復心腸軸與體液微環境，無須擅自停用常規西藥，輕鬆化解藥源性抽搐痠痛！",
     "vimeoD": "",
     "vimeoE": "",
     "vimeoF": ""
   }
+};
 };
 
     function toggleDimNone(dim) {
@@ -2907,75 +2645,57 @@
         return;
       }
 
-      // 紅旗檢查
-      const rfChecked = document.querySelector('input[name="dim_redflag"]:checked');
-      if (rfChecked && rfChecked.value !== 'NONE') {
-        alert('⚠️ 系統安全提示：偵測到您勾選了急性或危急紅旗徵候（如疑似深靜脈血栓或動脈急症）。為保障您的健康安全，請勿大力按揉，並請立即尋求急診或專科醫師進行正規醫療檢查！');
-      }
-
       isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementById('med_warfarin').checked : false;
       let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
-      // 維度 1 (力學)
-      const d1Items = document.querySelectorAll('input[name="dim1"]:checked');
-      d1Items.forEach(el => {
-        if (el.value === 'D1_A') scores[1] += 2;
-        if (el.value === 'D1_B') scores[1] += 1;
-        if (el.value === 'D1_C') scores[1] += 1;
-      });
+      // 維度 1 (睡眠時間與作息節律)
+      const d1Val = document.querySelector('input[name="dim1"]:checked');
+      if (d1Val && d1Val.value === 'D1_C') {
+        scores[3] += 1;
+      }
 
-      // 維度 2 (血管)
-      const d2Items = document.querySelectorAll('input[name="dim2"]:checked');
-      d2Items.forEach(el => {
-        if (el.value === 'D2_A') scores[2] += 1;
-        if (el.value === 'D2_B') scores[2] += 2;
-        if (el.value === 'D2_C') scores[2] += 2;
-        if (el.value === 'D2_D') scores[2] += 2;
-      });
+      // 維度 2 (瞬間感受表型，權重 +2分)
+      const d2Val = document.querySelector('input[name="dim2"]:checked');
+      if (d2Val) {
+        if (d2Val.value === 'D2_A') scores[1] += 2;
+        else if (d2Val.value === 'D2_B') scores[2] += 2;
+        else if (d2Val.value === 'D2_C') scores[3] += 2;
+        else if (d2Val.value === 'D2_D') scores[4] += 2;
+        else if (d2Val.value === 'D2_E') scores[5] += 2;
+      }
 
-      // 維度 3 (神經與代謝)
+      // 維度 3 (生活軌跡與紅旗警訊，多選 +1分)
       const d3Items = document.querySelectorAll('input[name="dim3"]:checked');
       d3Items.forEach(el => {
-        if (el.value === 'D3_A') scores[3] += 2;
-        if (el.value === 'D3_B') scores[3] += 2;
-        if (el.value === 'D3_C') scores[4] += 1;
-        if (el.value === 'D3_D') scores[4] += 2;
+        if (el.value === 'D3_1') scores[1] += 1;
+        else if (el.value === 'D3_2') scores[2] += 1;
+        else if (el.value === 'D3_3') scores[3] += 1;
+        else if (el.value === 'D3_4') scores[4] += 1;
+        else if (el.value === 'D3_5') scores[5] += 1;
       });
 
       // 維度 4 (西藥調查)
       const d4Items = document.querySelectorAll('input[name="dim4"]:checked');
       d4Items.forEach(el => {
-        if (el.value === 'MED_STATIN') { scores[5] += 2; scores[4] += 1; }
-        if (el.value === 'MED_DIURETIC') { scores[5] += 2; scores[2] += 1; }
-        if (el.value === 'MED_CCB') { scores[1] += 1; scores[2] += 2; }
-        if (el.value === 'MED_PPI') { scores[5] += 1; scores[4] += 2; }
-        if (el.value === 'MED_CALCIUM') { scores[4] += 1; scores[2] += 1; }
-        if (el.value === 'MED_WARFARIN') { scores[2] += 1; }
+        if (el.value === 'D4_1') scores[4] += 2;
+        else if (el.value === 'D4_2') scores[2] += 2;
+        else if (el.value === 'D4_3') scores[4] += 1;
+        else if (el.value === 'D4_4') scores[5] += 1;
+        else if (el.value === 'D4_5') {
+          scores[4] += 1;
+          isWarfarinUser = true;
+        }
       });
-
-      // 維度 5 (動作牽張)
-      const d5Val = document.querySelector('input[name="dim5"]:checked');
-      if (d5Val) {
-        if (d5Val.value === 'D5_A') scores[1] += 3;
-        if (d5Val.value === 'D5_B') { scores[2] += 1; scores[4] += 1; }
-      }
-
-      // 維度 6 (理學回血)
-      const d6Val = document.querySelector('input[name="dim6"]:checked');
-      if (d6Val) {
-        if (d6Val.value === 'D6_B') scores[2] += 2;
-        if (d6Val.value === 'D6_C') scores[2] += 2;
-      }
 
       // 年齡加權 (乘數)
       const ageVal = document.getElementById('quizAge').value;
       let ageMultiplier = 1.0;
       if (ageVal === '65–75' || ageVal === '75以上') ageMultiplier = 1.2;
       for (let c = 1; c <= 5; c++) {
-        if (scores[c] > 0) scores[c] *= ageMultiplier;
+        if (scores[c] > 0) scores[c] = Math.round(scores[c] * ageMultiplier * 10) / 10;
       }
 
-      // 計算佔比
+      // 計算佔比與決勝 (Tie-breaker: C1 > C2 > C3 > C4 > C5)
       const totalRaw = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
       let ratios = {};
       let maxScore = -1;
@@ -2989,6 +2709,7 @@
           winningCause = c;
         }
       }
+
       if (maxScore <= 0) {
         winningCause = 1;
         ratios = { 1: 100, 2: 0, 3: 0, 4: 0, 5: 0 };
@@ -3002,7 +2723,7 @@
         try {
           const quizData = {
             type: "quiz",
-            topicName: "半夜抽筋自測記錄",
+            topicName: "半夜扎醒自測記錄",
             timestamp: new Date().toISOString(),
             name: userName,
             gender: document.getElementById('quizGender') ? document.getElementById('quizGender').value : "",
@@ -3060,12 +2781,16 @@
 
       // Block D
       document.getElementById('block-d-title').innerText = `成因解碼：${cData.name}`;
-      document.getElementById('vimeo-block-d').src = `https://player.vimeo.com/video/${cData.vimeoD}`;
+      if (cData.vimeoD) {
+        document.getElementById('vimeo-block-d').src = `https://player.vimeo.com/video/${cData.vimeoD}`;
+      }
       document.getElementById('block-d-bio').innerText = cData.bio;
       document.getElementById('block-d-eng').innerText = cData.eng;
 
       // Block E
-      document.getElementById('vimeo-block-e').src = `https://player.vimeo.com/video/${cData.vimeoE}`;
+      if (cData.vimeoE) {
+        document.getElementById('vimeo-block-e').src = `https://player.vimeo.com/video/${cData.vimeoE}`;
+      }
       let stepsHtml = '';
       cData.steps.forEach(s => {
         stepsHtml += `
@@ -3079,7 +2804,9 @@
       document.getElementById('block-e-warn').innerText = cData.warn;
 
       // Block F
-      document.getElementById('vimeo-block-f').src = `https://player.vimeo.com/video/${cData.vimeoF}`;
+      if (cData.vimeoF) {
+        document.getElementById('vimeo-block-f').src = `https://player.vimeo.com/video/${cData.vimeoF}`;
+      }
       let nutHtml = '';
       cData.nutrition.forEach(n => {
         nutHtml += `<div style="border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 12px;">${n}</div>`;
@@ -3087,31 +2814,9 @@
       document.getElementById('block-f-nutrition').innerHTML = nutHtml;
       document.getElementById('block-f-emotion').innerText = cData.emotionQuote;
 
-      // 成因專屬產品與套裝動態分流計算 (Cramps Dynamic Filtering)
-      let allowedProducts = [];
-      let allowedBundles = [];
-
-      if (causeId === 1) {
-        allowedProducts = ["36283", "36261", "0368", "38207"];
-        allowedBundles = ["A1", "A2"];
-      } else if (causeId === 2) {
-        if (isWarfarinUser) {
-          allowedProducts = ["34269", "34278", "34307", "34331", "36248", "36281", "0368", "38207"];
-          allowedBundles = ["B3", "B4"];
-        } else {
-          allowedProducts = ["36282", "36281", "0368", "38207"];
-          allowedBundles = ["B1", "B2"];
-        }
-      } else if (causeId === 3) {
-        allowedProducts = ["34274", "34328", "36281", "0368", "38207"];
-        allowedBundles = ["C1", "C2"];
-      } else if (causeId === 4) {
-        allowedProducts = ["36281", "34278", "34269", "36277", "36248", "36246", "34331", "36245", "0368", "38207"];
-        allowedBundles = ["D1", "D2"];
-      } else if (causeId === 5) {
-        allowedProducts = ["34278", "34294", "34316", "0368", "38207"];
-        allowedBundles = ["E1", "E2"];
-      }
+      // 成因專屬產品與套裝動態分流計算 (Awakening Dynamic Filtering)
+      let allowedProducts = cData.allowedProducts;
+      let allowedBundles = cData.allowedBundles;
 
       // Block G (單鍵 Pop-up B)
       renderBlockG(allowedProducts, causeId);
@@ -3122,6 +2827,7 @@
       // Block J
       renderBlockJ(cData.testimonials);
     }
+
 
     function renderBlockG(allowedProductIds, causeId) {
       const container = document.getElementById('block-g-products-list');
@@ -3301,7 +3007,7 @@
       const orderData = {
         type: "order",
         orderId: orderId,
-        topicName: "半夜抽筋",
+        topicName: "半夜扎醒",
         timestamp: now.toISOString(),
         causeId: selectedCauseId,
         causeName: CAUSES_DATA[selectedCauseId].name,
@@ -3314,7 +3020,7 @@
 
       // 軌道一：WhatsApp 對話喚起 (帶入唯一訂單編號)
       const liftText = hasLift ? "有升降機" : "無升降機（唐樓需現場付樓梯費）";
-      const waText = `【Health Decoder 半夜抽筋專題訂單】%0A` +
+      const waText = `【Health Decoder 半夜扎醒專題訂單】%0A` +
         `訂單編號：${orderId}%0A` +
         `主診斷成因：${CAUSES_DATA[selectedCauseId].name}%0A` +
         `收件人：${encodeURIComponent(name)}%0A` +

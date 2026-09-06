@@ -1322,7 +1322,7 @@
 
     <!-- Block A: 頂部 Hero 區 ✕ 極速自測引導 -->
     <section id="blockA" class="section-card" style="text-align: center;">
-      <h1 style="font-size: 30px; font-weight: 900; line-height: 1.35; color: var(--color-primary); margin-bottom: 8px;">半夜三點反覆扎醒，<br>痛到標眼淚成晚無覺好瞓？</h1>
+      <h1 style="font-size: 30px; font-weight: 900; line-height: 1.35; color: var(--color-primary); margin-bottom: 8px;">半夜三點反覆扎醒，<br class="mobile-only">大腦斷電定係警報暴衝？</h1>
       <div style="font-size: 20px; font-weight: 800; color: var(--color-accent); margin-bottom: 20px;">
         搞清楚源頭，先可以治本。
       </div>
@@ -1513,12 +1513,8 @@
           <div style="font-size: 15px; font-weight: 700; color: #5EEAD4; margin-bottom: 6px;">
             🏷️ 系統判定主要成因為：
           </div>
-          <h2 id="diagPrimaryTitle" style="color: #FFFFFF; font-size: 26px; margin: 10px 0; font-weight: 900;">
-            【成因 ①：下肢水腫平躺回流型】
-          </h2>
-          <p id="diagPrimaryDesc" style="color: #CBD5E1; font-size: 16.5px; line-height: 1.65; margin: 0;">
-            你的膀胱容量正常，核心問題在於日間「下肢微血管滲漏」積聚水分，夜間平躺後體液倒灌回流至軀幹與心臟，刺激心房大量釋放 ANP 心房鈉尿肽，強迫腎臟夜間加班排水。
-          </p>
+          <h2 id="diagPrimaryTitle" style="color: #FFFFFF; font-size: 26px; margin: 10px 0; font-weight: 900;">【成因 01：呼吸與夜間缺氧型】</h2>
+          <p id="diagPrimaryDesc" style="color: #CBD5E1; font-size: 16.5px; line-height: 1.65; margin: 0;">你的大腦神經大致正常，核心問題在於夜間平躺時呼吸道軟組織塌陷與黏膜充血水腫，引發間歇性缺氧，大腦呼吸中樞偵測到窒息危機，被迫緊急啟動交感神經將您震醒以恢復呼吸氣道張力。</p>
         </div>
 
         <!-- 2. 五大成因佔比進度條 -->
@@ -1531,9 +1527,7 @@
 
         <!-- 3. 痛點直擊最壞情況 (大字級粗體 18px · 純文字 · 零引號 · 零標籤) -->
         <div class="fear-quote-box">
-          <div id="fearQuoteText" style="font-size: 18px; font-weight: 700; line-height: 1.65;">
-            腳腫著鞋緊只係開始！最大鑊係源頭漏水倒灌，引發心臟衰竭，連行路都成問題，最後成為屋企人沉重嘅負累！
-          </div>
+          <div id="fearQuoteText" style="color: #991B1B; font-weight: 800; font-size: 18px; line-height: 1.65;">半夜扎醒大喘氣口乾只係開始！最大鑊係長期大腦缺氧血壓暴衝，引發夜間急性中風同心肌梗塞，徹底摧毀心血管！</div>
         </div>
 
         <!-- 4. 薄血藥避險警告 (動態顯示 · 合規醫囑標準版) -->
@@ -1559,7 +1553,7 @@
       <section id="blockD" class="section-card">
         <h2 id="block-d-title" style="margin-top: 0;">成因解碼：成因 01：呼吸與夜間缺氧型</h2>
         
-        <div class="video-container">
+        <div class="video-container" style="display: none;">
           <iframe id="vimeo-block-d" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
 
@@ -1593,7 +1587,7 @@
       <section id="blockE" class="section-card">
         <h2 style="margin-top: 0;">生活上嘅改善小貼士</h2>
         
-        <div class="video-container">
+        <div class="video-container" style="display: none;">
           <iframe id="vimeo-block-e" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
 
@@ -1612,7 +1606,7 @@
       <section id="blockF" class="section-card">
         <h2 style="margin-top: 0;">重點營養和保健</h2>
         
-        <div class="video-container">
+        <div class="video-container" style="display: none;">
           <iframe id="vimeo-block-f" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
 
@@ -2196,14 +2190,16 @@ ________________
     "spec": "1件裝 (主機+控制器)",
     "origin": "台灣",
     "intro": "近紅外線雙光物理光生物調節(PBM)與深層高頻震動按摩雙效合一！具備122組高密度雙晶LED(630nm可見紅光修復表皮微血管，850nm近紅外線深層穿透椎管、關節與神經根)。光波被粒線體細胞色素C氧化酶吸收，爆發性生成ATP供應肌漿網鈣泵(SERCA)收回鈣離子放鬆痙攣肌肉；敷於腰背部直接消退神經根水腫發炎，敷於小腿刺激血管內皮釋放一氧化氮(NO)並解除肌筋膜黏連。",
-    "target": "頸腰椎骨刺壓迫神經麻痛、腕隧道症候群、夜間小腿扎醒、小腿深靜脈淤血水腫、肩頸下背僵硬、退化性關節炎人士。",
+    "target": "頸腰椎骨刺壓迫神經麻痛、腕隧道症候群、夜間反覆驚醒、下肢深靜脈淤血水腫、肩頸下背僵硬、自律神經緊繃人士。",
     "ingredients": "醫療級波長雙光譜LED晶片(630nm可見紅光 + 850nm不可見近紅外線，比例1:2)、4組微型高頻振動馬達、2000mAh大容量鋰電池、超薄人體工學軟帶。",
-    "usage": "每天使用1-2次，每次10-20分鐘(智能定時)。扎醒麻痺者：前10分鐘敷腰背薦椎解除神經卡壓，後10分鐘敷小腿腹/足底激發微循環與ATP。",
+    "usage": "每天使用 1–2 次，每次 10–20 分鐘(智能定時)。夜間常醒者：前 10 分鐘敷後枕部或腰薦椎平息交感神經，後 10 分鐘敷小腿腹激發微循環與 ATP。",
     "warning": "孕婦、惡性腫瘤、急性開放性傷口或嚴重急性發炎處避免照射。850nm為肉眼不可見光譜，燈珠看似微弱為正常現象。",
     "mechanisms": {
       "4": "PBM光生物調節直接刺激細胞色素C氧化酶，爆發性合成ATP供應肌漿網鈣泵(SERCA)解開肌肉收縮卡死。",
       "5": "【對應Block F迷走神經重置】紅光溫熱與物理微震動能深層放鬆後枕部顱底緊繃肌筋膜，釋放迷走神經幹周邊張力；光波能量促進局部血液循環，強制引導大腦由交感警戒切換為副交感修復模式，切斷焦慮清醒的死鎖迴路。物理光療是重置迷走神經的極佳介入手段。此設備能配合按摩震動放鬆緊繃的交感神經，緩解高壓帶來的心身疲勞，全面改善睡眠品質。其850nm近紅外線能深入皮下組織，刺激線粒體產生三磷酸腺苷（ATP），為細胞修復提供能量。睡前將紅光帶應用於後枕部或肩頸，能物理性阻斷安保系統的過度神經質反應。"
-    }
+    },
+    "demoImg1": "/images/products/0368-demo1.webp",
+    "demoImg2": "/images/products/0368-demo2.webp"
   },
   {
     "id": "34330",
@@ -2781,15 +2777,23 @@ ________________
 
       // Block D
       document.getElementById('block-d-title').innerText = `成因解碼：${cData.name}`;
+      const vimeoD = document.getElementById('vimeo-block-d');
       if (cData.vimeoD) {
-        document.getElementById('vimeo-block-d').src = `https://player.vimeo.com/video/${cData.vimeoD}`;
+        vimeoD.src = `https://player.vimeo.com/video/${cData.vimeoD}`;
+        vimeoD.closest('.video-container').style.display = 'block';
+      } else {
+        vimeoD.closest('.video-container').style.display = 'none';
       }
       document.getElementById('block-d-bio').innerText = cData.bio;
       document.getElementById('block-d-eng').innerText = cData.eng;
 
       // Block E
+      const vimeoE = document.getElementById('vimeo-block-e');
       if (cData.vimeoE) {
-        document.getElementById('vimeo-block-e').src = `https://player.vimeo.com/video/${cData.vimeoE}`;
+        vimeoE.src = `https://player.vimeo.com/video/${cData.vimeoE}`;
+        vimeoE.closest('.video-container').style.display = 'block';
+      } else {
+        vimeoE.closest('.video-container').style.display = 'none';
       }
       let stepsHtml = '';
       cData.steps.forEach(s => {
@@ -2804,8 +2808,12 @@ ________________
       document.getElementById('block-e-warn').innerText = cData.warn;
 
       // Block F
+      const vimeoF = document.getElementById('vimeo-block-f');
       if (cData.vimeoF) {
-        document.getElementById('vimeo-block-f').src = `https://player.vimeo.com/video/${cData.vimeoF}`;
+        vimeoF.src = `https://player.vimeo.com/video/${cData.vimeoF}`;
+        vimeoF.closest('.video-container').style.display = 'block';
+      } else {
+        vimeoF.closest('.video-container').style.display = 'none';
       }
       let nutHtml = '';
       cData.nutrition.forEach(n => {
@@ -3007,15 +3015,20 @@ ________________
       const orderData = {
         type: "order",
         orderId: orderId,
-        topicName: "半夜扎醒",
+        topicName: "半夜扎醒專題",
         timestamp: now.toISOString(),
         causeId: selectedCauseId,
         causeName: CAUSES_DATA[selectedCauseId].name,
-        recipient: { name, phone, address, hasLift: hasLift ? "有升降機" : "無升降機（需行樓梯）" },
+        primaryCause: CAUSES_DATA[selectedCauseId].name,
+        recipient: name,
+        phone: phone,
+        address: address,
+        hasLift: hasLift,
         items: orderItems,
-        subtotal,
-        shipping,
-        total
+        itemsSummary: orderItems.join(", "),
+        subtotal: subtotal,
+        shipping: shipping,
+        total: total
       };
 
       // 軌道一：WhatsApp 對話喚起 (帶入唯一訂單編號)

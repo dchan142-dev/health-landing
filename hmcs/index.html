@@ -224,7 +224,7 @@
       border-color: var(--color-text-sub);
     }
 
-    /* === 雙階段流程卡片 === */
+    /* === 雙階段服務流程卡片 === */
     .stage-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -284,36 +284,105 @@
       margin-bottom: 6px;
     }
 
-    /* === Bento Grid === */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 20px;
-    }
-
-    .bento-grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-top: 20px;
-    }
-
-    .bento-item {
-      background: #FFFFFF;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: 22px;
-      transition: all 0.2s ease;
+    /* === 原生純淨圖文流（條列自適應結構，解除 Block/Bento 限制） === */
+    .flow-list {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      gap: 14px;
+      margin-top: 24px;
+      width: 100%;
     }
 
-    .bento-item:hover {
-      border-color: var(--color-accent);
+    .flow-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 22px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow-sm);
-      transform: translateY(-2px);
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .flow-item:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .flow-icon {
+      flex-shrink: 0;
+      font-size: 26px;
+      line-height: 1;
+      padding-top: 2px;
+    }
+
+    .flow-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .flow-body h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 0 0 6px 0;
+      line-height: 1.4;
+    }
+
+    .flow-body p {
+      font-size: 15px;
+      color: var(--color-text-sub);
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    /* 願景區塊（純淨自適應結構） */
+    .vision-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 24px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .vision-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 22px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .vision-item:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .vision-item h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-accent);
+      margin: 0 0 6px 0;
+      line-height: 1.4;
+    }
+
+    .vision-item p {
+      font-size: 15px;
+      color: var(--color-text-sub);
+      margin: 0;
+      line-height: 1.65;
     }
 
     /* === 顧問背書卡片 === */
@@ -527,118 +596,6 @@
       color: #FFFFFF;
     }
 
-    /* === Block C：本服務適合什麼人 === */
-    .audience-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 20px;
-      width: 100%;
-    }
-
-    .audience-card {
-      background: #FFFFFF;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: 20px 22px;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      transition: all 0.2s ease;
-    }
-
-    .audience-card:hover {
-      border-color: var(--color-accent);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .audience-icon {
-      font-size: 28px;
-      line-height: 1;
-      margin-bottom: 8px;
-      padding: 0;
-    }
-
-    .audience-card h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--color-primary);
-      margin: 0 0 8px 0;
-      line-height: 1.4;
-    }
-
-    .audience-card p {
-      font-size: 14px;
-      color: var(--color-text-sub);
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    /* === Block D：Health Decoder 服務的優勢和特色 === */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 20px;
-      width: 100%;
-    }
-
-    .feature-card {
-      background: #FFFFFF;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: 18px 20px;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 14px;
-      width: 100%;
-      box-sizing: border-box;
-      transition: all 0.2s ease;
-    }
-
-    .feature-card:hover {
-      border-color: var(--color-accent);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .feature-card.full-width {
-      grid-column: span 2;
-    }
-
-    .feature-icon {
-      flex-shrink: 0;
-      width: 36px;
-      font-size: 26px;
-      line-height: 1;
-      padding-top: 2px;
-    }
-
-    .feature-content {
-      flex: 1 1 0%;
-      min-width: 0;
-    }
-
-    .feature-content h3 {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--color-primary);
-      margin: 0 0 6px 0;
-      line-height: 1.4;
-    }
-
-    .feature-content p {
-      font-size: 14px;
-      color: var(--color-text-sub);
-      margin: 0;
-      line-height: 1.6;
-    }
-
     /* === 響應式佈局 === */
     @media (max-width: 768px) {
       body {
@@ -657,35 +614,23 @@
       .stage-container {
         grid-template-columns: 1fr;
       }
-      .bento-grid {
-        grid-template-columns: 1fr;
-      }
-      .bento-grid-2 {
-        grid-template-columns: 1fr;
-      }
-      .audience-grid {
-        grid-template-columns: 1fr;
+      .flow-item, .vision-item {
+        padding: 16px 16px;
         gap: 12px;
       }
-      .audience-card {
-        padding: 16px 18px;
+      .flow-icon {
+        font-size: 22px;
       }
-      .features-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+      .flow-body h3, .vision-item h3 {
+        font-size: 17px;
       }
-      .feature-card {
-        padding: 16px 18px;
-      }
-      .feature-card.full-width {
-        grid-column: auto;
+      .flow-body p, .vision-item p {
+        font-size: 14px;
       }
       .modal-box {
         padding: 24px 18px;
       }
     }
-
   </style>
 </head>
 <body>
@@ -701,7 +646,7 @@
 
   <main class="container">
 
-    <!-- Block A：首屏核心區 -->
+    <!-- 一、首屏 Hero 核心區 -->
     <section class="section-card" style="text-align: center; padding-top: 48px; padding-bottom: 48px;">
       <div class="badge">
         專業源頭分析 ✕ 系統式管理 ✕ 目標導向式跟進
@@ -734,7 +679,7 @@
       </div>
     </section>
 
-    <!-- Block B：服務流程圖（雙階段清晰透明九大服務進程） -->
+    <!-- 二、服務流程圖（雙階段清晰透明九大服務進程） -->
     <section id="process-flow" class="section-card" style="scroll-margin-top: 80px;">
       <div style="text-align: center; margin-bottom: 16px;">
         <div class="badge">服務流程</div>
@@ -858,7 +803,7 @@
       </div>
     </section>
 
-    <!-- Block C：本服務適合什麼人 -->
+    <!-- 三、對象聚焦（本服務適合什麼人） -->
     <section class="section-card">
       <div style="text-align: center; margin-bottom: 24px;">
         <div class="badge">對象聚焦</div>
@@ -868,34 +813,40 @@
         </p>
       </div>
 
-      <div class="audience-grid">
-        <div class="audience-card">
-          <div class="audience-icon">🧭</div>
-          <h3>不知自身保健是否對症者</h3>
-          <p>
-            家裡保健品繁多，或嘗試過各種坊間偏方，卻始終不知道是否真正切合自身底層狀況，渴望有科學方法認清真正根源。
-          </p>
+      <div class="flow-list">
+        <div class="flow-item">
+          <div class="flow-icon">🧭</div>
+          <div class="flow-body">
+            <h3>不知自身保健是否對症者</h3>
+            <p>
+              家裡保健品繁多，或嘗試過各種坊間偏方，卻始終不知道是否真正切合自身底層狀況，渴望有科學方法認清真正根源。
+            </p>
+          </div>
         </div>
 
-        <div class="audience-card">
-          <div class="audience-icon">⚖️</div>
-          <h3>缺乏計劃與指導而擔心無效者</h3>
-          <p>
-            在缺乏系統計劃和專業指引的情況下，擔心盲目摸索無法達到預期健康效果，既耗費時間與金錢，又擔心造成身體額外負擔。
-          </p>
+        <div class="flow-item">
+          <div class="flow-icon">⚖️</div>
+          <div class="flow-body">
+            <h3>缺乏計劃與指導而擔心無效者</h3>
+            <p>
+              在缺乏系統計劃和專業指引的情況下，擔心盲目摸索無法達到預期健康效果，既耗費時間與金錢，又擔心造成身體額外負擔。
+            </p>
+          </div>
         </div>
 
-        <div class="audience-card">
-          <div class="audience-icon">🤝</div>
-          <h3>願意承諾負責且需要系統與他律者</h3>
-          <p>
-            願意向自己的健康作出承諾與負責，有明確決心想改善健康，而需要有一套科學系統與專業他律協助，督促並陪伴落實方案的人。
-          </p>
+        <div class="flow-item">
+          <div class="flow-icon">🤝</div>
+          <div class="flow-body">
+            <h3>願意承諾負責且需要系統與他律者</h3>
+            <p>
+              願意向自己的健康作出承諾與負責，有明確決心想改善健康，而需要有一套科學系統與專業他律協助，督促並陪伴落實方案的人。
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Block D：Health Decoder 服務的優勢和特色 -->
+    <!-- 四、核心優勢（Health Decoder 服務的優勢和特色） -->
     <section class="section-card">
       <div style="text-align: center; margin-bottom: 24px;">
         <div class="badge">核心優勢</div>
@@ -905,11 +856,11 @@
         </p>
       </div>
 
-      <div class="features-grid">
-        <!-- 卡片 1 -->
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <div class="feature-content">
+      <div class="flow-list">
+        <!-- 優勢 1 -->
+        <div class="flow-item">
+          <div class="flow-icon">📊</div>
+          <div class="flow-body">
             <h3>數據和科學邏輯，精準直擊源頭</h3>
             <p>
               用數據和科學邏輯找出潛在的問題成因，務求能精準地從源頭入手，非頭痛醫頭、腳痛醫腳。
@@ -917,10 +868,10 @@
           </div>
         </div>
 
-        <!-- 卡片 2 -->
-        <div class="feature-card">
-          <div class="feature-icon">🛡️</div>
-          <div class="feature-content">
+        <!-- 優勢 2 -->
+        <div class="flow-item">
+          <div class="flow-icon">🛡️</div>
+          <div class="flow-body">
             <h3>安全務實，恪守與醫療體系的分工</h3>
             <p>
               堅守安全可靠、務實的方案和可執行的計劃；劃清和醫療體系明確的角色和分工。不會盲目叫人作出和專業醫護矛盾的行為。
@@ -928,10 +879,10 @@
           </div>
         </div>
 
-        <!-- 卡片 3 -->
-        <div class="feature-card">
-          <div class="feature-icon">🌱</div>
-          <div class="feature-content">
+        <!-- 優勢 3 -->
+        <div class="flow-item">
+          <div class="flow-icon">🌱</div>
+          <div class="flow-body">
             <h3>輕鬆融入生活，拒絕苛刻極端</h3>
             <p>
               不要求苛刻或極端的改善進程，按客人情況和需要，逐步調整讓客人漸漸養成習慣，自然地逐步改善。
@@ -939,10 +890,10 @@
           </div>
         </div>
 
-        <!-- 卡片 4 -->
-        <div class="feature-card">
-          <div class="feature-icon">⚙️</div>
-          <div class="feature-content">
+        <!-- 優勢 4 -->
+        <div class="flow-item">
+          <div class="flow-icon">⚙️</div>
+          <div class="flow-body">
             <h3>系統和數據化管理，杜絕主觀慣性</h3>
             <p>
               系統和數據化的管理及跟進，不憑主觀和慣性，以確保計劃目標有效達成。
@@ -950,10 +901,10 @@
           </div>
         </div>
 
-        <!-- 卡片 5 -->
-        <div class="feature-card full-width">
-          <div class="feature-icon">🤝</div>
-          <div class="feature-content">
+        <!-- 優勢 5 -->
+        <div class="flow-item">
+          <div class="flow-icon">🤝</div>
+          <div class="flow-body">
             <h3>尊重自主權，教練式引導與陪伴</h3>
             <p>
               按客人情況狀況意願和決心去釐定目標和計劃，將主導權交回給客人，我們從顧問、管理、提醒、陪伴、建議、教練式引導方面來提供協助。
@@ -963,7 +914,7 @@
       </div>
     </section>
 
-    <!-- Block E：專屬健康願景 -->
+    <!-- 五、專屬健康願景 -->
     <section class="section-card" style="text-align: center;">
       <div class="badge">健康願景</div>
       <h2>重獲清晰掌控，找回生活的從容與自理底氣</h2>
@@ -971,31 +922,40 @@
         當健康不再是負擔與迷霧，生活就能重回理想節奏
       </p>
 
-      <div class="bento-grid">
-        <div class="bento-item" style="text-align: left;">
-          <h3 style="color: var(--color-accent); font-size: 17px;">撥開迷霧掌握健康</h3>
-          <p class="text-sub">
-            不再盲目試錯，清楚看透身體真正所需，告別無效花費與無謂焦慮。
-          </p>
+      <div class="vision-list">
+        <div class="vision-item">
+          <div class="flow-icon">✨</div>
+          <div class="flow-body">
+            <h3>撥開迷霧掌握健康</h3>
+            <p>
+              不再盲目試錯，清楚看透身體真正所需，告別無效花費與無謂焦慮。
+            </p>
+          </div>
         </div>
 
-        <div class="bento-item" style="text-align: left;">
-          <h3 style="color: var(--color-accent); font-size: 17px;">步步踏實機能回升</h3>
-          <p class="text-sub">
-            在系統引導與專業陪伴下，每一步改善看得見、摸得著，體力充沛安心前行。
-          </p>
+        <div class="vision-item">
+          <div class="flow-icon">⚡</div>
+          <div class="flow-body">
+            <h3>步步踏實機能回升</h3>
+            <p>
+              在系統引導與專業陪伴下，每一步改善看得見、摸得著，體力充沛安心前行。
+            </p>
+          </div>
         </div>
 
-        <div class="bento-item" style="text-align: left;">
-          <h3 style="color: var(--color-accent); font-size: 17px;">守護尊嚴自立自理</h3>
-          <p class="text-sub">
-            將好習慣穩固在生活之中，維持硬朗體魄與生活尊嚴，永遠做家庭最安心的靠山。
-          </p>
+        <div class="vision-item">
+          <div class="flow-icon">🛡️</div>
+          <div class="flow-body">
+            <h3>守護尊嚴自立自理</h3>
+            <p>
+              將好習慣穩固在生活之中，維持硬朗體魄與生活尊嚴，永遠做家庭最安心的靠山。
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Block F：底部行動呼籲區塊 (CTA) -->
+    <!-- 六、底部行動呼籲區塊 (CTA) -->
     <section class="section-card" style="text-align: center; border: 2px solid var(--color-accent); padding: 48px 32px;">
       <h2>開展您的專屬健康管理計劃</h2>
       <p class="lead-text" style="max-width: 780px; margin: 0 auto 32px auto; text-align: justify;">
@@ -1009,7 +969,7 @@
       </div>
     </section>
 
-    <!-- Block G：專業聲明與服務承諾 (Disclaimer) -->
+    <!-- 七、專業聲明與服務承諾 (Disclaimer) -->
     <div class="disclaimer-card">
       <strong>專業聲明與服務承諾</strong>
       <p style="margin-bottom: 8px;">

@@ -1,1609 +1,207 @@
-<!DOCTYPE html>
-<html lang="zh-HK">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>HMCS 專屬健康管理及顧問服務 ｜ Health Decoder 健康解碼</title>
-  <style>
-    /* ==========================================================================
-       Health-Decoder.com 全站統一設計規範 (Design System v5.0 - Bento Grid)
-       標準：WCAG 2.1 AA 無障礙規範 | 2026 DTC Bento Grid 模組化佈局
-       ========================================================================== */
-    :root {
-      --color-primary: #0F172A;
-      --color-primary-dark: #020617;
-      --color-primary-light: #F1F5F9;
-      --color-accent: #0D9488;
-      --color-accent-hover: #0F766E;
-      --color-accent-light: #CCFBF1;
-      --color-accent-text: #115E59;
-      
-      --color-wa: #25D366;
-      --color-wa-hover: #1EBE5D;
-      
-      --color-danger: #EF4444;
-      --color-danger-bg: #FEF2F2;
-      --color-warning: #F59E0B;
-      --color-warning-bg: #FFFBEB;
-      
-      --color-text-main: #1E293B;
-      --color-text-muted: #475569;
-      --color-text-sub: #64748B;
-      
-      --color-bg: #F8FAFC;
-      --color-surface: #FFFFFF;
-      --color-border: #E2E8F0;
-      
-      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-      
-      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
-      --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.06);
-      --shadow-lg: 0 12px 30px rgba(15, 23, 42, 0.09);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font-stack);
-      font-size: 18px;
-      line-height: 1.75;
-      color: var(--color-text-main);
-      background-color: var(--color-bg);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      padding-bottom: 80px;
-    }
-
-    /* === 導航列 (封閉式純淨零外跳) === */
-    .navbar {
-      background: var(--color-surface);
-      border-bottom: 1px solid var(--color-border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .nav-container {
-      max-width: 1080px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px;
-    }
-
-    .nav-brand {
-      font-size: 19px;
-      font-weight: 800;
-      color: var(--color-primary);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      letter-spacing: -0.3px;
-    }
-
-    .nav-brand span {
-      color: var(--color-accent);
-      font-weight: 700;
-      font-size: 15px;
-    }
-
-    /* === 主版面容器 === */
-    .container {
-      width: 100%;
-      max-width: 980px;
-      margin: 24px auto;
-      padding: 0 20px;
-    }
-
-    .section-card {
-      background: var(--color-surface);
-      border-radius: var(--radius-xl);
-      padding: 36px 32px;
-      box-shadow: var(--shadow-md);
-      border: 1px solid var(--color-border);
-      margin-bottom: 32px;
-    }
-
-    /* === 排版階梯 === */
-    h1 {
-      font-size: 32px;
-      line-height: 1.35;
-      font-weight: 800;
-      color: var(--color-primary);
-      margin-bottom: 16px;
-      letter-spacing: -0.5px;
-    }
-
-    h2 {
-      font-size: 24px;
-      line-height: 1.4;
-      font-weight: 800;
-      color: var(--color-primary);
-      margin: 28px 0 16px 0;
-    }
-
-    h3 {
-      font-size: 18px;
-      line-height: 1.45;
-      font-weight: 700;
-      color: var(--color-primary);
-      margin-bottom: 8px;
-    }
-
-    p {
-      margin-bottom: 16px;
-      color: var(--color-text-main);
-    }
-
-    .text-muted {
-      color: var(--color-text-muted);
-    }
-
-    .text-sub {
-      color: var(--color-text-sub);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .lead-text {
-      font-size: 19px;
-      line-height: 1.8;
-      color: var(--color-text-muted);
-      margin-bottom: 24px;
-    }
-
-    /* === 標籤 Badge === */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      background: var(--color-accent-light);
-      color: var(--color-accent-text);
-      font-size: 14px;
-      font-weight: 700;
-      border-radius: 9999px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(13, 148, 136, 0.2);
-    }
-
-    /* === 按鈕體系 (Touch Target >= 52px, 純文字無符號) === */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      min-height: 52px;
-      font-size: 18px;
-      font-weight: 700;
-      border-radius: var(--radius-md);
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      padding: 12px 24px;
-      text-align: center;
-      transition: all 0.2s ease;
-      line-height: 1.3;
-    }
-
-    .btn-primary {
-      background: var(--color-accent);
-      color: #FFFFFF;
-      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
-    }
-
-    .btn-primary:hover {
-      background: var(--color-accent-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(13, 148, 136, 0.4);
-    }
-
-    .btn-outline {
-      background: #FFFFFF;
-      color: var(--color-primary);
-      border: 1px solid var(--color-border);
-    }
-
-    .btn-outline:hover {
-      background: var(--color-primary-light);
-      border-color: var(--color-text-sub);
-    }
-
-    /* === 雙階段流程卡片 === */
-    .stage-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-top: 24px;
-    }
-
-    .stage-card {
-      background: var(--color-bg);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-xl);
-      padding: 28px 24px;
-      position: relative;
-      border-top: 5px solid var(--color-accent);
-    }
-
-    .stage-header {
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .stage-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--color-primary);
-    }
-
-    .stage-step-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .stage-step-item {
-      background: #FFFFFF;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      padding: 16px 18px;
-      transition: all 0.2s ease;
-    }
-
-    .stage-step-item:hover {
-      border-color: var(--color-accent);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .step-badge {
-      display: inline-block;
-      padding: 2px 8px;
-      background: var(--color-accent-light);
-      color: var(--color-accent-text);
-      font-size: 12px;
-      font-weight: 800;
-      border-radius: 4px;
-      margin-bottom: 6px;
-    }
-
-    /* === Bento Grid === */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 20px;
-    }
-
-    .bento-grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-top: 20px;
-    }
-
-    .bento-item {
-      background: #FFFFFF;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: 22px;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .bento-item:hover {
-      border-color: var(--color-accent);
-      box-shadow: var(--shadow-sm);
-      transform: translateY(-2px);
-    }
-
-    /* === 顧問背書卡片 === */
-    .endorsement-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 20px 24px;
-      background: var(--color-primary-light);
-      border-radius: var(--radius-lg);
-      border-left: 4px solid var(--color-accent);
-      margin-top: 24px;
-      text-align: left;
-    }
-
-    .endorsement-title {
-      font-weight: 800;
-      color: var(--color-primary);
-      margin-bottom: 4px;
-      font-size: 16px;
-    }
-
-    .endorsement-desc {
-      font-size: 15px;
-      color: var(--color-text-muted);
-      line-height: 1.6;
-      margin-bottom: 0;
-    }
-
-    /* === Disclaimer 區塊 === */
-    .disclaimer-card {
-      background: #F1F5F9;
-      border-radius: var(--radius-lg);
-      padding: 22px;
-      font-size: 14px;
-      color: var(--color-text-sub);
-      line-height: 1.65;
-      border: 1px solid var(--color-border);
-    }
-
-    .disclaimer-card strong {
-      color: var(--color-text-muted);
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    /* === 浮動回頂部 === */
-    .back-to-top {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--color-surface);
-      color: var(--color-accent);
-      border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      z-index: 90;
-      transition: all 0.2s ease;
-    }
-
-    .back-to-top:hover {
-      background: var(--color-accent);
-      color: #FFFFFF;
-      transform: translateY(-2px);
-    }
-
-    /* === HNA 彈窗 (Modal) === */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(6px);
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    .modal-box {
-      background: var(--color-surface);
-      border-radius: var(--radius-xl);
-      max-width: 820px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 36px 32px;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--color-border);
-      position: relative;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--color-text-sub);
-      background: none;
-      border: none;
-      cursor: pointer;
-      line-height: 1;
-      padding: 8px;
-    }
-
-    .modal-close:hover {
-      color: var(--color-primary);
-    }
-
-    .form-section {
-      background: var(--color-bg);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .form-section-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--color-primary);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .input-field {
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--color-border);
-      background: #FFFFFF;
-      font-size: 15px;
-      color: var(--color-text-main);
-      font-family: var(--font-stack);
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    .input-field:focus {
-      border-color: var(--color-accent);
-    }
-
-    /* === 展開式選項卡片 (替代下拉選單) === */
-    .option-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 12px 14px;
-      background: #FFFFFF;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      line-height: 1.45;
-    }
-
-    .option-card:hover {
-      border-color: var(--color-accent);
-      background: #FAFDFF;
-    }
-
-    .option-card input {
-      margin-top: 3px;
-      accent-color: var(--color-accent);
-    }
-
-    .option-card-title {
-      font-weight: 700;
-      color: var(--color-primary);
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .option-card-desc {
-      font-size: 13px;
-      color: var(--color-text-sub);
-      display: block;
-      line-height: 1.4;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--color-accent);
-    }
-
-    .gap-badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 800;
-      background: var(--color-accent-light);
-      color: var(--color-accent-text);
-    }
-
-    .gap-badge.highlight {
-      background: var(--color-accent);
-      color: #FFFFFF;
-    }
-
-    /* === 響應式佈局 === */
-    @media (max-width: 768px) {
-      body {
-        font-size: 17px;
-      }
-      .section-card {
-        padding: 24px 18px;
-        margin-bottom: 24px;
-      }
-      h1 {
-        font-size: 26px;
-      }
-      h2 {
-        font-size: 21px;
-      }
-      .stage-container {
-        grid-template-columns: 1fr;
-      }
-      .bento-grid {
-        grid-template-columns: 1fr;
-      }
-      .bento-grid-2 {
-        grid-template-columns: 1fr;
-      }
-      .modal-box {
-        padding: 24px 18px;
-      }
-    }
-  
-    /* ========================================================
-       手機排版緊湊化與卡片防擠壓強制覆蓋 (針對 Mobile 375px)
-       ======================================================== */
-    /* 1. 核心優勢卡片容器：強制單欄垂直堆疊，卡片 100% 滿版 */
-    .bento-grid-2, .features-grid, .grid-5-col {
-      display: flex !important;
-      flex-direction: column !important;
-      width: 100% !important;
-      gap: 12px !important;
-    }
-    .feature-card, .features-grid > div, .bento-grid-2 > .bento-item {
-      width: 100% !important;
-      min-width: 100% !important;
-      box-sizing: border-box !important;
-      padding: 16px !important;
-      margin: 0 !important;
-    }
-    .bento-grid-2 > .bento-item > div {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      width: 100%;
-    }
-    .bento-grid-2 > .bento-item .bento-feature-icon {
-      flex-shrink: 0;
-      width: 32px;
-      font-size: 24px;
-      line-height: 1;
-    }
-    .bento-grid-2 > .bento-item .bento-feature-content {
-      flex-grow: 1;
-      min-width: 0;
-    }
-    .bento-grid-2 > .bento-item .bento-feature-content h3 {
-      font-size: 17px !important;
-      line-height: 1.4 !important;
-      margin-bottom: 6px !important;
-    }
-    .bento-grid-2 > .bento-item .bento-feature-content p {
-      font-size: 14px !important;
-      line-height: 1.6 !important;
-      margin-bottom: 0 !important;
-    }
-
-    /* 2. 本服務適合什麼人：壓縮無效留白，緊湊圖文結構 */
-    .target-audience-card, .audience-grid > div {
-      padding: 16px !important;
-      margin-bottom: 12px !important;
-    }
-    .audience-icon-wrapper {
-      margin-bottom: 8px !important;
-      padding: 0 !important;
-      height: auto !important;
-      line-height: 1 !important;
-      font-size: 28px !important;
-    }
-    .target-audience-card h3, .audience-card h3, .audience-card .card-title {
-      margin: 4px 0 8px 0 !important;
-      font-size: 18px !important;
-      line-height: 1.4 !important;
-    }
-
-    /* 3. 桌面端 (>= 768px) 恢復橫排網格 */
-    @media (min-width: 768px) {
-      .bento-grid-2, .features-grid, .grid-5-col {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 18px !important;
-      }
-      .feature-card, .features-grid > div, .bento-grid-2 > .bento-item {
-        width: auto !important;
-        min-width: 0 !important;
-      }
-      .bento-grid-2 > .bento-item:last-child {
-        grid-column: span 2 !important;
-      }
-    }
-
-  </style>
-</head>
-<body>
-
-  <!-- 頂部導航欄 (純淨無外跳、無按鈕) -->
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="nav-brand">
-        🔬 Health Decoder 健康解碼 <span>｜ 專屬健康管理及顧問服務（HMCS）</span>
-      </a>
-    </div>
-  </header>
-
-  <main class="container">
-
-    <!-- Block A：首屏核心區 -->
-    <section class="section-card" style="text-align: center; padding-top: 48px; padding-bottom: 48px;">
-      <div class="badge">
-        專業源頭分析 ✕ 系統式管理 ✕ 目標導向式跟進
-      </div>
-
-      <h1>
-        認清源頭，配對合適方案<br>
-        <span style="color: var(--color-accent);">協助訂立並達成目標</span>
-      </h1>
-
-      <p class="lead-text" style="max-width: 820px; margin: 0 auto 32px auto; text-align: justify;">
-        我們主張：安全、可靠、輕鬆、不會成為負擔及浪費的方案；逐步透過理性、系統化、定時跟進的量身制定專屬調理進程，將健康生活融入習慣中，幫你重拾充沛活力與生活尊嚴。
-      </p>
-
-      <div style="max-width: 420px; margin: 0 auto 36px auto;">
-        <a href="#process-flow" class="btn btn-primary">
-          了解如何量身制定專屬調理進程
-        </a>
-      </div>
-
-      <!-- 顧問背書卡片 -->
-      <div class="endorsement-card" style="max-width: 680px; margin-left: auto; margin-right: auto;">
-        <div style="font-size: 32px;">👨‍🔬</div>
-        <div>
-          <div class="endorsement-title">Duncan Chan ｜ 工程師邏輯 ✕ 代謝底層解碼</div>
-          <div class="endorsement-desc">
-            拒將退化當宿命，從源頭除錯。不開空頭支票，以達成雙方約定目標為本，守住不求人的自理底氣。
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Block B：服務流程圖（雙階段清晰透明九大服務進程） -->
-    <section id="process-flow" class="section-card" style="scroll-margin-top: 80px;">
-      <div style="text-align: center; margin-bottom: 16px;">
-        <div class="badge">服務流程</div>
-        <h2>掌握健康的主導權：清晰透明的服務進程</h2>
-        <p class="text-muted" style="font-size: 16px; max-width: 720px; margin: 0 auto;">
-          本流程分為兩大核心階段，完整涵蓋從初步健康分析到終生成果驗收的九大步驟，強調客觀數據驅動、深度教練陪伴與長久自理能力。
-        </p>
-      </div>
-
-      <div class="stage-container">
-        <!-- 階段一：精準評估與方案定制 -->
-        <div class="stage-card">
-          <div class="stage-header">
-            <span class="badge" style="margin-bottom: 6px;">階段一</span>
-            <div class="stage-title">精準評估與方案定制</div>
-            <p class="text-sub" style="margin-bottom: 0; margin-top: 4px;">從客觀數據出發，找出失衡成因，確立專屬方案</p>
-          </div>
-
-          <div class="stage-step-list">
-            <!-- 步驟 01 -->
-            <div class="stage-step-item">
-              <span class="step-badge">步驟 01</span>
-              <h3>HNA 了解健康需求及意願</h3>
-              <p class="text-sub" style="margin-bottom: 0;">
-                線上完成深度健康需求分析，多維度梳理個人現況、過往經驗、改善期望與執行決心。
-              </p>
-            </div>
-
-            <!-- 步驟 02 -->
-            <div class="stage-step-item">
-              <span class="step-badge">步驟 02</span>
-              <h3>健康評估（線下數據收集）</h3>
-              <p class="text-sub" style="margin-bottom: 0;">
-                結合詳細自評與專屬線下檢測，全方位採集微血管供血、組織水分與代謝深層客觀生理數據。
-              </p>
-            </div>
-
-            <!-- 步驟 03 -->
-            <div class="stage-step-item">
-              <span class="step-badge">步驟 03</span>
-              <h3>個人專屬健康評估報告</h3>
-              <p class="text-sub" style="margin-bottom: 0;">
-                整合客觀檢測數據與日常主觀體感，編制具系統邏輯與因果脈絡的個人專屬評估報告。
-              </p>
-            </div>
-
-            <!-- 步驟 04 -->
-            <div class="stage-step-item">
-              <span class="step-badge">步驟 04</span>
-              <h3>線下會議：報告解讀與方向確認</h3>
-              <p class="text-sub" style="margin-bottom: 0;">
-                面對面逐頁解讀生理數據，分析根本失衡成因，同時共同確認實質改善方向與目標。
-              </p>
-            </div>
-
-            <!-- 步驟 05 -->
-            <div class="stage-step-item">
-              <span class="step-badge">步驟 05</span>
-              <h3>量身訂製專屬方案及計劃書</h3>
-              <p class="text-sub" style="margin-bottom: 0;">
-                按共識目標度身設計融入日常生活的調理進程，配搭精準細胞營養支持，不造成生活負擔。
-              </p>
-            </div>
-
-            <!-- 步驟 06 -->
-            <div class="stage-step-item">
-              <span class="step-badge">步驟 06</span>
-              <h3>最後確認改善方向與執行計劃</h3>
-              <p class="text-sub" style="margin-bottom: 0;">
-                由您親自審閱並確認所有執行細節、生活微習慣與改善指標，確保雙方步調完全一致。
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 階段二：陪伴執行與成果驗收 -->
-        <div class="stage-card">
-          <div class="stage-header">
-            <span class="badge" style="margin-bottom: 6px;">階段二</span>
-            <div class="stage-title">陪伴執行與成果驗收</div>
-            <p class="text-sub" style="margin-bottom: 0; margin-top: 4px;">一對一教練陪伴，動態微調，將成效固化為終生自理</p>
-          </div>
-
-          <div class="stage-step-list">
-            <!-- 步驟 07 -->
-            <div class="stage-step-item">
-              <span class="step-badge">步驟 07</span>
-              <h3>啟動個人化一對一教練進程</h3>
-              <p class="text-sub" style="margin-bottom: 0;">
-                完成確認與程序後，專屬資源配齊，顧問以教練夥伴身分陪伴，正式啟動個人化調理之旅。
-              </p>
-            </div>
-
-            <!-- 步驟 08 -->
-            <div class="stage-step-item">
-              <span class="step-badge">步驟 08</span>
-              <h3>定期進行進度檢視與檢測（動態微調）</h3>
-              <p class="text-sub" style="margin-bottom: 0;">
-                每週定期跟進體感記錄與客觀數據覆測，根據當前動態狀況即時優化微調，保障按進度達標。
-              </p>
-            </div>
-
-            <!-- 步驟 09 -->
-            <div class="stage-step-item">
-              <span class="step-badge">步驟 09</span>
-              <h3>計劃完成後回顧與成果驗收（終生自理）</h3>
-              <p class="text-sub" style="margin-bottom: 0;">
-                重回線下進行儀器覆測，前後客觀數據並列對比驗收成效，並將調理成效轉化為終生自理習慣。
-              </p>
-            </div>
-          </div>
-
-          <!-- 視覺想像強調卡片 -->
-          <div style="margin-top: 20px; background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 18px;">
-            <strong style="color: var(--color-accent); font-size: 15px; display: block; margin-bottom: 4px;">雙階段核心精神</strong>
-            <p class="text-sub" style="margin-bottom: 0;">
-              我們不做空頭承諾，每一步清晰透明。透過階段一的數據取證確立共識，在階段二以定時跟進陪伴落實，讓健康生活自然融入習慣中。
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Block C：本服務適合什麼人 -->
-    <section class="section-card">
-      <div style="text-align: center; margin-bottom: 24px;">
-        <div class="badge">對象聚焦</div>
-        <h2>本服務適合什麼人</h2>
-        <p class="text-muted" style="font-size: 16px;">
-          我們專注為真正重視健康、渴望自主掌舵的朋友提供深度專業支持
-        </p>
-      </div>
-
-      <div class="bento-grid">
-        <div class="bento-item target-audience-card">
-          <div>
-            <div class="audience-icon-wrapper">🧭</div>
-            <h3>不知自身保健是否對症者</h3>
-            <p class="text-sub">
-              家裡保健品繁多，或嘗試過各種坊間偏方，卻始終不知道是否真正切合自身底層狀況，渴望有科學方法認清真正根源。
-            </p>
-          </div>
-        </div>
-
-        <div class="bento-item target-audience-card">
-          <div>
-            <div class="audience-icon-wrapper">⚖️</div>
-            <h3>缺乏計劃與指導而擔心無效者</h3>
-            <p class="text-sub">
-              在缺乏系統計劃和專業指引的情況下，擔心盲目摸索無法達到預期健康效果，既耗費時間與金錢，又擔心造成身體額外負擔。
-            </p>
-          </div>
-        </div>
-
-        <div class="bento-item target-audience-card">
-          <div>
-            <div class="audience-icon-wrapper">🤝</div>
-            <h3>願意承諾負責且需要系統與他律者</h3>
-            <p class="text-sub">
-              願意向自己的健康作出承諾與負責，有明確決心想改善健康，而需要有一套科學系統與專業他律協助，督促並陪伴落實方案的人。
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Block D：Health Decoder 服務的優勢和特色 -->
-    <section class="section-card">
-      <div style="text-align: center; margin-bottom: 24px;">
-        <div class="badge">核心優勢</div>
-        <h2>Health Decoder 服務的優勢和特色</h2>
-        <p class="text-muted" style="font-size: 16px;">
-          堅守專業底線，以理性與客觀數據為您量身規劃
-        </p>
-      </div>
-
-      <div class="bento-grid-2 features-grid">
-        <div class="bento-item feature-card">
-          <div>
-            <div class="bento-feature-icon">📊</div>
-            <div class="bento-feature-content">
-              <h3>數據和科學邏輯，精準直擊源頭</h3>
-              <p class="text-sub">
-                用數據和科學邏輯找出潛在的問題成因，務求能精準地從源頭入手，非頭痛醫頭、腳痛醫腳。
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bento-item feature-card">
-          <div>
-            <div class="bento-feature-icon">🛡️</div>
-            <div class="bento-feature-content">
-              <h3>安全務實，恪守與醫療體系的分工</h3>
-              <p class="text-sub">
-                堅守安全可靠、務實的方案和可執行的計劃；劃清和醫療體系明確的角色和分工。不會盲目叫人作出和專業醫護矛盾的行為。
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bento-item feature-card">
-          <div>
-            <div class="bento-feature-icon">🌱</div>
-            <div class="bento-feature-content">
-              <h3>輕鬆融入生活，拒絕苛刻極端</h3>
-              <p class="text-sub">
-                不要求苛刻或極端的改善進程，按客人情況和需要，逐步調整讓客人漸漸養成習慣，自然地逐步改善。
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bento-item feature-card">
-          <div>
-            <div class="bento-feature-icon">⚙️</div>
-            <div class="bento-feature-content">
-              <h3>系統和數據化管理，杜絕主觀慣性</h3>
-              <p class="text-sub">
-                系統和數據化的管理及跟進，不憑主觀和慣性，以確保計劃目標有效達成。
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bento-item feature-card">
-          <div>
-            <div class="bento-feature-icon">🤝</div>
-            <div class="bento-feature-content">
-              <h3>尊重自主權，教練式引導與陪伴</h3>
-              <p class="text-sub">
-                按客人情況狀況意願和決心去釐定目標和計劃，將主導權交回給客人，我們從顧問、管理、提醒、陪伴、建議、教練式引導方面來提供協助。
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Block E：專屬健康願景 -->
-    <section class="section-card" style="text-align: center;">
-      <div class="badge">健康願景</div>
-      <h2>重獲清晰掌控，找回生活的從容與自理底氣</h2>
-      <p class="text-muted" style="margin-bottom: 24px;">
-        當健康不再是負擔與迷霧，生活就能重回理想節奏
-      </p>
-
-      <div class="bento-grid">
-        <div class="bento-item" style="text-align: left;">
-          <h3 style="color: var(--color-accent); font-size: 17px;">撥開迷霧掌握健康</h3>
-          <p class="text-sub">
-            不再盲目試錯，清楚看透身體真正所需，告別無效花費與無謂焦慮。
-          </p>
-        </div>
-
-        <div class="bento-item" style="text-align: left;">
-          <h3 style="color: var(--color-accent); font-size: 17px;">步步踏實機能回升</h3>
-          <p class="text-sub">
-            在系統引導與專業陪伴下，每一步改善看得見、摸得著，體力充沛安心前行。
-          </p>
-        </div>
-
-        <div class="bento-item" style="text-align: left;">
-          <h3 style="color: var(--color-accent); font-size: 17px;">守護尊嚴自立自理</h3>
-          <p class="text-sub">
-            將好習慣穩固在生活之中，維持硬朗體魄與生活尊嚴，永遠做家庭最安心的靠山。
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Block F：底部行動呼籲區塊 (CTA) -->
-    <section class="section-card" style="text-align: center; border: 2px solid var(--color-accent); padding: 48px 32px;">
-      <h2>開展您的專屬健康管理計劃</h2>
-      <p class="lead-text" style="max-width: 780px; margin: 0 auto 32px auto; text-align: justify;">
-        收到申請後，我們會先進行線上溝通，深入了解您的狀況與意願是否適合本計劃。若評估暫不合適，我們仍會誠懇提出改善建議；若確認合適，將為您預約進行健康評估及線下健康檢測，收集客觀數據展開精準分析。
-      </p>
-
-      <div style="max-width: 440px; margin: 0 auto;">
-        <button onclick="openHnaModal()" class="btn btn-primary">
-          開始填寫 HNA 深度需求分析
-        </button>
-      </div>
-    </section>
-
-    <!-- Block G：專業聲明與服務承諾 (Disclaimer) -->
-    <div class="disclaimer-card">
-      <strong>專業聲明與服務承諾</strong>
-      <p style="margin-bottom: 8px;">
-        1. 嚴格遵守個人私隱及保密操守：所有填寫資料、諮詢記錄與後續檢測數據僅用於專屬健康管理分析，未經許可絕不向第三方透露。
-      </p>
-      <p style="margin-bottom: 8px;">
-        2. 服務全力承諾：一旦雙方達成改善計劃協議，在服務期內，我們將全力配合客戶，以共同訂立的目標為導向，提供全方位跟進與支持。
-      </p>
-      <p style="margin-bottom: 0;">
-        3. 角色定位說明：本專案所提供之諮詢與生活營養建議屬於健康管理範疇，非醫療機構，不提供醫療診斷或處方。如有急性病症或常規用藥疑問，請遵循執業醫生指示。
-      </p>
-    </div>
-
-  </main>
-
-  <!-- 浮動回頂部按鈕 (純文字無符號) -->
-  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top" title="回到頂部">
-    頂部
-  </button>
-
-  <!-- ==========================================================================
-       HNA 全功能原生互動 Modal (全面平鋪展開式卡片，淘汰下拉選單)
-       ========================================================================== -->
-  <div id="hnaModal" class="modal-overlay" style="display: none;">
-    <div class="modal-box">
-      <button onclick="closeHnaModal()" class="modal-close" title="關閉視窗">✕</button>
-      
-      <div style="border-bottom: 1px solid var(--color-border); padding-bottom: 16px; margin-bottom: 24px;">
-        <div class="badge" style="margin-bottom: 8px;">Health Needs Analysis</div>
-        <h2 style="margin: 0 0 6px 0;">個人專屬健康需求分析 (HNA)</h2>
-        <p class="text-sub" style="margin-bottom: 0;">
-          全方位盤點您的身體訊號、生活作息與用藥現況。填妥後系統將動態編譯標準 A4 專屬分析報告 (PDF) 供您即時下載與存檔。
-        </p>
-      </div>
-
-      <form id="hnaInteractiveForm" onsubmit="handleHnaModalSubmit(event)">
-        
-        <!-- 基本聯絡資料 -->
-        <div class="form-section">
-          <div class="form-section-title">👤 基本聯絡資料</div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 10px;">
-            <div>
-              <label class="text-sub" style="display: block; margin-bottom: 4px; font-weight: 700;">您的稱呼 *</label>
-              <input type="text" id="m_custName" required placeholder="例如：陳先生 / 李女士" class="input-field">
-            </div>
-            <div>
-              <label class="text-sub" style="display: block; margin-bottom: 4px; font-weight: 700;">WhatsApp 聯絡電話 *</label>
-              <div style="display: flex; gap: 8px;">
-                <span style="display: inline-flex; align-items: center; justify-content: center; padding: 0 12px; background: #F1F5F9; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; color: var(--color-primary);">+852</span>
-                <input type="tel" id="m_custPhone" required placeholder="例如：91234567 (8位數字)" maxlength="8" class="input-field" oninput="validatePhoneInput(this)">
-              </div>
-            </div>
-          </div>
-          <div id="phoneError" style="display: none; color: var(--color-danger); font-size: 12px; margin-bottom: 8px; font-weight: 700;">
-            請填寫有效的 8 位香港流動電話號碼（以 4、5、6、7、8、9 開頭）
-          </div>
-          <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.5; background: #FFFFFF; border: 1px dashed var(--color-border); border-radius: var(--radius-sm); padding: 8px 12px;">
-            <p style="margin-bottom: 2px; color: var(--color-accent-text); font-weight: 700;">• 免受騷擾承諾：絕無電話推銷騷擾，僅用於 WhatsApp 傳送您的分析報告備份與預約溝通。</p>
-            <p style="margin-bottom: 0;">• 利益綁定提示：系統將把專屬分析報告與檔案編號備份至此號碼，請務必填寫真實號碼以確保能順利接收。</p>
-          </div>
-        </div>
-
-        <!-- 第一部分：健康目標與步調 -->
-        <div class="form-section">
-          <div class="form-section-title">🎯 第一部分：健康目標與期望步調</div>
-          <p class="text-sub" style="margin-bottom: 10px;">請勾選最希望優先改善或關注的方向（勾選 1 至 3 項）*</p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-bottom: 16px;">
-            <label class="option-card">
-              <input type="checkbox" name="m_goals" value="日常活力與精神">
-              <div><strong class="option-card-title">日常活力與精神</strong><span class="option-card-desc">易疲倦、飯後昏睡、腦霧、睡眠淺或多夢易醒</span></div>
-            </label>
-            <label class="option-card">
-              <input type="checkbox" name="m_goals" value="體態與代謝調節">
-              <div><strong class="option-card-title">體態與代謝調節</strong><span class="option-card-desc">腹部脂肪、體重停滯、常嘴饞嗜甜、代謝放緩</span></div>
-            </label>
-            <label class="option-card">
-              <input type="checkbox" name="m_goals" value="腸道消化與吸收">
-              <div><strong class="option-card-title">腸道消化與吸收</strong><span class="option-card-desc">經常脹氣、胃酸倒流、排便不順/腹瀉、食物敏感</span></div>
-            </label>
-            <label class="option-card">
-              <input type="checkbox" name="m_goals" value="皮膚屏障與發炎">
-              <div><strong class="option-card-title">皮膚屏障與體內發炎</strong><span class="option-card-desc">濕疹反覆、皮膚乾癢、慢性蕁麻疹、容易泛紅</span></div>
-            </label>
-            <label class="option-card">
-              <input type="checkbox" name="m_goals" value="關節筋骨與體能">
-              <div><strong class="option-card-title">關節筋骨與肢體體能</strong><span class="option-card-desc">久坐僵硬、上下樓梯不適、體能減退、肌肉流失</span></div>
-            </label>
-            <label class="option-card">
-              <input type="checkbox" name="m_goals" value="心血管與循環">
-              <div><strong class="option-card-title">心血管與循環健康</strong><span class="option-card-desc">手腳冰冷、關注血壓/血脂/血糖長期健康趨勢</span></div>
-            </label>
-          </div>
-
-          <label class="text-sub" style="display: block; margin-bottom: 8px; font-weight: 700;">期望達成的健康步調：</label>
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <label class="option-card">
-              <input type="radio" name="m_timeline" value="快速啟動期（1 - 3 個月）" checked>
-              <div><strong class="option-card-title">快速啟動期（1 - 3 個月）</strong><span class="option-card-desc">短時間內啟動代謝，打穩基礎生理防禦</span></div>
-            </label>
-            <label class="option-card">
-              <input type="radio" name="m_timeline" value="機能重塑期（3 - 6 個月）">
-              <div><strong class="option-card-title">機能重塑期（3 - 6 個月）</strong><span class="option-card-desc">給身體充足生理週期，進行深層代謝調節與體質修復</span></div>
-            </label>
-            <label class="option-card">
-              <input type="radio" name="m_timeline" value="長期鞏固期（6 個月至 1 年以上）">
-              <div><strong class="option-card-title">長期鞏固期（6 個月至 1 年以上）</strong><span class="option-card-desc">建立穩固生活防禦機制，保持長期身體自主機能與活力</span></div>
-            </label>
-          </div>
-        </div>
-
-        <!-- 第二部分：生活作息與用藥現況 (全面平鋪展開) -->
-        <div class="form-section">
-          <div class="form-section-title">🌿 第二部分：生活作息、用藥現況與改善意願</div>
-          
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 14px;">
-            <div>
-              <label class="text-sub" style="display: block; margin-bottom: 4px; font-weight: 700;">每晚平均睡眠時數</label>
-              <input type="text" id="m_sleepHours" placeholder="例如：6.5 小時" class="input-field">
-            </div>
-            <div>
-              <label class="text-sub" style="display: block; margin-bottom: 4px; font-weight: 700;">早晨醒來時精神飽足感 (1-10分)</label>
-              <input type="number" id="m_sleepScore" min="1" max="10" placeholder="例如：5" class="input-field">
-            </div>
-            <div>
-              <label class="text-sub" style="display: block; margin-bottom: 4px; font-weight: 700;">每週外食約幾餐</label>
-              <input type="text" id="m_mealsOut" placeholder="例如：8 餐" class="input-field">
-            </div>
-          </div>
-
-          <!-- 每天飲水量 (展開平鋪卡片) -->
-          <div style="margin-bottom: 14px;">
-            <label class="text-sub" style="display: block; margin-bottom: 6px; font-weight: 700;">每天飲水量：</label>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
-              <label class="option-card">
-                <input type="radio" name="m_water_opt" value="充足（每天 1.5L 以上）" checked>
-                <span>充足（每天 1.5L 以上）</span>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_water_opt" value="偏少（每天 1.5L 以下）">
-                <span>偏少（每天 1.5L 以下）</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- 日常活動型態 (展開平鋪卡片) -->
-          <div style="margin-bottom: 16px;">
-            <label class="text-sub" style="display: block; margin-bottom: 6px; font-weight: 700;">日常活動型態：</label>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
-              <label class="option-card">
-                <input type="radio" name="m_activity_opt" value="長時間久坐辦公" checked>
-                <span>長時間久坐辦公</span>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_activity_opt" value="偶爾走動 / 每日步數尚可">
-                <span>偶爾走動 / 每日步數尚可</span>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_activity_opt" value="有固定規律運動習慣">
-                <span>有固定規律運動習慣</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- 用藥依賴類別 -->
-          <div style="border-top: 1px solid var(--color-border); padding-top: 12px; margin-bottom: 14px;">
-            <label class="text-sub" style="display: block; margin-bottom: 8px; font-weight: 700;">平時有固定服用、外用或依賴以下哪類品項？（可複選）</label>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px;">
-              <label class="option-card"><input type="checkbox" name="m_meds" value="三高代謝類（血壓/血糖/膽固醇）"><span>三高代謝類（血壓/血糖/膽固醇）</span></label>
-              <label class="option-card"><input type="checkbox" name="m_meds" value="睡眠情緒神經類（安眠/鎮靜/止痛）"><span>睡眠情緒神經類（安眠/鎮靜/止痛）</span></label>
-              <label class="option-card"><input type="checkbox" name="m_meds" value="腸胃消化類（胃藥/便秘瀉藥）"><span>腸胃消化類（胃藥/便秘瀉藥）</span></label>
-              <label class="option-card"><input type="checkbox" name="m_meds" value="皮膚外用類固醇/抗敏藥膏"><span>皮膚外用類固醇/抗敏藥膏</span></label>
-              <label class="option-card"><input type="checkbox" name="m_meds" value="中醫藥調理（傳統中藥/中成藥）"><span>中醫藥調理（傳統中藥/中成藥）</span></label>
-              <label class="option-card"><input type="checkbox" name="m_meds" value="目前完全無使用西藥或中藥"><span>目前完全無使用西藥或中藥</span></label>
-            </div>
-          </div>
-
-          <!-- 持續或依賴時間 (展開階梯卡片) -->
-          <div style="margin-bottom: 14px;">
-            <label class="text-sub" style="display: block; margin-bottom: 6px; font-weight: 700;">上述調理或藥物，大約已持續使用或依賴多久？</label>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px;">
-              <label class="option-card">
-                <input type="radio" name="m_duration_opt" value="3 個月以內（短期偶爾）" checked>
-                <span>3 個月以內（短期偶爾）</span>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_duration_opt" value="半年至 1 年">
-                <span>半年至 1 年</span>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_duration_opt" value="1 至 3 年">
-                <span>1 至 3 年</span>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_duration_opt" value="3 年以上（長期固定依賴）">
-                <span>3 年以上（長期固定依賴）</span>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_duration_opt" value="目前完全無依賴">
-                <span>目前完全無依賴</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- 長遠內心期待 (3 大深層心智卡片) -->
-          <div style="margin-bottom: 14px;">
-            <label class="text-sub" style="display: block; margin-bottom: 6px; font-weight: 700;">對於目前正在使用的藥物、外用藥膏或調理，您長遠的內心期待是？</label>
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-              <label class="option-card">
-                <input type="radio" name="m_expectation_opt" value="主動修復型：喚醒自癒力，追求漸進式減量，擺脫長期依賴" checked>
-                <div>
-                  <strong class="option-card-title">主動修復型：喚醒自癒力，追求漸進式減量，擺脫長期依賴</strong>
-                  <span class="option-card-desc">希望從源頭改善代謝與微循環，未來在醫生評估許可下逐步減少用藥，重獲健康自主權與生活自理底氣。</span>
-                </div>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_expectation_opt" value="防守預防型：擔心產生抗藥性或副作用，希望劑量不要越用越重">
-                <div>
-                  <strong class="option-card-title">防守預防型：擔心產生抗藥性或副作用，希望劑量不要越用越重</strong>
-                  <span class="option-card-desc">擔心長期使用增加肝腎負擔或皮膚變薄，希望維持現狀並防止進一步惡化。</span>
-                </div>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_expectation_opt" value="維持現狀型：只要指標不超標、症狀能暫時壓制，長期吃或擦也無所謂">
-                <div>
-                  <strong class="option-card-title">維持現狀型：只要指標不超標、症狀能暫時壓制即可</strong>
-                  <span class="option-card-desc">目前只求維持表面數字及格，暫無深入根本調理之打算。</span>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <div style="margin-top: 14px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-              <label class="text-sub" style="font-weight: 700;">重獲身體健康自主權的渴望程度 (1-10分)：</label>
-              <span id="m_desireVal" style="color: var(--color-accent); font-weight: 800;">8 分</span>
-            </div>
-            <input type="range" id="m_desireScore" min="1" max="10" value="8" oninput="document.getElementById('m_desireVal').innerText = this.value + ' 分'">
-          </div>
-        </div>
-
-        <!-- 第三部分：健康缺口自評對比表 (5大維度即時計算) -->
-        <div class="form-section">
-          <div class="form-section-title">📊 第三部分：健康缺口自評對比表</div>
-          <p class="text-sub" style="margin-bottom: 12px;">請分別為現況與期望打分 (1-10分)，系統即時計算核心缺口 (B - A)：</p>
-
-          <div style="display: flex; flex-direction: column; gap: 12px;">
-            <!-- 維度 1 -->
-            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <strong style="font-size: 15px; color: var(--color-primary);">1. 精神與能量續航</strong>
-                <span id="m_diff1" class="gap-badge">缺口: 3</span>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 14px;">
-                <div>現況 (A): <strong id="m_d1_a_v">5</strong> 分 <input type="range" id="m_d1_a" min="1" max="10" value="5" oninput="calcModalGaps()"></div>
-                <div>期望 (B): <strong id="m_d1_b_v">8</strong> 分 <input type="range" id="m_d1_b" min="1" max="10" value="8" oninput="calcModalGaps()"></div>
-              </div>
-            </div>
-
-            <!-- 維度 2 -->
-            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <strong style="font-size: 15px; color: var(--color-primary);">2. 飲食營養與消化通暢</strong>
-                <span id="m_diff2" class="gap-badge">缺口: 3</span>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 14px;">
-                <div>現況 (A): <strong id="m_d2_a_v">5</strong> 分 <input type="range" id="m_d2_a" min="1" max="10" value="5" oninput="calcModalGaps()"></div>
-                <div>期望 (B): <strong id="m_d2_b_v">8</strong> 分 <input type="range" id="m_d2_b" min="1" max="10" value="8" oninput="calcModalGaps()"></div>
-              </div>
-            </div>
-
-            <!-- 維度 3 -->
-            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <strong style="font-size: 15px; color: var(--color-primary);">3. 作息深度與抗壓修復</strong>
-                <span id="m_diff3" class="gap-badge">缺口: 3</span>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 14px;">
-                <div>現況 (A): <strong id="m_d3_a_v">5</strong> 分 <input type="range" id="m_d3_a" min="1" max="10" value="5" oninput="calcModalGaps()"></div>
-                <div>期望 (B): <strong id="m_d3_b_v">8</strong> 分 <input type="range" id="m_d3_b" min="1" max="10" value="8" oninput="calcModalGaps()"></div>
-              </div>
-            </div>
-
-            <!-- 維度 4 -->
-            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <strong style="font-size: 15px; color: var(--color-primary);">4. 肢體筋骨與自體活力</strong>
-                <span id="m_diff4" class="gap-badge">缺口: 3</span>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 14px;">
-                <div>現況 (A): <strong id="m_d4_a_v">5</strong> 分 <input type="range" id="m_d4_a" min="1" max="10" value="5" oninput="calcModalGaps()"></div>
-                <div>期望 (B): <strong id="m_d4_b_v">8</strong> 分 <input type="range" id="m_d4_b" min="1" max="10" value="8" oninput="calcModalGaps()"></div>
-              </div>
-            </div>
-
-            <!-- 維度 5 -->
-            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <strong style="font-size: 15px; color: var(--color-primary);">5. 自身防禦力與擺脫依賴</strong>
-                <span id="m_diff5" class="gap-badge">缺口: 3</span>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 14px;">
-                <div>現況 (A): <strong id="m_d5_a_v">5</strong> 分 <input type="range" id="m_d5_a" min="1" max="10" value="5" oninput="calcModalGaps()"></div>
-                <div>期望 (B): <strong id="m_d5_b_v">8</strong> 分 <input type="range" id="m_d5_b" min="1" max="10" value="8" oninput="calcModalGaps()"></div>
-              </div>
-            </div>
-          </div>
-
-          <div style="margin-top: 14px; padding: 12px; border-radius: var(--radius-sm); background: var(--color-accent-light); color: var(--color-accent-text); display: flex; justify-content: space-between; align-items: center; font-size: 14px;">
-            <span>首要突破優先方向：</span>
-            <strong id="m_topPriorityText" style="font-size: 15px;">待計算</strong>
-          </div>
-        </div>
-
-        <!-- 第四部分：建議介入主軸路徑 (展開 3 大路徑卡片) -->
-        <div class="form-section">
-          <div class="form-section-title">🤝 第四部分：方案共識與節奏校準</div>
-          <div style="margin-bottom: 12px;">
-            <label class="text-sub" style="display: block; margin-bottom: 8px; font-weight: 700;">建議介入主軸路徑：</label>
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-              <label class="option-card">
-                <input type="radio" name="m_path_opt" value="途徑一：保健營養理療入手（最省時、適合忙碌生活）" checked>
-                <div>
-                  <strong class="option-card-title">途徑一：保健營養理療入手</strong>
-                  <span class="option-card-desc">以功能性營養、抗發炎原料、微循環與代謝平衡配方為主，最省時、適合忙碌生活步調。</span>
-                </div>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_path_opt" value="途徑二：物理/運動入手（強化循環與結構）">
-                <div>
-                  <strong class="option-card-title">途徑二：物理 / 運動入手</strong>
-                  <span class="option-card-desc">以呼吸法、核心伸展、姿態放鬆、低強度有氧或肌力訓練為主，強化身體循環與結構。</span>
-                </div>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="m_path_opt" value="途徑三：雙軌協同（營養提供原料，伸展促進吸收）">
-                <div>
-                  <strong class="option-card-title">途徑三：雙軌協同</strong>
-                  <span class="option-card-desc">營養補充提供細胞修復原料，配合基礎物理伸展促進循環吸收，達到協同修復效能。</span>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <label class="option-card" style="font-size: 14px; background: #F1F5F9;">
-            <input type="checkbox" id="m_consensusCheck" required checked>
-            <span>我充分理解並同意身體修復遵循生理客觀指標先行、主觀體感隨後之自然規律，並以此作為理性推進之共識。</span>
-          </label>
-        </div>
-
-        <!-- 提交按鈕 -->
-        <div style="margin-top: 20px;">
-          <button type="submit" id="m_submitBtn" class="btn btn-primary">
-            提交並生成個人專屬 HNA 分析報告 (PDF)
-          </button>
-          <p class="text-sub" style="text-align: center; margin-top: 10px; font-size: 13px;">
-            提交後後端將自動編譯標準 A4 兩頁 PDF 報告供即時下載
-          </p>
-        </div>
-      </form>
-
-      <!-- 成功反饋面板 (WhatsApp 雙向握手閉環) -->
-      <div id="m_resultCard" style="display: none; text-align: center; padding: 24px 0;">
-        <div style="font-size: 48px; margin-bottom: 12px;">📄</div>
-        <div class="badge">分析報告已生成</div>
-        <h3 style="font-size: 24px; margin-bottom: 8px;">HNA 分析書已就緒</h3>
-        <p class="text-sub" style="margin-bottom: 20px;">
-          檔案編號：<strong id="m_resFileId" style="color: var(--color-accent);"></strong><br>
-          您的專屬健康需求分析書已安全編譯存檔。
-        </p>
-
-        <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 18px; text-align: left; font-size: 14px; margin-bottom: 24px; max-width: 540px; margin-left: auto; margin-right: auto;">
-          <strong style="color: var(--color-accent); display: block; margin-bottom: 6px;">線下面談覆核提示：</strong>
-          <p style="margin-bottom: 4px;">• 請點擊下方綠色按鈕開啟 WhatsApp 與顧問對齊，鎖定檔案編號並接收備份。</p>
-          <p style="margin-bottom: 4px;">• 顧問 Duncan Chan 將於 1-2 個工作天內在 WhatsApp 親自為您確認面談時間。</p>
-          <p style="margin-bottom: 0;">• 線下面談時，我們將印妥紙本報告，與您逐項覆核細節並正式簽署落實。</p>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 440px; margin: 0 auto;">
-          <!-- WhatsApp 主動握手按鈕 (綠色高亮純文字) -->
-          <a id="m_waHandshakeBtn" href="#" target="_blank" class="btn" style="background: var(--color-wa); color: #FFFFFF; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);">
-            開啟 WhatsApp 鎖定檔案並預約溝通
-          </a>
-          <!-- PDF 下載按鈕 -->
-          <a id="m_downloadPdfBtn" href="#" target="_blank" class="btn btn-outline" style="color: var(--color-primary);">
-            直接下載專屬 HNA 分析報告 (PDF)
-          </a>
-          <button onclick="closeHnaModal()" class="btn btn-outline" style="min-height: 44px; font-size: 14px; border: none; color: var(--color-text-sub);">
-            完成並關閉視窗
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <script>
-    const DUNCAN_WA_NUMBER = "85298788564";
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec";
-
-    function validatePhoneInput(input) {
-      input.value = input.value.replace(/\D/g, '');
-      const err = document.getElementById('phoneError');
-      if (input.value.length === 8) {
-        if (/^[4-9]\d{7}$/.test(input.value)) {
-          err.style.display = 'none';
-          input.style.borderColor = 'var(--color-accent)';
-        } else {
-          err.style.display = 'block';
-          input.style.borderColor = 'var(--color-danger)';
-        }
-      } else {
-        err.style.display = 'none';
-        input.style.borderColor = 'var(--color-border)';
-      }
-    }
-
-    function openHnaModal() {
-      setupMedicationMutualExclusion();
-      document.getElementById('hnaModal').style.display = 'flex';
-      calcModalGaps();
-    }
-
-    function closeHnaModal() {
-      document.getElementById('hnaModal').style.display = 'none';
-    }
-
-    function calcModalGaps() {
-      const dims = [
-        { id: 1, name: "精神與能量續航" },
-        { id: 2, name: "飲食營養與消化通暢" },
-        { id: 3, name: "作息深度與抗壓修復" },
-        { id: 4, name: "肢體筋骨與自體活力" },
-        { id: 5, name: "自身防禦力與擺脫依賴" }
-      ];
-
-      let maxDiff = -1;
-      let topName = "待綜合評估";
-
-      dims.forEach(d => {
-        const a = parseInt(document.getElementById(`m_d${d.id}_a`).value);
-        const b = parseInt(document.getElementById(`m_d${d.id}_b`).value);
-        const diff = b - a;
-
-        document.getElementById(`m_d${d.id}_a_v`).innerText = a;
-        document.getElementById(`m_d${d.id}_b_v`).innerText = b;
-        
-        const diffElem = document.getElementById(`m_diff${d.id}`);
-        diffElem.innerText = `缺口: ${diff}`;
-        if (diff >= 4) {
-          diffElem.className = "gap-badge highlight";
-        } else {
-          diffElem.className = "gap-badge";
-        }
-
-        if (diff > maxDiff) {
-          maxDiff = diff;
-          topName = `${d.name} (缺口差距 ${diff} 分)`;
-        }
-      });
-
-      document.getElementById('m_topPriorityText').innerText = topName;
-    }
-
-    function handleHnaModalSubmit(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('m_submitBtn');
-      const name = document.getElementById('m_custName').value.trim();
-      const phone = document.getElementById('m_custPhone').value.trim();
-
-      if (!name || !phone) {
-        alert("請填寫稱呼與聯絡電話");
-        return;
-      }
-
-      if (!/^[4-9]\d{7}$/.test(phone)) {
-        document.getElementById('phoneError').style.display = 'block';
-        alert("請填寫有效的 8 位香港手機號碼（以 4、5、6、7、8、9 開頭）");
-        return;
-      }
-
-      const checkedGoals = Array.from(document.querySelectorAll('input[name="m_goals"]:checked')).map(el => el.value);
-      if (checkedGoals.length === 0) {
-        alert("請至少選擇 1 項最希望優先改善的健康方向");
-        return;
-      }
-
-      const timeline = document.querySelector('input[name="m_timeline"]:checked').value;
-      const sleepHours = document.getElementById('m_sleepHours').value;
-      const sleepScore = document.getElementById('m_sleepScore').value;
-      const mealsOut = document.getElementById('m_mealsOut').value;
-      const water = document.querySelector('input[name="m_water_opt"]:checked').value;
-      const activity = document.querySelector('input[name="m_activity_opt"]:checked').value;
-
-      const checkedMeds = Array.from(document.querySelectorAll('input[name="m_meds"]:checked')).map(el => el.value);
-      const medDuration = document.querySelector('input[name="m_duration_opt"]:checked').value;
-      const expectation = document.querySelector('input[name="m_expectation_opt"]:checked').value;
-      const desireScore = document.getElementById('m_desireScore').value;
-
-      const gaps = {
-        d1_a: document.getElementById('m_d1_a').value,
-        d1_b: document.getElementById('m_d1_b').value,
-        d1_diff: parseInt(document.getElementById('m_d1_b').value) - parseInt(document.getElementById('m_d1_a').value),
-        d2_a: document.getElementById('m_d2_a').value,
-        d2_b: document.getElementById('m_d2_b').value,
-        d2_diff: parseInt(document.getElementById('m_d2_b').value) - parseInt(document.getElementById('m_d2_a').value),
-        d3_a: document.getElementById('m_d3_a').value,
-        d3_b: document.getElementById('m_d3_b').value,
-        d3_diff: parseInt(document.getElementById('m_d3_b').value) - parseInt(document.getElementById('m_d3_a').value),
-        d4_a: document.getElementById('m_d4_a').value,
-        d4_b: document.getElementById('m_d4_b').value,
-        d4_diff: parseInt(document.getElementById('m_d4_b').value) - parseInt(document.getElementById('m_d4_a').value),
-        d5_a: document.getElementById('m_d5_a').value,
-        d5_b: document.getElementById('m_d5_b').value,
-        d5_diff: parseInt(document.getElementById('m_d5_b').value) - parseInt(document.getElementById('m_d5_a').value)
-      };
-
-      const topPriority = document.getElementById('m_topPriorityText').innerText;
-      const path = document.querySelector('input[name="m_path_opt"]:checked').value;
-
-      submitBtn.disabled = true;
-      submitBtn.innerText = "正在編譯專屬分析書 (PDF) 與存檔中，請稍候...";
-
-      const payload = {
-        type: "hna",
-        name: name,
-        phone: phone,
-        goals: checkedGoals,
-        timeline: timeline,
-        sleepHours: sleepHours,
-        sleepScore: sleepScore,
-        mealsOut: mealsOut,
-        water: water,
-        activity: activity,
-        medications: checkedMeds,
-        medDuration: medDuration,
-        expectation: expectation,
-        desireScore: desireScore,
-        gaps: gaps,
-        topPriority: topPriority,
-        path: path
-      };
-
-      fetch(APPS_SCRIPT_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
-      })
-      .then(res => res.json())
-      .then(result => {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "提交並生成個人專屬 HNA 分析報告 (PDF)";
-
-        document.getElementById('hnaInteractiveForm').style.display = 'none';
-        document.getElementById('m_resultCard').style.display = 'block';
-
-        const fileId = (result && result.fileId) ? result.fileId : "HNA-DOC";
-        document.getElementById('m_resFileId').innerText = fileId;
-
-        // 建立 WhatsApp 雙向主動握手連結
-        const waMsg = encodeURIComponent("你好 Duncan，我是 " + name + "。我剛剛在網站完成了 HNA 健康需求分析（檔案編號：" + fileId + "），想接收專屬分析報告備份並預約初步線上溝通。");
-        const waUrl = "https://wa.me/" + DUNCAN_WA_NUMBER + "?text=" + waMsg;
-        document.getElementById('m_waHandshakeBtn').href = waUrl;
-
-        const dlBtn = document.getElementById('m_downloadPdfBtn');
-        if (result && (result.downloadUrl || result.pdfUrl)) {
-          dlBtn.href = result.downloadUrl || result.pdfUrl;
-        } else {
-          dlBtn.innerText = "直接下載專屬 HNA 分析報告 (PDF)";
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        submitBtn.disabled = false;
-        submitBtn.innerText = "提交並生成個人專屬 HNA 分析報告 (PDF)";
-        document.getElementById('hnaInteractiveForm').style.display = 'none';
-        document.getElementById('m_resultCard').style.display = 'block';
-        document.getElementById('m_resFileId').innerText = "HNA-REC-OK";
-      });
-    }
-
-    // 用藥選項互斥 (Mutually Exclusive) 完整雙向邏輯
-    function setupMedicationMutualExclusion() {
-      const checkboxes = document.querySelectorAll('input[name="m_meds"]');
-      if (!checkboxes || checkboxes.length === 0) return;
-
-      checkboxes.forEach(box => {
-        box.addEventListener('change', function() {
-          const isNone = this.value.includes('完全無');
-
-          if (isNone && this.checked) {
-            // 勾選了完全無使用，強制取消其他所有具體用藥勾選
-            checkboxes.forEach(other => {
-              if (other !== this) {
-                other.checked = false;
-                const parentCard = other.closest('.option-card');
-                if (parentCard) {
-                  parentCard.style.borderColor = 'var(--color-border)';
-                  parentCard.style.background = '#FFFFFF';
-                }
-              }
-            });
-          } else if (!isNone && this.checked) {
-            // 勾選了具體用藥，強制取消完全無使用
-            checkboxes.forEach(other => {
-              if (other.value.includes('完全無')) {
-                other.checked = false;
-                const parentCard = other.closest('.option-card');
-                if (parentCard) {
-                  parentCard.style.borderColor = 'var(--color-border)';
-                  parentCard.style.background = '#FFFFFF';
-                }
-              }
-            });
-          }
-
-          // 同步選中高亮卡片視覺樣式
-          checkboxes.forEach(cb => {
-            const card = cb.closest('.option-card');
-            if (card) {
-              if (cb.checked) {
-                card.style.borderColor = 'var(--color-accent)';
-                card.style.background = '#F0FDFA';
-              } else {
-                card.style.borderColor = 'var(--color-border)';
-                card.style.background = '#FFFFFF';
-              }
-            }
-          });
-        });
-      });
-    }
-
-    // 頁面載入完成後立即綁定
-    document.addEventListener('DOMContentLoaded', setupMedicationMutualExclusion);
-
-  </script>
-</body>
-</html>
+# Duncan 直播作業系統（Live OS）· V1
+
+> 2026-08-11 · 三高工程師 × Health Map「一個引擎，兩條軌」混合版。
+> 呢份係每次開播都照跟嘅標準作業。原則:**不追求首播完美 → BUILD → RUN → MEASURE → ITERATE**。
+
+---
+
+## 0. 一頁總覽:個直播喺成個變現流程邊個位
+
+```
+每日 Reels(三高工程師)──┐
+                        ├─►  公開直播(信任轉化器)  ─►  DM 分兩軌收成
+私密群組(持續培育)──────┘                              ├─ 快軌:keyword → 即買(有力/精神/能量)
+                                                        └─ 深軌:MAP → Health Map 付費拆解 → 30日 → 產品回購
+```
+
+**一句記住:** Reels 拿注意、直播拿信任、DM 拿人、兩條軌拿錢。
+直播就係我哋之前個漏斗一直欠嘅**中間層**——由「20 秒短片」到「畀錢見面」之間,鋪一條唔嚇親人嘅信任階梯。
+
+**兩軌唔係二選一:** 同一場直播,想快嘅人畀佢即買 keyword,想理清嘅人畀佢「MAP」。詳見第 2 節。
+
+---
+
+## 1. 直播定位:信任轉化器,唔係賣貨台
+
+直播嘅工作**唔係當場 sell**,係做四件事,令觀眾由「識你」變「信你」:
+
+1. **認出問題** —— 睇完覺得「呢個講緊我／我屋企人」。
+2. **有用資訊** —— 畀到真嘢,佢發現件事冇佢想像咁簡單。
+3. **思維示範** —— 睇到「我哋點拆解問題」,而唔係即刻畀答案。
+4. **價值體現** —— 令佢覺得「我缺嘅唔係更多資訊,係有人幫我整理清楚」。
+
+> 定位一句(對外 slogan):**「有健康問題,先拆解,唔好亂試。」**
+> IP 心智:**三高工程師 = 健康問題嘅拆解者。**
+
+---
+
+## 2. 混合雙軌 CTA 架構 ⭐(呢份 SOP 嘅核心)
+
+每場直播最後,**用分層 CTA 同時餵兩條軌**。唔好逼單、唔好一次過拋幾個決定,睇觀眾成熟度畀一個清晰動作。
+
+| 層級 | 觸發對象 | 講嘅嘢 | 入邊條軌 |
+|---|---|---|---|
+| **Level 1**（低意向） | 第一次睇、想學多啲 | 「想睇多啲拆解,加入我哋群組 👇」 | 入群組培育 |
+| **Level 2 · 快軌**（需求明確） | 已經知想改善邊樣 | 「你已經知想〔有力／有精神／顧心血管〕→ 留言『**有力／精神／能量**』,我私訊你點做。」 | keyword → 自動 DM → 真人 → WhatsApp 即買 |
+| **Level 2 · 深軌**（迷惘／複雜） | 唔知先處理邊樣 | 「你困擾嘅唔係一個病名,係唔知先搞邊樣 → DM 我『**MAP**』。」 | MAP → Mini 問卷 → 群組 → Health Map |
+| **Level 3 · 深軌**（高意向） | 認同「整理」嘅價值 | 「你要嘅唔係更多資料,係有人幫你理清 → DM 了解『**Health Map**』。」 | 直接入 Health Map 諮詢 |
+
+**點揀主 CTA:** 一場直播**主打一個**,其餘做輔。原則:
+- **Format A / B（問題／破謬誤）** → 主打 Level 1 + 快軌 keyword(啱直接需求)。
+- **Format C（Health Map 思維）** → 主打深軌 MAP / Health Map(啱迷惘客)。
+- **Format D（Q&A／案例）** → 睇當日 case 靈活二揀一。
+
+> ⚠️ **單一 CTA 原則仍然成立**:「主打一個」唔等於同一句拋三個。口講清楚主 CTA,其餘兩個放**置頂留言／字幕**做後備。
+
+---
+
+## 3. 四大直播格式 A / B / C / D
+
+喺成熟框架入面填內容,觀眾記得住、我哋出片穩定。
+
+| 格式 | 核心 | 適合主題 | 觀眾心理變化 | 主 CTA |
+|---|---|---|---|---|
+| **A · 問題拆解** | 點解會咁? | 餐後攰、夜尿、抽筋、冇力、手麻 | 「原來呢個小徵狀背後有嘢」 | Level 1 + 快軌 |
+| **B · 破解謬誤** | 你以為 X,其實未必 | 驗身正常=冇事?保健品食越多越好?白粥養病? | 「我以前個方法可能真係錯」 | Level 1 + 快軌 |
+| **C · Health Map 思維** ⭐ | 遇到呢個問題點諗? | 幾個症狀撞埋點排先後?一晚起身三次點解唔即刻叫佢戒水? | 「我要嘅唔係答案,係理清情況」 | 深軌 MAP |
+| **D · Q&A／案例** | 先理解問題,再談工具 | 匿名 case、觀眾留言、產品用喺咩情境 | 「先搞清楚,再揀工具」 | 睇 case |
+
+> **Format C 係招牌**(Signature)。佢唔係分享現成知識,係**示範思考過程**——呢樣正正係我哋同「硬 sell 保健品專頁」嘅根本分別,亦係整條深軌嘅靈魂。
+
+---
+
+## 4. 每週主題排法:單一主題延伸
+
+一週揀一個核心主題,排 3–4 場,依序套 A→B→C→D,由「覺察」推到「個人相關」。避免資訊碎片化。
+
+**示範 A:以「餐後好攰」做週主題(扣⚡NMN 精神線)**
+
+| 場次 | 格式 | 題目 | 目的 |
+|---|---|---|---|
+| LIVE 1 | A | 食完晏晝就想瞓,係咪正常? | 建立問題覺察 |
+| LIVE 2 | B | 攰=瞓唔夠?未必咁簡單 | 破除「瞓多啲就得」迷思 |
+| LIVE 3 | C | 又攰又瞓唔好又冇胃口——應該先搞邊樣? | 示範 Health Map 思維(深軌) |
+| LIVE 4 | D | 攰嘅常見問題一次過講清楚 | Q&A 強化互動、軟導工具 |
+
+**示範 B:以「唔係老咗,係原料唔夠」做週主題(扣💪蛋白有力線)** —— 同樣 A→B→C→D 排。
+
+> 主題直接抽我哋《出片次序表》同《38 段逐字稿》嘅題材:攰→NMN、冇力／握力→蛋白、食藥仲攰→強心血管通。直播講深啲,Reels 做切片餵返入嚟。
+
+---
+
+## 5. 30 分鐘標準模板(合併版)⭐
+
+> 合併咗 Duncan 個情感／金句結構 ＋ Health Map 六步思維 ＋ 我哋三高工程師把聲。逐格有時間、主持動作、安全提示。
+
+### 00:00–03:00 ｜ HOOK · 日常真實故事
+- **做:** 開門見山,**唔好長篇自我介紹**。用一個地道熟年角色 + 日常瑣事切入。
+- **公式:** 「如果你有〔具體徵狀〕,今日呢場你要留意。」
+- **例:** 「張叔擰唔開豉油樽、床頭七個藥盒、下午三點就斷電——樣樣都聽醫生話,人卻越嚟越攰。你或者你屋企人,係咪都咁?」
+- **狀態:** 無力、無奈(明明好配合,但冇好轉)。
+
+### 03:00–05:00 ｜ 互動提問 + 揭曉 → 帶出一個核心價值
+- **提問:** 「你覺得張叔問題出喺邊?覺得係『老咗』嘅打 **1**,覺得係『方法錯咗』嘅打 **2**!」
+- **揭曉:** 指出核心誤區,順勢帶**六大核心價值之一**:源頭管理／精準保健／持續習慣／年齡是背景不是宿命／健康需要分工／身體要保養。
+
+### 05:00–07:00 ｜ 情感衝突 + 🎯 Soundbite 1
+- **心理衝突:** 打確定性、掌控感、防當冤大頭、可執行嘅希望。
+- **情感痛點:** 直擊「失去尊嚴／失去自由／拖累仔女」嘅終極恐懼。
+- **🎯 Soundbite 1(慢語速、直望鏡頭、加重):** 預留剪 15–30 秒 Reels。
+  例:「保養唔係為咗長命,係為咗年紀大都唔使睇人面色、唔使拖累仔女——行得走得,係一種骨氣。」
+
+### 07:00–18:00 ｜ 工程邏輯拆解(謬誤 vs 原理)+ 滿足情感渴求
+- **揭謬誤:** 盲目食藥壓指標／跟風買貴補品／日日白粥老火湯／補鈣就防到跌。
+- **工程原理(用我哋比喻):** 發電機同傳送帶(NAD/NMN)、火花塞(Q10)、水管幫浦(循環)、肌肉銀行(蛋白)、限流器(纖維)、防鏽(抗氧化)。
+- **示範 Health Map 六步(Format C 核心):**
+  Understand(幾耐)→ Break Down(頻率／程度)→ Clarify(生活習慣、時間線)→ **Safety(有冇紅旗訊號,需要睇醫生?)** → Pattern(有冇同時出現嘅因素)→ **Priority(而家最值得先搞邊樣)**。
+- **回應渴求:** 講清楚「避開謬誤、做啱保養,就可以攞返體力、保持自理、活得有骨氣」。
+
+### 18:00–20:00 ｜ 🎯 Soundbite 2 + 現場 Q&A
+- **🎯 Soundbite 2:** 總結原理／價值嘅金句(再剪一條 Reels)。
+  例:「你缺嘅唔係更多健康資訊,係有人幫你,將亂晒嘅嘢排返個先後。」
+- **Q&A:** 讀 1–2 條留言,用工程邏輯簡答。**唔做個人診斷,只講系統過載原理。**
+
+### 20:00–30:00 ｜ 軟性方案 + 分層 CTA
+- **軟性方案:** 介紹「精準配方」或「1 對 1 拆解」,強調**「唔盲目買,先搞懂源頭」**。
+- **誠實資產金句:** 「產品係工具,唔係信仰。如果拆解完你唔需要,我寧願你唔好買,先做好習慣。」
+- **分層 CTA(見第 2 節):** 主打一個,其餘放置頂／字幕。
+- **Micro Action(收尾送一個小任務):** 「今晚唔使改十樣,先記錄:幾點瞓、最後一次飲水、起身幾次、第二朝精神。有咗自己個 Baseline,先算下一步。」
+
+---
+
+## 6. 金句 Soundbite / 切片規格
+
+- 每場**最少剪 2 條** Soundbite(第 5–7 分同 18–20 分嗰兩個)。
+- 長度 **15–30 秒**,直望鏡頭、語速放慢、加字幕卡。
+- 用途:做 **Belief Reels / Method Reels** 回流公域,餵返下一場直播。
+- 標題留白位:一句金句 + 一個 CTA 關鍵字。
+
+---
+
+## 7. Post-Live SOP(直播後 6 件事,即日做)
+
+1. **存檔** —— 保留完整錄影。
+2. **精華剪輯** —— 抽 **3–5 段 Highlights**(思維示範、金句、破謬誤各一)。
+3. **群組發布** —— 私密群組出錄影 + **3 個 Key Takeaways**。
+4. **互動引導** —— 群組提問(例:你最困擾係次數,定係瞓被打斷?)。
+5. **Micro Action** —— 再邀成員建立個人 Baseline。
+6. **信號識別** —— 追蹤 DM Signal,對接兩軌轉化。
+
+**內容再利用引擎(一場 = 一堆資產):** 1 條完整錄影 + 3–5 條 Reels 切片 + 1 篇 Takeaways 圖文 + 1 條群組討論 + 1 個 Micro Action。
+
+---
+
+## 8. 私密群組 · 7 日培育節奏(把一場直播價值拉長一週)
+
+- **Day 0（直播當日）:** 出完整錄影 + 核心觀點總結。
+- **Day 1:** 出 3 個最重要 Key Takeaways。
+- **Day 2–3:** 引導討論,收集真實受眾語言。
+- **Day 4–5:** 發起 Micro Action(只記錄、唔急改)。
+- **Day 6–7:** 匿名 case + 盲點剖析,主動邀有需要嘅人入 DM 拆解。
+
+---
+
+## 9. DM 分軌處理
+
+**快軌(keyword:有力／媽咪／精神／能量／打數字):**
+→ 照跟《留言關鍵字 DM 回覆資料》:自動 DM 派 value + 一問 → 真人接 → 簡介 → WhatsApp 即買。能量線先過薄血藥安全閘。
+
+**深軌(keyword:MAP／拆解):** 真人五步暖化(Understand → Qualify → Reflect → Invite → Book)——
+1. **了解:** 「開始之前想了解,你最想改善咩?困擾咗幾耐?」
+2. **評估:** 「對你生活／睡眠影響最大係邊方面?之前試過咩?」
+3. **共鳴:** 「聽落你唔係冇做嘢,係試過幾種方法,但未理清應該先搞邊樣,方向有啲重疊——我理解啱嗎?」
+4. **邀請 Health Map:** 「呢個正正係 Health Map 幫到你嘅地方。我哋唔會叫你即刻買產品,係幫你拆解、排序,搵出未來 30 日你真係做得到、最值得先做嗰步。想正式整理一次嗎?」
+5. **預約 + 付費:** 畀時間揀、確認前置服務費、發 Pre-Map 準備問卷。
+
+---
+
+## 10. KPI:睇生意數,唔好睇虛榮數
+
+- **拒絕虛榮指標:** view、like 唔係目標。
+- **睇業務指標:** 相關互動、DM 詢問量、快軌落單數、深軌 Health Map 預約數、回購。
+- **對比原則:** 一場 3,000 view / 20 DM,勝過 10,000 view / 5 DM。
+- **High-Intent DM 訊號:** 喺群組分享自己情況、問個人化問題(「咁我應該點做?」)、主動回報 Micro Action 結果。
+
+---
+
+## 11. 全程紅線(合規 + 信任防禦,每場都守)
+
+- **唔做診斷、唔講治療／預防／根治**任何病;只講系統過載原理、軟語(幫助維持／支持／補充)。
+- **Safety Gate:** 有紅旗訊號(突發、持續惡化、痛、血)→ 即刻 Refer 睇醫生,安全高於改善。
+- **涉藥／腎病／薄血** → 提醒先問醫生;能量線一定先過薄血藥安全閘。
+- **誠實資產:** 敢講「唔啱唔好買」;產品係工具唔係信仰。
+- **暖 tone、唔用「長者」**(講阿爸阿媽／屋企人);賣「想繼續」唔賣「你衰緊」;無「但／不過」。
+- **單一主 CTA;** 第一句唔 paste 產品圖／價錢。
+
+---
+
+## 12. 開拍 Checklist(第一集開跑)
+
+- [ ] 揀定週主題(建議:餐後攰 → NMN 線,或 冇力／握力 → 蛋白線)。
+- [ ] 揀格式(第一集建議 **Format A** 建立覺察,主 CTA = Level 1 + 快軌)。
+- [ ] 用第 5 節模板寫足逐字 + 標好 2 個 Soundbite 位。
+- [ ] 確認深軌落地:邊個做 Health Map delivery、收唔收費、幾錢、Pre-Map 問卷準備好未。
+- [ ] 置頂留言排好三層 CTA 後備。
+- [ ] 開播 → 跟 Post-Live 6 件事 → 記錄第一批 DM 訊號。
+
+> **停止線:** 框架已完成。由而家起,唔再無限探討,下週直接開第一場,收第一批真實 DM 訊號,正式啟動 Beta。

@@ -3,152 +3,396 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Health Decoder ｜ 解碼身體訊號，掌控健康自主權</title>
-  <style> :root { --color-primary: #0F172A; --color-primary-light: #F8FAFC; --color-accent: #0D9488; --color-accent-hover: #0F766E; --color-accent-light: #CCFBF1; --color-accent-text: #115E59; --color-danger: #EF4444; --color-danger-bg: #FEF2F2; --color-text-main: #1E293B; --color-text-muted: #475569; --color-text-sub: #64748B; --color-bg: #FFFFFF; --color-surface: #FFFFFF; --color-border: #E2E8F0; --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif; --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 20px; --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04); --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.06); } * { box-sizing: border-box; margin: 0; padding: 0; } html { scroll-behavior: smooth; } body { font-family: var(--font-stack); font-size: 18px; line-height: 1.75; color: var(--color-text-main); background-color: var(--color-bg); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-bottom: 80px; } .navbar { background: #FFFFFF; border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 100; } .nav-container { max-width: 760px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; } .nav-brand { font-size: 18px; font-weight: 800; color: var(--color-primary); text-decoration: none; display: flex; align-items: center; gap: 8px; letter-spacing: -0.3px; } .nav-brand-badge { width: 28px; height: 28px; border-radius: 9999px; background: var(--color-accent); color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; } .nav-link { color: var(--color-accent); font-weight: 700; font-size: 14px; text-decoration: none; transition: color 0.2s ease; } .nav-link:hover { color: var(--color-accent-hover); } .container { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 24px; } .clean-section { padding: 48px 0; border-bottom: 1px solid var(--color-border); } .clean-section:last-of-type { border-bottom: none; } h1 { font-size: 32px; line-height: 1.35; font-weight: 800; color: var(--color-primary); margin-bottom: 16px; letter-spacing: -0.5px; } h2 { font-size: 25px; line-height: 1.4; font-weight: 800; color: var(--color-primary); margin: 12px 0 16px 0; } h3 { font-size: 19px; line-height: 1.45; font-weight: 700; color: var(--color-primary); margin-bottom: 6px; } p { margin-bottom: 16px; color: var(--color-text-main); } .text-muted { color: var(--color-text-muted); } .text-sub { color: var(--color-text-sub); font-size: 14.5px; line-height: 1.6; } .lead-text { font-size: 18.5px; line-height: 1.8; color: var(--color-text-muted); margin-bottom: 24px; } .badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 13px; background: var(--color-accent-light); color: var(--color-accent-text); font-size: 13px; font-weight: 700; border-radius: 9999px; margin-bottom: 14px; border: 1px solid rgba(13, 148, 136, 0.2); } .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 52px; font-size: 18px; font-weight: 700; border-radius: var(--radius-md); text-decoration: none; cursor: pointer; border: none; padding: 14px 24px; text-align: center; transition: all 0.2s ease; line-height: 1.3; box-sizing: border-box; } .btn-primary { background: var(--color-accent); color: #FFFFFF; box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25); } .btn-primary:hover { background: var(--color-accent-hover); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(13, 148, 136, 0.35); } .endorsement-clean { border-left: 3px solid var(--color-accent); padding: 14px 20px; background: var(--color-primary-light); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 28px 0; text-align: left; } .endorsement-title { font-weight: 800; color: var(--color-primary); margin-bottom: 4px; font-size: 16px; } .endorsement-desc { font-size: 14.5px; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 0; } .flow-stream { display: flex; flex-direction: column; gap: 32px; margin-top: 28px; } .flow-block { display: flex; gap: 20px; align-items: flex-start; } .flow-num { flex-shrink: 0; font-size: 32px; font-weight: 900; color: var(--color-accent); line-height: 1; padding-top: 2px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; letter-spacing: -1px; } .flow-content { flex: 1; min-width: 0; } .flow-tag { font-size: 12px; font-weight: 800; color: var(--color-text-sub); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: block; } .flow-title { font-size: 20px; font-weight: 800; color: var(--color-primary); margin-bottom: 4px; line-height: 1.4; } .flow-scope { font-size: 13.5px; font-weight: 700; color: var(--color-accent-text); margin-bottom: 8px; display: inline-block; background: var(--color-accent-light); padding: 2px 8px; border-radius: 4px; } .flow-desc { font-size: 15px; color: var(--color-text-sub); line-height: 1.7; margin-bottom: 0; } .scope-grid { display: flex; flex-direction: column; gap: 24px; margin-top: 28px; } .scope-box { padding: 24px; border-radius: var(--radius-md); background: var(--color-primary-light); border: 1px solid var(--color-border); } .scope-tag-dont { display: inline-block; padding: 3px 10px; border-radius: 4px; background: var(--color-danger-bg); color: var(--color-danger); font-size: 13px; font-weight: 700; margin-bottom: 12px; } .scope-tag-do { display: inline-block; padding: 3px 10px; border-radius: 4px; background: var(--color-accent-light); color: var(--color-accent-text); font-size: 13px; font-weight: 700; margin-bottom: 12px; } .scope-list { list-style: none; font-size: 15.5px; color: var(--color-text-muted); line-height: 1.8; } .contrast-list { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; } .contrast-row { display: flex; flex-direction: column; gap: 8px; padding: 16px 20px; border-radius: var(--radius-md); background: var(--color-primary-light); border: 1px solid var(--color-border); } .contrast-dim { font-size: 12.5px; font-weight: 800; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.5px; } .contrast-old { font-size: 14.5px; color: #991B1B; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; } .contrast-new { font-size: 15.5px; font-weight: 700; color: var(--color-accent-text); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; } .contrast-mark { flex-shrink: 0; font-weight: 800; } .footer { border-top: 1px solid var(--color-border); padding: 36px 0; text-align: center; font-size: 13.5px; color: var(--color-text-sub); } .footer p { margin-bottom: 4px; } </style>
+  <title>Health Decoder 健康解碼 ｜ 認清源頭，配對合適方案</title>
+  <style>
+    :root {
+      --color-primary: #0F172A;
+      --color-primary-light: #F8FAFC;
+      --color-accent: #0D9488;
+      --color-accent-light: #CCFBF1;
+      --color-accent-text: #115E59;
+      --color-danger: #EF4444;
+      --color-danger-bg: #FEF2F2;
+      --color-text-main: #1E293B;
+      --color-text-muted: #475569;
+      --color-text-sub: #64748B;
+      --color-bg: #FFFFFF;
+      --color-border: #E2E8F0;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--color-text-main);
+      background-color: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* 頂部導航：對齊 HMCS / 夜尿，無外跳連結，無自創圖標標誌 */
+    .navbar {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 16px 20px;
+    }
+
+    .nav-brand {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-primary);
+      letter-spacing: -0.3px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .clean-section {
+      padding: 44px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .clean-section:last-of-type {
+      border-bottom: none;
+    }
+
+    h1 {
+      font-size: 28px;
+      line-height: 1.4;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+      letter-spacing: -0.4px;
+    }
+
+    h2 {
+      font-size: 22px;
+      line-height: 1.4;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+    }
+
+    .lead-text {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--color-text-muted);
+      margin-bottom: 0;
+    }
+
+    /* 核心價值觀：HMCS 經典大數字無痛流 */
+    .flow-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .flow-block {
+      display: flex;
+      gap: 16px;
+      align-items: baseline;
+    }
+
+    .flow-num {
+      flex-shrink: 0;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--color-accent);
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    .flow-content {
+      flex: 1;
+      font-size: 16.5px;
+    }
+
+    .flow-title {
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-right: 8px;
+    }
+
+    .flow-scope {
+      color: var(--color-text-muted);
+    }
+
+    /* 服務邊界 */
+    .scope-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .scope-box {
+      padding: 20px;
+      border-radius: var(--radius-md);
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-border);
+    }
+
+    .scope-tag-dont {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--color-danger-bg);
+      color: var(--color-danger);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .scope-tag-do {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--color-accent-light);
+      color: var(--color-accent-text);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .scope-list {
+      list-style: none;
+      font-size: 15.5px;
+      color: var(--color-text-muted);
+      line-height: 1.8;
+    }
+
+    /* 核心差異化 */
+    .contrast-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .contrast-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-border);
+    }
+
+    .contrast-dim {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .contrast-old {
+      font-size: 14.5px;
+      color: #991B1B;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .contrast-new {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-accent-text);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .contrast-mark {
+      flex-shrink: 0;
+      font-weight: 800;
+    }
+
+    .footer {
+      border-top: 1px solid var(--color-border);
+      padding: 32px 0 48px 0;
+      text-align: center;
+      font-size: 13px;
+      color: var(--color-text-sub);
+    }
+  </style>
 </head>
 <body>
+
+  <!-- 頂部導航：對齊 HMCS / 夜尿，無外跳，無自創圖標 -->
   <header class="navbar">
     <div class="nav-container">
-      <a href="/" class="nav-brand">
-        <div class="nav-brand-badge">HD</div>
-        Health Decoder
-      </a>
-      <a href="/nocturia" class="nav-link">夜尿專題</a>
+      <span class="nav-brand">🔬 Health Decoder 健康解碼</span>
     </div>
   </header>
+
   <div class="container">
-    <section class="clean-section" style="text-align: center; padding-top: 36px;">
-      <div class="badge">第一性原理生化解碼</div>
-      <h1>解碼身體訊號<br>掌控健康自主權</h1>
-      <p class="lead-text">由細胞代謝與第一性原理出發，梳理體感訊號背後的真正因果。我哋以科學實證與精準數據為伴，與大家攜手重建身體原本具備嘅自癒力量。</p>
-      <div class="endorsement-clean">
-        <div class="endorsement-title">健康的起點，在於讀懂身體發出的每一個細微訊號。</div>
-        <p class="endorsement-desc">傾聽體感細微變化，以理性數據排定優先次序，找回生活自主。</p>
-      </div>
-      <div style="margin-top: 32px;">
-        <a href="/nocturia" class="btn btn-primary">進入夜尿專題解碼</a>
-      </div>
+
+    <!-- Section 1: 品牌主張 -->
+    <section class="clean-section">
+      <h1>認清源頭，配對合適方案，<br>協助訂立並達成目標</h1>
+      <p class="lead-text">
+        我們主張：安全、可靠、輕鬆、不會成為負擔及浪費的方案；逐步透過理性、系統化、定時跟進的量身制定專屬調理進程，將健康生活融入習慣中，幫你重拾充沛活力與生活尊嚴。
+      </p>
     </section>
+
+    <!-- Section 2: 核心價值觀（100% 原始文本） -->
     <section class="clean-section">
       <h2>核心價值觀</h2>
-      <p class="text-muted">支撐 Health Decoder 每項專題研究與方案制定的六大基石</p>
       <div class="flow-stream">
         <div class="flow-block">
-          <div class="flow-num">01</div>
+          <span class="flow-num">01</span>
           <div class="flow-content">
-            <span class="flow-tag">原則 01</span>
-            <div class="flow-title">源頭根治</div>
-            <span class="flow-scope">源頭入手改善，一切治本為先</span>
-            <p class="flow-desc">跨越表面症狀壓制，直擊代謝、微循環與粒線體底層失衡。</p>
+            <span class="flow-title">源頭根治</span>
+            <span class="flow-scope">源頭入手改善，一切治本為先。</span>
           </div>
         </div>
         <div class="flow-block">
-          <div class="flow-num">02</div>
+          <span class="flow-num">02</span>
           <div class="flow-content">
-            <span class="flow-tag">原則 02</span>
-            <div class="flow-title">精準保健</div>
-            <span class="flow-scope">訊號結合數據，問題精準應對</span>
-            <p class="flow-desc">拒絕千人一面盲補，依據自測維度與客觀體感分型制定對策。</p>
+            <span class="flow-title">精準保健</span>
+            <span class="flow-scope">訊號結合數據，問題精準應對。</span>
           </div>
         </div>
         <div class="flow-block">
-          <div class="flow-num">03</div>
+          <span class="flow-num">03</span>
           <div class="flow-content">
-            <span class="flow-tag">原則 03</span>
-            <div class="flow-title">行之以漸</div>
-            <span class="flow-scope">始於微小習慣，成在持之以恆</span>
-            <p class="flow-desc">告別高門檻劇烈改變，根據改善目標融入生活調養，重點在持續養成健康習慣。</p>
+            <span class="flow-title">行之以漸</span>
+            <span class="flow-scope">始於微小習慣，成在持之以恆。</span>
           </div>
         </div>
         <div class="flow-block">
-          <div class="flow-num">04</div>
+          <span class="flow-num">04</span>
           <div class="flow-content">
-            <span class="flow-tag">原則 04</span>
-            <div class="flow-title">拒絕標籤</div>
-            <span class="flow-scope">年齡只是標籤，健康由我掌控</span>
-            <p class="flow-desc">破除年紀大自然退化的宿命論，身體機能隨時能夠修復重啟。</p>
+            <span class="flow-title">拒絕標籤</span>
+            <span class="flow-scope">年齡只是標籤，健康由我掌控。</span>
           </div>
         </div>
         <div class="flow-block">
-          <div class="flow-num">05</div>
+          <span class="flow-num">05</span>
           <div class="flow-content">
-            <span class="flow-tag">原則 05</span>
-            <div class="flow-title">分工明確</div>
-            <span class="flow-scope">病症務必正視，預防還需管理</span>
-            <p class="flow-desc">急性醫療託付醫院，慢性代謝調度日常，界線分明各司其職。</p>
+            <span class="flow-title">分工明確</span>
+            <span class="flow-scope">病症務必正視，預防還需管理。</span>
           </div>
         </div>
         <div class="flow-block">
-          <div class="flow-num">06</div>
+          <span class="flow-num">06</span>
           <div class="flow-content">
-            <span class="flow-tag">原則 06</span>
-            <div class="flow-title">預防維護</div>
-            <span class="flow-scope">莫等災病臨頭，方知覆水難收</span>
-            <p class="flow-desc">於不可逆器官病變出現之前，及早封堵惡化鏈條，守護行動自由。</p>
+            <span class="flow-title">預防維護</span>
+            <span class="flow-scope">莫等災病臨頭，方知覆水難收。</span>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Section 3: 服務邊界（100% 原始文本） -->
     <section class="clean-section">
-      <h2>信念與服務邊界</h2>
-      <p class="text-muted">公開透明界定責任與焦點，守護每一位同路人嘅信任</p>
-      <div class="endorsement-clean" style="margin-top: 24px;">
-        <div class="endorsement-title">我哋深信的健康真相</div>
-        <p class="endorsement-desc" style="margin-top: 8px;"> • <strong>訊號即語言</strong>：半夜頻密起夜、清晨手腳麻木、夜半肌肉抽筋，均為身體微循環、電解質或自主神經在發出求救訊號。<br> • <strong>抑制不等於康復</strong>：單純壓制表面表徵，往往令深層代謝缺口持續擴大；提供正確原料與修復環境，方為逆轉失衡之道。<br> • <strong>習慣重於形式</strong>：健康並非依賴短暫極端手段，而是來自每日持續實踐、深度融入生活的良好習慣。</p>
-      </div>
+      <h2>服務邊界</h2>
       <div class="scope-grid">
         <div class="scope-box">
           <span class="scope-tag-dont">我哋堅持不做</span>
           <ul class="scope-list">
-            <li>• 不作疾病醫療診斷</li>
-            <li>• 不開立處方藥物</li>
-            <li>• 不承接急症救治</li>
-            <li>• 不作誇大療效推銷</li>
-            <li>• 不提供複雜繁重方案</li>
+            <li>• 不作疾病診斷</li>
+            <li>• 不開處方藥</li>
+            <li>• 不承接急救</li>
+            <li>• 不做誇大療效推銷</li>
+            <li>• 不給過量複雜方案</li>
           </ul>
         </div>
         <div class="scope-box">
           <span class="scope-tag-do">我哋專注做好</span>
           <ul class="scope-list">
-            <li>• 梳理體感訊號與因果關聯</li>
-            <li>• 排定最高槓桿優先順序</li>
+            <li>• 梳理體感訊號與因果關係</li>
+            <li>• 排定最高槓桿優先級</li>
             <li>• 根據改善目標提供專業調養方案，重點在養成習慣</li>
           </ul>
         </div>
       </div>
     </section>
+
+    <!-- Section 4: 核心差異化 -->
     <section class="clean-section">
       <h2>核心差異化</h2>
-      <p class="text-muted">第一性原理與常規途徑嘅根本分別</p>
       <div class="contrast-list">
         <div class="contrast-row">
-          <span class="contrast-dim">維度一 ｜ 思考邏輯</span>
-          <div class="contrast-old"><span class="contrast-mark">✕</span><span>市面常規做法：見痛止痛，針對單一指標強行壓制，容易忽視底層關聯。</span></div>
-          <div class="contrast-new"><span class="contrast-mark">✔</span><span>Health Decoder：以第一性原理拆解成因，貫通生化代謝與神經反射網絡，找出關鍵源頭。</span></div>
+          <span class="contrast-dim">思考邏輯</span>
+          <div class="contrast-old">
+            <span class="contrast-mark">✕</span>
+            <span>市面常規做法：見痛止痛，針對單一指標強行壓制，容易忽視底層關聯。</span>
+          </div>
+          <div class="contrast-new">
+            <span class="contrast-mark">✔</span>
+            <span>Health Decoder：拆解問題成因，梳理訊號因果脈絡，找出關鍵源頭。</span>
+          </div>
         </div>
+
         <div class="contrast-row">
-          <span class="contrast-dim">維度二 ｜ 角色定位</span>
-          <div class="contrast-old"><span class="contrast-mark">✕</span><span>市面常規做法：權威式說教或被動等待嚴重病發，個人缺乏應對方向。</span></div>
-          <div class="contrast-new"><span class="contrast-mark">✔</span><span>Health Decoder：貼心同行者視角，協助大家看懂身體報告與體感，重掌健康掌控權。</span></div>
+          <span class="contrast-dim">角色定位</span>
+          <div class="contrast-old">
+            <span class="contrast-mark">✕</span>
+            <span>市面常規做法：權威式說教或被動等待嚴重病發，個人缺乏應對方向。</span>
+          </div>
+          <div class="contrast-new">
+            <span class="contrast-mark">✔</span>
+            <span>Health Decoder：貼心同行者視角，協助大家看懂身體訊號與數據，重掌健康掌控權。</span>
+          </div>
         </div>
+
         <div class="contrast-row">
-          <span class="contrast-dim">維度三 ｜ 執行門檻</span>
-          <div class="contrast-old"><span class="contrast-mark">✕</span><span>市面常規做法：要求徹底顛覆生活作息，複雜難耐，往往難以長期維持。</span></div>
-          <div class="contrast-new"><span class="contrast-mark">✔</span><span>Health Decoder：根據改善目標制定務實方案，融入日常作息，重點在循序漸進養成習慣。</span></div>
+          <span class="contrast-dim">執行門檻</span>
+          <div class="contrast-old">
+            <span class="contrast-mark">✕</span>
+            <span>市面常規做法：要求徹底顛覆生活作息，複雜難耐，往往難以長期維持。</span>
+          </div>
+          <div class="contrast-new">
+            <span class="contrast-mark">✔</span>
+            <span>Health Decoder：根據改善目標制定務實方案，融入日常作息，重點在循序漸進養成習慣。</span>
+          </div>
         </div>
+
         <div class="contrast-row">
-          <span class="contrast-dim">維度四 ｜ 營養介入</span>
-          <div class="contrast-old"><span class="contrast-mark">✕</span><span>市面常規做法：盲目跟風吞服大量保健品，成分衝突且加重代謝負擔。</span></div>
-          <div class="contrast-new"><span class="contrast-mark">✔</span><span>Health Decoder：依據分型數據精準靶向補給，鎖定核心靶點，每一克原料都有據可依。</span></div>
+          <span class="contrast-dim">營養調養</span>
+          <div class="contrast-old">
+            <span class="contrast-mark">✕</span>
+            <span>市面常規做法：盲目跟風吞服大量保健品，成分衝突且加重身體負擔。</span>
+          </div>
+          <div class="contrast-new">
+            <span class="contrast-mark">✔</span>
+            <span>Health Decoder：依據客觀數據精準應對，鎖定核心需求，每一項建議都有據可依。</span>
+          </div>
         </div>
       </div>
     </section>
+
   </div>
+
   <footer class="footer">
     <div class="container">
-      <p style="font-weight: 700; color: var(--color-primary);">Health Decoder</p>
-      <p>以第一性原理，解碼身體因果，守護日常自癒力。</p>
+      <p>© 2026 Health Decoder 健康解碼. 版權所有.</p>
     </div>
   </footer>
+
 </body>
 </html>

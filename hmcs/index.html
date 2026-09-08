@@ -1,508 +1,1275 @@
 <!DOCTYPE html>
-<html lang="zh-HK" class="scroll-smooth">
+<html lang="zh-HK">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HMCS 專屬健康管理及顧問服務 ｜ Health Decoder 健康解碼</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #0B1320;
-            color: #E2E8F0;
-        }
-        .bento-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-        }
-        .bento-card:hover {
-            border-color: rgba(245, 158, 11, 0.3);
-        }
-        .gold-glow {
-            text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>HMCS 專屬健康管理及顧問服務 ｜ Health Decoder 健康解碼</title>
+  <style>
+    /* ==========================================================================
+       Health-Decoder.com 全站統一設計規範 (Design System v5.0 - Bento Grid)
+       標準：WCAG 2.1 AA 無障礙規範 | 2026 DTC Bento Grid 模組化佈局
+       ========================================================================== */
+    :root {
+      --color-primary: #0F172A;
+      --color-primary-dark: #020617;
+      --color-primary-light: #F1F5F9;
+      --color-accent: #0D9488;
+      --color-accent-hover: #0F766E;
+      --color-accent-light: #CCFBF1;
+      --color-accent-text: #115E59;
+      
+      --color-wa: #25D366;
+      --color-wa-hover: #1EBE5D;
+      
+      --color-danger: #EF4444;
+      --color-danger-bg: #FEF2F2;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      
+      --color-text-main: #1E293B;
+      --color-text-muted: #475569;
+      --color-text-sub: #64748B;
+      
+      --color-bg: #F8FAFC;
+      --color-surface: #FFFFFF;
+      --color-border: #E2E8F0;
+      
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.06);
+      --shadow-lg: 0 12px 30px rgba(15, 23, 42, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--color-text-main);
+      background-color: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-bottom: 80px;
+    }
+
+    /* === 導航列 (封閉式純淨零外跳) === */
+    .navbar {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+    }
+
+    .nav-brand {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--color-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-brand span {
+      color: var(--color-accent);
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    /* === 主版面容器 === */
+    .container {
+      width: 100%;
+      max-width: 980px;
+      margin: 24px auto;
+      padding: 0 20px;
+    }
+
+    .section-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--color-border);
+      margin-bottom: 32px;
+    }
+
+    /* === 排版階梯 === */
+    h1 {
+      font-size: 32px;
+      line-height: 1.35;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-size: 24px;
+      line-height: 1.4;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin: 28px 0 16px 0;
+    }
+
+    h3 {
+      font-size: 19px;
+      line-height: 1.45;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--color-text-main);
+    }
+
+    .text-muted {
+      color: var(--color-text-muted);
+    }
+
+    .text-sub {
+      color: var(--color-text-sub);
+      font-size: 15px;
+    }
+
+    .lead-text {
+      font-size: 19px;
+      line-height: 1.8;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* === 標籤 Badge === */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: var(--color-accent-light);
+      color: var(--color-accent-text);
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 9999px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(13, 148, 136, 0.2);
+    }
+
+    /* === 按鈕體系 (Touch Target >= 52px, 純文字無符號) === */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      padding: 12px 24px;
+      text-align: center;
+      transition: all 0.2s ease;
+      line-height: 1.3;
+    }
+
+    .btn-primary {
+      background: var(--color-accent);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(13, 148, 136, 0.4);
+    }
+
+    .btn-outline {
+      background: #FFFFFF;
+      color: var(--color-primary);
+      border: 1px solid var(--color-border);
+    }
+
+    .btn-outline:hover {
+      background: var(--color-primary-light);
+      border-color: var(--color-text-sub);
+    }
+
+    /* === Bento Grid 卡片佈局 === */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .bento-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .bento-item {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-col: column;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .bento-item:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-2px);
+    }
+
+    .bento-step-num {
+      display: inline-block;
+      padding: 3px 10px;
+      background: var(--color-accent-light);
+      color: var(--color-accent-text);
+      font-size: 12px;
+      font-weight: 800;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .bento-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    /* === 顧問背書卡片 === */
+    .endorsement-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-lg);
+      border-left: 4px solid var(--color-accent);
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    .endorsement-title {
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+      font-size: 16px;
+    }
+
+    .endorsement-desc {
+      font-size: 15px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    /* === Disclaimer 區塊 === */
+    .disclaimer-card {
+      background: #F1F5F9;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      font-size: 14px;
+      color: var(--color-text-sub);
+      line-height: 1.65;
+      border: 1px solid var(--color-border);
+    }
+
+    .disclaimer-card strong {
+      color: var(--color-text-muted);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* === 浮動回頂部 === */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--color-surface);
+      color: var(--color-accent);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 90;
+      transition: all 0.2s ease;
+    }
+
+    .back-to-top:hover {
+      background: var(--color-accent);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    /* === HNA 彈窗 (Modal) === */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-box {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      max-width: 780px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 36px 32px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--color-border);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-text-sub);
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+      padding: 8px;
+    }
+
+    .modal-close:hover {
+      color: var(--color-primary);
+    }
+
+    .form-section {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-section-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      background: #FFFFFF;
+      font-size: 15px;
+      color: var(--color-text-main);
+      font-family: var(--font-stack);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .input-field:focus {
+      border-color: var(--color-accent);
+    }
+
+    .check-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+
+    .check-label:hover {
+      border-color: var(--color-accent);
+    }
+
+    .check-label input {
+      margin-top: 3px;
+      accent-color: var(--color-accent);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--color-accent);
+    }
+
+    .gap-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      background: var(--color-accent-light);
+      color: var(--color-accent-text);
+    }
+
+    .gap-badge.highlight {
+      background: var(--color-accent);
+      color: #FFFFFF;
+    }
+
+    /* === 響應式佈局 === */
+    @media (max-width: 768px) {
+      body {
+        font-size: 17px;
+      }
+      .section-card {
+        padding: 24px 18px;
+        margin-bottom: 24px;
+      }
+      h1 {
+        font-size: 26px;
+      }
+      h2 {
+        font-size: 21px;
+      }
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .bento-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .modal-box {
+        padding: 24px 18px;
+      }
+    }
+  </style>
 </head>
-<body class="min-h-screen relative overflow-x-hidden selection:bg-amber-500 selection:text-slate-900">
+<body>
 
-    <!-- 頂部封閉式導航欄（純淨無外跳、無按鈕） -->
-    <nav class="fixed top-0 w-full z-40 bg-[#0B1320]/90 backdrop-blur border-b border-slate-800/80 py-4 px-6">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <span class="text-2xl">🔬</span>
-                <span class="font-bold text-lg md:text-xl text-slate-100 tracking-wide">
-                    Health Decoder 健康解碼 <span class="text-amber-400 font-normal text-sm md:text-base ml-2">｜ 專屬健康管理及顧問服務（HMCS）</span>
-                </span>
-            </div>
-        </div>
-    </nav>
+  <!-- 頂部導航欄 (純淨無外跳、無按鈕) -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        🔬 Health Decoder 健康解碼 <span>｜ 專屬健康管理及顧問服務（HMCS）</span>
+      </a>
+    </div>
+  </header>
 
-    <!-- Block A：Hero 核心區 -->
-    <header class="pt-36 pb-20 px-6 max-w-5xl mx-auto text-center">
-        <!-- 標籤 -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-amber-500/30 text-amber-300 text-xs md:text-sm font-medium tracking-wide mb-8 shadow-sm">
-            <span>專業源頭分析</span>
-            <span class="text-slate-500">✕</span>
-            <span>系統式管理</span>
-            <span class="text-slate-500">✕</span>
-            <span>目標導向式跟進</span>
-        </div>
-        
-        <!-- 主標題 -->
-        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-slate-100 tracking-tight leading-tight mb-8">
-            認清源頭，配對合適方案<br class="hidden sm:inline">
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500">
-                協助訂立並達成目標
-            </span>
-        </h1>
-        
-        <!-- 副標題說明 -->
-        <p class="max-w-3xl mx-auto text-base md:text-xl text-slate-300 font-light leading-relaxed mb-10 text-justify sm:text-center">
-            我們主張：安全、可靠、輕鬆、不會成為負擔及浪費的方案；逐步透過理性、系統化、定時跟進的量身制定專屬調理進程，將健康生活融入習慣中，幫你重拾充沛活力與生活尊嚴。
-        </p>
-        
-        <!-- 主行動按鈕 (平滑滾動至流程圖，純文字無符號) -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <a href="#process-flow" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-base md:text-lg shadow-lg shadow-amber-900/30 transition duration-200 text-center">
-                了解如何量身制定專屬調理進程
-            </a>
-        </div>
+  <main class="container">
 
-        <!-- 顧問信任背書卡片 -->
-        <div class="max-w-2xl mx-auto bento-card rounded-2xl p-6 border border-slate-700/60 text-left flex items-start gap-4">
-            <div class="text-3xl p-2 bg-slate-800 rounded-xl">👨‍🔬</div>
-            <div>
-                <div class="text-amber-400 font-bold text-base md:text-lg mb-1">
-                    Duncan Chan ｜ 工程師邏輯 ✕ 代謝底層解碼
-                </div>
-                <div class="text-slate-300 text-sm md:text-base leading-relaxed">
-                    拒將退化當宿命，從源頭除錯。不開空頭支票，以達成雙方約定目標為本，守住不求人的自理底氣。
-                </div>
-            </div>
+    <!-- Block A：首屏核心區 -->
+    <section class="section-card" style="text-align: center; padding-top: 48px; padding-bottom: 48px;">
+      <div class="badge">
+        專業源頭分析 ✕ 系統式管理 ✕ 目標導向式跟進
+      </div>
+
+      <h1>
+        認清源頭，配對合適方案<br>
+        <span style="color: var(--color-accent);">協助訂立並達成目標</span>
+      </h1>
+
+      <p class="lead-text" style="max-width: 820px; margin: 0 auto 32px auto; text-align: justify;">
+        我們主張：安全、可靠、輕鬆、不會成為負擔及浪費的方案；逐步透過理性、系統化、定時跟進的量身制定專屬調理進程，將健康生活融入習慣中，幫你重拾充沛活力與生活尊嚴。
+      </p>
+
+      <div style="max-width: 420px; margin: 0 auto 36px auto;">
+        <a href="#process-flow" class="btn btn-primary">
+          了解如何量身制定專屬調理進程
+        </a>
+      </div>
+
+      <!-- 顧問背書卡片 -->
+      <div class="endorsement-card" style="max-width: 680px; margin-left: auto; margin-right: auto;">
+        <div style="font-size: 32px;">👨‍🔬</div>
+        <div>
+          <div class="endorsement-title">Duncan Chan ｜ 工程師邏輯 ✕ 代謝底層解碼</div>
+          <div class="endorsement-desc">
+            拒將退化當宿命，從源頭除錯。不開空頭支票，以達成雙方約定目標為本，守住不求人的自理底氣。
+          </div>
         </div>
-    </header>
+      </div>
+    </section>
 
     <!-- Block B：服務流程圖（9 大透明階段） -->
-    <section id="process-flow" class="py-16 px-6 max-w-5xl mx-auto scroll-mt-24">
-        <div class="text-center mb-14">
-            <span class="text-amber-400 text-sm font-semibold tracking-wider uppercase">服務流程</span>
-            <h2 class="text-2xl md:text-4xl font-bold text-slate-100 mt-2">清晰透明的九大服務進程</h2>
-            <p class="text-slate-400 text-sm md:text-base mt-3 max-w-2xl mx-auto">
-                每一步清晰透明，讓您完全掌握自己的健康進度與主導權
+    <section id="process-flow" class="section-card" style="scroll-margin-top: 80px;">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div class="badge">服務流程</div>
+        <h2>清晰透明的九大服務進程</h2>
+        <p class="text-muted" style="font-size: 16px;">
+          每一步清晰透明，讓您完全掌握自己的健康進度與主導權
+        </p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- 步驟 1 -->
+        <div class="bento-item">
+          <div>
+            <span class="bento-step-num">步驟 01</span>
+            <h3>HNA 了解健康需求及意願</h3>
+            <p class="text-sub">
+              線上完成深度健康需求評估，梳理個人現況、過往經驗、改善期望與執行決心。
             </p>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- 步驟 1 -->
-            <div class="bento-card rounded-2xl p-6 flex flex-col justify-between relative border border-slate-800">
-                <div>
-                    <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md mb-3">步驟 01</span>
-                    <h3 class="text-lg font-bold text-slate-100 mb-2">HNA 了解健康需求及意願</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        線上完成深度健康需求評估，梳理個人現況、過往經驗、改善期望與執行決心。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 步驟 2 -->
-            <div class="bento-card rounded-2xl p-6 flex flex-col justify-between relative border border-slate-800">
-                <div>
-                    <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md mb-3">步驟 02</span>
-                    <h3 class="text-lg font-bold text-slate-100 mb-2">健康評估</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        結合詳細問卷與專屬線下檢測，全方位收集客觀生理數據，深入掌握代謝與循環狀態。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 步驟 3 -->
-            <div class="bento-card rounded-2xl p-6 flex flex-col justify-between relative border border-slate-800">
-                <div>
-                    <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md mb-3">步驟 03</span>
-                    <h3 class="text-lg font-bold text-slate-100 mb-2">評估報告</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        整合客觀檢測數據與日常主觀體感，編制具系統邏輯的個人專屬健康評估報告。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 步驟 4 -->
-            <div class="bento-card rounded-2xl p-6 flex flex-col justify-between relative border border-slate-800">
-                <div>
-                    <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md mb-3">步驟 04</span>
-                    <h3 class="text-lg font-bold text-slate-100 mb-2">線下會議：報告分析及建議書</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        面對面逐項解讀生理數據，分析根本失衡成因，同時共同確認實質改善方向與目標。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 步驟 5 -->
-            <div class="bento-card rounded-2xl p-6 flex flex-col justify-between relative border border-slate-800">
-                <div>
-                    <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md mb-3">步驟 05</span>
-                    <h3 class="text-lg font-bold text-slate-100 mb-2">量身訂製專屬方案及計劃書</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        按共識目標度身設計融入日常生活的調理進程，配搭精準營養支持，不造成生活負擔。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 步驟 6 -->
-            <div class="bento-card rounded-2xl p-6 flex flex-col justify-between relative border border-slate-800">
-                <div>
-                    <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md mb-3">步驟 06</span>
-                    <h3 class="text-lg font-bold text-slate-100 mb-2">最後確認改善方向與執行計劃</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        由您親自審閱並確認所有執行細節、生活微習慣與改善指標，確保雙方步調完全一致。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 步驟 7 -->
-            <div class="bento-card rounded-2xl p-6 flex flex-col justify-between relative border border-slate-800">
-                <div>
-                    <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md mb-3">步驟 07</span>
-                    <h3 class="text-lg font-bold text-slate-100 mb-2">完成付款後開始執行改善計劃</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        確認協議並完成程序後，專屬資源配齊，正式啟動個人化的一對一教練陪伴進程。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 步驟 8 -->
-            <div class="bento-card rounded-2xl p-6 flex flex-col justify-between relative border border-slate-800">
-                <div>
-                    <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md mb-3">步驟 08</span>
-                    <h3 class="text-lg font-bold text-slate-100 mb-2">定期進行進度檢視與檢測</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        定期跟進體感記錄與數據覆測，根據動態狀況即時微調，切實保障計劃按進度達標。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 步驟 9 -->
-            <div class="bento-card rounded-2xl p-6 flex flex-col justify-between relative border border-slate-800">
-                <div>
-                    <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md mb-3">步驟 09</span>
-                    <h3 class="text-lg font-bold text-slate-100 mb-2">計劃完成後回顧與成果驗收</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        重回線下進行儀器覆測，前後客觀數據並列對比驗收成效，並將調理轉化為終生自理習慣。
-                    </p>
-                </div>
-            </div>
+        <!-- 步驟 2 -->
+        <div class="bento-item">
+          <div>
+            <span class="bento-step-num">步驟 02</span>
+            <h3>健康評估</h3>
+            <p class="text-sub">
+              結合詳細問卷與專屬線下檢測，全方位收集客觀生理數據，深入掌握代謝與循環狀態。
+            </p>
+          </div>
         </div>
+
+        <!-- 步驟 3 -->
+        <div class="bento-item">
+          <div>
+            <span class="bento-step-num">步驟 03</span>
+            <h3>評估報告</h3>
+            <p class="text-sub">
+              整合客觀檢測數據與日常主觀體感，編制具系統邏輯的個人專屬健康評估報告。
+            </p>
+          </div>
+        </div>
+
+        <!-- 步驟 4 -->
+        <div class="bento-item">
+          <div>
+            <span class="bento-step-num">步驟 04</span>
+            <h3>線下會議：報告分析及建議書</h3>
+            <p class="text-sub">
+              面對面逐項解讀生理數據，分析根本失衡成因，同時共同確認實質改善方向與目標。
+            </p>
+          </div>
+        </div>
+
+        <!-- 步驟 5 -->
+        <div class="bento-item">
+          <div>
+            <span class="bento-step-num">步驟 05</span>
+            <h3>量身訂製專屬方案及計劃書</h3>
+            <p class="text-sub">
+              按共識目標度身設計融入日常生活的調理進程，配搭精準營養支持，不造成生活負擔。
+            </p>
+          </div>
+        </div>
+
+        <!-- 步驟 6 -->
+        <div class="bento-item">
+          <div>
+            <span class="bento-step-num">步驟 06</span>
+            <h3>最後確認改善方向與執行計劃</h3>
+            <p class="text-sub">
+              由您親自審閱並確認所有執行細節、生活微習慣與改善指標，確保雙方步調完全一致。
+            </p>
+          </div>
+        </div>
+
+        <!-- 步驟 7 -->
+        <div class="bento-item">
+          <div>
+            <span class="bento-step-num">步驟 07</span>
+            <h3>完成付款後開始執行改善計劃</h3>
+            <p class="text-sub">
+              確認協議並完成程序後，專屬資源配齊，正式啟動個人化的一對一教練陪伴進程。
+            </p>
+          </div>
+        </div>
+
+        <!-- 步驟 8 -->
+        <div class="bento-item">
+          <div>
+            <span class="bento-step-num">步驟 08</span>
+            <h3>定期進行進度檢視與檢測</h3>
+            <p class="text-sub">
+              定期跟進體感記錄與數據覆測，根據動態狀況即時微調，切實保障計劃按進度達標。
+            </p>
+          </div>
+        </div>
+
+        <!-- 步驟 9 -->
+        <div class="bento-item">
+          <div>
+            <span class="bento-step-num">步驟 09</span>
+            <h3>計劃完成後回顧與成果驗收</h3>
+            <p class="text-sub">
+              重回線下進行儀器覆測，前後客觀數據並列對比驗收成效，並將調理轉化為終生自理習慣。
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Block C：本服務適合什麼人 -->
-    <section class="py-16 px-6 max-w-5xl mx-auto">
-        <div class="text-center mb-14">
-            <span class="text-amber-400 text-sm font-semibold tracking-wider uppercase">對象聚焦</span>
-            <h2 class="text-2xl md:text-4xl font-bold text-slate-100 mt-2">本服務適合什麼人</h2>
-            <p class="text-slate-400 text-sm md:text-base mt-3 max-w-2xl mx-auto">
-                我們專注為真正重視健康、渴望自主掌舵的朋友提供深度專業支持
+    <section class="section-card">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div class="badge">對象聚焦</div>
+        <h2>本服務適合什麼人</h2>
+        <p class="text-muted" style="font-size: 16px;">
+          我們專注為真正重視健康、渴望自主掌舵的朋友提供深度專業支持
+        </p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-item" style="background: #FFFFFF;">
+          <div>
+            <div class="bento-icon">🧭</div>
+            <h3>不知自身保健是否對症者</h3>
+            <p class="text-sub">
+              家裡保健品繁多，或嘗試過各種坊間偏方，卻始終不知道是否真正切合自身底層狀況，渴望有科學方法認清真正根源。
             </p>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- 族群 1 -->
-            <div class="bento-card rounded-2xl p-8 border border-slate-800 flex flex-col justify-between">
-                <div>
-                    <div class="text-3xl mb-4">🧭</div>
-                    <h3 class="text-lg font-bold text-slate-100 mb-3">不知自身保健是否對症者</h3>
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        家裡保健品繁多，或嘗試過各種坊間偏方，卻始終不知道是否真正切合自身底層狀況，渴望有科學方法認清真正根源。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 族群 2 -->
-            <div class="bento-card rounded-2xl p-8 border border-slate-800 flex flex-col justify-between">
-                <div>
-                    <div class="text-3xl mb-4">⚖️</div>
-                    <h3 class="text-lg font-bold text-slate-100 mb-3">缺乏計劃與指導而擔心無效者</h3>
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        在缺乏系統計劃和專業指引的情況下，擔心盲目摸索無法達到預期健康效果，既耗費時間與金錢，又擔心造成身體額外負擔。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 族群 3 -->
-            <div class="bento-card rounded-2xl p-8 border border-slate-800 flex flex-col justify-between">
-                <div>
-                    <div class="text-3xl mb-4">🤝</div>
-                    <h3 class="text-lg font-bold text-slate-100 mb-3">願意承諾負責且需要系統與他律者</h3>
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        願意向自己的健康作出承諾與負責，有明確決心想改善健康，而需要有一套科學系統與專業他律協助，督促並陪伴落實方案的人。
-                    </p>
-                </div>
-            </div>
+        <div class="bento-item" style="background: #FFFFFF;">
+          <div>
+            <div class="bento-icon">⚖️</div>
+            <h3>缺乏計劃與指導而擔心無效者</h3>
+            <p class="text-sub">
+              在缺乏系統計劃和專業指引的情況下，擔心盲目摸索無法達到預期健康效果，既耗費時間與金錢，又擔心造成身體額外負擔。
+            </p>
+          </div>
         </div>
+
+        <div class="bento-item" style="background: #FFFFFF;">
+          <div>
+            <div class="bento-icon">🤝</div>
+            <h3>願意承諾負責且需要系統與他律者</h3>
+            <p class="text-sub">
+              願意向自己的健康作出承諾與負責，有明確決心想改善健康，而需要有一套科學系統與專業他律協助，督促並陪伴落實方案的人。
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Block D：Health Decoder 服務的優勢和特色 -->
-    <section class="py-16 px-6 max-w-5xl mx-auto">
-        <div class="text-center mb-14">
-            <span class="text-amber-400 text-sm font-semibold tracking-wider uppercase">核心優勢</span>
-            <h2 class="text-2xl md:text-4xl font-bold text-slate-100 mt-2">Health Decoder 服務的優勢和特色</h2>
-            <p class="text-slate-400 text-sm md:text-base mt-3 max-w-2xl mx-auto">
-                堅守專業底線，以理性與客觀數據為您量身規劃
-            </p>
+    <section class="section-card">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div class="badge">核心優勢</div>
+        <h2>Health Decoder 服務的優勢和特色</h2>
+        <p class="text-muted" style="font-size: 16px;">
+          堅守專業底線，以理性與客觀數據為您量身規劃
+        </p>
+      </div>
+
+      <div class="bento-grid-2">
+        <div class="bento-item" style="background: #FFFFFF;">
+          <div style="display: flex; gap: 14px;">
+            <div style="font-size: 24px;">📊</div>
+            <div>
+              <h3>數據和科學邏輯，精準直擊源頭</h3>
+              <p class="text-sub">
+                用數據和科學邏輯找出潛在的問題成因，務求能精準地從源頭入手，非頭痛醫頭、腳痛醫腳。
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- 特色 1 -->
-            <div class="bento-card rounded-2xl p-6 border border-slate-800">
-                <div class="flex items-start gap-4">
-                    <div class="text-2xl p-2 bg-amber-500/10 text-amber-400 rounded-lg">📊</div>
-                    <div>
-                        <h3 class="text-base md:text-lg font-bold text-slate-100 mb-2">數據和科學邏輯，精準直擊源頭</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            用數據和科學邏輯找出潛在的問題成因，務求能精準地從源頭入手，非頭痛醫頭、腳痛醫腳。
-                        </p>
-                    </div>
-                </div>
+        <div class="bento-item" style="background: #FFFFFF;">
+          <div style="display: flex; gap: 14px;">
+            <div style="font-size: 24px;">🛡️</div>
+            <div>
+              <h3>安全務實，恪守與醫療體系的分工</h3>
+              <p class="text-sub">
+                堅守安全可靠、務實的方案和可執行的計劃；劃清和醫療體系明確的角色和分工。不會盲目叫人作出和專業醫護矛盾的行為。
+              </p>
             </div>
-
-            <!-- 特色 2 -->
-            <div class="bento-card rounded-2xl p-6 border border-slate-800">
-                <div class="flex items-start gap-4">
-                    <div class="text-2xl p-2 bg-amber-500/10 text-amber-400 rounded-lg">🛡️</div>
-                    <div>
-                        <h3 class="text-base md:text-lg font-bold text-slate-100 mb-2">安全務實，恪守與醫療體系的分工</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            堅守安全可靠、務實的方案和可執行的計劃；劃清和醫療體系明確的角色和分工。不會盲目叫人作出和專業醫護矛盾的行為。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 特色 3 -->
-            <div class="bento-card rounded-2xl p-6 border border-slate-800">
-                <div class="flex items-start gap-4">
-                    <div class="text-2xl p-2 bg-amber-500/10 text-amber-400 rounded-lg">🌱</div>
-                    <div>
-                        <h3 class="text-base md:text-lg font-bold text-slate-100 mb-2">輕鬆融入生活，拒絕苛刻極端</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            不要求苛刻或極端的改善進程，按客人情況和需要，逐步調整讓客人漸漸養成習慣，自然地逐步改善。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 特色 4 -->
-            <div class="bento-card rounded-2xl p-6 border border-slate-800">
-                <div class="flex items-start gap-4">
-                    <div class="text-2xl p-2 bg-amber-500/10 text-amber-400 rounded-lg">⚙️</div>
-                    <div>
-                        <h3 class="text-base md:text-lg font-bold text-slate-100 mb-2">系統和數據化管理，杜絕主觀慣性</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            系統和數據化的管理及跟進，不憑主觀和慣性，以確保計劃目標有效達成。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 特色 5 (跨兩欄) -->
-            <div class="bento-card rounded-2xl p-6 border border-slate-800 md:col-span-2">
-                <div class="flex items-start gap-4">
-                    <div class="text-2xl p-2 bg-amber-500/10 text-amber-400 rounded-lg">🤝</div>
-                    <div>
-                        <h3 class="text-base md:text-lg font-bold text-slate-100 mb-2">尊重自主權，教練式引導與陪伴</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            按客人情況狀況意願和決心去釐定目標和計劃，將主導權交回給客人，我們從顧問、管理、提醒、陪伴、建議、教練式引導方面來提供協助。
-                        </p>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+
+        <div class="bento-item" style="background: #FFFFFF;">
+          <div style="display: flex; gap: 14px;">
+            <div style="font-size: 24px;">🌱</div>
+            <div>
+              <h3>輕鬆融入生活，拒絕苛刻極端</h3>
+              <p class="text-sub">
+                不要求苛刻或極端的改善進程，按客人情況和需要，逐步調整讓客人漸漸養成習慣，自然地逐步改善。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bento-item" style="background: #FFFFFF;">
+          <div style="display: flex; gap: 14px;">
+            <div style="font-size: 24px;">⚙️</div>
+            <div>
+              <h3>系統和數據化管理，杜絕主觀慣性</h3>
+              <p class="text-sub">
+                系統和數據化的管理及跟進，不憑主觀和慣性，以確保計劃目標有效達成。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bento-item" style="grid-column: span 2; background: #FFFFFF;">
+          <div style="display: flex; gap: 14px;">
+            <div style="font-size: 24px;">🤝</div>
+            <div>
+              <h3>尊重自主權，教練式引導與陪伴</h3>
+              <p class="text-sub">
+                按客人情況狀況意願和決心去釐定目標和計劃，將主導權交回給客人，我們從顧問、管理、提醒、陪伴、建議、教練式引導方面來提供協助。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Block E：專屬健康願景 -->
-    <section class="py-16 px-6 max-w-5xl mx-auto">
-        <div class="bento-card rounded-3xl p-8 md:p-12 border border-slate-800 text-center relative overflow-hidden">
-            <div class="max-w-3xl mx-auto">
-                <span class="text-amber-400 text-sm font-semibold tracking-wider uppercase">健康願景</span>
-                <h2 class="text-2xl md:text-4xl font-bold text-slate-100 mt-2 mb-6">
-                    重獲清晰掌控，找回生活的從容與自理底氣
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mt-8">
-                    <div class="p-4 rounded-xl bg-slate-800/40 border border-slate-700/40">
-                        <div class="text-amber-400 font-bold mb-2">撥開迷霧掌握健康</div>
-                        <div class="text-slate-300 text-sm leading-relaxed">
-                            不再盲目試錯，清楚看透身體真正所需，告別無效花費與無謂焦慮。
-                        </div>
-                    </div>
-                    <div class="p-4 rounded-xl bg-slate-800/40 border border-slate-700/40">
-                        <div class="text-amber-400 font-bold mb-2">步步踏實機能回升</div>
-                        <div class="text-slate-300 text-sm leading-relaxed">
-                            在系統引導與專業陪伴下，每一步改善看得見、摸得著，體力充沛安心前行。
-                        </div>
-                    </div>
-                    <div class="p-4 rounded-xl bg-slate-800/40 border border-slate-700/40">
-                        <div class="text-amber-400 font-bold mb-2">守護尊嚴自立自理</div>
-                        <div class="text-slate-300 text-sm leading-relaxed">
-                            將好習慣穩固在生活之中，維持硬朗體魄與生活尊嚴，永遠做家庭最安心的靠山。
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="section-card" style="text-align: center;">
+      <div class="badge">健康願景</div>
+      <h2>重獲清晰掌控，找回生活的從容與自理底氣</h2>
+      <p class="text-muted" style="margin-bottom: 24px;">
+        當健康不再是負擔與迷霧，生活就能重回理想節奏
+      </p>
+
+      <div class="bento-grid">
+        <div class="bento-item" style="background: #FFFFFF; text-align: left;">
+          <h3 style="color: var(--color-accent); font-size: 17px;">撥開迷霧掌握健康</h3>
+          <p class="text-sub">
+            不再盲目試錯，清楚看透身體真正所需，告別無效花費與無謂焦慮。
+          </p>
         </div>
+
+        <div class="bento-item" style="background: #FFFFFF; text-align: left;">
+          <h3 style="color: var(--color-accent); font-size: 17px;">步步踏實機能回升</h3>
+          <p class="text-sub">
+            在系統引導與專業陪伴下，每一步改善看得見、摸得著，體力充沛安心前行。
+          </p>
+        </div>
+
+        <div class="bento-item" style="background: #FFFFFF; text-align: left;">
+          <h3 style="color: var(--color-accent); font-size: 17px;">守護尊嚴自立自理</h3>
+          <p class="text-sub">
+            將好習慣穩固在生活之中，維持硬朗體魄與生活尊嚴，永遠做家庭最安心的靠山。
+          </p>
+        </div>
+      </div>
     </section>
 
-    <!-- Block F：底部 CTA 區塊 -->
-    <section class="py-16 px-6 max-w-4xl mx-auto text-center">
-        <div class="bento-card rounded-3xl p-8 md:p-12 border border-amber-500/30">
-            <h2 class="text-2xl md:text-4xl font-extrabold text-slate-100 mb-6">
-                開展您的專屬健康管理計劃
-            </h2>
-            <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8 text-justify sm:text-center">
-                收到申請後，我們會先進行線上溝通，深入了解您的狀況與意願是否適合本計劃。若評估暫不合適，我們仍會誠懇提出改善建議；若確認合適，將為您預約進行健康評估及線下健康檢測，收集客觀數據展開精準分析。
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="hna.html" class="w-full sm:w-auto px-10 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-lg shadow-xl shadow-amber-950/40 transition duration-200 text-center">
-                    開始填寫 HNA 深度需求分析
-                </a>
-            </div>
-        </div>
+    <!-- Block F：底部行動呼籲區塊 (CTA) -->
+    <section class="section-card" style="text-align: center; border: 2px solid var(--color-accent); padding: 48px 32px;">
+      <h2>開展您的專屬健康管理計劃</h2>
+      <p class="lead-text" style="max-width: 780px; margin: 0 auto 32px auto; text-align: justify;">
+        收到申請後，我們會先進行線上溝通，深入了解您的狀況與意願是否適合本計劃。若評估暫不合適，我們仍會誠懇提出改善建議；若確認合適，將為您預約進行健康評估及線下健康檢測，收集客觀數據展開精準分析。
+      </p>
+
+      <div style="max-width: 440px; margin: 0 auto;">
+        <button onclick="openHnaModal()" class="btn btn-primary">
+          開始填寫 HNA 深度需求分析
+        </button>
+      </div>
     </section>
 
-    <!-- Block G：專業聲明與承諾 (Disclaimer) -->
-    <section class="pb-20 px-6 max-w-4xl mx-auto">
-        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 text-xs md:text-sm text-slate-400 space-y-3 leading-relaxed">
-            <div class="font-bold text-slate-300">專業聲明與服務承諾</div>
-            <p>
-                1. 嚴格遵守個人私隱及保密操守：所有填寫資料、諮詢記錄與後續檢測數據僅用於專屬健康管理分析，未經許可絕不向第三方透露。
-            </p>
-            <p>
-                2. 服務全力承諾：一旦雙方達成改善計劃協議，在服務期內，我們將全力配合客戶，以共同訂立的目標為導向，提供全方位跟進與支持。
-            </p>
-            <p>
-                3. 角色定位說明：本專案所提供之諮詢與生活營養建議屬於健康管理範疇，非醫療機構，不提供醫療診斷或處方。如有急性病症或常規用藥疑問，請遵循執業醫生指示。
-            </p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-8 border-t border-slate-800/80 text-center text-xs text-slate-500">
-        <p>© 2026 Health Decoder 健康解碼 ｜ 專屬健康管理及顧問服務（HMCS）. 版權所有.</p>
-    </footer>
-
-    <!-- 方案 A：極簡預約初步線上溝通彈窗 (Modal) -->
-    <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto pt-6 pb-6 px-4 hidden bg-black/80 backdrop-blur-sm">
-        <div class="bg-[#0F172A] border border-slate-700/80 rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl relative">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-200 text-xl font-bold">
-                ✕
-            </button>
-            <div class="mb-6">
-                <span class="text-amber-400 text-xs font-semibold tracking-wider uppercase">預約諮詢</span>
-                <h3 class="text-xl md:text-2xl font-bold text-slate-100 mt-1">預約初步線上溝通</h3>
-                <p class="text-slate-400 text-xs md:text-sm mt-2 leading-relaxed">
-                    請填寫基本聯絡方式，顧問將於 1-2 個工作天內透過 WhatsApp 聯絡您，了解您的健康狀況與改善意願是否適合本計劃。
-                </p>
-            </div>
-
-            <form id="contactForm" onsubmit="submitContactForm(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">您的稱呼 *</label>
-                    <input type="text" id="custName" required placeholder="例如：陳先生 / 李女士" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-amber-400">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">WhatsApp 聯絡電話 *</label>
-                    <input type="tel" id="custPhone" required placeholder="例如：91234567" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-amber-400">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">目前最想改善的健康狀況或困擾（選填）</label>
-                    <textarea id="custGoal" rows="3" placeholder="簡述您的身體現狀或期望目標..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-amber-400"></textarea>
-                </div>
-                
-                <div id="submitFeedback" class="text-xs text-center hidden py-2"></div>
-
-                <div class="pt-2">
-                    <button type="submit" id="submitBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-base transition">
-                        確認送出預約登記
-                    </button>
-                </div>
-            </form>
-        </div>
+    <!-- Block G：專業聲明與服務承諾 (Disclaimer) -->
+    <div class="disclaimer-card">
+      <strong>專業聲明與服務承諾</strong>
+      <p style="margin-bottom: 8px;">
+        1. 嚴格遵守個人私隱及保密操守：所有填寫資料、諮詢記錄與後續檢測數據僅用於專屬健康管理分析，未經許可絕不向第三方透露。
+      </p>
+      <p style="margin-bottom: 8px;">
+        2. 服務全力承諾：一旦雙方達成改善計劃協議，在服務期內，我們將全力配合客戶，以共同訂立的目標為導向，提供全方位跟進與支持。
+      </p>
+      <p style="margin-bottom: 0;">
+        3. 角色定位說明：本專案所提供之諮詢與生活營養建議屬於健康管理範疇，非醫療機構，不提供醫療診斷或處方。如有急性病症或常規用藥疑問，請遵循執業醫生指示。
+      </p>
     </div>
 
-    <!-- 浮動回頂部按鈕 (純文字符號純淨) -->
-    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-slate-800/90 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-sm hover:bg-slate-700 transition z-30 shadow-lg">
-        頂部
-    </button>
+  </main>
 
-    <script>
-        const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec";
+  <!-- 浮動回頂部按鈕 (純文字無符號) -->
+  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top" title="回到頂部">
+    頂部
+  </button>
 
-        function openModal() {
-            document.getElementById('contact-modal').classList.remove('hidden');
+  <!-- ==========================================================================
+       HNA 全功能原生互動 Modal (同頁呼叫，零 404 風險，夜尿專頁明亮醫學風)
+       ========================================================================== -->
+  <div id="hnaModal" class="modal-overlay" style="display: none;">
+    <div class="modal-box">
+      <button onclick="closeHnaModal()" class="modal-close" title="關閉視窗">✕</button>
+      
+      <div style="border-bottom: 1px solid var(--color-border); padding-bottom: 16px; margin-bottom: 24px;">
+        <div class="badge" style="margin-bottom: 8px;">Health Needs Analysis</div>
+        <h2 style="margin: 0 0 6px 0;">個人專屬健康需求分析 (HNA)</h2>
+        <p class="text-sub" style="margin-bottom: 0;">
+          全方位盤點您的身體訊號、生活作息與用藥現況。填妥後系統將動態編譯標準 A4 專屬分析報告 (PDF) 供您即時下載與存檔。
+        </p>
+      </div>
+
+      <form id="hnaInteractiveForm" onsubmit="handleHnaModalSubmit(event)">
+        
+        <!-- 基本資料 -->
+        <div class="form-section">
+          <div class="form-section-title">👤 基本聯絡資料</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+            <div>
+              <label class="text-sub" style="display: block; margin-bottom: 4px; font-weight: 700;">您的稱呼 *</label>
+              <input type="text" id="m_custName" required placeholder="例如：陳先生 / 李女士" class="input-field">
+            </div>
+            <div>
+              <label class="text-sub" style="display: block; margin-bottom: 4px; font-weight: 700;">WhatsApp 聯絡電話 *</label>
+              <input type="tel" id="m_custPhone" required placeholder="例如：91234567" class="input-field">
+            </div>
+          </div>
+        </div>
+
+        <!-- 第一部分：健康目標與步調 -->
+        <div class="form-section">
+          <div class="form-section-title">🎯 第一部分：健康目標與期望步調</div>
+          <p class="text-sub" style="margin-bottom: 10px;">請勾選最希望優先改善或關注的方向（勾選 1 至 3 項）*</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-bottom: 16px;">
+            <label class="check-label">
+              <input type="checkbox" name="m_goals" value="日常活力與精神">
+              <div><strong>日常活力與精神</strong><br><span class="text-sub">易疲倦、飯後昏睡、腦霧、睡眠淺</span></div>
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="m_goals" value="體態與代謝調節">
+              <div><strong>體態與代謝調節</strong><br><span class="text-sub">腹部脂肪、體重停滯、常嘴饞嗜甜</span></div>
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="m_goals" value="腸道消化與吸收">
+              <div><strong>腸道消化與吸收</strong><br><span class="text-sub">脹氣、胃酸倒流、排便不順、敏感</span></div>
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="m_goals" value="皮膚屏障與發炎">
+              <div><strong>皮膚屏障與體內發炎</strong><br><span class="text-sub">濕疹反覆、皮膚乾癢、容易泛紅</span></div>
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="m_goals" value="關節筋骨與體能">
+              <div><strong>關節筋骨與肢體體能</strong><br><span class="text-sub">久坐僵硬、上下樓梯不適、體能減退</span></div>
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="m_goals" value="心血管與循環">
+              <div><strong>心血管與循環健康</strong><br><span class="text-sub">手腳冰冷、關注三高長期健康趨勢</span></div>
+            </label>
+          </div>
+
+          <label class="text-sub" style="display: block; margin-bottom: 8px; font-weight: 700;">期望達成的健康步調：</label>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <label class="check-label">
+              <input type="radio" name="m_timeline" value="快速啟動期（1 - 3 個月）" checked>
+              <span><strong>快速啟動期（1 - 3 個月）</strong>：短時間啟動代謝，建立基礎生理防禦</span>
+            </label>
+            <label class="check-label">
+              <input type="radio" name="m_timeline" value="機能重塑期（3 - 6 個月）">
+              <span><strong>機能重塑期（3 - 6 個月）</strong>：給身體充足生理週期，進行深層代謝修復</span>
+            </label>
+            <label class="check-label">
+              <input type="radio" name="m_timeline" value="長期鞏固期（6 個月至 1 年以上）">
+              <span><strong>長期鞏固期（6 個月至 1 年以上）</strong>：建立穩固生活防禦，保持長期活力</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 第二部分：生活作息與用藥現況 -->
+        <div class="form-section">
+          <div class="form-section-title">🌿 第二部分：生活作息、用藥現況與改善意願</div>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px;">
+            <div>
+              <label class="text-sub" style="display: block; margin-bottom: 4px;">每晚睡眠時數</label>
+              <input type="text" id="m_sleepHours" placeholder="例如：6.5" class="input-field">
+            </div>
+            <div>
+              <label class="text-sub" style="display: block; margin-bottom: 4px;">醒來充沛感 (1-10)</label>
+              <input type="number" id="m_sleepScore" min="1" max="10" placeholder="例如：5" class="input-field">
+            </div>
+            <div>
+              <label class="text-sub" style="display: block; margin-bottom: 4px;">每週外食餐數</label>
+              <input type="text" id="m_mealsOut" placeholder="例如：8" class="input-field">
+            </div>
+            <div>
+              <label class="text-sub" style="display: block; margin-bottom: 4px;">每天飲水量</label>
+              <select id="m_water" class="input-field">
+                <option value="充足（1.5L以上）">充足（1.5L以上）</option>
+                <option value="偏少（1.5L以下）">偏少（1.5L以下）</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid var(--color-border); padding-top: 12px; margin-bottom: 14px;">
+            <label class="text-sub" style="display: block; margin-bottom: 8px; font-weight: 700;">平時有固定服用、外用或依賴以下哪類品項？（可複選）</label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px;">
+              <label class="check-label"><input type="checkbox" name="m_meds" value="三高代謝類（血壓/血糖/膽固醇）"><span>三高代謝類（血壓/血糖/膽固醇）</span></label>
+              <label class="check-label"><input type="checkbox" name="m_meds" value="睡眠情緒神經類（安眠/鎮靜/止痛）"><span>睡眠情緒神經類（安眠/鎮靜/止痛）</span></label>
+              <label class="check-label"><input type="checkbox" name="m_meds" value="腸胃消化類（胃藥/便秘瀉藥）"><span>腸胃消化類（胃藥/便秘瀉藥）</span></label>
+              <label class="check-label"><input type="checkbox" name="m_meds" value="皮膚外用類固醇/抗敏藥膏"><span>皮膚外用類固醇/抗敏藥膏</span></label>
+              <label class="check-label"><input type="checkbox" name="m_meds" value="中醫藥調理（傳統中藥/中成藥）"><span>中醫藥調理（傳統中藥/中成藥）</span></label>
+              <label class="check-label"><input type="checkbox" name="m_meds" value="目前完全無使用西藥或中藥"><span>目前完全無使用西藥或中藥</span></label>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+            <div>
+              <label class="text-sub" style="display: block; margin-bottom: 4px;">持續使用或依賴多久？</label>
+              <select id="m_medDuration" class="input-field">
+                <option value="3 個月以內（短期偶爾）">3 個月以內（短期偶爾）</option>
+                <option value="半年至 1 年">半年至 1 年</option>
+                <option value="1 至 3 年">1 至 3 年</option>
+                <option value="3 年以上（長期固定依賴）">3 年以上（長期固定依賴）</option>
+                <option value="完全無依賴">完全無依賴</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sub" style="display: block; margin-bottom: 4px;">長遠內心期待：</label>
+              <select id="m_expectation" class="input-field">
+                <option value="主動修復型：喚醒自癒力，追求漸進式減量，擺脫依賴">主動修復型：喚醒自癒力，逐步擺脫依賴</option>
+                <option value="防守預防加劇：擔心副作用，希望劑量不要加重">防守預防加劇：希望劑量不要加重</option>
+                <option value="維持現狀即可：只要指標不超標即可">維持現狀即可：只要指標不超標即可</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <label class="text-sub" style="font-weight: 700;">重獲身體健康自主權的渴望程度 (1-10分)：</label>
+              <span id="m_desireVal" style="color: var(--color-accent); font-weight: 800;">8 分</span>
+            </div>
+            <input type="range" id="m_desireScore" min="1" max="10" value="8" oninput="document.getElementById('m_desireVal').innerText = this.value + ' 分'">
+          </div>
+        </div>
+
+        <!-- 第三部分：健康缺口自評對比表 (5大維度即時計算) -->
+        <div class="form-section">
+          <div class="form-section-title">📊 第三部分：健康缺口自評對比表</div>
+          <p class="text-sub" style="margin-bottom: 12px;">請滑動打分 (1-10分)，系統自動計算核心缺口 (B - A)：</p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- 維度 1 -->
+            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 15px; color: var(--color-primary);">1. 精神與能量續航</strong>
+                <span id="m_diff1" class="gap-badge">缺口: 3</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 14px;">
+                <div>現況 (A): <strong id="m_d1_a_v">5</strong> 分 <input type="range" id="m_d1_a" min="1" max="10" value="5" oninput="calcModalGaps()"></div>
+                <div>期望 (B): <strong id="m_d1_b_v">8</strong> 分 <input type="range" id="m_d1_b" min="1" max="10" value="8" oninput="calcModalGaps()"></div>
+              </div>
+            </div>
+
+            <!-- 維度 2 -->
+            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 15px; color: var(--color-primary);">2. 飲食營養與消化通暢</strong>
+                <span id="m_diff2" class="gap-badge">缺口: 3</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 14px;">
+                <div>現況 (A): <strong id="m_d2_a_v">5</strong> 分 <input type="range" id="m_d2_a" min="1" max="10" value="5" oninput="calcModalGaps()"></div>
+                <div>期望 (B): <strong id="m_d2_b_v">8</strong> 分 <input type="range" id="m_d2_b" min="1" max="10" value="8" oninput="calcModalGaps()"></div>
+              </div>
+            </div>
+
+            <!-- 維度 3 -->
+            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 15px; color: var(--color-primary);">3. 作息深度與抗壓修復</strong>
+                <span id="m_diff3" class="gap-badge">缺口: 3</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 14px;">
+                <div>現況 (A): <strong id="m_d3_a_v">5</strong> 分 <input type="range" id="m_d3_a" min="1" max="10" value="5" oninput="calcModalGaps()"></div>
+                <div>期望 (B): <strong id="m_d3_b_v">8</strong> 分 <input type="range" id="m_d3_b" min="1" max="10" value="8" oninput="calcModalGaps()"></div>
+              </div>
+            </div>
+
+            <!-- 維度 4 -->
+            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 15px; color: var(--color-primary);">4. 肢體筋骨與自體活力</strong>
+                <span id="m_diff4" class="gap-badge">缺口: 3</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 14px;">
+                <div>現況 (A): <strong id="m_d4_a_v">5</strong> 分 <input type="range" id="m_d4_a" min="1" max="10" value="5" oninput="calcModalGaps()"></div>
+                <div>期望 (B): <strong id="m_d4_b_v">8</strong> 分 <input type="range" id="m_d4_b" min="1" max="10" value="8" oninput="calcModalGaps()"></div>
+              </div>
+            </div>
+
+            <!-- 維度 5 -->
+            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 15px; color: var(--color-primary);">5. 自身防禦力與擺脫依賴</strong>
+                <span id="m_diff5" class="gap-badge">缺口: 3</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 14px;">
+                <div>現況 (A): <strong id="m_d5_a_v">5</strong> 分 <input type="range" id="m_d5_a" min="1" max="10" value="5" oninput="calcModalGaps()"></div>
+                <div>期望 (B): <strong id="m_d5_b_v">8</strong> 分 <input type="range" id="m_d5_b" min="1" max="10" value="8" oninput="calcModalGaps()"></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px; padding: 12px; border-radius: var(--radius-sm); background: var(--color-accent-light); color: var(--color-accent-text); display: flex; justify-content: space-between; align-items: center; font-size: 14px;">
+            <span>首要突破優先方向：</span>
+            <strong id="m_topPriorityText" style="font-size: 15px;">待計算</strong>
+          </div>
+        </div>
+
+        <!-- 第四部分：路徑與共識 -->
+        <div class="form-section">
+          <div class="form-section-title">🤝 第四部分：方案共識與節奏校準</div>
+          <div style="margin-bottom: 12px;">
+            <label class="text-sub" style="display: block; margin-bottom: 4px; font-weight: 700;">建議介入主軸路徑：</label>
+            <select id="m_path" class="input-field">
+              <option value="途徑一：保健營養理療入手（最省時、適合忙碌生活）">途徑一：保健營養理療入手（最省時、適合忙碌生活）</option>
+              <option value="途徑二：物理/運動入手（強化循環與結構）">途徑二：物理/運動入手（強化循環與結構）</option>
+              <option value="途徑三：雙軌協同（營養提供原料，伸展促進吸收）">途徑三：雙軌協同（營養提供原料，伸展促進吸收）</option>
+            </select>
+          </div>
+
+          <label class="check-label" style="font-size: 14px;">
+            <input type="checkbox" id="m_consensusCheck" required checked>
+            <span>我充分理解並同意身體修復遵循生理客觀指標先行、主觀體感隨後的自然規律，並以此作為理性推進之共識。</span>
+          </label>
+        </div>
+
+        <!-- 提交按鈕 -->
+        <div style="margin-top: 20px;">
+          <button type="submit" id="m_submitBtn" class="btn btn-primary">
+            提交並生成個人專屬 HNA 分析報告 (PDF)
+          </button>
+          <p class="text-sub" style="text-align: center; margin-top: 10px; font-size: 13px;">
+            提交後後端將自動編譯標準 A4 兩頁 PDF 報告供即時下載
+          </p>
+        </div>
+      </form>
+
+      <!-- 成功反饋面板 -->
+      <div id="m_resultCard" style="display: none; text-align: center; padding: 24px 0;">
+        <div style="font-size: 48px; margin-bottom: 12px;">📄</div>
+        <div class="badge">分析報告已生成</div>
+        <h3 style="font-size: 24px; margin-bottom: 8px;">HNA 分析書已就緒</h3>
+        <p class="text-sub" style="margin-bottom: 20px;">
+          檔案編號：<strong id="m_resFileId" style="color: var(--color-accent);"></strong><br>
+          您的專屬健康需求分析書已安全編譯存檔。
+        </p>
+
+        <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 18px; text-align: left; font-size: 14px; margin-bottom: 24px; max-width: 540px; margin-left: auto; margin-right: auto;">
+          <strong style="color: var(--color-accent); display: block; margin-bottom: 6px;">線下面談覆核提示：</strong>
+          <p style="margin-bottom: 4px;">• 您可點擊下方按鈕預覽或下載 PDF 檔案。</p>
+          <p style="margin-bottom: 4px;">• 顧問 Duncan Chan 將於 1-2 個工作天內透過 WhatsApp 與您聯絡。</p>
+          <p style="margin-bottom: 0;">• 線下面談時，我們將印妥紙本報告，與您逐項覆核細節並正式簽署落實。</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 420px; margin: 0 auto;">
+          <a id="m_downloadPdfBtn" href="#" target="_blank" class="btn btn-primary">
+            下載我的專屬 HNA 分析報告 (PDF)
+          </a>
+          <button onclick="closeHnaModal()" class="btn btn-outline" style="min-height: 44px; font-size: 15px;">
+            完成並關閉視窗
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec";
+
+    function openHnaModal() {
+      document.getElementById('hnaModal').style.display = 'flex';
+      calcModalGaps();
+    }
+
+    function closeHnaModal() {
+      document.getElementById('hnaModal').style.display = 'none';
+    }
+
+    function calcModalGaps() {
+      const dims = [
+        { id: 1, name: "精神與能量續航" },
+        { id: 2, name: "飲食營養與消化通暢" },
+        { id: 3, name: "作息深度與抗壓修復" },
+        { id: 4, name: "肢體筋骨與自體活力" },
+        { id: 5, name: "自身防禦力與擺脫依賴" }
+      ];
+
+      let maxDiff = -1;
+      let topName = "待綜合評估";
+
+      dims.forEach(d => {
+        const a = parseInt(document.getElementById(`m_d${d.id}_a`).value);
+        const b = parseInt(document.getElementById(`m_d${d.id}_b`).value);
+        const diff = b - a;
+
+        document.getElementById(`m_d${d.id}_a_v`).innerText = a;
+        document.getElementById(`m_d${d.id}_b_v`).innerText = b;
+        
+        const diffElem = document.getElementById(`m_diff${d.id}`);
+        diffElem.innerText = `缺口: ${diff}`;
+        if (diff >= 4) {
+          diffElem.className = "gap-badge highlight";
+        } else {
+          diffElem.className = "gap-badge";
         }
 
-        function closeModal() {
-            document.getElementById('contact-modal').classList.add('hidden');
+        if (diff > maxDiff) {
+          maxDiff = diff;
+          topName = `${d.name} (缺口差距 ${diff} 分)`;
         }
+      });
 
-        function submitContactForm(e) {
-            e.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            const feedback = document.getElementById('submitFeedback');
-            
-            const name = document.getElementById('custName').value.trim();
-            const phone = document.getElementById('custPhone').value.trim();
-            const goal = document.getElementById('custGoal').value.trim();
+      document.getElementById('m_topPriorityText').innerText = topName;
+    }
 
-            if (!name || !phone) return;
+    function handleHnaModalSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('m_submitBtn');
+      const name = document.getElementById('m_custName').value.trim();
+      const phone = document.getElementById('m_custPhone').value.trim();
 
-            submitBtn.disabled = true;
-            submitBtn.innerText = "資料傳送中...";
+      if (!name || !phone) {
+        alert("請填寫稱呼與聯絡電話");
+        return;
+      }
 
-            const payload = {
-                type: "hmcs",
-                name: name,
-                phone: phone,
-                specificGoal: goal,
-                basicInfo: "線上溝通預約",
-                conditions: [],
-                energyScore: "",
-                impact: "",
-                obstacle: "",
-                goal: goal,
-                timeCommit: "已填寫線上預約",
-                budgetCommit: "待初步溝通"
-            };
+      const checkedGoals = Array.from(document.querySelectorAll('input[name="m_goals"]:checked')).map(el => el.value);
+      if (checkedGoals.length === 0) {
+        alert("請至少選擇 1 項最希望優先改善的健康方向");
+        return;
+      }
 
-            fetch(APPS_SCRIPT_WEBHOOK_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            }).then(() => {
-                feedback.classList.remove('hidden', 'text-rose-400');
-                feedback.classList.add('text-emerald-400');
-                feedback.innerText = "已成功送出預約登記！顧問將於 1-2 個工作天內透過 WhatsApp 聯絡您。";
-                submitBtn.innerText = "登記已完成";
-                setTimeout(() => {
-                    closeModal();
-                    document.getElementById('contactForm').reset();
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "確認送出預約登記";
-                    feedback.classList.add('hidden');
-                }, 3000);
-            }).catch(err => {
-                feedback.classList.remove('hidden', 'text-emerald-400');
-                feedback.classList.add('text-rose-400');
-                feedback.innerText = "傳送時發生異常，請直接透過 WhatsApp 與我們聯絡。";
-                submitBtn.disabled = false;
-                submitBtn.innerText = "確認送出預約登記";
-            });
+      const timeline = document.querySelector('input[name="m_timeline"]:checked').value;
+      const sleepHours = document.getElementById('m_sleepHours').value;
+      const sleepScore = document.getElementById('m_sleepScore').value;
+      const mealsOut = document.getElementById('m_mealsOut').value;
+      const water = document.getElementById('m_water').value;
+
+      const checkedMeds = Array.from(document.querySelectorAll('input[name="m_meds"]:checked')).map(el => el.value);
+      const medDuration = document.getElementById('m_medDuration').value;
+      const expectation = document.getElementById('m_expectation').value;
+      const desireScore = document.getElementById('m_desireScore').value;
+
+      const gaps = {
+        d1_a: document.getElementById('m_d1_a').value,
+        d1_b: document.getElementById('m_d1_b').value,
+        d1_diff: parseInt(document.getElementById('m_d1_b').value) - parseInt(document.getElementById('m_d1_a').value),
+        d2_a: document.getElementById('m_d2_a').value,
+        d2_b: document.getElementById('m_d2_b').value,
+        d2_diff: parseInt(document.getElementById('m_d2_b').value) - parseInt(document.getElementById('m_d2_a').value),
+        d3_a: document.getElementById('m_d3_a').value,
+        d3_b: document.getElementById('m_d3_b').value,
+        d3_diff: parseInt(document.getElementById('m_d3_b').value) - parseInt(document.getElementById('m_d3_a').value),
+        d4_a: document.getElementById('m_d4_a').value,
+        d4_b: document.getElementById('m_d4_b').value,
+        d4_diff: parseInt(document.getElementById('m_d4_b').value) - parseInt(document.getElementById('m_d4_a').value),
+        d5_a: document.getElementById('m_d5_a').value,
+        d5_b: document.getElementById('m_d5_b').value,
+        d5_diff: parseInt(document.getElementById('m_d5_b').value) - parseInt(document.getElementById('m_d5_a').value)
+      };
+
+      const topPriority = document.getElementById('m_topPriorityText').innerText;
+      const path = document.getElementById('m_path').value;
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "正在編譯專屬分析書 (PDF) 與存檔中，請稍候...";
+
+      const payload = {
+        type: "hna",
+        name: name,
+        phone: phone,
+        goals: checkedGoals,
+        timeline: timeline,
+        sleepHours: sleepHours,
+        sleepScore: sleepScore,
+        mealsOut: mealsOut,
+        water: water,
+        medications: checkedMeds,
+        medDuration: medDuration,
+        expectation: expectation,
+        desireScore: desireScore,
+        gaps: gaps,
+        topPriority: topPriority,
+        path: path
+      };
+
+      fetch(APPS_SCRIPT_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(result => {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "提交並生成個人專屬 HNA 分析報告 (PDF)";
+
+        document.getElementById('hnaInteractiveForm').style.display = 'none';
+        document.getElementById('m_resultCard').style.display = 'block';
+
+        if (result && result.status === "success") {
+          document.getElementById('m_resFileId').innerText = result.fileId || "HNA-DOC";
+          const dlBtn = document.getElementById('m_downloadPdfBtn');
+          if (result.downloadUrl || result.pdfUrl) {
+            dlBtn.href = result.downloadUrl || result.pdfUrl;
+          } else {
+            dlBtn.innerText = "已完成存檔 (待面談列印)";
+            dlBtn.removeAttribute("href");
+          }
+        } else {
+          document.getElementById('m_resFileId').innerText = "HNA-REC-OK";
         }
-    </script>
+      })
+      .catch(err => {
+        console.error(err);
+        submitBtn.disabled = false;
+        submitBtn.innerText = "提交並生成個人專屬 HNA 分析報告 (PDF)";
+        document.getElementById('hnaInteractiveForm').style.display = 'none';
+        document.getElementById('m_resultCard').style.display = 'block';
+        document.getElementById('m_resFileId').innerText = "HNA-REC-OK";
+      });
+    }
+  </script>
 </body>
 </html>

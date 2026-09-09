@@ -1192,119 +1192,6 @@
       transition: transform 0.2s ease;
     }
     .elevator-btn:hover { transform: scale(1.08); background: var(--color-primary-dark); }
-  
-    /* Block M: 常見 Q&A 手風琴專區 */
-    .qa-accordion {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .qa-item {
-      background: var(--color-bg);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: all 0.25s ease;
-    }
-    .qa-item[open] {
-      background: var(--color-surface);
-      border-color: var(--color-accent);
-      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.08);
-    }
-    .qa-summary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 20px;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--color-primary);
-      cursor: pointer;
-      list-style: none;
-      user-select: none;
-      line-height: 1.5;
-    }
-    .qa-summary::-webkit-details-marker {
-      display: none;
-    }
-    .qa-q-wrap {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      flex: 1;
-      padding-right: 12px;
-    }
-    .qa-q-tag {
-      color: var(--color-accent);
-      font-weight: 800;
-      font-size: 15px;
-      flex-shrink: 0;
-    }
-    .qa-toggle-icon {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-text-sub);
-      transition: transform 0.25s ease, color 0.25s ease;
-    }
-    .qa-toggle-icon svg {
-      width: 16px;
-      height: 16px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .qa-item[open] .qa-toggle-icon {
-      transform: rotate(180deg);
-      color: var(--color-accent);
-    }
-    .qa-answer {
-      padding: 0 20px 20px 20px;
-      font-size: 15px !important;
-      line-height: 1.75;
-      color: var(--color-text-main);
-      border-top: 1px solid var(--color-border);
-      margin-top: 4px;
-      padding-top: 16px;
-    }
-    .qa-answer p,
-    .qa-answer ul,
-    .qa-answer li,
-    .qa-answer span,
-    .qa-answer div {
-      font-size: 15px !important;
-      line-height: 1.75;
-      color: var(--color-text-main);
-    }
-    .qa-strategy-box {
-      background: #F8FAFC;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      padding: 14px 18px;
-      margin: 12px 0;
-      font-size: 15px;
-      line-height: 1.75;
-      color: var(--color-text-main);
-    }
-    .qa-strategy-box strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--color-primary);
-      font-size: 15px;
-      font-weight: 700;
-    }
-    .qa-strategy-box p {
-      margin: 0;
-      color: var(--color-text-main);
-      font-size: 15px;
-      line-height: 1.75;
-    }
-
   </style>
 </head>
 <body>
@@ -1766,6 +1653,23 @@
               <span style="font-size: 14px; font-weight: 600;">大廈設有升降機直達（若無升降機需現場自付每層 HKD 50 樓梯費）</span>
             </label>
           </div>
+          <div style="margin-bottom: 20px;">
+            <label style="font-size: 14px; font-weight: 700; display: block; margin-bottom: 8px; color: var(--color-primary);">付款方式 *</label>
+            <div style="display: flex; flex-direction: column; gap: 10px; background: var(--color-surface); padding: 14px 16px; border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; color: var(--color-text-main); font-weight: 600;">
+                <input type="radio" name="order_payment_method" value="FPS 轉數快" checked style="width: 18px; height: 18px; accent-color: var(--color-accent);">
+                <span>🔵 FPS 轉數快（預設推薦）</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; color: var(--color-text-main); font-weight: 500;">
+                <input type="radio" name="order_payment_method" value="PayMe (Available on request)" style="width: 18px; height: 18px; accent-color: var(--color-accent);">
+                <span>🔴 PayMe（Available on request / 可按需求提供）</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; color: var(--color-text-main); font-weight: 500;">
+                <input type="radio" name="order_payment_method" value="AlipayHK (Available on request)" style="width: 18px; height: 18px; accent-color: var(--color-accent);">
+                <span>🔵 AlipayHK 支付寶（Available on request / 可按需求提供）</span>
+              </label>
+            </div>
+          </div>
           <button type="button" class="btn-accent" style="font-size: 18px; padding: 16px; width: 100%; font-weight: 800;" onclick="submitOrderDualTrack()">
             確認送出訂單
           </button>
@@ -1788,183 +1692,10 @@
             1對1嘅專屬健康管理跟進服務，可能適合你
           </p>
           <div style="max-width: 380px; margin: 0 auto;">
-            <a href="https://health-decoder.com/hmcs" target="_blank" class="btn-accent" style="display: block; text-decoration: none; text-align: center; padding: 14px 20px; font-size: 17px; font-weight: 800; color: #FFFFFF; background: var(--color-accent); border-radius: var(--radius-md);">
+            <a href="https://health-decoder.com/health-map" target="_blank" class="btn-accent" style="display: block; text-decoration: none; text-align: center; padding: 14px 20px; font-size: 17px; font-weight: 800; color: #FFFFFF; background: var(--color-accent); border-radius: var(--radius-md);">
               一對一專屬健康管理跟進服務
             </a>
           </div>
-        </div>
-      </section>
-
-      
-      <!-- Block M: 常見問題與疑難解答 (Q&A 專區) -->
-      <section id="blockM" class="section-card">
-        <h2 style="margin-top: 0; margin-bottom: 6px;">常見問題與疑難解答</h2>
-        <p style="color: var(--color-text-sub); font-size: 15px; margin-top: 0; margin-bottom: 24px;">
-          Health Decoder 健康解碼 ｜ 專屬調理與保健常見 Q＆A
-        </p>
-
-        <div class="qa-accordion">
-          <!-- Q1 -->
-          <details class="qa-item">
-            <summary class="qa-summary">
-              <div class="qa-q-wrap">
-                <span class="qa-q-tag">Q1</span>
-                <span>市面上有好多改善健康問題嘅產品，我哋嘅方案有咩唔同？</span>
-              </div>
-              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-            </summary>
-            <div class="qa-answer">
-              坊間產品多數針對單一問題治標。我哋進一步堅守【源頭根治】同【精準保健】核心理念，透過評估系統同大家梳理體感訊號及因果關係。搞清楚身體底層代謝邊度失衡，再作針對性精準應對，自然可以真正告別反覆不適，一切治本為先。
-            </div>
-          </details>
-
-          <!-- Q2 -->
-          <details class="qa-item">
-            <summary class="qa-summary">
-              <div class="qa-q-wrap">
-                <span class="qa-q-tag">Q2</span>
-                <span>年紀大咗，身體退化好似好正常，呢啲保健調理真係有用？</span>
-              </div>
-              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-            </summary>
-            <div class="qa-answer">
-              我哋強烈倡導【拒絕標籤】，年齡純粹係數字，絕對唔應該將退化當成宿命。身體各種慢性徵狀正正係求救訊號。我哋強調【預防維護】，從今日開始修復底層代謝，絕對可以守住不求人嘅自理底氣，將健康重新掌握喺自己手中，莫等災病臨頭先方知覆水難收。
-            </div>
-          </details>
-
-          <!-- Q3 -->
-          <details class="qa-item">
-            <summary class="qa-summary">
-              <div class="qa-q-wrap">
-                <span class="qa-q-tag">Q3</span>
-                <span>網頁上嘅自我診斷同推薦方案安全嗎？會唔會誇大療效？</span>
-              </div>
-              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-            </summary>
-            <div class="qa-answer">
-              絕對安全。我哋堅守【分工明確】原則，病症交畀醫生正視，預防同營養管理交畀我哋。我哋堅持唔做醫療診斷、唔開處方藥物、唔承接急性急救，同樣拒絕誇大療效推銷。若果系統偵測到用藥衝突，例如正服用薄血藥，我哋會發出嚴格避險警告，強烈建議大家先諮詢主診醫生。
-            </div>
-          </details>
-
-          <!-- Q4 -->
-          <details class="qa-item">
-            <summary class="qa-summary">
-              <div class="qa-q-wrap">
-                <span class="qa-q-tag">Q4</span>
-                <span>買咗保健方案之後，怕無法堅持或者遇到問題唔知點算好？</span>
-              </div>
-              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-            </summary>
-            <div class="qa-answer">
-              我哋深信【行之以漸】，健康始於微小習慣。大家喺服用期間有任何疑問，隨時可以聯絡我哋解答疑難。針對有更高要求、希望徹底蛻變嘅朋友，我哋特別安排高階專屬健康管理跟進服務，提供進階一對一貼心陪跑教練方案。專屬服務會同大家深入評估，梳理體感訊號與因果關係，共同制定個人專屬嘅生活同營養微習慣閉環，將保健精準融入日常。
-            </div>
-          </details>
-
-          <!-- Q5 -->
-          <details class="qa-item">
-            <summary class="qa-summary">
-              <div class="qa-q-wrap">
-                <span class="qa-q-tag">Q5</span>
-                <span>呢啲方案真係保證有效？大概需要幾耐先見到明顯改善？</span>
-              </div>
-              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-            </summary>
-            <div class="qa-answer">
-              實際效果會因應個人體質同執行度有所不同。我哋採用天然方案，依靠營養同習慣逐步調理。神經科學指出21至30天係適應新常態嘅關鍵過渡期。要讓身體完成細胞更新同代謝重組，醫學黃金週期正係90天。根據多年跟進個案經驗，堅持90天或以上，大部分案主徵狀都有明確改善。唔少三高個案更獲主診醫生認可減少藥量，只要畀身體足夠時間，系統一定會畀出正向回饋。
-            </div>
-          </details>
-
-          <!-- Q6 -->
-          <details class="qa-item">
-            <summary class="qa-summary">
-              <div class="qa-q-wrap">
-                <span class="qa-q-tag">Q6</span>
-                <span>網上購買嘅送貨安排係點樣？</span>
-              </div>
-              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-            </summary>
-            <div class="qa-answer">
-              流程簡單透明。購物滿港幣400元即享免運費，未滿則酌收港幣40元物流處理費。送貨範圍覆蓋全港主要地區、東涌及順豐速運自提點。若地址為唐樓或無升降機直達，屆時需現場支付樓梯搬運費。
-            </div>
-          </details>
-
-          <!-- Q7 -->
-          <details class="qa-item">
-            <summary class="qa-summary">
-              <div class="qa-q-wrap">
-                <span class="qa-q-tag">Q7</span>
-                <span>暫時未準備好購買，可以先了解多啲嗎？</span>
-              </div>
-              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-            </summary>
-            <div class="qa-answer">
-              當然可以。調理身體最重要係自己覺得安心。暫時未準備好嘅朋友，歡迎免費加入Duncan Chan嘅WhatsApp及Facebook健康社群。大家可以先接收正確健康資訊，感受工程師邏輯結合代謝底層解碼嘅理念，準備好再一齊開展專屬調理旅程。
-            </div>
-          </details>
-
-          <!-- Q8 -->
-          <details class="qa-item">
-            <summary class="qa-summary">
-              <div class="qa-q-wrap">
-                <span class="qa-q-tag">Q8</span>
-                <span>開始服用方案或改變飲食後，身體會出現好轉反應嗎？出現不適應該點處理？</span>
-              </div>
-              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-            </summary>
-            <div class="qa-answer" style="font-size: 15px !important;">
-              <p style="font-size: 15px !important; line-height: 1.75; margin-top: 0; margin-bottom: 12px; color: var(--color-text-main);">
-                喺生理學上，我哋稱呢段過程為【代謝適應期】。當身體開始自我修復或清理深層廢物時，系統需要時間重新平衡，有機會暫時出現不適或者舊有徵狀加重現象。常見嘅過渡反應包括：
-              </p>
-              <ul style="font-size: 15px !important; line-height: 1.75; margin: 0 0 14px 0; padding-left: 20px; color: var(--color-text-main);">
-                <li style="font-size: 15px !important; margin-bottom: 6px;"><strong>全身與神經系統：</strong>極度疲倦、愛睏、頭暈、頭痛、發燒、畏寒或肌肉關節疼痛，外觀類似感冒。</li>
-                <li style="font-size: 15px !important; margin-bottom: 6px;"><strong>消化系統：</strong>噁心、嘔吐、腹瀉、便秘、腹脹、排氣增多，排泄物顏色變深或氣味較重。</li>
-                <li style="font-size: 15px !important; margin-bottom: 6px;"><strong>皮膚表面：</strong>皮膚發癢、起紅疹、長青春痘或粉刺，反映身體正透過皮膚排出代謝廢物。</li>
-                <li style="font-size: 15px !important; margin-bottom: 6px;"><strong>其他反應：</strong>口乾舌燥、多尿、眼屎增多或者情緒波動等。</li>
-              </ul>
-              <p style="font-size: 15px !important; line-height: 1.75; margin-bottom: 14px; color: var(--color-text-main);">
-                呢啲徵狀通常喺幾日到幾週內會逐漸減輕並消失，隨之而來就係身體狀況進一步改善。面對呢啲適應期徵狀，我哋總結出兩種應對策略：
-              </p>
-              <div class="qa-strategy-box" style="font-size: 15px !important;">
-                <strong style="font-size: 15px !important; display: block; margin-bottom: 4px; color: var(--color-primary);">策略一 迎難而上</strong>
-                <p style="font-size: 15px !important; line-height: 1.75; margin: 0; color: var(--color-text-main);">維持原有份量，短時間內讓身體盡快適應，克服戒斷反應。做法比較激進，效果非常明顯。</p>
-              </div>
-              <div class="qa-strategy-box" style="font-size: 15px !important;">
-                <strong style="font-size: 15px !important; display: block; margin-bottom: 4px; color: var(--color-primary);">策略二 循序漸進</strong>
-                <p style="font-size: 15px !important; line-height: 1.75; margin: 0; color: var(--color-text-main);">先短暫停服或減量，等徵狀減退後再以較小份量重新開始。做法溫和，同樣符合行之以漸理念。</p>
-              </div>
-              <p style="font-size: 15px !important; line-height: 1.75; margin-bottom: 0; margin-top: 14px; color: var(--color-text-main);">
-                我哋一律堅守分工明確底線。若果適應期徵狀持續惡化或久久未退，請立刻暫停並尋求正規醫療協助。
-              </p>
-            </div>
-          </details>
-
-          <!-- Q9 -->
-          <details class="qa-item">
-            <summary class="qa-summary">
-              <div class="qa-q-wrap">
-                <span class="qa-q-tag">Q9</span>
-                <span>如果目前已經有睇醫生同定時服藥，仲需唔需要透過保健品去調理身體？</span>
-              </div>
-              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-            </summary>
-            <div class="qa-answer">
-              睇醫生同食藥係處理疾病嘅首要步驟，負責控制症狀好似救火。我哋嘅營養調理方案正正填補【預防維護】同【源頭根治】嘅空間，好似火熄滅後重新修補牆身，重建底層代謝。兩者【分工明確】相輔相成。長期食藥令代謝系統處於高負荷狀態，更加需要精準營養支援細胞修復。鞏固好基礎，日後自然有機會喺主診醫生評估下慢慢減藥。
-            </div>
-          </details>
-
-          <!-- Q10 -->
-          <details class="qa-item">
-            <summary class="qa-summary">
-              <div class="qa-q-wrap">
-                <span class="qa-q-tag">Q10</span>
-                <span>市面上有好多購買保健品嘅選擇，Health Decoder 嘅方案同服務有咩獨特優勢？</span>
-              </div>
-              <div class="qa-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-            </summary>
-            <div class="qa-answer">
-              坊間有好多渠道，我哋最大分別係提供一套完整嘅【精準保健】系統。我哋深信【源頭根治】，會幫大家梳理體感訊號同因果關係，確保每一款營養都精準對應身體真正需求。大家喺服用期間遇到任何狀況，隨時可以向我哋發問解答疑難。針對希望徹底蛻變嘅朋友，我哋會推薦高階專屬健康管理跟進服務，提供進階一對一指導。我哋堅守【預防維護】同【分工明確】，唔做誇大推銷，專注做好營養管理，穩穩陣陣將大家嘅自理底氣建立起嚟。
-            </div>
-          </details>
         </div>
       </section>
 
@@ -2000,7 +1731,7 @@
     </div>
   </div>
 
-  <!-- Block K: 逐級向上平滑導航引擎 (右下角 [ ↑ ] 11 級狀態機) -->
+  <!-- Block K: 逐級向上平滑導航引擎 (右下角 [ ↑ ] 10 級狀態機) -->
   <button type="button" class="elevator-btn" id="elevator-btn" onclick="handleElevatorUp()">
     ↑
   </button>
@@ -2027,7 +1758,7 @@
 
   <!-- 前端完整核心數據庫與邏輯引擎 -->
   <script>
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
+    const APPS_SCRIPT_WEBHOOK_URL = ""; 
     const DUNCAN_WHATSAPP_PHONE = "85298788564";
 
     let savedScrollY = 0;
@@ -2042,7 +1773,7 @@
         name: "ORIYEN 天然酵母NMN 15000 Premium",
         shortDesc: "修復血管防漏水，鞏固夜間抗利尿",
         price: 2488,
-        img: "/images/products/36281.webp",
+        img: "./images/products/36281.webp",
         spec: "150克 (5克 x 30包)",
         origin: "台灣",
         intro: "採用專利天然酵母發酵 NMN（每包 500mg），迅速轉化為 NAD+ 激活長壽基因 SIRT1 與 PARP1 DNA 修復酶，抗老效能高於合成 NMN。揉合繡球菌麥角硫因（20mg/包）清除自由基並提升血液 GABA 含量 4 倍以助眠抗醣化；天山雪蓮（100mg/包）與白藜蘆醇（100mg/包）強效抗氧修復細胞；配合脂質體維他命 C 與 Double Nutri 專利微脂體技術，吸收率提升 2.33 倍。",
@@ -2063,7 +1794,7 @@
         name: "ORIYEN 強心血管通",
         shortDesc: "強化微血管壁，加速下肢靜脈引流",
         price: 1990,
-        img: "/images/products/36282.webp",
+        img: "./images/products/36282.webp",
         spec: "380毫克 x 60粒",
         origin: "日本",
         intro: "日本製造皇牌心血管與微循環清淤引流配方。精選六大活性成分深層淨化血管：天然水蛭素（120 ATU）阻斷血管廢物生成，維持血流順暢；日本專利 PureSorb-Q™-40-NF 水溶輔酶 Q10（50mg）促進心肌細胞 ATP 生成並抗氧化；高含量濃縮納豆激酶（1000 FU）分解血管纖維蛋白；三七提取物促進一氧化氮（NO）生成以放鬆血管彈性；專利絞股藍 Fatabolizer® 活化肌肉 AMPK 酵素淨脂；葡萄籽提取物（低聚原花青素 OPC）增強血管壁膠原結構。",
@@ -2080,7 +1811,7 @@
         name: "ORIYEN 蛋白高營素 (10天份量）",
         shortDesc: "抑制肌肉分解，重建小腿肌泵力量",
         price: 339,
-        img: "/images/products/36283.webp",
+        img: "./images/products/36283.webp",
         spec: "47克 x 10包",
         origin: "台灣",
         intro: "專為樂齡人士研發之均衡高營養配方，補肌、護心、強免疫。雙專利技術（微囊包覆與微脂體）使吸收率高達 240%。結合大豆蛋白與濃縮乳清蛋白（每份含 13g 蛋白質）及獨特 HMB（每 100ml 含 0.5g），攔截肌肉分解訊號並重建肌力；專利 GreenD3™ 維他命 D3 結合維他命 K2 鎖住骨骼營養；專利 SoFiber™ 水溶性纖維促進腸道吸收；含膽鹼、葉酸、不飽和脂肪酸及 25 種綜合維他命礦物質。",
@@ -2097,7 +1828,7 @@
         name: "ORIYEN 綜合果蔬酵素 (10天份量）",
         shortDesc: "修復腸道屏障，阻斷發炎引致漏水",
         price: 602,
-        img: "/images/products/36248.webp",
+        img: "./images/products/36248.webp",
         spec: "300毫升",
         origin: "台灣",
         intro: "嚴選多達 66 種新鮮有機蔬果本草，採用微生物發酵技術經長達 730 天（整整 2 年）三階段低溫天然發酵。富含生物活性酵素、SOD-like 超氧歧化活性物、羽衣甘藍（芥蘭素）、舞茸（高活性 β-葡聚糖）與大麥嫩葉（高葉綠素鹼性之王）。調節人體酸鹼平衡，分解體內毒素與多餘廢物，修復受損細胞，促進腸道消化吸收與排便順暢，全面提升自癒力與免疫力。",
@@ -2115,7 +1846,7 @@
         name: "Nn 三效益生菌- 長者配方",
         shortDesc: "平衡腸道微生態，減少微血管損傷",
         price: 409,
-        img: "/images/products/34331.webp",
+        img: "./images/products/34331.webp",
         spec: "2克 x 30包",
         origin: "韓國",
         intro: "益生菌 ＋ 益生元 ＋ 後生元 ＋ 維他命 D3 四合一複合配方。採用專利 4 重包覆技術（蛋白質、麥芽糊精、玻尿酸、水溶性聚合物），對抗胃酸膽鹽，存活率達 90%，腸道吸附力提升 10.8 倍。針對長者菌群特點修復腸道微生態，提升免疫力擊退病菌，促進蛋白質與微營養分解吸收以解決消化差與排便不規律問題；特別添加 10µg 維他命 D3 強化鈣質吸收，兼具護腸、護骨與健心功效。",
@@ -2133,7 +1864,7 @@
         name: "Nn 水溶性輔酶Q10",
         shortDesc: "為心血管充能，維持平穩回流動力",
         price: 321,
-        img: "/images/products/34278.webp",
+        img: "./images/products/34278.webp",
         spec: "30粒",
         origin: "馬來西亞",
         intro: "採用美國專利 MicroActive™ 水溶性輔酶 Q10（美國專利號 US Patent No. 7,030,102），能完全溶解於水，吸收率比傳統結晶 Q10 高出 300%、比油溶性 Q10 高出 200%，體內持續釋放超過 24 小時，3 週內血中濃度提升 2 倍。為心肌源源不絕供應能量以強化心臟動力，保持血管彈性，對抗自由基抗老；特別能有效消除服用降膽固醇藥（他汀類 Statins）所引發的嚴重肌肉疲勞、痠痛與無力感。",
@@ -2150,7 +1881,7 @@
         name: "Nn 蝦青素",
         shortDesc: "清除血管自由基，穩固微血管結構",
         price: 276,
-        img: "/images/products/34269.webp",
+        img: "./images/products/34269.webp",
         spec: "30粒",
         origin: "馬來西亞",
         intro: "採用頂級 AstaREAL® 天然雨生紅球藻超臨界 CO2 萃取，分子小且具高度親脂性，抗氧化力為維生素 C 的 6000 倍、CoQ10 的 800 倍、維生素 E 的 500 倍。能穿透血腦與視網膜屏障直達全身器官，改善視力與眼部疲勞，降低脂質氧化以保護心血管，減緩年齡相關之記憶力減退與腦部老化，增加皮膚含水量並消除下肢水腫。",
@@ -2169,7 +1900,7 @@
         name: "Nn 月見草油1000",
         shortDesc: "改善骨盆微循環，修復膀胱黏膜",
         price: 196,
-        img: "/images/products/34103.webp",
+        img: "./images/products/34103.webp",
         spec: "1000毫克 x 50粒",
         origin: "紐西蘭",
         intro: "嚴選天然月見草經冷壓方式提取且不經繁重精煉，完整保留天然抗氧化劑（三帖）與至少 10% γ-次亞麻油酸（GLA）。GLA 能協助維持女性體內平衡，有效紓解經前綜合症（煩躁、乳房漲痛、腹痛、水腫）與更年期熱潮紅，顯著改善濕敏與皮膚乾燥細紋，長期補充能減緩關節不適，並提供完整 Omega 3-6-9 脂肪酸。",
@@ -2187,7 +1918,7 @@
         name: "Nn 奧米加-3深海魚油1000",
         shortDesc: "抑制慢性發炎，降低微血管滲漏",
         price: 253,
-        img: "/images/products/34274.webp",
+        img: "./images/products/34274.webp",
         spec: "50 粒",
         origin: "馬來西亞",
         intro: "嚴選食物鏈低層之小型魚類（鯷魚、沙丁魚、鯖魚），天然純淨無重金屬積聚。採用先進分子蒸餾法提取 Pronova Pure™ 專利魚油，總 Omega-3 濃度達 65%（每粒含 1000mg 純淨魚油：EPA 360mg ＋ DHA 240mg）。促進腦部健康與神經活化，提升專注力與記憶力；維護心臟及血管健康，輔助穩定膽固醇與血壓；保持視網膜清晰並有效減輕關節疼痛與發炎。",
@@ -2204,7 +1935,7 @@
         name: "Nn 液鈣鎂D3 (15天份量）",
         shortDesc: "放鬆逼尿肌痙攣，擴大夜間儲尿量",
         price: 241,
-        img: "/images/products/34316.webp",
+        img: "./images/products/34316.webp",
         spec: "15包/盒",
         origin: "台灣",
         intro: "採用專利 doubleNUTRI™ 雙營技術打造高活性微米級液體鈣，吸收率高出 2.6 倍。結合高活性鈣（500mg）高效補鈣，維他命 D3（500IU）提高腸道鈣吸收率並支持免疫，鎂（20mg）與鈣產生協同效應將鈣鎖回骨質，配合發酵巴西莓萃取物（含丁香酸）抑制破骨細胞活性並減少糖化終產物（AGEs），三效逆轉骨質流失，保護關節軟骨健康。",
@@ -2222,12 +1953,11 @@
         name: "SE 紅光光療按摩帶",
         shortDesc: "活化粒線體，提早排走下肢積水",
         price: 2580,
-        img: "/images/products/0368.webp",
-        demoImg1: "/images/products/0368-demo1.webp",
-        demoImg2: "/images/products/0368-demo2.webp",
+        img: "./images/products/0368.webp",
+        demoImg1: "./images/products/0368-demo1.webp",
+        demoImg2: "./images/products/0368-demo2.webp",
         spec: "1 條裝（含控制器/充電線）",
         origin: "",
-        warranty: "1 年免費保養，受保養條款及細則約束",
         intro: "結合 630nm 可見紅光與 850nm 近紅外線雙光譜物理理療。紅光作用於皮膚表層促進膠原生成；近紅外線具備強大穿透力，深入皮下組織、關節腔與韌帶。光能被細胞粒線體細胞色素 C 氧化酶吸收以激發 ATP 合成，促進局部微循環。配合內建四組震動按摩器（3 種強度），物理放鬆緊繃筋膜，舒緩肩頸僵硬、下背痛、膝關節退化與經期腹部不適。",
         target: "久坐上班族與低頭族（下背痛、肩頸僵硬、坐骨神經受壓）、長者退化性關節問題（膝關節僵硬、五十肩）、運動創傷與肌肉勞損（延遲性肌肉痠痛、足底緊繃）、女性週期性腹部不適與手腳冰冷者。",
         ingredients: "630nm 紅光 ＋ 850nm 近紅外線（波長比例 1:2，共 122 組 LED / 366 個發光晶片）、四組震動按摩模組、2000mAh 電池（功率 8W）、10 分鐘自動定時、Type-C 充電、ISO 13485 醫療器材品質認證、CE / RoHS 認證。",
@@ -2243,10 +1973,9 @@
         name: "Smart Fitness-X 律動拍打機",
         shortDesc: "精準垂直律動，被動活化深層肌泵",
         price: 22990,
-        img: "/images/products/38207.webp",
+        img: "./images/products/38207.webp",
         spec: "1 部裝",
         origin: "台灣",
-        warranty: "2 年免費保養，受保養條款及細則約束",
         intro: "垂直律動 ✕ 腳底按摩雙合一專利技術。以符合人體工學的垂直正弦律動刺激骨骼肌牽張反射，被動活化深層肌肉與細胞代謝，提升骨密度與心血管健康；結合溫和拍打力道深層按摩腳底重點穴位（湧泉穴、里內庭穴、獨膚穴、足心穴），疏通經絡，迅速緩解肌肉乳酸堆積、僵硬痠痛與手腳冰冷。",
         target: "缺乏運動人士、長者、長期病患者、久坐上班族、三高人士、循環不良手腳冰冷者。",
         ingredients: "合金鋼機身、垂直正弦律動機構（震動頻率 4–13Hz、震幅 2mm、重力強度約 0.68G）、腳底經絡拍打按摩模組、7 段速度調節、自動定時 15 分鐘、最大承重 120Kg、CE / CB / BSMI 國際安全認證、ISO 9001 品質認證。",
@@ -2266,7 +1995,7 @@
         name: "緩解夜尿30天套裝A1",
         causeId: 1,
         isWarfarinSafe: false,
-        img: "/images/packages/Noct_Set_A1.webp",
+        img: "./images/products/Noct_Set_A1.webp",
         price: 5248,
         origPrice: 7058,
         discount: "74折",
@@ -2280,7 +2009,7 @@
         name: "緩解夜尿30天套裝A2",
         causeId: 1,
         isWarfarinSafe: true,
-        img: "/images/packages/Noct_Set_A2.webp",
+        img: "./images/products/Noct_Set_A2.webp",
         price: 5999,
         origPrice: 7880,
         discount: "76折",
@@ -2294,7 +2023,7 @@
         name: "緩解夜尿30天套裝B",
         causeId: 2,
         isWarfarinSafe: false,
-        img: "/images/packages/Noct_Set_B.webp",
+        img: "./images/products/Noct_Set_B.webp",
         price: 4438,
         origPrice: 6022,
         discount: "74折",
@@ -2308,7 +2037,7 @@
         name: "緩解夜尿30天套裝C1",
         causeId: 3,
         isWarfarinSafe: false,
-        img: "/images/packages/Noct_Set_C1.webp",
+        img: "./images/products/Noct_Set_C1.webp",
         price: 16909,
         origPrice: 26771,
         discount: "63折",
@@ -2322,7 +2051,7 @@
         name: "緩解夜尿30天套裝C2",
         causeId: 3,
         isWarfarinSafe: false,
-        img: "/images/packages/Noct_Set_C2.webp",
+        img: "./images/products/Noct_Set_C2.webp",
         price: 2919,
         origPrice: 3781,
         discount: "77折",
@@ -2336,7 +2065,7 @@
         name: "緩解夜尿30天套裝D",
         causeId: 4,
         isWarfarinSafe: false,
-        img: "/images/packages/Noct_Set_D.webp",
+        img: "./images/products/Noct_Set_D.webp",
         price: 4089,
         origPrice: 5152,
         discount: "79折",
@@ -2350,7 +2079,7 @@
         name: "緩解夜尿30天套裝E",
         causeId: 5,
         isWarfarinSafe: false,
-        img: "/images/packages/Noct_Set_E.webp",
+        img: "./images/products/Noct_Set_E.webp",
         price: 2244,
         origPrice: 2970,
         discount: "76折",
@@ -2414,7 +2143,7 @@
         ],
         emotionQuote: "從源頭修復逼尿肌平滑肌能量，擴大膀胱儲尿容量，換返每晚安穩熟睡，守住小便嘅尊嚴同自理底氣。",
         testimonials: [
-          { name: "張先生", age: "68歲", role: "職業司機", issue: "站在馬桶前等好耐先出尿，尿流細弱，半夜要起 4 次。", solution: "睡前下腹紅光溫敷 ＋ 液鈣鎂 ＋ NMN 調理", quote: "排尿順暢好多，唔使再企喺度死忍苦等，夜晚起身次數少咗大半！" },
+          { name: "昌先生", age: "68歲", role: "職業司機", issue: "站在馬桶前等好耐先出尿，尿流細弱，半夜要起 4 次。", solution: "睡前下腹紅光溫敷 ＋ 液鈣鎂 ＋ NMN 調理", quote: "排尿順暢好多，唔使再企喺度死忍苦等，夜晚起身次數少咗大半！" },
           { name: "馮太", age: "58歲", role: "退休人士", issue: "突發強烈尿急感，常常憋不住，每晚睡不安穩。", solution: "液鈣鎂放鬆骨盆底肌 ＋ 月見草油 ＋ 蝦青素調養", quote: "骨盆底肌肉無再咁緊繃，尿急感舒緩咗好多，跳舞同瞓覺都好安心！" }
         ]
       },
@@ -2894,6 +2623,7 @@
       const phone = document.getElementById('order_recipient_phone').value.trim();
       const address = document.getElementById('order_recipient_address').value.trim();
       const hasLift = document.getElementById('order_has_lift').checked;
+      const paymentMethod = document.querySelector('input[name="order_payment_method"]:checked')?.value || "FPS 轉數快";
 
       if (Object.keys(cart).length === 0) {
         alert('請先選取所需單品或調理套裝！');
@@ -2930,6 +2660,7 @@
         causeId: selectedCauseId,
         causeName: CAUSES_DATA[selectedCauseId].name,
         recipient: { name, phone, address, hasLift: hasLift ? "有升降機" : "無升降機（需行樓梯）" },
+        paymentMethod: paymentMethod,
         items: orderItems,
         subtotal,
         shipping,
@@ -2948,8 +2679,9 @@
         orderItems.map(i => `• ${encodeURIComponent(i)}`).join('%0A') + `%0A%0A` +
         `商品小計：HKD ${subtotal.toLocaleString()}%0A` +
         `運費：HKD ${shipping}%0A` +
-        `應付總額：HKD ${total.toLocaleString()}%0A%0A` +
-        `請 Duncan 盡快為我確認訂單及安排出貨，謝謝！`;
+        `應付總額：HKD ${total.toLocaleString()}%0A` +
+        `付款方式：${encodeURIComponent(paymentMethod)}%0A%0A` +
+        `請 Duncan 盡快為我發送收款資料及確認訂單，謝謝！`;
       const waUrl = `https://wa.me/${DUNCAN_WHATSAPP_PHONE}?text=${waText}`;
 
       // 軌道二：Apps Script Webhook 異步記表
@@ -3044,7 +2776,6 @@
           <div style="margin-top: 14px;">
             <div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #FFF;">規格/總件數：</span>${prod.spec}</div>
             ${prod.origin ? `<div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #FFF;">產地：</span>${prod.origin}</div>` : ''}
-            ${prod.warranty ? `<div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #D4A343;">原廠保養：</span><span style="color: #FFFFFF;">${prod.warranty}</span></div>` : ''}
             <div style="border-top: 1px solid #374151; padding-top: 10px; margin-top: 10px;">
               <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">主要功效：</span>
               <span style="color: #CBD5E1; line-height: 1.65;">${prod.intro}</span>
@@ -3123,11 +2854,11 @@
       openModalWithLock(`${bundle.name} · 套裝明細`, html);
     }
 
-    // Block K: 11 級逆向向上平滑導航狀態機
+    // Block K: 10 級逆向向上平滑導航狀態機
     function handleElevatorUp() {
       const isGatedUnlocked = document.getElementById("gated-content").style.display === "block";
       const sectionSequence = isGatedUnlocked
-        ? ["blockA", "blockC", "blockD", "blockE", "blockF", "blockG", "blockH", "blockJ", "blockM", "blockL", "blockI"]
+        ? ["blockA", "blockC", "blockD", "blockE", "blockF", "blockG", "blockH", "blockJ", "blockL", "blockI"]
         : ["blockA", "blockB"];
       const scrollPos = window.scrollY + 120;
       let targetSection = sectionSequence[0];

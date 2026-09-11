@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Health Decoder｜半夜抽筋專題 · 從源頭除錯</title>
   <style>
+
 
     /* ==========================================================================
        Health-Decoder.com 全站統一設計規範 (Design System v5.0 - Bento Grid)
@@ -47,6 +48,8 @@
     }
 
 
+
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -54,9 +57,13 @@
     }
 
 
+
+
     html {
       scroll-behavior: smooth;
     }
+
+
 
 
     body {
@@ -71,6 +78,8 @@
     }
 
 
+
+
     /* === 導航列 === */
     .navbar {
       background: var(--color-surface);
@@ -82,6 +91,8 @@
     }
 
 
+
+
     .nav-container {
       max-width: 1080px;
       margin: 0 auto;
@@ -90,6 +101,8 @@
       justify-content: space-between;
       padding: 14px 20px;
     }
+
+
 
 
     .nav-brand {
@@ -104,9 +117,13 @@
     }
 
 
+
+
     .nav-brand span {
       color: var(--color-accent);
     }
+
+
 
 
     .nav-links {
@@ -115,6 +132,8 @@
       list-style: none;
       align-items: center;
     }
+
+
 
 
     .nav-links a {
@@ -127,9 +146,13 @@
     }
 
 
+
+
     .nav-links a:hover {
       color: var(--color-accent);
     }
+
+
 
 
     .nav-links a.active {
@@ -139,6 +162,8 @@
     }
 
 
+
+
     /* === 主版面容器 === */
     .container {
       width: 100%;
@@ -146,6 +171,8 @@
       margin: 24px auto;
       padding: 0 20px;
     }
+
+
 
 
     .section-card {
@@ -158,6 +185,8 @@
     }
 
 
+
+
     /* === 排版階梯 === */
     h1 {
       font-size: 32px;
@@ -167,6 +196,8 @@
       margin-bottom: 16px;
       letter-spacing: -0.5px;
     }
+
+
 
 
     h2 {
@@ -181,6 +212,8 @@
     }
 
 
+
+
     h3 {
       font-size: 20px;
       line-height: 1.45;
@@ -188,6 +221,8 @@
       color: var(--color-primary);
       margin-bottom: 10px;
     }
+
+
 
 
     h4 {
@@ -198,12 +233,16 @@
     }
 
 
+
+
     p {
       font-size: 18px;
       line-height: 1.75;
       color: var(--color-text-main);
       margin-bottom: 16px;
     }
+
+
 
 
     .badge-tag {
@@ -220,16 +259,22 @@
     }
 
 
+
+
     .badge-danger {
       background: #FEE2E2;
       color: #991B1B;
     }
 
 
+
+
     .badge-warning {
       background: #FEF3C7;
       color: #92400E;
     }
+
+
 
 
     /* === Bento Grid 便當盒佈局體系 === */
@@ -239,6 +284,8 @@
       gap: 18px;
       margin: 24px 0;
     }
+
+
 
 
     .bento-card {
@@ -254,11 +301,15 @@
     }
 
 
+
+
     .bento-card:hover {
       border-color: #99F6E4;
       box-shadow: var(--shadow-md);
       transform: translateY(-2px);
     }
+
+
 
 
     .bento-card.card-large {
@@ -268,10 +319,14 @@
     }
 
 
+
+
     .bento-col-12 { grid-column: span 12; }
     .bento-col-8  { grid-column: span 8; }
     .bento-col-6  { grid-column: span 6; }
     .bento-col-4  { grid-column: span 4; }
+
+
 
 
     .stat-number {
@@ -283,6 +338,8 @@
     }
 
 
+
+
     /* === 雙模組佈局標準 (Media Placeholder + Mechanism Text) === */
     .dual-module-grid {
       display: grid;
@@ -291,6 +348,8 @@
       margin: 22px 0;
       align-items: stretch;
     }
+
+
 
 
     .media-placeholder-box {
@@ -309,6 +368,8 @@
     }
 
 
+
+
     .media-placeholder-box .icon-play {
       width: 56px;
       height: 56px;
@@ -323,6 +384,8 @@
     }
 
 
+
+
     .media-placeholder-box .media-title {
       font-size: 17px;
       font-weight: 700;
@@ -331,10 +394,14 @@
     }
 
 
+
+
     .media-placeholder-box .media-sub {
       font-size: 13px;
       color: #94A3B8;
     }
+
+
 
 
     .content-explain-box {
@@ -346,6 +413,8 @@
       flex-direction: column;
       justify-content: center;
     }
+
+
 
 
     /* === 按鈕體系 (Touch Target >= 52px) === */
@@ -369,11 +438,15 @@
     }
 
 
+
+
     .btn-primary {
       background: var(--color-accent);
       color: #FFFFFF;
       box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
     }
+
+
 
 
     .btn-primary:hover {
@@ -383,16 +456,22 @@
     }
 
 
+
+
     .btn-secondary {
       background: var(--color-primary);
       color: #FFFFFF;
     }
 
 
+
+
     .btn-secondary:hover {
       background: var(--color-primary-dark);
       transform: translateY(-1px);
     }
+
+
 
 
     .btn-outline {
@@ -402,10 +481,14 @@
     }
 
 
+
+
     .btn-outline:hover {
       border-color: var(--color-primary);
       background: var(--color-primary-light);
     }
+
+
 
 
     .btn-whatsapp {
@@ -415,10 +498,14 @@
     }
 
 
+
+
     .btn-whatsapp:hover {
       background: var(--color-wa-hover);
       box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
     }
+
+
 
 
     /* === 自測問卷 UI (Block B) === */
@@ -431,6 +518,8 @@
     }
 
 
+
+
     .quiz-group-header {
       display: flex;
       align-items: center;
@@ -439,6 +528,8 @@
       border-bottom: 1px solid var(--color-border);
       padding-bottom: 12px;
     }
+
+
 
 
     .quiz-num {
@@ -456,6 +547,8 @@
     }
 
 
+
+
     .quiz-title {
       font-size: 17px;
       font-weight: 800;
@@ -464,11 +557,15 @@
     }
 
 
+
+
     .options-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 10px;
     }
+
+
 
 
     .option-label {
@@ -486,10 +583,14 @@
     }
 
 
+
+
     .option-label:hover {
       border-color: var(--color-accent);
       background: #F0FDFA;
     }
+
+
 
 
     .option-label input[type="radio"],
@@ -502,11 +603,15 @@
     }
 
 
+
+
     .option-label.none-opt {
       background: #F1F5F9;
       font-weight: 600;
       color: #475569;
     }
+
+
 
 
     .user-info-grid {
@@ -515,6 +620,8 @@
       gap: 14px;
       margin-bottom: 20px;
     }
+
+
 
 
     .input-field {
@@ -528,6 +635,8 @@
     }
 
 
+
+
     /* === 診斷結果區 (Block C) === */
     .diagnosis-highlight-card {
       background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
@@ -537,6 +646,8 @@
       margin-bottom: 24px;
       border: 1px solid #334155;
     }
+
+
 
 
     .fear-quote-box {
@@ -552,6 +663,8 @@
     }
 
 
+
+
     .warning-gold-box {
       background: #FFFBEB;
       border-left: 5px solid var(--color-warning);
@@ -565,10 +678,14 @@
     }
 
 
+
+
     /* 佔比進度條 */
     .ratio-bar-wrap {
       margin-bottom: 12px;
     }
+
+
 
 
     .ratio-info {
@@ -581,6 +698,8 @@
     }
 
 
+
+
     .ratio-bar-bg {
       width: 100%;
       height: 10px;
@@ -590,11 +709,15 @@
     }
 
 
+
+
     .ratio-bar-fill {
       height: 100%;
       border-radius: 5px;
       transition: width 0.8s ease-in-out;
     }
+
+
 
 
     .c1-bar { background: #0284C7; }
@@ -604,6 +727,8 @@
     .c5-bar { background: #EF4444; }
 
 
+
+
     /* === 產品展示與彈窗 (Block G) === */
     .product-grid {
       display: grid;
@@ -611,6 +736,8 @@
       gap: 18px;
       margin: 20px 0;
     }
+
+
 
 
     .product-card {
@@ -625,10 +752,14 @@
     }
 
 
+
+
     .product-card:hover {
       border-color: var(--color-accent);
       box-shadow: var(--shadow-md);
     }
+
+
 
 
     .product-card h4 {
@@ -638,12 +769,16 @@
     }
 
 
+
+
     .product-price {
       font-size: 20px;
       font-weight: 800;
       color: var(--color-accent);
       margin: 8px 0;
     }
+
+
 
 
     /* === 套裝與結算區 (Block H) === */
@@ -656,6 +791,8 @@
       position: relative;
       box-shadow: var(--shadow-md);
     }
+
+
 
 
     .discount-pill {
@@ -672,6 +809,8 @@
     }
 
 
+
+
     .bundle-pricing {
       display: flex;
       align-items: baseline;
@@ -681,6 +820,8 @@
     }
 
 
+
+
     .price-original {
       font-size: 17px;
       color: var(--color-text-sub);
@@ -688,11 +829,15 @@
     }
 
 
+
+
     .price-sale {
       font-size: 30px;
       font-weight: 800;
       color: var(--color-accent);
     }
+
+
 
 
     .price-save {
@@ -705,6 +850,8 @@
     }
 
 
+
+
     /* 表格樣式 */
     .table-wrap {
       overflow-x: auto;
@@ -714,11 +861,15 @@
     }
 
 
+
+
     table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
     }
+
+
 
 
     th, td {
@@ -728,11 +879,15 @@
     }
 
 
+
+
     th {
       background: var(--color-primary-light);
       color: var(--color-primary);
       font-weight: 700;
     }
+
+
 
 
     .qty-btn {
@@ -747,6 +902,8 @@
     }
 
 
+
+
     .qty-inp {
       width: 44px;
       height: 32px;
@@ -755,6 +912,8 @@
       border-radius: 6px;
       font-size: 16px;
     }
+
+
 
 
     /* 結算表單 */
@@ -766,6 +925,8 @@
     }
 
 
+
+
     .form-group {
       display: flex;
       flex-direction: column;
@@ -773,9 +934,13 @@
     }
 
 
+
+
     .form-group.full {
       grid-column: span 2;
     }
+
+
 
 
     .form-group label {
@@ -783,6 +948,8 @@
       font-weight: 700;
       color: var(--color-text-main);
     }
+
+
 
 
     /* 購物車彙總 */
@@ -795,12 +962,16 @@
     }
 
 
+
+
     .cart-row {
       display: flex;
       justify-content: space-between;
       font-size: 16px;
       margin-bottom: 10px;
     }
+
+
 
 
     .cart-total-row {
@@ -815,6 +986,8 @@
     }
 
 
+
+
     /* 見證卡片 (Block J) */
     .testimonial-grid {
       display: grid;
@@ -822,6 +995,8 @@
       gap: 20px;
       margin: 20px 0;
     }
+
+
 
 
     .testimonial-card {
@@ -832,12 +1007,16 @@
     }
 
 
+
+
     .testimonial-header {
       display: flex;
       align-items: center;
       gap: 10px;
       margin-bottom: 10px;
     }
+
+
 
 
     .testimonial-avatar {
@@ -852,6 +1031,8 @@
       font-weight: 800;
       font-size: 16px;
     }
+
+
 
 
     /* 浮動按鈕 (Block K) */
@@ -878,10 +1059,14 @@
     }
 
 
+
+
     .floating-back-top:hover {
       background: var(--color-accent);
       transform: translateY(-2px);
     }
+
+
 
 
     /* 模態彈窗 Modal */
@@ -901,6 +1086,8 @@
     }
 
 
+
+
     .modal-card {
       background: #FFFFFF;
       max-width: 600px;
@@ -914,6 +1101,8 @@
     }
 
 
+
+
     .modal-close {
       position: absolute;
       top: 18px;
@@ -924,6 +1113,8 @@
       cursor: pointer;
       color: var(--color-text-muted);
     }
+
+
 
 
     /* RWD */
@@ -958,6 +1149,7 @@
     .hero-trust-tag { font-size: 15px; font-weight: 700; color: var(--color-accent-text); margin-top: 2px; }
     .hero-trust-desc { font-size: 15px; color: var(--color-text-muted); margin-top: 4px; line-height: 1.6; }
     .hero-trust-url { font-size: 13px; color: var(--color-text-sub); margin-top: 4px; font-weight: 500; }
+
 
     /* Block G 單鍵高質感卡片 (僅保留 Pop-up B) */
     .product-single-card {
@@ -999,6 +1191,7 @@
       transition: all 0.2s ease;
     }
     .btn-more-b:hover { background: var(--color-accent); color: #FFF; }
+
 
     /* Block H 單品選購行 (產品名稱 + 價格 + 產品詳情按鍵 + 數量調節) */
     .h-single-item-row {
@@ -1044,6 +1237,7 @@
     }
     .btn-detail-h:hover { background: var(--color-primary-dark); }
 
+
     .h-bundle-card {
       background: var(--color-surface);
       border: 2px solid var(--color-accent);
@@ -1065,10 +1259,12 @@
     }
     .qty-val { font-size: 16px; font-weight: 800; width: 24px; text-align: center; }
 
+
     /* 購物車結算 */
     .summary-box { background: var(--color-bg); border-radius: var(--radius-lg); padding: 18px 20px; margin-bottom: 24px; border: 1px solid var(--color-border); }
     .summary-line { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 6px; }
     .summary-total { font-size: 18px; font-weight: 900; color: var(--color-primary); border-top: 1px solid var(--color-border); padding-top: 10px; margin-top: 10px; }
+
 
     /* Modal 深色背景 + 獨立純白圖框 */
     .modal-dark-overlay {
@@ -1169,6 +1365,7 @@
       transition: background 0.2s ease;
     }
     .modal-btn-full-close:hover { background: #4B5563; }
+
 
     /* Block K 逐級向上平滑導航狀態機 */
     .elevator-btn {
@@ -1305,32 +1502,11 @@
       line-height: 1.75;
     }
 
-  
-    /* 16:9 響應式影片容器嚴格約束 (防止 iframe 脫離文檔流浮動至頂部) */
-    .video-container {
-      position: relative !important;
-      padding-bottom: 56.25% !important; /* 16:9 Aspect Ratio */
-      height: 0 !important;
-      overflow: hidden !important;
-      max-width: 100% !important;
-      border-radius: var(--radius-lg) !important;
-      background: #000000 !important;
-      margin-bottom: 20px !important;
-      border: 1px solid var(--color-border) !important;
-    }
-    .video-container iframe {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      border: 0 !important;
-    }
 
   </style>
-  <script src="https://player.vimeo.com/api/player.js"></script>
 </head>
 <body>
+
 
   <!-- Nav Bar: 封閉式零外跳導航 (保留顯微鏡 Emoji 🔬 Health Decoder) -->
   <nav class="navbar">
@@ -1341,7 +1517,9 @@
     </div>
   </nav>
 
+
   <div class="container">
+
 
     <!-- Block A: 頂部 Hero 區 ✕ 極速自測引導 -->
     <section id="blockA" class="section-card" style="text-align: center;">
@@ -1358,6 +1536,7 @@
         </button>
       </div>
 
+
       <!-- 信任卡片 (獨立逐行排版，徹底解決手機端折行溢出) -->
       <div class="hero-trust-box">
         <div class="hero-trust-name">Duncan Chan</div>
@@ -1367,11 +1546,13 @@
       </div>
     </section>
 
+
     <!-- Block B: 五大部分專屬初步自我診斷問卷 (MOD-CRAMP-QUIZ 100% 正版題庫與 v5 視覺設計) -->
     <section id="blockB" class="section-card">
       <div style="margin-bottom: 24px; text-align: center;">
         <h2 style="justify-content: center; margin: 0; font-size: 24px;">📋 請完成以下問卷作初步自我診斷。</h2>
       </div>
+
 
       <!-- 個人資料輸入 -->
       <div class="user-info-grid">
@@ -1397,6 +1578,7 @@
           </select>
         </div>
       </div>
+
 
       <!-- 安全第一：急症狀況篩查【單選・安全阻斷】 -->
       <div class="quiz-group" style="border: 2px solid #EF4444; background: #FEF2F2;">
@@ -1427,13 +1609,14 @@
         </div>
       </div>
 
+
       <!-- 5 大部分專屬題項 -->
       <!-- 第一部分 -->
       <div class="quiz-group">
         <div class="quiz-group-header">
           <div class="quiz-num">1</div>
           <div>
-            <div class="quiz-title">第一部分【可多選】</div>
+            <div class="quiz-title">第一部分：睡眠姿勢與雙腿肌力狀態【可多選】（成因 01：力學與姿勢型）</div>
           </div>
         </div>
         <div class="options-grid">
@@ -1460,12 +1643,13 @@
         </div>
       </div>
 
+
       <!-- 第二部分 -->
       <div class="quiz-group">
         <div class="quiz-group-header">
           <div class="quiz-num">2</div>
           <div>
-            <div class="quiz-title">第二部分【可多選】</div>
+            <div class="quiz-title">第二部分：下肢循環與水分滯留狀態【可多選】（成因 02：血管動力型）</div>
           </div>
         </div>
         <div class="options-grid">
@@ -1492,12 +1676,13 @@
         </div>
       </div>
 
+
       <!-- 第三部分 -->
       <div class="quiz-group">
         <div class="quiz-group-header">
           <div class="quiz-num">3</div>
           <div>
-            <div class="quiz-title">第三部分【可多選】</div>
+            <div class="quiz-title">第三部分：腰背脊椎與神經傳導感受【可多選】（成因 03：神經病變型）</div>
           </div>
         </div>
         <div class="options-grid">
@@ -1524,12 +1709,13 @@
         </div>
       </div>
 
+
       <!-- 第四部分 -->
       <div class="quiz-group">
         <div class="quiz-group-header">
           <div class="quiz-num">4</div>
           <div>
-            <div class="quiz-title">第四部分【可多選】</div>
+            <div class="quiz-title">第四部分：日常飲食代謝與體能狀態【可多選】（成因 04：代謝與微循環障礙型）</div>
           </div>
         </div>
         <div class="options-grid">
@@ -1556,12 +1742,13 @@
         </div>
       </div>
 
+
       <!-- 第五部分 -->
       <div class="quiz-group">
         <div class="quiz-group-header">
           <div class="quiz-num">5</div>
           <div>
-            <div class="quiz-title">第五部分：現行長期西藥服用清單【可多選】</div>
+            <div class="quiz-title">第五部分：現行長期西藥服用清單【可多選】（成因 05：藥源性干擾型 ✕ 香港公立醫院全景）</div>
           </div>
         </div>
         <div class="options-grid">
@@ -1599,11 +1786,11 @@
           </label>
           <label class="option-label">
             <input type="checkbox" name="part5" value="MED_CALCIUM" class="part5-item" onchange="togglePartNone('part5', this)">
-            <span><strong>純碳酸鈣片（非複方無機鈣片）：</strong>常見的純 Calcium Carbonate 鈣片。</span>
+            <span><strong>純碳酸鈣片（非複方無機鈣片）：</strong>公立醫院常開的純 Calcium Carbonate 鈣片。</span>
           </label>
-          <label class="option-label">
+          <label class="option-label" style="border-left: 3px solid #EF4444;">
             <input type="checkbox" name="part5" id="med_warfarin" value="MED_WARFARIN" class="part5-item" onchange="togglePartNone('part5', this)">
-            <span><strong>薄血藥／通血丸（抗凝血／抗血小板藥）：</strong>如 Warfarin（華法林）、Aspirin（阿斯匹靈）、Plavix（波立維/氯吡格雷）或新型抗凝藥（Eliquis 艾樂妥、Xarelto 拜瑞妥等）。</span>
+            <span><strong>薄血藥／通血丸（抗凝血／抗血小板藥）：</strong>如 Warfarin（華法林）、Aspirin（阿斯匹靈）、Plavix（波立維/氯吡格雷）或新型抗凝藥（Eliquis 艾樂妥、Xarelto 拜瑞妥等）。（⚠️ 系統自動啟用薄血藥安全隔離）</span>
           </label>
           <label class="option-label">
             <input type="checkbox" name="part5" value="MED_ACUTE_CHANGE" class="part5-item" onchange="togglePartNone('part5', this)">
@@ -1616,6 +1803,7 @@
         </div>
       </div>
 
+
       <div style="text-align: center; margin-top: 32px;">
         <button type="button" class="btn-primary" style="font-size: 19px; padding: 16px 32px;" onclick="submitAssessment()">
           請按此提交，以了解真正成因
@@ -1623,8 +1811,10 @@
       </div>
     </section>
 
+
     <!-- 自測判定後動態解鎖畫面 (Block C 至 Block I 初始隱藏) -->
     <div id="gated-content" style="display: none;">
+
 
       <!-- Block C: 診斷結果判定 ✕ 最壞情況直擊 (100% 還原 Version 5 高質感架構) -->
       <section id="blockC" class="section-card">
@@ -1640,14 +1830,8 @@
           <p id="diagPrimaryDesc" style="color: #CBD5E1; font-size: 16.5px; line-height: 1.65; margin: 0;">
             你的膀胱容量正常，核心問題在於日間「下肢微血管滲漏」積聚水分，夜間平躺後體液倒灌回流至軀幹與心臟，刺激心房大量釋放 ANP 心房鈉尿肽，強迫腎臟夜間加班排水。
           </p>
-        <!-- 同分分析提示框 (多項成因相同未能單一判斷時動態點亮) -->
-        <div id="tieExplanationBox" style="display: none; background: rgba(212, 163, 67, 0.15); border: 1px solid #D4AF37; border-left: 5px solid #D4AF37; padding: 14px 18px; border-radius: var(--radius-md); margin-top: 16px; text-align: left;">
-          <div style="font-weight: 800; font-size: 16px; color: #F3E5AB; margin-bottom: 6px;">
-            📊 檢測結果分析：多項成因權重相同（複合體質）
-          </div>
-          <p id="tieExplanationText" style="font-size: 15px; color: #FFFFFF; margin: 0; line-height: 1.7;"></p>
         </div>
-        </div>
+
 
         <!-- 2. 五大成因佔比進度條 -->
         <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 24px; box-shadow: var(--shadow-sm);">
@@ -1657,12 +1841,14 @@
           <div id="causeRatioList"></div>
         </div>
 
+
         <!-- 3. 痛點直擊最壞情況 (大字級粗體 18px · 純文字 · 零引號 · 零標籤) -->
         <div class="fear-quote-box">
           <div id="fearQuoteText" style="font-size: 18px; font-weight: 700; line-height: 1.65;">
             腳腫著鞋緊只係開始！最大鑊係源頭漏水倒灌，引發心臟衰竭，連行路都成問題，最後成為屋企人沉重嘅負累！
           </div>
         </div>
+
 
         <!-- 4. 薄血藥避險警告 (動態顯示 · 合規醫囑標準版) -->
         <div id="thinBloodAlert" class="warning-gold-box" style="display: none;">
@@ -1672,10 +1858,12 @@
           </p>
         </div>
 
+
         <!-- 5. 完整專業免責聲明 (100% 完整法律宣告 · 零刪減) -->
         <div style="background: var(--color-primary-light); border-radius: var(--radius-md); padding: 16px 20px; font-size: 14px; color: var(--color-text-sub); margin-bottom: 24px; line-height: 1.65;">
           ⚠️ <strong>專業免責聲明：</strong>本自測僅供個人自我健康評估參考，內容基於用戶主觀填寫之體感數據進行邏輯推演。本系統不作任何形式的正式醫療診斷、醫療建議或處方指引。如有醫療需求，請諮詢執業醫師。
         </div>
+
 
         <!-- 6. 行動按鍵 (純文字 · 零符號) -->
         <button type="button" class="btn-primary" onclick="scrollToId('blockD')">
@@ -1683,13 +1871,15 @@
         </button>
       </section>
 
+
       <!-- Block D: 成因解碼 (16:9 Vimeo 影音 ＋ 單一緊湊灰色背景框 ＋ 大字級共鳴金句) -->
       <section id="blockD" class="section-card">
         <h2 id="block-d-title" style="margin-top: 0;">成因解碼：下肢水腫平躺回流型</h2>
         
         <div class="video-container">
-          <iframe id="vimeo-block-d" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          <iframe id="vimeo-block-d" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
+
 
         <!-- 單一緊湊灰色背景框 (Version 5 雙模組精煉版，無背書標籤) -->
         <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px;">
@@ -1707,63 +1897,76 @@
           </div>
         </div>
 
+
         <!-- 大字級共鳴金句 (17px 粗體) -->
         <div style="background: var(--color-accent-light); border-radius: var(--radius-md); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 17px; color: var(--color-accent-text); margin-bottom: 20px; line-height: 1.6;">
           拒將退化當宿命，從源頭除錯，守住不求人的自理底氣。
         </div>
+
 
         <button type="button" class="btn-primary" onclick="scrollToId('blockE')">
           想知有咩可以改善嘅小貼士
         </button>
       </section>
 
+
       <!-- Block E: 生活上嘅改善小貼士 (16:9 Vimeo 動作影音 ＋ 單一緊湊微習慣框 ＋ 大字級局限警告) -->
       <section id="blockE" class="section-card">
         <h2 style="margin-top: 0;">生活上嘅改善小貼士</h2>
         
         <div class="video-container">
-          <iframe id="vimeo-block-e" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          <iframe id="vimeo-block-e" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
+
 
         <!-- 單一緊湊微習慣框 -->
         <div id="block-e-steps" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow-sm);"></div>
 
+
         <!-- 大字級局限警告 (17px 粗體 · 純文字) -->
         <div id="block-e-warn" style="background: #FFFBEB; border-left: 4px solid #F59E0B; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 16px 20px; color: #92400E; font-size: 17px; font-weight: 700; line-height: 1.65; margin-bottom: 20px;"></div>
+
 
         <button type="button" class="btn-primary" onclick="scrollToId('blockF')">
           想知有咩重點營養和保健方法，可從源頭去改善
         </button>
       </section>
 
+
       <!-- Block F: 重點營養和保健 (16:9 Vimeo 生化影音 ＋ 純生化營養機制 ＋ 恢復專屬共鳴橫幅) -->
       <section id="blockF" class="section-card">
         <h2 style="margin-top: 0;">重點營養和保健</h2>
         
         <div class="video-container">
-          <iframe id="vimeo-block-f" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          <iframe id="vimeo-block-f" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
+
 
         <!-- 單一緊湊生化機轉框 (100% 零商品名) -->
         <div id="block-f-nutrition" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; font-size: 15.5px; color: var(--color-text-main); line-height: 1.75; box-shadow: var(--shadow-sm);"></div>
+
 
         <!-- 恢復情感共鳴金句橫幅 (17px–18px 粗體 · 純文字 · 零引號) -->
         <div id="block-f-emotion" style="background: var(--color-accent-light); border-radius: var(--radius-md); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 17px; color: var(--color-accent-text); margin-bottom: 20px; line-height: 1.6;">
           用極小嘅代價，從源頭改善血管漏水，換返雙腳輕盈同終生自理，唔使成為負累，安心做自己想做嘅事。
         </div>
 
+
         <button type="button" class="btn-primary" onclick="scrollToId('blockG')">
           想知有咩營養同保健方案
         </button>
       </section>
 
+
       <!-- Block G: 精選專屬保健方案 (零副標題 ✕ 僅保留 Pop-up B「想知更多」 ✕ 大尺寸全寬置中按鍵) -->
       <section id="blockG" class="section-card">
         <h2 style="margin-top: 0; margin-bottom: 20px;">精選專屬保健方案</h2>
 
+
         <div id="block-g-products-list">
           <!-- Dynamically populated Single Action Cards with Pop-up B only -->
         </div>
+
 
         <div style="margin-top: 24px;">
           <button type="button" class="btn-accent" style="width: 100%; font-size: 18px; font-weight: 800; padding: 16px 28px; text-align: center;" onclick="scrollToId('blockH')">
@@ -1772,19 +1975,23 @@
         </div>
       </section>
 
+
       <!-- Block H: 選取適合自己的專屬方案 (四層扁平選購架構 ✕ 單品行自帶「產品詳情」Pop-up A ✕ 唯一訂單編號雙軌下單) -->
       <section id="blockH" class="section-card">
         <h2 style="margin-top: 0;">選取適合自己的改善方案</h2>
+
 
         <!-- 第一層：單品選購列表 (產品名稱 + 價格 + 「產品詳情」按鈕 + 數量調節) -->
         <div style="margin-bottom: 24px;">
           <div id="block-h-single-products"></div>
         </div>
 
+
         <!-- 第二層：30 天主力套裝列表 (雙行緊湊，高調特惠價與折數) -->
         <div style="margin-bottom: 24px;">
           <div id="block-h-bundles"></div>
         </div>
+
 
         <!-- 第三層：購物車與動態運費計算 (預設 $0，滿 $400 免費) -->
         <div class="summary-box">
@@ -1807,6 +2014,7 @@
             </div>
           </div>
         </div>
+
 
         <!-- 第四層：物流訊息表單 (單欄獨立分行，地址純淨 Placeholder) -->
         <form id="orderForm" style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px;">
@@ -1835,12 +2043,14 @@
         </form>
       </section>
 
+
       <!-- Block J: 用家真實見證 ＆ 1對1專屬健康管理跟進服務導流 (實體綠色高對比度按鈕) -->
       <section id="blockJ" class="section-card">
         <h2 style="margin-top: 0;">用家真實見證</h2>
         
         <!-- 依成因動態注入雙列見證 (香港本土稱謂) -->
         <div id="block-j-testimonials" style="display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 24px;"></div>
+
 
         <!-- 1 對 1 導流卡片 (實體綠底白字高對比度按鈕) -->
         <div style="background: var(--color-primary); color: #FFF; border-radius: var(--radius-xl); padding: 28px 24px; text-align: center;">
@@ -1858,6 +2068,7 @@
         </div>
       </section>
 
+
       
       <!-- Block M: 常見問題與疑難解答 (Q&A 專區) -->
       <section id="blockM" class="section-card">
@@ -1865,6 +2076,7 @@
         <p style="color: var(--color-text-sub); font-size: 15px; margin-top: 0; margin-bottom: 24px;">
           Health Decoder 健康解碼 ｜ 專屬調理與保健常見 Q＆A
         </p>
+
 
         <div class="qa-accordion">
           <!-- Q1 -->
@@ -1881,6 +2093,7 @@
             </div>
           </details>
 
+
           <!-- Q2 -->
           <details class="qa-item">
             <summary class="qa-summary">
@@ -1894,6 +2107,7 @@
               我哋強烈倡導【拒絕標籤】，年齡純粹係數字，絕對唔應該將退化當成宿命。身體各種慢性徵狀正正係求救訊號。我哋強調【預防維護】，從今日開始修復底層代謝，絕對可以守住不求人嘅自理底氣，將健康重新掌握喺自己手中，莫等災病臨頭先方知覆水難收。
             </div>
           </details>
+
 
           <!-- Q3 -->
           <details class="qa-item">
@@ -1909,6 +2123,7 @@
             </div>
           </details>
 
+
           <!-- Q4 -->
           <details class="qa-item">
             <summary class="qa-summary">
@@ -1922,6 +2137,7 @@
               我哋深信【行之以漸】，健康始於微小習慣。大家喺服用期間有任何疑問，隨時可以聯絡我哋解答疑難。針對有更高要求、希望徹底蛻變嘅朋友，我哋特別安排高階專屬健康管理跟進服務，提供進階一對一貼心陪跑教練方案。專屬服務會同大家深入評估，梳理體感訊號與因果關係，共同制定個人專屬嘅生活同營養微習慣閉環，將保健精準融入日常。
             </div>
           </details>
+
 
           <!-- Q5 -->
           <details class="qa-item">
@@ -1937,6 +2153,7 @@
             </div>
           </details>
 
+
           <!-- Q6 -->
           <details class="qa-item">
             <summary class="qa-summary">
@@ -1951,6 +2168,7 @@
             </div>
           </details>
 
+
           <!-- Q7 -->
           <details class="qa-item">
             <summary class="qa-summary">
@@ -1964,6 +2182,7 @@
               當然可以。調理身體最重要係自己覺得安心。暫時未準備好嘅朋友，歡迎免費加入Duncan Chan嘅WhatsApp及Facebook健康社群。大家可以先接收正確健康資訊，感受工程師邏輯結合代謝底層解碼嘅理念，準備好再一齊開展專屬調理旅程。
             </div>
           </details>
+
 
           <!-- Q8 -->
           <details class="qa-item">
@@ -2001,6 +2220,7 @@
             </div>
           </details>
 
+
           <!-- Q9 -->
           <details class="qa-item">
             <summary class="qa-summary">
@@ -2014,6 +2234,7 @@
               睇醫生同食藥係處理疾病嘅首要步驟，負責控制症狀好似救火。我哋嘅營養調理方案正正填補【預防維護】同【源頭根治】嘅空間，好似火熄滅後重新修補牆身，重建底層代謝。兩者【分工明確】相輔相成。長期食藥令代謝系統處於高負荷狀態，更加需要精準營養支援細胞修復。鞏固好基礎，日後自然有機會喺主診醫生評估下慢慢減藥。
             </div>
           </details>
+
 
           <!-- Q10 -->
           <details class="qa-item">
@@ -2031,6 +2252,7 @@
         </div>
       </section>
 
+
       <!-- Block L: 社群引流區 (官方真連結 ✕ 品牌標準配色) -->
       <section id="blockL" class="section-card" style="text-align: center;">
         <h2 style="justify-content: center; margin-top: 0;">
@@ -2046,6 +2268,7 @@
         </div>
       </section>
 
+
       <!-- Block I: 物流與配送條款 (全頁面最底端) -->
       <footer id="blockI" class="section-card" style="font-size: 13.5px; color: var(--color-text-muted); line-height: 1.7; margin-bottom: 0;">
         <h3 style="font-size: 16px; font-weight: 800; color: var(--color-primary); margin-bottom: 8px;">配送與服務條款</h3>
@@ -2060,13 +2283,16 @@
         </div>
       </footer>
 
+
     </div>
   </div>
+
 
   <!-- Block K: 逐級向上平滑導航引擎 (右下角 [ ↑ ] 11 級狀態機) -->
   <button type="button" class="elevator-btn" id="elevator-btn" onclick="handleElevatorUp()">
     ↑
   </button>
+
 
   <!-- 全域模態彈窗 (Pop-up A, Pop-up B, 套裝明細彈窗 · 深色背景 + 獨立純白展示圖框) -->
   <div class="modal-dark-overlay" id="globalModal" onclick="handleModalBackdropClick(event)">
@@ -2078,8 +2304,10 @@
         <button type="button" class="modal-btn-close" onclick="closeModal()">✕</button>
       </div>
 
+
       <!-- 滾動內容主體 (獨立滾動，防穿透) -->
       <div class="modal-scroll-body" id="modalContent"></div>
+
 
       <!-- 固底全寬關閉按鈕 -->
       <div class="modal-bottom-bar">
@@ -2088,18 +2316,139 @@
     </div>
   </div>
 
+
   <!-- 前端完整核心數據庫與邏輯引擎 -->
   <script>
     const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
     const DUNCAN_WHATSAPP_PHONE = "85298788564";
+
 
     let savedScrollY = 0;
     let selectedCauseId = 1;
     let isWarfarinUser = false;
     let cart = {};
 
+
     // 12 款單品官方完整主庫 (100% 官方 CSV 數據 ✕ 純淨產地 ✕ 法定 6 大欄位 ✕ 去紅色警示化)
     const PRODUCTS_DB = [
+      {
+            "id": "36281",
+            "name": "ORIYEN 天然酵母NMN 15000 Premium",
+            "spec": "150克 (5克 x 30包)",
+            "origin": "台灣",
+            "price": 2488,
+            "memberPrice": 2188,
+            "intro": "台灣頂級天然酵母發酵破壁萃取，非化學合成。每包含天然高純度 NMN，能穿透血腦屏障、神經外膜屏障與粒線體雙層膜。直接提升細胞 NAD+ 水平，活化 Sirtuins 長壽蛋白家族，激活 eNOS 酵素釋放充足一氧化氮 (NO)，維持微血管內皮平滑舒張與通透性完整，並為神經元及骨骼肌粒線體呼吸鏈補給能量，從細胞能量源頭終結夜間缺血痙攣。",
+            "target": "夜間抽筋且自覺體能衰退、高血糖微血管硬化、慢性發炎疲勞、周邊神經退化之長者。",
+            "ingredients": "天然酵母粉 (含高活性 NMN)、酵母發酵物、天然植物萃取物。",
+            "usage": "每日晨起空腹或日間服用 1 包，以溫水沖泡飲用最佳。",
+            "notes": "天然酵母發酵來源，性質溫和安全；不與降血壓、降血糖西藥相沖。",
+            "mechanisms": {
+                  "2": "激活血管內皮 eNOS 酵素釋放 NO，擴張微血管網並降低外周阻抗，增強深靜脈回流動力，消除深層組織微缺氧水腫。",
+                  "3": "為受壓迫受損的坐骨神經軸突與神經元補給充足 ATP 能量，加速髓鞘神經電纜修復，消除坐骨神經根缺氧異位放電。",
+                  "4": "強力對抗糖毒性與晚期糖基化終產物 (AGEs)，修復受損微血管內皮，平穩細胞膜離子幫浦電位差，阻斷代謝性異常放電。"
+            }
+      },
+      {
+            "id": "36282",
+            "name": "ORIYEN 強心血管通",
+            "spec": "60粒/瓶",
+            "origin": "日本",
+            "price": 548,
+            "memberPrice": 488,
+            "intro": "日本原裝心血管微循環清淤引流配方！嚴選天然水蛭素(120 ATU)、濃縮納豆激酶(1000 FU)、葡萄籽原花青素(OPC)、專利水溶輔酶Q10、三七提取物及專利絞股藍。形成「溶解微血栓 ＋ 封堵血管滲漏 ＋ 增強心泵動力 ＋ 舒張微血管」完整閉環，強效疏通下肢深靜脈與毛細血管微循環淤塞，加速日間組織積液回流排空。",
+            "target": "下肢靜脈曲張、傍晚雙腿沉重水腫、微循環淤滯阻塞、夜間深層微缺氧抽筋之長輩。",
+            "ingredients": "天然水蛭素、濃縮納豆激酶粉末、葡萄籽提取物(OPC)、專利水溶輔酶Q10、三七提取物、專利絞股藍提取物。",
+            "usage": "每日2次，每次1至2粒，建議飯後以溫水送服。",
+            "notes": "⚠️ 含有天然水蛭素與納豆激酶活性成分，正在服用西藥抗凝血劑/抗血小板藥（如 Warfarin、Aspirin、Plavix、Eliquis、Xarelto）之患者嚴禁食用！請改選專屬心腸軸抗炎替代方案。",
+            "mechanisms": {
+                  "2": "高活性天然水蛭素直接溶解下肢微細血栓，納豆激酶瓦解微靜脈纖維蛋白網，OPC 封堵血管內皮滲漏，徹底打通深靜脈回流通道，消除日間下肢組織水腫缺氧。"
+            }
+      },
+      {
+            "id": "36283",
+            "name": "ORIYEN 蛋白高營素",
+            "spec": "15包/盒 (28克 x 15包)",
+            "origin": "台灣",
+            "price": 349,
+            "memberPrice": 299,
+            "intro": "專為中高齡與肌力流失長者研發之雙重優質蛋白質營養配方！結合紐西蘭進口優質分離乳清蛋白與大豆分離蛋白，富含支鏈胺基酸(BCAA)與白胺酸(Leucine)，並黃金配比鈣質與維他命D3。高消化吸收率，能快速被人體吸收利用，直接刺激骨骼肌蛋白質合成路徑(mTOR)，抑制肌肉流失，修復受損短縮肌纖維，重塑小腿肌肉抗疲勞耐力。",
+            "target": "小腿肌肉萎縮變幼、雙腿無力疲勞、日常蛋白質攝取不足、易受力學性抽筋困擾之長者。",
+            "ingredients": "分離乳清蛋白、非基因改造大豆分離蛋白、支鏈胺基酸(BCAA)、碳酸鈣、維他命D3、綜合礦物質。",
+            "usage": "每日1至2次，每次1包，以約200毫升溫水沖泡拌勻飲用，運動或步行伸展後飲用吸收最佳。",
+            "notes": "含有奶類及大豆製品；腎功能不全嚴重需嚴格限制蛋白質攝取者請遵醫囑。",
+            "mechanisms": {
+                  "1": "快速提供小腿腓腸肌與比目魚肌必需胺基酸，刺激肌肉蛋白質合成，增強肌纖維直徑與肌腱韌度，顯著提高骨骼肌抗疲勞耐力，預防日間疲勞引發夜間肌梭超敏反應。"
+            }
+      },
+      {
+            "id": "36248",
+            "name": "ORIYEN 綜合果蔬酵素",
+            "spec": "30包/盒",
+            "origin": "台灣",
+            "price": 498,
+            "memberPrice": 438,
+            "intro": "精選數十種無農藥純淨蔬果、草本本草與珍貴菌菇，經日本兩年三階段純菌深層發酵精釀而成。富含天然活性多酚、SOD-like 抗氧化酵素、短鏈有機酸與低分子發酵胜肽。能有效修復腸道上皮黏膜緊密連接(Tight Junctions)，切斷腸道內毒素(LPS)滲漏入血造成的全身慢性發炎，大幅減輕微血管內皮發炎腫脹，恢復血管正常舒縮彈性。",
+            "target": "長期外食高油高糖、腸道吸收不良、下肢微血管通透性發炎腫脹、服薄血藥需抗炎之長輩。",
+            "ingredients": "綜合蔬果發酵濃縮精華粉(數十種天然蔬果菌菇深層發酵)、天然植物纖維、綜合消化酵素。",
+            "usage": "每日1至2次，每次1包，飯前或飯後以溫涼水沖泡飲用最佳(水溫勿超40℃)。",
+            "notes": "純天然發酵無添加化學防腐劑；完全不含水蛭素或抗凝血成分，薄血藥患者可安心食用。",
+            "mechanisms": {
+                  "2": "透過深層發酵有機酸與活性多酚修復腸道黏膜屏障，阻斷腸源性內毒素滲漏入血引發之微血管內皮慢性發炎，從生化源頭降低下肢血管滲透壓與水腫。",
+                  "4": "促進體內深層代謝廢物與酸性代謝產物分解排空，減輕肝腎排毒代謝負擔，輔助調節全身體液與電解質動態平衡。"
+            }
+      },
+      {
+            "id": "34331",
+            "name": "Nn 三效益生菌- 長者配方",
+            "spec": "30包/盒",
+            "origin": "台灣",
+            "price": 319,
+            "memberPrice": 279,
+            "intro": "專為長者心腦血管與神經微環境研發之專利益生菌配方！嚴選耐胃酸膽鹽之活性益生菌株，搭配優質益生元與微膠囊包埋技術。定殖於腸道後能大量產生短鏈脂肪酸(丁酸 Butyrate)，強化腸黏膜物理防線，調控腸腦軸與自律神經網絡，下調夜間交感神經過度興奮，減輕微血管周邊發炎浸潤，改善夜間周邊血液循環灌注。",
+            "target": "腸胃吸收欠佳、排便不順、自律神經亢奮易驚醒抽筋、薄血藥患者需心腸軸調理者。",
+            "ingredients": "長者專屬專利益生菌複合粉(含雙歧桿菌、乳酸桿菌等高活性菌株)、異麥芽寡糖(益生元)、菊苣纖維。",
+            "usage": "每日1包，建議早起空腹或睡前以溫涼水送服。",
+            "notes": "避免與熱開水同時服用；不影響西藥抗凝機制，適合心腦血管長者長期保養。",
+            "mechanisms": {
+                  "2": "產生高濃度丁酸等短鏈脂肪酸，抑制促發炎細胞因子釋放，保護全身微血管基底膜結構完整，減少微血管內皮滲漏積水。",
+                  "4": "平衡腸道微生態菌群，調節副交感神經張力，平伏夜間交感神經血管收縮反射，維持下肢夜間穩定血流灌注。"
+            }
+      },
+      {
+            "id": "34307",
+            "name": "Nn 腸快適",
+            "spec": "30粒/盒",
+            "origin": "台灣",
+            "price": 388,
+            "memberPrice": 338,
+            "intro": "專利熱封型後生元與消化道屏障固化精華！採用特殊熱處理技術鎖定益生菌活性分子與細胞壁勝肽聚糖，不懼胃酸膽鹽直達腸道。強效固化腸黏膜上皮緊密連接結構，阻絕細菌代謝廢物與大分子抗原穿透腸壁，阻斷系統性慢性無菌性發炎，從腸道起點維護全身微血管內皮細胞彈性與健康微循環。",
+            "target": "消化道敏感易脹氣、慢性微血管慢性發炎、薄血藥長者需深度心腸軸微循環調理者。",
+            "ingredients": "專利熱封乳酸菌粉(後生元Postbiotics)、綜合消化酵素、植物萃取精華。",
+            "usage": "每日1次，每次1粒，隨餐以溫水送服。",
+            "notes": "性質穩定安全，適合長期腸道微環境深層調理；與薄血藥無任何不良交互作用。",
+            "mechanisms": {
+                  "2": "藉由高濃度後生元胜肽緊密固化腸上皮細胞屏障，徹底截斷腸源性促炎毒素入血，消除微血管內皮腫脹損傷，輔助改善深靜脈回流通道通暢度。"
+            }
+      },
+      {
+            "id": "34278",
+            "name": "Nn 水溶性輔酶Q10",
+            "spec": "30粒/盒",
+            "origin": "日本",
+            "price": 328,
+            "memberPrice": 288,
+            "intro": "日本專利 PureSorb-Q™ 超微米親水化水溶性輔酶 Q10！突破傳統脂溶性 Q10 吸收率低下瓶頸，生物利用度高達普通 Q10 的數倍以上。直達心肌、下肢骨骼肌與神經軸突粒線體，直接參與電子傳遞鏈合成高濃度細胞能量貨幣 ATP。特別針對服用降膽固醇他汀類(Statins)西藥長輩，精準對沖他汀藥物阻斷內源性 Q10 合成所導致的肌肉能量枯竭、細胞膜壞死與劇痛痙攣。",
+            "target": "正在服用降膽固醇他汀西藥、常感下肢痠軟無力、心臟泵血收縮力欠佳、易發作抽筋之長者。",
+            "ingredients": "專利水溶性輔酶Q10(PureSorb-Q™)、天然植物甘油、維他命E。",
+            "usage": "每日1粒，建議早晨或日間隨餐以溫水送服。",
+            "notes": "水溶性專利配方空腹亦可吸收；服用薄血藥 Warfarin 者如需大劑量食用請諮詢專業意見(本品常規保養劑量安全不干擾凝血)。",
+            "mechanisms": {
+                  "2": "為心肌粒線體高倍充能，顯著增強心臟日間泵血收縮力與動靜脈壓差，強效推動下肢深靜脈血液回流軀幹，減少水分鬱積。",
+                  "4": "活化肌纖維細胞膜上的鈉鉀ATP幫浦(Na+/K+-ATPase)，恢復細胞膜去極化平衡，阻斷因能量枯竭引發的肌肉強直持續痙攣。",
+                  "5": "直接回補被降膽固醇他汀類(Statins)西藥阻斷枯竭的組織輔酶Q10儲量，終止粒線體呼吸鏈癱瘓與肌原纖維微觀溶解壞死，精準解決藥源性肌毒性抽筋。"
+            }
+      },
       {
             "id": "34269",
             "name": "Nn 蝦青素",
@@ -2115,9 +2464,314 @@
             "mechanisms": {
                   "2": "具備強效微藻抗氧化力，直接貫穿微血管內皮雙層膜撲滅慢性發炎，降低微血管通透性滲漏，改善下肢靜脈水腫，且完全無出血或抗凝西藥衝突風險。",
                   "4": "直接穿透粒線體雙層膜，中和外食劣質壞油堆積之脂質過氧化物，保護呼吸鏈複合物免受自由基破壞，維持ATP產能。"
-            },
-            "img": "../images/products/34269.webp",
-            "shortDesc": "跨膜強效抗氧化，撲滅微血管慢性發炎"
+            }
+      },
+      {
+            "id": "36277",
+            "name": "ORIYEN 肝再生",
+            "spec": "60粒/瓶",
+            "origin": "台灣",
+            "price": 388,
+            "memberPrice": 338,
+            "intro": "高活性水飛薊素(Silymarin)搭配朝鮮薊與薑黃珍貴草本精華！能穩定肝細胞膜結構，促進肝臟微粒體解毒酵素活性，加速體內堆積之重金屬、過氧化脂質與酸性乳酸代謝排空。改善因肝臟解毒代謝效能低下引發的末梢微血管內毒素刺激，維持周邊神經與肌纖維微環境純淨，預防頑固性代謝痙攣。",
+            "target": "長期外食油膩宵夜、代謝綜合症脂肪肝、易疲倦昏睡、抽筋發作深層劇烈痠痛長輩。",
+            "ingredients": "專利水飛薊提取物、朝鮮薊提取物、薑黃素提取物、綜合本草精華。",
+            "usage": "每日2次，每次1粒，飯後隨溫水送服。",
+            "notes": "天然植萃配方，安全無負擔；孕婦及膽道阻塞者請諮詢醫師意見。",
+            "mechanisms": {
+                  "4": "提高肝臟穀胱甘肽(GSH)合成與深層排毒速度，加速夜間體內酸性代謝物與乳酸排空，消除神經與肌肉微環境之毒素激惹異常放電。"
+            }
+      },
+      {
+            "id": "36246",
+            "name": "ORIYEN 金體素",
+            "spec": "60粒/瓶",
+            "origin": "台灣",
+            "price": 468,
+            "memberPrice": 408,
+            "intro": "專利定序苦瓜胜肽(Polypeptide-k)結合吡啶甲酸鉻與肉桂萃取物！具備高生物活性，能直接作用於細胞胰島素受體，促進細胞膜葡萄糖轉運蛋白(GLUT4)轉移至膜表面，大幅提升周邊組織葡萄糖利用率，平穩全天血糖波動，降低晚期糖基化終產物(AGEs)對神經滋養微血管的硬化損害，消除代謝滲透壓抽筋。",
+            "target": "高血糖、糖耐量受損、大肚腩代謝綜合症、微血管病變導致小腿反覆頑固抽筋長輩。",
+            "ingredients": "專利定序苦瓜提取物(含活性苦瓜胜肽)、吡啶甲酸鉻、肉桂萃取粉、桑葉萃取物。",
+            "usage": "每日2次，每次1粒，建議於餐前15至30分鐘搭配溫水送服。",
+            "notes": "正在服用處方口服降血糖西藥或注射胰島素者，請於食用期間監測血糖水平。",
+            "mechanisms": {
+                  "4": "提升外周組織胰島素敏感度與葡萄糖進入肌細胞效率，減輕細胞外高滲透壓脫水與微血管基底膜糖基化增厚，恢復神經膜離子通道正常生理電位。"
+            }
+      },
+      {
+            "id": "34328",
+            "name": "Nn 關節靈C+",
+            "spec": "60粒/瓶",
+            "origin": "馬來西亞",
+            "price": 319,
+            "memberPrice": 279,
+            "intro": "高活性天然葡萄糖胺鹽酸鹽搭配軟骨素與維他命C增效配方！提供關節軟骨基質與滑囊液合成必需前驅原料，深層修復退化的腰椎間盤軟骨與小關節突軟骨。維持腰椎椎管與椎間孔通暢間隙，減輕骨刺增生與椎間盤膨出對坐骨神經根的物理性擠壓卡壓，從脊椎源頭阻斷異位放電引發的小腿抽搐。",
+            "target": "腰椎退化狹窄、腰痠下背僵硬、久走神經性間歇跛行、伴隨小腿坐骨神經放射痛抽筋者。",
+            "ingredients": "鹽酸葡萄糖胺、硫酸軟骨素、維他命C、檸檬酸鈣、微量礦物質。",
+            "usage": "每日2次，每次1粒，隨餐或飯後搭配溫水食用。",
+            "notes": "原料取自甲殼類，對甲殼海鮮嚴重過敏者請留意；不影響血壓或抗凝藥物。",
+            "mechanisms": {
+                  "3": "滋養修復腰椎間盤纖維環與小關節軟骨，維持脊椎生理曲度與椎間孔垂直高度，消除對腰薦神經根(L4-S1)的物理性骨性卡壓與發炎水腫。"
+            }
+      },
+      {
+            "id": "34274",
+            "name": "Nn 奧米加-3深海魚油1000",
+            "spec": "50粒/瓶",
+            "origin": "馬來西亞",
+            "price": 253,
+            "memberPrice": 222,
+            "intro": "嚴選挪威高品質 Pronova Pure® 深海小型魚油，經分子蒸餾深層純化，無重金屬殘留。富含高濃度多元不飽和脂肪酸 EPA 與 DHA。DHA 是構成周邊神經纖維外層「髓鞘(Myelin Sheath)」的核心脂質原料，能修復破損神經電纜絕緣層，杜絕神經漏電與短路異常放電；EPA 抑制前列腺素發炎途徑，平撫受壓坐骨神經根周邊無菌性發炎。",
+            "target": "神經痛、手腳麻痺刺痛、腰椎骨刺坐骨神經壓迫、神經受損漏電引致抽筋之長者。",
+            "ingredients": "深海魚油精華(含高品質 EPA 及 DHA)、天然維他命E(抗氧化劑)。",
+            "usage": "每日1次，每次1至2粒，隨餐以溫水送服吸收最佳。",
+            "notes": "非素食產品(明膠軟膠囊)；有凝血異常或手術前2週請暫停使用；與薄血藥有微弱協同，食用前請留意。",
+            "mechanisms": {
+                  "3": "提供高純度 DHA 脂質分子修復坐骨神經髓鞘絕緣結構，提升神經傳導速度並杜絕神經短路漏電，徹底終止異位高頻病理放電傳導至小腿。"
+            }
+      },
+      {
+            "id": "34316",
+            "name": "Nn 液鈣鎂D3",
+            "spec": "15包/盒 (20ml x 15包)",
+            "origin": "台灣",
+            "price": 209,
+            "memberPrice": 185,
+            "intro": "微米級超微乳化液態檸檬酸鈣鎂，黃金 2:1 平衡配比！結合高活性活性維他命 D3，無需依賴強胃酸即可快速解離被腸道高效吸收。微米鎂離子作為天然鈣離子阻斷劑(Natural CCB)，能阻斷過量鈣離子湧入肌漿網，直接放鬆強直痙攣肌纖維；同時調節運動神經元膜電位閾值，平撫高頻過敏放電，精準對沖去水丸西藥造成的鎂離子嚴重流失。",
+            "target": "夜間突發強直性抽筋痛醒、正在服用利尿劑/胃藥導致電解質流失、胃酸分泌不足長輩。",
+            "ingredients": "微米液態檸檬酸鈣、檸檬酸鎂、活性維他命D3、天然果汁濃縮液、純水。",
+            "usage": "每日1次，每次1包，睡前30分鐘撕開直接飲用，或加入溫水中飲用，吸收率最高。",
+            "notes": "液態微米配方，溫和不脹氣、不便秘、不易沉積結石；適合腸胃吸收弱之長者。",
+            "mechanisms": {
+                  "1": "快速拉高運動神經元靜止膜電位閾值，重置高爾基腱器官抑制回饋，終止因日間過勞引發的夜間超敏強直痙攣。",
+                  "5": "即時回補被利尿劑去水丸或胃藥阻斷排空之血鎂與血鈣離子，恢復神經肌肉接頭正常離子濃度梯度，從化學源頭解除低血鎂誘發之頑固痙攣。"
+            }
+      },
+      {
+            "id": "0368",
+            "name": "SE 紅光光療按摩帶",
+            "spec": "1條裝 (含智慧控制器)",
+            "origin": "中國",
+            "price": 1490,
+            "memberPrice": 1280,
+            "intro": "醫療級 630nm 可見紅光 ＋ 850nm 近紅外線(NIR)雙波長光生物調節(PBM)深度理療帶！850nm 隱形近紅外線具備無與倫比的深層組織穿透力，能直達小腿深層肌筋膜、深靜脈與腰薦椎坐骨神經根。光子被粒線體細胞色素C氧化酶直接吸收，激發 ATP 能量爆發性合成；促進一氧化氮(NO)局部釋放擴張深層微血管，加速排空深靜脈淤血水腫，溫熱放鬆緊繃痙攣肌束。",
+            "target": "所有類型夜間抽筋長輩、下肢深層循環不良冰冷、腰椎神經根受壓、小腿深層僵硬者。",
+            "ingredients": "醫療級雙波長發光晶片組(630nm紅光+850nm近紅外線)、親膚透氣彈性面料、智慧溫控震動按摩模組。",
+            "usage": "每日睡前或晨起使用1至2次，每次20至30分鐘。平躺或坐姿將光療帶環繞固定於小腿肚或腰部。",
+            "notes": "外用物理光療儀器，非口服；具備定時自動關機防燙安全保護，長者操作極簡安全。",
+            "mechanisms": {
+                  "1": "深層溫和放鬆短縮小腿肌群，促進肌纖維被動延展，快速消除日間深層肌筋膜勞損結節。",
+                  "2": "850nm 近紅外線激活微血管內皮釋放局部 NO，擴張毛細血管與深靜脈管徑，加速日間組織間隙滯留積水回回排空，消除深層微缺氧。",
+                  "3": "穿透腰薦椎軟組織，溫熱消退神經根周邊無菌性缺血水腫，平撫坐骨神經根敏感激惹放電。",
+                  "4": "活化粒線體內源性能量合成，提升局部微循環微灌注，協助肌纖維離子幫浦加速運轉。",
+                  "5": "直接溫暖下肢肌肉神經接頭，緩解因西藥干擾或末梢受涼誘發的突發性肌肉血管痙攣。"
+            }
+      },
+      {
+            "id": "38207",
+            "name": "Smart Fitness X 律動拍打機",
+            "spec": "1部裝",
+            "origin": "中國",
+            "price": 13990,
+            "memberPrice": 12800,
+            "intro": "專為長者居家運動復健打造之頂級全身垂直律動(Whole Body Vibration, WBV)拍打儀！模擬人體跳繩與快步走之精準垂直正弦波律動，每分鐘數百次溫和垂直上下震動。直達小腿深層比目魚肌與腓腸肌，觸發肌梭牽張反射引發肌肉微收縮，被動活化「人體下肢第二心臟」肌泵循環，產生生化剪切力(Shear Stress)刺激血管內皮修復，完全不傷膝蓋與脊椎關節。",
+            "target": "缺乏運動、行動不便、下肢肌肉量流失萎縮、深靜脈嚴重淤滯水腫、全身微循環阻滯者。",
+            "ingredients": "航太級高扭力靜音馬達、高精密正弦波垂直律動機械模組、超低電磁波安全架構、防滑減震踏板。",
+            "usage": "每日1至2次，每次10至15分鐘。長者站立於踏板中央(或坐姿雙腳踩踏)，放鬆雙膝微曲享受律動。",
+            "notes": "原廠一年保固；心臟裝有心律調節器、急性骨折未癒合、孕婦請勿使用。",
+            "mechanisms": {
+                  "1": "藉由高頻垂直微幅律動被動拉長整夜極度短縮的小腿肌群，重置高爾基腱器官神經抑制煞車，解除肌梭神經過敏短縮。",
+                  "2": "被動強力擠壓下肢深靜脈叢與淋巴管，產生高效率機械泵血效應，快速排空日間下肢沉重淤積體液，終止夜間回流障礙缺氧。",
+                  "3": "微幅諧振刺激下肢本體感覺神經受器，重塑大腦與脊髓神經肌肉反射迴路平衡，抑制神經異位超頻漏電放電。"
+            }
+      }
+];
+const BUNDLES_DB = [
+      {
+            "id": "A1",
+            "code": "Cramp_Set_A1",
+            "name": "緩解抽筋30天套裝A1",
+            "causeId": 1,
+            "isWarfarinSafe": true,
+            "img": "./images/products/Cramp_Set_A1.webp",
+            "price": 16915,
+            "origPrice": 27069,
+            "discount": "62折",
+            "save": 10154,
+            "itemsSummary": "液鈣鎂x2＋蛋白高營素x3＋紅光帶＋律動機",
+            "desc": "30天全方位高階調理。雙源高營素重塑小腿肌纖維與抗疲勞耐力；微米液鈣鎂快速平衡運動神經元膜電位；紅光光療帶與律動拍打機深入牽張解除肌纖維整夜短縮卡死，重置神經反射煞車。"
+      },
+      {
+            "id": "A2",
+            "code": "Cramp_Set_A2",
+            "name": "緩解抽筋30天套裝A2",
+            "causeId": 1,
+            "isWarfarinSafe": true,
+            "img": "./images/products/Cramp_Set_A2.webp",
+            "price": 2925,
+            "origPrice": 4079,
+            "discount": "72折",
+            "save": 1154,
+            "itemsSummary": "液鈣鎂x2＋蛋白高營素x3＋紅光帶",
+            "desc": "30天基礎核心調理。微米液鈣鎂結合高營素蛋白質原料，配合深層雙波長紅光光療帶溫和照射小腿，快速平撫過敏放電，解除夜間力學性強直肌肉緊繃。"
+      },
+      {
+            "id": "B1",
+            "code": "Cramp_Set_B1",
+            "name": "緩解抽筋30天套裝B1",
+            "causeId": 2,
+            "isWarfarinSafe": false,
+            "img": "./images/products/Cramp_Set_B1.webp",
+            "price": 19238,
+            "origPrice": 30048,
+            "discount": "64折",
+            "save": 10810,
+            "itemsSummary": "血管通＋NMN＋紅光帶＋律動機",
+            "desc": "30天全方位高階調理（非薄血藥用家）。強心血管通清除微細血栓，天然酵母 NMN 激活血管內皮釋放 NO 擴張微血管；輔以紅光帶與律動機生化剪切力引流深靜脈淤血，終止組織缺氧水腫。"
+      },
+      {
+            "id": "B2",
+            "code": "Cramp_Set_B2",
+            "name": "緩解抽筋30天套裝B2",
+            "causeId": 2,
+            "isWarfarinSafe": false,
+            "img": "./images/products/Cramp_Set_B2.webp",
+            "price": 5248,
+            "origPrice": 7058,
+            "discount": "74折",
+            "save": 1810,
+            "itemsSummary": "血管通＋NMN＋紅光帶",
+            "desc": "30天基礎核心調理（非薄血藥用家）。天然酵母 NMN 協同強心血管通與紅光光療帶，強效疏通深層微循環灌注，排空深靜脈積水，改善下肢深層微缺氧。"
+      },
+      {
+            "id": "B3",
+            "code": "Cramp_Set_B3",
+            "name": "緩解抽筋30天套裝B3",
+            "causeId": 2,
+            "isWarfarinSafe": true,
+            "img": "./images/products/Cramp_Set_B3.webp",
+            "price": 20454,
+            "origPrice": 31498,
+            "discount": "65折",
+            "save": 11044,
+            "itemsSummary": "蝦青素＋Q10＋腸快適x2＋益生菌＋酵素x3＋NMN+紅光帶＋律動機",
+            "desc": "30天全方位高階調理（薄血藥抗凝劑專屬）。100% 零出血或西藥衝突風險。綜合果蔬酵素與後生元腸快適修復腸黏膜屏障，截斷內毒素入血滲漏；蝦青素與水溶 Q10 撲滅微血管發炎；配合紅光帶與律動機深層物理排空。"
+      },
+      {
+            "id": "B4",
+            "code": "Cramp_Set_B4",
+            "name": "緩解抽筋30天套裝B4",
+            "causeId": 2,
+            "isWarfarinSafe": true,
+            "img": "./images/products/Cramp_Set_B4.webp",
+            "price": 6464,
+            "origPrice": 8508,
+            "discount": "76折",
+            "save": 2044,
+            "itemsSummary": "蝦青素＋Q10＋腸快適x2＋益生菌＋酵素x3＋NMN+紅光帶",
+            "desc": "30天基礎核心調理（薄血藥抗凝劑專屬）。零凝血干擾。透過微藻蝦青素、水溶性輔酶 Q10、酵素與益生菌深度調理心腸軸微血管通透性，配合紅光帶溫和消除下肢淤脹。"
+      },
+      {
+            "id": "C1",
+            "code": "Cramp_Set_C1",
+            "name": "緩解抽筋30天套裝C1",
+            "causeId": 3,
+            "isWarfarinSafe": false,
+            "img": "./images/products/Cramp_Set_C1.webp",
+            "price": 18265,
+            "origPrice": 28750,
+            "discount": "64折",
+            "save": 10485,
+            "itemsSummary": "魚油＋關節靈＋NMN+紅光帶＋律動機",
+            "desc": "30天全方位高階調理。65% 高純度 Pronova Pure 深海魚油修復神經髓鞘絕緣層；關節靈 C+ 與天然酵母 NMN 減輕腰椎骨性擠壓並促進軸突修復；外用紅光帶深層穿透腰薦椎神經根消腫，律動機平衡本體感覺。"
+      },
+      {
+            "id": "C2",
+            "code": "Cramp_Set_C2",
+            "name": "緩解抽筋30天套裝C2",
+            "causeId": 3,
+            "isWarfarinSafe": false,
+            "img": "./images/products/Cramp_Set_C2.webp",
+            "price": 4275,
+            "origPrice": 5760,
+            "discount": "74折",
+            "save": 1485,
+            "itemsSummary": "魚油＋關節靈＋NMN+紅光帶",
+            "desc": "30天基礎核心調理。深海魚油高濃度 DHA 滋養神經電纜外層髓鞘，關節靈 C+ 補充關節軟骨滑液，配合紅光帶溫熱消退神經根無菌性水腫，徹底平撫坐骨神經異位放電。"
+      },
+      {
+            "id": "D1",
+            "code": "Cramp_Set_D1",
+            "name": "緩解抽筋30天套裝D1",
+            "causeId": 4,
+            "isWarfarinSafe": true,
+            "img": "./images/products/Cramp_Set_D1.webp",
+            "price": 21437,
+            "origPrice": 32660,
+            "discount": "66折",
+            "save": 11223,
+            "itemsSummary": "Q10＋NMN＋蝦青素＋肝再生＋酵素x3＋金體素x2＋益生菌＋紅光帶＋律動機",
+            "desc": "30天全方位高階調理。專利水溶 Q10 與天然酵母 NMN 驅動肌纖維膜鈉鉀離子幫浦；金體素、果蔬酵素與肝再生排空深層代謝毒素；微藻蝦青素中和過氧化脂質，全面解除神經滋養微血管硬化。"
+      },
+      {
+            "id": "D2",
+            "code": "Cramp_Set_D2",
+            "name": "緩解抽筋30天套裝D2",
+            "causeId": 4,
+            "isWarfarinSafe": true,
+            "img": "./images/products/Cramp_Set_D2.webp",
+            "price": 7447,
+            "origPrice": 9670,
+            "discount": "77折",
+            "save": 2223,
+            "itemsSummary": "Q10＋NMN＋蝦青素＋肝再生＋酵素x3＋金體素x2＋益生菌＋紅光帶",
+            "desc": "30天基礎核心調理。高活性水溶 Q10 與天然酵母 NMN 及時回補粒線體 ATP，結合綜合果蔬酵素與紅光帶促進深微循環微灌注，終止代謝障礙型頑固痙攣。"
+      },
+      {
+            "id": "E1",
+            "code": "Cramp_Set_E1",
+            "name": "緩解抽筋30天套裝E1",
+            "causeId": 5,
+            "isWarfarinSafe": true,
+            "img": "./images/products/Cramp_Set_E1.webp",
+            "price": 16408,
+            "origPrice": 26373,
+            "discount": "62折",
+            "save": 9965,
+            "itemsSummary": "Q10＋液鈣鎂x2＋紅光帶＋律動機",
+            "desc": "30天全方位高階調理。專利 MicroActive 水溶性 Q10 直接對沖他汀類西藥造成的肌膜能量枯竭；微米液鈣鎂及時回補利尿劑排走之鈣鎂離子，拉高神經興奮閾值；外用紅光帶與律動機深層鬆弛肌肉神經接頭。"
+      },
+      {
+            "id": "E2",
+            "code": "Cramp_Set_E2",
+            "name": "緩解抽筋30天套裝E2",
+            "causeId": 5,
+            "isWarfarinSafe": true,
+            "img": "./images/products/Cramp_Set_E2.webp",
+            "price": 2418,
+            "origPrice": 3383,
+            "discount": "71折",
+            "save": 965,
+            "itemsSummary": "Q10＋液鈣鎂x2＋紅光帶",
+            "desc": "30天基礎核心調理。水溶性輔酶 Q10 與微米液態鈣鎂 D3 精準對沖降膽固醇藥與去水丸副作用，配合紅光帶溫和放鬆下肢肌肉，安全不干擾西藥療效。"
+      }
+];
+      {
+            "id": "34269",
+            "name": "Nn 蝦青素",
+            "spec": "30粒/盒",
+            "origin": "馬來西亞",
+            "price": 276,
+            "memberPrice": 242,
+            "intro": "地表最強抗氧化之王！嚴選日本AstaREAL®天然雨生紅球藻超臨界萃取，抗氧化力為維他命C的6000倍、CoQ10的800倍。獨特跨膜極性結構能直接穿透血腦屏障(BBB)、神經外膜屏障(PNB)與粒線體雙層膜，撲滅微血管內皮發炎，阻斷NF-κB與COX-2發炎途徑，中和過氧化脂質，保護神經周邊微循環與粒線體呼吸鏈，且完全無出血或抗凝藥物干擾風險。",
+            "target": "薄血藥/抗凝劑患者下肢微循環發炎、高血糖微血管病變神經發麻、自體免疫發炎風暴、粒線體脂質過氧化損傷、長者抽筋水腫。",
+            "ingredients": "AstaREAL®天然雨生紅球藻萃取物(高活性天然蝦青素)、天然橄欖油、混合生育酚(維他命E)。",
+            "usage": "每日1次，每次1至2粒，隨餐或餐後油脂性飲食服用最佳。",
+            "notes": "非素食產品(明膠軟膠囊)。由微藻提取，無甲殼海鮮過敏原，海鮮過敏者可安全食用；不與降血壓、血糖西藥相沖。",
+            "mechanisms": {
+                  "2": "具備強效微藻抗氧化力，直接貫穿微血管內皮雙層膜撲滅慢性發炎，降低微血管通透性滲漏，改善下肢靜脈水腫，且完全無出血或抗凝西藥衝突風險。",
+                  "4": "直接穿透粒線體雙層膜，中和外食劣質壞油堆積之脂質過氧化物，保護呼吸鏈複合物免受自由基破壞，維持ATP產能。"
+            }
       },
       {
             "id": "34274",
@@ -2133,9 +2787,7 @@
             "notes": "正服用抗凝血藥(Warfarin/薄血藥)或有出血傾向、近期手術者請先諮詢醫生；孕婦可安心食用高純度DHA。",
             "mechanisms": {
                   "3": "高純度DHA滋養神經髓鞘磷脂層，修復受損絕緣皮；EPA轉化為抗炎消退素，撲滅神經內膜微血管發炎，提升神經傳導穩定性。"
-            },
-            "img": "../images/products/34274.webp",
-            "shortDesc": "高純度DHA滋養神經髓鞘，修復漏電短路"
+            }
       },
       {
             "id": "34278",
@@ -2153,9 +2805,7 @@
                   "2": "專利MicroActive®水溶技術24小時釋放，為心肌與血管平滑肌細胞注能，增強心臟容量代償力與下肢微循環血流灌注。",
                   "4": "作為粒線體能量傳遞核心「火星塞」，直擊呼吸鏈產能關鍵，驅動大量ATP生成，供應肌漿網鈣泵(SERCA)迅速將鈣離子收回肌漿網，解開肌肉卡死狀態。",
                   "5": "他汀類降脂藥(Statins)阻斷甲羥戊酸途徑耗竭肌肉Q10引發肌病；本品直接高倍吸收回補被耗竭的Q10，消除藥物引起的肌肉疲勞、痠痛無力與抽筋。"
-            },
-            "img": "../images/products/34278.webp",
-            "shortDesc": "粒線體能量樞紐，對沖西藥肌肉疲乏無力"
+            }
       },
       {
             "id": "34307",
@@ -2171,9 +2821,7 @@
             "notes": "本品為奶素產品，純素者不宜。若有持續嚴重腸胃不適應儘快就醫。",
             "mechanisms": {
                   "2": "Totipro™專利後生元為非活菌活性精華，不受抗生素與胃酸影響，即效修復腸黏膜緊密屏障，阻斷內毒素入血誘發血管發炎滲漏。"
-            },
-            "img": "../images/products/34307.webp",
-            "shortDesc": "專利後生元精華，阻斷內毒素入血滲漏"
+            }
       },
       {
             "id": "34316",
@@ -2190,9 +2838,7 @@
             "mechanisms": {
                   "5": "高活性微米液態專利doubleNUTRI™，快速回補降壓利尿劑強迫排出的鈣、鎂離子；高吸收鎂離子生理性阻斷鈣通道，迅速降低神經肌肉接頭異常興奮閾值，平息痙攣抽搐。",
                   "1": "高活性微米液態專利 doubleNUTRI™，快速補充肌肉收縮與神經傳導所需之高生物利用度鈣、鎂離子；微米鎂生理性調節鈣通道，迅速平撫過度興奮之運動神經元去極化放電，配合蛋白質鞏固肌纖維膜電位，終止夜間力學性強直痙攣。"
-            },
-            "img": "../images/products/34316.webp",
-            "shortDesc": "微米活性鈣鎂，即時平撫神經肌肉異常放電"
+            }
       },
       {
             "id": "34328",
@@ -2208,9 +2854,7 @@
             "notes": "成分含動物來源二型膠原蛋白，非素食產品。痛風引起之關節問題建議搭配排酸調理。",
             "mechanisms": {
                   "3": "專利二型膠原蛋白結合OptiMSM™有機硫與軟骨素，修復受損退化的腰椎與關節軟骨，消除關節無菌發炎腫脹，減輕脊椎神經根卡壓，阻斷異常放電傳導。"
-            },
-            "img": "../images/products/34328.webp",
-            "shortDesc": "補充軟骨與關節滑液，維持椎間孔減輕卡壓"
+            }
       },
       {
             "id": "34331",
@@ -2227,9 +2871,7 @@
             "mechanisms": {
                   "2": "4大IDCC專利心腦血管友善雙歧桿菌發酵產生丁酸等短鏈脂肪酸(SCFA)，抑制HDAC並調降夜間交感神經興奮；特添維他命D3強化腸道鈣鎂通道吸收與骨質密度，無凝血干擾，安心修復血管微生態。",
                   "4": "4大IDCC專利心腦血管友善雙歧桿菌發酵產生丁酸等短鏈脂肪酸(SCFA)，抑制HDAC並調降夜間交感神經興奮；特添維他命D3強化腸道鈣鎂通道吸收與骨質密度，無凝血干擾，安心修復血管微生態。"
-            },
-            "img": "../images/products/34331.webp",
-            "shortDesc": "長者心腦血管友善菌種，修復微血管屏障"
+            }
       },
       {
             "id": "36246",
@@ -2245,9 +2887,7 @@
             "notes": "天然全食物配方，低GI無人工化學合成添加物。糖尿病患者代餐時請維持監測血糖。",
             "mechanisms": {
                   "4": "100種天然微量全營養低GI代餐，配合5:2輕斷食或晚餐輕慢食，切斷夜間高胰島素與高糖毒性，消除體內糖化終產物(AGEs)，降低粒線體代謝負擔。"
-            },
-            "img": "../images/products/36246.webp",
-            "shortDesc": "平穩消化代謝，減輕胰島素與血管負擔"
+            }
       },
       {
             "id": "36248",
@@ -2264,9 +2904,7 @@
             "mechanisms": {
                   "2": "日本2年深層發酵富含發酵代謝物與後生元有機酸，修復腸黏膜緊密連接(Claudin-1/ZO-1)，截斷LPS內毒素入血導致的微血管內皮發炎，降低微血管通透性(Kf)，終止日間下肢組織漏水(Third-Spacing)，避免夜間平躺水壓劇變引發痙攣。",
                   "4": "上游深層中和過氧化脂質，阻斷腸漏，促進營養代謝酶活性，加速體內毒素排泄，減輕粒線體氧化壓力。"
-            },
-            "img": "../images/products/36248.webp",
-            "shortDesc": "日本深層發酵多酚，排空深層酸性代謝廢物"
+            }
       },
       {
             "id": "36277",
@@ -2282,9 +2920,7 @@
             "notes": "純素配方，素食者安心食用。若有嚴重肝功能衰竭請遵醫囑。",
             "mechanisms": {
                   "4": "專利青花菜苗蘿蔔硫素激活Nrf2排毒途徑，高生物利用度穀胱甘肽(GSH)與大豆卵磷脂PPC強效轉化代謝外食劣質壞油與脂質過氧化物，改善脂肪肝與胰島素阻抗。"
-            },
-            "img": "../images/products/36277.webp",
-            "shortDesc": "淨化體內代謝環境，支援肝臟夜間修復"
+            }
       },
       {
             "id": "36281",
@@ -2302,9 +2938,7 @@
                   "2": "活化內皮SIRT1–eNOS軸，改善微血管內皮老化，促進微血管新生(Angiogenesis)與下肢深層組織灌注，改善夜間末梢缺血。",
                   "3": "專利麥角硫因(EGT)顯著提升體內抑制性神經遞質GABA達4倍，深層平息神經元激惹；NMN提供充足NAD+修復神經軸突與受損髓鞘，提高神經去極化放電閾值。",
                   "4": "快速補充細胞NAD+，激活SIRT1與粒線體呼吸鏈生物合成，麥角硫因清除晚期糖基化終產物(AGEs)，解決高糖高胰島素引發的粒線體功能障礙，恢復充足ATP供應。"
-            },
-            "img": "../images/products/36281.webp",
-            "shortDesc": "激活內皮釋放NO，擴張微血管修復神經"
+            }
       },
       {
             "id": "36282",
@@ -2320,9 +2954,7 @@
             "notes": "1. 正在服用抗凝血藥(薄血藥/Warfarin/阿司匹林)人士切勿服用，以免產生交互作用。2. 孕婦、哺乳期婦女慎用。3. 15歲以下兒童不宜食用。4. 嚴重肝腎功能不全者食用前請先諮詢醫生意見。",
             "mechanisms": {
                   "2": "天然水蛭素(120 ATU)直接阻斷血管廢物生成，納豆激酶(1000 FU)溶解微血管纖維蛋白積聚，三七活化eNOS促進自身NO生成擴張血管，專利水溶Q10提升心肌泵血動力，全方位暢通下肢微血管，防止夜間平躺時微血管缺血缺氧誘發抽筋。"
-            },
-            "img": "../images/products/36282.webp",
-            "shortDesc": "暢通深靜脈微循環，清除微血栓阻礙"
+            }
       },
       {
             "id": "36283",
@@ -2338,9 +2970,7 @@
             "notes": "低糖配方(每份僅1.4g糖)，糖尿病患者可安心適量飲用；乳糖不耐受者耐受度高。如對特定病情有顧慮，建議飲用前先諮詢醫生。",
             "mechanisms": {
                   "1": "提供13g大豆與乳清雙蛋白原料，特添0.5g/100ml HMB精準攔截肌肉分解訊號，配合專利D3/K2固骨補肌，逆轉長者肌少症，強化小腿腓腸肌支撐力與抗疲勞耐力，為神經系統重建天然抑制煞車。"
-            },
-            "img": "../images/products/36283.webp",
-            "shortDesc": "重塑小腿抗疲勞肌纖維，固骨補肌原料"
+            }
       },
       {
             "id": "38207",
@@ -2349,7 +2979,7 @@
             "origin": "台灣",
             "price": 22990,
             "memberPrice": 22990,
-            "intro": "100%垂直正弦律動 × 專利腳底穴位拍打雙核心養生儀！【生化與神經機械力學轉導四大未載明機制】： 1.【流體剪切力促NO】：垂直律動引發微血管流體剪切力，直接激活內皮eNOS釋放自體一氧化氮(NO)，強效擴張微血管、改善缺血缺氧。 2.【肌梭牽張TVR與肌肉幫浦】：透過肌梭牽張反射引發每秒高頻被動收縮，刺激肌纖維增生；骨骼肌幫浦強效將下肢深靜脈淤血與淋巴液泵回腔靜脈。 3.【激活MSCs、骨鈣素與脂聯素】：垂直重力刺激骨骼，促使骨髓間葉幹細胞(MSCs)分化釋放未羧化骨鈣素，並刺激脂肪細胞釋放脂聯素，大幅提升胰島素敏感度，活化AMPK，改善糖代謝障礙。 4.【腳底湧泉穴平衡自律神經】：拍打湧泉穴與足心本體感受器，經脊髓上行調節腦幹與下視丘，抑制交感神經高亢，拉升副交感(迷走神經)張力，提高神經放電閾值。",
+            "intro": "100%垂直正弦律動 × 專利腳底穴位拍打雙核心養生儀！【生化與神經機械力學轉導四大未載明機制】：\n1.【流體剪切力促NO】：垂直律動引發微血管流體剪切力，直接激活內皮eNOS釋放自體一氧化氮(NO)，強效擴張微血管、改善缺血缺氧。\n2.【肌梭牽張TVR與肌肉幫浦】：透過肌梭牽張反射引發每秒高頻被動收縮，刺激肌纖維增生；骨骼肌幫浦強效將下肢深靜脈淤血與淋巴液泵回腔靜脈。\n3.【激活MSCs、骨鈣素與脂聯素】：垂直重力刺激骨骼，促使骨髓間葉幹細胞(MSCs)分化釋放未羧化骨鈣素，並刺激脂肪細胞釋放脂聯素，大幅提升胰島素敏感度，活化AMPK，改善糖代謝障礙。\n4.【腳底湧泉穴平衡自律神經】：拍打湧泉穴與足心本體感受器，經脊髓上行調節腦幹與下視丘，抑制交感神經高亢，拉升副交感(迷走神經)張力，提高神經放電閾值。",
             "target": "長者肌少症肌力不足、下肢靜脈曲張浮腫、夜間抽筋頻發、糖尿病末梢微循環不良、神經自律失調、手腳冰冷、缺乏運動者。",
             "ingredients": "合金鋼機身、高精密正弦波垂直律動馬達(振幅2mm，重力加速度0.68G)、微電腦7段速度控制器、足底穴位拍打模組(湧泉/里內庭/獨膚/足心)。",
             "usage": "自動定時每次15分鐘。晨起或傍晚站立/坐姿律動15分鐘(啟動肌泵與NO)；睡前1小時使用低速檔15分鐘(引流靜脈水腫、重置GTO煞車、喚醒副交感神經)。",
@@ -2360,9 +2990,7 @@
                   "4": "機械力刺激骨骼分泌骨鈣素與脂肪分泌脂聯素，顯著提升全身胰島素敏感度，改善糖代謝阻抗。",
                   "5": "低速檔溫和平衡自律神經與全身體液分布，改善利尿劑引起的血液動力失衡。",
                   "1": "小腿舒壓模式以精準垂直正弦律動被動牽張極度短縮肌纖維，重置高爾基腱器官(GTO)抑制煞車；肌梭反射增加肌群質量。"
-            },
-            "img": "../images/products/38207.webp",
-            "shortDesc": "100%垂直律動牽張肌梭，重置神經煞車引流淤血"
+            }
       },
       {
             "id": "0368",
@@ -2382,13 +3010,10 @@
                   "4": "PBM光生物調節直接刺激細胞色素C氧化酶，爆發性合成ATP供應肌漿網鈣泵(SERCA)解開肌肉收縮卡死。",
                   "5": "舒緩藥物性肌病敏感，活化粒線體自癒修復。",
                   "1": "包覆小腿腹，高頻微震動物理放鬆僵硬攣縮的肌筋膜，解開結節；630nm紅光促進微循環。"
-            },
-            "img": "../images/products/0368.webp",
-            "shortDesc": "PBM光生物調節爆發ATP，解除肌肉收縮卡死",
-            "demoImg1": "../images/products/0368-demo1.webp",
-            "demoImg2": "../images/products/0368-demo2.webp"
+            }
       }
 ];
+
 
     const BUNDLES_DB = [
       {
@@ -2397,7 +3022,7 @@
             "name": "緩解抽筋30天套裝A1",
             "causeId": 1,
             "isWarfarinSafe": true,
-            "img": "../images/packages/Cramp_Set_A1.webp",
+            "img": "./images/products/Cramp_Set_A1.webp",
             "price": 16915,
             "origPrice": 27069,
             "discount": "62折",
@@ -2411,7 +3036,7 @@
             "name": "緩解抽筋30天套裝B1",
             "causeId": 2,
             "isWarfarinSafe": false,
-            "img": "../images/packages/Cramp_Set_B1.webp",
+            "img": "./images/products/Cramp_Set_B1.webp",
             "price": 19238,
             "origPrice": 30048,
             "discount": "64折",
@@ -2425,7 +3050,7 @@
             "name": "緩解抽筋30天套裝B2",
             "causeId": 2,
             "isWarfarinSafe": false,
-            "img": "../images/packages/Cramp_Set_B2.webp",
+            "img": "./images/products/Cramp_Set_B2.webp",
             "price": 5248,
             "origPrice": 7058,
             "discount": "74折",
@@ -2439,7 +3064,7 @@
             "name": "緩解抽筋30天套裝B3",
             "causeId": 2,
             "isWarfarinSafe": true,
-            "img": "../images/packages/Cramp_Set_B3.webp",
+            "img": "./images/products/Cramp_Set_B3.webp",
             "price": 20454,
             "origPrice": 31498,
             "discount": "65折",
@@ -2453,7 +3078,7 @@
             "name": "緩解抽筋30天套裝B4",
             "causeId": 2,
             "isWarfarinSafe": true,
-            "img": "../images/packages/Cramp_Set_B4.webp",
+            "img": "./images/products/Cramp_Set_B4.webp",
             "price": 6464,
             "origPrice": 8508,
             "discount": "76折",
@@ -2467,7 +3092,7 @@
             "name": "緩解抽筋30天套裝C1",
             "causeId": 3,
             "isWarfarinSafe": false,
-            "img": "../images/packages/Cramp_Set_C1.webp",
+            "img": "./images/products/Cramp_Set_C1.webp",
             "price": 18265,
             "origPrice": 28750,
             "discount": "64折",
@@ -2481,7 +3106,7 @@
             "name": "緩解抽筋30天套裝C2",
             "causeId": 3,
             "isWarfarinSafe": false,
-            "img": "../images/packages/Cramp_Set_C2.webp",
+            "img": "./images/products/Cramp_Set_C2.webp",
             "price": 4275,
             "origPrice": 5760,
             "discount": "74折",
@@ -2495,7 +3120,7 @@
             "name": "緩解抽筋30天套裝D1",
             "causeId": 4,
             "isWarfarinSafe": true,
-            "img": "../images/packages/Cramp_Set_D1.webp",
+            "img": "./images/products/Cramp_Set_D1.webp",
             "price": 21437,
             "origPrice": 32660,
             "discount": "66折",
@@ -2509,7 +3134,7 @@
             "name": "緩解抽筋30天套裝D2",
             "causeId": 4,
             "isWarfarinSafe": true,
-            "img": "../images/packages/Cramp_Set_D2.webp",
+            "img": "./images/products/Cramp_Set_D2.webp",
             "price": 7447,
             "origPrice": 9670,
             "discount": "77折",
@@ -2523,7 +3148,7 @@
             "name": "緩解抽筋30天套裝E1",
             "causeId": 5,
             "isWarfarinSafe": true,
-            "img": "../images/packages/Cramp_Set_E1.webp",
+            "img": "./images/products/Cramp_Set_E1.webp",
             "price": 16408,
             "origPrice": 26373,
             "discount": "62折",
@@ -2537,7 +3162,7 @@
             "name": "緩解抽筋30天套裝E2",
             "causeId": 5,
             "isWarfarinSafe": true,
-            "img": "../images/packages/Cramp_Set_E2.webp",
+            "img": "./images/products/Cramp_Set_E2.webp",
             "price": 2418,
             "origPrice": 3383,
             "discount": "71折",
@@ -2551,7 +3176,7 @@
             "name": "緩解抽筋30天套裝A2",
             "causeId": 1,
             "isWarfarinSafe": true,
-            "img": "../images/packages/Cramp_Set_A2.webp",
+            "img": "./images/products/Cramp_Set_A2.webp",
             "price": 2925,
             "origPrice": 4079,
             "discount": "72折",
@@ -2561,13 +3186,14 @@
       }
 ];
 
+
     const CAUSES_DATA = {
       "1": {
             "id": 1,
             "name": "成因 ①：力學與姿勢型",
-            "vimeoD": "1225822772",
-            "vimeoE": "1225822774",
-            "vimeoF": "1225822775",
+            "vimeoD": "",
+            "vimeoE": "",
+            "vimeoF": "",
             "desc": "睡眠時腳尖自然下垂（跖屈）致小腿肌肉整夜縮短，高爾基腱器官（GTO）抑制煞車放鬆，加上白天肌肉過度疲勞或肌少流失，神經反射弧失衡引發運動神經元異常高頻去極化放電。",
             "worstCase": "小腿肌力流失同肌肉長年縮短只係開端，神經肌肉反射弧一旦崩潰，深層肌纖維將持續萎縮，夜間劇痛驚醒甚至引發晨起步態失穩，稍有不慎跌倒骨折，最終失去自理能力，演變成屋企人長年沉重嘅照護負累。",
             "bio": "睡覺平躺時，受重力與棉被壓迫影響，腳尖自然向下伸直（跖屈），小腿腓腸肌與比目魚肌整夜處於縮短位置。在此狀態下，肌腱處的高爾基腱器官（GTO）因張力驟降而大幅減弱對脊髓運動神經元的自體抑制保護；同時肌肉內部的肌梭對任何微小牽張變得異常敏感，極易激發強烈傳入訊號。加上白天肌肉過度疲勞或長者肌肉量流失，神經肌肉反射弧失去基線平衡，稍微翻身或受冷，運動神經元便極易爆發高頻去極化放電，引發小腿肌肉強烈痙攣。",
@@ -2608,9 +3234,9 @@
       "2": {
             "id": 2,
             "name": "成因 ②：血管動力型",
-            "vimeoD": "1225822773",
-            "vimeoE": "1225822880",
-            "vimeoF": "1225822900",
+            "vimeoD": "",
+            "vimeoE": "",
+            "vimeoF": "",
             "desc": "白天久站久坐致下肢深靜脈淤血，水分強行滲漏入組織間隙形成水腫，大幅拉長氧氣擴散距離，肌肉整天處於深層缺氧與酸性代謝廢物滯留狀態，夜間極易誘發異常去極化痙攣。",
             "worstCase": "傍晚雙腿沉重水腫只係前奏，下肢深靜脈淤血同微血管長期滲漏引發肌肉深層持續缺氧，血管內皮慢性發炎持續侵蝕，極易誘發深靜脈血栓甚至下肢皮膚壞死潰瘍，終生行動不便，徹底拖垮晚年自尊。",
             "bio": "白天長時間久站或久坐，受重力影響，下肢深靜脈血液回流受阻，靜脈水壓大幅攀升。水分被強行擠入肌肉組織間隙形成水腫，這會大幅增加氧氣由微血管穿透至肌纖維的擴散距離，令小腿深層肌肉整天處於微缺氧與酸性廢物滯留狀態。小腿肌群在缺氧環境下支撐全日體重，累積極度嚴重的深層代謝疲勞；加上微血管內皮慢性發炎削弱了血管自然舒張修復能力，夜間睡眠時局部微循環灌注恢復緩慢，神經元興奮閾值顯著降低，極易在夜間爆發異常放電，觸發劇痛抽搐。",
@@ -2660,9 +3286,9 @@
       "3": {
             "id": 3,
             "name": "成因 ③：神經病變型",
-            "vimeoD": "1225822902",
-            "vimeoE": "1225822959",
-            "vimeoF": "1225823003",
+            "vimeoD": "",
+            "vimeoE": "",
+            "vimeoF": "",
             "desc": "常見於腰椎退化、骨刺或椎管狹窄卡壓支配小腿之坐骨神經根（L4–S1），神經根缺血水腫引發超敏激惹與異常漏電（異位放電），越過大腦意識長驅直入小腿誘發強直抽搐。",
             "worstCase": "腰痠背痛同下肢麻痺只係警告訊號，腰椎間盤退化卡壓坐骨神經根長期缺血缺氧，神經外膜同髓鞘加速磨損漏電，任由神經根受損惡化將演變成不可逆嘅下肢肌肉萎縮同神經源性跛行，連行出街買餸都寸步難行。",
             "bio": "常見於腰椎退化（腰椎間盤突出、骨刺、椎管狹窄）直接壓迫支配小腿的坐骨神經根（L4–S1）。神經根缺乏堅韌神經外膜保護，物理受壓後極易引發局部微血管缺血水腫，使神經根處於超敏激惹狀態，自主產生不穩定的異常電訊號（異位放電）。這種異常電訊號沿坐骨神經向下長驅直入小腿肌群，直接越過大腦意識控制，誘發小腿肌肉突發性強直收縮。",
@@ -2703,9 +3329,9 @@
       "4": {
             "id": 4,
             "name": "成因 ④：代謝與微循環障礙型",
-            "vimeoD": "1225823060",
-            "vimeoE": "1225823069",
-            "vimeoF": "1225823091",
+            "vimeoD": "",
+            "vimeoE": "",
+            "vimeoF": "",
             "desc": "高血糖與劣質油脂損傷神經滋養微血管（Vasa Nervorum），導致局部微循環缺血，肌纖維維持靜止膜電位之鈉鉀離子幫浦能量枯竭，夜間離子梯度紊亂爆發頑固持續痙攣。",
             "worstCase": "食完飯容易昏睡同下肢頑固劇痛抽筋只係冰山一角，高糖與代謝廢物長期破壞神經滋養微血管，細胞膜電位離子幫浦徹底停擺，神經末梢缺血缺氧持續惡化演變成不可逆嘅糖尿病周邊神經病變，最終足部感覺喪失面臨嚴重感染風險。",
             "bio": "長期高血糖、代謝異常或代謝綜合症對肌肉神經系統的影響，核心在於微血管病變與離子交換障礙。高血糖與代謝負擔會損傷微血管內皮，削弱深入肌肉與周邊神經的滋養微血管（Vasa Nervorum）供血能力。在局部微循環缺血的環境下，肌纖維維持靜止膜電位所需的離子幫浦（鈉鉀幫浦）運轉效能顯著下降，肌肉耐疲勞度與自我調節能力極為脆弱。夜間受到微弱神經衝動刺激時，肌纖維便極易因離子梯度紊亂而陷入持續痙攣，且發作後因局部血流不良、代謝產物排空遲緩，而長時間感到深層痠痛無力。",
@@ -2746,9 +3372,9 @@
       "5": {
             "id": 5,
             "name": "成因 ⑤：藥源性干擾型",
-            "vimeoD": "1225823103",
-            "vimeoE": "1225823181",
-            "vimeoF": "1225823194",
+            "vimeoD": "",
+            "vimeoE": "",
+            "vimeoF": "",
             "desc": "常見於長期服用降血壓去水丸（利尿劑）流失關鍵電解質（鎂、鉀），或服用降膽固醇藥（他汀類 Statins）抑制 CoQ10 合成致肌膜疲乏，大幅降低神經肌肉激惹閾值誘發夜間痙攣。",
             "worstCase": "以為食西藥無可避免小腿痠痛抽筋只係麻木自欺，降血壓水丸與降膽固醇藥長年排走人體關鍵電解質同粒線體能量，神經肌肉接頭長年處於超敏激惹狀態，半夜突發劇烈抽搐驚慌失措極易滾落床跌傷，隨時誘發急性髖關節骨折甚至長期臥床。",
             "bio": "長輩日常服用的慢性病西藥所帶來的生化微環境干擾：① 降血壓去水丸（利尿劑）：促進水分排出的同時帶走鉀、鎂等重要電解質，引發低血鉀與低血鎂，直接拉高神經與肌細胞膜的興奮性，誘發肌肉抽搐。② 降膽固醇藥物（他汀類 Statins）：臨床上常見表現為肌肉慢性痠軟、無力與肌膜穩定性下降；若合併多重用藥（如疊加利尿劑導致電解質紊亂）或局部微循環不良時，便顯著降低了誘發急性下肢痙攣的門檻。",
@@ -2788,10 +3414,12 @@
       }
 };
 
+
     function closeAcuteModal() {
       document.getElementById('acuteAlertModal').style.display = 'none';
       document.body.style.overflow = '';
     }
+
 
     function togglePartNone(partName, changedEl) {
       const noneCheckbox = document.getElementById(partName + '_none');
@@ -2809,12 +3437,14 @@
       }
     }
 
+
     function scrollToId(id) {
       const el = document.getElementById(id);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       }
     }
+
 
     function submitAssessment() {
       const userName = document.getElementById('quizUserName').value.trim();
@@ -2824,6 +3454,7 @@
         return;
       }
 
+
       // 1. 安全第一：急症篩查檢驗
       const acuteSelected = document.querySelector('input[name="acuteScreen"]:checked');
       if (acuteSelected && acuteSelected.value !== 'ACUTE_NONE') {
@@ -2832,74 +3463,64 @@
         return;
       }
 
-      // 2. 檢驗是否全選「沒有上述情況」或未勾選任何症狀 (Issue 1)
-      const p1Checked = document.querySelectorAll('input[name="part1"]:checked');
-      const p2Checked = document.querySelectorAll('input[name="part2"]:checked');
-      const p3Checked = document.querySelectorAll('input[name="part3"]:checked');
-      const p4Checked = document.querySelectorAll('input[name="part4"]:checked');
-      const p5Checked = document.querySelectorAll('input[name="part5"]:checked');
-
-      const totalSymptomsChecked = p1Checked.length + p2Checked.length + p3Checked.length + p4Checked.length + p5Checked.length;
-      if (totalSymptomsChecked === 0) {
-        alert('系統偵測到您目前未勾選任何抽筋相關體徵。如果您平時並無半夜抽筋困擾，本專題方案可能不適合您；若為誤觸，請重新檢視並勾選符合您體感的症狀。');
-        return;
-      }
 
       isWarfarinUser = document.getElementById('med_warfarin').checked;
-
-      // 3. 細緻化特異性權重計算 (大幅降低同分機率，提升鑑別度)
       let rawScores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
       let hasHardcore = { 1: false, 2: false, 3: false, 4: false, 5: false };
 
-      // 第一部分 (力學型)
-      p1Checked.forEach(el => {
-        if (el.value === 'C1_1') rawScores[1] += 1.0;
-        if (el.value === 'C1_2') rawScores[1] += 1.1;
-        if (el.value === 'C1_3') rawScores[1] += 2.0;
-        if (el.value === 'C1_4') { rawScores[1] += 3.2; hasHardcore[1] = true; }
+
+      // 第一部分 (成因 1: 力學型)
+      const p1Items = document.querySelectorAll('input[name="part1"]:checked');
+      p1Items.forEach(el => {
+        if (el.value === 'C1_1') rawScores[1] += 1;
+        if (el.value === 'C1_2') rawScores[1] += 1;
+        if (el.value === 'C1_3') rawScores[1] += 2;
+        if (el.value === 'C1_4') { rawScores[1] += 3; hasHardcore[1] = true; }
       });
 
-      // 第二部分 (血管型)
-      p2Checked.forEach(el => {
-        if (el.value === 'C2_1') rawScores[2] += 1.0;
-        if (el.value === 'C2_2') rawScores[2] += 1.4;
-        if (el.value === 'C2_3') rawScores[2] += 2.2;
-        if (el.value === 'C2_4') { rawScores[2] += 3.4; hasHardcore[2] = true; }
+
+      // 第二部分 (成因 2: 血管型)
+      const p2Items = document.querySelectorAll('input[name="part2"]:checked');
+      p2Items.forEach(el => {
+        if (el.value === 'C2_1') rawScores[2] += 1;
+        if (el.value === 'C2_2') rawScores[2] += 1;
+        if (el.value === 'C2_3') rawScores[2] += 2;
+        if (el.value === 'C2_4') { rawScores[2] += 3; hasHardcore[2] = true; }
       });
 
-      // 第三部分 (神經型)
-      p3Checked.forEach(el => {
-        if (el.value === 'C3_1') rawScores[3] += 1.0;
-        if (el.value === 'C3_2') rawScores[3] += 1.6;
-        if (el.value === 'C3_3') rawScores[3] += 2.4;
-        if (el.value === 'C3_4') { rawScores[3] += 3.6; hasHardcore[3] = true; }
+
+      // 第三部分 (成因 3: 神經型)
+      const p3Items = document.querySelectorAll('input[name="part3"]:checked');
+      p3Items.forEach(el => {
+        if (el.value === 'C3_1') rawScores[3] += 1;
+        if (el.value === 'C3_2') rawScores[3] += 1;
+        if (el.value === 'C3_3') rawScores[3] += 2;
+        if (el.value === 'C3_4') { rawScores[3] += 3; hasHardcore[3] = true; }
       });
 
-      // 第四部分 (代謝型)
-      p4Checked.forEach(el => {
-        if (el.value === 'C4_1') rawScores[4] += 1.0;
-        if (el.value === 'C4_2') rawScores[4] += 1.3;
-        if (el.value === 'C4_3') rawScores[4] += 2.3;
-        if (el.value === 'C4_4') { rawScores[4] += 3.5; hasHardcore[4] = true; }
+
+      // 第四部分 (成因 4: 代謝型)
+      const p4Items = document.querySelectorAll('input[name="part4"]:checked');
+      p4Items.forEach(el => {
+        if (el.value === 'C4_1') rawScores[4] += 1;
+        if (el.value === 'C4_2') rawScores[4] += 1;
+        if (el.value === 'C4_3') rawScores[4] += 2;
+        if (el.value === 'C4_4') { rawScores[4] += 3; hasHardcore[4] = true; }
       });
 
-      // 第五部分 (藥源型)
-      p5Checked.forEach(el => {
-        if (el.value === 'MED_STATIN') rawScores[5] += 2.5;
-        if (el.value === 'MED_DIURETIC') rawScores[5] += 1.8;
-        if (el.value === 'MED_CCB') rawScores[5] += 1.2;
-        if (el.value === 'MED_PPI') rawScores[5] += 1.2;
-        if (el.value === 'MED_ACUTE_CHANGE') { rawScores[5] += 3.8; hasHardcore[5] = true; }
+
+      // 第五部分 (成因 5: 藥源型)
+      const p5Items = document.querySelectorAll('input[name="part5"]:checked');
+      p5Items.forEach(el => {
+        if (el.value === 'MED_STATIN') rawScores[5] += 2;
+        if (el.value === 'MED_DIURETIC') rawScores[5] += 1;
+        if (el.value === 'MED_CCB') rawScores[5] += 1;
+        if (el.value === 'MED_PPI') rawScores[5] += 1;
+        if (el.value === 'MED_ACUTE_CHANGE') { rawScores[5] += 3; hasHardcore[5] = true; }
       });
       // 成因 5 滿分上限封頂 7 分
-      if (rawScores[5] > 7.0) rawScores[5] = 7.0;
+      if (rawScores[5] > 7) rawScores[5] = 7;
 
-      // 若所有成因得分均為 0 (例如只選了非症狀選項)
-      const sumRaw = rawScores[1] + rawScores[2] + rawScores[3] + rawScores[4] + rawScores[5];
-      if (sumRaw <= 0) {
-        alert('系統偵測到您目前未勾選任何抽筋相關體徵。如果您平時並無半夜抽筋困擾，本專題方案可能不適合您；若為誤觸，請重新檢視並勾選符合您體感的症狀。');
-        return;
-      }
 
       // 年齡加權 (65 歲以上 1.2 倍)
       const ageVal = document.getElementById('quizAge').value;
@@ -2910,6 +3531,7 @@
         }
       }
 
+
       // 計算百分比比例
       const totalRaw = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
       let ratios = {};
@@ -2917,7 +3539,9 @@
         ratios[c] = Math.round((scores[c] / totalRaw) * 100);
       }
 
-      // 方案一：單一主成因精準裁決與同分透明化分析
+
+      // 方案一：單一主成因精準裁決演算法
+      // 第一步：找出最高分成因
       let highestScore = -1;
       let topCauses = [];
       for (let c = 1; c <= 5; c++) {
@@ -2929,43 +3553,34 @@
         }
       }
 
-      let winningCause = 1;
-      let tieDetails = { isTied: false, tiedCauses: [], reason: "" };
 
-      if (topCauses.length === 1) {
+      let winningCause = 1;
+      if (highestScore <= 0) {
+        winningCause = 1;
+        ratios = { 1: 100, 2: 0, 3: 0, 4: 0, 5: 0 };
+      } else if (topCauses.length === 1) {
         winningCause = topCauses[0];
       } else {
-        // 出現同分情況
-        tieDetails.isTied = true;
-        tieDetails.tiedCauses = topCauses.map(c => CAUSES_DATA[c].name);
-
         // 第二步：同分時比對 3 分核心硬指標 (hasHardcore === true)
         const hardcoreWinners = topCauses.filter(c => hasHardcore[c]);
         if (hardcoreWinners.length === 1) {
           winningCause = hardcoreWinners[0];
-          tieDetails.reason = `雖然多項得分相同，但您命中咗【${CAUSES_DATA[winningCause].name}】嘅專屬核心硬指標特徵，具備更明確嘅病理因果關聯，故判定優先從此成因切入。`;
         } else {
           // 第三步：極端同分臨床優先序：05 > 03 > 02 > 04 > 01
           const priorityOrder = [5, 3, 2, 4, 1];
-          const reasonMap = {
-            5: "西藥代謝干擾屬於外來明確生化因素，最易透過諮詢主診醫生或精準對沖營養快速排查，故建議列為第一優先。",
-            3: "脊椎與神經根物理卡壓屬於解剖結構性損傷，若持續卡壓將引發神經髓鞘進行性退化，故建議優先排查保護神經。",
-            2: "下肢深靜脈淤血與微缺氧直接阻礙肌肉供氧，先恢復微循環通暢能為其他機能提供修復基礎。",
-            4: "微血管硬化與離子幫浦能量衰退影響全身代謝，需從生化內環境著手調控。",
-            1: "力學短縮多為表層姿勢與肌力疲勞，建議同步進行睡姿調整與牽張放鬆。"
-          };
           for (let p of priorityOrder) {
             if (topCauses.includes(p)) {
               winningCause = p;
-              tieDetails.reason = reasonMap[p];
               break;
             }
           }
         }
       }
 
+
       selectedCauseId = winningCause;
-      renderGatedContent(selectedCauseId, ratios, tieDetails);
+      renderGatedContent(selectedCauseId, ratios);
+
 
       // 異步發送自測數據至 Apps Script 自測數據庫
       if (APPS_SCRIPT_WEBHOOK_URL) {
@@ -2989,30 +3604,22 @@
         } catch (e) {}
       }
 
+
       // 解鎖畫面
       document.getElementById('gated-content').style.display = 'block';
       scrollToId('blockC');
     }
 
-    function renderGatedContent(causeId, ratios, tieDetails) {
+
+    function renderGatedContent(causeId, ratios) {
       const cData = CAUSES_DATA[causeId];
+
 
       // Block C 完整渲染
       document.getElementById('diagPrimaryTitle').innerText = `【${cData.name}】`;
       document.getElementById('diagPrimaryDesc').innerText = cData.desc;
       document.getElementById('fearQuoteText').innerText = cData.worstCase;
 
-      // 同分與複合體質引導提示框處理 (Issue 6)
-      const tieBox = document.getElementById('tieExplanationBox');
-      const tieText = document.getElementById('tieExplanationText');
-      if (tieBox && tieText) {
-        if (tieDetails && tieDetails.isTied) {
-          tieBox.style.display = 'block';
-          tieText.innerHTML = `系統偵測到您在<strong>【${tieDetails.tiedCauses.join('、')}】</strong>嘅體徵得分相同，反映身體存在多重生理機能交互影響嘅複合體質。<br><br>在多項成因權重相若嘅情況下，<strong>未能單一斷定絕對病因，建議先從【${cData.name}】入手去深入了解與排查</strong>。<br><span style="display:block; margin-top: 6px; font-size: 13.5px; opacity: 0.9;">（排查建議依據：${tieDetails.reason}）</span>`;
-        } else {
-          tieBox.style.display = 'none';
-        }
-      }
 
       // 5 大成因佔比長條圖渲染
       let ratioHtml = '';
@@ -3032,6 +3639,7 @@
       }
       document.getElementById('causeRatioList').innerHTML = ratioHtml;
 
+
       // 薄血藥避險警示
       const thinAlert = document.getElementById('thinBloodAlert');
       if (isWarfarinUser) {
@@ -3040,28 +3648,30 @@
         thinAlert.style.display = 'none';
       }
 
-      // Vimeo 影音播放器安全嵌入助手 (杜絕脫離容器浮動至頂部)
-      function safeEmbedVimeo(iframeId, videoId) {
-        const iframe = document.getElementById(iframeId);
-        if (!iframe) return;
-        const wrap = iframe.parentElement;
-        if (videoId && videoId.trim() !== '') {
-          iframe.src = `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479`;
-          if (wrap) wrap.style.display = 'block';
-        } else {
-          iframe.src = '';
-          if (wrap) wrap.style.display = 'none';
-        }
-      }
 
-      // Block D (成因解碼)
+      // Block D (優雅降級：若無 Vimeo 影片則自動隱藏容器)
       document.getElementById('block-d-title').innerText = `成因解碼：${cData.name}`;
-      safeEmbedVimeo('vimeo-block-d', cData.vimeoD);
+      const vimeoD = document.getElementById('vimeo-block-d');
+      const vimeoDWrap = vimeoD ? vimeoD.closest('.vimeo-container') : null;
+      if (cData.vimeoD && cData.vimeoD.trim() !== '') {
+        vimeoD.src = `https://player.vimeo.com/video/${cData.vimeoD}`;
+        if (vimeoDWrap) vimeoDWrap.style.display = 'block';
+      } else {
+        if (vimeoDWrap) vimeoDWrap.style.display = 'none';
+      }
       document.getElementById('block-d-bio').innerText = cData.bio;
       document.getElementById('block-d-eng').innerText = cData.eng;
 
-      // Block E (生活小貼士)
-      safeEmbedVimeo('vimeo-block-e', cData.vimeoE);
+
+      // Block E
+      const vimeoE = document.getElementById('vimeo-block-e');
+      const vimeoEWrap = vimeoE ? vimeoE.closest('.vimeo-container') : null;
+      if (cData.vimeoE && cData.vimeoE.trim() !== '') {
+        vimeoE.src = `https://player.vimeo.com/video/${cData.vimeoE}`;
+        if (vimeoEWrap) vimeoEWrap.style.display = 'block';
+      } else {
+        if (vimeoEWrap) vimeoEWrap.style.display = 'none';
+      }
       let stepsHtml = '';
       cData.steps.forEach(s => {
         stepsHtml += `
@@ -3074,8 +3684,16 @@
       document.getElementById('block-e-steps').innerHTML = stepsHtml;
       document.getElementById('block-e-warn').innerText = cData.warn;
 
-      // Block F (生化營養與物理理療)
-      safeEmbedVimeo('vimeo-block-f', cData.vimeoF);
+
+      // Block F
+      const vimeoF = document.getElementById('vimeo-block-f');
+      const vimeoFWrap = vimeoF ? vimeoF.closest('.vimeo-container') : null;
+      if (cData.vimeoF && cData.vimeoF.trim() !== '') {
+        vimeoF.src = `https://player.vimeo.com/video/${cData.vimeoF}`;
+        if (vimeoFWrap) vimeoFWrap.style.display = 'block';
+      } else {
+        if (vimeoFWrap) vimeoFWrap.style.display = 'none';
+      }
       let nutHtml = '';
       cData.nutrition.forEach(n => {
         nutHtml += `<div style="border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 12px;">${n}</div>`;
@@ -3083,11 +3701,33 @@
       document.getElementById('block-f-nutrition').innerHTML = nutHtml;
       document.getElementById('block-f-emotion').innerText = cData.emotionQuote;
 
+
       // 成因專屬產品與套裝動態分流計算 (Cause & Warfarin Dynamic Filtering)
       let allowedProducts = [];
       let allowedBundles = [];
 
+
       if (causeId === 1) {
+        allowedProducts = ["36283", "34316", "0368", "38207"];
+        allowedBundles = ["A1", "A2"];
+      } else if (causeId === 2) {
+        if (isWarfarinUser) {
+          allowedProducts = ["36281", "36248", "34331", "34307", "34278", "34269", "0368", "38207"];
+          allowedBundles = ["B3", "B4"];
+        } else {
+          allowedProducts = ["36281", "36282", "36248", "34331", "34307", "34278", "34269", "0368", "38207"];
+          allowedBundles = ["B1", "B2"];
+        }
+      } else if (causeId === 3) {
+        allowedProducts = ["36281", "34328", "34274", "0368", "38207"];
+        allowedBundles = ["C1", "C2"];
+      } else if (causeId === 4) {
+        allowedProducts = ["36281", "36248", "34331", "34278", "34269", "36277", "36246", "0368", "38207"];
+        allowedBundles = ["D1", "D2"];
+      } else if (causeId === 5) {
+        allowedProducts = ["34278", "34316", "0368", "38207"];
+        allowedBundles = ["E1", "E2"];
+      }
         allowedProducts = ["34316", "36283", "0368", "38207"];
         allowedBundles = ["A1", "A2"];
       } else if (causeId === 2) {
@@ -3109,10 +3749,12 @@
         allowedBundles = ["E1", "E2"];
       }
 
+
       renderBlockG(allowedProducts, causeId);
       renderBlockH(allowedProducts, allowedBundles);
       renderBlockJ(cData.testimonials || []);
     }
+
 
     function renderBlockG(allowedProductIds, causeId) {
       const container = document.getElementById('block-g-products-list');
@@ -3134,6 +3776,7 @@
         container.appendChild(card);
       });
     }
+
 
     function renderBlockH(allowedProductIds, allowedBundleIds) {
       // 1. 單品選購列表 (產品名稱 + 價格 + 「產品詳情」按鈕 + 數量調節)
@@ -3159,6 +3802,7 @@
         `;
         singleContainer.appendChild(row);
       });
+
 
       // 2. 套裝選購列表 (雙行緊湊，高調特惠價與折數)
       const bundleContainer = document.getElementById('block-h-bundles');
@@ -3190,9 +3834,11 @@
         bundleContainer.appendChild(bCard);
       });
 
+
       cart = {};
       recalculateCart();
     }
+
 
     function renderBlockJ(testimonials) {
       const container = document.getElementById('block-j-testimonials');
@@ -3217,6 +3863,7 @@
       });
     }
 
+
     function updateCart(key, delta, price, title) {
       if (!cart[key]) {
         cart[key] = { qty: 0, price: price, title: title };
@@ -3231,6 +3878,7 @@
       }
       recalculateCart();
     }
+
 
     function recalculateCart() {
       let subtotal = 0;
@@ -3256,11 +3904,13 @@
       document.getElementById('cart-total').innerText = `HKD ${(subtotal + shipping).toLocaleString()}`;
     }
 
+
     function submitOrderDualTrack() {
       const name = document.getElementById('order_recipient_name').value.trim();
       const phone = document.getElementById('order_recipient_phone').value.trim();
       const address = document.getElementById('order_recipient_address').value.trim();
       const hasLift = document.getElementById('order_has_lift').checked;
+
 
       if (Object.keys(cart).length === 0) {
         alert('請先選取所需單品或調理套裝！');
@@ -3270,6 +3920,7 @@
         alert('請完整填寫收件人姓名、電話及詳細收貨地址！');
         return;
       }
+
 
       let subtotal = 0;
       let orderItems = [];
@@ -3281,6 +3932,7 @@
       let shipping = (subtotal >= 400) ? 0 : 40;
       let total = subtotal + shipping;
 
+
       // 前端生成唯一標準訂單編號 HD-YYYYMMDD-XXXXXX
       const now = new Date();
       const dateStr = now.getFullYear().toString() +
@@ -3288,6 +3940,7 @@
         String(now.getDate()).padStart(2, '0');
       const randomSix = Math.floor(100000 + Math.random() * 900000);
       const orderId = "HD-" + dateStr + "-" + randomSix;
+
 
       const orderData = {
         type: "order",
@@ -3302,6 +3955,7 @@
         shipping,
         total
       };
+
 
       // 軌道一：WhatsApp 對話喚起 (帶入唯一訂單編號)
       const liftText = hasLift ? "有升降機" : "無升降機（唐樓需現場付樓梯費）";
@@ -3319,6 +3973,7 @@
         `請 Duncan 盡快為我確認訂單及安排出貨，謝謝！`;
       const waUrl = `https://wa.me/${DUNCAN_WHATSAPP_PHONE}?text=${waText}`;
 
+
       // 軌道二：Apps Script Webhook 異步記表
       if (APPS_SCRIPT_WEBHOOK_URL) {
         try {
@@ -3333,8 +3988,10 @@
         }
       }
 
+
       window.open(waUrl, '_blank');
     }
+
 
     // Modal 彈窗控制 (零滑動凍結：開關期間主頁背景 100% 紋絲不動)
     function openModalWithLock(title, contentHtml) {
@@ -3346,6 +4003,7 @@
       document.getElementById('globalModal').style.display = 'flex';
     }
 
+
     function closeModal() {
       document.getElementById('globalModal').style.display = 'none';
       document.documentElement.style.overflow = '';
@@ -3356,15 +4014,18 @@
       document.documentElement.style.scrollBehavior = prevBehavior;
     }
 
+
     function handleModalBackdropClick(e) {
       if (e.target.id === 'globalModal') {
         closeModal();
       }
     }
 
+
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
     });
+
 
     function switchGalleryImage(imgSrc) {
       const mainImg = document.getElementById('gallery-main-img');
@@ -3373,16 +4034,19 @@
       }
     }
 
+
     // 彈窗 A：產品詳情 (法定 6 大模組，深色背景 + 獨立純白圖框，零價格零折扣，注意事項去紅色化)
     function openProductModal(prodId) {
       const prod = PRODUCTS_DB.find(p => p.id === prodId);
       if (!prod) return;
+
 
       let galleryHtml = `
         <div class="modal-white-image-box">
           <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
         </div>
       `;
+
 
       if (prod.id === '0368') {
         galleryHtml = `
@@ -3404,6 +4068,7 @@
           </div>
         `;
       }
+
 
       const html = `
         <div>
@@ -3438,13 +4103,16 @@
       openModalWithLock(prod.name, html);
     }
 
+
     // 彈窗 B：半夜抽筋專屬修復原理 (600x600 圖片 ＋ 5大成因總名稱分類生化機轉，零價格零折扣)
     function openMechanismModal(prodId, causeId) {
       const prod = PRODUCTS_DB.find(p => p.id === prodId);
       if (!prod) return;
 
+
       const cData = CAUSES_DATA[causeId];
       const mechText = (prod.mechanisms && prod.mechanisms[causeId]) || prod.intro || "從源頭深度修復微循環與神經膜電位平衡。";
+
 
       const html = `
         <div>
@@ -3460,9 +4128,11 @@
       openModalWithLock(`${prod.name} · 修復原理`, html);
     }
 
+
     function openBundleModal(bundleId) {
       const bundle = BUNDLES_DB.find(b => b.id === bundleId);
       if (!bundle) return;
+
 
       const html = `
         <div>
@@ -3488,6 +4158,7 @@
       `;
       openModalWithLock(`${bundle.name} · 套裝明細`, html);
     }
+
 
     // Block K: 11 級逆向向上平滑導航狀態機
     function handleElevatorUp() {
@@ -3523,12 +4194,10 @@
         此類症狀屬於臨床高危急症，<strong style="color: #FCA5A5;">切勿自行用力按摩、拍打或推拿</strong>（以免造成血栓脫落引發肺栓塞等重大風險），亦請勿延誤就醫。
       </p>
       <div style="background: rgba(239, 68, 68, 0.15); border-left: 4px solid #EF4444; padding: 12px 14px; text-align: left; margin-bottom: 24px; border-radius: 4px; font-size: 14px; color: #FECACA;">
-        請立即前往醫院急症室、或諮詢血管外科／神經科專科門診進行客觀影像學檢查。
+        請立即前往公立醫院急症室、或諮詢血管外科／神經科專科門診進行客觀影像學檢查。
       </div>
       <button type="button" class="btn-primary" style="background: #EF4444; border-color: #EF4444; font-size: 16px; width: 100%;" onclick="closeAcuteModal()">
         我已知悉，並將儘快就醫
       </button>
     </div>
   </div>
-
-  

@@ -2695,7 +2695,7 @@
             "name": "緩解抽筋30天套裝A1",
             "causeId": 1,
             "isWarfarinSafe": true,
-            "img": "/images/products/Cramp_Set_A1.webp",
+            "img": "/images/packages/Cramp_Set_A1.webp",
             "price": 16915,
             "origPrice": 27069,
             "discount": "62折",
@@ -2709,7 +2709,7 @@
             "name": "緩解抽筋30天套裝A2",
             "causeId": 1,
             "isWarfarinSafe": true,
-            "img": "/images/products/Cramp_Set_A2.webp",
+            "img": "/images/packages/Cramp_Set_A2.webp",
             "price": 2925,
             "origPrice": 4079,
             "discount": "72折",
@@ -2723,7 +2723,7 @@
             "name": "緩解抽筋30天套裝B1",
             "causeId": 2,
             "isWarfarinSafe": false,
-            "img": "/images/products/Cramp_Set_B1.webp",
+            "img": "/images/packages/Cramp_Set_B1.webp",
             "price": 19238,
             "origPrice": 30048,
             "discount": "64折",
@@ -2737,7 +2737,7 @@
             "name": "緩解抽筋30天套裝B2",
             "causeId": 2,
             "isWarfarinSafe": false,
-            "img": "/images/products/Cramp_Set_B2.webp",
+            "img": "/images/packages/Cramp_Set_B2.webp",
             "price": 5248,
             "origPrice": 7058,
             "discount": "74折",
@@ -2751,7 +2751,7 @@
             "name": "緩解抽筋30天套裝B3",
             "causeId": 2,
             "isWarfarinSafe": true,
-            "img": "/images/products/Cramp_Set_B3.webp",
+            "img": "/images/packages/Cramp_Set_B3.webp",
             "price": 20454,
             "origPrice": 31498,
             "discount": "65折",
@@ -2765,7 +2765,7 @@
             "name": "緩解抽筋30天套裝B4",
             "causeId": 2,
             "isWarfarinSafe": true,
-            "img": "/images/products/Cramp_Set_B4.webp",
+            "img": "/images/packages/Cramp_Set_B4.webp",
             "price": 6464,
             "origPrice": 8508,
             "discount": "76折",
@@ -2779,7 +2779,7 @@
             "name": "緩解抽筋30天套裝C1",
             "causeId": 3,
             "isWarfarinSafe": false,
-            "img": "/images/products/Cramp_Set_C1.webp",
+            "img": "/images/packages/Cramp_Set_C1.webp",
             "price": 18265,
             "origPrice": 28750,
             "discount": "64折",
@@ -2793,7 +2793,7 @@
             "name": "緩解抽筋30天套裝C2",
             "causeId": 3,
             "isWarfarinSafe": false,
-            "img": "/images/products/Cramp_Set_C2.webp",
+            "img": "/images/packages/Cramp_Set_C2.webp",
             "price": 4275,
             "origPrice": 5760,
             "discount": "74折",
@@ -2807,7 +2807,7 @@
             "name": "緩解抽筋30天套裝D1",
             "causeId": 4,
             "isWarfarinSafe": true,
-            "img": "/images/products/Cramp_Set_D1.webp",
+            "img": "/images/packages/Cramp_Set_D1.webp",
             "price": 21437,
             "origPrice": 32660,
             "discount": "66折",
@@ -2821,7 +2821,7 @@
             "name": "緩解抽筋30天套裝D2",
             "causeId": 4,
             "isWarfarinSafe": true,
-            "img": "/images/products/Cramp_Set_D2.webp",
+            "img": "/images/packages/Cramp_Set_D2.webp",
             "price": 7447,
             "origPrice": 9670,
             "discount": "77折",
@@ -2835,7 +2835,7 @@
             "name": "緩解抽筋30天套裝E1",
             "causeId": 5,
             "isWarfarinSafe": true,
-            "img": "/images/products/Cramp_Set_E1.webp",
+            "img": "/images/packages/Cramp_Set_E1.webp",
             "price": 16408,
             "origPrice": 26373,
             "discount": "62折",
@@ -2849,7 +2849,7 @@
             "name": "緩解抽筋30天套裝E2",
             "causeId": 5,
             "isWarfarinSafe": true,
-            "img": "/images/products/Cramp_Set_E2.webp",
+            "img": "/images/packages/Cramp_Set_E2.webp",
             "price": 2418,
             "origPrice": 3383,
             "discount": "71折",
@@ -3677,6 +3677,20 @@ function renderBlockG(allowedProductIds, causeId) {
     });
 
 
+    function handleImgError(img) {
+      if (img.dataset.hasRetried) return;
+      img.dataset.hasRetried = 'true';
+      const cur = img.getAttribute('src') || '';
+      if (cur.includes('Cramp_Set') && cur.includes('/products/')) {
+        img.src = cur.replace('/products/', '/packages/');
+      } else if (cur.startsWith('/images/')) {
+        // Fallback for local preview (file:// protocol) or relative folder hosting
+        img.src = '..' + cur;
+      } else if (cur.startsWith('../images/')) {
+        img.src = cur.replace('../images/', '/images/');
+      }
+    }
+
     function switchGalleryImage(imgSrc) {
       const mainImg = document.getElementById('gallery-main-img');
       if (mainImg) {
@@ -3693,7 +3707,7 @@ function renderBlockG(allowedProductIds, causeId) {
 
       let galleryHtml = `
         <div class="modal-white-image-box">
-          <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
+          <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}" onerror="handleImgError(this)">
         </div>
       `;
 
@@ -3702,17 +3716,17 @@ function renderBlockG(allowedProductIds, causeId) {
         galleryHtml = `
           <div>
             <div class="modal-white-image-box">
-              <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
+              <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}" onerror="handleImgError(this)">
             </div>
             <div class="gallery-thumbs">
               <button type="button" onclick="switchGalleryImage('${prod.img}')" class="gallery-thumb-btn">
-                <img src="${prod.img}">
+                <img src="${prod.img}" onerror="handleImgError(this)">
               </button>
               <button type="button" onclick="switchGalleryImage('${prod.demoImg1}')" class="gallery-thumb-btn">
-                <img src="${prod.demoImg1}">
+                <img src="${prod.demoImg1}" onerror="handleImgError(this)">
               </button>
               <button type="button" onclick="switchGalleryImage('${prod.demoImg2}')" class="gallery-thumb-btn">
-                <img src="${prod.demoImg2}">
+                <img src="${prod.demoImg2}" onerror="handleImgError(this)">
               </button>
             </div>
           </div>
@@ -3767,7 +3781,7 @@ function renderBlockG(allowedProductIds, causeId) {
       const html = `
         <div>
           <div class="modal-white-image-box">
-            <img src="${prod.img}" alt="${prod.name}">
+            <img src="${prod.img}" alt="${prod.name}" onerror="handleImgError(this)">
           </div>
           <div style="margin-top: 14px;">
             <div style="font-weight: 800; font-size: 16px; color: #D4A343; margin-bottom: 8px;">${cData.name} 專屬修復機轉</div>
@@ -3787,7 +3801,7 @@ function renderBlockG(allowedProductIds, causeId) {
       const html = `
         <div>
           <div class="modal-white-image-box">
-            <img src="${bundle.img}" alt="${bundle.name}">
+            <img src="${bundle.img}" alt="${bundle.name}" onerror="handleImgError(this)">
           </div>
           <div style="margin-top: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">

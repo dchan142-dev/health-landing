@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Health Decoder｜治標反噬失衡全景自測 ✕ 醫學工程解碼 ✕ 專屬調養方案</title>
+  <meta name="description" content="針對香港長者「三高＋心腦血管」多重用藥處境；破解指標表面達標但全身無力、腳腫、麻木與氣喘之後遺症，以系統生物學微循環與粒線體生化旁路從源頭調養。">
+  <style>
+    :root {
+      --color-primary: #0D9488;
+      --color-primary-dark: #0F766E;
+      --color-primary-light: #CCFBF1;
+      --color-accent: #F59E0B;
+      --color-accent-text: #B45309;
+      --color-danger: #EF4444;
+      --color-warning: #F59E0B;
+      --color-success: #10B981;
+      --color-bg-light: #F8FAFC;
+      --color-card-bg: #FFFFFF;
+      --color-text-main: #0F172A;
+      --color-text-sub: #475569;
+      --color-border: #E2E8F0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.05);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang HK", "Noto Sans TC", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body { font-family: var(--font-family); background-color: var(--color-bg-light); color: var(--color-text-main); line-height: 1.6; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
+
+    header { background: #FFFFFF; border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 50; }
+    .nav-inner { height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .brand-logo { font-size: 19px; font-weight: 800; color: var(--color-primary); display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .badge-pill { background: var(--color-primary-light); color: var(--color-primary-dark); padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+
+    .hero-section { padding: 32px 0 24px; text-align: center; background: linear-gradient(180deg, #FFFFFF 0%, var(--color-bg-light) 100%); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: #FEF3C7; color: #92400E; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; margin-bottom: 16px; }
+    .hero-title { font-size: 26px; font-weight: 800; line-height: 1.35; margin-bottom: 14px; color: #0F172A; }
+    .hero-subtitle { font-size: 15px; color: var(--color-text-sub); line-height: 1.65; max-width: 680px; margin: 0 auto 24px; }
+    .hero-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+    .feature-item { background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px 8px; font-size: 13px; font-weight: 700; color: var(--color-text-main); }
+
+    .card { background: var(--color-card-bg); border-radius: var(--radius-lg); border: 1px solid var(--color-border); box-shadow: var(--shadow-md); padding: 24px 20px; margin-bottom: 24px; }
+    .section-header { margin-bottom: 20px; }
+    .section-title { font-size: 20px; font-weight: 800; color: var(--color-text-main); display: flex; align-items: center; gap: 8px; }
+    .section-desc { font-size: 14px; color: var(--color-text-sub); margin-top: 4px; }
+
+    .quiz-group { margin-bottom: 24px; border-bottom: 1px dashed var(--color-border); padding-bottom: 20px; }
+    .quiz-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .group-title { font-size: 16px; font-weight: 700; color: #1E293B; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+    .quiz-option { display: flex; align-items: flex-start; gap: 12px; background: #FFFFFF; border: 1.5px solid var(--color-border); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s ease; }
+    .quiz-option:hover { border-color: var(--color-primary); background: #F0FDFA; }
+    .quiz-option input[type="checkbox"], .quiz-option input[type="radio"] { margin-top: 3px; accent-color: var(--color-primary); width: 17px; height: 17px; }
+    .option-text { font-size: 14.5px; color: var(--color-text-main); line-height: 1.45; }
+    .option-badge { font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 700; margin-left: 6px; display: inline-block; vertical-align: middle; }
+    .badge-core { background: #FEE2E2; color: #991B1B; }
+    .badge-typical { background: #FEF3C7; color: #92400E; }
+    .badge-trigger { background: #E0F2FE; color: #075985; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; height: 50px; border-radius: var(--radius-md); font-size: 16px; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25); }
+    .btn-primary:hover { background: var(--color-primary-dark); }
+    .btn-whatsapp { background: #25D366; color: #FFFFFF; font-size: 16px; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25); }
+    .btn-whatsapp:hover { background: #1EBE5D; }
+    .btn-outline { background: transparent; border: 1.5px solid var(--color-border); color: var(--color-text-main); }
+    .btn-outline:hover { background: #F1F5F9; }
+
+    .report-box { display: none; }
+    .cause-card { border-left: 4px solid var(--color-primary); background: #F8FAFC; border-radius: var(--radius-sm); padding: 16px; margin-bottom: 16px; }
+    .cause-badge { display: inline-block; background: var(--color-primary); color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
+    .cause-name { font-size: 18px; font-weight: 800; color: #0F172A; margin-bottom: 8px; }
+    .cause-quote { font-size: 14.5px; font-weight: 700; color: #0F766E; margin-bottom: 10px; font-style: italic; }
+
+    .ratio-bar-wrap { margin-bottom: 10px; }
+    .ratio-label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .progress-track { height: 8px; background: #E2E8F0; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--color-primary); border-radius: 999px; width: 0%; transition: width 0.8s ease; }
+
+    .block-box { background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 18px 16px; margin-bottom: 16px; }
+    .block-header { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: var(--color-text-main); margin-bottom: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 8px; }
+    .block-content p { font-size: 14.5px; color: #334155; line-height: 1.7; margin-bottom: 10px; }
+    .step-list { list-style: none; }
+    .step-list li { display: flex; gap: 10px; font-size: 14px; margin-bottom: 10px; color: #334155; }
+    .step-num { width: 22px; height: 22px; border-radius: 999px; background: var(--color-primary-light); color: var(--color-primary-dark); font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+
+    .product-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
+    @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+    .prod-card { background: #FFFFFF; border: 1.5px solid var(--color-border); border-radius: var(--radius-md); padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+    .prod-badge { font-size: 11.5px; font-weight: 700; color: var(--color-primary-dark); background: var(--color-primary-light); padding: 2px 8px; border-radius: 4px; align-self: flex-start; margin-bottom: 8px; }
+    .prod-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #0F172A; }
+    .prod-spec { font-size: 12px; color: var(--color-text-sub); margin-bottom: 10px; }
+    .prod-mech { font-size: 13.5px; color: #334155; line-height: 1.55; margin-bottom: 14px; flex-grow: 1; }
+    .prod-price-row { display: flex; align-items: baseline; justify-content: space-between; border-top: 1px solid var(--color-border); padding-top: 10px; }
+    .prod-price { font-size: 18px; font-weight: 800; color: #B45309; }
+    .prod-price s { font-size: 13px; color: #94A3B8; margin-right: 4px; font-weight: 500; }
+    .qty-counter { display: flex; align-items: center; border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); overflow: hidden; }
+    .qty-btn { width: 32px; height: 32px; border: none; background: #F8FAFC; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #334155; }
+    .qty-btn:hover { background: #E2E8F0; }
+    .qty-val { width: 36px; text-align: center; font-size: 14px; font-weight: 700; }
+
+    .cart-box { background: #FFFFFF; border: 2px solid var(--color-primary); border-radius: var(--radius-lg); padding: 20px 16px; margin-top: 24px; box-shadow: var(--shadow-lg); }
+    .cart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .summary-line { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; color: #334155; }
+    .summary-line.total { border-top: 1px solid var(--color-border); padding-top: 10px; font-size: 17px; font-weight: 800; color: #0F172A; }
+
+    .form-group { margin-bottom: 14px; }
+    .form-label { font-size: 13.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 6px; }
+    .form-input { width: 100%; height: 44px; border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); padding: 0 12px; font-size: 14.5px; font-family: inherit; }
+    .form-input:focus { border-color: var(--color-primary); outline: none; }
+
+    .redflag-box { display: none; background: #FEF2F2; border: 2px solid var(--color-danger); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 24px; }
+    .redflag-title { font-size: 18px; font-weight: 800; color: #991B1B; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .redflag-desc { font-size: 14px; color: #7F1D1D; line-height: 1.65; margin-bottom: 14px; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-inner">
+      <a href="#" class="brand-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>Health Decoder</span>
+      </a>
+      <span class="badge-pill">治標反噬失衡專題</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-badge">系統生物學超越還原論 ✕ 多重用藥旁路協同</div>
+      <h1 class="hero-title">破解指標達標・體感反噬迷思<br>從生化源頭修復微循環與能量</h1>
+      <p class="hero-subtitle">針對香港長者三高多重用藥後之肌痛乏力、腳腫夜尿、末梢麻木、頑固乾咳與便秘抽筋；肯定常規西藥救急價值，以四大系統基石對沖西藥代謝耗竭。</p>
+      <div class="hero-features">
+        <div class="feature-item">7大用藥反噬成因</div>
+        <div class="feature-item">心腸軸微循環底座</div>
+        <div class="feature-item">薄血藥雙軌隔離</div>
+      </div>
+    </section>
+
+    <!-- Red Flags Alert Box -->
+    <div id="redflagAlert" class="redflag-box">
+      <div class="redflag-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>臨床急症紅旗警告（需優先就醫）</span>
+      </div>
+      <p class="redflag-desc">
+        健康安全提示：您的體徵顯示身體可能存在嚴重的急性西藥毒性或神經心血管急症（如可樂色尿伴劇烈肌痛警惕橫紋肌溶解症、站立眼前全黑昏厥、深大呼吸伴神智混亂警惕代謝性酸中毒、或突發偏癱歪嘴等）。請即刻前往公立醫院急症室進行緊急全面醫學排查，切勿擅自停藥或自行處理。
+      </p>
+      <button class="btn btn-outline" onclick="location.reload()" style="background:#fff; border-color:#EF4444; color:#991B1B;">重新評估</button>
+    </div>
+
+    <!-- Quiz Section -->
+    <section id="quiz-section" class="card">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>第一層：治標反噬失衡全景自測</span>
+        </h2>
+        <p class="section-desc">結合您現有公立醫院處方與日常身體體感，系統將透過多維交叉共振演算法鎖定核心失衡模組。</p>
+      </div>
+
+      <!-- 基本信息 -->
+      <div class="quiz-group" style="background:#F8FAFC; padding:14px; border-radius:var(--radius-md); margin-bottom:20px;">
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:140px;">
+            <label class="form-label">您的稱呼</label>
+            <input type="text" id="quizUserName" class="form-input" placeholder="例如：陳先生 / 李太" value="朋友">
+          </div>
+          <div style="flex:1; min-width:140px;">
+            <label class="form-label">性別</label>
+            <select id="quizGender" class="form-input">
+              <option value="女">女士</option>
+              <option value="男">男士</option>
+            </select>
+          </div>
+          <div style="flex:1; min-width:140px;">
+            <label class="form-label">年齡組別</label>
+            <select id="quizAge" class="form-input">
+              <option value="60-69歲" selected>60-69歲</option>
+              <option value="70-79歲">70-79歲</option>
+              <option value="80歲或以上">80歲或以上</option>
+              <option value="50-59歲">50-59歲</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 模組零：急症紅旗攔截 -->
+      <div class="quiz-group">
+        <div class="group-title">
+          <span>模組零｜臨床急症紅旗排查</span>
+          <span style="font-size:12px; color:var(--color-danger);">命中即刻建議就醫</span>
+        </div>
+        <label class="quiz-option">
+          <input type="checkbox" name="redflag" value="1">
+          <span class="option-text">尿液呈現深茶色、可樂色或醬油色，伴隨全身肌肉劇烈酸痛壓痛或極度無力（排查橫紋肌溶解症）</span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" name="redflag" value="2">
+          <span class="option-text">由坐姿或臥姿站起瞬間嚴重眩暈、冷汗直冒、視線全黑或昏厥倒地（排查嚴重低血壓腦灌注不足）</span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" name="redflag" value="3">
+          <span class="option-text">突然出現深大而快速呼吸，伴隨持續噁心嘔吐或神智不清（排查代謝性酸中毒）</span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" name="redflag" value="4">
+          <span class="option-text">突發單側手腳無力、嘴角歪斜、說話含糊不清或視物成雙（排查急性中風或 TIA）</span>
+        </label>
+      </div>
+
+      <!-- 模組一：香港公立醫院常規處方排查清單 -->
+      <div class="quiz-group">
+        <div class="group-title">
+          <span>模組一｜公立醫院常規西藥處方審查（多選）</span>
+        </div>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="med" data-cause="c1" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">降膽固醇藥：他汀類 Statins（例如 Atorvastatin、Rosuvastatin、Simvastatin） <span class="option-badge badge-typical">C1 加權</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="med" data-cause="c2" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止） <span class="option-badge badge-typical">C2 加權</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="med" data-cause="c3" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">降血壓藥：鈣通道阻斷劑 CCB（例如 Amlodipine 氨氯地平、Nifedipine） <span class="option-badge badge-typical">C3 加權</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="med" data-cause="c4" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">降血壓或調心率藥：乙型阻斷劑 Beta-blocker（例如 Atenolol、Bisoprolol） <span class="option-badge badge-typical">C4 加權</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="med" data-cause="c5" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">降血壓藥：利尿劑水丸（例如 Indapamide、Furosemide、Hydrochlorothiazide） <span class="option-badge badge-typical">C5 加權</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="med" data-cause="c6" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">降血壓藥：血管緊張素轉化酶抑制劑 ACEI（例如 Lisinopril、Ramipril、Enalapril） <span class="option-badge badge-typical">C6 加權</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="med" data-cause="c7" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">胃藥：質子泵抑制劑 PPI（例如 Omeprazole 奧美拉唑） ＋ 碳酸鈣片（Caltrate 挺立） <span class="option-badge badge-typical">C7 加權</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="med" data-warfarin="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">薄血藥／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷、Warfarin） <span class="option-badge badge-core">系統啟動薄血安全隔離</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="med" data-none="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">🚫 沒有長期服用上述西藥（雙向嚴格互斥）</span>
+        </label>
+      </div>
+
+      <!-- 模組二：七大維度原子化體徵題組 -->
+      <div class="quiz-group">
+        <div class="group-title">
+          <span>成因一｜肌肉耐力與能量代謝（他汀類路徑）</span>
+        </div>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c1" data-cause="c1" data-score="1" onchange="handleOptionCheck(this)">
+          <span class="option-text">平時容易感到雙臂或大腿肌肉痠軟疲倦 <span class="option-badge badge-trigger">1分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c1" data-cause="c1" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">開始服降膽固醇藥或增加劑量後數週內，全身無力感逐步加劇 <span class="option-badge badge-typical">2分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c1" data-cause="c1" data-score="3" data-hardcore="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">雙側大肌群出現對稱性痠痛，平時並無進行高強度劇烈運動 <span class="option-badge badge-core">3分硬指標</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c1" data-none="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">🚫 沒有上述情況（雙向嚴格互斥）</span>
+        </label>
+      </div>
+
+      <div class="quiz-group">
+        <div class="group-title">
+          <span>成因二｜末梢感官與神經滋養（雙胍類 Metformin 路徑）</span>
+        </div>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c2" data-cause="c2" data-score="1" onchange="handleOptionCheck(this)">
+          <span class="option-text">剛開始服降糖藥初期容易出現消化道飽脹或食慾減退 <span class="option-badge badge-trigger">1分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c2" data-cause="c2" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">雙腳腳底或腳趾末端時常出現對稱之細微麻木蟻走感 <span class="option-badge badge-typical">2分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c2" data-cause="c2" data-score="3" data-hardcore="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">連續服用降糖藥超過三年以上，四肢末端持續麻木刺痛或步態踩棉花感 <span class="option-badge badge-core">3分硬指標</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c2" data-none="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">🚫 沒有上述情況（雙向嚴格互斥）</span>
+        </label>
+      </div>
+
+      <div class="quiz-group">
+        <div class="group-title">
+          <span>成因三｜微血管壓力與組織水液（鈣通道阻斷劑 CCB 路徑）</span>
+        </div>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c3" data-cause="c3" data-score="1" onchange="handleOptionCheck(this)">
+          <span class="option-text">天氣溫熱或長時間坐定定之後，雙腳皮膚表面有微溫微脹感 <span class="option-badge badge-trigger">1分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c3" data-cause="c3" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">傍晚脫去襪子時，小腿下段或腳踝處留有清晰凹陷深勒痕 <span class="option-badge badge-typical">2分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c3" data-cause="c3" data-score="3" data-hardcore="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">下肢水腫呈現對稱性，早晨腳踝平整，傍晚站立走動後下肢明顯發脹凹陷 <span class="option-badge badge-core">3分硬指標</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c3" data-none="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">🚫 沒有上述情況（雙向嚴格互斥）</span>
+        </label>
+      </div>
+
+      <div class="quiz-group">
+        <div class="group-title">
+          <span>成因四｜心率調節與運動耐受（乙型阻斷劑 Beta-blocker 路徑）</span>
+        </div>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c4" data-cause="c4" data-score="1" onchange="handleOptionCheck(this)">
+          <span class="option-text">安靜休息時自測每分鐘心跳次數經常處於 60 次以下 <span class="option-badge badge-trigger">1分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c4" data-cause="c4" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">上斜路或行樓梯時感到氣力難以提上，雙腳步幅沉重 <span class="option-badge badge-typical">2分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c4" data-cause="c4" data-score="3" data-hardcore="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">服用藥物後日常運動耐受力顯著下降，每到午後固定時段感到沉重困倦 <span class="option-badge badge-core">3分硬指標</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c4" data-none="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">🚫 沒有上述情況（雙向嚴格互斥）</span>
+        </label>
+      </div>
+
+      <div class="quiz-group">
+        <div class="group-title">
+          <span>成因五｜有效血容量與體位轉換（利尿劑路徑）</span>
+        </div>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c5" data-cause="c5" data-score="1" onchange="handleOptionCheck(this)">
+          <span class="option-text">白天小便次數偏多，夜間入睡後亦需要起床小便兩次或以上 <span class="option-badge badge-trigger">1分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c5" data-cause="c5" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">久坐或平躺後起身站立一瞬間，視線容易短暫模糊或頭重腳輕 <span class="option-badge badge-typical">2分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c5" data-cause="c5" data-score="3" data-hardcore="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">每次由坐轉站頭暈需扶住身邊家具靜止數秒緩解，晨起或淋浴後尤甚 <span class="option-badge badge-core">3分硬指標</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c5" data-none="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">🚫 沒有上述情況（雙向嚴格互斥）</span>
+        </label>
+      </div>
+
+      <div class="quiz-group">
+        <div class="group-title">
+          <span>成因六｜呼吸道黏膜反應（ACEI 降壓藥路徑）</span>
+        </div>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c6" data-cause="c6" data-score="1" onchange="handleOptionCheck(this)">
+          <span class="option-text">喉嚨經常有輕微痕癢感，飲水無法完全緩解 <span class="option-badge badge-trigger">1分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c6" data-cause="c6" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">平躺入睡後容易出現乾咳，坐起身後稍微緩解 <span class="option-badge badge-typical">2分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c6" data-cause="c6" data-score="3" data-hardcore="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">長期出現夜間頑固無痰乾咳，無感冒發燒，常規中西止咳水完全無效 <span class="option-badge badge-core">3分硬指標</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c6" data-none="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">🚫 沒有上述情況（雙向嚴格互斥）</span>
+        </label>
+      </div>
+
+      <div class="quiz-group">
+        <div class="group-title">
+          <span>成因七｜消化吸收與解離屏障（碳酸鈣 ＋ PPI 胃藥路徑）</span>
+        </div>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c7" data-cause="c7" data-score="1" onchange="handleOptionCheck(this)">
+          <span class="option-text">稍微食少少肉類就感到胃部頂脹、消化停滯、經常打嗝 <span class="option-badge badge-trigger">1分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c7" data-cause="c7" data-score="2" onchange="handleOptionCheck(this)">
+          <span class="option-text">大便常態性乾硬難出如羊咩屎，排便時間長且費力 <span class="option-badge badge-typical">2分</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c7" data-cause="c7" data-score="3" data-hardcore="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">同時服用鈣片與胃藥後，腹脹便秘明顯惡化，半夜小腿抽筋頻率增加 <span class="option-badge badge-core">3分硬指標</span></span>
+        </label>
+        <label class="quiz-option">
+          <input type="checkbox" data-group="c7" data-none="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">🚫 沒有上述情況（雙向嚴格互斥）</span>
+        </label>
+      </div>
+
+      <button id="btnSubmitQuiz" class="btn btn-primary" onclick="submitAssessment()">即刻解析我的用藥反噬主成因</button>
+    </section>
+
+    <!-- Report Section (Layer 2) -->
+    <section id="report-section" class="card report-box">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>第二層：專屬診斷報告 ✕ 醫學工程解碼</span>
+        </h2>
+        <p class="section-desc">根據您的體徵交叉演算，以下是主導您多重用藥後遺失衡的深層生理學機制：</p>
+      </div>
+
+      <div class="cause-card">
+        <span class="cause-badge">核心主導成因</span>
+        <h3 id="reportCauseTitle" class="cause-name">--</h3>
+        <p id="reportCauseQuote" class="cause-quote">--</p>
+        <p id="reportCauseDesc" style="font-size:14.5px; color:#334155; line-height:1.6;">--</p>
+      </div>
+
+      <div style="background:#FFFFFF; border:1px solid var(--color-border); border-radius:var(--radius-md); padding:16px; margin-bottom:20px;">
+        <h4 style="font-size:15px; font-weight:800; margin-bottom:12px; color:#1E293B;">七大成因體質重疊佔比（全景雷達）</h4>
+        <div id="causeRatioList"></div>
+      </div>
+
+      <div class="block-box">
+        <div class="block-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Block D｜成因深度解碼（點解我會出現呢個情況？）</span>
+        </div>
+        <div class="block-content">
+          <p id="blockD_Bio"><strong>🔬 生理病理機轉解說（Bio）：</strong><span>--</span></p>
+          <p id="blockD_Eng"><strong>⚙️ 系統工程學直白比喻（Eng）：</strong><span>--</span></p>
+        </div>
+      </div>
+
+      <div class="block-box">
+        <div class="block-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          <span>Block E｜日常力學微習慣與避坑指南</span>
+        </div>
+        <div class="block-content">
+          <ul id="blockE_Steps" class="step-list"></ul>
+          <p id="blockE_Warning" style="background:#FFFBEB; border-left:4px solid var(--color-warning); padding:10px 12px; border-radius:var(--radius-sm); font-size:13.5px; color:#92400E; font-weight:600; margin-top:10px;">--</p>
+        </div>
+      </div>
+
+      <div class="block-box">
+        <div class="block-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span>Block F｜重點生化營養與物理理療（純學理修復機制）</span>
+        </div>
+        <div class="block-content">
+          <p id="blockF_Physics"><strong>⚡ 實證物理與理療介入：</strong><span>--</span></p>
+          <p id="blockF_Nutrition"><strong>🌿 細胞生化關鍵營養靶點：</strong><span>--</span></p>
+          <div id="blockF_Banner" style="background:#CCFBF1; border-left:4px solid var(--color-primary); padding:10px 14px; border-radius:var(--radius-sm); font-size:14px; font-weight:700; color:#0F766E; margin-top:12px;">--</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="scrollToSection('solution-section')">查看專屬對應調養方案與產品組合</button>
+    </section>
+
+    <!-- Layer 3: Block G 產品配對方案 -->
+    <section id="solution-section" class="card" style="display:none;">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M20 7h-9M14 17H5M17 12H3"/></svg>
+          <span>第三層：專屬產品配對與落地交付</span>
+        </h2>
+        <p class="section-desc">嚴格依據 Block F 學理靶點對齊，落實四大系統基石 ＋ 成因特異手術刀。</p>
+      </div>
+
+      <div id="block-g-products-list" class="product-grid"></div>
+    </section>
+
+    <!-- Layer 4: Block H 購物車與雙軌下單 -->
+    <section id="cart-order-section" class="card" style="display:none;">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span>第四層：調理套裝與自選下單（雙軌交付）</span>
+        </h2>
+        <p class="section-desc">滿 HKD 1,000 即自動啟動「特別優惠」，全單享受專尚配套最優折扣。</p>
+      </div>
+
+      <h3 style="font-size:17px; font-weight:800; margin-bottom:12px; color:#0F172A;">30 天源頭調養套裝（推薦首選）</h3>
+      <div id="block-h-bundles" class="product-grid" style="margin-bottom:24px;"></div>
+
+      <h3 style="font-size:17px; font-weight:800; margin-bottom:12px; color:#0F172A;">單品自選加購</h3>
+      <div id="block-h-single-products" class="product-grid" style="margin-bottom:24px;"></div>
+
+      <div class="cart-box">
+        <div class="cart-header">
+          <span style="font-size:17px; font-weight:800; color:#0F172A;">已選購項目</span>
+          <button onclick="clearCart()" style="background:none; border:none; color:var(--color-danger); font-size:13px; font-weight:700; cursor:pointer;">清空重選</button>
+        </div>
+        <div id="cart-summary-items" style="margin-bottom:12px;">購物車目前為空</div>
+        <div class="summary-line">
+          <span>商品小計</span>
+          <span id="cart-subtotal" style="font-weight:700;">HKD 0</span>
+        </div>
+        <div class="summary-line">
+          <span>本港運費（滿 $400 免運）</span>
+          <span id="cart-shipping" style="font-weight:700;">HKD 0</span>
+        </div>
+        <div class="summary-line total">
+          <span>應付總額</span>
+          <span id="cart-total" style="color:var(--color-accent-text);">HKD 0</span>
+        </div>
+
+        <div id="orderForm" style="margin-top:20px; border-top:1px solid var(--color-border); padding-top:16px;">
+          <h4 style="font-size:15px; font-weight:800; margin-bottom:12px; color:#1E293B;">填寫送貨資料</h4>
+          <div class="form-group">
+            <label class="form-label">收件人姓名 *</label>
+            <input type="text" id="order_recipient_name" class="form-input" placeholder="請輸入收件人姓名">
+          </div>
+          <div class="form-group">
+            <label class="form-label">聯絡電話 (WhatsApp) *</label>
+            <input type="tel" id="order_recipient_phone" class="form-input" placeholder="例如：91234567">
+          </div>
+          <div class="form-group">
+            <label class="form-label">詳細收貨地址 *</label>
+            <input type="text" id="order_recipient_address" class="form-input" placeholder="例如：九龍旺角彌敦道...室">
+          </div>
+          <div style="margin-bottom: 18px;">
+            <label class="quiz-option" style="margin: 0; align-items: center;">
+              <input type="checkbox" id="order_has_lift" checked style="width: 18px; height: 18px; margin-right: 8px;">
+              <span style="font-size: 14px; font-weight: 600;">大廈設有升降機直達（若無升降機需現場自付每層 HKD 50 樓梯費）</span>
+            </label>
+          </div>
+          <div style="margin-bottom: 18px;">
+            <label style="font-size: 14px; font-weight: 700; display: block; margin-bottom: 8px; color: var(--color-text-main);">付款方式 *</label>
+            <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
+                <input type="radio" name="order_payment" value="FPS 轉數快" checked style="width: 18px; height: 18px;"> 🔵 FPS 轉數快 (預設)
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
+                <input type="radio" name="order_payment" value="PayMe" style="width: 18px; height: 18px;"> 🔴 PayMe
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
+                <input type="radio" name="order_payment" value="AlipayHK" style="width: 18px; height: 18px;"> 🔵 AlipayHK
+              </label>
+            </div>
+          </div>
+          <button id="btnSubmitOrder" class="btn btn-whatsapp" onclick="submitOrderDualTrack()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.074-2.146-.525-1.745-.722-2.884-2.484-2.971-2.6-.088-.116-.708-.941-.708-1.792s.448-1.272.607-1.446c.159-.175.348-.218.464-.218.116 0 .232.002.333.007.107.005.249-.041.391.299.144.348.491 1.199.535 1.286.044.087.073.188.014.304-.058.116-.087.188-.174.289l-.261.304c-.087.087-.179.182-.077.357.101.174.453.748.971 1.209.668.594 1.232.778 1.406.865.174.087.276.073.377-.044.101-.116.434-.506.55-.68.116-.174.232-.145.39-.087s1.014.478 1.188.565c.174.087.29.13.333.203.043.072.043.42-.101.825z"/></svg>
+            確認訂單並透過 WhatsApp 完成確認
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // --- 專題成因與資料庫 ---
+    const CAUSES_DATA = {
+      1: {
+        id: 1,
+        code: "C1",
+        name: "C1 肌肉耐力與能量代謝型（他汀類抑制甲羥戊酸途徑）",
+        quote: "拒將全身無力當宿命，從源頭除錯，守住不求人嘅自理底氣。",
+        desc: "他汀類藥物阻斷甲羥戊酸代謝途徑致內源性輔酶 Q10 枯竭，粒線體呼吸鏈 Complex I/II 電子傳遞受阻，ATP 產能崩潰，骨骼肌細胞內游離鈣持續偏高，引發雙臂與大腿大肌群對稱性痠軟無力與肌酸激酶外漏。",
+        blockD_Bio: "他汀類降膽固醇藥物在肝臟競爭性抑制 HMG-CoA 還原酶，阻斷甲羥戊酸代謝途徑。該途徑是合成輔酶 Q10 的關鍵上游，體內 Q10 生成驟降使粒線體呼吸鏈複合物 I/II 電子傳遞受阻，ATP 產能陷入低谷；肌質網鈣泵回收減弱使細胞內游離鈣偏高，觸發肌原纖維過度收縮與微細損傷，釋放肌酸激酶引發全身痠軟無力。",
+        blockD_Eng: "好似工廠主發電機嘅重油燃料輸送管道被安全閥門大幅度限流，發電機電力輸出瞬間斷崖式下跌。全廠主電力電壓不足，供電系統唯有自動啟動限電保護，各條重型生產線嘅大摩打轉速被強制調低，設備運轉極度吃力，帶動機械臂顯得寸步難行。",
+        blockE_Steps: [
+          "分段活動：將日常體力活動同散步行路拆分成短時段，每走動十五至二十分鐘主動坐低休息五分鐘，保留肌纖維基本能量儲備。",
+          "溫水放鬆：晚間沐浴時以四十度溫水沖淋大腿同手臂肌群三至五分鐘，擴張局部微血管，協助肌纖維排出代謝廢物。",
+          "均勻補水：每日分次飲用充足溫水並補充電解質，維持細胞外液滲透壓穩定，減低肌纖維自發性微痙攣頻率。"
+        ],
+        blockE_Warning: "熱敷捽腳只係治標，粒線體能量鏈中斷同輔酶枯竭先係禍根！任由肌纖維持續受損溶蝕，難道要等到連企起身行步路都無力、下半世靠人扶先嚟後悔做家人負累？",
+        blockF_Physics: "全身垂直律動療法（WBVV / 4–13Hz 正弦波）：以低頻正弦波被動誘發肌梭反射性舒縮，活化深層微血管網絡；配合光生物調節療法（PBM / 630nm 紅光加 850nm 近紅外線）穿透直達肌細胞，被細胞色素 C 氧化酶吸收，促進內源 ATP 合成。",
+        blockF_Nutrition: "高活性水溶性輔酶 Q10（直接跨過受阻途徑回補 Complex I-III 電子載體）＋ doubleNUTRI® 微米液鈣鎂（平抑神經肌肉接頭過度興奮，加速鈣回收）＋ ORIYEN 肝再生（以蘿蔔硫素與 PPC 減輕他汀在肝臟代謝阻滯與肌肉毒性溢出）。",
+        blockF_Banner: "用極小嘅代價，從源頭充能粒線體發電核心同保護肌膜，換返雙腿健步如飛同終生自理，唔使成為負累，安心做自己想做嘅事。"
+      },
+      2: {
+        id: 2,
+        code: "C2",
+        name: "C2 末梢感官與神經滋養型（雙胍類干擾 B12 吸收與髓鞘變性）",
+        quote: "拒將腳尖麻木當宿命，從源頭除錯，守住雙足敏銳嘅行走底氣。",
+        desc: "雙胍類降糖藥（Metformin）競爭性結合迴腸上皮鈣離子，干擾內在因子-B12 受體複合物 CUBAM 功能，導致活性維生素 B12 枯竭，髓鞘鹼性蛋白甲基化停滯，引致感覺神經外層髓鞘絕緣層質變剝落，四肢末端麻木刺痛與踩棉花感。",
+        blockD_Bio: "雙胍類降血糖藥物在管腔內帶正電荷，競爭性結合迴腸末端上皮細胞膜表面游離鈣，干擾依賴鈣離子的 CUBAM 受體，使飲食中維生素 B12 無法吸收入血。活性 B12 枯竭使髓鞘鹼性蛋白甲基化停滯，奇數鏈脂肪酸沉積於神經膜，感覺神經髓鞘絕緣結構質變剝落，神經軸漿運輸受阻，四肢末端產生對稱性麻木、蟻走感與觸覺遲鈍。",
+        blockD_Eng: "好似長途地下光纖電纜終端嘅外層絕緣塑膠保護套，因為長年缺乏專用保養油脂滋養，膠皮逐漸硬化脆裂、剝落漏電。線芯直接裸露在外，令原本清晰高速嘅通訊數碼訊號在傳輸途中不斷失真漏失，接收終端機只能接收到斷斷續續嘅雜音訊號。",
+        blockE_Steps: [
+          "晨起足檢：每日清晨利用座地鏡細心檢視雙腳腳底同趾縫皮膚，主動排查微細紅腫、壓痕或皮膚破損。",
+          "無縫純棉：挑選無接縫平整車口嘅寬鬆透氣純棉襪，徹底消除襪頭縫線對末梢微血管嘅局部機械勒壓。",
+          "溫和踏步：每日坐喺凳仔進行無負重足底點地踏步三至五分鐘，溫和刺激腳底本體感受神經末梢反饋。"
+        ],
+        blockE_Warning: "著厚襪保暖只係治標，神經髓鞘缺乏滋養持續質變先係禍根！放任神經傳導軸突壞死，難道要等到連腳板底踩地都全無知覺、隨時跌倒骨折引致長期臥床先知驚？",
+        blockF_Physics: "光生物調節療法（PBM）：深層光子穿透足底軟組織活化 Vasa Nervorum 微血管內皮 eNOS，改善神經滋養微血管血液灌注；配合神經鬆動與滑移技術（Nerve Gliding）減輕神經周圍微水腫與沾黏卡壓。",
+        blockF_Nutrition: "綜合果蔬酵素（提供有機酸解離游離 B12）＋ 長者益生菌（4 重微膠囊加固腸黏膜屏障）＋ 天然酵母 NMN 協同水溶 Q10（對沖雙胍類對 Complex I 抑制，為神經軸漿運輸提供充足 ATP）。",
+        blockF_Banner: "用極小嘅代價，從源頭修復神經髓鞘絕緣層同微血管屏障，換返雙足踏實敏銳同行動自如，唔使成為負累，安心享受每一步。"
+      },
+      3: {
+        id: 3,
+        code: "C3",
+        name: "C3 微血管壓力與組織水液型（CCB 擴張前小動脈致 Starling 失衡）",
+        quote: "拒將雙腳水腫發脹當宿命，從源頭除錯，守住步履輕盈嘅生活底氣。",
+        desc: "二氫吡啶類鈣阻斷劑（如 Amlodipine）選擇性擴張微血管前小動脈，後微靜脈未擴張導致微血管床靜水壓飆升，打破 Starling 流體平衡，無蛋白濾出液外滲積聚於下肢間隙，引發傍晚腳踝水腫與晚間平躺夜尿。",
+        blockD_Bio: "二氫吡啶類鈣離子阻斷劑結合血管平滑肌 L 型鈣通道降低外周阻力，但對前阻力小動脈擴張遠強於後微靜脈。前入端水閘大開而後出端狹窄，微血管內靜水壓顯著飆升，跨壁壓差超過血漿膠體滲透壓，促使水分持續外滲積聚於皮下軟組織間隙，下肢小腿與腳踝傍晚凹陷性水腫，平躺回流更轉化為夜尿負擔。",
+        blockD_Eng: "好似灌溉系統嘅總進水總水喉被工人完全擰到最大，排水排污管道嘅口徑依然維持原裝狹窄。水流源源不絕湧入中間嘅微細毛細軟管，管內壓力超載暴升，管壁微細縫隙被硬生生撐開，清水大量向外滲漏，浸滿成個地基表面。",
+        blockE_Steps: [
+          "踝泵運動：日間久坐或企定每三十分鐘，主動將雙腳腳尖向上用力勾起、再向上踩平各十五次，主動啟動小腿腓腸肌泵擠壓深層靜脈。",
+          "傍晚抬腿：傍晚返家休息時平臥將雙腿墊高十五至二十公分超過心臟水平十五分鐘，借助物理重力引導組織間隙積液回流。",
+          "更換支點：企或坐低時避免雙腿交疊翹腳，定時切換身體受力中心，保持盆腔深層靜脈血液回流通暢。"
+        ],
+        blockE_Warning: "平躺墊高雙腳只係治標，微血管兩端水壓失衡同管壁滲漏先係禍根！放任組織液日夜積聚浸蝕，難道要等到下肢微血管硬化潰爛、連著鞋行路都痛不欲生先嚟後悔？",
+        blockF_Physics: "全身垂直律動療法（WBVV / 4–13Hz 正弦波）：被動誘發小腿比目魚肌群微幅節律性收縮，充當人體第二心臟機械泵，加速下肢微靜脈同淋巴引流回心；配合雙光譜紅光光療帶加固微血管內皮。",
+        blockF_Nutrition: "天然左旋蝦青素（AstaREAL® 保護微血管內皮糖萼防禦層）＋ 天然酵母 NMN（活化 SIRT1 去乙醯化修復緊密連接蛋白 Claudin-5，物理縮小內皮間隙阻斷滲漏）＋ 果蔬酵素與長者益生菌（心腸軸阻斷 LPS 內毒素入血）。",
+        blockF_Banner: "用極小嘅代價，從源頭加固微血管內皮管壁同平抑微靜脈水壓，換返腳踝纖細輕盈同全日俐落，唔使成為負累，安心行更遠嘅路。"
+      },
+      4: {
+        id: 4,
+        code: "C4",
+        name: "C4 心率調節與運動耐受型（Beta-blocker 壓制心率致輸出滯後）",
+        quote: "拒將動輒氣喘疲倦當宿命，從源頭除錯，守住活力充沛嘅活動底氣。",
+        desc: "乙型阻斷劑阻斷心肌 β1 受體，抑制 cAMP 生成以壓低基礎心率與心肌耗氧；活動或登梯時心率上升鈍化延遲，心輸出量無法即時跟上組織代謝需求，引發動態性氣力不繼、疲憊乏力與午後深沉困倦。",
+        blockD_Bio: "乙型受體阻斷劑競爭性佔據心肌細胞 β1 腎上腺素能受體，抑制腺苷酸環化酶活性，減少細胞內 cAMP 生成，阻斷交感神經對心臟的正性變時與變力效應。體力活動時心率上升出現鈍化與延遲，心輸出量無法即時跟上骨骼肌代謝需求，導致周邊肌肉供氧不足，引發動態乏力與午後困倦。",
+        blockD_Eng: "好似一部跑車嘅引擎油門踏板連桿被技師加裝咗固定機械限速卡扣。平時市區慢速滑行十分平穩安全，當車輛駛到陡峭長斜坡需要瞬間大腳油門衝刺，供油泵同引擎轉速被限位卡扣死死按住，轉速表指針無法快速提升，車身動力瞬間出現明顯滯後。",
+        blockE_Steps: [
+          "階梯熱身：進行外出走動或散步前預留五至十分鐘極慢速平地慢行，畀心血管系統充分時間調動備用血流。",
+          "平緩換氣：行樓梯或面對輕微斜坡時維持吸氣兩拍、呼氣四拍嘅深長呼吸節奏，提升肺泡氣體交換率，減少組織氧債。",
+          "午後閉目：午後疲倦體感最重時進行十五分鐘平臥或半坐位閉目靜養，降低全身周邊耗氧，減輕心臟循環負擔。"
+        ],
+        blockE_Warning: "放慢動作步速只係治標，心肌細胞能量利用率不足同外周組織灌注遲緩先係禍根！任由心肺儲備機能持續低迷滑落，難道要等到連行幾級樓梯都喘唔過氣、長年困喺屋企先知驚？",
+        blockF_Physics: "全身垂直律動療法（WBVV / 4–13Hz 正弦波）：在完全不飆升心率的安全前提下促進全身骨骼肌被動舒縮，增加微血管開放，提升外周組織灌注與肌肉氧利用；配合溫和腹式橫膈呼吸增加下腔靜脈回心血量。",
+        blockF_Nutrition: "水溶性輔酶 Q10（MicroActive® 長效緩釋優化每一次心搏收縮作功能力）＋ 天然酵母 NMN（形成產能閉環，提高骨骼肌低氧攝氧利用率）＋ doubleNUTRI® 微米液鈣鎂（促進心室肌舒張期充分放鬆充盈）。",
+        blockF_Banner: "用極小嘅代價，從源頭激活心肌粒線體產能同周邊微血管開放，換返充沛體力同隨心走動嘅自由，唔使成為負累，安心享受精彩人生。"
+      },
+      5: {
+        id: 5,
+        code: "C5",
+        name: "C5 有效血容量與體位轉換型（利尿劑致低血容量感壓延遲）",
+        quote: "拒將起身眼前一黑當宿命，從源頭除錯，守住企得安穩嘅自理底氣。",
+        desc: "利尿劑抑制腎小管水鈉重吸收致循環血容量偏低；轉換為站立姿勢時血液受重力牽引瞬間滯留於腹腔與下肢，回心血量銳減，感壓反射代償延遲引發腦動脈灌注壓不足，產生起立眼前發黑、頭重腳輕與踩棉花感。",
+        blockD_Bio: "利尿劑阻斷腎臟水鈉重吸收使全身有效循環血量偏低。平臥久坐轉為企立姿勢時，500–800ml 血液在重力牽引下瞬間滯留於腹腔與下肢靜脈竇，回心血量銳減。正常頸動脈竇感壓反射代償延遲，腦動脈灌注壓瞬間不足，引發大腦缺氧，產生瞬間眼前發黑與頭重腳輕。",
+        blockD_Eng: "好似多層大廈頂樓嘅中央供水蓄水池，儲水水位長期被排水閥放得極低。平時底層水龍頭慢慢滴水尚可維持水壓，當底層出水水喉突然一口氣全開，管網內儲水量不足，頂樓住戶嘅水龍頭瞬間斷流乾涸，水壓表指針直接跌到零點。",
+        blockE_Steps: [
+          "床邊三步起伏：早晨起床嚴格遵循床上平臥睜眼半分鐘、側身坐起雙腳垂地半分鐘、扶床企立半分鐘嘅分階節律，畀自律神經充裕時間調控血壓。",
+          "踝泵預加壓：由坐低轉為企起身之前，先在坐位連續用力勾起並踩平雙腳腳掌十五次，利用小腿深層肌群擠壓靜脈血液預先泵回心臟。",
+          "晨起小口飲水：醒來後坐低緩慢飲用二百毫升溫開水，及時補充夜間呼吸同微汗流失嘅水分，充盈循環血管床。"
+        ],
+        blockE_Warning: "緩慢起身只係治標，有效循環血容量不足同感壓反射遲鈍先係禍根！放任腦部反覆缺血缺氧，難道要等到突然眩暈昏厥跌倒、撞傷頭部引致中風癱瘓先嚟後悔做家人負累？",
+        blockF_Physics: "全身垂直律動療法（WBVV / 4–8Hz 坐姿律動）：刺激小腿比目魚肌深部肌梭牽張反射，被動啟動下肢第二心臟肌泵，將淤滯血液泵回心臟；配合靜息期光生物調節照射修復感壓反射敏感度。",
+        blockF_Nutrition: "有機螺旋藻（提供全平衡電解質離子基石，充盈細胞外液晶體滲透壓）＋ 水溶性輔酶 Q10（在起立瞬間迅速代償心臟搏出量）＋ doubleNUTRI® 微米液鈣鎂（平穩自律神經與心血管反射弧傳導）。",
+        blockF_Banner: "用極小嘅代價，從源頭調控有效血容量同加固腦血管內皮自律調節，換返每次站立起身都四平八穩，唔使成為負累，安心踏實過日子。"
+      },
+      6: {
+        id: 6,
+        code: "C6",
+        name: "C6 呼吸道黏膜反應型（ACEI 抑制激肽酶致緩激肽蓄積）",
+        quote: "拒將夜間無痰乾咳當宿命，從源頭除錯，守住每晚安靜好眠嘅底氣。",
+        desc: "血管緊張素轉化酶抑制劑（ACEI）同時抑制激肽酶 II，發炎介質緩激肽（Bradykinin）與 P 物質無法正常水解而在呼吸道黏膜蓄積，刺激氣道感覺神經 C 纖維，咳嗽感受器閾值急劇下移，觸發頑固夜間無痰刺激性乾咳。",
+        blockD_Bio: "ACEI 阻斷血管緊張素 I 轉化的同時抑制激肽酶 II（Kininase II）。緩激肽與 P 物質無法水解蓄積於氣道組織，刺激感覺神經 C 纖維活化軸突反射，誘發氣道上皮神經性微發炎，咳嗽感受器閾值急劇下移。平躺入睡後分泌物微刺激即觸發頑固無痰劇烈乾咳，常規止咳藥無法壓制。",
+        blockD_Eng: "好似排氣煙囪內部嘅自動排風淨化過濾器被藥物分子強制鎖死，煙道內嘅高刺激性酸霧與微細炭灰無法正常排出，持續在管道內壁越積越厚。稍有一絲氣流微風吹過，即刻激起成片煙塵撲面，觸發防煙感應警報器瘋狂長鳴。",
+        blockE_Steps: [
+          "床頭坡度墊高：睡眠時將床頭上半身整體墊高十五度，利用重力減少夜間咽喉後壁分泌物微倒流積聚，減輕氣道 C 纖維物理刺激。",
+          "小口溫水潤喉：咳嗽發作喉嚨發癢時，含服並緩慢吞嚥一小口三十五度溫開水，物理性濕潤咽部黏膜，平抑神經末梢高敏反應。",
+          "維持居室濕度：睡眠房間開啟冷霧加濕器將空氣濕度維持在百分之五十至六十，預防乾燥空氣進一步刺激氣道表皮。"
+        ],
+        blockE_Warning: "飲止咳水潤喉只係治標，緩激肽異常蓄積同氣道神經超敏先係禍根！任由夜間頑固乾咳破壞深層睡眠，難道要等到胸膜微損傷、睡眠長期缺氧引致血壓反彈失控先知驚？",
+        blockF_Physics: "光生物調節療法（PBM）：以雙光譜紅光近紅外光照射頸胸段軟組織，活化呼吸道內皮細胞粒線體呼吸鏈，下調周圍神經性微發炎訊號；⚠️ 禁忌說明：本成因堅決禁用律動機震動，避免晃動分泌物誘發連鎖嗆咳。",
+        blockF_Nutrition: "doubleNUTRI® 微米液鈣鎂（穩定肥大細胞膜與支氣管平滑肌細胞膜電位，平息神經性微抽搐咳喘）＋ 天然微藻蝦青素（跨膜中和呼吸道黏膜自由基）＋ 果蔬酵素協同長者益生菌（心腸軸阻斷微發炎底座）。",
+        blockF_Banner: "用極小嘅代價，透過局部抗氧化、神經膜電位穩定與物理濕化由源頭平復咽喉神經，換返整夜安靜深睡同呼吸舒暢。⚠️ 提醒：ACEI 引致之頑固乾咳應由註冊醫生評估換藥。"
+      },
+      7: {
+        id: 7,
+        code: "C7",
+        name: "C7 消化吸收與解離屏障型（PPI 抑制胃酸致鈣皂結塊與鎂排擠）",
+        quote: "拒將便秘腹脹抽筋當宿命，從源頭除錯，守住暢快通便同安睡嘅生活底氣。",
+        desc: "質子泵抑制劑（PPI）抑制胃酸使胃內酸鹼值攀升至接近中性，碳酸鈣無法解離而原樣滑入腸道形成難溶鈣皂，引發嚴重便秘羊咩屎；未解離高鈣在腸道競爭排擠鎂離子吸收，誘發半夜小腿劇烈抽筋痛醒。",
+        blockD_Bio: "PPI 強烈阻斷胃壁細胞 H+/K+-ATP 酶使胃內酸鹼值升至 pH 4.0–6.0。碳酸鈣極度依賴胃酸解離出游離鈣，在低胃酸下未解離鈣鹽滑入腸腔與脂肪酸皂化，形成難溶硬質鈣皂，引發頑固便秘。未解離鈣在黏膜表面競爭阻礙 TRPM6/7 鎂轉運通道，體內游離鎂吸收驟跌，誘發神經肌肉超敏去極化，半夜小腿抽筋痛醒與便秘並存。",
+        blockD_Eng: "好似廚房洗碗機嘅高濃度去油熱水被閥門切換成冷水，倒進去嘅固體去油硬皂完全無法溶解化開，反而結成一團團硬塊卡在排水管道彎頭處。廢渣越積越多堵塞出水口，更壓扁隔離管壁，阻斷其他微細營養管道嘅流通。",
+        blockE_Steps: [
+          "錯峰分開服藥：嚴格將鈣補充劑與胃藥服藥時間相隔至少兩至三小時以上，避免碳酸鈣直接遇上胃酸被完全抑制嘅峰值窗口。",
+          "隨正餐或帶酸進食：如需補充鈣劑，安排於午餐或晚餐進食中段服用，利用食物天然刺激分泌嘅微量胃酸協助崩解。",
+          "晨起順時針揉腹：每日早晨起床飲溫水後，以手掌掌根沿肚臍順時針打圈輕揉腹部五分鐘，物理性帶動結腸蠕動。"
+        ],
+        blockE_Warning: "食瀉藥通便只係治標，胃酸受抑阻礙解離同離子競爭失衡先係禍根！任由未解離鈣皂長期堵塞腸道與排擠鎂吸收，難道要等到嚴重糞石嵌塞引致腸梗阻、半夜劇痛抽筋跌倒骨折先嚟後悔？",
+        blockF_Physics: "全身垂直律動療法（WBVV / 4–13Hz 正弦波）：透過垂直微幅振動被動刺激腹腔內臟平滑肌與結腸蠕動，促進腸道排空；配合光生物調節療法（PBM）深層光子穿透腹壁照射腸繫膜微血管，增強黏膜血液灌注。",
+        blockF_Nutrition: "doubleNUTRI® 微米液鈣鎂（非胃酸依賴微米螯合，直接穿透腸壁高效吸收，對沖鈣離子排擠，終結小腿抽筋）＋ 綜合果蔬酵素（提供外源性有機酸水解催化環境，軟化分解鈣皂）＋ 長者益生菌（發酵產生短鏈脂肪酸酸化腸道促蠕動）。",
+        blockF_Banner: "用極小嘅代價，從源頭打通胃腸消化解離屏障同平衡鈣鎂離子，換返大便順暢排出同每晚雙腿踏實放鬆，唔使成為負累，安心享受健康生活。"
+      }
+    };
+
+    // --- 產品庫 (202609 最新價格與專尚配套) ---
+    const PRODUCTS_DB = [
+      {
+        id: "34278",
+        name: "Nn 水溶性輔酶Q10",
+        shortDesc: "美國專利 MicroActive® 水溶緩釋，重啟粒線體呼吸鏈發電機",
+        price: 338,
+        specialPrice: 297,
+        packages: [
+          { code: "IH2044", qty: 4, price: 862, name: "4件專尚配套" },
+          { code: "IH1074", qty: 2, price: 442, name: "2件專尚配套" }
+        ],
+        spec: "30粒/瓶 (30天份量)",
+        origin: "馬來西亞",
+        intro: "美國專利 MicroActive® 技術，水溶性吸收率高出傳統 300%，24小時持續釋放。直接跨越他汀類切斷的甲羥戊酸生化途徑，精準回補粒線體內膜電子傳遞鏈載體庫存，對沖雙胍類對 Complex I 的抑制，為心肌與骨骼肌供應充足 ATP 能量。",
+        mechanisms: {
+          1: "跨越他汀類藥物阻斷的甲羥戊酸途徑，精準回補粒線體呼吸鏈 Complex I-III 電子載體。",
+          2: "對沖雙胍類降糖藥對 Complex I 抑制，消除電子外漏 ROS，為神經軸漿運輸供能。",
+          4: "支援心肌細胞粒線體能量生成，在心率受限下優化每一次心搏之收縮代償作功。",
+          5: "在起立轉換瞬間迅速提升心肌每搏搏出量，對沖低血容量引發的大腦供血真空。"
+        }
+      },
+      {
+        id: "36281",
+        name: "ORIYEN 天然酵母NMN 15000 Premium",
+        shortDesc: "提升細胞 NAD+ 水位，修復血管內皮緊密連接與生物鐘",
+        price: 2488,
+        specialPrice: 1888,
+        packages: [
+          { code: "IH3146", qty: 10, price: 16080, name: "10件專尚配套" },
+          { code: "IH2527", qty: 5, price: 8288, name: "5件專尚配套" },
+          { code: "IH0327", qty: 1, price: 1888, name: "1件專尚配套" }
+        ],
+        spec: "30天份量 (30包)",
+        origin: "台灣",
+        intro: "天然酵母發酵 NMN（每包 500mg），提升細胞 NAD+ 水平，活化長壽基因 SIRT1/SIRT3 與 DNA 修復酶 PARP1。與水溶 Q10 形成粒線體呼吸鏈產能閉環，去乙醯化修復微血管內皮緊密連接蛋白（Claudin-5），從結構上降低毛細血管通透性以防水腫夜尿。",
+        mechanisms: {
+          1: "與水溶 Q10 形成產能閉環，活化骨骼肌細胞 AMPK 與 SIRT1 訊號逆轉能量潰竭。",
+          3: "活化長壽蛋白 SIRT1，修復微血管內皮緊密連接蛋白，縮小內皮間隙阻斷組織滲漏。",
+          4: "提高骨骼肌細胞在低氧環境下的氧氣利用率，從肌肉代謝端代償心輸出量滯後。",
+          5: "驅動 PARP1 修復大腦微血管 DNA 損傷，賦能延髓心血管調控中樞與感壓反射神經元。"
+        }
+      },
+      {
+        id: "36277",
+        name: "ORIYEN 肝再生",
+        shortDesc: "青花菜苗蘿蔔硫素 ＋ PPC ＋ GSH，降低多重西藥代謝毒性",
+        price: 540,
+        specialPrice: 475,
+        packages: [
+          { code: "IH0716", qty: 12, price: 4406, name: "12件專尚配套" },
+          { code: "IH0317", qty: 5, price: 1877, name: "5件專尚配套" },
+          { code: "IH2123", qty: 3, price: 1159, name: "3件專尚配套" },
+          { code: "IH1119", qty: 1, price: 398, name: "1件專尚配套" }
+        ],
+        spec: "30包/盒 (30天份量)",
+        origin: "台灣",
+        intro: "青花菜苗萃取物（高濃度蘿蔔硫素前體）＋ 多烯磷脂醯膽鹼（PPC）＋ 還原型穀胱甘肽（GSH）＋ 牛磺酸。活化肝臟 Nrf2 訊號鏈，啟動 Phase II 代謝解毒酵素，修補肝細胞膜，減輕 4-7 種西藥長期代謝超載，從源頭降低他汀對周邊肌肉的毒性溢出。",
+        mechanisms: {
+          1: "啟動肝臟 Phase II 解毒酵素，加速他汀西藥代謝清除，從源頭降低周邊肌肉毒性溢出。",
+          3: "改善肝臟脂質代謝與白蛋白合成，維持正常血漿膠體滲透壓，減輕下肢液體外滲。"
+        }
+      },
+      {
+        id: "34316",
+        name: "Nn 液鈣鎂D3",
+        shortDesc: "doubleNUTRI® 微米螯合離子鎂，平息神經肌肉接頭膜電位超敏",
+        price: 241,
+        specialPrice: 212,
+        packages: [
+          { code: "IH0320", qty: 12, price: 1936, name: "12件專尚配套" },
+          { code: "IH2128", qty: 6, price: 1041, name: "6件專尚配套" },
+          { code: "IH1122", qty: 2, price: 356, name: "2件專尚配套" }
+        ],
+        spec: "15天份量 (15包)",
+        origin: "紐西蘭",
+        intro: "doubleNUTRI® 專利微米乳化技術，甘胺酸螯合離子鎂直達神經肌肉接頭，非胃酸依賴直接穿透腸壁吸收。驅動肌質網鈣泵回收游離鈣，平衡血管平滑肌細胞膜電位，終結抽筋與起立頭暈。",
+        mechanisms: {
+          1: "充當天然生理調節劑，平抑神經肌肉過度興奮，驅動肌質網 SERCA 鈣泵回收游離鈣。",
+          4: "調控心肌細胞膜離子通道，促進心室肌在舒張期充分放鬆充盈，改善心肌順應性。",
+          5: "平穩自律神經與心血管反射弧，保護感壓反射傳導敏感度，避免起立血壓斷崖。",
+          6: "穩定肥大細胞膜與支氣管平滑肌細胞膜電位，減輕神經性微抽搐與氣道咳喘。",
+          7: "非胃酸依賴微米螯合直接高效吸收，對沖未解離碳酸鈣之競爭排擠，終結半夜小腿抽筋。"
+        }
+      },
+      {
+        id: "36248",
+        name: "ORIYEN 綜合果蔬酵素",
+        shortDesc: "730天三次深層發酵有機酸庫，加固腸黏膜封堵 LPS 滲漏",
+        price: 633,
+        specialPrice: 557,
+        packages: [
+          { code: "IH0673", qty: 10, price: 4693, name: "10件專尚配套" },
+          { code: "IH0263", qty: 4, price: 1962, name: "4件專尚配套" },
+          { code: "IH1709", qty: 3, price: 1523, name: "3件專尚配套" }
+        ],
+        spec: "10天份量 (30包)",
+        origin: "台灣",
+        intro: "730天長效三次深層發酵後生元多酚與天然有機酸庫。隨餐飲用提供微酸性環境促進固體蛋白與無機礦物質解離；加固腸道黏膜緊密連接，切斷內毒素 LPS 入血誘發的全身血管內皮微發炎。",
+        mechanisms: {
+          2: "深層發酵多酚與天然有機酸輔助游離飲食中的 B12，加固腸黏膜屏障。",
+          3: "修復黏膜緊密連接，阻斷 LPS 入血，活化血管內皮 eNOS 釋放自體 NO 舒緩微血管。",
+          7: "提供天然外源性有機酸環境，物理性軟化分解腸道未解離鈣皂，解除頑固便秘。"
+        }
+      },
+      {
+        id: "34331",
+        name: "Nn 三效益生菌- 長者配方",
+        shortDesc: "專利 4 重微囊包覆雙歧桿菌，重塑心腸軸微生態屏障",
+        price: 409,
+        specialPrice: 327,
+        packages: [
+          { code: "IH0330", qty: 8, price: 2269, name: "8件專尚配套" },
+          { code: "IH2139", qty: 4, price: 1169, name: "4件專尚配套" },
+          { code: "IH1335", qty: 2, price: 599, name: "2件專尚配套" }
+        ],
+        spec: "30包/盒 (30天份量)",
+        origin: "台灣",
+        intro: "專利 4 重微膠囊包覆技術，耐胃酸直達結腸。定殖發酵產生短鏈脂肪酸（丁酸），酸化腸道微環境，促進生理性腸道蠕動，平息全身慢性低度血管發炎。",
+        mechanisms: {
+          2: "重建腸道微生態屏障，降低全身神經內皮慢性微發炎，加固神經外膜屏障。",
+          3: "阻斷腸源性 LPS 滲漏入血，恢復血管內皮自體舒張功能，降低毛細血管通透性。",
+          7: "發酵產生短鏈脂肪酸酸化結腸微環境，促進結腸生理蠕動波，軟化乾硬糞便。"
+        }
+      },
+      {
+        id: "34274",
+        name: "Nn 奧米加-3深海魚油1000",
+        shortDesc: "65% 高濃度 Omega-3，修復周邊神經髓鞘絕緣層",
+        price: 253,
+        specialPrice: 222,
+        packages: [
+          { code: "IH2040", qty: 4, price: 724, name: "4件專尚配套" },
+          { code: "IH1071", qty: 2, price: 372, name: "2件專尚配套" }
+        ],
+        spec: "60粒/瓶 (30天份量)",
+        origin: "挪威",
+        intro: "挪威原裝進口 Pronova Pure 專利魚油，含 65% 高濃度 Omega-3（360mg EPA + 240mg DHA）。DHA 作為神經髓鞘核心脂質建材，促進髓鞘磷脂質合成修復；EPA 轉化為消退素加固微血管內皮。",
+        mechanisms: {
+          2: "高濃度 DHA 嵌入周邊神經膜，修復髓鞘絕緣結構，恢復感覺神經跳躍式傳導。",
+          3: "EPA 轉化為特異性促消退介質加固微血管管壁，降低微血管通透性脆性。",
+          4: "嵌入心肌細胞雙層磷脂調控離子通道，穩定心肌電生理，降低血液黏稠度以減後負荷。"
+        }
+      },
+      {
+        id: "34269",
+        name: "Nn 蝦青素",
+        shortDesc: "日本 AstaREAL® 專利微藻，跨膜抗氧化保護血管糖萼",
+        price: 290,
+        specialPrice: 255,
+        packages: [
+          { code: "IH2030", qty: 5, price: 955, name: "5件專尚配套" }
+        ],
+        spec: "30粒/瓶 (30天份量)",
+        origin: "馬來西亞",
+        intro: "日本 AstaREAL® 天然微藻蝦青素，雙極性跨膜分子穿透血腦屏障與神經微血管，抗氧化力為 Vit C 的 6000 倍。淬滅微血管內皮 ROS，保護微血管內皮糖萼防禦層；薄血藥 100% 零衝突安全替換。",
+        mechanisms: {
+          2: "穿透神經外膜微血管 Vasa Nervorum 淬滅膜自由基，保護神經軸突免受氧化損傷。",
+          3: "強效淬滅活性氧，保護微血管內皮糖萼防禦層，減少 Starling 跨壁壓差外滲。",
+          4: "清除微血管床過氧化脂質，維持血管壁彈性，改善紅血球變形能力以加速釋氧。",
+          5: "穿透血腦屏障淬滅腦血管床自由基，加固微血管內皮，平穩大腦自身調節機能。",
+          6: "跨膜中和呼吸道黏膜氧化自由基，抑制促炎前列腺素生成，修復氣道黏膜屏障。"
+        }
+      },
+      {
+        id: "3491",
+        name: "Nn 有機螺旋藻",
+        shortDesc: "全平衡天然有機電解質離子基石，充盈細胞外液容量",
+        price: 290,
+        specialPrice: 255,
+        packages: [
+          { code: "IH0210", qty: 7, price: 1537, name: "7件專尚配套" },
+          { code: "IH1041", qty: 2, price: 371, name: "2件專尚配套" }
+        ],
+        spec: "30天份量 (200粒)",
+        origin: "馬來西亞",
+        intro: "天然有機高密度螺旋藻，富含有機鉀、鈉、鎂、鐵與高純度植物蛋白，為利尿劑導致水鈉流失長者提供安全、全平衡的晶體滲透壓原料，充盈循環血管床，對沖起立眼前發黑。",
+        mechanisms: {
+          2: "提供天然多維 B 群與植物蛋白微量元素，協同支援周邊神經髓鞘原料供應。",
+          5: "科學補充流失的鉀、鈉、鎂等生理離子，穩定細胞外液晶體滲透壓，穩固循環血容量。"
+        }
+      },
+      {
+        id: "36282",
+        name: "ORIYEN 強心血管通",
+        shortDesc: "高活性天然水蛭素 ＋ 地龍蛋白，強效疏通微靜脈引流",
+        price: 1990,
+        specialPrice: 1990,
+        packages: [
+          { code: "IH2529", qty: 6, price: 7980, name: "6件專尚配套" },
+          { code: "IH0725", qty: 3, price: 4380, name: "3件專尚配套" },
+          { code: "IH1712", qty: 1, price: 1580, name: "1件專尚配套" }
+        ],
+        spec: "30天份量 (60包)",
+        origin: "台灣",
+        intro: "專利水蛭素與地龍蛋白生化複方，強效溶解微血管床微細纖維蛋白凝塊，擴張下肢後微靜脈通道，加速下肢組織間隙過剩濾出液引流回心，徹底打破 CCB 引發之 Starling 流體高壓滯留。（薄血藥用家嚴格禁用）。",
+        mechanisms: {
+          3: "選擇性疏通微血管後微靜脈流體阻力，排空下肢深靜脈淤血，消除下肢腫脹沉重。"
+        }
+      },
+      {
+        id: "0368",
+        name: "SE 紅光光療按摩帶",
+        shortDesc: "630nm/850nm 雙光譜矩陣，活化微循環與呼吸鏈 ATP",
+        price: 2580,
+        specialPrice: 2580,
+        packages: [
+          { code: "IH2143", qty: 1, price: 1780, name: "1件專尚配套" }
+        ],
+        spec: "1套 (光療主機 ＋ 配件)",
+        origin: "韓國設計",
+        intro: "雙波長深層光子穿透軟組織被細胞色素 C 氧化酶吸收，促進 ATP 內源合成與自體 NO 釋放。溫熱下肢與腹部放鬆平滑肌微循環，活化神經外膜滋養血管血液灌注。（C6 乾咳時關閉震動純光療）。",
+        mechanisms: {
+          1: "激發粒線體電子傳遞，促進內源一氧化氮釋放，改善他汀引起之缺血性肌肉痠痛。",
+          2: "活化神經外膜微血管內皮 eNOS，改善神經滋養微血管血液灌注與軸漿流動。",
+          3: "光生物調節促進深層微淋巴管吸收，加速皮下組織積液回流。",
+          6: "照射頸前胸段軟組織，活化呼吸道內皮細胞粒線體，下調神經性微發炎訊號。",
+          7: "深層照射腹壁腸繫膜微血管，增強黏膜血液灌注，促進結腸排空。"
+        }
+      },
+      {
+        id: "38207",
+        name: "Smart Fitness-X 律動拍打機",
+        shortDesc: "精準垂直正弦波 (4-13Hz)，人體第二心臟被動微循環肌泵",
+        price: 22990,
+        specialPrice: 22990,
+        packages: [
+          { code: "IH3005", qty: 1, price: 13990, name: "1部專尚配套" }
+        ],
+        spec: "1部 (旗艦物理律動機)",
+        origin: "台灣製造",
+        intro: "100% 精準垂直正弦律動專利技術，在 4–13Hz 安全頻率範圍內引發肌梭反射性舒縮，充當人體第二心臟機械泵，被動活化微血管網，促進下肢深靜脈血液與淋巴引流回心。（C6 氣道乾咳禁忌排除）。",
+        mechanisms: {
+          1: "在無須消耗心肌儲備下被動活化微血管網，促進骨骼肌乳酸與代謝廢物排泄。",
+          3: "充當人體第二心臟機械動力泵，加速下肢微靜脈與淋巴系統克服重力引流回心。",
+          4: "在不飆升心率下被動舒縮骨骼肌，增加微血管床開放數量，提升肌肉氧氣利用率。",
+          5: "坐姿微幅律動溫和刺激比目魚肌深部肌梭牽張反射，協助將下墜血液泵回心臟。",
+          7: "透過垂直微幅振動被動刺激腹腔內臟平滑肌與結腸蠕動，促進腸道排空。"
+        }
+      }
+    ];
+
+    // --- 30 天套裝庫 (對齊 202609 總表) ---
+    const BUNDLES_DB = [
+      {
+        id: "DIAsthenia_Set_A1",
+        code: "DIAsthenia_Set_A1",
+        name: "治標反噬失衡・30天源頭調養套裝 A1",
+        causeId: 1,
+        isWarfarinSafe: false,
+        price: 19498,
+        origPrice: 30435,
+        save: 10937,
+        discount: "64折",
+        itemsSummary: "ORIYEN 肝再生 x 1 ＋ Nn 水溶性輔酶 Q10 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ ORIYEN 蛋白高營素 x 3 ＋ SE 紅光光療按摩帶 x 1 ＋ Smart Fitness X 律動拍打機 x 1",
+        desc: "30天肌肉能量全景旗艦套裝（針對他汀類肌痛乏力）。水溶 Q10 與酵母 NMN 呼吸鏈雙引擎；肝再生活化 Nrf2 降低他汀在肝臟代謝阻滯與周邊毒性溢出；微米液鈣鎂平衡細胞鈣泵；紅光帶與律動機被動活化微血管。"
+      },
+      {
+        id: "DIAsthenia_Set_A2",
+        code: "DIAsthenia_Set_A2",
+        name: "治標反噬失衡・30天源頭調養套裝 A2",
+        causeId: 1,
+        isWarfarinSafe: false,
+        price: 5508,
+        origPrice: 7445,
+        save: 1937,
+        discount: "74折",
+        itemsSummary: "ORIYEN 肝再生 x 1 ＋ Nn 水溶性輔酶 Q10 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ ORIYEN 蛋白高營素 x 3 ＋ SE 紅光光療按摩帶 x 1",
+        desc: "30天肌肉能量核心套裝。高活性水溶 Q10 回補呼吸鏈電子載體，肝再生 PPC 修護肝細胞膜降低藥物溢出，雙光譜紅光帶深層放鬆缺血肌肉痠痛。"
+      },
+      {
+        id: "DIAsthenia_Set_B1",
+        code: "DIAsthenia_Set_B1",
+        name: "治標反噬失衡・30天源頭調養套裝 B1",
+        causeId: 2,
+        isWarfarinSafe: false,
+        price: 6292,
+        origPrice: 8257,
+        save: 1965,
+        discount: "76折",
+        itemsSummary: "Nn 水溶性輔酶 Q10 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 奧米加-3深海魚油1000 x 1 ＋ Nn 有機螺旋藻 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ SE 紅光光療按摩帶 x 1",
+        desc: "30天末梢神經滋養核心套裝（針對雙胍類 Metformin 麻木）。高濃度魚油 DHA 修復神經髓鞘絕緣層；果蔬酵素游離 B12；水溶 Q10 與 NMN 對沖 Complex I 抑制；紅光帶改善 Vasa Nervorum 滋養血管血流。"
+      },
+      {
+        id: "DIAsthenia_Set_B2",
+        code: "DIAsthenia_Set_B2",
+        name: "治標反噬失衡・30天源頭調養套裝 B2",
+        causeId: 2,
+        isWarfarinSafe: true,
+        price: 6859,
+        origPrice: 9021,
+        save: 2162,
+        discount: "76折",
+        itemsSummary: "Nn 水溶性輔酶 Q10 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 蝦青素 x 1 ＋ ORIYEN 蛋白高營素 x 3 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ SE 紅光光療按摩帶 x 1",
+        desc: "30天末梢神經滋養套裝（薄血藥抗凝劑專屬）。100% 零出血風險。以日本微藻蝦青素跨膜抗氧化代替魚油，蛋白高營素微脂體卵磷脂 PC 提供髓鞘建材，安全修復末梢神經麻木刺痛。"
+      },
+      {
+        id: "DIAsthenia_Set_C1",
+        code: "DIAsthenia_Set_C1",
+        name: "治標反噬失衡・30天源頭調養套裝 C1",
+        causeId: 3,
+        isWarfarinSafe: false,
+        price: 20113,
+        origPrice: 31131,
+        save: 11018,
+        discount: "65折",
+        itemsSummary: "ORIYEN 肝再生 x 1 ＋ Nn 蝦青素 x 1 ＋ Nn 奧米加-3深海魚油1000 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ ORIYEN 強心血管通 x 1 ＋ SE 紅光光療按摩帶 x 1 ＋ Smart Fitness X 律動拍打機 x 1",
+        desc: "30天微血管水液流動全景旗艦套裝（針對 CCB 腳腫夜尿）。強心血管通溶解微栓疏通微靜脈阻抗；NMN 活化 SIRT1 修復緊密連接蛋白 Claudin-5；蝦青素保護內皮糖萼防滲；律動機被動排空深靜脈積水。"
+      },
+      {
+        id: "DIAsthenia_Set_C2",
+        code: "DIAsthenia_Set_C2",
+        name: "治標反噬失衡・30天源頭調養套裝 C2",
+        causeId: 3,
+        isWarfarinSafe: false,
+        price: 6123,
+        origPrice: 8141,
+        save: 2018,
+        discount: "75折",
+        itemsSummary: "ORIYEN 肝再生 x 1 ＋ Nn 蝦青素 x 1 ＋ Nn 奧米加-3深海魚油1000 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ ORIYEN 強心血管通 x 1 ＋ SE 紅光光療按摩帶 x 1",
+        desc: "30天微血管水液流動核心套裝。強心血管通協同天然酵母 NMN 與雙光譜紅光帶，疏通深層微循環微灌注，排空深靜脈積水，消除傍晚腳踝凹陷水腫。"
+      },
+      {
+        id: "DIAsthenia_Set_C3",
+        code: "DIAsthenia_Set_C3",
+        name: "治標反噬失衡・30天源頭調養套裝 C3",
+        causeId: 3,
+        isWarfarinSafe: true,
+        price: 20458,
+        origPrice: 31534,
+        save: 11076,
+        discount: "65折",
+        itemsSummary: "ORIYEN 肝再生 x 1 ＋ Nn 蝦青素 x 1 ＋ Nn 水溶性輔酶 Q10 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ SE 紅光光療按摩帶 x 1 ＋ Smart Fitness X 律動拍打機 x 1",
+        desc: "30天微血管水液流動全景套裝（薄血藥抗凝劑專屬）。100% 零水蛭素與納豆成分。以日本微藻蝦青素、果蔬酵素與長者益生菌加固內皮糖萼，NMN 修復 Claudin-5，配合紅光帶與律動機深層物理回流。"
+      },
+      {
+        id: "DIAsthenia_Set_C4",
+        code: "DIAsthenia_Set_C4",
+        name: "治標反噬失衡・30天源頭調養套裝 C4",
+        causeId: 3,
+        isWarfarinSafe: true,
+        price: 6468,
+        origPrice: 8544,
+        save: 2076,
+        discount: "76折",
+        itemsSummary: "ORIYEN 肝再生 x 1 ＋ Nn 蝦青素 x 1 ＋ Nn 水溶性輔酶 Q10 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ SE 紅光光療按摩帶 x 1",
+        desc: "30天微血管水液流動核心套裝（薄血藥抗凝劑專屬）。微藻蝦青素、水溶 Q10、酵素與益生菌深度調理心腸軸微血管通透性，配合紅光帶溫和消除下肢淤脹。"
+      }
+    ];
+
+    let selectedCauseId = 1;
+    let isWarfarinUser = false;
+    let cart = {};
+
+    function handleOptionCheck(el) {
+      const groupName = el.dataset.group;
+      const isNone = el.dataset.none === "true";
+      const allInGroup = document.querySelectorAll(`input[data-group="${groupName}"]`);
+
+      if (isNone && el.checked) {
+        allInGroup.forEach(cb => {
+          if (cb !== el) cb.checked = false;
+        });
+      } else if (!isNone && el.checked) {
+        const noneCb = document.querySelector(`input[data-group="${groupName}"][data-none="true"]`);
+        if (noneCb) noneCb.checked = false;
+      }
+    }
+
+    function submitAssessment() {
+      const redflags = document.querySelectorAll('input[name="redflag"]:checked');
+      if (redflags.length > 0) {
+        document.getElementById('redflagAlert').style.display = 'block';
+        document.getElementById('redflagAlert').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      let scores = { c1: 0, c2: 0, c3: 0, c4: 0, c5: 0, c6: 0, c7: 0 };
+      let hardcores = { c1: false, c2: false, c3: false, c4: false, c5: false, c6: false, c7: false };
+      isWarfarinUser = false;
+
+      const checkedOptions = document.querySelectorAll('#quiz-section input[type="checkbox"]:checked');
+      checkedOptions.forEach(cb => {
+        if (cb.dataset.warfarin === "true") {
+          isWarfarinUser = true;
+        }
+        if (cb.dataset.cause) {
+          const causes = cb.dataset.cause.split(',');
+          const pts = parseInt(cb.dataset.score || "1");
+          const isHard = cb.dataset.hardcore === "true";
+          causes.forEach(c => {
+            const key = c.trim();
+            if (scores[key] !== undefined) {
+              scores[key] += pts;
+              if (isHard) hardcores[key] = true;
+            }
+          });
+        }
+      });
+
+      let maxScore = -1;
+      let candidates = [];
+      for (let c in scores) {
+        if (scores[c] > maxScore) {
+          maxScore = scores[c];
+          candidates = [c];
+        } else if (scores[c] === maxScore) {
+          candidates.push(c);
+        }
+      }
+
+      let winningCauseKey = candidates[0] || "c1";
+      if (candidates.length > 1) {
+        let hardcoreMatches = candidates.filter(c => hardcores[c]);
+        if (hardcoreMatches.length === 1) {
+          winningCauseKey = hardcoreMatches[0];
+        } else {
+          // 臨床安全仲裁優先級：低血壓(c5) > 心率滯後(c4) > 乾咳(c6) > 鈣皂便秘(c7) > 水腫(c3) > 神經(c2) > 肌痛(c1)
+          const priority = ["c5", "c4", "c6", "c7", "c3", "c2", "c1"];
+          for (let p of priority) {
+            if (candidates.includes(p)) {
+              winningCauseKey = p;
+              break;
+            }
+          }
+        }
+      }
+
+      const causeMap = { "c1": 1, "c2": 2, "c3": 3, "c4": 4, "c5": 5, "c6": 6, "c7": 7 };
+      selectedCauseId = causeMap[winningCauseKey] || 1;
+
+      renderReport(scores, selectedCauseId);
+      renderProducts(selectedCauseId);
+      renderBundles(selectedCauseId);
+
+      document.getElementById('report-section').style.display = 'block';
+      document.getElementById('solution-section').style.display = 'block';
+      document.getElementById('cart-order-section').style.display = 'block';
+      document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderReport(scores, causeId) {
+      const cause = CAUSES_DATA[causeId];
+      const userName = document.getElementById('quizUserName').value.trim() || "朋友";
+
+      document.getElementById('reportCauseTitle').innerText = `${userName}的分析結果：${cause.name}`;
+      document.getElementById('reportCauseQuote').innerText = `「${cause.quote}」`;
+      document.getElementById('reportCauseDesc').innerText = cause.desc;
+
+      document.getElementById('blockD_Bio').innerHTML = `<strong>🔬 生理病理機轉解說（Bio）：</strong><span>${cause.blockD_Bio}</span>`;
+      document.getElementById('blockD_Eng').innerHTML = `<strong>⚙️ 系統工程學直白比喻（Eng）：</strong><span>${cause.blockD_Eng}</span>`;
+
+      const stepsList = document.getElementById('blockE_Steps');
+      stepsList.innerHTML = cause.blockE_Steps.map((step, idx) => `
+        <li>
+          <span class="step-num">${idx+1}</span>
+          <span>${step}</span>
+        </li>
+      `).join('');
+      document.getElementById('blockE_Warning').innerText = cause.blockE_Warning;
+
+      document.getElementById('blockF_Physics').innerHTML = `<strong>⚡ 實證物理與理療介入：</strong><span>${cause.blockF_Physics}</span>`;
+      document.getElementById('blockF_Nutrition').innerHTML = `<strong>🌿 細胞生化關鍵營養靶點：</strong><span>${cause.blockF_Nutrition}</span>`;
+      document.getElementById('blockF_Banner').innerText = cause.blockF_Banner;
+
+      const totalScore = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
+      const ratioContainer = document.getElementById('causeRatioList');
+      ratioContainer.innerHTML = '';
+
+      for (let c in scores) {
+        const cId = parseInt(c.replace('c', ''));
+        const cName = CAUSES_DATA[cId].name.split('（')[0];
+        const pct = Math.round((scores[c] / totalScore) * 100);
+        ratioContainer.innerHTML += `
+          <div class="ratio-bar-wrap">
+            <div class="ratio-label">
+              <span>${cName}</span>
+              <span>${pct}%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: ${pct}%;"></div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function renderProducts(causeId) {
+      const listEl = document.getElementById('block-g-products-list');
+      const singleEl = document.getElementById('block-h-single-products');
+      listEl.innerHTML = '';
+      singleEl.innerHTML = '';
+
+      PRODUCTS_DB.forEach(prod => {
+        // 薄血藥安全排除
+        if (isWarfarinUser && (prod.id === "36282" || prod.id === "34274")) {
+          return;
+        }
+        // C6 呼吸道乾咳排除律動機
+        if (causeId === 6 && prod.id === "38207") {
+          return;
+        }
+
+        const mechText = prod.mechanisms[causeId] || prod.intro.slice(0, 80) + "...";
+        const cardHtml = `
+          <div class="prod-card">
+            <div>
+              <span class="prod-badge">${prod.spec} ｜ ${prod.origin}</span>
+              <h4 class="prod-title">${prod.name}</h4>
+              <p class="prod-spec">${prod.shortDesc}</p>
+              <p class="prod-mech"><strong>修復原理：</strong>${mechText}</p>
+            </div>
+            <div class="prod-price-row">
+              <div class="prod-price">
+                <s>HKD ${prod.price}</s>
+                <span>特別優惠價 HKD ${prod.specialPrice}</span>
+              </div>
+              <div class="qty-counter">
+                <button class="qty-btn" onclick="updateCart('prod_${prod.id}', -1, ${prod.price}, '${prod.name}')">-</button>
+                <span id="qty_prod_${prod.id}" class="qty-val">0</span>
+                <button class="qty-btn" onclick="updateCart('prod_${prod.id}', 1, ${prod.price}, '${prod.name}')">+</button>
+              </div>
+            </div>
+          </div>
+        `;
+        listEl.innerHTML += cardHtml;
+        singleEl.innerHTML += cardHtml;
+      });
+    }
+
+    function renderBundles(causeId) {
+      const container = document.getElementById('block-h-bundles');
+      container.innerHTML = '';
+
+      let matchedBundles = BUNDLES_DB.filter(b => b.causeId === causeId);
+      if (isWarfarinUser) {
+        matchedBundles = matchedBundles.filter(b => b.isWarfarinSafe);
+      }
+      if (matchedBundles.length === 0) matchedBundles = BUNDLES_DB;
+
+      matchedBundles.forEach(bundle => {
+        container.innerHTML += `
+          <div class="prod-card" style="border: 2px solid var(--color-primary); background: #FAFDFD;">
+            <div>
+              <span class="prod-badge" style="background:#CCFBF1; color:#0F766E;">30天完整套裝 ｜ ${bundle.discount}</span>
+              <h4 class="prod-title" style="color:#0F766E;">${bundle.name}</h4>
+              <p class="prod-spec" style="font-weight:700; color:#334155;">內含：${bundle.itemsSummary}</p>
+              <p class="prod-mech">${bundle.desc}</p>
+            </div>
+            <div class="prod-price-row">
+              <div class="prod-price">
+                <s>HKD ${bundle.origPrice.toLocaleString()}</s>
+                <span>套裝價 HKD ${bundle.price.toLocaleString()}</span>
+                <span style="font-size:12px; color:#10B981; margin-left:4px;">(慳 $${bundle.save.toLocaleString()})</span>
+              </div>
+              <div class="qty-counter">
+                <button class="qty-btn" onclick="updateCart('bun_${bundle.id}', -1, ${bundle.price}, '${bundle.name}')">-</button>
+                <span id="qty_bun_${bundle.id}" class="qty-val">0</span>
+                <button class="qty-btn" onclick="updateCart('bun_${bundle.id}', 1, ${bundle.price}, '${bundle.name}')">+</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function calcItemOptimalSpecialPrice(prod, qty) {
+      if (qty <= 0) return { finalCost: 0, breakdownList: [] };
+      let remaining = qty;
+      let cost = 0;
+      let breakdown = [];
+
+      if (prod.packages && prod.packages.length > 0) {
+        for (let p of prod.packages) {
+          if (remaining >= p.qty) {
+            let sets = Math.floor(remaining / p.qty);
+            cost += sets * p.price;
+            remaining = remaining % p.qty;
+            breakdown.push({ code: p.code, name: p.name, sets: sets, totalUnits: sets * p.qty, cost: sets * p.price });
+          }
+        }
+      }
+      if (remaining > 0) {
+        let singleUnitCost = prod.specialPrice || prod.price;
+        cost += remaining * singleUnitCost;
+        breakdown.push({ code: prod.id, name: "特別單件價", sets: remaining, totalUnits: remaining, cost: remaining * singleUnitCost });
+      }
+      return { finalCost: cost, breakdownList: breakdown };
+    }
+
+    function updateCart(key, delta, price, title) {
+      if (!cart[key]) {
+        cart[key] = { qty: 0, price: price, title: title };
+      }
+      cart[key].qty = Math.max(0, cart[key].qty + delta);
+      if (cart[key].qty === 0) {
+        delete cart[key];
+      }
+      const qtyEls = document.querySelectorAll('#qty_' + key);
+      qtyEls.forEach(el => {
+        el.innerText = cart[key] ? cart[key].qty : 0;
+      });
+      recalculateCart();
+    }
+
+    function clearCart() {
+      for (let k in cart) {
+        const qtyEls = document.querySelectorAll('#qty_' + k);
+        qtyEls.forEach(el => el.innerText = '0');
+      }
+      cart = {};
+      recalculateCart();
+    }
+
+    function recalculateCart() {
+      let hasBundle = false;
+      let singleItemsCount = 0;
+      let totalUnitsCount = 0;
+      let referenceRetailTotal = 0;
+      let hiddenSpecialSingleTotal = 0;
+      let actualBundleCost = 0;
+      let singleItemsBreakdown = {};
+
+      for (let k in cart) {
+        const item = cart[k];
+        if (item.qty <= 0) continue;
+        totalUnitsCount += item.qty;
+
+        if (k.startsWith('bun_')) {
+          hasBundle = true;
+          const bId = k.replace('bun_', '');
+          const bundleObj = BUNDLES_DB.find(b => b.id === bId);
+          if (bundleObj) {
+            actualBundleCost += (bundleObj.price * item.qty);
+            referenceRetailTotal += (bundleObj.origPrice * item.qty);
+          } else {
+            actualBundleCost += (item.price * item.qty);
+            referenceRetailTotal += (item.price * item.qty);
+          }
+        } else if (k.startsWith('prod_')) {
+          singleItemsCount += item.qty;
+          const pId = k.replace('prod_', '');
+          const prodObj = PRODUCTS_DB.find(p => p.id === pId);
+          if (prodObj) {
+            referenceRetailTotal += (prodObj.price * item.qty);
+            const optimal = calcItemOptimalSpecialPrice(prodObj, item.qty);
+            hiddenSpecialSingleTotal += optimal.finalCost;
+            singleItemsBreakdown[pId] = optimal;
+          } else {
+            referenceRetailTotal += (item.price * item.qty);
+            hiddenSpecialSingleTotal += (item.price * item.qty);
+          }
+        }
+      }
+
+      if (totalUnitsCount === 0) {
+        document.getElementById('cart-summary-items').innerHTML = '購物車目前為空';
+        document.getElementById('cart-subtotal').innerText = 'HKD 0';
+        document.getElementById('cart-shipping').innerText = 'HKD 0';
+        document.getElementById('cart-total').innerText = 'HKD 0';
+        return;
+      }
+
+      const isQualifiedForSpecialOffer = hasBundle || (hiddenSpecialSingleTotal >= 1000);
+      let finalGoodsSubtotal = 0;
+      let summaryHtml = '';
+
+      for (let k in cart) {
+        const item = cart[k];
+        if (item.qty <= 0) continue;
+
+        if (k.startsWith('bun_')) {
+          const bId = k.replace('bun_', '');
+          const bObj = BUNDLES_DB.find(b => b.id === bId);
+          const bPrice = bObj ? bObj.price : item.price;
+          const bLineCost = bPrice * item.qty;
+          finalGoodsSubtotal += bLineCost;
+          summaryHtml += `
+            <div class="summary-line">
+              <span>${item.title} x ${item.qty}</span>
+              <span style="font-weight: 700;">HKD ${bLineCost.toLocaleString()}</span>
+            </div>
+          `;
+        } else if (k.startsWith('prod_')) {
+          const pId = k.replace('prod_', '');
+          const pObj = PRODUCTS_DB.find(p => p.id === pId);
+          let pLineCost = 0;
+          if (isQualifiedForSpecialOffer) {
+            pLineCost = singleItemsBreakdown[pId] ? singleItemsBreakdown[pId].finalCost : (item.price * item.qty);
+          } else {
+            pLineCost = (pObj ? pObj.price : item.price) * item.qty;
+          }
+          finalGoodsSubtotal += pLineCost;
+          summaryHtml += `
+            <div class="summary-line">
+              <span>${item.title} x ${item.qty}</span>
+              <span style="font-weight: 700;">HKD ${pLineCost.toLocaleString()}</span>
+            </div>
+          `;
+        }
+      }
+
+      const savedAmount = referenceRetailTotal - finalGoodsSubtotal;
+      let discountRateStr = "";
+      if (referenceRetailTotal > 0 && savedAmount > 0) {
+        const rate = Math.round((finalGoodsSubtotal / referenceRetailTotal) * 10);
+        discountRateStr = rate < 10 ? `${rate}折` : "特別折";
+      }
+
+      let promoBannerHtml = '';
+      if (isQualifiedForSpecialOffer && savedAmount > 0) {
+        promoBannerHtml = `
+          <div style="background: #CCFBF1; border-left: 4px solid var(--color-primary); border-radius: var(--radius-sm); padding: 9px 14px; margin-bottom: 12px; font-size: 14.5px; font-weight: 800; color: #0F766E; display: flex; justify-content: space-between; align-items: center;">
+            <span>✨ 已享特別優惠價</span>
+            <span>已慳 HKD ${savedAmount.toLocaleString()} (${discountRateStr})</span>
+          </div>
+        `;
+      } else if (!hasBundle && singleItemsCount > 0 && hiddenSpecialSingleTotal < 1000) {
+        promoBannerHtml = `
+          <div style="background: #FFFBEB; border-left: 4px solid var(--color-warning); border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 12px; font-size: 13.5px; color: #92400E; font-weight: 600;">
+            💡 提示：單品選購滿 HKD 1,000 即自動啟動「特別優惠」！
+          </div>
+        `;
+      }
+
+      document.getElementById('cart-summary-items').innerHTML = promoBannerHtml + summaryHtml;
+
+      if (savedAmount > 0) {
+        document.getElementById('cart-subtotal').innerHTML = `
+          <span style="text-decoration: line-through; color: var(--color-text-sub); font-size: 13.5px; margin-right: 6px;">HKD ${referenceRetailTotal.toLocaleString()}</span>
+          <span style="color: var(--color-accent-text); font-weight: 800;">HKD ${finalGoodsSubtotal.toLocaleString()}</span>
+        `;
+      } else {
+        document.getElementById('cart-subtotal').innerText = `HKD ${finalGoodsSubtotal.toLocaleString()}`;
+      }
+
+      let shipping = (finalGoodsSubtotal >= 400) ? 0 : 40;
+      document.getElementById('cart-shipping').innerText = (shipping === 0) ? '免費 (滿額免運)' : `HKD ${shipping}`;
+      document.getElementById('cart-total').innerText = `HKD ${(finalGoodsSubtotal + shipping).toLocaleString()}`;
+    }
+
+    function submitOrderDualTrack() {
+      const name = document.getElementById('order_recipient_name').value.trim();
+      const phone = document.getElementById('order_recipient_phone').value.trim();
+      const address = document.getElementById('order_recipient_address').value.trim();
+      const hasLift = document.getElementById('order_has_lift').checked;
+      const paymentMethod = document.querySelector('input[name="order_payment"]:checked')?.value || "FPS 轉數快";
+
+      if (Object.keys(cart).length === 0) {
+        alert('請先選取所需單品或調理套裝！');
+        return;
+      }
+      if (!name || !phone || !address) {
+        alert('請完整填寫收件人姓名、電話及詳細收貨地址！');
+        return;
+      }
+
+      let hasBundle = false;
+      let hiddenSpecialSingleTotal = 0;
+      let referenceRetailTotal = 0;
+      let singleItemsBreakdown = {};
+
+      for (let k in cart) {
+        const item = cart[k];
+        if (item.qty <= 0) continue;
+        if (k.startsWith('bun_')) {
+          hasBundle = true;
+          const bId = k.replace('bun_', '');
+          const bundleObj = BUNDLES_DB.find(b => b.id === bId);
+          referenceRetailTotal += ((bundleObj ? bundleObj.origPrice : item.price) * item.qty);
+        } else if (k.startsWith('prod_')) {
+          const pId = k.replace('prod_', '');
+          const prodObj = PRODUCTS_DB.find(p => p.id === pId);
+          if (prodObj) {
+            referenceRetailTotal += (prodObj.price * item.qty);
+            const optimal = calcItemOptimalSpecialPrice(prodObj, item.qty);
+            hiddenSpecialSingleTotal += optimal.finalCost;
+            singleItemsBreakdown[pId] = optimal;
+          }
+        }
+      }
+
+      const isQualifiedForSpecialOffer = hasBundle || (hiddenSpecialSingleTotal >= 1000);
+      let finalGoodsSubtotal = 0;
+      let orderItems = [];
+      let backendProcurementList = [];
+
+      for (let k in cart) {
+        const item = cart[k];
+        if (item.qty <= 0) continue;
+        if (k.startsWith('bun_')) {
+          const bId = k.replace('bun_', '');
+          const bObj = BUNDLES_DB.find(b => b.id === bId);
+          const bPrice = bObj ? bObj.price : item.price;
+          finalGoodsSubtotal += (bPrice * item.qty);
+          orderItems.push(`${item.title} x ${item.qty} (HKD ${(bPrice * item.qty).toLocaleString()})`);
+          backendProcurementList.push(`[30天套裝] ${bObj ? bObj.code : bId} x ${item.qty}`);
+        } else if (k.startsWith('prod_')) {
+          const pId = k.replace('prod_', '');
+          const pObj = PRODUCTS_DB.find(p => p.id === pId);
+          let pCost = 0;
+          if (isQualifiedForSpecialOffer && singleItemsBreakdown[pId]) {
+            pCost = singleItemsBreakdown[pId].finalCost;
+            let bdStr = singleItemsBreakdown[pId].breakdownList.map(b => `${b.sets}組${b.name}(${b.code})`).join('+');
+            backendProcurementList.push(`[單品拆解] ${pObj.name} x ${item.qty} 件 ➔ 採購: ${bdStr} = HKD ${pCost}`);
+          } else {
+            pCost = (pObj ? pObj.price : item.price) * item.qty;
+            backendProcurementList.push(`[一般單品] ${pObj.name} x ${item.qty} 件 = HKD ${pCost}`);
+          }
+          finalGoodsSubtotal += pCost;
+          orderItems.push(`${item.title} x ${item.qty} (HKD ${pCost.toLocaleString()})`);
+        }
+      }
+
+      const shipping = (finalGoodsSubtotal >= 400) ? 0 : 40;
+      const total = finalGoodsSubtotal + shipping;
+      const savedAmount = referenceRetailTotal - finalGoodsSubtotal;
+      let discountRateStr = "";
+      if (referenceRetailTotal > 0 && savedAmount > 0) {
+        const rate = Math.round((finalGoodsSubtotal / referenceRetailTotal) * 10);
+        discountRateStr = rate < 10 ? `${rate}折` : "特別折";
+      }
+
+      const orderId = 'DIASTH-' + Math.floor(100000 + Math.random() * 900000);
+      const liftText = hasLift ? "有升降機" : "無升降機（唐樓需現場付樓梯費）";
+
+      let waText = `【Health Decoder 治標反噬失衡專題訂單】%0A` +
+        `訂單編號：${orderId}%0A` +
+        `主診斷成因：${CAUSES_DATA[selectedCauseId].name}%0A` +
+        `收件人：${encodeURIComponent(name)}%0A` +
+        `聯絡電話：${encodeURIComponent(phone)}%0A` +
+        `送貨地址：${encodeURIComponent(address)} (${encodeURIComponent(liftText)})%0A%0A` +
+        `【訂購明細】%0A` +
+        orderItems.map(i => `• ${encodeURIComponent(i)}`).join('%0A') + `%0A%0A`;
+
+      if (savedAmount > 0) {
+        waText += `原價參考：HKD ${referenceRetailTotal.toLocaleString()}%0A` +
+          `特別優惠小計：HKD ${finalGoodsSubtotal.toLocaleString()}%0A` +
+          `已節省金額：HKD ${savedAmount.toLocaleString()} (${discountRateStr})%0A`;
+      } else {
+        waText += `商品小計：HKD ${finalGoodsSubtotal.toLocaleString()}%0A`;
+      }
+
+      waText += `運費：HKD ${shipping}%0A` +
+        `應付總額：HKD ${total.toLocaleString()}%0A` +
+        `付款方式：${encodeURIComponent(paymentMethod)}%0A%0A` +
+        `麻煩為我發送收款碼（FPS/PayMe/AlipayHK）以完成確認，謝謝！`;
+
+      const orderPayload = {
+        orderId: orderId,
+        topic: "治標反噬失衡專題",
+        customer: { name: name, phone: phone, address: address, hasLift: hasLift },
+        primaryCause: CAUSES_DATA[selectedCauseId].name,
+        paymentMethod: paymentMethod,
+        items: orderItems,
+        backendProcurementNote: backendProcurementList.join(' | '),
+        referenceRetailTotal: referenceRetailTotal,
+        subtotal: finalGoodsSubtotal,
+        savedAmount: savedAmount,
+        discountRate: discountRateStr,
+        shipping: shipping,
+        total: total,
+        timestamp: new Date().toISOString()
+      };
+
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzL5T1_Jg8YfT5c0-1vA7_XJ9Z0K_test/exec";
+      try {
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderPayload)
+        }).catch(err => console.log('Apps Script log note:', err));
+      } catch (e) { }
+
+      const waUrl = `https://wa.me/85294997604?text=${waText}`;
+      window.open(waUrl, '_blank');
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

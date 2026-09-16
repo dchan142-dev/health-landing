@@ -1725,6 +1725,7 @@
       </section>
 
       <!-- Block H: 選取適合自己的專屬方案 (四層扁平選購架構 ✕ 單品行自帶「產品詳情」Pop-up A ✕ 唯一訂單編號雙軌下單) -->
+            <!-- Block H: 選取適合自己的改善方案 (四層扁平選購架構 ✕ 單品行自帶「產品詳情」Pop-up A ✕ 唯一訂單編號雙軌下單) -->
       <section id="blockH" class="section-card">
         <h2 style="margin-top: 0;">選取適合自己的改善方案</h2>
 
@@ -1760,7 +1761,7 @@
           </div>
         </div>
 
-        <!-- 第四層：物流訊息表單 (單欄獨立分行，地址純淨 Placeholder) -->
+        <!-- 第四層：物流訊息表單 (單欄獨立分行，付款方式選項，地址純淨 Placeholder) -->
         <form id="orderForm" style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px;">
           <h3 style="font-size: 16px; font-weight: 800; color: var(--color-primary); margin-bottom: 14px;">📦 填寫物流訊息</h3>
           <div style="margin-bottom: 12px;">
@@ -1780,6 +1781,20 @@
               <input type="checkbox" id="order_has_lift" checked style="width: 18px; height: 18px; margin-right: 8px;">
               <span style="font-size: 14px; font-weight: 600;">大廈設有升降機直達（若無升降機需現場自付每層 HKD 50 樓梯費）</span>
             </label>
+          </div>
+          <div style="margin-bottom: 18px;">
+            <label style="font-size: 14px; font-weight: 700; display: block; margin-bottom: 8px; color: var(--color-text-main);">付款方式 *</label>
+            <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
+                <input type="radio" name="order_payment" value="FPS 轉數快" checked style="width: 18px; height: 18px;"> 🔵 FPS 轉數快 (預設)
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
+                <input type="radio" name="order_payment" value="PayMe" style="width: 18px; height: 18px;"> 🔴 PayMe
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
+                <input type="radio" name="order_payment" value="AlipayHK" style="width: 18px; height: 18px;"> 🔵 AlipayHK
+              </label>
+            </div>
           </div>
           <button type="button" class="btn-accent" style="font-size: 18px; padding: 16px; width: 100%; font-weight: 800;" onclick="submitOrderDualTrack()">
             確認送出訂單
@@ -3233,6 +3248,34 @@
       });
     }
 
+        // =========================================================================
+    // 購物車核心結算引擎 (滿 HKD 1,200 特別優惠 ✕ 階梯最優配對 ✕ 雙軌下單)
+    // =========================================================================
+    function calcItemOptimalSpecialPrice(prod, qty) {
+      if (qty <= 0) return { finalCost: 0, breakdownList: [] };
+      let remaining = qty;
+      let cost = 0;
+      let breakdown = [];
+
+      // packages 已由大至小排序
+      if (prod.packages && prod.packages.length > 0) {
+        for (let p of prod.packages) {
+          if (remaining >= p.qty) {
+            let sets = Math.floor(remaining / p.qty);
+            cost += sets * p.price;
+            remaining = remaining % p.qty;
+            breakdown.push({ code: p.code, name: p.name, sets: sets, totalUnits: sets * p.qty, cost: sets * p.price });
+          }
+        }
+      }
+      if (remaining > 0) {
+        let singleUnitCost = prod.specialPrice || prod.price;
+        cost += remaining * singleUnitCost;
+        breakdown.push({ code: prod.id, name: "特別單件價", sets: remaining, totalUnits: remaining, cost: remaining * singleUnitCost });
+      }
+      return { finalCost: cost, breakdownList: breakdown };
+    }
+
     function updateCart(key, delta, price, title) {
       if (!cart[key]) {
         cart[key] = { qty: 0, price: price, title: title };
@@ -3249,27 +3292,136 @@
     }
 
     function recalculateCart() {
-      let subtotal = 0;
-      let count = 0;
-      let summaryHtml = '';
+      let hasBundle = false;
+      let singleItemsCount = 0;
+      let totalUnitsCount = 0;
+      let referenceRetailTotal = 0; // 原價參考
+      let hiddenSpecialSingleTotal = 0; // 隱藏單品特別優惠總額 (用於門檻檢測)
+      let actualBundleCost = 0; // 套裝實收金額
+
+      let singleItemsBreakdown = {};
+
       for (let k in cart) {
         const item = cart[k];
-        subtotal += (item.qty * item.price);
-        count += item.qty;
-        summaryHtml += `<div class="summary-line"><span>${item.title} x ${item.qty}</span><span style="font-weight: 700;">HKD ${(item.qty * item.price).toLocaleString()}</span></div>`;
+        if (item.qty <= 0) continue;
+        totalUnitsCount += item.qty;
+
+        if (k.startsWith('bun_')) {
+          hasBundle = true;
+          const bId = k.replace('bun_', '');
+          const bundleObj = BUNDLES_DB.find(b => b.id === bId);
+          if (bundleObj) {
+            actualBundleCost += (bundleObj.price * item.qty);
+            referenceRetailTotal += (bundleObj.origPrice * item.qty);
+          } else {
+            actualBundleCost += (item.price * item.qty);
+            referenceRetailTotal += (item.price * item.qty);
+          }
+        } else if (k.startsWith('prod_')) {
+          singleItemsCount += item.qty;
+          const pId = k.replace('prod_', '');
+          const prodObj = PRODUCTS_DB.find(p => p.id === pId);
+          if (prodObj) {
+            referenceRetailTotal += (prodObj.price * item.qty);
+            const optimal = calcItemOptimalSpecialPrice(prodObj, item.qty);
+            hiddenSpecialSingleTotal += optimal.finalCost;
+            singleItemsBreakdown[pId] = optimal;
+          } else {
+            referenceRetailTotal += (item.price * item.qty);
+            hiddenSpecialSingleTotal += (item.price * item.qty);
+          }
+        }
       }
-      if (count === 0) {
+
+      if (totalUnitsCount === 0) {
         document.getElementById('cart-summary-items').innerHTML = '購物車目前為空';
         document.getElementById('cart-subtotal').innerText = 'HKD 0';
         document.getElementById('cart-shipping').innerText = 'HKD 0';
         document.getElementById('cart-total').innerText = 'HKD 0';
         return;
       }
-      document.getElementById('cart-summary-items').innerHTML = summaryHtml;
-      document.getElementById('cart-subtotal').innerText = `HKD ${subtotal.toLocaleString()}`;
-      let shipping = (subtotal >= 400) ? 0 : 40;
+
+      // 特別優惠門檻判定：有選購30天套裝，或選購單品金額滿 HKD 1,200 即享特別折扣
+      const isQualifiedForSpecialOffer = hasBundle || (referenceRetailTotal >= 1200) || (hiddenSpecialSingleTotal >= 1200);
+
+      let finalGoodsSubtotal = 0;
+      let summaryHtml = '';
+
+      for (let k in cart) {
+        const item = cart[k];
+        if (item.qty <= 0) continue;
+
+        if (k.startsWith('bun_')) {
+          const bId = k.replace('bun_', '');
+          const bObj = BUNDLES_DB.find(b => b.id === bId);
+          const bPrice = bObj ? bObj.price : item.price;
+          const bLineCost = bPrice * item.qty;
+          finalGoodsSubtotal += bLineCost;
+          summaryHtml += `
+            <div class="summary-line">
+              <span>${item.title} x ${item.qty}</span>
+              <span style="font-weight: 700;">HKD ${bLineCost.toLocaleString()}</span>
+            </div>
+          `;
+        } else if (k.startsWith('prod_')) {
+          const pId = k.replace('prod_', '');
+          const pObj = PRODUCTS_DB.find(p => p.id === pId);
+          let pLineCost = 0;
+
+          if (isQualifiedForSpecialOffer) {
+            pLineCost = singleItemsBreakdown[pId] ? singleItemsBreakdown[pId].finalCost : (item.price * item.qty);
+          } else {
+            pLineCost = (pObj ? pObj.price : item.price) * item.qty;
+          }
+          finalGoodsSubtotal += pLineCost;
+          summaryHtml += `
+            <div class="summary-line">
+              <span>${item.title} x ${item.qty}</span>
+              <span style="font-weight: 700;">HKD ${pLineCost.toLocaleString()}</span>
+            </div>
+          `;
+        }
+      }
+
+      // 折扣與特別優惠狀態呈現 (零會員字眼，一律使用「特別優惠」)
+      const savedAmount = referenceRetailTotal - finalGoodsSubtotal;
+      let discountRateStr = "";
+      if (referenceRetailTotal > 0 && savedAmount > 0) {
+        const rate = Math.round((finalGoodsSubtotal / referenceRetailTotal) * 10);
+        discountRateStr = rate < 10 ? `${rate}折` : "特別折";
+      }
+
+      let promoBannerHtml = '';
+      if (isQualifiedForSpecialOffer && savedAmount > 0) {
+        promoBannerHtml = `
+          <div style="background: #CCFBF1; border-left: 4px solid var(--color-accent); border-radius: var(--radius-sm); padding: 9px 14px; margin-bottom: 12px; font-size: 14.5px; font-weight: 800; color: #115E59; display: flex; justify-content: space-between; align-items: center;">
+            <span>✨ 已享特別優惠價</span>
+            <span>已慳 HKD ${savedAmount.toLocaleString()} (${discountRateStr})</span>
+          </div>
+        `;
+      } else if (!hasBundle && singleItemsCount > 0 && !isQualifiedForSpecialOffer) {
+        promoBannerHtml = `
+          <div style="background: #FFFBEB; border-left: 4px solid var(--color-warning); border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 12px; font-size: 13.5px; color: #92400E; font-weight: 600;">
+            💡 提示：單品選購滿 HKD 1,200 即自動啟動「特別優惠」！
+          </div>
+        `;
+      }
+
+      document.getElementById('cart-summary-items').innerHTML = promoBannerHtml + summaryHtml;
+
+      // 顯示原價參考 vs 特別優惠應付金額
+      if (savedAmount > 0) {
+        document.getElementById('cart-subtotal').innerHTML = `
+          <span style="text-decoration: line-through; color: var(--color-text-sub); font-size: 13.5px; margin-right: 6px;">HKD ${referenceRetailTotal.toLocaleString()}</span>
+          <span style="color: var(--color-accent-text); font-weight: 800;">HKD ${finalGoodsSubtotal.toLocaleString()}</span>
+        `;
+      } else {
+        document.getElementById('cart-subtotal').innerText = `HKD ${finalGoodsSubtotal.toLocaleString()}`;
+      }
+
+      let shipping = (finalGoodsSubtotal >= 400) ? 0 : 40;
       document.getElementById('cart-shipping').innerText = (shipping === 0) ? '免費 (滿額免運)' : `HKD ${shipping}`;
-      document.getElementById('cart-total').innerText = `HKD ${(subtotal + shipping).toLocaleString()}`;
+      document.getElementById('cart-total').innerText = `HKD ${(finalGoodsSubtotal + shipping).toLocaleString()}`;
     }
 
     function submitOrderDualTrack() {
@@ -3277,6 +3429,7 @@
       const phone = document.getElementById('order_recipient_phone').value.trim();
       const address = document.getElementById('order_recipient_address').value.trim();
       const hasLift = document.getElementById('order_has_lift').checked;
+      const paymentMethod = document.querySelector('input[name="order_payment"]:checked')?.value || "FPS 轉數快";
 
       if (Object.keys(cart).length === 0) {
         alert('請先選取所需單品或調理套裝！');
@@ -3287,15 +3440,77 @@
         return;
       }
 
-      let subtotal = 0;
-      let orderItems = [];
+      let hasBundle = false;
+      let hiddenSpecialSingleTotal = 0;
+      let referenceRetailTotal = 0;
+      let singleItemsBreakdown = {};
+
       for (let k in cart) {
         const item = cart[k];
-        subtotal += (item.qty * item.price);
-        orderItems.push(`${item.title} x ${item.qty} (HKD ${(item.qty * item.price).toLocaleString()})`);
+        if (item.qty <= 0) continue;
+        if (k.startsWith('bun_')) {
+          hasBundle = true;
+          const bId = k.replace('bun_', '');
+          const bObj = BUNDLES_DB.find(b => b.id === bId);
+          referenceRetailTotal += (bObj ? bObj.origPrice : item.price) * item.qty;
+        } else if (k.startsWith('prod_')) {
+          const pId = k.replace('prod_', '');
+          const pObj = PRODUCTS_DB.find(p => p.id === pId);
+          if (pObj) {
+            referenceRetailTotal += pObj.price * item.qty;
+            const optimal = calcItemOptimalSpecialPrice(pObj, item.qty);
+            hiddenSpecialSingleTotal += optimal.finalCost;
+            singleItemsBreakdown[pId] = optimal;
+          } else {
+            referenceRetailTotal += item.price * item.qty;
+            hiddenSpecialSingleTotal += item.price * item.qty;
+          }
+        }
       }
+
+      const isQualifiedForSpecialOffer = hasBundle || (referenceRetailTotal >= 1200) || (hiddenSpecialSingleTotal >= 1200);
+
+      let subtotal = 0;
+      let customerOrderItems = [];
+      let backendProcurementNotes = [];
+
+      for (let k in cart) {
+        const item = cart[k];
+        if (item.qty <= 0) continue;
+
+        if (k.startsWith('bun_')) {
+          const bId = k.replace('bun_', '');
+          const bObj = BUNDLES_DB.find(b => b.id === bId);
+          const lineCost = (bObj ? bObj.price : item.price) * item.qty;
+          subtotal += lineCost;
+          customerOrderItems.push(`${item.title} x ${item.qty} (HKD ${lineCost.toLocaleString()})`);
+          backendProcurementNotes.push(`套裝: ${item.title} x ${item.qty}`);
+        } else if (k.startsWith('prod_')) {
+          const pId = k.replace('prod_', '');
+          const pObj = PRODUCTS_DB.find(p => p.id === pId);
+          let lineCost = 0;
+          if (isQualifiedForSpecialOffer && singleItemsBreakdown[pId]) {
+            lineCost = singleItemsBreakdown[pId].finalCost;
+            const bd = singleItemsBreakdown[pId].breakdownList;
+            let bdTexts = bd.map(b => `${b.code} (${b.name}) x ${b.sets}`).join(', ');
+            backendProcurementNotes.push(`${item.title} x ${item.qty} => [${bdTexts}] 計 HKD ${lineCost}`);
+          } else {
+            lineCost = (pObj ? pObj.price : item.price) * item.qty;
+            backendProcurementNotes.push(`${item.title} x ${item.qty} (零售價計 HKD ${lineCost})`);
+          }
+          subtotal += lineCost;
+          customerOrderItems.push(`${item.title} x ${item.qty} (HKD ${lineCost.toLocaleString()})`);
+        }
+      }
+
       let shipping = (subtotal >= 400) ? 0 : 40;
       let total = subtotal + shipping;
+      let savedAmount = referenceRetailTotal - subtotal;
+      let discountRateStr = "";
+      if (referenceRetailTotal > 0 && savedAmount > 0) {
+        const rate = Math.round((subtotal / referenceRetailTotal) * 10);
+        discountRateStr = rate < 10 ? `${rate}折` : "特別折";
+      }
 
       // 前端生成唯一標準訂單編號 HD-YYYYMMDD-XXXXXX
       const now = new Date();
@@ -3308,19 +3523,32 @@
       const orderData = {
         type: "order",
         orderId: orderId,
-        topicName: "半夜抽筋",
+        topicName: "半夜抽筋專題",
         timestamp: now.toISOString(),
         causeId: selectedCauseId,
         causeName: CAUSES_DATA[selectedCauseId].name,
         recipient: { name, phone, address, hasLift: hasLift ? "有升降機" : "無升降機（需行樓梯）" },
-        items: orderItems,
-        subtotal,
-        shipping,
-        total
+        paymentMethod: paymentMethod,
+        items: customerOrderItems,
+        subtotal: subtotal,
+        shipping: shipping,
+        total: total,
+        referenceOriginalTotal: referenceRetailTotal,
+        savedAmount: savedAmount > 0 ? savedAmount : 0,
+        discountRate: discountRateStr,
+        backendProcurementNote: backendProcurementNotes.join('; ')
       };
 
-      // 軌道一：WhatsApp 對話喚起 (帶入唯一訂單編號)
+      // 軌道一：WhatsApp 對話喚起 (帶入付款方式與唯一訂單編號)
       const liftText = hasLift ? "有升降機" : "無升降機（唐樓需現場付樓梯費）";
+      let discountLine = "";
+      if (savedAmount > 0) {
+        discountLine = `商品原價：HKD ${referenceRetailTotal.toLocaleString()}%0A` +
+          `特別優惠價：HKD ${subtotal.toLocaleString()} (已慳 HKD ${savedAmount.toLocaleString()} / ${discountRateStr})%0A`;
+      } else {
+        discountLine = `商品小計：HKD ${subtotal.toLocaleString()}%0A`;
+      }
+
       const waText = `【Health Decoder 半夜抽筋專題訂單】%0A` +
         `訂單編號：${orderId}%0A` +
         `主診斷成因：${CAUSES_DATA[selectedCauseId].name}%0A` +
@@ -3328,11 +3556,12 @@
         `聯絡電話：${encodeURIComponent(phone)}%0A` +
         `送貨地址：${encodeURIComponent(address)} (${encodeURIComponent(liftText)})%0A%0A` +
         `【訂購明細】%0A` +
-        orderItems.map(i => `• ${encodeURIComponent(i)}`).join('%0A') + `%0A%0A` +
-        `商品小計：HKD ${subtotal.toLocaleString()}%0A` +
-        `運費：HKD ${shipping}%0A` +
-        `應付總額：HKD ${total.toLocaleString()}%0A%0A` +
-        `請 Duncan 盡快為我確認訂單及安排出貨，謝謝！`;
+        customerOrderItems.map(i => `• ${encodeURIComponent(i)}`).join('%0A') + `%0A%0A` +
+        discountLine +
+        `運費：${shipping === 0 ? "免費 (滿額免運)" : "HKD " + shipping}%0A` +
+        `應付總額：HKD ${total.toLocaleString()}%0A` +
+        `付款方式：${encodeURIComponent(paymentMethod)}%0A%0A` +
+        `請 Duncan 盡快為我發送收款資料及確認訂單，謝謝！`;
       const waUrl = `https://wa.me/${DUNCAN_WHATSAPP_PHONE}?text=${waText}`;
 
       // 軌道二：Apps Script Webhook 異步記表
@@ -3352,7 +3581,6 @@
       window.open(waUrl, '_blank');
     }
 
-    // Modal 彈窗控制 (零滑動凍結：開關期間主頁背景 100% 紋絲不動)
     function openModalWithLock(title, contentHtml) {
       savedScrollY = window.scrollY;
       document.documentElement.style.overflow = 'hidden';

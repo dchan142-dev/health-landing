@@ -1414,15 +1414,15 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="checkbox" name="dim2" value="D2_A" class="dim2-item">
+            <input type="checkbox" name="dim2" value="D2_A" class="dim2-item" onchange="handleDimItemCheck(\'dim2\')">
             <span>站在馬桶前要等數秒才出尿，尿流變細、斷斷續續。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim2" value="D2_B" class="dim2-item">
+            <input type="checkbox" name="dim2" value="D2_B" class="dim2-item" onchange="handleDimItemCheck(\'dim2\')">
             <span>排完後總覺得膀胱底還有尿液殘留，感覺尿不乾淨。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim2" value="D2_C" class="dim2-item">
+            <input type="checkbox" name="dim2" value="D2_C" class="dim2-item" onchange="handleDimItemCheck(\'dim2\')">
             <span>突發強烈尿急感，完全忍不住，常需急奔廁所。</span>
           </label>
           <label class="option-label none-opt">
@@ -1442,19 +1442,19 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_A" class="dim3-item">
+            <input type="checkbox" name="dim3" value="D3_A" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
             <span>傍晚覺得鞋子變緊、腳踝或小腿有明顯襪印、按壓有凹陷。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_B" class="dim3-item">
+            <input type="checkbox" name="dim3" value="D3_B" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
             <span>剛睡下頭 2–4 小時起夜最頻繁。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_C" class="dim3-item">
+            <input type="checkbox" name="dim3" value="D3_C" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
             <span>平時走路步伐慢、雙腿無力、久坐久站少運動。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_D" class="dim3-item">
+            <input type="checkbox" name="dim3" value="D3_D" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
             <span>臀部至大腿或手腳末端經常有發麻或針刺感。</span>
           </label>
           <label class="option-label none-opt">
@@ -1474,15 +1474,15 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_A" class="dim4-item">
+            <input type="checkbox" name="dim4" value="D4_A" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
             <span>全天經常口乾口渴、多飲多尿。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_B" class="dim4-item">
+            <input type="checkbox" name="dim4" value="D4_B" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
             <span>尿道乾澀、容易反覆發炎感冒（或女性更年期私密乾澀）。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_C" class="dim4-item">
+            <input type="checkbox" name="dim4" value="D4_C" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
             <span>容易胃脹、消化排空慢、有口氣或腸道吸收差。</span>
           </label>
           <label class="option-label none-opt">
@@ -1502,15 +1502,15 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="checkbox" name="dim5" value="D5_A" class="dim5-item">
+            <input type="checkbox" name="dim5" value="D5_A" class="dim5-item" onchange="handleDimItemCheck(\'dim5\')">
             <span>睡覺會大聲打鼾、曾有呼吸暫停或晨起頭痛口乾。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim5" value="D5_B" class="dim5-item">
+            <input type="checkbox" name="dim5" value="D5_B" class="dim5-item" onchange="handleDimItemCheck(\'dim5\')">
             <span>睡得很淺、容易驚醒，醒來後順便想去排少許尿。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim5" value="D5_C" class="dim5-item">
+            <input type="checkbox" name="dim5" value="D5_C" class="dim5-item" onchange="handleDimItemCheck(\'dim5\')">
             <span>習慣在睡前長時間滑手機或看平板，腦袋轉個不停難入睡。</span>
           </label>
           <label class="option-label none-opt">
@@ -1530,27 +1530,27 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_BP" class="dim6-item">
+            <input type="checkbox" name="dim6" value="MED_BP" class="dim6-item" onchange="handleDimItemCheck(\'dim6\')">
             <span>降血壓藥（如 Amlodipine 氨氯地平 / 鈣離子阻斷劑 CCB）</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_WARFARIN" id="med_warfarin" class="dim6-item">
+            <input type="checkbox" name="dim6" value="MED_WARFARIN" id="med_warfarin" class="dim6-item" onchange="handleDimItemCheck(\'dim6\')">
             <span>薄血藥（如 Warfarin 華法林 / Aspirin 阿斯匹靈 / Plavix）</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_DIURETIC_SGLT2" class="dim6-item">
+            <input type="checkbox" name="dim6" value="MED_DIURETIC_SGLT2" class="dim6-item" onchange="handleDimItemCheck(\'dim6\')">
             <span>利尿劑或排糖藥（如水丸 / SGLT-2 類排糖藥）</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_DIABETES_GEN" class="dim6-item">
+            <input type="checkbox" name="dim6" value="MED_DIABETES_GEN" class="dim6-item" onchange="handleDimItemCheck(\'dim6\')">
             <span>降血糖藥（如 Metformin 二甲雙胍等一般降糖藥）</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_STATIN" class="dim6-item">
+            <input type="checkbox" name="dim6" value="MED_STATIN" class="dim6-item" onchange="handleDimItemCheck(\'dim6\')">
             <span>降血脂藥（如 Rosuvastatin 等 Statin 類降膽固醇藥）</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_PPI_CALCIUM" class="dim6-item">
+            <input type="checkbox" name="dim6" value="MED_PPI_CALCIUM" class="dim6-item" onchange="handleDimItemCheck(\'dim6\')">
             <span>強效胃藥或鈣片（如 PPI 抑酸劑 / 碳酸鈣）</span>
           </label>
           <label class="option-label none-opt">
@@ -2542,10 +2542,15 @@
     function toggleDimNone(dim) {
       const noneBox = document.getElementById(dim + '_none');
       const items = document.querySelectorAll('.' + dim + '-item');
-      if (noneBox.checked) {
-        items.forEach(el => { el.checked = false; el.disabled = true; });
-      } else {
-        items.forEach(el => { el.disabled = false; });
+      if (noneBox && noneBox.checked) {
+        items.forEach(el => { el.checked = false; });
+      }
+    }
+
+    function handleDimItemCheck(dim) {
+      const noneBox = document.getElementById(dim + '_none');
+      if (noneBox) {
+        noneBox.checked = false;
       }
     }
 
@@ -2636,7 +2641,12 @@
       }
 
       // 計算 5 大成因佔比 (百分比)
-      const totalRaw = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
+      const totalRawScore = Object.values(scores).reduce((a, b) => a + b, 0);
+      if (totalRawScore <= 0) {
+        alert('⚠️ 溫馨提示：請至少勾選一項您的日常體徵或身體感受，以便系統為您進行精準生理學分析！');
+        return;
+      }
+      const totalRaw = totalRawScore || 1;
       let ratios = {};
       let maxScore = -1;
       let winningCause = 1;

@@ -2834,10 +2834,15 @@
     function toggleDimNone(dim) {
       const noneBox = document.getElementById(dim + '_none');
       const items = document.querySelectorAll('.' + dim + '-item');
-      if (noneBox.checked) {
-        items.forEach(el => { el.checked = false; el.disabled = true; });
-      } else {
-        items.forEach(el => { el.disabled = false; });
+      if (noneBox && noneBox.checked) {
+        items.forEach(el => { el.checked = false; });
+      }
+    }
+
+    function handleDimItemCheck(dim) {
+      const noneBox = document.getElementById(dim + '_none');
+      if (noneBox) {
+        noneBox.checked = false;
       }
     }
 
@@ -2921,7 +2926,12 @@
       }
 
       // 計算佔比
-      const totalRaw = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
+      const totalRawScore = Object.values(scores).reduce((a, b) => a + b, 0);
+      if (totalRawScore <= 0) {
+        alert('⚠️ 溫馨提示：請至少勾選一項您的日常體徵或身體感受，以便系統為您進行精準生理學分析！');
+        return;
+      }
+      const totalRaw = totalRawScore || 1;
       let ratios = {};
       let maxScore = -1;
       let winningCause = 1;

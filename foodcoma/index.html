@@ -199,20 +199,24 @@
           <span style="font-size:12px; color:var(--color-danger);">命中即刻建議就醫</span>
         </div>
         <label class="quiz-option">
-          <input type="checkbox" name="redflag" value="1">
+          <input type="checkbox" data-group="redflag" name="redflag" value="1" onchange="handleOptionCheck(this)">
           <span class="option-text">餐後嗜睡伴隨突發單側手腳無力、嘴角歪斜、口齒不清或步態失衡（警惕腦中風/TIA）</span>
         </label>
         <label class="quiz-option">
-          <input type="checkbox" name="redflag" value="2">
+          <input type="checkbox" data-group="redflag" name="redflag" value="2" onchange="handleOptionCheck(this)">
           <span class="option-text">進食後出現嚴重意識障礙、呼叫難醒，或呼吸深快帶有濃烈爛蘋果酸味（警惕 DKA/HHS）</span>
         </label>
         <label class="quiz-option">
-          <input type="checkbox" name="redflag" value="3">
+          <input type="checkbox" data-group="redflag" name="redflag" value="3" onchange="handleOptionCheck(this)">
           <span class="option-text">餐後起身站立瞬間出現實質性暈厥（Syncope）跌倒，或收縮壓驟降超過 20–30 mmHg</span>
         </label>
         <label class="quiz-option">
-          <input type="checkbox" name="redflag" value="4">
+          <input type="checkbox" data-group="redflag" name="redflag" value="4" onchange="handleOptionCheck(this)">
           <span class="option-text">說笑、情緒激動或進食時突然猝倒（Cataplexy），肌張力瞬間喪失</span>
+        </label>
+              <label class="quiz-option">
+          <input type="checkbox" data-group="redflag" name="redflag" value="NONE" data-none="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">🚫 以上皆無（無上述急性急症情況，雙向嚴格互斥）</span>
         </label>
       </div>
 
@@ -887,21 +891,24 @@
 
     function handleOptionCheck(el) {
       const groupName = el.dataset.group;
+      if (!groupName) return;
       const isNone = el.dataset.none === "true";
       const allInGroup = document.querySelectorAll(`input[data-group="${groupName}"]`);
+      const noneCb = document.querySelector(`input[data-group="${groupName}"][data-none="true"]`);
 
       if (isNone && el.checked) {
+        // 勾選了「沒有上述情況」：立即清空該組內所有其他具體症狀
         allInGroup.forEach(cb => {
           if (cb !== el) cb.checked = false;
         });
       } else if (!isNone && el.checked) {
-        const noneCb = document.querySelector(`input[data-group="${groupName}"][data-none="true"]`);
+        // 勾選了具體症狀：立即取消勾選該組的「沒有上述情況」
         if (noneCb) noneCb.checked = false;
       }
     }
 
     function submitAssessment() {
-      const redflags = document.querySelectorAll('input[name="redflag"]:checked');
+      const redflags = document.querySelectorAll('input[name="redflag"]:checked:not([data-none="true"])');
       if (redflags.length > 0) {
         document.getElementById('redflagAlert').style.display = 'block';
         document.getElementById('redflagAlert').scrollIntoView({ behavior: 'smooth' });
@@ -930,6 +937,13 @@
           });
         }
       });
+
+      // 檢查是否完全沒有勾選任何有效症狀（未選或全選「沒有上述情況」）
+      const totalScoreSum = Object.values(scores).reduce((a, b) => a + b, 0);
+      if (totalScoreSum <= 0) {
+        alert('⚠️ 溫馨提示：請至少勾選一項您的日常體徵或身體感受，以便系統為您進行精準生理學分析！');
+        return;
+      }
 
       let maxScore = -1;
       let candidates = [];
@@ -970,6 +984,33 @@
       document.getElementById('solution-section').style.display = 'block';
       document.getElementById('cart-order-section').style.display = 'block';
       document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
+
+      // 靜默非阻塞同步自測記錄至全站自測數據庫
+      try {
+        const totalScore = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
+        let ratiosObj = {};
+        for (let c in scores) {
+          const cId = c.replace('c', '');
+          ratiosObj[cId] = Math.round((scores[c] / totalScore) * 100);
+        }
+        const quizPayload = {
+          type: "quiz",
+          topicName: "餐後睏倦自測記錄",
+          timestamp: new Date().toISOString(),
+          name: document.getElementById('quizUserName')?.value?.trim() || "朋友",
+          gender: document.getElementById('quizGender')?.value || "未註明",
+          age: document.getElementById('quizAge')?.value || "未註明",
+          primaryCause: CAUSES_DATA[selectedCauseId].name,
+          ratios: ratiosObj
+        };
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzL5T1_Jg8YfT5c0-1vA7_XJ9Z0K_test/exec";
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(quizPayload)
+        }).catch(e => {});
+      } catch (e) {}
     }
 
     function renderReport(scores, causeId) {

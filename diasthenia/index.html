@@ -199,20 +199,24 @@
           <span style="font-size:12px; color:var(--color-danger);">命中即刻建議就醫</span>
         </div>
         <label class="quiz-option">
-          <input type="checkbox" name="redflag" value="1">
+          <input type="checkbox" data-group="redflag" name="redflag" value="1" onchange="handleOptionCheck(this)">
           <span class="option-text">尿液呈現深茶色、可樂色或醬油色，伴隨全身肌肉劇烈酸痛壓痛或極度無力（排查橫紋肌溶解症）</span>
         </label>
         <label class="quiz-option">
-          <input type="checkbox" name="redflag" value="2">
+          <input type="checkbox" data-group="redflag" name="redflag" value="2" onchange="handleOptionCheck(this)">
           <span class="option-text">由坐姿或臥姿站起瞬間嚴重眩暈、冷汗直冒、視線全黑或昏厥倒地（排查嚴重低血壓腦灌注不足）</span>
         </label>
         <label class="quiz-option">
-          <input type="checkbox" name="redflag" value="3">
+          <input type="checkbox" data-group="redflag" name="redflag" value="3" onchange="handleOptionCheck(this)">
           <span class="option-text">突然出現深大而快速呼吸，伴隨持續噁心嘔吐或神智不清（排查代謝性酸中毒）</span>
         </label>
         <label class="quiz-option">
-          <input type="checkbox" name="redflag" value="4">
+          <input type="checkbox" data-group="redflag" name="redflag" value="4" onchange="handleOptionCheck(this)">
           <span class="option-text">突發單側手腳無力、嘴角歪斜、說話含糊不清或視物成雙（排查急性中風或 TIA）</span>
+        </label>
+              <label class="quiz-option">
+          <input type="checkbox" data-group="redflag" name="redflag" value="NONE" data-none="true" onchange="handleOptionCheck(this)">
+          <span class="option-text">🚫 以上皆無（無上述急性急症情況，雙向嚴格互斥）</span>
         </label>
       </div>
 
@@ -1054,21 +1058,24 @@
 
     function handleOptionCheck(el) {
       const groupName = el.dataset.group;
+      if (!groupName) return;
       const isNone = el.dataset.none === "true";
       const allInGroup = document.querySelectorAll(`input[data-group="${groupName}"]`);
+      const noneCb = document.querySelector(`input[data-group="${groupName}"][data-none="true"]`);
 
       if (isNone && el.checked) {
+        // 勾選了「沒有上述情況」：立即清空該組內所有其他具體症狀
         allInGroup.forEach(cb => {
           if (cb !== el) cb.checked = false;
         });
       } else if (!isNone && el.checked) {
-        const noneCb = document.querySelector(`input[data-group="${groupName}"][data-none="true"]`);
+        // 勾選了具體症狀：立即取消勾選該組的「沒有上述情況」
         if (noneCb) noneCb.checked = false;
       }
     }
 
     function submitAssessment() {
-      const redflags = document.querySelectorAll('input[name="redflag"]:checked');
+      const redflags = document.querySelectorAll('input[name="redflag"]:checked:not([data-none="true"])');
       if (redflags.length > 0) {
         document.getElementById('redflagAlert').style.display = 'block';
         document.getElementById('redflagAlert').scrollIntoView({ behavior: 'smooth' });
@@ -1097,6 +1104,13 @@
           });
         }
       });
+
+      // 檢查是否完全沒有勾選任何有效症狀（未選或全選「沒有上述情況」）
+      const totalScoreSum = Object.values(scores).reduce((a, b) => a + b, 0);
+      if (totalScoreSum <= 0) {
+        alert('⚠️ 溫馨提示：請至少勾選一項您的日常體徵或身體感受，以便系統為您進行精準生理學分析！');
+        return;
+      }
 
       let maxScore = -1;
       let candidates = [];
@@ -1137,6 +1151,33 @@
       document.getElementById('solution-section').style.display = 'block';
       document.getElementById('cart-order-section').style.display = 'block';
       document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
+
+      // 靜默非阻塞同步自測記錄至全站自測數據庫
+      try {
+        const totalScore = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
+        let ratiosObj = {};
+        for (let c in scores) {
+          const cId = c.replace('c', '');
+          ratiosObj[cId] = Math.round((scores[c] / totalScore) * 100);
+        }
+        const quizPayload = {
+          type: "quiz",
+          topicName: "治標反噬失衡自測記錄",
+          timestamp: new Date().toISOString(),
+          name: document.getElementById('quizUserName')?.value?.trim() || "朋友",
+          gender: document.getElementById('quizGender')?.value || "未註明",
+          age: document.getElementById('quizAge')?.value || "未註明",
+          primaryCause: CAUSES_DATA[selectedCauseId].name,
+          ratios: ratiosObj
+        };
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzL5T1_Jg8YfT5c0-1vA7_XJ9Z0K_test/exec";
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(quizPayload)
+        }).catch(e => {});
+      } catch (e) {}
     }
 
     function renderReport(scores, causeId) {

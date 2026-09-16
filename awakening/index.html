@@ -1435,23 +1435,23 @@
         </div>
         <div class="options-container">
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_1" class="dim3-item">
+            <input type="checkbox" name="dim3" value="D3_1" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
             <span><strong>呼吸與睡眠：</strong>睡覺時曾被同住家人反映有大聲打鼾，或白天明顯感到極度嗜睡倦怠。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_2" class="dim3-item">
+            <input type="checkbox" name="dim3" value="D3_2" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
             <span><strong>飲食與代謝：</strong>晚餐或睡前若吃了大量精緻澱粉、甜食宵夜，半夜更容易驚醒心慌。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_3" class="dim3-item">
+            <input type="checkbox" name="dim3" value="D3_3" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
             <span><strong>光照與節律：</strong>白天極少接觸戶外自然陽光，或習慣在睡前床上長時間滑手機看螢幕。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_4" class="dim3-item">
+            <input type="checkbox" name="dim3" value="D3_4" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
             <span><strong>水分與酒精：</strong>傍晚或睡前有飲酒習慣，或半夜醒來多數是因為膀胱脹滿去洗手間。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_5" class="dim3-item">
+            <input type="checkbox" name="dim3" value="D3_5" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
             <span><strong>壓力與神經：</strong>白天壓力大時半夜醒來機率倍增，醒後對時鐘秒針聲音或光線極度敏感。</span>
           </label>
           <label class="option-label">
@@ -1469,23 +1469,23 @@
         </div>
         <div class="options-container">
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_1" class="dim4-item">
+            <input type="checkbox" name="dim4" value="D4_1" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
             <span><strong>降血壓藥 (去水丸/利尿劑) 或 胃酸抑制劑/碳酸鈣片 (公立醫院常配)：</strong>利尿劑促使夜間膀胱充盈；胃藥與碳酸鈣易引發腸胃脹氣便秘等管道高壓刺激。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_2" class="dim4-item">
+            <input type="checkbox" name="dim4" value="D4_2" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
             <span><strong>降血糖藥物 (如甲福明 Metformin) 或 胰島素注射：</strong>藥物作用易在後半夜引發潛在的夜間低血糖反應，刺激交感神經反調節喚醒。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_3" class="dim4-item">
+            <input type="checkbox" name="dim4" value="D4_3" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
             <span><strong>降膽固醇藥 (他汀類藥物 Statins)：</strong>常見副作用為干擾細胞能量及肌肉痠痛，形成持續性周邊疼痛刺激。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_4" class="dim4-item">
+            <input type="checkbox" name="dim4" value="D4_4" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
             <span><strong>坊間安眠藥、鎮靜劑：</strong>長期使用反映出潛在對睡眠的焦慮制約，且無法解決缺氧或夜尿等根本病因。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_5" id="med_warfarin" class="dim4-item">
+            <input type="checkbox" name="dim4" value="D4_5" id="med_warfarin" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
             <span><strong>薄血藥 / 通血丸 (如 Warfarin / Aspirin / Plavix) ⚠️ 臨床安全防線：</strong>凝血功能受調控中，系統將自動啟動零凝血衝突之溫和修復方案。</span>
           </label>
           <label class="option-label">
@@ -2650,15 +2650,19 @@ ________________
     "vimeoF": ""
   }
 };
-};
 
     function toggleDimNone(dim) {
       const noneBox = document.getElementById(dim + '_none');
       const items = document.querySelectorAll('.' + dim + '-item');
-      if (noneBox.checked) {
-        items.forEach(el => { el.checked = false; el.disabled = true; });
-      } else {
-        items.forEach(el => { el.disabled = false; });
+      if (noneBox && noneBox.checked) {
+        items.forEach(el => { el.checked = false; });
+      }
+    }
+
+    function handleDimItemCheck(dim) {
+      const noneBox = document.getElementById(dim + '_none');
+      if (noneBox) {
+        noneBox.checked = false;
       }
     }
 
@@ -2728,7 +2732,12 @@ ________________
       }
 
       // 計算佔比與決勝 (Tie-breaker: C1 > C2 > C3 > C4 > C5)
-      const totalRaw = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
+      const totalRawScore = Object.values(scores).reduce((a, b) => a + b, 0);
+      if (totalRawScore <= 0) {
+        alert('⚠️ 溫馨提示：請至少勾選一項您的日常體徵或身體感受，以便系統為您進行精準生理學分析！');
+        return;
+      }
+      const totalRaw = totalRawScore || 1;
       let ratios = {};
       let maxScore = -1;
       let winningCause = 1;

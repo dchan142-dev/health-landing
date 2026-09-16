@@ -1375,6 +1375,7 @@
         </div>
       </div>
 
+      <!-- 6 大維度 (100% v5 視覺設計與題庫，無內部題號代號) -->
       <!-- 午後餐後睏倦題庫 (SOP 標準無內部題號代號) -->
       <!-- 模組零：臨床急症紅旗排查 -->
       <div class="quiz-group">
@@ -1758,20 +1759,6 @@
               <input type="checkbox" id="order_has_lift" checked style="width: 18px; height: 18px; margin-right: 8px;">
               <span style="font-size: 14px; font-weight: 600;">大廈設有升降機直達（若無升降機需現場自付每層 HKD 50 樓梯費）</span>
             </label>
-          </div>
-          <div style="margin-bottom: 18px;">
-            <label style="font-size: 14px; font-weight: 700; display: block; margin-bottom: 8px; color: var(--color-text-main);">付款方式 *</label>
-            <div style="display: flex; gap: 18px; flex-wrap: wrap;">
-              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
-                <input type="radio" name="order_payment" value="FPS 轉數快" checked style="width: 18px; height: 18px;"> 🔵 FPS 轉數快 (預設)
-              </label>
-              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
-                <input type="radio" name="order_payment" value="PayMe" style="width: 18px; height: 18px;"> 🔴 PayMe
-              </label>
-              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
-                <input type="radio" name="order_payment" value="AlipayHK" style="width: 18px; height: 18px;"> 🔵 AlipayHK
-              </label>
-            </div>
           </div>
           <button type="button" class="btn-accent" style="font-size: 18px; padding: 16px; width: 100%; font-weight: 800;" onclick="submitOrderDualTrack()">
             確認送出訂單
@@ -2728,8 +2715,6 @@
         name: "ORIYEN 天然酵母NMN 15000 Premium",
         shortDesc: "修復血管防漏水，鞏固夜間抗利尿",
         price: 2488,
-        specialPrice: 1888,
-        packages: [{"code": "IH3146", "qty": 10, "price": 16080, "name": "10件專尚配套"}, {"code": "IH2527", "qty": 5, "price": 8288, "name": "5件專尚配套"}, {"code": "IH0327", "qty": 1, "price": 1888, "name": "1件專尚配套"}],
         img: "/images/products/36281.webp",
         spec: "150克 (5克 x 30包)",
         origin: "台灣",
@@ -2751,8 +2736,6 @@
         name: "ORIYEN 強心血管通",
         shortDesc: "強化微血管壁，加速下肢靜脈引流",
         price: 1990,
-        specialPrice: 1990,
-        packages: [{"code": "IH2529", "qty": 6, "price": 7980, "name": "6件專尚配套"}, {"code": "IH0725", "qty": 3, "price": 4380, "name": "3件專尚配套"}, {"code": "IH1712", "qty": 1, "price": 1580, "name": "1件專尚配套"}],
         img: "/images/products/36282.webp",
         spec: "380毫克 x 60粒",
         origin: "日本",
@@ -2770,8 +2753,6 @@
         name: "ORIYEN 蛋白高營素 (10天份量）",
         shortDesc: "抑制肌肉分解，重建小腿肌泵力量",
         price: 339,
-        specialPrice: 298,
-        packages: [{"code": "IH0333", "qty": 10, "price": 2389, "name": "10件專尚配套"}, {"code": "IH2145", "qty": 5, "price": 1249, "name": "5件專尚配套"}, {"code": "IH1336", "qty": 3, "price": 789, "name": "3件專尚配套"}],
         img: "/images/products/36283.webp",
         spec: "47克 x 10包",
         origin: "台灣",
@@ -2788,9 +2769,7 @@
         id: "36248",
         name: "ORIYEN 綜合果蔬酵素 (10天份量）",
         shortDesc: "修復腸道屏障，阻斷發炎引致漏水",
-        price: 633,
-        specialPrice: 557,
-        packages: [{"code": "IH0673", "qty": 10, "price": 4693, "name": "10件專尚配套"}, {"code": "IH0263", "qty": 4, "price": 1962, "name": "4件專尚配套"}, {"code": "IH1709", "qty": 3, "price": 1523, "name": "3件專尚配套"}],
+        price: 602,
         img: "/images/products/36248.webp",
         spec: "300毫升",
         origin: "台灣",
@@ -2809,8 +2788,6 @@
         name: "Nn 三效益生菌- 長者配方",
         shortDesc: "平衡腸道微生態，減少微血管損傷",
         price: 409,
-        specialPrice: 327,
-        packages: [{"code": "IH0330", "qty": 8, "price": 2269, "name": "8件專尚配套"}, {"code": "IH2139", "qty": 4, "price": 1169, "name": "4件專尚配套"}, {"code": "IH1335", "qty": 2, "price": 599, "name": "2件專尚配套"}],
         img: "/images/products/34331.webp",
         spec: "2克 x 30包",
         origin: "韓國",
@@ -2828,9 +2805,7 @@
         id: "34278",
         name: "Nn 水溶性輔酶Q10",
         shortDesc: "為心血管充能，維持平穩回流動力",
-        price: 338,
-        specialPrice: 297,
-        packages: [{"code": "IH2044", "qty": 4, "price": 862, "name": "4件專尚配套"}, {"code": "IH1074", "qty": 2, "price": 442, "name": "2件專尚配套"}],
+        price: 321,
         img: "/images/products/34278.webp",
         spec: "30粒",
         origin: "馬來西亞",
@@ -2847,9 +2822,7 @@
         id: "34269",
         name: "Nn 蝦青素",
         shortDesc: "清除血管自由基，穩固微血管結構",
-        price: 290,
-        specialPrice: 255,
-        packages: [{"code": "IH2030", "qty": 5, "price": 955, "name": "5件專尚配套"}],
+        price: 276,
         img: "/images/products/34269.webp",
         spec: "30粒",
         origin: "馬來西亞",
@@ -2869,8 +2842,6 @@
         name: "Nn 月見草油1000",
         shortDesc: "改善骨盆微循環，修復膀胱黏膜",
         price: 196,
-        specialPrice: 172,
-        packages: [{"code": "IH0199", "qty": 8, "price": 978, "name": "8件專尚配套"}, {"code": "IH1011", "qty": 2, "price": 278, "name": "2件專尚配套"}],
         img: "/images/products/34103.webp",
         spec: "1000毫克 x 50粒",
         origin: "紐西蘭",
@@ -2889,8 +2860,6 @@
         name: "Nn 奧米加-3深海魚油1000",
         shortDesc: "抑制慢性發炎，降低微血管滲漏",
         price: 253,
-        specialPrice: 222,
-        packages: [{"code": "IH2040", "qty": 4, "price": 724, "name": "4件專尚配套"}, {"code": "IH1071", "qty": 2, "price": 372, "name": "2件專尚配套"}],
         img: "/images/products/34274.webp",
         spec: "50 粒",
         origin: "馬來西亞",
@@ -2908,8 +2877,6 @@
         name: "Nn 液鈣鎂D3 (15天份量）",
         shortDesc: "放鬆逼尿肌痙攣，擴大夜間儲尿量",
         price: 241,
-        specialPrice: 212,
-        packages: [{"code": "IH0320", "qty": 12, "price": 1936, "name": "12件專尚配套"}, {"code": "IH2128", "qty": 6, "price": 1041, "name": "6件專尚配套"}, {"code": "IH1122", "qty": 2, "price": 356, "name": "2件專尚配套"}],
         img: "/images/products/34316.webp",
         spec: "15包/盒",
         origin: "台灣",
@@ -2928,8 +2895,6 @@
         name: "SE 紅光光療按摩帶",
         shortDesc: "活化粒線體，提早排走下肢積水",
         price: 2580,
-        specialPrice: 2580,
-        packages: [{"code": "IH2143", "qty": 1, "price": 1780, "name": "1件專尚配套"}],
         img: "/images/products/0368.webp",
         demoImg1: "/images/products/0368-demo1.webp",
         demoImg2: "/images/products/0368-demo2.webp",
@@ -2951,8 +2916,6 @@
         name: "Smart Fitness-X 律動拍打機",
         shortDesc: "精準垂直律動，被動活化深層肌泵",
         price: 22990,
-        specialPrice: 22990,
-        packages: [{"code": "IH3005", "qty": 1, "price": 13990, "name": "1部專尚配套"}],
         img: "/images/products/38207.webp",
         spec: "1 部裝",
         origin: "台灣",
@@ -3214,15 +3177,10 @@
     function toggleDimNone(dim) {
       const noneBox = document.getElementById(dim + '_none');
       const items = document.querySelectorAll('.' + dim + '-item');
-      if (noneBox && noneBox.checked) {
-        items.forEach(el => { el.checked = false; });
-      }
-    }
-
-    function handleDimItemCheck(dim) {
-      const noneBox = document.getElementById(dim + '_none');
-      if (noneBox) {
-        noneBox.checked = false;
+      if (noneBox.checked) {
+        items.forEach(el => { el.checked = false; el.disabled = true; });
+      } else {
+        items.forEach(el => { el.disabled = false; });
       }
     }
 
@@ -3233,59 +3191,21 @@
       }
     }
 
-    
-    // =========================================================================
-    // 全局雙向嚴格互斥控制器 (Universal Bidirectional Mutually Exclusive Controller)
-    // =========================================================================
-    document.addEventListener('change', function(e) {
-      const target = e.target;
-      if (!target || target.type !== 'checkbox') return;
-
-      // 1. 支援 data-group 體系 (sarcopenia, foodcoma, diasthenia 等)
-      const group = target.dataset.group;
-      if (group) {
-        const isNone = target.dataset.none === "true" || target.value === "NONE" || target.value === "none";
-        const allInGroup = document.querySelectorAll(`input[type="checkbox"][data-group="${group}"]`);
-        const noneCb = document.querySelector(`input[type="checkbox"][data-group="${group}"][data-none="true"], input[type="checkbox"][data-group="${group}"][value="NONE"], input[type="checkbox"][data-group="${group}"][value="none"]`);
-
-        if (isNone && target.checked) {
-          allInGroup.forEach(cb => {
-            if (cb !== target) cb.checked = false;
-          });
-        } else if (!isNone && target.checked) {
-          if (noneCb) noneCb.checked = false;
-        }
-        return;
-      }
-
-      // 2. 支援 name="dimX" 體系 (nocturia, cramps, numbness, awakening 等)
-      const name = target.name;
-      const isNoneId = target.id && target.id.endsWith('_none');
-      const isNoneVal = target.value === 'NONE' || target.value === 'none';
-
-      if (isNoneId || isNoneVal) {
-        if (target.checked) {
-          const dimKey = target.id ? target.id.replace('_none', '') : name;
-          const siblings = document.querySelectorAll(`input[type="checkbox"][name="${dimKey}"], .${dimKey}-item`);
-          siblings.forEach(cb => {
-            if (cb !== target) cb.checked = false;
-          });
-        }
-      } else if (name && name.startsWith('dim')) {
-        if (target.checked) {
-          const noneBox = document.getElementById(name + '_none');
-          if (noneBox) noneBox.checked = false;
-          const noneValBox = document.querySelector(`input[type="checkbox"][name="${name}"][value="NONE"], input[type="checkbox"][name="${name}"][value="none"]`);
-          if (noneValBox) noneValBox.checked = false;
-        }
-      }
-    });
-
     function submitAssessment() {
       const userName = document.getElementById('quizUserName').value.trim();
       if (!userName) {
         alert('請輸入你的稱呼');
         document.getElementById('quizUserName').focus();
+        return;
+      }
+
+
+      // 0. 未填警號（嚴格遵循問卷設計邏輯：勾選了餐後感受或生理體徵即為有效作答）
+      const hasSymptoms = document.querySelectorAll(
+        '#quiz-section input[type="checkbox"]:checked:not([value="NONE"]):not([id$="_none"])'
+      ).length > 0;
+      if (!hasSymptoms) {
+        alert('請先填選您的餐後睏倦時間、飲食狀況或生理體徵，以便為您進行精準生理成因分析！');
         return;
       }
 
@@ -3295,62 +3215,70 @@
         alert('⚠️ 系統安全提示：偵測到您勾選了急性或危急紅旗徵候（如疑似中風/TIA、嚴重酸中毒或實質性暈厥）。為保障健康安全，請優先尋求急診或專科醫師進行正規醫療檢查！');
       }
 
-      // 0. 嚴格檢查：是否至少勾選/選擇了一項有效體徵（未選或全部只勾選「以上皆無」時立即警告並攔截）
-      const checkedSymptoms = document.querySelectorAll(
-        '#quiz-section input[type="checkbox"]:checked:not([value="NONE"]):not([id$="_none"])'
-      );
-      if (checkedSymptoms.length === 0) {
-        alert('⚠️ 溫馨提示：問卷尚未填選任何症狀。請至少勾選一項您的日常體徵，以便系統為您進行精準生理學分析！');
-        return;
-      }
-
       isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementById('med_warfarin').checked : false;
       let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
       let hardcores = { 1: false, 2: false, 3: false, 4: false, 5: false, 6: false };
 
-      // 維度一 (核心體感)
+      // 維度一 (成因一：血糖過山車)
       const d1Items = document.querySelectorAll('input[name="dim1"]:checked:not([value="NONE"])');
       d1Items.forEach(el => {
-        if (el.value === 'C1_1') scores[1] += 2;
-        if (el.value === 'C1_2') { scores[1] += 3; hardcores[1] = true; }
-        if (el.value === 'C3_1') { scores[3] += 3; hardcores[3] = true; }
-        if (el.value === 'C4_1') { scores[4] += 3; hardcores[4] = true; }
-        if (el.value === 'C2_1') { scores[2] += 3; hardcores[2] = true; }
-        if (el.value === 'C5_1') { scores[5] += 3; hardcores[5] = true; }
-        if (el.value === 'C6_1') { scores[6] += 3; hardcores[6] = true; }
+        if (el.value === 'C1_1') scores[1] += 1;
+        if (el.value === 'C1_2') scores[1] += 2;
+        if (el.value === 'C1_3') scores[1] += 2;
+        if (el.value === 'C1_4') { scores[1] += 3; hardcores[1] = true; }
       });
 
-      // 維度二 (午餐飲食)
+      // 維度二 (成因二：內臟血流重分配)
       const d2Items = document.querySelectorAll('input[name="dim2"]:checked:not([value="NONE"])');
       d2Items.forEach(el => {
-        if (el.value === 'DIET_CARB') { scores[1] += 1; scores[4] += 1; }
-        if (el.value === 'DIET_OIL') scores[6] += 1;
-        if (el.value === 'DIET_FAST') { scores[1] += 1; scores[2] += 1; }
-        if (el.value === 'DIET_FULL') scores[2] += 1;
+        if (el.value === 'C2_1') scores[2] += 1;
+        if (el.value === 'C2_2') scores[2] += 2;
+        if (el.value === 'C2_3') scores[2] += 2;
+        if (el.value === 'C2_4') { scores[2] += 3; hardcores[2] = true; }
       });
 
-      // 維度三 (環境節律)
+      // 維度三 (成因三：色胺酸與神經傳導)
       const d3Items = document.querySelectorAll('input[name="dim3"]:checked:not([value="NONE"])');
       d3Items.forEach(el => {
-        if (el.value === 'ENV_AIR') scores[5] += 1;
-        if (el.value === 'ENV_SIT') scores[2] += 1;
-        if (el.value === 'ENV_LIGHT') scores[5] += 1;
+        if (el.value === 'C3_1') scores[3] += 1;
+        if (el.value === 'C3_2') scores[3] += 2;
+        if (el.value === 'C3_3') scores[3] += 2;
+        if (el.value === 'C3_4') { scores[3] += 3; hardcores[3] = true; }
       });
 
-      // 維度四 (前夜睡眠)
+      // 維度四 (成因四：慢性腸漏與內毒素)
       const d4Items = document.querySelectorAll('input[name="dim4"]:checked:not([value="NONE"])');
       d4Items.forEach(el => {
-        if (el.value === 'SLEEP_DEBT') scores[5] += 2;
-        if (el.value === 'SLEEP_OSA') { scores[5] += 2; scores[6] += 1; }
-        if (el.value === 'SLEEP_WAKE') scores[5] += 1;
+        if (el.value === 'C4_1') scores[4] += 1;
+        if (el.value === 'C4_2') scores[4] += 2;
+        if (el.value === 'C4_3') scores[4] += 2;
+        if (el.value === 'C4_4') { scores[4] += 3; hardcores[4] = true; }
       });
 
-      // 維度五 (西藥審查)
+      // 維度五 (成因五：自律神經調節失衡)
       const d5Items = document.querySelectorAll('input[name="dim5"]:checked:not([value="NONE"])');
       d5Items.forEach(el => {
-        if (el.value === 'MED_DIABETES') scores[1] += 2;
-        if (el.value === 'MED_BP') scores[2] += 2;
-        if (el.value === 'MED_ANTIHIST') scores[5] += 2;
+        if (el.value === 'C5_1') scores[5] += 1;
+        if (el.value === 'C5_2') scores[5] += 2;
+        if (el.value === 'C5_3') scores[5] += 2;
+        if (el.value === 'C5_4') { scores[5] += 3; hardcores[5] = true; }
+      });
+
+      // 維度六 (成因六：粒線體超載與代謝內耗)
+      const d6Items = document.querySelectorAll('input[name="dim6"]:checked:not([value="NONE"])');
+      d6Items.forEach(el => {
+        if (el.value === 'C6_1') scores[6] += 1;
+        if (el.value === 'C6_2') scores[6] += 2;
+        if (el.value === 'C6_3') scores[6] += 2;
+        if (el.value === 'C6_4') { scores[6] += 3; hardcores[6] = true; }
+      });
+
+      // 維度七 (西藥加權)
+      const d7Items = document.querySelectorAll('input[name="dim7"]:checked:not([value="NONE"])');
+      d7Items.forEach(el => {
+        if (el.value === 'MED_METFORMIN' && scores[6] > 0) scores[6] *= 1.2;
+        if (el.value === 'MED_SGLT2' && scores[2] > 0) scores[2] *= 1.2;
+        if (el.value === 'MED_PPI' && scores[4] > 0) scores[4] *= 1.2;
       });
 
       // 年齡加權 (乘數)
@@ -3362,13 +3290,7 @@
       }
 
       // 裁決邏輯
-      const totalRawScore = Object.values(scores).reduce((a, b) => a + b, 0);
-      if (totalRawScore <= 0) {
-        alert('⚠️ 溫馨提示：問卷尚未填選任何症狀。請至少勾選一項您的日常體徵，以便系統為您進行精準生理學分析！');
-        return;
-      }
-      const totalRaw = totalRawScore || 1;
-
+      const totalRaw = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
       let ratios = {};
       let maxScore = -1;
       let candidates = [];
@@ -3389,8 +3311,8 @@
         if (hc.length === 1) {
           winningCause = hc[0];
         } else {
-          // 臨床優先序：低血糖(C1) > 低血壓(C2) > 發炎(C6) > 食慾素(C4) > 色胺酸(C3) > 睡眠債(C5)
-          const prio = [1, 2, 6, 4, 3, 5];
+          // 仲裁優先級：低血壓(C2) > 血糖(C1) > 內毒素(C4) > 自律神經(C5) > 粒線體(C6) > 色胺酸(C3)
+          const prio = [2, 1, 4, 5, 6, 3];
           for (let p of prio) {
             if (candidates.includes(p)) {
               winningCause = p;
@@ -3399,30 +3321,13 @@
           }
         }
       }
+      if (maxScore <= 0) {
+        winningCause = 1;
+        ratios = { 1: 100, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+      }
 
       selectedCauseId = winningCause;
       renderGatedContent(selectedCauseId, ratios);
-
-      // 異步發送自測數據至 Apps Script 自測數據庫
-      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzL5T1_Jg8YfT5c0-1vA7_XJ9Z0K_test/exec";
-      try {
-        const quizData = {
-          type: "quiz",
-          topicName: "餐後睏倦自測記錄",
-          timestamp: new Date().toISOString(),
-          name: userName,
-          gender: document.getElementById('quizGender').value,
-          age: ageVal,
-          primaryCause: CAUSES_DATA[winningCause].name,
-          ratios: ratios
-        };
-        fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(quizData)
-        }).catch(err => console.log('Quiz webhook:', err));
-      } catch (e) {}
 
       // 解鎖畫面
       document.getElementById('gated-content').style.display = 'block';
@@ -3629,31 +3534,6 @@
       });
     }
 
-        function calcItemOptimalSpecialPrice(prod, qty) {
-      if (qty <= 0) return { finalCost: 0, breakdownList: [] };
-      let remaining = qty;
-      let cost = 0;
-      let breakdown = [];
-
-      // packages 已由大至小排序
-      if (prod.packages && prod.packages.length > 0) {
-        for (let p of prod.packages) {
-          if (remaining >= p.qty) {
-            let sets = Math.floor(remaining / p.qty);
-            cost += sets * p.price;
-            remaining = remaining % p.qty;
-            breakdown.push({ code: p.code, name: p.name, sets: sets, totalUnits: sets * p.qty, cost: sets * p.price });
-          }
-        }
-      }
-      if (remaining > 0) {
-        let singleUnitCost = prod.specialPrice || prod.price;
-        cost += remaining * singleUnitCost;
-        breakdown.push({ code: prod.id, name: "特別單件價", sets: remaining, totalUnits: remaining, cost: remaining * singleUnitCost });
-      }
-      return { finalCost: cost, breakdownList: breakdown };
-    }
-
     function updateCart(key, delta, price, title) {
       if (!cart[key]) {
         cart[key] = { qty: 0, price: price, title: title };
@@ -3669,137 +3549,28 @@
       recalculateCart();
     }
 
-        function recalculateCart() {
-      let hasBundle = false;
-      let singleItemsCount = 0;
-      let totalUnitsCount = 0;
-      let referenceRetailTotal = 0; // 原價參考
-      let hiddenSpecialSingleTotal = 0; // 隱藏單品特別優惠總額 (用於門檻檢測)
-      let actualBundleCost = 0; // 套裝實收金額
-
-      let singleItemsBreakdown = {};
-
+    function recalculateCart() {
+      let subtotal = 0;
+      let count = 0;
+      let summaryHtml = '';
       for (let k in cart) {
         const item = cart[k];
-        if (item.qty <= 0) continue;
-        totalUnitsCount += item.qty;
-
-        if (k.startsWith('bun_')) {
-          hasBundle = true;
-          const bId = k.replace('bun_', '');
-          const bundleObj = BUNDLES_DB.find(b => b.id === bId);
-          if (bundleObj) {
-            actualBundleCost += (bundleObj.price * item.qty);
-            referenceRetailTotal += (bundleObj.origPrice * item.qty);
-          } else {
-            actualBundleCost += (item.price * item.qty);
-            referenceRetailTotal += (item.price * item.qty);
-          }
-        } else if (k.startsWith('prod_')) {
-          singleItemsCount += item.qty;
-          const pId = k.replace('prod_', '');
-          const prodObj = PRODUCTS_DB.find(p => p.id === pId);
-          if (prodObj) {
-            referenceRetailTotal += (prodObj.price * item.qty);
-            const optimal = calcItemOptimalSpecialPrice(prodObj, item.qty);
-            hiddenSpecialSingleTotal += optimal.finalCost;
-            singleItemsBreakdown[pId] = optimal;
-          } else {
-            referenceRetailTotal += (item.price * item.qty);
-            hiddenSpecialSingleTotal += (item.price * item.qty);
-          }
-        }
+        subtotal += (item.qty * item.price);
+        count += item.qty;
+        summaryHtml += `<div class="summary-line"><span>${item.title} x ${item.qty}</span><span style="font-weight: 700;">HKD ${(item.qty * item.price).toLocaleString()}</span></div>`;
       }
-
-      if (totalUnitsCount === 0) {
+      if (count === 0) {
         document.getElementById('cart-summary-items').innerHTML = '購物車目前為空';
         document.getElementById('cart-subtotal').innerText = 'HKD 0';
         document.getElementById('cart-shipping').innerText = 'HKD 0';
         document.getElementById('cart-total').innerText = 'HKD 0';
         return;
       }
-
-      // 特別優惠門檻判定：有選購30天套裝，或選購單品金額滿 HKD 1,200 即享特別折扣
-      const isQualifiedForSpecialOffer = hasBundle || (referenceRetailTotal >= 1200) || (hiddenSpecialSingleTotal >= 1200);
-
-      let finalGoodsSubtotal = 0;
-      let summaryHtml = '';
-
-      for (let k in cart) {
-        const item = cart[k];
-        if (item.qty <= 0) continue;
-
-        if (k.startsWith('bun_')) {
-          const bId = k.replace('bun_', '');
-          const bObj = BUNDLES_DB.find(b => b.id === bId);
-          const bPrice = bObj ? bObj.price : item.price;
-          const bLineCost = bPrice * item.qty;
-          finalGoodsSubtotal += bLineCost;
-          summaryHtml += `
-            <div class="summary-line">
-              <span>${item.title} x ${item.qty}</span>
-              <span style="font-weight: 700;">HKD ${bLineCost.toLocaleString()}</span>
-            </div>
-          `;
-        } else if (k.startsWith('prod_')) {
-          const pId = k.replace('prod_', '');
-          const pObj = PRODUCTS_DB.find(p => p.id === pId);
-          let pLineCost = 0;
-
-          if (isQualifiedForSpecialOffer) {
-            pLineCost = singleItemsBreakdown[pId] ? singleItemsBreakdown[pId].finalCost : (item.price * item.qty);
-          } else {
-            pLineCost = (pObj ? pObj.price : item.price) * item.qty;
-          }
-          finalGoodsSubtotal += pLineCost;
-          summaryHtml += `
-            <div class="summary-line">
-              <span>${item.title} x ${item.qty}</span>
-              <span style="font-weight: 700;">HKD ${pLineCost.toLocaleString()}</span>
-            </div>
-          `;
-        }
-      }
-
-      // 折扣與特別優惠狀態呈現 (零會員字眼，一律使用「特別優惠」)
-      const savedAmount = referenceRetailTotal - finalGoodsSubtotal;
-      let discountRateStr = "";
-      if (referenceRetailTotal > 0 && savedAmount > 0) {
-        const rate = Math.round((finalGoodsSubtotal / referenceRetailTotal) * 10);
-        discountRateStr = rate < 10 ? `${rate}折` : "特別折";
-      }
-
-      let promoBannerHtml = '';
-      if (isQualifiedForSpecialOffer && savedAmount > 0) {
-        promoBannerHtml = `
-          <div style="background: #CCFBF1; border-left: 4px solid var(--color-accent); border-radius: var(--radius-sm); padding: 9px 14px; margin-bottom: 12px; font-size: 14.5px; font-weight: 800; color: #115E59; display: flex; justify-content: space-between; align-items: center;">
-            <span>✨ 已享特別優惠價</span>
-            <span>已慳 HKD ${savedAmount.toLocaleString()} (${discountRateStr})</span>
-          </div>
-        `;
-      } else if (!hasBundle && singleItemsCount > 0 && !isQualifiedForSpecialOffer) {
-        promoBannerHtml = `
-          <div style="background: #FFFBEB; border-left: 4px solid var(--color-warning); border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 12px; font-size: 13.5px; color: #92400E; font-weight: 600;">
-            💡 提示：單品選購滿 HKD 1,200 即自動啟動「特別優惠」！
-          </div>
-        `;
-      }
-
-      document.getElementById('cart-summary-items').innerHTML = promoBannerHtml + summaryHtml;
-
-      // 顯示原價參考 vs 特別優惠應付金額
-      if (savedAmount > 0) {
-        document.getElementById('cart-subtotal').innerHTML = `
-          <span style="text-decoration: line-through; color: var(--color-text-sub); font-size: 13.5px; margin-right: 6px;">HKD ${referenceRetailTotal.toLocaleString()}</span>
-          <span style="color: var(--color-accent-text); font-weight: 800;">HKD ${finalGoodsSubtotal.toLocaleString()}</span>
-        `;
-      } else {
-        document.getElementById('cart-subtotal').innerText = `HKD ${finalGoodsSubtotal.toLocaleString()}`;
-      }
-
-      let shipping = (finalGoodsSubtotal >= 400) ? 0 : 40;
+      document.getElementById('cart-summary-items').innerHTML = summaryHtml;
+      document.getElementById('cart-subtotal').innerText = `HKD ${subtotal.toLocaleString()}`;
+      let shipping = (subtotal >= 400) ? 0 : 40;
       document.getElementById('cart-shipping').innerText = (shipping === 0) ? '免費 (滿額免運)' : `HKD ${shipping}`;
-      document.getElementById('cart-total').innerText = `HKD ${(finalGoodsSubtotal + shipping).toLocaleString()}`;
+      document.getElementById('cart-total').innerText = `HKD ${(subtotal + shipping).toLocaleString()}`;
     }
 
     function submitOrderDualTrack() {

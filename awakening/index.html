@@ -1435,27 +1435,27 @@
         </div>
         <div class="options-container">
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_1" class="dim3-item" >
+            <input type="checkbox" name="dim3" value="D3_1" class="dim3-item">
             <span><strong>呼吸與睡眠：</strong>睡覺時曾被同住家人反映有大聲打鼾，或白天明顯感到極度嗜睡倦怠。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_2" class="dim3-item" >
+            <input type="checkbox" name="dim3" value="D3_2" class="dim3-item">
             <span><strong>飲食與代謝：</strong>晚餐或睡前若吃了大量精緻澱粉、甜食宵夜，半夜更容易驚醒心慌。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_3" class="dim3-item" >
+            <input type="checkbox" name="dim3" value="D3_3" class="dim3-item">
             <span><strong>光照與節律：</strong>白天極少接觸戶外自然陽光，或習慣在睡前床上長時間滑手機看螢幕。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_4" class="dim3-item" >
+            <input type="checkbox" name="dim3" value="D3_4" class="dim3-item">
             <span><strong>水分與酒精：</strong>傍晚或睡前有飲酒習慣，或半夜醒來多數是因為膀胱脹滿去洗手間。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_5" class="dim3-item" >
+            <input type="checkbox" name="dim3" value="D3_5" class="dim3-item">
             <span><strong>壓力與神經：</strong>白天壓力大時半夜醒來機率倍增，醒後對時鐘秒針聲音或光線極度敏感。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="NONE" id="dim3_none" >
+            <input type="checkbox" name="dim3" value="NONE" id="dim3_none" onchange="toggleDimNone('dim3')">
             <span><strong>🚫 以上皆無</strong></span>
           </label>
         </div>
@@ -1469,27 +1469,27 @@
         </div>
         <div class="options-container">
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_1" class="dim4-item" >
+            <input type="checkbox" name="dim4" value="D4_1" class="dim4-item">
             <span><strong>降血壓藥 (去水丸/利尿劑) 或 胃酸抑制劑/碳酸鈣片 (公立醫院常配)：</strong>利尿劑促使夜間膀胱充盈；胃藥與碳酸鈣易引發腸胃脹氣便秘等管道高壓刺激。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_2" class="dim4-item" >
+            <input type="checkbox" name="dim4" value="D4_2" class="dim4-item">
             <span><strong>降血糖藥物 (如甲福明 Metformin) 或 胰島素注射：</strong>藥物作用易在後半夜引發潛在的夜間低血糖反應，刺激交感神經反調節喚醒。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_3" class="dim4-item" >
+            <input type="checkbox" name="dim4" value="D4_3" class="dim4-item">
             <span><strong>降膽固醇藥 (他汀類藥物 Statins)：</strong>常見副作用為干擾細胞能量及肌肉痠痛，形成持續性周邊疼痛刺激。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_4" class="dim4-item" >
+            <input type="checkbox" name="dim4" value="D4_4" class="dim4-item">
             <span><strong>坊間安眠藥、鎮靜劑：</strong>長期使用反映出潛在對睡眠的焦慮制約，且無法解決缺氧或夜尿等根本病因。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_5" id="med_warfarin" class="dim4-item" >
+            <input type="checkbox" name="dim4" value="D4_5" id="med_warfarin" class="dim4-item">
             <span><strong>薄血藥 / 通血丸 (如 Warfarin / Aspirin / Plavix) ⚠️ 臨床安全防線：</strong>凝血功能受調控中，系統將自動啟動零凝血衝突之溫和修復方案。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="NONE" id="dim4_none" >
+            <input type="checkbox" name="dim4" value="NONE" id="dim4_none" onchange="toggleDimNone('dim4')">
             <span><strong>🚫 沒有服用上述西藥</strong></span>
           </label>
         </div>
@@ -1695,20 +1695,6 @@ ________________
               <input type="checkbox" id="order_has_lift" checked style="width: 18px; height: 18px; margin-right: 8px;">
               <span style="font-size: 14px; font-weight: 600;">大廈設有升降機直達（若無升降機需現場自付每層 HKD 50 樓梯費）</span>
             </label>
-          </div>
-          <div style="margin-bottom: 18px;">
-            <label style="font-size: 14px; font-weight: 700; display: block; margin-bottom: 8px; color: var(--color-text-main);">付款方式 *</label>
-            <div style="display: flex; gap: 18px; flex-wrap: wrap;">
-              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
-                <input type="radio" name="order_payment" value="FPS 轉數快" checked style="width: 18px; height: 18px;"> 🔵 FPS 轉數快 (預設)
-              </label>
-              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
-                <input type="radio" name="order_payment" value="PayMe" style="width: 18px; height: 18px;"> 🔴 PayMe
-              </label>
-              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14.5px;">
-                <input type="radio" name="order_payment" value="AlipayHK" style="width: 18px; height: 18px;"> 🔵 AlipayHK
-              </label>
-            </div>
           </div>
           <button type="button" class="btn-accent" style="font-size: 18px; padding: 16px; width: 100%; font-weight: 800;" onclick="submitOrderDualTrack()">
             確認送出訂單
@@ -2019,9 +2005,7 @@ ________________
     "id": "34269",
     "name": "Nn 蝦青素",
     "shortDesc": "超強跨膜抗氧化，撲滅微血管發炎",
-    "price": 290,
-        specialPrice: 255,
-        packages: [{"code": "IH2030", "qty": 5, "price": 955, "name": "5件專尚配套"}],.0,
+    "price": 276.0,
     "img": "/images/products/34269.webp",
     "spec": "30粒/盒",
     "origin": "馬來西亞",
@@ -2039,9 +2023,7 @@ ________________
     "id": "34278",
     "name": "Nn 水溶性輔酶Q10",
     "shortDesc": "為粒線體充能，拉平夜間供電曲線",
-    "price": 338,
-        specialPrice: 297,
-        packages: [{"code": "IH2044", "qty": 4, "price": 862, "name": "4件專尚配套"}, {"code": "IH1074", "qty": 2, "price": 442, "name": "2件專尚配套"}],.0,
+    "price": 321.0,
     "img": "/images/products/34278.webp",
     "spec": "30粒/盒",
     "origin": "馬來西亞",
@@ -2058,9 +2040,7 @@ ________________
     "id": "34307",
     "name": "Nn 腸快適",
     "shortDesc": "專利後生元修復腸道，阻斷內毒素入血",
-    "price": 314,
-        specialPrice: 276,
-        packages: [{"code": "IH2109", "qty": 6, "price": 1354, "name": "6件專尚配套"}, {"code": "IH1109", "qty": 2, "price": 465, "name": "2件專尚配套"}],.0,
+    "price": 314.0,
     "img": "/images/products/34307.webp",
     "spec": "20毫升 x 15包",
     "origin": "馬來西亞",
@@ -2078,9 +2058,7 @@ ________________
     "id": "34316",
     "name": "Nn 液鈣鎂D3",
     "shortDesc": "微米液態鈣鎂，放鬆自律神經平穩膜電位",
-    "price": 241,
-        specialPrice: 212,
-        packages: [{"code": "IH0320", "qty": 12, "price": 1936, "name": "12件專尚配套"}, {"code": "IH2128", "qty": 6, "price": 1041, "name": "6件專尚配套"}, {"code": "IH1122", "qty": 2, "price": 356, "name": "2件專尚配套"}],.0,
+    "price": 241.0,
     "img": "/images/products/34316.webp",
     "spec": "20包/盒",
     "origin": "台灣",
@@ -2099,9 +2077,7 @@ ________________
     "id": "34331",
     "name": "Nn 三效益生菌- 長者配方",
     "shortDesc": "心腦友善專利好菌，調節微生態抗滲漏",
-    "price": 409,
-        specialPrice: 327,
-        packages: [{"code": "IH0330", "qty": 8, "price": 2269, "name": "8件專尚配套"}, {"code": "IH2139", "qty": 4, "price": 1169, "name": "4件專尚配套"}, {"code": "IH1335", "qty": 2, "price": 599, "name": "2件專尚配套"}],.0,
+    "price": 409.0,
     "img": "/images/products/34331.webp",
     "spec": "2克 x 30包",
     "origin": "韓國",
@@ -2119,9 +2095,7 @@ ________________
     "id": "36248",
     "name": "ORIYEN 綜合果蔬酵素",
     "shortDesc": "730天深層發酵多酚，截斷發炎毒素滲漏",
-    "price": 633,
-        specialPrice: 557,
-        packages: [{"code": "IH0673", "qty": 10, "price": 4693, "name": "10件專尚配套"}, {"code": "IH0263", "qty": 4, "price": 1962, "name": "4件專尚配套"}, {"code": "IH1709", "qty": 3, "price": 1523, "name": "3件專尚配套"}],.0,
+    "price": 602.0,
     "img": "/images/products/36248.webp",
     "spec": "300毫升/瓶",
     "origin": "日本",
@@ -2140,9 +2114,7 @@ ________________
     "id": "36281",
     "name": "ORIYEN 天然酵母NMN 15000 Premium",
     "shortDesc": "補充細胞NAD+，校準下視丘生物鐘",
-    "price": 2488,
-        specialPrice: 1888,
-        packages: [{"code": "IH3146", "qty": 10, "price": 16080, "name": "10件專尚配套"}, {"code": "IH2527", "qty": 5, "price": 8288, "name": "5件專尚配套"}, {"code": "IH0327", "qty": 1, "price": 1888, "name": "1件專尚配套"}],.0,
+    "price": 2488.0,
     "img": "/images/products/36281.webp",
     "spec": "150克 (5克 x 30包)",
     "origin": "台灣",
@@ -2162,9 +2134,7 @@ ________________
     "id": "38207",
     "name": "Smart Fitness X 律動拍打機",
     "shortDesc": "垂直律動激發NO，排空下肢深靜脈淤血",
-    "price": 22990,
-        specialPrice: 22990,
-        packages: [{"code": "IH3005", "qty": 1, "price": 13990, "name": "1部專尚配套"}],.0,
+    "price": 22990.0,
     "img": "/images/products/38207.webp",
     "spec": "1部裝",
     "origin": "台灣",
@@ -2181,9 +2151,7 @@ ________________
     "id": "36283",
     "name": "ORIYEN 蛋白高營素",
     "shortDesc": "雙源蛋白補充色胺酸，充足褪黑激素原料",
-    "price": 339,
-        specialPrice: 298,
-        packages: [{"code": "IH0333", "qty": 10, "price": 2389, "name": "10件專尚配套"}, {"code": "IH2145", "qty": 5, "price": 1249, "name": "5件專尚配套"}, {"code": "IH1336", "qty": 3, "price": 789, "name": "3件專尚配套"}],.0,
+    "price": 339.0,
     "img": "/images/products/36283.webp",
     "spec": "47克x 10包",
     "origin": "台灣",
@@ -2200,9 +2168,7 @@ ________________
     "id": "34103",
     "name": "Nn 月見草油1000",
     "shortDesc": "轉化抗炎前列腺素，降低周邊神經敏化",
-    "price": 196,
-        specialPrice: 172,
-        packages: [{"code": "IH0199", "qty": 8, "price": 978, "name": "8件專尚配套"}, {"code": "IH1011", "qty": 2, "price": 278, "name": "2件專尚配套"}],.0,
+    "price": 196.0,
     "img": "/images/products/34103.webp",
     "spec": "1000毫克x 50粒",
     "origin": "紐西蘭",
@@ -2219,9 +2185,7 @@ ________________
     "id": "0368",
     "name": "SE 紅光光療按摩帶",
     "shortDesc": "PBM雙光理療，爆發性合成ATP放鬆肌肉",
-    "price": 2580,
-        specialPrice: 2580,
-        packages: [{"code": "IH2143", "qty": 1, "price": 1780, "name": "1件專尚配套"}],.0,
+    "price": 2580.0,
     "img": "/images/products/0368.webp",
     "spec": "1件裝 (主機+控制器)",
     "origin": "台灣",
@@ -2278,10 +2242,10 @@ ________________
     "causeId": 2,
     "isWarfarinSafe": true,
     "img": "/images/packages/NoctAwaken_Set_B1.webp",
-    "price": 20881,
-    "origPrice": 32104,
+    "price": 19030,
+    "origPrice": 29400,
     "discount": "65折",
-    "save": 11223,
+    "save": 10370,
     "itemsSummary": "Nn 水溶性輔酶Q10 x 1、Nn 液鈣鎂D3 x 2、Nn 蝦青素 x 1、Nn 腸快適 x 2、Nn 三效益生菌 x 1、ORIYEN 綜合果蔬酵素 x 3、ORIYEN 天然酵母NMN x 1、Smart Fitness X 律動拍打機 x 1",
     "desc": "30天旗艦全效。Q10支援粒線體能量合成；微米鈣鎂穩定神經膜電位；NMN修復細胞產能；酵素益生菌重塑心腸軸阻斷發炎；律動機垂直律動激發NO與排空淤血，全面平撫夜間代謝供電震盪。"
   },
@@ -2306,10 +2270,10 @@ ________________
     "causeId": 3,
     "isWarfarinSafe": true,
     "img": "/images/packages/NoctAwaken_Set_C1.webp",
-    "price": 20594,
-    "origPrice": 31721,
-    "discount": "65折",
-    "save": 11127,
+    "price": 2677,
+    "origPrice": 3505,
+    "discount": "76折",
+    "save": 828,
     "itemsSummary": "ORIYEN 天然酵母NMN 15000 x 1、ORIYEN 蛋白高營素 x 3",
     "desc": "30天節律重校。天然酵母NMN及時補充下視丘SCN細胞NAD+，校準生物鐘中樞；雙源優質蛋白提供天然左旋色胺酸與B群，白天合成血清素，入夜轉化充足褪黑激素，守護後半夜深睡。"
   },
@@ -2320,10 +2284,10 @@ ________________
     "causeId": 4,
     "isWarfarinSafe": true,
     "img": "/images/packages/NoctAwaken_Set_D1.webp",
-    "price": 3608,
-    "origPrice": 4485,
-    "discount": "80折",
-    "save": 877,
+    "price": 6245,
+    "origPrice": 8237,
+    "discount": "76折",
+    "save": 1992,
     "itemsSummary": "Nn 月見草油 x 1、Nn 蝦青素 x 1、Nn 液鈣鎂D3 x 2、Nn 三效益生菌 x 1、ORIYEN 綜合果蔬酵素 x 3、ORIYEN 天然酵母NMN x 1、SE 紅光光療按摩帶 x 1",
     "desc": "30天周邊管道解壓。紅光帶深層理療改善微循環；益生菌酵素阻斷腸漏發炎降低白天微血管滲漏；微米鈣鎂放鬆骨盆底肌群，徹底消除夜尿倒灌與周邊感覺神經假警報。"
   },
@@ -2334,10 +2298,10 @@ ________________
     "causeId": 5,
     "isWarfarinSafe": true,
     "img": "/images/packages/NoctAwaken_Set_E1.webp",
-    "price": 21205,
-    "origPrice": 32493,
-    "discount": "65折",
-    "save": 11288,
+    "price": 6296,
+    "origPrice": 8393,
+    "discount": "75折",
+    "save": 2097,
     "itemsSummary": "ORIYEN 天然酵母NMN x 1、Nn 液鈣鎂D3 x 2、Nn 腸快適 x 2、Nn 三效益生菌(護腸免疫) x 1、ORIYEN 綜合果蔬酵素 x 3、SE 紅光光療按摩帶 x 1",
     "desc": "30天中樞安保冷卻。專利麥角硫因與NMN提升大腦GABA抑制遞質達4倍；微米鎂阻斷NMDA受體過度亢奮；後生元與益生菌調節腦腸軸，平息大腦失控警報與焦慮死鎖。"
   }
@@ -2654,15 +2618,10 @@ ________________
     function toggleDimNone(dim) {
       const noneBox = document.getElementById(dim + '_none');
       const items = document.querySelectorAll('.' + dim + '-item');
-      if (noneBox && noneBox.checked) {
-        items.forEach(el => { el.checked = false; });
-      }
-    }
-
-    function handleDimItemCheck(dim) {
-      const noneBox = document.getElementById(dim + '_none');
-      if (noneBox) {
-        noneBox.checked = false;
+      if (noneBox.checked) {
+        items.forEach(el => { el.checked = false; el.disabled = true; });
+      } else {
+        items.forEach(el => { el.disabled = false; });
       }
     }
 
@@ -2673,54 +2632,6 @@ ________________
       }
     }
 
-    
-    // =========================================================================
-    // 全局雙向嚴格互斥控制器 (Universal Bidirectional Mutually Exclusive Controller)
-    // =========================================================================
-    document.addEventListener('change', function(e) {
-      const target = e.target;
-      if (!target || target.type !== 'checkbox') return;
-
-      // 1. 支援 data-group 體系 (sarcopenia, foodcoma, diasthenia 等)
-      const group = target.dataset.group;
-      if (group) {
-        const isNone = target.dataset.none === "true" || target.value === "NONE" || target.value === "none";
-        const allInGroup = document.querySelectorAll(`input[type="checkbox"][data-group="${group}"]`);
-        const noneCb = document.querySelector(`input[type="checkbox"][data-group="${group}"][data-none="true"], input[type="checkbox"][data-group="${group}"][value="NONE"], input[type="checkbox"][data-group="${group}"][value="none"]`);
-
-        if (isNone && target.checked) {
-          allInGroup.forEach(cb => {
-            if (cb !== target) cb.checked = false;
-          });
-        } else if (!isNone && target.checked) {
-          if (noneCb) noneCb.checked = false;
-        }
-        return;
-      }
-
-      // 2. 支援 name="dimX" 體系 (nocturia, cramps, numbness, awakening 等)
-      const name = target.name;
-      const isNoneId = target.id && target.id.endsWith('_none');
-      const isNoneVal = target.value === 'NONE' || target.value === 'none';
-
-      if (isNoneId || isNoneVal) {
-        if (target.checked) {
-          const dimKey = target.id ? target.id.replace('_none', '') : name;
-          const siblings = document.querySelectorAll(`input[type="checkbox"][name="${dimKey}"], .${dimKey}-item`);
-          siblings.forEach(cb => {
-            if (cb !== target) cb.checked = false;
-          });
-        }
-      } else if (name && name.startsWith('dim')) {
-        if (target.checked) {
-          const noneBox = document.getElementById(name + '_none');
-          if (noneBox) noneBox.checked = false;
-          const noneValBox = document.querySelector(`input[type="checkbox"][name="${name}"][value="NONE"], input[type="checkbox"][name="${name}"][value="none"]`);
-          if (noneValBox) noneValBox.checked = false;
-        }
-      }
-    });
-
     function submitAssessment() {
       const userName = document.getElementById('quizUserName').value.trim();
       if (!userName) {
@@ -2729,16 +2640,20 @@ ________________
         return;
       }
 
-      
-      // 0. 嚴格檢查：是否至少勾選/選擇了一項有效體徵（未選或全部只勾選「以上皆無」時立即警告並攔截）
-      const checkedSymptoms = document.querySelectorAll(
-        '#quiz-section input[type="checkbox"]:checked:not([value="NONE"]):not([id$="_none"]), #quiz-section input[type="radio"]:checked:not([value="NONE"])'
-      );
-      if (checkedSymptoms.length === 0) {
-        alert('⚠️ 溫馨提示：問卷尚未填選任何症狀。請至少勾選或選擇一項您的日常體徵，以便系統為您進行精準生理學分析！');
+
+      // 0. 未填警號（嚴格遵循問卷設計邏輯：作答了單選扎醒時間／瞬間感受或勾選了具體體徵即為有效作答）
+      const hasRadioSymptoms = document.querySelectorAll(
+        '#quiz-section input[type="radio"]:checked:not([value="NONE"])'
+      ).length > 0;
+      const hasCheckSymptoms = document.querySelectorAll(
+        '#quiz-section input[type="checkbox"]:checked:not([value="NONE"]):not([id$="_none"])'
+      ).length > 0;
+      if (!hasRadioSymptoms && !hasCheckSymptoms) {
+        alert('請先填選您的半夜醒來時間、醒來瞬間感受或伴隨體徵，以便為您進行精準生理成因分析！');
         return;
       }
-isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementById('med_warfarin').checked : false;
+
+      isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementById('med_warfarin').checked : false;
       let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
       // 維度 1 (睡眠時間與作息節律)
@@ -2789,12 +2704,7 @@ isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementBy
       }
 
       // 計算佔比與決勝 (Tie-breaker: C1 > C2 > C3 > C4 > C5)
-      const totalRawScore = Object.values(scores).reduce((a, b) => a + b, 0);
-      if (totalRawScore <= 0) {
-        alert('⚠️ 溫馨提示：請至少勾選一項您的日常體徵或身體感受，以便系統為您進行精準生理學分析！');
-        return;
-      }
-      const totalRaw = totalRawScore || 1;
+      const totalRaw = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
       let ratios = {};
       let maxScore = -1;
       let winningCause = 1;
@@ -3042,31 +2952,6 @@ isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementBy
       });
     }
 
-        function calcItemOptimalSpecialPrice(prod, qty) {
-      if (qty <= 0) return { finalCost: 0, breakdownList: [] };
-      let remaining = qty;
-      let cost = 0;
-      let breakdown = [];
-
-      // packages 已由大至小排序
-      if (prod.packages && prod.packages.length > 0) {
-        for (let p of prod.packages) {
-          if (remaining >= p.qty) {
-            let sets = Math.floor(remaining / p.qty);
-            cost += sets * p.price;
-            remaining = remaining % p.qty;
-            breakdown.push({ code: p.code, name: p.name, sets: sets, totalUnits: sets * p.qty, cost: sets * p.price });
-          }
-        }
-      }
-      if (remaining > 0) {
-        let singleUnitCost = prod.specialPrice || prod.price;
-        cost += remaining * singleUnitCost;
-        breakdown.push({ code: prod.id, name: "特別單件價", sets: remaining, totalUnits: remaining, cost: remaining * singleUnitCost });
-      }
-      return { finalCost: cost, breakdownList: breakdown };
-    }
-
     function updateCart(key, delta, price, title) {
       if (!cart[key]) {
         cart[key] = { qty: 0, price: price, title: title };
@@ -3082,137 +2967,28 @@ isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementBy
       recalculateCart();
     }
 
-        function recalculateCart() {
-      let hasBundle = false;
-      let singleItemsCount = 0;
-      let totalUnitsCount = 0;
-      let referenceRetailTotal = 0; // 原價參考
-      let hiddenSpecialSingleTotal = 0; // 隱藏單品特別優惠總額 (用於門檻檢測)
-      let actualBundleCost = 0; // 套裝實收金額
-
-      let singleItemsBreakdown = {};
-
+    function recalculateCart() {
+      let subtotal = 0;
+      let count = 0;
+      let summaryHtml = '';
       for (let k in cart) {
         const item = cart[k];
-        if (item.qty <= 0) continue;
-        totalUnitsCount += item.qty;
-
-        if (k.startsWith('bun_')) {
-          hasBundle = true;
-          const bId = k.replace('bun_', '');
-          const bundleObj = BUNDLES_DB.find(b => b.id === bId);
-          if (bundleObj) {
-            actualBundleCost += (bundleObj.price * item.qty);
-            referenceRetailTotal += (bundleObj.origPrice * item.qty);
-          } else {
-            actualBundleCost += (item.price * item.qty);
-            referenceRetailTotal += (item.price * item.qty);
-          }
-        } else if (k.startsWith('prod_')) {
-          singleItemsCount += item.qty;
-          const pId = k.replace('prod_', '');
-          const prodObj = PRODUCTS_DB.find(p => p.id === pId);
-          if (prodObj) {
-            referenceRetailTotal += (prodObj.price * item.qty);
-            const optimal = calcItemOptimalSpecialPrice(prodObj, item.qty);
-            hiddenSpecialSingleTotal += optimal.finalCost;
-            singleItemsBreakdown[pId] = optimal;
-          } else {
-            referenceRetailTotal += (item.price * item.qty);
-            hiddenSpecialSingleTotal += (item.price * item.qty);
-          }
-        }
+        subtotal += (item.qty * item.price);
+        count += item.qty;
+        summaryHtml += `<div class="summary-line"><span>${item.title} x ${item.qty}</span><span style="font-weight: 700;">HKD ${(item.qty * item.price).toLocaleString()}</span></div>`;
       }
-
-      if (totalUnitsCount === 0) {
+      if (count === 0) {
         document.getElementById('cart-summary-items').innerHTML = '購物車目前為空';
         document.getElementById('cart-subtotal').innerText = 'HKD 0';
         document.getElementById('cart-shipping').innerText = 'HKD 0';
         document.getElementById('cart-total').innerText = 'HKD 0';
         return;
       }
-
-      // 特別優惠門檻判定：有選購30天套裝，或選購單品金額滿 HKD 1,200 即享特別折扣
-      const isQualifiedForSpecialOffer = hasBundle || (referenceRetailTotal >= 1200) || (hiddenSpecialSingleTotal >= 1200);
-
-      let finalGoodsSubtotal = 0;
-      let summaryHtml = '';
-
-      for (let k in cart) {
-        const item = cart[k];
-        if (item.qty <= 0) continue;
-
-        if (k.startsWith('bun_')) {
-          const bId = k.replace('bun_', '');
-          const bObj = BUNDLES_DB.find(b => b.id === bId);
-          const bPrice = bObj ? bObj.price : item.price;
-          const bLineCost = bPrice * item.qty;
-          finalGoodsSubtotal += bLineCost;
-          summaryHtml += `
-            <div class="summary-line">
-              <span>${item.title} x ${item.qty}</span>
-              <span style="font-weight: 700;">HKD ${bLineCost.toLocaleString()}</span>
-            </div>
-          `;
-        } else if (k.startsWith('prod_')) {
-          const pId = k.replace('prod_', '');
-          const pObj = PRODUCTS_DB.find(p => p.id === pId);
-          let pLineCost = 0;
-
-          if (isQualifiedForSpecialOffer) {
-            pLineCost = singleItemsBreakdown[pId] ? singleItemsBreakdown[pId].finalCost : (item.price * item.qty);
-          } else {
-            pLineCost = (pObj ? pObj.price : item.price) * item.qty;
-          }
-          finalGoodsSubtotal += pLineCost;
-          summaryHtml += `
-            <div class="summary-line">
-              <span>${item.title} x ${item.qty}</span>
-              <span style="font-weight: 700;">HKD ${pLineCost.toLocaleString()}</span>
-            </div>
-          `;
-        }
-      }
-
-      // 折扣與特別優惠狀態呈現 (零會員字眼，一律使用「特別優惠」)
-      const savedAmount = referenceRetailTotal - finalGoodsSubtotal;
-      let discountRateStr = "";
-      if (referenceRetailTotal > 0 && savedAmount > 0) {
-        const rate = Math.round((finalGoodsSubtotal / referenceRetailTotal) * 10);
-        discountRateStr = rate < 10 ? `${rate}折` : "特別折";
-      }
-
-      let promoBannerHtml = '';
-      if (isQualifiedForSpecialOffer && savedAmount > 0) {
-        promoBannerHtml = `
-          <div style="background: #CCFBF1; border-left: 4px solid var(--color-accent); border-radius: var(--radius-sm); padding: 9px 14px; margin-bottom: 12px; font-size: 14.5px; font-weight: 800; color: #115E59; display: flex; justify-content: space-between; align-items: center;">
-            <span>✨ 已享特別優惠價</span>
-            <span>已慳 HKD ${savedAmount.toLocaleString()} (${discountRateStr})</span>
-          </div>
-        `;
-      } else if (!hasBundle && singleItemsCount > 0 && !isQualifiedForSpecialOffer) {
-        promoBannerHtml = `
-          <div style="background: #FFFBEB; border-left: 4px solid var(--color-warning); border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 12px; font-size: 13.5px; color: #92400E; font-weight: 600;">
-            💡 提示：單品選購滿 HKD 1,200 即自動啟動「特別優惠」！
-          </div>
-        `;
-      }
-
-      document.getElementById('cart-summary-items').innerHTML = promoBannerHtml + summaryHtml;
-
-      // 顯示原價參考 vs 特別優惠應付金額
-      if (savedAmount > 0) {
-        document.getElementById('cart-subtotal').innerHTML = `
-          <span style="text-decoration: line-through; color: var(--color-text-sub); font-size: 13.5px; margin-right: 6px;">HKD ${referenceRetailTotal.toLocaleString()}</span>
-          <span style="color: var(--color-accent-text); font-weight: 800;">HKD ${finalGoodsSubtotal.toLocaleString()}</span>
-        `;
-      } else {
-        document.getElementById('cart-subtotal').innerText = `HKD ${finalGoodsSubtotal.toLocaleString()}`;
-      }
-
-      let shipping = (finalGoodsSubtotal >= 400) ? 0 : 40;
+      document.getElementById('cart-summary-items').innerHTML = summaryHtml;
+      document.getElementById('cart-subtotal').innerText = `HKD ${subtotal.toLocaleString()}`;
+      let shipping = (subtotal >= 400) ? 0 : 40;
       document.getElementById('cart-shipping').innerText = (shipping === 0) ? '免費 (滿額免運)' : `HKD ${shipping}`;
-      document.getElementById('cart-total').innerText = `HKD ${(finalGoodsSubtotal + shipping).toLocaleString()}`;
+      document.getElementById('cart-total').innerText = `HKD ${(subtotal + shipping).toLocaleString()}`;
     }
 
     function submitOrderDualTrack() {
@@ -3220,7 +2996,6 @@ isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementBy
       const phone = document.getElementById('order_recipient_phone').value.trim();
       const address = document.getElementById('order_recipient_address').value.trim();
       const hasLift = document.getElementById('order_has_lift').checked;
-      const paymentMethod = document.querySelector('input[name="order_payment"]:checked')?.value || document.querySelector('input[name="order_payment_method"]:checked')?.value || "FPS 轉數快";
 
       if (Object.keys(cart).length === 0) {
         alert('請先選取所需單品或調理套裝！');
@@ -3257,12 +3032,9 @@ isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementBy
         causeId: selectedCauseId,
         causeName: CAUSES_DATA[selectedCauseId].name,
         primaryCause: CAUSES_DATA[selectedCauseId].name,
-        recipient: { name, phone, address, hasLift: hasLift ? "有升降機" : "無升降機（需行樓梯）" },
-        name: name,
+        recipient: name,
         phone: phone,
         address: address,
-        hasLift: hasLift ? "有升降機" : "無升降機（需行樓梯）",
-        paymentMethod: paymentMethod,
         hasLift: hasLift,
         items: orderItems,
         itemsSummary: orderItems.join(", "),
@@ -3283,9 +3055,8 @@ isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementBy
         orderItems.map(i => `• ${encodeURIComponent(i)}`).join('%0A') + `%0A%0A` +
         `商品小計：HKD ${subtotal.toLocaleString()}%0A` +
         `運費：HKD ${shipping}%0A` +
-        `應付總額：HKD ${total.toLocaleString()}%0A` +
-        `付款方式：${encodeURIComponent(paymentMethod)}%0A%0A` +
-        `麻煩為我發送收款碼（FPS/PayMe/AlipayHK）以完成確認，謝謝！`;
+        `應付總額：HKD ${total.toLocaleString()}%0A%0A` +
+        `請 Duncan 盡快為我確認訂單及安排出貨，謝謝！`;
       const waUrl = `https://wa.me/${DUNCAN_WHATSAPP_PHONE}?text=${waText}`;
 
       // 軌道二：Apps Script Webhook 異步記表

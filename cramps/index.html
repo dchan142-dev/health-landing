@@ -3354,8 +3354,8 @@
         return;
       }
 
-      // 特別優惠門檻判定：有選購30天套裝，或所有單品以特別優惠計滿 HKD 1,000
-      const isQualifiedForSpecialOffer = hasBundle || (hiddenSpecialSingleTotal >= 1000);
+      // 特別優惠門檻判定：有選購30天套裝，或選購單品金額滿 HKD 1,200 即享特別折扣
+      const isQualifiedForSpecialOffer = hasBundle || (referenceRetailTotal >= 1200) || (hiddenSpecialSingleTotal >= 1200);
 
       let finalGoodsSubtotal = 0;
       let summaryHtml = '';
@@ -3412,10 +3412,10 @@
             <span>已慳 HKD ${savedAmount.toLocaleString()} (${discountRateStr})</span>
           </div>
         `;
-      } else if (!hasBundle && singleItemsCount > 0 && hiddenSpecialSingleTotal < 1000) {
+      } else if (!hasBundle && singleItemsCount > 0 && !isQualifiedForSpecialOffer) {
         promoBannerHtml = `
           <div style="background: #FFFBEB; border-left: 4px solid var(--color-warning); border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 12px; font-size: 13.5px; color: #92400E; font-weight: 600;">
-            💡 提示：單品選購滿 HKD 1,000 即自動啟動「特別優惠」！
+            💡 提示：單品選購滿 HKD 1,200 即自動啟動「特別優惠」！
           </div>
         `;
       }

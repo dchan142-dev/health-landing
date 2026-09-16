@@ -504,7 +504,7 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           <span>第四層：調理套裝與自選下單（雙軌交付）</span>
         </h2>
-        <p class="section-desc">滿 HKD 1,000 即自動啟動「特別優惠」，全單享受專尚配套最優折扣。</p>
+        <p class="section-desc">滿 HKD 1,200 即自動啟動「特別優惠」，全單享受專尚配套最優折扣。</p>
       </div>
 
       <!-- 30天精選套裝 -->
@@ -1263,7 +1263,7 @@
         return;
       }
 
-      const isQualifiedForSpecialOffer = hasBundle || (hiddenSpecialSingleTotal >= 1000);
+      const isQualifiedForSpecialOffer = hasBundle || (referenceRetailTotal >= 1200) || (hiddenSpecialSingleTotal >= 1200);
       let finalGoodsSubtotal = 0;
       let summaryHtml = '';
 
@@ -1317,10 +1317,10 @@
             <span>已慳 HKD ${savedAmount.toLocaleString()} (${discountRateStr})</span>
           </div>
         `;
-      } else if (!hasBundle && singleItemsCount > 0 && hiddenSpecialSingleTotal < 1000) {
+      } else if (!hasBundle && singleItemsCount > 0 && !isQualifiedForSpecialOffer) {
         promoBannerHtml = `
           <div style="background: #FFFBEB; border-left: 4px solid var(--color-warning); border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 12px; font-size: 13.5px; color: #92400E; font-weight: 600;">
-            💡 提示：單品選購滿 HKD 1,000 即自動啟動「特別優惠」！
+            💡 提示：單品選購滿 HKD 1,200 即自動啟動「特別優惠」！
           </div>
         `;
       }
@@ -1383,7 +1383,7 @@
         }
       }
 
-      const isQualifiedForSpecialOffer = hasBundle || (hiddenSpecialSingleTotal >= 1000);
+      const isQualifiedForSpecialOffer = hasBundle || (referenceRetailTotal >= 1200) || (hiddenSpecialSingleTotal >= 1200);
       let finalGoodsSubtotal = 0;
       let orderItems = [];
       let backendProcurementList = [];

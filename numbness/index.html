@@ -1383,7 +1383,7 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="radio" name="dim1" value="D1_A" checked>
+            <input type="radio" name="dim1" value="D1_A">
             <span><strong>單側或特定走向放射：</strong>單側特定部位（如右手前三指），或感覺從脖子、腰臀「像一條線放射」到手腳。</span>
           </label>
           <label class="option-label">
@@ -1411,7 +1411,7 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="radio" name="dim2" value="D2_A" checked>
+            <input type="radio" name="dim2" value="D2_A">
             <span><strong>異常放電感：</strong>主要是發麻、刺痛、灼熱或像螞蟻在爬（特定姿勢或夜間較明顯）。</span>
           </label>
           <label class="option-label">
@@ -1455,7 +1455,7 @@
             <span><strong>毒性物質暴露：</strong>經常大量飲酒，或曾接受過化學治療。</span>
           </label>
           <label class="option-label none-opt">
-            <input type="checkbox" id="dim3_none" value="NONE" onchange="toggleDimNone('dim3')">
+            <input type="checkbox" id="dim3_none" value="NONE" >
             <span style="font-weight: 700; color: #92400E;">🚫 以上皆無</span>
           </label>
         </div>
@@ -1495,7 +1495,7 @@
             <span><strong>薄血藥 / 通血丸（如 Warfarin / Aspirin / Plavix）：</strong>凝血調控中（全域安全門閥）。</span>
           </label>
           <label class="option-label none-opt">
-            <input type="checkbox" id="dim4_none" value="NONE" onchange="toggleDimNone('dim4')">
+            <input type="checkbox" id="dim4_none" value="NONE" >
             <span style="font-weight: 700; color: #92400E;">🚫 沒有服用上述西藥</span>
           </label>
         </div>
@@ -1511,7 +1511,7 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="radio" name="dim5" value="D5_A" checked>
+            <input type="radio" name="dim5" value="D5_A">
             <span><strong>經常外食或高溫煎炸：</strong>常吃反覆高溫煎炸的食物（如炸雞、油條、燒味），壞油過氧化物暴露高。</span>
           </label>
           <label class="option-label">
@@ -1535,7 +1535,7 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="radio" name="dim6" value="D6_A" checked>
+            <input type="radio" name="dim6" value="D6_A">
             <span><strong>【法倫測試 (Phalen's Test)】屈腕 60 秒麻刺加劇：</strong>雙手手背貼合屈腕 90 度放在胸前，不到 60 秒手指（拇/食/中指）麻刺感明顯加劇（提示腕管卡壓）。</span>
           </label>
           <label class="option-label">
@@ -2853,6 +2853,54 @@
       }
     }
 
+    
+    // =========================================================================
+    // 全局雙向嚴格互斥控制器 (Universal Bidirectional Mutually Exclusive Controller)
+    // =========================================================================
+    document.addEventListener('change', function(e) {
+      const target = e.target;
+      if (!target || target.type !== 'checkbox') return;
+
+      // 1. 支援 data-group 體系 (sarcopenia, foodcoma, diasthenia 等)
+      const group = target.dataset.group;
+      if (group) {
+        const isNone = target.dataset.none === "true" || target.value === "NONE" || target.value === "none";
+        const allInGroup = document.querySelectorAll(`input[type="checkbox"][data-group="${group}"]`);
+        const noneCb = document.querySelector(`input[type="checkbox"][data-group="${group}"][data-none="true"], input[type="checkbox"][data-group="${group}"][value="NONE"], input[type="checkbox"][data-group="${group}"][value="none"]`);
+
+        if (isNone && target.checked) {
+          allInGroup.forEach(cb => {
+            if (cb !== target) cb.checked = false;
+          });
+        } else if (!isNone && target.checked) {
+          if (noneCb) noneCb.checked = false;
+        }
+        return;
+      }
+
+      // 2. 支援 name="dimX" 體系 (nocturia, cramps, numbness, awakening 等)
+      const name = target.name;
+      const isNoneId = target.id && target.id.endsWith('_none');
+      const isNoneVal = target.value === 'NONE' || target.value === 'none';
+
+      if (isNoneId || isNoneVal) {
+        if (target.checked) {
+          const dimKey = target.id ? target.id.replace('_none', '') : name;
+          const siblings = document.querySelectorAll(`input[type="checkbox"][name="${dimKey}"], .${dimKey}-item`);
+          siblings.forEach(cb => {
+            if (cb !== target) cb.checked = false;
+          });
+        }
+      } else if (name && name.startsWith('dim')) {
+        if (target.checked) {
+          const noneBox = document.getElementById(name + '_none');
+          if (noneBox) noneBox.checked = false;
+          const noneValBox = document.querySelector(`input[type="checkbox"][name="${name}"][value="NONE"], input[type="checkbox"][name="${name}"][value="none"]`);
+          if (noneValBox) noneValBox.checked = false;
+        }
+      }
+    });
+
     function submitAssessment() {
       const userName = document.getElementById('quizUserName').value.trim();
       if (!userName) {
@@ -2861,7 +2909,16 @@
         return;
       }
 
-      isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementById('med_warfarin').checked : false;
+      
+      // 0. 嚴格檢查：是否至少勾選/選擇了一項有效體徵（未選或全部只勾選「以上皆無」時立即警告並攔截）
+      const checkedSymptoms = document.querySelectorAll(
+        '#quiz-section input[type="checkbox"]:checked:not([value="NONE"]):not([id$="_none"]), #quiz-section input[type="radio"]:checked:not([value="NONE"])'
+      );
+      if (checkedSymptoms.length === 0) {
+        alert('⚠️ 溫馨提示：問卷尚未填選任何症狀。請至少勾選或選擇一項您的日常體徵，以便系統為您進行精準生理學分析！');
+        return;
+      }
+isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementById('med_warfarin').checked : false;
       let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
       // 維度 1：位置與擴散

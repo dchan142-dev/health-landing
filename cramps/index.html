@@ -1395,7 +1395,7 @@
             <span><strong>肌肉持續自主跳動或萎縮：</strong>伴隨廣泛肌肉不受控抽搐、明顯無力萎縮或步態嚴重障礙。</span>
           </label>
           <label class="option-label">
-            <input type="radio" name="dim_redflag" value="NONE" checked>
+            <input type="radio" name="dim_redflag" value="NONE">
             <span><strong>以上皆無：</strong>抽筋通常在幾分鐘內或牽拉伸展後自行緩解。</span>
           </label>
         </div>
@@ -1423,7 +1423,7 @@
             <span><strong>白天肌肉過度疲勞：</strong>白天曾長時間走路、搬重物、突然增加運動量或雙腿過度勞累。</span>
           </label>
           <label class="option-label none-opt">
-            <input type="checkbox" id="dim1_none" value="NONE" onchange="toggleDimNone('dim1')">
+            <input type="checkbox" id="dim1_none" value="NONE" >
             <span style="font-weight: 700; color: #92400E;">🚫 以上皆無</span>
           </label>
         </div>
@@ -1455,7 +1455,7 @@
             <span><strong>走動易痠脹乏力：</strong>白天連續行路一段距離後，小腿深層容易感到痠痛緊繃，需坐下休息方能緩解。</span>
           </label>
           <label class="option-label none-opt">
-            <input type="checkbox" id="dim2_none" value="NONE" onchange="toggleDimNone('dim2')">
+            <input type="checkbox" id="dim2_none" value="NONE" >
             <span style="font-weight: 700; color: #92400E;">🚫 以上皆無</span>
           </label>
         </div>
@@ -1487,7 +1487,7 @@
             <span><strong>中央肥胖或脂肪肝：</strong>有大肚腩（腰圍超標）、被診斷有脂肪肝、高血糖或代謝症候群。</span>
           </label>
           <label class="option-label none-opt">
-            <input type="checkbox" id="dim3_none" value="NONE" onchange="toggleDimNone('dim3')">
+            <input type="checkbox" id="dim3_none" value="NONE" >
             <span style="font-weight: 700; color: #92400E;">🚫 以上皆無</span>
           </label>
         </div>
@@ -1527,7 +1527,7 @@
             <span><strong>薄血藥 / 通血丸：</strong>如 Warfarin（華法林）、Aspirin（阿斯匹靈）、Plavix（波立維）或新型抗凝藥。</span>
           </label>
           <label class="option-label none-opt">
-            <input type="checkbox" id="dim4_none" value="NONE" onchange="toggleDimNone('dim4')">
+            <input type="checkbox" id="dim4_none" value="NONE" >
             <span style="font-weight: 700; color: #92400E;">🚫 沒有服用上述西藥</span>
           </label>
         </div>
@@ -1543,7 +1543,7 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="radio" name="dim5" value="D5_A" checked>
+            <input type="radio" name="dim5" value="D5_A">
             <span><strong>牽張拉伸非常有效：</strong>面牆做弓箭步伸展小腿，劇痛與肌肉硬結能在 1–3 分鐘內明顯鬆解。</span>
           </label>
           <label class="option-label">
@@ -1567,7 +1567,7 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="radio" name="dim6" value="D6_A" checked>
+            <input type="radio" name="dim6" value="D6_A">
             <span><strong>正常健康狀態：</strong>腳背脈搏搏動清晰，趾甲按壓發白後 2 秒內恢復紅潤，小腿皮膚按壓無凹痕。</span>
           </label>
           <label class="option-label">
@@ -2942,6 +2942,54 @@
       }
     }
 
+    
+    // =========================================================================
+    // 全局雙向嚴格互斥控制器 (Universal Bidirectional Mutually Exclusive Controller)
+    // =========================================================================
+    document.addEventListener('change', function(e) {
+      const target = e.target;
+      if (!target || target.type !== 'checkbox') return;
+
+      // 1. 支援 data-group 體系 (sarcopenia, foodcoma, diasthenia 等)
+      const group = target.dataset.group;
+      if (group) {
+        const isNone = target.dataset.none === "true" || target.value === "NONE" || target.value === "none";
+        const allInGroup = document.querySelectorAll(`input[type="checkbox"][data-group="${group}"]`);
+        const noneCb = document.querySelector(`input[type="checkbox"][data-group="${group}"][data-none="true"], input[type="checkbox"][data-group="${group}"][value="NONE"], input[type="checkbox"][data-group="${group}"][value="none"]`);
+
+        if (isNone && target.checked) {
+          allInGroup.forEach(cb => {
+            if (cb !== target) cb.checked = false;
+          });
+        } else if (!isNone && target.checked) {
+          if (noneCb) noneCb.checked = false;
+        }
+        return;
+      }
+
+      // 2. 支援 name="dimX" 體系 (nocturia, cramps, numbness, awakening 等)
+      const name = target.name;
+      const isNoneId = target.id && target.id.endsWith('_none');
+      const isNoneVal = target.value === 'NONE' || target.value === 'none';
+
+      if (isNoneId || isNoneVal) {
+        if (target.checked) {
+          const dimKey = target.id ? target.id.replace('_none', '') : name;
+          const siblings = document.querySelectorAll(`input[type="checkbox"][name="${dimKey}"], .${dimKey}-item`);
+          siblings.forEach(cb => {
+            if (cb !== target) cb.checked = false;
+          });
+        }
+      } else if (name && name.startsWith('dim')) {
+        if (target.checked) {
+          const noneBox = document.getElementById(name + '_none');
+          if (noneBox) noneBox.checked = false;
+          const noneValBox = document.querySelector(`input[type="checkbox"][name="${name}"][value="NONE"], input[type="checkbox"][name="${name}"][value="none"]`);
+          if (noneValBox) noneValBox.checked = false;
+        }
+      }
+    });
+
     function submitAssessment() {
       const userName = document.getElementById('quizUserName').value.trim();
       if (!userName) {
@@ -2950,7 +2998,16 @@
         return;
       }
 
-      // 紅旗檢查
+      
+      // 0. 嚴格檢查：是否至少勾選/選擇了一項有效體徵（未選或全部只勾選「以上皆無」時立即警告並攔截）
+      const checkedSymptoms = document.querySelectorAll(
+        '#quiz-section input[type="checkbox"]:checked:not([value="NONE"]):not([id$="_none"]), #quiz-section input[type="radio"]:checked:not([value="NONE"])'
+      );
+      if (checkedSymptoms.length === 0) {
+        alert('⚠️ 溫馨提示：問卷尚未填選任何症狀。請至少勾選或選擇一項您的日常體徵，以便系統為您進行精準生理學分析！');
+        return;
+      }
+// 紅旗檢查
       const rfChecked = document.querySelector('input[name="dim_redflag"]:checked');
       if (rfChecked && rfChecked.value !== 'NONE') {
         alert('⚠️ 系統安全提示：偵測到您勾選了急性或危急紅旗徵候（如疑似深靜脈血栓或動脈急症）。為保障您的健康安全，請勿大力按揉，並請立即尋求急診或專科醫師進行正規醫療檢查！');

@@ -1383,7 +1383,7 @@
         </div>
         <div class="options-container">
           <label class="option-label">
-            <input type="radio" name="dim1" value="D1_A" checked>
+            <input type="radio" name="dim1" value="D1_A">
             <span><strong>晚上 8–9 點入睡，凌晨 3–4 點自然醒來：</strong>睡眠時數已充足（6–8小時），身體已完成睡眠週期自然清醒。</span>
           </label>
           <label class="option-label">
@@ -1405,7 +1405,7 @@
         </div>
         <div class="options-container">
           <label class="option-label">
-            <input type="radio" name="dim2" value="D2_A" checked>
+            <input type="radio" name="dim2" value="D2_A">
             <span><strong>呼吸異常：</strong>大喘氣、胸悶、被自己的大聲打鼾嗆醒，或晨起覺得嚴重口乾口苦。</span>
           </label>
           <label class="option-label">
@@ -1435,27 +1435,27 @@
         </div>
         <div class="options-container">
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_1" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
+            <input type="checkbox" name="dim3" value="D3_1" class="dim3-item" >
             <span><strong>呼吸與睡眠：</strong>睡覺時曾被同住家人反映有大聲打鼾，或白天明顯感到極度嗜睡倦怠。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_2" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
+            <input type="checkbox" name="dim3" value="D3_2" class="dim3-item" >
             <span><strong>飲食與代謝：</strong>晚餐或睡前若吃了大量精緻澱粉、甜食宵夜，半夜更容易驚醒心慌。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_3" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
+            <input type="checkbox" name="dim3" value="D3_3" class="dim3-item" >
             <span><strong>光照與節律：</strong>白天極少接觸戶外自然陽光，或習慣在睡前床上長時間滑手機看螢幕。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_4" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
+            <input type="checkbox" name="dim3" value="D3_4" class="dim3-item" >
             <span><strong>水分與酒精：</strong>傍晚或睡前有飲酒習慣，或半夜醒來多數是因為膀胱脹滿去洗手間。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_5" class="dim3-item" onchange="handleDimItemCheck(\'dim3\')">
+            <input type="checkbox" name="dim3" value="D3_5" class="dim3-item" >
             <span><strong>壓力與神經：</strong>白天壓力大時半夜醒來機率倍增，醒後對時鐘秒針聲音或光線極度敏感。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="NONE" id="dim3_none" onchange="toggleDimNone('dim3')">
+            <input type="checkbox" name="dim3" value="NONE" id="dim3_none" >
             <span><strong>🚫 以上皆無</strong></span>
           </label>
         </div>
@@ -1469,27 +1469,27 @@
         </div>
         <div class="options-container">
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_1" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
+            <input type="checkbox" name="dim4" value="D4_1" class="dim4-item" >
             <span><strong>降血壓藥 (去水丸/利尿劑) 或 胃酸抑制劑/碳酸鈣片 (公立醫院常配)：</strong>利尿劑促使夜間膀胱充盈；胃藥與碳酸鈣易引發腸胃脹氣便秘等管道高壓刺激。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_2" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
+            <input type="checkbox" name="dim4" value="D4_2" class="dim4-item" >
             <span><strong>降血糖藥物 (如甲福明 Metformin) 或 胰島素注射：</strong>藥物作用易在後半夜引發潛在的夜間低血糖反應，刺激交感神經反調節喚醒。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_3" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
+            <input type="checkbox" name="dim4" value="D4_3" class="dim4-item" >
             <span><strong>降膽固醇藥 (他汀類藥物 Statins)：</strong>常見副作用為干擾細胞能量及肌肉痠痛，形成持續性周邊疼痛刺激。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_4" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
+            <input type="checkbox" name="dim4" value="D4_4" class="dim4-item" >
             <span><strong>坊間安眠藥、鎮靜劑：</strong>長期使用反映出潛在對睡眠的焦慮制約，且無法解決缺氧或夜尿等根本病因。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_5" id="med_warfarin" class="dim4-item" onchange="handleDimItemCheck(\'dim4\')">
+            <input type="checkbox" name="dim4" value="D4_5" id="med_warfarin" class="dim4-item" >
             <span><strong>薄血藥 / 通血丸 (如 Warfarin / Aspirin / Plavix) ⚠️ 臨床安全防線：</strong>凝血功能受調控中，系統將自動啟動零凝血衝突之溫和修復方案。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="NONE" id="dim4_none" onchange="toggleDimNone('dim4')">
+            <input type="checkbox" name="dim4" value="NONE" id="dim4_none" >
             <span><strong>🚫 沒有服用上述西藥</strong></span>
           </label>
         </div>
@@ -2673,6 +2673,54 @@ ________________
       }
     }
 
+    
+    // =========================================================================
+    // 全局雙向嚴格互斥控制器 (Universal Bidirectional Mutually Exclusive Controller)
+    // =========================================================================
+    document.addEventListener('change', function(e) {
+      const target = e.target;
+      if (!target || target.type !== 'checkbox') return;
+
+      // 1. 支援 data-group 體系 (sarcopenia, foodcoma, diasthenia 等)
+      const group = target.dataset.group;
+      if (group) {
+        const isNone = target.dataset.none === "true" || target.value === "NONE" || target.value === "none";
+        const allInGroup = document.querySelectorAll(`input[type="checkbox"][data-group="${group}"]`);
+        const noneCb = document.querySelector(`input[type="checkbox"][data-group="${group}"][data-none="true"], input[type="checkbox"][data-group="${group}"][value="NONE"], input[type="checkbox"][data-group="${group}"][value="none"]`);
+
+        if (isNone && target.checked) {
+          allInGroup.forEach(cb => {
+            if (cb !== target) cb.checked = false;
+          });
+        } else if (!isNone && target.checked) {
+          if (noneCb) noneCb.checked = false;
+        }
+        return;
+      }
+
+      // 2. 支援 name="dimX" 體系 (nocturia, cramps, numbness, awakening 等)
+      const name = target.name;
+      const isNoneId = target.id && target.id.endsWith('_none');
+      const isNoneVal = target.value === 'NONE' || target.value === 'none';
+
+      if (isNoneId || isNoneVal) {
+        if (target.checked) {
+          const dimKey = target.id ? target.id.replace('_none', '') : name;
+          const siblings = document.querySelectorAll(`input[type="checkbox"][name="${dimKey}"], .${dimKey}-item`);
+          siblings.forEach(cb => {
+            if (cb !== target) cb.checked = false;
+          });
+        }
+      } else if (name && name.startsWith('dim')) {
+        if (target.checked) {
+          const noneBox = document.getElementById(name + '_none');
+          if (noneBox) noneBox.checked = false;
+          const noneValBox = document.querySelector(`input[type="checkbox"][name="${name}"][value="NONE"], input[type="checkbox"][name="${name}"][value="none"]`);
+          if (noneValBox) noneValBox.checked = false;
+        }
+      }
+    });
+
     function submitAssessment() {
       const userName = document.getElementById('quizUserName').value.trim();
       if (!userName) {
@@ -2681,7 +2729,16 @@ ________________
         return;
       }
 
-      isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementById('med_warfarin').checked : false;
+      
+      // 0. 嚴格檢查：是否至少勾選/選擇了一項有效體徵（未選或全部只勾選「以上皆無」時立即警告並攔截）
+      const checkedSymptoms = document.querySelectorAll(
+        '#quiz-section input[type="checkbox"]:checked:not([value="NONE"]):not([id$="_none"]), #quiz-section input[type="radio"]:checked:not([value="NONE"])'
+      );
+      if (checkedSymptoms.length === 0) {
+        alert('⚠️ 溫馨提示：問卷尚未填選任何症狀。請至少勾選或選擇一項您的日常體徵，以便系統為您進行精準生理學分析！');
+        return;
+      }
+isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementById('med_warfarin').checked : false;
       let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
       // 維度 1 (睡眠時間與作息節律)

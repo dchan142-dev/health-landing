@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Health Decoder｜半夜扎醒全景成因自測 ✕ 醫學工程解碼 ✕ 專屬調養方案</title>
+  <title>Health Decoder｜半夜無端扎醒專題 · 從源頭除錯</title>
   <style>
+
 
     /* ==========================================================================
        Health-Decoder.com 全站統一設計規範 (Design System v5.0 - Bento Grid)
@@ -1305,6 +1306,7 @@
       line-height: 1.75;
     }
 
+  
   </style>
 </head>
 <body>
@@ -1320,9 +1322,12 @@
 
   <div class="container">
 
-    <!-- Block A: 頂部 Hero 區 ✕ 極速自測引導 -->
+    <!-- Block A: 頂部 Hero 區 ✕ 極速自測引導 (與夜尿專頁完全一致的精準乾淨結構) -->
+        <!-- Block A: 頂部 Hero 區 ✕ 極速自測引導 -->
     <section id="blockA" class="section-card" style="text-align: center;">
-      <h1 style="font-size: 30px; font-weight: 900; line-height: 1.35; color: var(--color-primary); margin-bottom: 8px;">半夜三點反覆扎醒，<br class="mobile-only">大腦斷電定係警報暴衝？</h1>
+      <h1 style="font-size: 30px; font-weight: 900; line-height: 1.35; color: var(--color-primary); margin-bottom: 8px;">
+        半夜三點反覆扎醒，<br>大腦斷電定係警報暴衝？
+      </h1>
       <div style="font-size: 20px; font-weight: 800; color: var(--color-accent); margin-bottom: 20px;">
         搞清楚源頭，先可以治本。
       </div>
@@ -1342,168 +1347,295 @@
       </div>
     </section>
 
-    <!-- Block B: 六大純化維度初步自我診斷問卷 (MOD-NOCT-QUIZ 100% 正版題庫與 v5 視覺設計) -->
-    <section id="blockB" class="section-card">
+    <!-- Block B: 初步自我診斷問卷 -->
+        <section id="blockB" class="section-card">
       <div style="margin-bottom: 24px; text-align: center;">
         <h2 style="justify-content: center; margin: 0; font-size: 24px;">📋 請完成以下問卷作初步自我診斷。</h2>
       </div>
 
-      <!-- 個人資料輸入 -->
-      <div class="user-info-grid">
-        <div>
-          <label style="font-size: 15px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--color-text-main);">稱呼 *</label>
-          <input type="text" id="quizUserName" class="input-field" placeholder="請輸入你的稱呼" required>
+      <form id="assessmentForm" onsubmit="event.preventDefault(); submitAssessment();">
+        <!-- 個人資料輸入 -->
+        <div class="user-info-grid">
+          <div>
+            <label style="font-size: 15px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--color-text-main);">稱呼 *</label>
+            <input type="text" id="quizUserName" class="input-field" placeholder="請輸入你的稱呼" required>
+          </div>
+          <div>
+            <label style="font-size: 15px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--color-text-main);">性別 *</label>
+            <select id="quizGender" class="input-field">
+              <option value="男">男</option>
+              <option value="女">女</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 15px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--color-text-main);">年齡區間 *</label>
+            <select id="quizAge" class="input-field">
+              <option value="45以下">45 歲以下</option>
+              <option value="46–55">46–55 歲</option>
+              <option value="56–65" selected>56–65 歲</option>
+              <option value="65–75">65–75 歲</option>
+              <option value="75以上">75 歲以上</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label style="font-size: 15px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--color-text-main);">性別 *</label>
-          <select id="quizGender" class="input-field">
-            <option value="男">男</option>
-            <option value="女">女</option>
-          </select>
-        </div>
-        <div>
-          <label style="font-size: 15px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--color-text-main);">年齡區間 *</label>
-          <select id="quizAge" class="input-field">
-            <option value="45以下">45 歲以下</option>
-            <option value="46–55">46–55 歲</option>
-            <option value="56–65" selected>56–65 歲</option>
-            <option value="65–75">65–75 歲</option>
-            <option value="75以上">75 歲以上</option>
-          </select>
-        </div>
-      </div>
 
-      <!-- 第一部分：紅旗急症排除 -->
-      
-      <!-- 維度 1：睡眠時間與半夜醒來時間 (單選) -->
-      <div class="quiz-group">
-        <div class="quiz-group-header">
-          <div class="quiz-badge">1</div>
-          <div class="quiz-title">維度 1：睡眠時間與半夜醒來的時間通常是？【單選】</div>
+        <!-- 安全第一：危急紅旗狀況篩查【單選・安全阻斷】 -->
+        <div class="quiz-group" style="border-left: 4px solid var(--color-danger);">
+          <div class="quiz-group-header">
+            <div class="quiz-num" style="background: var(--color-danger-bg); color: var(--color-danger);">!</div>
+            <div>
+              <div class="quiz-title" style="color: #991B1B;">安全第一：危急紅旗狀況篩查【單選】</div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <label class="option-label">
+              <input type="radio" name="dim_redflag" value="RF_APNEA">
+              <span><strong>重度呼吸窒息紅旗：</strong>夜間反覆憋醒伴隨嘴唇發紫（發紺）、白天出現無法抗拒之秒睡或晨起劇烈搏動性頭痛（需緊急安排多導睡眠監測 PSG）。</span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="dim_redflag" value="RF_HYPO">
+              <span><strong>低血糖急症危象紅旗：</strong>夜間驚醒伴隨神智模糊、言語不清、肢體劇烈抽搐或陷入昏迷（需即時補充速效糖分並緊急送醫）。</span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="dim_redflag" value="RF_CARDIO">
+              <span><strong>心腦血管急性事件紅旗：</strong>醒來時伴隨壓榨性心前區劇痛、痛感放射至左肩下巴、突發單側肢體無力或嘴角歪斜（高度警惕急性心肌梗塞或中風 TIA）。</span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="dim_redflag" value="RF_GI">
+              <span><strong>消化道重度損傷紅旗：</strong>夜間反覆劇烈嗆咳引發吸入性肺炎、吞嚥困難有阻塞感、嘔吐物呈咖啡色或伴隨解黑便（高度警惕潰瘍出血或食道嚴重病變）。</span>
+            </label>
+            <label class="option-label none-opt">
+              <input type="radio" name="dim_redflag" value="RF_NONE" checked>
+              <span><strong>沒有上述情況：</strong>半夜醒來沒有上述急症紅旗體徵。</span>
+            </label>
+          </div>
         </div>
-        <div class="options-container">
-          <label class="option-label">
-            <input type="radio" name="dim1" value="D1_A">
-            <span><strong>晚上 8–9 點入睡，凌晨 3–4 點自然醒來：</strong>睡眠時數已充足（6–8小時），身體已完成睡眠週期自然清醒。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim1" value="D1_B">
-            <span><strong>晚上 11–12 點後入睡，但在凌晨 3–4 點反覆醒來且難以入睡：</strong>入睡時間正常，但後半夜睡眠維持中斷，醒後輾轉反側難以復睡。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim1" value="D1_C">
-            <span><strong>睡無定時，作息混亂，半夜總會醒來：</strong>就寢時間極不規律，日夜光照錯位，體內晝夜節律相位偏移。</span>
-          </label>
-        </div>
-      </div>
 
-      <!-- 維度 2：半夜扎醒瞬間之最先感受 (單選，權重極高) -->
-      <div class="quiz-group">
-        <div class="quiz-group-header">
-          <div class="quiz-badge">2</div>
-          <div class="quiz-title">維度 2：半夜扎醒的那一瞬間，您「最先」感受到的是什麼？【單選 · 表型定調】</div>
+        <!-- 第 1 組｜醒來瞬間第一體感排查（核心臨床表型）【可多選】 -->
+        <div class="quiz-group">
+          <div class="quiz-group-header">
+            <div class="quiz-num">1</div>
+            <div>
+              <div class="quiz-title">第 1 組｜醒來瞬間第一體感排查（核心臨床表型）【可多選】</div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="Q1_1" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>醒來瞬間大啖喘氣，有明顯胸口發悶或窒息驚恐感。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="Q1_2" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>半夜常被自己劇烈嘅鼻鼾聲或嗆咳聲震醒。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="Q1_3" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>入睡三至四個鐘突發驚醒，感覺心跳狂飆、全身冒冷汗、手指細微發抖。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="Q1_4" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>半夜驚醒時伴隨極度強烈嘅心慌與空腹飢餓感。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="Q1_5" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>每晚近乎喺固定時間自然乾醒（例如每晚凌晨三點至四點），意識清晰毫無睡意。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="Q1_6" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>醒來時感覺身體認定早晨已經來臨，腦海完全冇再次入睡嘅睡眠動力。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="Q1_7" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>醒來時感到心口正中灼熱刺痛（火燒心），喉嚨湧起酸苦液體。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="Q1_8" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>半夜醒來感覺胃頂脹氣向上衝，喉嚨有濃稠黏液或異物感卡住。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="Q1_9" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>身體完全冇胸腹痛楚，睜開眼瞬間大腦立刻全速開機盤算聽日嘅待辦事項。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="Q1_10" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>醒來後越逼自己入睡，腦神經越發興奮緊繃。</span>
+            </label>
+            <label class="option-label none-opt">
+              <input type="checkbox" id="dim1_none" value="NONE" onchange="toggleDimNone('dim1')">
+              <span>🚫 沒有上述情況</span>
+            </label>
+          </div>
         </div>
-        <div class="options-container">
-          <label class="option-label">
-            <input type="radio" name="dim2" value="D2_A">
-            <span><strong>呼吸異常：</strong>大喘氣、胸悶、被自己的大聲打鼾嗆醒，或晨起覺得嚴重口乾口苦。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim2" value="D2_B">
-            <span><strong>身體感強烈：</strong>心跳驟然加速、心悸、冒冷汗、發抖或半夜有強烈飢餓感。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim2" value="D2_C">
-            <span><strong>像鬧鐘一樣自動醒來：</strong>沒有任何不適，就是在凌晨固定時間異常清醒，精神毫無睡意。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim2" value="D2_D">
-            <span><strong>物理刺激強烈：</strong>強烈尿意必須去廁所、胃酸湧上心口灼熱、環境太熱或關節痠痛。</span>
-          </label>
-          <label class="option-label">
-            <input type="radio" name="dim2" value="D2_E">
-            <span><strong>腦袋異常清醒：</strong>思緒瞬間高速運轉、反覆盤算明日待辦事項、焦慮擔心睡不回去。</span>
-          </label>
-        </div>
-      </div>
 
-      <!-- 維度 3：生活軌跡與紅旗警訊深度排查 (可多選) -->
-      <div class="quiz-group">
-        <div class="quiz-group-header">
-          <div class="quiz-badge">3</div>
-          <div class="quiz-title">維度 3：回顧過去一個月，您是否常出現以下情況？【可多選】</div>
+        <!-- 第 2 組｜呼吸道解剖體態與睡眠力學排查【可多選】 -->
+        <div class="quiz-group">
+          <div class="quiz-group-header">
+            <div class="quiz-num">2</div>
+            <div>
+              <div class="quiz-title">第 2 組｜呼吸道解剖體態與睡眠力學排查【可多選】</div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <label class="option-label">
+              <input type="checkbox" name="dim2" value="Q2_1" class="dim2-item" onclick="document.getElementById('dim2_none').checked = false;">
+              <span>習慣長期仰臥（平躺面朝天）入睡。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim2" value="Q2_2" class="dim2-item" onclick="document.getElementById('dim2_none').checked = false;">
+              <span>早晨起身經常感到咽喉極度乾涸，需要即刻飲水潤喉。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim2" value="Q2_3" class="dim2-item" onclick="document.getElementById('dim2_none').checked = false;">
+              <span>成年男性頸圍大過 43 厘米（17 吋），或女性頸圍大過 38 厘米（15 吋）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim2" value="Q2_4" class="dim2-item" onclick="document.getElementById('dim2_none').checked = false;">
+              <span>平時經常有鼻塞、鼻敏感或鼻中膈彎曲情況，習慣張口呼吸。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim2" value="Q2_5" class="dim2-item" onclick="document.getElementById('dim2_none').checked = false;">
+              <span>曾被家人或枕邊人目睹睡眠期間呼吸停頓數秒，隨後突然大喘氣驚醒。</span>
+            </label>
+            <label class="option-label none-opt">
+              <input type="checkbox" id="dim2_none" value="NONE" onchange="toggleDimNone('dim2')">
+              <span>🚫 沒有上述情況</span>
+            </label>
+          </div>
         </div>
-        <div class="options-container">
-          <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_1" class="dim3-item">
-            <span><strong>呼吸與睡眠：</strong>睡覺時曾被同住家人反映有大聲打鼾，或白天明顯感到極度嗜睡倦怠。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_2" class="dim3-item">
-            <span><strong>飲食與代謝：</strong>晚餐或睡前若吃了大量精緻澱粉、甜食宵夜，半夜更容易驚醒心慌。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_3" class="dim3-item">
-            <span><strong>光照與節律：</strong>白天極少接觸戶外自然陽光，或習慣在睡前床上長時間滑手機看螢幕。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_4" class="dim3-item">
-            <span><strong>水分與酒精：</strong>傍晚或睡前有飲酒習慣，或半夜醒來多數是因為膀胱脹滿去洗手間。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_5" class="dim3-item">
-            <span><strong>壓力與神經：</strong>白天壓力大時半夜醒來機率倍增，醒後對時鐘秒針聲音或光線極度敏感。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim3" value="NONE" id="dim3_none" onchange="toggleDimNone('dim3')">
-            <span><strong>🚫 以上皆無</strong></span>
-          </label>
-        </div>
-      </div>
 
-      <!-- 維度 4：香港主流醫療與藥物副作用隱藏排查 (可多選) -->
-      <div class="quiz-group">
-        <div class="quiz-group-header">
-          <div class="quiz-badge">4</div>
-          <div class="quiz-title">維度 4：您目前是否有長期服用以下醫生處方或自行購買的藥物/補充品？【可多選】</div>
+        <!-- 第 3 組｜晚餐結構、飲食時間與代謝排查【可多選】 -->
+        <div class="quiz-group">
+          <div class="quiz-group-header">
+            <div class="quiz-num">3</div>
+            <div>
+              <div class="quiz-title">第 3 組｜晚餐結構、飲食時間與代謝排查【可多選】</div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <label class="option-label">
+              <input type="checkbox" name="dim3" value="Q3_1" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
+              <span>晚餐經常攝取大量白飯、粉麵、麵包或甜品等精緻澱粉。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim3" value="Q3_2" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
+              <span>習慣喺睡前飲酒以幫助放鬆入眠。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim3" value="Q3_3" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
+              <span>半夜驚醒後食少少餅乾、糖水或乾糧，心慌感能喺十幾分鐘內平復。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim3" value="Q3_4" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
+              <span>習慣喺就寢前兩小時之內進食豐富晚餐或消夜。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim3" value="Q3_5" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
+              <span>晚餐經常選擇煎炸油膩、辛辣刺激食物或濃味肉湯。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim3" value="Q3_6" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
+              <span>腰圍偏大（腹型肥胖），平躺時感覺腹部脂肪明顯壓迫胃部。</span>
+            </label>
+            <label class="option-label none-opt">
+              <input type="checkbox" id="dim3_none" value="NONE" onchange="toggleDimNone('dim3')">
+              <span>🚫 沒有上述情況</span>
+            </label>
+          </div>
         </div>
-        <div class="options-container">
-          <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_1" class="dim4-item">
-            <span><strong>降血壓藥 (去水丸/利尿劑) 或 胃酸抑制劑/碳酸鈣片 (公立醫院常配)：</strong>利尿劑促使夜間膀胱充盈；胃藥與碳酸鈣易引發腸胃脹氣便秘等管道高壓刺激。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_2" class="dim4-item">
-            <span><strong>降血糖藥物 (如甲福明 Metformin) 或 胰島素注射：</strong>藥物作用易在後半夜引發潛在的夜間低血糖反應，刺激交感神經反調節喚醒。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_3" class="dim4-item">
-            <span><strong>降膽固醇藥 (他汀類藥物 Statins)：</strong>常見副作用為干擾細胞能量及肌肉痠痛，形成持續性周邊疼痛刺激。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_4" class="dim4-item">
-            <span><strong>坊間安眠藥、鎮靜劑：</strong>長期使用反映出潛在對睡眠的焦慮制約，且無法解決缺氧或夜尿等根本病因。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim4" value="D4_5" id="med_warfarin" class="dim4-item">
-            <span><strong>薄血藥 / 通血丸 (如 Warfarin / Aspirin / Plavix) ⚠️ 臨床安全防線：</strong>凝血功能受調控中，系統將自動啟動零凝血衝突之溫和修復方案。</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim4" value="NONE" id="dim4_none" onchange="toggleDimNone('dim4')">
-            <span><strong>🚫 沒有服用上述西藥</strong></span>
-          </label>
+
+        <!-- 第 4 組｜光線暴露、生活作息與壓力條件反射排查【可多選】 -->
+        <div class="quiz-group">
+          <div class="quiz-group-header">
+            <div class="quiz-num">4</div>
+            <div>
+              <div class="quiz-title">第 4 組｜光線暴露、生活作息與壓力條件反射排查【可多選】</div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <label class="option-label">
+              <input type="checkbox" name="dim4" value="Q4_1" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+              <span>日間戶外接觸自然陽光時間嚴重不足（每日戶外活動少於 30 分鐘）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim4" value="Q4_2" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+              <span>夜晚室內照明偏亮，或睡前一小時內習慣近距離注視手機、平板電腦螢幕。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim4" value="Q4_3" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+              <span>生活作息缺乏規律，每日起身與就寢時間浮動超過兩小時。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim4" value="Q4_4" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+              <span>長期承受繁重工作或家庭壓力，白天常感到自律神經緊繃。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim4" value="Q4_5" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+              <span>半夜醒來有即刻睇時鐘睇手機嘅習慣，隨後對剩低嘅睡眠時間感到焦慮。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim4" value="Q4_6" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+              <span>行入臥室見到張床，身體便自發感到焦慮，擔心今晚又瞓唔著。</span>
+            </label>
+            <label class="option-label none-opt">
+              <input type="checkbox" id="dim4_none" value="NONE" onchange="toggleDimNone('dim4')">
+              <span>🚫 沒有上述情況</span>
+            </label>
+          </div>
         </div>
-      </div>
 
-      <div style="margin-top: 28px; text-align: center;">
-        <button type="button" class="btn-primary" onclick="submitAssessment()">
-          請按此提交，以了解真正成因
-        </button>
-      </div>
-</section>
+        <!-- 第 5 組｜公立醫院專科門診常用西藥排查【可多選】 -->
+        <div class="quiz-group">
+          <div class="quiz-group-header">
+            <div class="quiz-num">5</div>
+            <div>
+              <div class="quiz-title">第 5 組｜公立醫院專科門診常用西藥排查【可多選】</div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="Q5_1" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>正服用糖尿病促胰島素分泌劑（例如 Gliclazide 格列齊特、Glimepiride 格列美匹特、Glipizide 格列吡嗪）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="Q5_2" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>晚間或睡前有注射外源性胰島素（Insulin）習慣。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="Q5_3" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>正服用高血壓降心率 Beta 受體阻斷劑（例如 Metoprolol 美托洛爾、Atenolol 阿替洛爾、Propranolol 普萘洛爾）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="Q5_4" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>正定期服用胃酸抑制劑 PPI（例如 Omeprazole 奧美拉唑、Pantoprazole 泮托拉唑、Lansoprazole 蘭索拉唑）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="Q5_5" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>長期服用安眠鎮靜西藥（例如 Zolpidem 唑吡坦、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮），自覺劑量越食越大。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="Q5_6" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>睡前正服用肌肉鬆弛劑或鎮靜抗敏藥。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" id="med_warfarin" name="dim5" value="MED_WARFARIN" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>正服用抗凝血薄血藥物（Warfarin 華法林，或新型口服抗凝藥 NOAC 如 Rivaroxaban 利伐沙班、Apixaban 阿哌沙班、Dabigatran 達比加群）。</span>
+            </label>
+            <label class="option-label none-opt">
+              <input type="checkbox" id="dim5_none" value="NONE" onchange="toggleDimNone('dim5')">
+              <span>🚫 沒有服用上述任何西藥</span>
+            </label>
+          </div>
+        </div>
 
-    <!-- 自測判定後動態解鎖畫面 (Block C 至 Block I 初始隱藏) -->
-    <div id="gated-content" style="display: none;">
+        <div style="margin-top: 28px;">
+          <button type="button" class="btn-accent" style="font-size: 19px; padding: 16px 24px; font-weight: 800; width: 100%;" onclick="submitAssessment()">
+            請按此提交，以了解真正成因
+          </button>
+        </div>
+      </form>
+    </section>
+
+<div id="gated-content" style="display: none;">
 
       <!-- Block C: 診斷結果判定 ✕ 最壞情況直擊 (100% 還原 Version 5 高質感架構) -->
       <section id="blockC" class="section-card">
@@ -1513,8 +1645,10 @@
           <div style="font-size: 15px; font-weight: 700; color: #5EEAD4; margin-bottom: 6px;">
             🏷️ 系統判定主要成因為：
           </div>
-          <h2 id="diagPrimaryTitle" style="color: #FFFFFF; font-size: 26px; margin: 10px 0; font-weight: 900;">【成因 01：呼吸與夜間缺氧型】</h2>
-          <p id="diagPrimaryDesc" style="color: #CBD5E1; font-size: 16.5px; line-height: 1.65; margin: 0;">你的大腦神經大致正常，核心問題在於夜間平躺時呼吸道軟組織塌陷與黏膜充血水腫，引發間歇性缺氧，大腦呼吸中樞偵測到窒息危機，被迫緊急啟動交感神經將您震醒以恢復呼吸氣道張力。</p>
+          <h2 id="diagPrimaryTitle" style="color: #FFFFFF; font-size: 26px; margin: 10px 0; font-weight: 900;">
+            【成因 01：力學與姿勢型】
+          </h2>
+          <p id="diagPrimaryDesc" style="color: #CBD5E1; font-size: 16.5px; line-height: 1.65; margin: 0;"></p>
         </div>
 
         <!-- 2. 五大成因佔比進度條 -->
@@ -1527,7 +1661,7 @@
 
         <!-- 3. 痛點直擊最壞情況 (大字級粗體 18px · 純文字 · 零引號 · 零標籤) -->
         <div class="fear-quote-box">
-          <div id="fearQuoteText" style="color: #991B1B; font-weight: 800; font-size: 18px; line-height: 1.65;">半夜扎醒大喘氣口乾只係開始！最大鑊係長期大腦缺氧血壓暴衝，引發夜間急性中風同心肌梗塞，徹底摧毀心血管！</div>
+          <div id="fearQuoteText" style="font-size: 18px; font-weight: 700; line-height: 1.65;"></div>
         </div>
 
         <!-- 4. 薄血藥避險警告 (動態顯示 · 合規醫囑標準版) -->
@@ -1545,50 +1679,41 @@
 
         <!-- 6. 行動按鍵 (純文字 · 零符號) -->
         <button type="button" class="btn-primary" onclick="scrollToId('blockD')">
-          想知點解？按此為你解碼！
+          想知點解會出現呢個成因
         </button>
       </section>
 
-      <!-- Block D: 成因解碼 (16:9 Vimeo 影音 ＋ 單一緊湊灰色背景框 ＋ 大字級共鳴金句) -->
+      <!-- Block D: 成因生理解碼 ✕ Vimeo 短影音 -->
       <section id="blockD" class="section-card">
-        <h2 id="block-d-title" style="margin-top: 0;">成因解碼：成因 01：呼吸與夜間缺氧型</h2>
+        <h2 id="block-d-title" style="margin-top: 0;">成因解碼</h2>
         
-        <div class="video-container" style="display: none;">
-          <iframe id="vimeo-block-d" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-md); margin-bottom: 20px; background: #000;">
+          <iframe id="vimeo-block-d" src="" style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border:0;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
 
-        <!-- 單一緊湊灰色背景框 (Version 5 雙模組精煉版，無背書標籤) -->
+        <!-- 單一緊湊灰色背景框 -->
         <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px;">
           <div style="margin-bottom: 14px;">
-            <div style="font-weight: 800; font-size: 16px; color: var(--color-primary); margin-bottom: 4px;">🔬 生理流體力學與倒灌機理</div>
-            <p id="block-d-bio" style="margin: 0; font-size: 15.5px; color: var(--color-text-muted); line-height: 1.7;">
-              睡眠中平躺仰臥時，咽喉軟組織受重力牽引自然後墜；若同時伴隨呼吸道黏膜慢性發炎、過敏微水腫或分泌物過度黏稠，上呼吸道管腔便會發生動態塌陷與阻塞（即睡眠呼吸障礙／間歇性缺氧）。此時體內血氧飽和度驟跌、二氧化碳迅速堆積，大腦呼吸中樞偵測到窒息危機，被迫緊急啟動交感神經並大劑量釋放兒茶酚胺（壓力荷爾蒙），強烈活化大腦網狀結構引發「微覺醒（Cortical Arousal）」，強制將患者從深度睡眠震醒以恢復咽喉肌張力。
-            </p>
+            <div style="font-weight: 800; font-size: 16px; color: var(--color-primary); margin-bottom: 4px;">🔬 生理機轉與病理路徑</div>
+            <p id="block-d-bio" style="margin: 0; font-size: 15.5px; color: var(--color-text-muted); line-height: 1.7;"></p>
           </div>
           <div style="border-top: 1px solid var(--color-border); padding-top: 14px;">
             <div style="font-weight: 800; font-size: 16px; color: var(--color-accent-text); margin-bottom: 4px;">⚙️ 系統工程比喻</div>
-            <p id="block-d-eng" style="margin: 0; font-size: 15.5px; color: var(--color-text-muted); line-height: 1.7;">
-              就像智慧工廠的「主通風進氣管線」在負壓下被壓扁堵塞，氧氣濃度警報器瞬間拉響最高級警報，中央監控系統被迫中斷夜間維護排程，強制全廠緊急開機重啟排風。
-            </p>
+            <p id="block-d-eng" style="margin: 0; font-size: 15.5px; color: var(--color-text-muted); line-height: 1.7;"></p>
           </div>
         </div>
 
-        <!-- 大字級共鳴金句 (17px 粗體) -->
-        <div style="background: var(--color-accent-light); border-radius: var(--radius-md); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 17px; color: var(--color-accent-text); margin-bottom: 20px; line-height: 1.6;">
-          拒將退化當宿命，從源頭除錯，守住不求人的自理底氣。
-        </div>
-
         <button type="button" class="btn-primary" onclick="scrollToId('blockE')">
-          想知有咩可以改善嘅小貼士
+          想知生活上有咩簡單改善小貼士
         </button>
       </section>
 
-      <!-- Block E: 生活上嘅改善小貼士 (16:9 Vimeo 動作影音 ＋ 單一緊湊微習慣框 ＋ 大字級局限警告) -->
+      <!-- Block E: 生活微習慣 ✕ Vimeo 短影音 -->
       <section id="blockE" class="section-card">
         <h2 style="margin-top: 0;">生活上嘅改善小貼士</h2>
         
-        <div class="video-container" style="display: none;">
-          <iframe id="vimeo-block-e" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-md); margin-bottom: 20px; background: #000;">
+          <iframe id="vimeo-block-e" src="" style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border:0;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <!-- 單一緊湊微習慣框 -->
@@ -1602,35 +1727,30 @@
         </button>
       </section>
 
-      <!-- Block F: 重點營養和保健 (16:9 Vimeo 生化影音 ＋ 純生化營養機制 ＋ 恢復專屬共鳴橫幅) -->
+      <!-- Block F: 營養與物理理療 ✕ Vimeo 短影音 -->
       <section id="blockF" class="section-card">
         <h2 style="margin-top: 0;">重點營養和保健</h2>
         
-        <div class="video-container" style="display: none;">
-          <iframe id="vimeo-block-f" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-md); margin-bottom: 20px; background: #000;">
+          <iframe id="vimeo-block-f" src="" style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border:0;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <!-- 單一緊湊生化機轉框 (100% 零商品名) -->
         <div id="block-f-nutrition" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; font-size: 15.5px; color: var(--color-text-main); line-height: 1.75; box-shadow: var(--shadow-sm);"></div>
 
         <!-- 恢復情感共鳴金句橫幅 (17px–18px 粗體 · 純文字 · 零引號) -->
-        <div id="block-f-emotion" style="background: var(--color-accent-light); border-radius: var(--radius-md); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 17px; color: var(--color-accent-text); margin-bottom: 20px; line-height: 1.6;">
-          打開暢通無阻的夜間進氣閥門，撲滅氣道黏膜發炎水腫，享受深層含氧量守護的沉靜好眠！
-________________
-        </div>
+        <div id="block-f-emotion" style="background: var(--color-accent-light); border-radius: var(--radius-md); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 17px; color: var(--color-accent-text); margin-bottom: 20px; line-height: 1.6;"></div>
 
         <button type="button" class="btn-primary" onclick="scrollToId('blockG')">
           想知有咩營養同保健方案
         </button>
       </section>
 
-      <!-- Block G: 精選專屬保健方案 (零副標題 ✕ 僅保留 Pop-up B「想知更多」 ✕ 大尺寸全寬置中按鍵) -->
+      <!-- Block G: 精選專屬保健方案 (單鍵卡片，純淨無多餘標籤產地) -->
       <section id="blockG" class="section-card">
         <h2 style="margin-top: 0; margin-bottom: 20px;">精選專屬保健方案</h2>
 
-        <div id="block-g-products-list">
-          <!-- Dynamically populated Single Action Cards with Pop-up B only -->
-        </div>
+        <div id="block-g-products-list"></div>
 
         <div style="margin-top: 24px;">
           <button type="button" class="btn-accent" style="width: 100%; font-size: 18px; font-weight: 800; padding: 16px 28px; text-align: center;" onclick="scrollToId('blockH')">
@@ -1639,22 +1759,21 @@ ________________
         </div>
       </section>
 
-      <!-- Block H: 選取適合自己的專屬方案 (四層扁平選購架構 ✕ 單品行自帶「產品詳情」Pop-up A ✕ 唯一訂單編號雙軌下單) -->
-            <!-- Block H: 選取適合自己的改善方案 (四層扁平選購架構 ✕ 單品行自帶「產品詳情」Pop-up A ✕ 唯一訂單編號雙軌下單) -->
+      <!-- Block H: 選取改善方案 (緊湊雙行套裝，無頂部干擾橫幅，無行內產品列表，純淨物流表單) -->
       <section id="blockH" class="section-card">
         <h2 style="margin-top: 0;">選取適合自己的改善方案</h2>
 
-        <!-- 第一層：單品選購列表 (產品名稱 + 價格 + 「產品詳情」按鈕 + 數量調節) -->
+        <!-- 第一層：單品選購列表 -->
         <div style="margin-bottom: 24px;">
           <div id="block-h-single-products"></div>
         </div>
 
-        <!-- 第二層：30 天主力套裝列表 (雙行緊湊，高調特惠價與折數) -->
+        <!-- 第二層：30 天主力套裝列表 -->
         <div style="margin-bottom: 24px;">
           <div id="block-h-bundles"></div>
         </div>
 
-        <!-- 第三層：購物車與動態運費計算 (預設 $0，滿 $400 免費) -->
+        <!-- 第三層：購物車與動態運費計算 -->
         <div class="summary-box">
           <div style="font-weight: 800; font-size: 16px; color: var(--color-primary); margin-bottom: 10px;">已選項目結算</div>
           <div id="cart-summary-items" style="color: var(--color-text-muted); font-size: 14.5px; margin-bottom: 10px;">
@@ -1676,7 +1795,7 @@ ________________
           </div>
         </div>
 
-        <!-- 第四層：物流訊息表單 (單欄獨立分行，付款方式選項，地址純淨 Placeholder) -->
+        <!-- 第四層：物流訊息表單 (單欄獨立分行，付款方式選項，純淨地址 Placeholder) -->
         <form id="orderForm" style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px;">
           <h3 style="font-size: 16px; font-weight: 800; color: var(--color-primary); margin-bottom: 14px;">📦 填寫物流訊息</h3>
           <div style="margin-bottom: 12px;">
@@ -1692,7 +1811,7 @@ ________________
             <textarea id="order_recipient_address" class="input-field" rows="2" placeholder="請填詳細收貨地址" required></textarea>
           </div>
           <div style="margin-bottom: 18px;">
-            <label class="quiz-option" style="margin: 0; align-items: center;">
+            <label class="quiz-option" style="margin: 0; align-items: center; display: flex;">
               <input type="checkbox" id="order_has_lift" checked style="width: 18px; height: 18px; margin-right: 8px;">
               <span style="font-size: 14px; font-weight: 600;">大廈設有升降機直達（若無升降機需現場自付每層 HKD 50 樓梯費）</span>
             </label>
@@ -1717,14 +1836,13 @@ ________________
         </form>
       </section>
 
-      <!-- Block J: 用家真實見證 ＆ 1對1專屬健康管理跟進服務導流 (實體綠色高對比度按鈕) -->
+      <!-- Block J: 用家真實見證 ✕ 1對1專屬跟進 (無膠囊標籤，客觀真實見證，HCMS三問標準版) -->
       <section id="blockJ" class="section-card">
         <h2 style="margin-top: 0;">用家真實見證</h2>
         
-        <!-- 依成因動態注入雙列見證 (香港本土稱謂) -->
         <div id="block-j-testimonials" style="display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 24px;"></div>
 
-        <!-- 1 對 1 導流卡片 (實體綠底白字高對比度按鈕) -->
+        <!-- 1 對 1 導流卡片 (100% 還原夜尿專頁三問結構) -->
         <div style="background: var(--color-primary); color: #FFF; border-radius: var(--radius-xl); padding: 28px 24px; text-align: center;">
           <h3 style="font-size: 20px; font-weight: 800; color: #FFF; margin-bottom: 8px;">
             擔心無效果？驚自己唔識處理？覺得要堅持唔易？
@@ -1740,8 +1858,7 @@ ________________
         </div>
       </section>
 
-      
-      <!-- Block M: 常見問題與疑難解答 (Q&A 專區) -->
+      <!-- Block M: 常見 Q&A 手風琴專區 -->
       <section id="blockM" class="section-card">
         <h2 style="margin-top: 0; margin-bottom: 6px;">常見問題與疑難解答</h2>
         <p style="color: var(--color-text-sub); font-size: 15px; margin-top: 0; margin-bottom: 24px;">
@@ -1913,7 +2030,7 @@ ________________
         </div>
       </section>
 
-      <!-- Block L: 社群引流區 (官方真連結 ✕ 品牌標準配色) -->
+      <!-- Block L: 免費加入健康社群 (100% 還原夜尿專頁標準版) -->
       <section id="blockL" class="section-card" style="text-align: center;">
         <h2 style="justify-content: center; margin-top: 0;">
           暫時未準備好？免費加入 Duncan Chan 健康群組。
@@ -1928,7 +2045,7 @@ ________________
         </div>
       </section>
 
-      <!-- Block I: 物流與配送條款 (全頁面最底端) -->
+      <!-- Block I: 配送與條款 (Footer) -->
       <footer id="blockI" class="section-card" style="font-size: 13.5px; color: var(--color-text-muted); line-height: 1.7; margin-bottom: 0;">
         <h3 style="font-size: 16px; font-weight: 800; color: var(--color-primary); margin-bottom: 8px;">配送與服務條款</h3>
         <ul style="padding-left: 20px; margin-bottom: 16px;">
@@ -1942,10 +2059,11 @@ ________________
         </div>
       </footer>
 
-    </div>
-  </div>
+    </div><!-- end gated-content -->
 
-  <!-- Block K: 逐級向上平滑導航引擎 (右下角 [ ↑ ] 11 級狀態機) -->
+  </div><!-- end container -->
+
+  <!-- Block K: 逐級向上平滑導航狀態機 -->
   <button type="button" class="elevator-btn" id="elevator-btn" onclick="handleElevatorUp()">
     ↑
   </button>
@@ -1972,7 +2090,7 @@ ________________
 
   <!-- 前端完整核心數據庫與邏輯引擎 -->
   <script>
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
+    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_TGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
     const DUNCAN_WHATSAPP_PHONE = "85298788564";
 
     let savedScrollY = 0;
@@ -1980,691 +2098,933 @@ ________________
     let isWarfarinUser = false;
     let cart = {};
 
-    // 12 款單品官方完整主庫 (100% 官方 CSV 數據 ✕ 純淨產地 ✕ 法定 6 大欄位 ✕ 去紅色警示化)
+    const TOPIC_CONFIG = {
+  "topicId": "awakening",
+  "topicName": "半夜無端扎醒專題",
+  "topicShortName": "半夜扎醒",
+  "metaTitle": "Health Decoder｜半夜無端扎醒專題 · 從源頭除錯",
+  "hero": {
+    "h1": "半夜三點反覆扎醒，<br>大腦斷電定係警報暴衝？",
+    "subtitle": "搞清楚源頭，先可以治本。",
+    "btnText": "馬上開始初步自我診斷"
+  },
+  "blockBFile": "awakening_block_b.html",
+  "productIds": [
+    "34269",
+    "34316",
+    "36248",
+    "34331",
+    "34307",
+    "36281",
+    "34278",
+    "34328",
+    "36283",
+    "0368",
+    "38207"
+  ],
+  "bundleIds": [
+    "NoctAwaken_Set_A1",
+    "NoctAwaken_Set_B1",
+    "NoctAwaken_Set_B2",
+    "NoctAwaken_Set_C1",
+    "NoctAwaken_Set_C2",
+    "NoctAwaken_Set_D1",
+    "NoctAwaken_Set_E1",
+    "NoctAwaken_Set_E2"
+  ],
+  "arbitrationPriority": [
+    1,
+    2,
+    4,
+    3,
+    5
+  ],
+  "scoringRules": {
+    "dim1": {
+      "Q1_1": {
+        "1": 2
+      },
+      "Q1_2": {
+        "1": 2
+      },
+      "Q1_3": {
+        "2": 3,
+        "hardcore": 2
+      },
+      "Q1_4": {
+        "2": 2
+      },
+      "Q1_5": {
+        "3": 3,
+        "hardcore": 3
+      },
+      "Q1_6": {
+        "3": 2
+      },
+      "Q1_7": {
+        "4": 3,
+        "hardcore": 4
+      },
+      "Q1_8": {
+        "4": 2
+      },
+      "Q1_9": {
+        "5": 2
+      },
+      "Q1_10": {
+        "5": 2
+      }
+    },
+    "dim2": {
+      "Q2_1": {
+        "1": 1
+      },
+      "Q2_2": {
+        "1": 1
+      },
+      "Q2_3": {
+        "1": 2
+      },
+      "Q2_4": {
+        "1": 1
+      },
+      "Q2_5": {
+        "1": 3,
+        "hardcore": 1
+      }
+    },
+    "dim3": {
+      "Q3_1": {
+        "2": 1
+      },
+      "Q3_2": {
+        "2": 1
+      },
+      "Q3_3": {
+        "2": 2
+      },
+      "Q3_4": {
+        "4": 2
+      },
+      "Q3_5": {
+        "4": 1
+      },
+      "Q3_6": {
+        "4": 1
+      }
+    },
+    "dim4": {
+      "Q4_1": {
+        "3": 1
+      },
+      "Q4_2": {
+        "3": 1
+      },
+      "Q4_3": {
+        "3": 1
+      },
+      "Q4_4": {
+        "5": 1
+      },
+      "Q4_5": {
+        "5": 2
+      },
+      "Q4_6": {
+        "5": 3,
+        "hardcore": 5
+      }
+    },
+    "dim5": {
+      "Q5_1": {
+        "2": 2
+      },
+      "Q5_2": {
+        "2": 2
+      },
+      "Q5_3": {
+        "3": 2
+      },
+      "Q5_4": {
+        "4": 2
+      },
+      "Q5_5": {
+        "5": 2
+      },
+      "Q5_6": {
+        "1": 1
+      },
+      "MED_WARFARIN": {}
+    }
+  },
+  "causesData": {
+    "1": {
+      "id": 1,
+      "name": "成因 01：呼吸氣道缺氧型",
+      "tag": "上氣道物理塌陷 ✕ 夜間急性缺氧 ✕ 交感神經緊急微覺醒",
+      "vimeoD": "1227771353",
+      "vimeoE": "1227771354",
+      "vimeoF": "1227771351",
+      "worstCase": "半夜憋醒只係前奏！最大鑊係反覆窒息引發夜間惡性心律不齊或心腦血管崩潰，甚至演變成突發中風猝死，最後成為屋企人沉重嘅負累！",
+      "bio": "仰臥入睡嗰陣，舌根同軟組織受重力牽引向後滑落，咽壁兩側肌肉支撐張力減弱，直接造成上氣道嚴重狹窄甚至完全閉塞。氣流受阻令動脈血氧分壓急劇下降，體內二氧化碳分壓大幅飆升形成高碳酸血症。頸動脈體同延腦中樞嘅化學感受器偵測到缺氧危機，即刻向交感神經系統發送高頻放電信號，迫使大腦皮質產生緊急微覺醒，強行拉高肌肉張力重開氣道，身體隨之喺劇烈喘氣、胸悶同嗆咳之中驚醒。",
+      "eng": "好似中央通風抽氣軟管被重物壓扁。管道截面積嚴重收窄，新鮮空氣完全入唔到室內；內部積聚嘅廢氣濃度超標，引發中央控制台火警鐘狂鳴，強制全屋所有備用應急系統瞬間啟動。",
+      "steps": [
+        {
+          "title": "第 1 步｜側臥體位維持",
+          "desc": "瞓覺嗰陣保持側臥體位，利用人體工學側睡枕支撐頸椎，借助側向重力防止舌骨同軟組織向後墜落，維持咽腔物理氣道暢通。"
+        },
+        {
+          "title": "第 2 步｜溫鹽水鼻腔沖洗",
+          "desc": "睡前以等張溫生理鹽水沖洗鼻腔，徹底清除鼻黏膜表面分泌物同致敏原，減低上呼吸道吸氣負壓阻力。"
+        },
+        {
+          "title": "第 3 步｜睡前嚴格戒酒",
+          "desc": "就寢前四小時避免飲用任何含酒精飲品，杜絕乙醇麻痹咽部擴張肌肉運動神經，避免加劇睡眠期間嘅軟組織鬆弛塌陷。"
+        }
+      ],
+      "warn": "側睡洗鼻只係治標，氣道組織結構性塌陷同夜間重度缺氧先係禍根！任由大腦同心臟反覆承受缺氧窒息，唔通真係要拖到半夜突發心腦血管中風崩潰、下半世要人貼身照料，先知驚？",
+      "nutrition": [
+        "1. <strong>天然左旋蝦青素：</strong>高活性抗氧化分子高效穿透血腦屏障與細胞膜，精準清除夜間反覆缺氧再灌注過程產生嘅大量超氧化物自由基，保護血管內皮與大腦神經突觸免受氧化損傷。",
+        "2. <strong>離子型有機酸鎂：</strong>調節神經肌肉接頭乙醯膽鹼釋放，維持呼吸肌與神經突觸正常膜電位去極化閾值，平息呼吸肌群異常過度疲勞同痙攣反應。",
+        "3. <strong>心腸軸微循環修復（綜合果蔬酵素＋長者益生菌＋後生元）：</strong>三者協同阻斷缺氧誘發的腸黏膜微發炎，修復緊密連接並活化內皮 eNOS 釋放 NO，100% 零抗凝西藥衝突。",
+        "4. <strong>線粒體能量雙引擎（NMN ＋ 水溶性輔酶 Q10）：</strong>對沖呼吸暫停造成的呼吸鏈 Complex I-III 電子漏出，修復缺氧細胞 ATP 斷流。",
+        "5. <strong>實證物理理療（CPAP 空氣支架 ＋ 雙光譜紅光光療帶）：</strong>630nm/850nm 光子深層刺激頸咽微血管內皮 eNOS 釋放 NO，改善咽壁肌肉滋養血流。"
+      ],
+      "emotionQuote": "用極小嘅代價，從源頭撐開氣道物理通途同清除缺氧自由基，換返每晚呼吸順暢、一覺熟睡到天光同終生自理，唔使成為負累，安心做自己想做嘅事。",
+      "allowedProducts": [
+        "34269",
+        "34316",
+        "36248",
+        "34331",
+        "34307",
+        "36281",
+        "34278",
+        "0368"
+      ],
+      "allowedBundles": [
+        "NoctAwaken_Set_A1"
+      ],
+      "testimonials": [
+        {
+          "name": "梁先生",
+          "age": "62歲",
+          "role": "退休工程師",
+          "issue": "習慣平躺入睡，半夜經常被自己劇烈鼻鼾震醒，伴隨胸口窒息感，晨起口乾頭脹。",
+          "solution": "側臥睡姿 ＋ 蝦青素 ＋ 微米液鈣鎂 ＋ 紅光帶敷頸部微循環",
+          "quote": "半夜不再憋醒大喘氣，朝早起身咽喉清爽，整個人呼吸暢順精神飽滿！"
+        },
+        {
+          "name": "陳太",
+          "age": "68歲",
+          "role": "家庭主婦",
+          "issue": "枕邊人多次目睹其夜間呼吸停頓數秒後突然嗆醒，整日昏昏欲睡。",
+          "solution": "溫鹽水洗鼻 ＋ 心腸軸酵素益生菌 ＋ 酵母 NMN ＋ 水溶 Q10",
+          "quote": "呼吸均勻踏實好多，後半夜可以一覺瞓到天光，行路不再浮浮下！"
+        }
+      ]
+    },
+    "2": {
+      "id": 2,
+      "name": "成因 02：代謝供能震盪型",
+      "tag": "晚餐高升糖負荷 ✕ 夜間血糖驟降 ✕ 交感兒茶酚胺暴衝驚醒",
+      "vimeoD": "1227771352",
+      "vimeoE": "1227771498",
+      "vimeoF": "1227771554",
+      "worstCase": "半夜心慌驚醒只係開始！最大鑊係夜間反覆低血糖引爆腎上腺素風暴，誘發急性心絞痛或隱匿性心肌梗塞，最後成為屋企人沉重嘅負累！",
+      "bio": "晚餐攝取大量精緻碳水化合物或者服用促胰島素分泌西藥，促使血液胰島素水平飆升。入睡數小時之後，血液葡萄糖被快速消耗，血糖跌穿警戒反調節閾值。下視丘腹內側核糖感測神經元偵測到嚴重能量危機，緊急激活交感-腎上腺髓質軸，促使腎上腺髓質暴發性分泌腎上腺素同正腎上腺素，強制刺激肝醣原分解供能；呢場兒茶酚胺風暴同時強烈興奮心血管系統與大腦網狀活化系統，令心跳驟然狂飆、全身冷汗直冒、手指震顫，將人強行由深睡拉入驚恐清醒狀態。",
+      "eng": "好似大廈中央供電網夜間突然電壓暴跌。感應器偵測到電壓不穩即將斷電，後備緊急柴油發電機即刻以最高轉速轟鳴開機，強大電流脈衝夾雜警報噪音，瞬間將整座大廈所有房間嘅警示燈全數點亮。",
+      "steps": [
+        {
+          "title": "第 1 步｜晚餐優化升糖負荷",
+          "desc": "晚餐大幅降低白飯、粉麵等精緻碳水比例，增加優質蛋白質同非澱粉類膳食纖維攝取，平抑餐後胰島素波峰。"
+        },
+        {
+          "title": "第 2 步｜睡前穩定釋能補充",
+          "desc": "前半夜容易心慌驚醒嘅人士，睡前三十分鐘適量進食半隻水煮蛋或者一茶匙無糖堅果醬，提供緩慢釋放嘅夜間底質能量。"
+        },
+        {
+          "title": "第 3 步｜餐後輕度步行平糖",
+          "desc": "晚餐結束後進行十五分鐘輕鬆慢步，透過骨骼肌溫和收縮促進葡萄糖主動轉運，防止餐後血糖大起大落。"
+        }
+      ],
+      "warn": "睡前食蛋散步只係治標，胰島素阻抗同肝臟生能崩潰先係禍根！任由夜間低血糖頻繁引爆腎上腺素風暴，難道要等到血管硬化受損引發急性心臟衰竭、失去自理能力，先嚟後悔做家人負累？",
+      "nutrition": [
+        "1. <strong>高活性水溶性輔酶 Q10：</strong>深入肝細胞同心肌細胞粒線體內膜呼吸鏈複合物，推動電子傳遞與 ATP 高效合成，維持夜間平穩嘅肝臟糖質新生代謝。",
+        "2. <strong>NAD+ 關鍵前體（NMN）：</strong>顯著提升細胞內 NAD+ 水平，激活 SIRT1 去乙醯化酶與粒線體生合成途徑，修復外周胰島素敏感度，穩固全身能量穩態。",
+        "3. <strong>有機胺基酸螯合鎂：</strong>作為葡萄糖激酶與能量代謝反應嘅關鍵輔助因子，平息神經元細胞膜電位異常波動，提高神經對代謝震盪嘅耐受閾值。",
+        "4. <strong>雙極性跨膜蝦青素：</strong>專性淬滅代謝震盪誘發的自由基風暴，保護外周骨骼肌細胞膜 GLUT4 葡萄糖轉運蛋白免受糖毒性損傷，100% 零抗凝衝突。",
+        "5. <strong>生物物理能量介入（全身垂直律動機 ＋ 雙光譜紅光帶）：</strong>正弦波微震動以非胰島素依賴方式消耗多餘游離糖分；紅光光療深入粒線體活化 Complex IV 產能。"
+      ],
+      "emotionQuote": "用極小嘅代價，從源頭平息夜間代謝震盪同修復粒線體產能，換返整夜心跳平穩、踏實深睡同終生自理，唔使成為負累，安心做自己想做嘅事。",
+      "allowedProducts": [
+        "34316",
+        "34269",
+        "34278",
+        "36281",
+        "36248",
+        "34307",
+        "34331",
+        "0368",
+        "38207"
+      ],
+      "allowedBundles": [
+        "NoctAwaken_Set_B1",
+        "NoctAwaken_Set_B2"
+      ],
+      "testimonials": [
+        {
+          "name": "郭先生",
+          "age": "57歲",
+          "role": "會計師",
+          "issue": "入睡三四個鐘經常突發心悸冷汗驚醒，手指發抖伴隨強烈飢餓，食少少餅乾先能平復。",
+          "solution": "晚餐減精緻澱粉 ＋ 專利水溶 Q10 ＋ 微米液鈣鎂 ＋ 垂直律動機",
+          "quote": "夜間心慌冷汗完全消失，睡眠安穩踏實，成晚心跳維持平靜！"
+        },
+        {
+          "name": "鄧太",
+          "age": "64歲",
+          "role": "長期服降糖西藥人士",
+          "issue": "夜間經常突發低血糖惊醒，心跳狂飆，擔心長遠損害心血管機能。",
+          "solution": "睡前低 GI 補充 ＋ 酵母 NMN ＋ 蝦青素 ＋ 心腸軸酵素益生菌",
+          "quote": "血糖曲線整晚平穩，半夜不再被心跳驚醒，成個人精神奕奕！"
+        }
+      ]
+    },
+    "3": {
+      "id": 3,
+      "name": "成因 03：晝夜節律失配型",
+      "tag": "視交叉上核中樞生物鐘走調 ✕ 松果體褪黑素提早耗竭 ✕ 凌晨定時早醒",
+      "vimeoD": "1227771558",
+      "vimeoE": "1227776151",
+      "vimeoF": "1227776149",
+      "worstCase": "定時早醒只係警號！最大鑊係長期剝奪慢波深睡引致腦神經毒性蛋白無法清除，加速大腦退化與認知障礙，最後成為屋企人沉重嘅負累！",
+      "bio": "人體中樞生物鐘位於下視丘視交叉上核。日間戶外陽光照射不足加上入夜長時間接觸電子螢幕高色溫藍光，嚴重干擾視網膜神經節細胞對時訊號；疊加年齡增長導致松果體細胞生理性萎縮，內源性褪黑素分泌峰值整體前移而且總量驟降。原本應該持續覆蓋整晚嘅褪黑素濃度喺後半夜提早耗盡，體溫調節中樞與皮質神經元嘅生理性抑制驅動力提早歸零，促使大腦喺凌晨三至四點自發由深睡狀態切換至完全清醒，造成毫無睡意嘅乾醒狀態。",
+      "eng": "好似大廈中央控制台嘅主機械計時器齒輪磨損走調。發條儲能不足導致指針提早走到終點，定時自動開關喺半夜三更提早跳掣，將整座建築嘅日間運作系統全數提早開啟。",
+      "steps": [
+        {
+          "title": "第 1 步｜晨起戶外強光對時",
+          "desc": "每日早晨起身三十分鐘之內，前往戶外接觸自然陽光二十分鐘，利用高強度自然光線強效校準視交叉上核中樞生物鐘。"
+        },
+        {
+          "title": "第 2 步｜入夜阻斷藍光光害",
+          "desc": "日落之後調低室內照明亮度同色溫，睡前兩小時停止觀看手機、平板等自發光螢幕，保護微弱嘅內源褪黑素分泌。"
+        },
+        {
+          "title": "第 3 步｜睡前溫水足浴引導體溫",
+          "desc": "就寢前一小時進行四十度溫水足浴十五分鐘，促使下肢末梢微血管擴張散熱，引導體內核心體溫自然下潛入眠。"
+        }
+      ],
+      "warn": "曬太陽浸腳只係治標，松果體分泌退化同中樞生物鐘走調先係問題！放任後半夜深睡全面流失，難道要等到腦神經快速早衰、認知障礙連屋企人都唔認得，先嚟後悔莫及？",
+      "nutrition": [
+        "1. <strong>天然必需胺基酸色胺酸複合物（微脂體蛋白高營素）：</strong>提供中樞神經系統合成血清素及內源褪黑素嘅關鍵前體原料，充盈神經內分泌合成底質，確保後半夜睡眠驅動力持續覆蓋。",
+        "2. <strong>活性發酵維生素 B 群輔酶形式（730天綜合果蔬酵素）：</strong>作為色胺酸代謝與神經遞質合成途徑中不可或缺的輔因子，推動褪黑素生化路徑高效運轉。",
+        "3. <strong>NAD+ 關鍵前體（天然酵母 NMN 15000 Premium）：</strong>上調 SIRT1 去乙醯化酶活性，重塑下視丘視交叉上核核心生物鐘基因 BMAL1 與 CLOCK 晝夜震盪振幅，恢復精密中樞起搏節律；麥角硫因提升大腦 GABA 達 4 倍。",
+        "4. <strong>光生物調節療法（850nm 近紅外線 PBM）：</strong>穿透顱骨活化腦神經元細胞色素 C 氧化酶，促進粒線體 ATP 生成與神經突觸微循環。",
+        "5. <strong>全身垂直律動療法（WBVV）：</strong>全身機械震盪促進中樞腦脊髓液流動與腦部膠淋巴系統夜間代謝排毒，優化深層神經節律調控環境。"
+      ],
+      "emotionQuote": "用極小嘅代價，從源頭校準大腦視交叉上核節律同充盈褪黑素原料，換返一覺深睡到天光、朝早神清氣爽同終生自理，唔使成為負累，安心做自己想做嘅事。",
+      "allowedProducts": [
+        "36283",
+        "36248",
+        "34331",
+        "36281",
+        "34278",
+        "0368",
+        "38207"
+      ],
+      "allowedBundles": [
+        "NoctAwaken_Set_C1",
+        "NoctAwaken_Set_C2"
+      ],
+      "testimonials": [
+        {
+          "name": "何先生",
+          "age": "65歲",
+          "role": "退休教師",
+          "issue": "每晚凌晨三點半準時清醒，神智極度清醒毫無睡意，但朝早精神極差，記憶力減退。",
+          "solution": "晨起日光對時 ＋ 微脂體蛋白高營素 ＋ 酵母 NMN ＋ 律動機排毒",
+          "quote": "凌晨不再定時乾醒，可以連續熟睡到清晨六點半，頭腦思維敏捷如初！"
+        },
+        {
+          "name": "譚太",
+          "age": "59歲",
+          "role": "自由工作者",
+          "issue": "生活作息浮動，習慣夜間睇手機，後半夜睡眠極淺易醒。",
+          "solution": "睡前阻斷藍光 ＋ 水溶 Q10 ＋ 果蔬酵素 ＋ 紅光帶光生物調節",
+          "quote": "入睡深沉好多，半夜無端醒來嘅頻率歸零，整個人氣色紅潤！"
+        }
+      ]
+    },
+    "4": {
+      "id": 4,
+      "name": "成因 04：消化逆流刺激型",
+      "tag": "平躺重力屏障消失 ✕ 胃酸倒流灼傷食道 ✕ 迷走神經反射驚醒",
+      "vimeoD": "1227776152",
+      "vimeoE": "1227769910",
+      "vimeoF": "1227770103",
+      "worstCase": "半夜火燒心只係前兆！最大鑊係強酸反覆腐蝕引發食道嚴重潰瘍出血，甚至演變成巴雷斯特食道症及癌變風險，最後成為屋企人沉重嘅負累！",
+      "bio": "夜間平躺臥位嗰陣，腹腔消化道失去企立時嘅自然重力防線。下食道括約肌張力減退或者胃內壓過高，促使胃酸同胃蛋白酶等腐蝕性內容物衝破賁門逆流而上。強酸性液體化學刺激食道下段黏膜內豐富嘅感覺神經末梢與迷走神經傳入纖維，引發食道局部平滑肌劇烈痙攣同胸骨後灼痛，神經信號迅速傳入延腦孤束核，激活中樞微覺醒迴路並引發反射性嗆咳，令身體喺火燒心、咽喉酸苦同異物窒息感之中驟然驚醒。",
+      "eng": "好似排水管道嘅單向止回閥彈簧老化鬆弛。平放嗰陣污水直接倒灌回流，帶有強腐蝕性嘅污水沿途侵蝕管壁，觸動管道內嘅酸鹼感應警報器，迫使總閘門緊急斷電響警報。",
+      "steps": [
+        {
+          "title": "第 1 步｜左側臥位防逆流睡姿",
+          "desc": "採用左側臥位入睡，令胃食道交界處處於胃內液面最高點之上，利用物理空間位置阻擋胃液漫入食道。"
+        },
+        {
+          "title": "第 2 步｜床頭物理整體抬高",
+          "desc": "將床頭腳墊高十至十五厘米形成自然向下斜角，借助持續重力作用抑制胃內容物向上倒灌。"
+        },
+        {
+          "title": "第 3 步｜睡前三小時嚴格禁食",
+          "desc": "就寢前三小時堅決停止進食任何固體食物，嚴格控制睡前飲水量，畀胃部充足時間完成排空程序。"
+        }
+      ],
+      "warn": "抬高床頭左側睡只係治標，括約肌張力鬆弛同食道黏膜慢性酸蝕先係禍根！任由強酸反覆灼傷喉嚨黏膜同刺激迷走神經，唔通真係要拖到食道嚴重潰瘍出血、吞嚥困難無法進食，先知驚？",
+      "nutrition": [
+        "1. <strong>水解二型膠原蛋白基質配搭有機硫（Nn 關節靈C+）：</strong>美國 Balchem 專利水解膠原基質協同 OptiMSM™ 專利有機硫，直接為食道破損黏膜提供細胞外基質修復原料，強化括約肌物理彈性。",
+        "2. <strong>雙極性跨膜抗氧化（Nn 蝦青素）：</strong>AstaREAL® 原廠蝦青素垂直貫穿食道上皮細胞膜，阻斷過氧化鏈式反應，保護緊密連接蛋白，完全規避出血風險。",
+        "3. <strong>發酵有機酸與後生元 SCFA（Nn 腸快適）：</strong>Totipro™ 專利後生元在食道與胃黏膜表面形成物理防護層，中和局部酸性刺激，調節自體胃酸分泌。",
+        "4. <strong>離子平衡型有機鎂（Nn 液鈣鎂D3）：</strong>doubleNUTRI™ 微米鎂迅速舒緩賁門與胃壁平滑肌張力，防止逆流壓力波上衝。",
+        "5. <strong>動力學排空與微生態（730天綜合果蔬酵素 ＋ 長者益生菌）：</strong>加速晚餐排空，降低胃內壓，從物理源頭消除夜間平躺倒灌物質；水溶 Q10 維繫括約肌平滑肌抗反流閉合張力。（注：本成因嚴格排除律動機與紅光帶，避免晃動加劇反流）。"
+      ],
+      "emotionQuote": "用極小嘅代價，從源頭築牢食道黏膜屏障同平息胃部痙攣，換返胸口清爽無燒灼、整夜踏實安睡同終生自理，唔使成為負累，安心做自己想做嘅事。",
+      "allowedProducts": [
+        "34328",
+        "34269",
+        "34307",
+        "34316",
+        "36248",
+        "34331",
+        "34278"
+      ],
+      "allowedBundles": [
+        "NoctAwaken_Set_D1"
+      ],
+      "testimonials": [
+        {
+          "name": "潘先生",
+          "age": "52歲",
+          "role": "餐飲業負責人",
+          "issue": "常食消夜，半夜經常被火燒心灼痛嗆醒，喉嚨泛起苦酸水，吞嚥時有異物感。",
+          "solution": "睡前禁食 ＋ 關節靈C+ ＋ 蝦青素 ＋ 腸快適後生元 ＋ 綜合果蔬酵素",
+          "quote": "胸口灼熱感兩星期內消退，半夜不再嗆咳驚醒，食道舒服晒！"
+        },
+        {
+          "name": "羅太",
+          "age": "61歲",
+          "role": "退休公務員",
+          "issue": "平躺時胃酸倒灌嚴重，長期服用胃藥 PPI，停藥即強烈反彈。",
+          "solution": "左側臥睡姿 ＋ 微米液鈣鎂 ＋ 水溶 Q10 ＋ 長者益生菌黏膜修復",
+          "quote": "整晚平躺不再有泛酸感覺，喉嚨清爽，終於可以安安樂樂瞓足一晚！"
+        }
+      ]
+    },
+    "5": {
+      "id": 5,
+      "name": "成因 05：中樞制約過度警覺型",
+      "tag": "HPA 軸慢性高張力 ✕ 臥室病態條件反射 ✕ NMDA 漏電失控狂飆",
+      "vimeoD": "1227769909",
+      "vimeoE": "1227769908",
+      "vimeoF": "1227769907",
+      "worstCase": "醒後胡思亂想只係表象！最大鑊係中樞自律神經與神經遞質系統全面崩潰，演變成重度難治性失眠與身心障礙，最後成為屋企人沉重嘅負累！",
+      "bio": "長期慢性精神應激令大腦下視丘-垂體-腎上腺軸長期處於高張力狀態，基礎皮質醇與促腎上腺皮質激素釋放因子水平居高不下。個體喺臥室環境、床鋪接觸同清醒焦慮之間建立強烈嘅病態條件反射。夜間經歷正常生理微覺醒瞬間，大腦感覺皮質覺醒閾值大幅下降，突觸間隙興奮性神經遞質谷氨酸鹽濃度過高，NMDA 受體持續激活造成鈣離子過度內流，引發神經元異常去極化放電。大腦皮質與邊緣系統杏仁核瞬間全速開機，思緒如跑馬燈般反覆盤算，神經亢奮連鎖擴散，徹底瓦解再次入睡嘅生理機制。",
+      "eng": "好似防盜安保監控系統嘅紅外線感應器靈敏度調得過高。庭院微風吹動樹葉嘅微小震動，系統瞬間判定為高危入侵，立刻拉響全棟樓最高分貝防空警報，全屋射燈全開，警報器自鎖停唔落嚟。",
+      "steps": [
+        {
+          "title": "第 1 步｜床鋪嚴格刺激控制",
+          "desc": "臥室床鋪僅用於睡眠，半夜醒來超過十五分鐘毫無睡意而且感到煩躁之際，安靜離床移步至燈光昏暗處靜坐，直至產生睏意先返回床鋪，消退床鋪與清醒嘅不良條件反射。"
+        },
+        {
+          "title": "第 2 步｜大腦認知卸載記錄",
+          "desc": "睡前以紙筆寫下次日待辦事項同繁雜思緒，將短期工作記憶完全外部化，關閉大腦睡前自動運算程序。"
+        },
+        {
+          "title": "第 3 步｜徹底遮蔽臥室時鐘",
+          "desc": "移除或者遮蔽臥室內所有時鐘與手機螢幕時間顯示，半夜醒來堅決禁止睇時間，阻斷時間焦慮引發嘅神經暴衝。"
+        }
+      ],
+      "warn": "離床靜坐寫筆記只係治標，中樞神經元膜電位漏電去極化先係問題！放任神經網絡長期處於超敏放電，難道要等到中樞自律神經全面崩潰、長期受病痛折磨連累全家一齊受苦，先嚟後悔莫及？",
+      "nutrition": [
+        "1. <strong>有機胺基酸螯合鎂（Nn 液鈣鎂D3）：</strong>doubleNUTRI™ 微米化高活性鎂離子直接嵌合於 NMDA 受體孔徑中心，物理性阻斷鈣超載，拉高去極化閾值，平息神經元漏電放電。",
+        "2. <strong>天然左旋蝦青素（Nn 蝦青素）：</strong>AstaREAL® 原廠專利原料跨越 BBB，專性淬滅下視丘神經元 ROS，平撫 HPA 軸過度興奮。",
+        "3. <strong>必需胺基酸矩陣（微脂體蛋白高營素）：</strong>提供純淨全譜胺基酸與麩胺酸/色胺酸前體，輔助突觸合成抑制性神經遞質 GABA，支持夜間超極化抑制狀態。",
+        "4. <strong>線粒體能量雙引擎（NMN ＋ 水溶 Q10）：</strong>麥角硫因刺激大腦內源 GABA 水平提升達 4 倍；MicroActive™ 水溶 Q10 為神經元鈉鉀離子泵提供持續 ATP 供能，維持超極化狀態。",
+        "5. <strong>雙實證物理理療（全身垂直律動機 ＋ 雙光譜紅光光療帶）：</strong>垂直正弦波諧振刺激全身本體感受器，抑制大腦網狀活化系統；近紅外線活化前額葉神經元細胞色素 C 氧化酶，平息杏仁核警覺放電。"
+      ],
+      "emotionQuote": "用極小嘅代價，從源頭阻斷神經元異常放電同平抑交感神經高張力，換返大腦寧靜沉睡、醒後精神煥發同終生自理，唔使成為負累，安心做自己想做嘅事。",
+      "allowedProducts": [
+        "34316",
+        "34269",
+        "36283",
+        "36281",
+        "34278",
+        "34331",
+        "36248",
+        "0368",
+        "38207"
+      ],
+      "allowedBundles": [
+        "NoctAwaken_Set_E1",
+        "NoctAwaken_Set_E2"
+      ],
+      "testimonials": [
+        {
+          "name": "趙太",
+          "age": "58歲",
+          "role": "企業主管",
+          "issue": "長期工作壓力大，半夜醒來腦袋全速開機盤算公事，越逼自己睡越清醒焦慮。",
+          "solution": "床鋪刺激控制 ＋ 微米液鈣鎂 ＋ 蝦青素 ＋ 酵母 NMN ＋ 垂直律動機",
+          "quote": "腦袋神經不再像走馬燈咁瘋狂運轉，半夜醒來很快能平靜復睡！"
+        },
+        {
+          "name": "鄭先生",
+          "age": "66歲",
+          "role": "長期依賴安眠藥人士",
+          "issue": "多年依賴安眠西藥，自覺劑量越食越大，半夜藥效一過即驚醒心慌。",
+          "solution": "大腦認知卸載 ＋ 蛋白高營素 GABA 底質 ＋ 水溶 Q10 ＋ 紅光帶深層放鬆",
+          "quote": "逐步擺脫對西藥的心理依賴，大腦搵返自然放鬆深睡的節奏！"
+        }
+      ]
+    }
+  }
+};
     const PRODUCTS_DB = [
-  {
-    "id": "34334",
-    "name": "Nn 強效脂質維他命C",
-    "shortDesc": "穩定黏膜肥大細胞，消退氣道微水腫",
-    "price": 179
-        specialPrice: 156,
-        packages: [{"code": "IH2138", "qty": 8, "price": 1019, "name": "8件專尚配套"}, {"code": "IH1148", "qty": 3, "price": 399, "name": "3件專尚配套"}],.0,
-    "img": "/images/products/34334.webp",
-    "spec": "60克(2克x 30包)",
-    "origin": "韓國",
-    "intro": "革新專利磷脂雙層微囊包裹技術，吸收率提升70%，體內長效停留高2.5倍。結合550mg脂質維他命C、黑接骨木果花青素、鋅、硒與維他命D3，築起5合1抗炎抗水腫防護網。",
-    "target": "呼吸道黏膜易充血水腫、夜間通氣阻抗高、打鼾微覺醒者。",
-    "ingredients": "高吸收脂質維他命C (550mg)、黑接骨木果、鋅(Zinc)、維他命D3、硒(Selenium)。",
-    "usage": "每日1包，粉末直接倒舌頭溶解或溶於冷水飲用。",
-    "warning": "含有奶類，全素食者不宜；溫和不刺激腸胃。",
-    "mechanisms": {
-      "1": "【對應Block F抗氧化與抗充血】高生物利用度維他命C與鋅直接穩定呼吸道肥大細胞膜，抑制組織胺釋放，清除自由基，快速減輕咽喉與鼻腔黏膜充血水腫，降低夜間呼吸氣道阻抗。"
-    }
-  },
-  {
-    "id": "36278",
-    "name": "ORIYEN 虎乳芝蟲草菌絲體",
-    "shortDesc": "深層調理呼吸道，維持夜間進氣通暢",
-    "price": 309
-        specialPrice: 269,
-        packages: [{"code": "IH0319", "qty": 7, "price": 1489, "name": "7件專尚配套"}, {"code": "IH2127", "qty": 4, "price": 889, "name": "4件專尚配套"}, {"code": "IH1322", "qty": 2, "price": 459, "name": "2件專尚配套"}],.0,
-    "img": "/images/products/36278.webp",
-    "spec": "710毫克x 30顆",
-    "origin": "馬來西亞",
-    "intro": "馬來西亞國寶級虎乳芝搭配4倍濃縮冬蟲夏草與針葉櫻桃維他命C。從根源深層調理肺與氣道，降低氣道黏膜對組織胺的敏感反應，稀釋呼吸道黏液，消退氣道微水腫。",
-    "target": "夜間打鼾、容易呼吸不暢、咽喉黏液黏稠、晨起口乾或有睡眠呼吸障礙(OSA)傾向者。",
-    "ingredients": "有機培植虎乳芝、4倍濃縮冬蟲夏草菌絲體、針葉櫻桃(天然維他命C)。",
-    "usage": "每日1-2顆，飯後服用。",
-    "warning": "孕婦及授乳婦女食用前請諮詢醫生；中重度OSA患者應配合醫師評估使用CPAP呼吸器。",
-    "mechanisms": {
-      "1": "【對應Block F氣道黏膜屏障】虎乳芝與蟲草多醣體具備顯著抗炎與修復呼吸道黏膜上皮功能，針葉櫻桃降低氣道對組織胺的反應，減少氣道微水腫與黏液分泌，維持夜間進氣閥門通暢，預防間歇性缺氧引發交感神經微覺醒。"
-    }
-  },
   {
     "id": "34269",
     "name": "Nn 蝦青素",
-    "shortDesc": "超強跨膜抗氧化，撲滅微血管發炎",
-    "price": 290
-        specialPrice: 255,
-        packages: [{"code": "IH2030", "qty": 5, "price": 955, "name": "5件專尚配套"}],
-    "img": "/images/products/34269.webp",
-    "spec": "30粒/盒",
+    "price": 290,
+    "specialPrice": 255,
+    "packages": [
+      {
+        "code": "IH2030",
+        "qty": 5,
+        "price": 955,
+        "name": "5件專尚配套"
+      }
+    ],
+    "spec": "440毫克 x 30粒",
     "origin": "馬來西亞",
-    "intro": "地表最強抗氧化之王！嚴選日本AstaREAL®天然雨生紅球藻超臨界萃取，抗氧化力為維他命C的6000倍、CoQ10的800倍。獨特跨膜極性結構能直接穿透血腦屏障(BBB)、神經外膜屏障(PNB)與粒線體雙層膜，撲滅微血管內皮發炎，阻斷NF-κB與COX-2發炎途徑，中和過氧化脂質，保護神經周邊微循環與粒線體呼吸鏈，且完全無出血或抗凝藥物干擾風險。",
-    "target": "薄血藥患者末梢微循環發炎發麻、高血糖微血管病變、自體免疫發炎風暴、粒線體過氧化脂質損傷者。",
-    "ingredients": "AstaREAL®天然雨生紅球藻萃取物(高活性天然蝦青素)、天然橄欖油、混合生育酚(維他命E)。",
-    "usage": "每日1次，每次1至2粒，隨餐或餐後油脂性飲食服用最佳。",
-    "warning": "非素食產品(明膠軟膠囊)。由微藻提取，無甲殼海鮮過敏原，海鮮過敏者可安全食用；不與降血壓、血糖西藥相沖。",
-    "mechanisms": {
-      "2": "微藻超強抗氧化力，直接貫穿微血管內皮雙層膜撲滅慢性發炎，改善微血管通透性，且完全無出血或抗凝西藥衝突風險，暢通神經微循環。",
-      "4": "【對應Block F骨盆腔深層抗炎】蝦青素直接穿透骨盆腔微血管雙層膜，強力下調NF-κB與COX-2發炎訊號，改善骨盆底與膀胱三角區微循環缺血，消退無菌性微發炎，顯著降低黏膜下感覺神經高敏性，終結假警報。"
-    }
-  },
-  {
-    "id": "34278",
-    "name": "Nn 水溶性輔酶Q10",
-    "shortDesc": "為粒線體充能，拉平夜間供電曲線",
-    "price": 338
-        specialPrice: 297,
-        packages: [{"code": "IH2044", "qty": 4, "price": 862, "name": "4件專尚配套"}, {"code": "IH1074", "qty": 2, "price": 442, "name": "2件專尚配套"}],
-    "img": "/images/products/34278.webp",
-    "spec": "30粒/盒",
-    "origin": "馬來西亞",
-    "intro": "美國專利MicroActive®水溶性技術，吸收率比傳統脂溶性高300%，體內24小時持續釋放。作為細胞發電廠(粒線體)電子傳遞鏈關鍵樞紐，直接支援細胞能量合成。",
-    "target": "夜間能量調節異常、容易心悸驚醒、服用他汀類降膽固醇西藥(Statins)致Q10耗損者。",
-    "ingredients": "MicroActive® 水溶性輔酶Q10 (含30mg CoQ10)、微晶纖維素。",
-    "usage": "每日1次，每次1至2粒，空腹亦可吸收。",
-    "warning": "植物膠囊純素可食；對沖他汀類西藥副作用，安全無衝突。",
-    "mechanisms": {
-      "2": "【對應Block F粒線體基線發電】輔酶Q10維持肝臟與神經細胞粒線體ATP產能，拉平夜間能量供電曲線，支援肝臟平穩進行夜間「糖質新生」，避免因能量驟降而啟動大腦的備用發電機(腎上腺素)。"
-    }
-  },
-  {
-    "id": "34307",
-    "name": "Nn 腸快適",
-    "shortDesc": "專利後生元修復腸道，阻斷內毒素入血",
-    "price": 314
-        specialPrice: 276,
-        packages: [{"code": "IH2109", "qty": 6, "price": 1354, "name": "6件專尚配套"}, {"code": "IH1109", "qty": 2, "price": 465, "name": "2件專尚配套"}],
-    "img": "/images/products/34307.webp",
-    "spec": "20毫升 x 15包",
-    "origin": "馬來西亞",
-    "intro": "革命性專利Totipro™後生元液態精華，不受胃酸破壞與抗生素影響，無需冷藏即可即效修復腸黏膜緊密連接。結合Mushroom Guard™混合菇菌萃取(含35% β-葡聚糖及40%蘑菇多糖)、菊苣纖維(益生元)與針葉櫻桃生物類黃酮，富含消化酶，能迅速阻斷內毒素入血、抗氧化並改善腸胃微生態。",
-    "target": "手腳發麻微循環不良、經常腹脹便秘、服用抗生素期間腸黏膜受損、自律神經緊繃者。",
-    "ingredients": "Totipro™專利後生元(4種乳酸菌發酵精華含消化酶)、Mushroom Guard™6種混合菇菌萃取、菊苣纖維、針葉櫻桃及柑橘類生物類黃酮。",
-    "usage": "兒童(2-12歲)每日1包；12歲以上兒童及成人每日1-2包，撕開即飲。",
-    "warning": "本品為奶素產品，純素者不宜。若有持續嚴重腸胃不適應儘快就醫。",
-    "mechanisms": {
-      "2": "專利Totipro™後生元為非活菌活性精華，不受抗生素與胃酸破壞，即效修復腸道黏膜緊密屏障，阻斷LPS內毒素入血誘發微血管發炎與通透性滲漏，暢通微血管灌注。",
-      "5": "專利Totipro™後生元為非活菌活性精華，不受抗生素與胃酸破壞，即效修復腸道黏膜緊密屏障，阻斷LPS內毒素入血誘發微血管發炎與通透性滲漏，暢通微血管灌注。大腦的焦慮警報系統與腸道微生態息息相關。此配方主打透過「腸腦軸連線」來調節情緒與睡眠，幫助找回好心情與好睡眠。其黃金三角組合（益生菌、益生元、後生元）能從腸道根源重塑神經傳導物質的生成環境，協助冷卻HPA壓力軸的暴走警報。"
-    }
+    "intro": "地表最強天然抗氧化之王。採用全球頂級AstaREAL®天然雨生紅球藻萃取，超臨界CO2綠色萃取無化學溶劑，獲美國FDA GRAS安全認證。分子極小且具高度親脂性，抗氧化力為維生素C的6000倍、CoQ10的800倍、維生素E的500倍。能穿透視網膜屏障與血腦屏障，直達雙眼與腦部，全方位護眼舒緩疲勞、強化心血管彈性、改善記憶力、對抗皮膚紫外線老化及改善全身微循環。",
+    "target": "長時間使用手機/電腦的螢幕族與學生、長期站立或久坐上班族、長期煙酒應酬者、年長人士及三高關注者、外食與皮膚抗老保養族群。",
+    "ingredients": "AstaREAL®專利天然雨生紅球藻萃取物（高純度天然蝦青素 Astaxanthin）、橄欖油、混合生育酚（維他命E）、明膠軟膠囊。",
+    "usage": "每日一次，每次一至兩顆膠囊。餐後服用（脂溶性成分隨餐或飯後吸收最佳）。",
+    "warning": "軟膠囊含動物來源，不適合素食者；蝦青素提取自微藻類，不含貝殼海產成分，對貝類海產過敏者可安心食用；孕婦、哺乳期婦女及兒童食用前建議諮詢醫生意見。"
   },
   {
     "id": "34316",
-    "name": "Nn 液鈣鎂D3",
-    "shortDesc": "微米液態鈣鎂，放鬆自律神經平穩膜電位",
-    "price": 241
-        specialPrice: 212,
-        packages: [{"code": "IH0320", "qty": 12, "price": 1936, "name": "12件專尚配套"}, {"code": "IH2128", "qty": 6, "price": 1041, "name": "6件專尚配套"}, {"code": "IH1122", "qty": 2, "price": 356, "name": "2件專尚配套"}],
-    "img": "/images/products/34316.webp",
-    "spec": "20包/盒",
-    "origin": "台灣",
-    "intro": "專利doubleNUTRI™雙營技術微米化液態鈣鎂，吸收率高達傳統鈣片2.6倍。不依賴胃酸解離，絕不引起腸道結塊便秘，是平穩自律神經與膜電位的核心礦物質。",
-    "target": "半夜反覆心悸、冒冷汗驚醒、自律神經亢奮、胃酸分泌不足或服用胃藥(PPI)者。",
-    "ingredients": "微米高活性鈣(500mg)、鎂(20mg)、維他命D3(500IU)、發酵巴西莓萃取物。",
-    "usage": "成人每日1-2包，睡前30-60分鐘飲用最佳，微米液態免配水。",
-    "warning": "純素配方，微米技術不依賴胃酸，服用強效胃藥(PPI)者亦可完美吸收且不致便秘。",
-    "mechanisms": {
-      "2": "【對應Block F神經膜電位穩定】活性鎂作為天然NMDA受體阻斷劑與神經鬆弛劑，改善胰島素敏感度，阻斷細胞內鈣暴衝，放鬆自律神經，平穩夜間膜電位，抑制腎上腺素與皮質醇反調節荷爾蒙暴衝。",
-      "4": "doubleNUTRI™專利微米鎂作為天然鈣通道阻斷劑(CCB)與肌肉鬆弛劑，迅速阻斷胞內鈣暴衝，放鬆緊繃壓迫神經的頸腰肌肉與骨盆底筋膜，安定神經異常放電，解除物理卡壓。",
-      "5": "NMDA阻斷與壓力軸冷卻：針對過度神經質、隨時拉響警報的安保系統，鎂離子是不可或缺的硬件冷卻劑。液鈣鎂D3採用專利微米級液態雙營技術，將吸收率提升了2.6倍，確保營養能高效被身體利用。配方中的鎂（20mg）能協同鈣質發揮強大作用，下調過度活躍的HPA壓力軸並阻斷NMDA受體的異常亢奮。配合維他命D3調節情緒的功能，這套組合能引導大腦順利由交感神經的「戰鬥」狀態，切換至副交感神經的「修復」模式。"
-    }
-  },
-  {
-    "id": "34331",
-    "name": "Nn 三效益生菌- 長者配方",
-    "shortDesc": "心腦友善專利好菌，調節微生態抗滲漏",
-    "price": 409
-        specialPrice: 327,
-        packages: [{"code": "IH0330", "qty": 8, "price": 2269, "name": "8件專尚配套"}, {"code": "IH2139", "qty": 4, "price": 1169, "name": "4件專尚配套"}, {"code": "IH1335", "qty": 2, "price": 599, "name": "2件專尚配套"}],
-    "img": "/images/products/34331.webp",
-    "spec": "2克 x 30包",
-    "origin": "韓國",
-    "intro": "銀髮族專屬「護骨健心」防護盾。針對長者好菌流失與消化液減少痛點，精選4種IDCC專利雙歧桿菌(心腦血管友善菌種)，結合低FODMAP益生元、後生元(熱處理17菌株)，特添10µg維他命D3。採用專利4重包覆技術(蛋白質、麥芽糊精、玻尿酸、水溶性聚合物)，提升腸道吸附力10.8倍，存活率高達90%，每包保證100億活菌直達腸道，修復腸黏膜屏障，截斷LPS內毒素入血。",
-    "target": "60歲以上長者、腸道機能退化、排便不規律、消化差、關注骨骼健康與骨質疏鬆、關注心血管健康及微循環障礙者。",
-    "ingredients": "4種IDCC專利雙歧桿菌(乳雙岐桿菌、短雙岐桿菌、長雙岐桿菌、兩歧雙歧桿菌)、低FODMAP益生元、後生元(熱處理17菌株)、維他命D3 (10µg/包)。",
-    "usage": "每日餐後服用1袋。撕開包裝直接倒在舌頭上溶解吞服，或加入室溫水、冷水或果汁中飲用。",
-    "warning": "益生菌對溫度敏感，切勿使用溫熱水沖泡(超過40℃會破壞活性)；若長期服用慢性病處方藥，請與藥物間隔2小時食用。",
-    "mechanisms": {
-      "2": "4大IDCC專利心腦血管友善雙歧桿菌發酵產生丁酸等短鏈脂肪酸(SCFA)，抑制HDAC並調降夜間交感神經興奮；特添維他命D3強化腸道鈣鎂通道吸收與骨質密度，無凝血干擾，安心修復血管微生態。",
-      "4": "【對應Block F心腸軸抗炎機制】益生菌與後生元產生短鏈脂肪酸(SCFA丁酸)，修復腸黏膜緊密連接(Tight Junctions)，阻絕LPS內毒素入血。從源頭降低白天微血管通透性與組織間隙積水，大幅減輕夜間平躺後水分倒灌引發的心房利尿鈉肽(ANP)暴衝夜尿。"
-    }
+    "name": "Nn 液鈣鎂 D3",
+    "price": 241,
+    "specialPrice": 212,
+    "packages": [
+      {
+        "code": "IH0320",
+        "qty": 12,
+        "price": 1936,
+        "name": "12件專尚配套"
+      },
+      {
+        "code": "IH2128",
+        "qty": 6,
+        "price": 1041,
+        "name": "6件專尚配套"
+      },
+      {
+        "code": "IH1122",
+        "qty": 2,
+        "price": 356,
+        "name": "2件專尚配套"
+      }
+    ],
+    "spec": "15毫升 x 15包",
+    "origin": "紐西蘭",
+    "intro": "革命性微米級液態鈣概念，採用專利doubleNUTRI™雙營技術，吸收率比傳統鈣片高出2.6倍。完美結合「補鈣、吸鈣、鎖鈣」三大功效，免除吞大藥丸痛苦，酸甜士多啤梨口味，一撕即飲。富含高活性鈣、維他命D3促進鈣吸收、鎂鎖住骨鈣，並添加專利發酵巴西莓萃取物（含丁香酸）抑制破骨細胞活性、減少糖化終產物（AGEs），全方位鞏固骨質密度與關節軟骨健康。",
+    "target": "兒童及發育中青少年、30歲以上成年人、更年期婦女、長者、缺乏運動者、飲食不均/缺鈣族群、關注骨質疏鬆者。",
+    "ingredients": "高活性鈣 (500mg)、維他命D3 (500IU)、鎂 (20mg)、專利發酵巴西莓萃取物（含丁香酸）、士多啤梨濃縮液。",
+    "usage": "兒童(2-12歲)：每日飲用1包。成人及12歲以上兒童：每天飲用1-2包。飲用前請搖勻。",
+    "warning": "純素產品，素食者可安心食用；每天從飲食及補充劑攝取的總鈣質建議不超過2000毫克；若有腎臟疾病或高鈣血症者請先諮詢醫師。"
   },
   {
     "id": "36248",
     "name": "ORIYEN 綜合果蔬酵素",
-    "shortDesc": "730天深層發酵多酚，截斷發炎毒素滲漏",
-    "price": 633
-        specialPrice: 557,
-        packages: [{"code": "IH0673", "qty": 10, "price": 4693, "name": "10件專尚配套"}, {"code": "IH0263", "qty": 4, "price": 1962, "name": "4件專尚配套"}, {"code": "IH1709", "qty": 3, "price": 1523, "name": "3件專尚配套"}],
-    "img": "/images/products/36248.webp",
+    "price": 633,
+    "specialPrice": 557,
+    "packages": [
+      {
+        "code": "IH0673",
+        "qty": 10,
+        "price": 4693,
+        "name": "10件專尚配套"
+      },
+      {
+        "code": "IH0263",
+        "qty": 4,
+        "price": 1962,
+        "name": "4件專尚配套"
+      },
+      {
+        "code": "IH1709",
+        "qty": 3,
+        "price": 1523,
+        "name": "3件專尚配套"
+      }
+    ],
     "spec": "300毫升/瓶",
-    "origin": "日本",
-    "intro": "日本730天(整整2年)長效微生物精工深層發酵！嚴選66種無污染果蔬植物精華，特添羽衣甘藍(芥蘭素抗氧)、舞茸(高活性β-葡聚糖)及大麥嫩葉(鹼性葉綠素之王)。【心腸軸核心機制】：富含有機酸、發酵多酚與後生元短鏈脂肪酸(SCFA)，強效修復腸黏膜緊密連接蛋白(Claudin-1/ZO-1/Occludin)，增厚MUC2黏液屏障；從源頭截斷革蘭氏陰性菌脂多醣(LPS, 內毒素)入血造成的全身微血管發炎通透性(Kf升高)，終止日間下肢組織漏水水腫與神經微血管損傷；同時促進胃腸完全水解蛋白質與微量營養，阻斷未完全消化抗原入血誘發自體免疫攻擊神經。",
-    "target": "手腳發麻冰冷、日間下肢微血管發炎水腫、腸漏致自體免疫失調攻擊神經、高糖高脂外食壞油體質、消化吸收障礙者。",
-    "ingredients": "66種天然果蔬發酵原液(羽衣甘藍、舞茸、大麥嫩葉、蘆筍、明日葉、青花椰菜、生薑等66種植物複合精華)、有機酸、多酚、消化酶。",
-    "usage": "每日1次，每次30毫升，以2倍40℃以下冷水或溫水稀釋飲用。早起空腹或午餐前飲用最佳。",
-    "warning": "酵素活性對高溫敏感，水溫切勿超過40℃；天然微生物發酵無化學添加。",
-    "mechanisms": {
-      "2": "日本2年深層發酵富含發酵多酚與後生元有機酸，修復腸黏膜緊密連接(Claudin-1/ZO-1)，截斷LPS內毒素入血導致的微血管內皮發炎(TLR4途徑)，降低微血管通透性(Kf)，終止微血管發炎滲漏與水腫，恢復神經周邊微循環血流。",
-      "4": "【對應Block F促排空與微生態】發酵酵素促進胃腸排空與消化，減少夜間胃酸上逆及腹脹對迷走神經的物理刺激；豐富多酚與SCFA前驅物結合內皮GPR41/43受體，擴張微血管並抑制TMAO毒素生成，協同修復骨盆腔與全身微循環。",
-      "5": "日本2年深層發酵富含發酵多酚與後生元有機酸，修復腸黏膜緊密連接(Claudin-1/ZO-1)，截斷LPS內毒素入血導致的微血管內皮發炎(TLR4途徑)，降低微血管通透性(Kf)，終止微血管發炎滲漏與水腫，恢復神經周邊微循環血流。大腦的焦慮警報系統與腸道微生態息息相關。此配方主打透過「腸腦軸連線」來調節情緒與睡眠，幫助找回好心情與好睡眠。其黃金三角組合（益生菌、益生元、後生元）能從腸道根源重塑神經傳導物質的生成環境，協助冷卻HPA壓力軸的暴走警報。"
-    }
+    "origin": "台灣",
+    "intro": "日本原裝進口頂級瓶裝酵素。精選66種天然植物、蔬菜、水果與草本精華，採用現代化微生物發酵技術，歷經長達730天（整整兩年）精心長效發酵，完整釋放活性催化酶與有機酸。特別添加3大黃金成分：羽衣甘藍（芥蘭素抗氧化）、舞茸（高活性β-葡聚糖強化免疫系統）與大麥嫩葉（鹼性食物之王調節酸鹼平衡），推動人體細胞新陳代謝，促進腸道消化吸收與排毒自癒力。",
+    "target": "慢性病需溫和調理體質者、產後婦女元氣恢復、免疫力差易疲倦者、消化不良與積食腹脹者、少吃蔬果經常外食之外食族。",
+    "ingredients": "66種綜合果蔬植物深層發酵原液（含羽衣甘藍、舞茸β-葡聚糖、大麥嫩葉、多種蔬菜水果及草本植物精華）、活性消化與代謝酵素群、異麥芽寡糖。",
+    "usage": "每日一次，每次30毫升，用2倍冷水或40℃以下溫水稀釋飲用。",
+    "warning": "酵素對溫度極為敏感，請勿以高於45°C之熱水沖泡以保持最高酵素活性；慢性病患及產後婦女可溫和調理飲用。"
+  },
+  {
+    "id": "34331",
+    "name": "Nn 三效益生菌 - 長者配方",
+    "price": 409,
+    "specialPrice": 327,
+    "packages": [
+      {
+        "code": "IH0330",
+        "qty": 8,
+        "price": 2269,
+        "name": "8件專尚配套"
+      },
+      {
+        "code": "IH2139",
+        "qty": 4,
+        "price": 1169,
+        "name": "4件專尚配套"
+      },
+      {
+        "code": "IH1335",
+        "qty": 2,
+        "price": 599,
+        "name": "2件專尚配套"
+      }
+    ],
+    "spec": "2克 x 30包",
+    "origin": "韓國",
+    "intro": "專為銀髮族設計的「護骨健心」防護盾。選用4種關鍵專利雙歧桿菌（長者腸道關鍵益菌），搭配低FODMAP益生元、後生元（熱處理17菌株），特別額外添加10µg維他命D3強化鈣質吸收。採用專利4重包覆技術（蛋白質、麥芽糊精、玻尿酸、水溶性聚合物），提升腸道吸附力達10.8倍，存活率高達90%，每包保證含100億活菌。具HACCP質量認證。",
+    "target": "60歲以上長者、腸道功能退化者（排便不規律、消化不良）、關注骨骼健康者（預防骨質流失、增強骨骼韌性）、關注心血管健康者。",
+    "ingredients": "4種IDCC專利雙歧桿菌（乳雙岐桿菌、短雙岐桿菌、長雙岐桿菌、兩歧雙歧桿菌）、低FODMAP益生元、後生元（熱處理17菌株）、維他命D3 (10µg)。",
+    "usage": "每日餐後服用1袋。撕開包裝袋，將粉末直接倒在舌頭上待其溶解，或加入室溫水、冷水或果汁中飲用。",
+    "warning": "益生菌對溫度敏感，請務必避免使用溫熱水沖泡以防破壞活性；若長期服用處方藥物，食用前建議先諮詢醫生，並與藥物間隔2小時食用。"
+  },
+  {
+    "id": "34307",
+    "name": "Nn 腸快適",
+    "price": 314,
+    "specialPrice": 276,
+    "packages": [
+      {
+        "code": "IH2109",
+        "qty": 6,
+        "price": 1354,
+        "name": "6件專尚配套"
+      },
+      {
+        "code": "IH1109",
+        "qty": 2,
+        "price": 465,
+        "name": "2件專尚配套"
+      }
+    ],
+    "spec": "20毫升 x 15包",
+    "origin": "馬來西亞",
+    "intro": "專利Totipro™後生元結合益生元之革命性液態護腸配方。後生元為益生菌代謝精華，高穩定性且耐胃酸，不需冷藏即可直達腸道發揮效益。含4種益菌發酵產物及消化酶（蛋白酶、澱粉酶、脂肪酶），搭配Mushroom Guard™ 6大菇菌萃取（含35% β-葡聚糖與40%多醣體）、菊苣纖維（益生元）與針葉櫻桃維C，迅速紓緩肚瀉、脹氣、便秘等偶發腸胃不適，提升腸道免疫力。",
+    "target": "經常有腸胃不適/肚瀉/脹氣/大便不順者、蔬果與纖維攝取不足之外食族、從未補充腸道保健品者、2歲以上兒童及全家人日常腸道護理。",
+    "ingredients": "Totipro™專利後生元（含4種益生菌發酵精華及消化酶）、Mushroom Guard™ 6大菇菌萃取（猴頭菇、香菇、舞茸、金針菇、姬松茸、銀耳）、菊苣纖維（菊糖益生元）、針葉櫻桃萃取、柑橘類生物類黃酮、濃縮果汁（含奶素成分）。",
+    "usage": "兒童(2-12歲)：每日1包。12歲以上兒童及成人：每日1-2包。撕開即可飲用，餐前或餐後均可。",
+    "warning": "本品屬於奶素產品，純素人士不適合食用；含天然果汁與蕈菇成分，有沉澱屬正常現象，飲用前請搖勻；若腸胃問題持續嚴重請就醫。"
   },
   {
     "id": "36281",
     "name": "ORIYEN 天然酵母NMN 15000 Premium",
-    "shortDesc": "補充細胞NAD+，校準下視丘生物鐘",
-    "price": 2488
-        specialPrice: 1888,
-        packages: [{"code": "IH3146", "qty": 10, "price": 16080, "name": "10件專尚配套"}, {"code": "IH2527", "qty": 5, "price": 8288, "name": "5件專尚配套"}, {"code": "IH0327", "qty": 1, "price": 1888, "name": "1件專尚配套"}],
-    "img": "/images/products/36281.webp",
+    "price": 2488,
+    "specialPrice": 1888,
+    "packages": [
+      {
+        "code": "IH3146",
+        "qty": 10,
+        "price": 16080,
+        "name": "10件專尚配套"
+      },
+      {
+        "code": "IH2527",
+        "qty": 5,
+        "price": 8288,
+        "name": "5件專尚配套"
+      },
+      {
+        "code": "IH0327",
+        "qty": 1,
+        "price": 1888,
+        "name": "1件專尚配套"
+      }
+    ],
     "spec": "150克 (5克 x 30包)",
     "origin": "台灣",
-    "intro": "高純度天然酵母發酵NMN(每包500mg)，採用Double Nutri專利微脂體奈米包覆技術，吸收率提升2.33倍。完美揉合麥角硫因(20mg，提升GABA達4倍放鬆神經、抗糖化AGEs)、天山雪蓮植物幹細胞(修復再生)、白藜蘆醇(100mg，協同激活長壽基因SIRT1)及脂質體維他命C。直擊細胞粒線體能量(ATP)衰退，修復受損DNA與神經軸突，改善胰島素阻抗，促進微血管新生與下肢灌注。",
-    "target": "糖尿病周邊神經病變(DAN)手腳麻木刺痛、微循環障礙血管硬化、粒線體能量枯竭、自體免疫神經受損、化療/藥物神經毒性者。",
-    "ingredients": "天然酵母NMN(500mg/包)、繡球菌萃取麥角硫因(20mg/包)、天山雪蓮組織培養物(100mg/包)、葡萄皮萃取白藜蘆醇(100mg/包)、脂質體維他命C(30mg/包)、維生素B群。",
-    "usage": "每日早上1包，倒入150ml常溫水混合後直接服用。",
-    "warning": "孕婦、哺乳期婦女、長期服藥者食用前請先諮詢醫生意見。本品為天然營養前體，無依賴性。",
-    "mechanisms": {
-      "2": "活化內皮SIRT1–eNOS軸，促使內皮一氧化氮合酶去乙醯化，釋放充足NO擴張血管，促進微血管新生與末梢深層灌注，解除血管狹窄缺血發麻。",
-      "3": "【對應Block F視交叉上核SCN修復】NMN及時補充下視丘SCN細胞內的NAD+峰值，活化SIRT1去乙醯化分子鐘基因(CLOCK/BMAL1/PER2)，校準中樞晝夜節律；促進夜間抗利尿激素(ADH)脈衝分泌，修復後半夜睡眠維持力。",
-      "4": "快速補充細胞NAD+，激活SIRT1與粒線體呼吸鏈生物合成，麥角硫因清除晚期糖基化終產物(AGEs)，解決高糖高胰島素引發的粒線體功能障礙，恢復充足ATP供應。",
-      "5": "中樞神經系統在後半夜反覆暴走、陷入死鎖自檢循環，會大量透支大腦的能量儲備。天然酵母NMN能迅速轉化為NAD+，直接參與粒線體的ATP細胞能量合成機制，為疲憊的大腦神經元提供深層修復的基礎底層能量。更關鍵的是，該NMN配方中蘊含的麥角硫因（EGT）能顯著提升血液中的GABA含量達4倍，有效促使腦神經放鬆、大幅降低壓力並提升睡眠品質。這完美補足了理療中急需的「中樞抑制性遞質」，幫助大腦阻斷越想睡越焦慮的惡性條件反射。"
-    }
+    "intro": "全新升級細胞逆齡旗艦配方。採用獨家Double Nutri專利微脂體技術，吸收率大幅增加2.33倍。每包提供500毫克天然酵母發酵來源NMN，活化粒線體與長壽基因（SIRT1）效能比化學合成高2倍以上，口服10分鐘入血快速提升NAD+水平；揉合三大頂級抗老成分：麥角硫因EGT（源自繡球蕈，抗氧化力比穀胱甘肽高30倍、助眠提升GABA 4倍）、天山雪蓮組織培養物（活性高4.8倍，修復再生）與葡萄皮萃取白藜蘆醇（強效抗氧），協同脂質體維他命C，全面逆轉衰老、修復DNA與提升免疫機能。",
+    "target": "30歲以上NAD+開始流失之族群、工作壓力大與經常熬夜都市人、欲改善睡眠品質與抗初老者、關注心腦血管健康與降三高之中老年人、抗氧美肌人士。",
+    "ingredients": "天然酵母發酵NMN (500mg/包)、繡球蕈萃取麥角硫因 EGT (20mg/包)、天山雪蓮組織培養物 (100mg/包)、葡萄皮萃取物含白藜蘆醇 (100mg/包)、專利脂質體維他命C (30mg/包)。",
+    "usage": "每日早上1包，倒入150ml溫水混合後直接服用，或直接倒入口中食用。",
+    "warning": "本品非藥物無依賴性，配方溫和不刺激胃腸；孕婦、哺乳期婦女、長期服藥者或接受特殊治療者食用前建議先諮詢專業醫師意見。"
   },
   {
-    "id": "38207",
-    "name": "Smart Fitness X 律動拍打機",
-    "shortDesc": "垂直律動激發NO，排空下肢深靜脈淤血",
-    "price": 22990
-        specialPrice: 22990,
-        packages: [{"code": "IH3005", "qty": 1, "price": 13990, "name": "1件專尚配套"}],
-    "img": "/images/products/38207.webp",
-    "spec": "1部裝",
-    "origin": "台灣",
-    "intro": "100%垂直正弦律動 × 專利腳底穴位拍打雙核心養生儀！【生化與神經機械力學轉導四大未載明機制】：\n1.【流體剪切力促NO】：垂直律動引發微血管流體剪切力，直接激活內皮eNOS釋放自體一氧化氮(NO)，強效擴張微血管、改善缺血缺氧。\n2.【肌梭牽張TVR與肌肉幫浦】：透過肌梭牽張反射引發每秒高頻被動收縮，刺激肌纖維增生；骨骼肌幫浦強效將下肢深靜脈淤血與淋巴液泵回腔靜脈。\n3.【激活MSCs、骨鈣素與脂聯素】：垂直重力刺激骨骼，促使骨髓間葉幹細胞(MSCs)分化釋放未羧化骨鈣素，並刺激脂肪細胞釋放脂聯素，大幅提升胰島素敏感度，活化AMPK，改善糖代謝障礙。\n4.【腳底湧泉穴平衡自律神經】：拍打湧泉穴與足心本體感受器，經脊髓上行調節腦幹與下視丘，抑制交感神經高亢，拉升副交感(迷走神經)張力，提高神經放電閾值。",
-    "target": "手腳麻木冰冷、糖尿病胰島素阻抗、下肢靜脈水腫淤血、自律神經失調、缺乏運動代謝緩慢者。",
-    "ingredients": "合金鋼機身、高精密正弦波垂直律動馬達(振幅2mm，重力加速度0.68G)、微電腦7段速度控制器、足底穴位拍打模組(湧泉/里內庭/獨膚/足心)。",
-    "usage": "自動定時每次15分鐘。晨起或傍晚站立/坐姿律動15分鐘(啟動肌泵與NO)；睡前1小時使用低速檔15分鐘(引流靜脈水腫、重置GTO煞車、喚醒副交感神經)。",
-    "warning": "最大承重120Kg。不適用人士：孕婦(孕前1個月至產後1個月)、骨折或開放傷口未癒合者、六歲以下孩童。",
-    "mechanisms": {
-      "2": "【流體剪切力促NO】：律動剪切力刺激血管內皮eNOS活化，大量釋放自體NO強效擴張微血管；骨骼肌幫浦排空深靜脈淤血，宛如被動式「血管體操」。"
-    }
+    "id": "34278",
+    "name": "Nn 水溶性輔酶 Q10",
+    "price": 338,
+    "specialPrice": 297,
+    "packages": [
+      {
+        "code": "IH2044",
+        "qty": 4,
+        "price": 862,
+        "name": "4件專尚配套"
+      },
+      {
+        "code": "IH1074",
+        "qty": 2,
+        "price": 442,
+        "name": "2件專尚配套"
+      }
+    ],
+    "spec": "300毫克 x 30粒",
+    "origin": "馬來西亞",
+    "intro": "採用美國專利MicroActive™水溶性技術（US Patent No. 7,030,102），突破傳統脂溶性限制，能完全溶解於水，吸收率比傳統結晶Q10高出300%、比油溶性Q10高200%。臨床證實可在3週內將體內血液Q10水平提升2倍，並提供24小時長效持續釋放。有效為心臟肌肉源源供應能量、保護心腦血管彈性、緩解服用他汀類降膽固醇藥引起的肌肉疲勞副作用、活化腦神經與抗老美肌。",
+    "target": "關注心腦血管健康與血液循環者、服用降膽固醇藥（他汀類藥物Statins）常感疲勞痠痛者、常覺疲倦/高壓工作者、中老年人抗老化、追求亮澤肌膚人士。",
+    "ingredients": "專利MicroActive™水溶性輔酶Q10（CoQ10）、微晶纖維素、植物性膠囊成分。",
+    "usage": "每日1次，每次1至2粒，空腹或餐後均可隨時食用。",
+    "warning": "植物膠囊純素可食；15歲以下兒童、孕婦或哺乳期婦女及正在服用抗凝血藥品（如Warfarin）之病患食用前請先諮詢醫生意見。"
+  },
+  {
+    "id": "34328",
+    "name": "Nn 關節靈C+",
+    "price": 439,
+    "specialPrice": 385,
+    "packages": [
+      {
+        "code": "IH0328",
+        "qty": 8,
+        "price": 2399,
+        "name": "8件專尚配套"
+      },
+      {
+        "code": "IH2137",
+        "qty": 4,
+        "price": 1249,
+        "name": "4件專尚配套"
+      },
+      {
+        "code": "IH1328",
+        "qty": 2,
+        "price": 649,
+        "name": "2件專尚配套"
+      }
+    ],
+    "spec": "6克 x 30包",
+    "origin": "馬來西亞",
+    "intro": "雙專利行動力黃金修復配方，科學實證3星期顯著減痛。結合美國Balchem與西班牙Bioiberica專利二型膠原蛋白（提供結構支撐與軟骨修復）、美國專利OptiMSM™有機硫（迅速舒緩關節疼痛發熱、提升關節液黏稠度）、高純度軟骨素（促進軟骨細胞合成與保水彈性）及維他命C（促進膠原蛋白合成）。五大黃金功效全面舒緩疼痛、修補軟骨、減少晨間僵硬、潤滑關節及保護軟組織。",
+    "target": "30歲以上關節初老保養者、中老年人（防關節退化與跌倒）、受關節痛/紅腫僵硬困擾者、行山跑步等恆常運動愛好者、體重過重關節負擔大者。",
+    "ingredients": "專利二型膠原蛋白 (Type II Collagen)、專利 OptiMSM™ 純天然有機硫化合物、軟骨素 (Chondroitin)、維他命C、天然果汁粉。",
+    "usage": "每日兩次，每次一包，餐後服用。將粉末溶於一杯室溫水或果汁中後服用。",
+    "warning": "成分含有動物來源成分（如二型膠原蛋白），非素食產品；嚴重關節勞損者可諮詢專業人士配合軟骨素與葡萄糖胺加強修復。"
   },
   {
     "id": "36283",
     "name": "ORIYEN 蛋白高營素",
-    "shortDesc": "雙源蛋白補充色胺酸，充足褪黑激素原料",
-    "price": 339
-        specialPrice: 298,
-        packages: [{"code": "IH0333", "qty": 10, "price": 2389, "name": "10件專尚配套"}, {"code": "IH2145", "qty": 5, "price": 1249, "name": "5件專尚配套"}, {"code": "IH1336", "qty": 3, "price": 789, "name": "3件專尚配套"}],
-    "img": "/images/products/36283.webp",
-    "spec": "47克x 10包",
+    "price": 339,
+    "specialPrice": 298,
+    "packages": [
+      {
+        "code": "IH0333",
+        "qty": 10,
+        "price": 2389,
+        "name": "10件專尚配套"
+      },
+      {
+        "code": "IH2145",
+        "qty": 5,
+        "price": 1249,
+        "name": "5件專尚配套"
+      },
+      {
+        "code": "IH1336",
+        "qty": 3,
+        "price": 789,
+        "name": "3件專尚配套"
+      }
+    ],
+    "spec": "47克 x 10包",
     "origin": "台灣",
-    "intro": "雙專利微囊+微脂體技術(吸收率240%)。雙源優質蛋白(含豐富色胺酸原料)結合GreenD3™專利維他命D3+K2、B群、葉酸、膽鹼與微量元素。",
-    "target": "日常光照不足、缺乏合成血清素與褪黑激素營養原料、後半夜睡眠驅動力崩潰者。",
-    "ingredients": "HMB、雙重優質蛋白(大豆+乳清)、專利維他命D3+K2、綜合B群、葉酸。",
-    "usage": "每日早餐飲用1包，溶解於200毫升溫水。",
-    "warning": "低糖(1.4g)零膽固醇，糖尿病患者適用；輕微乳糖不耐者亦可安心飲用。",
-    "mechanisms": {
-      "3": "【對應Block F節律基因與褪黑激素原料】專利維他命D3調節大腦中樞晝夜節律基因表現；雙源蛋白提供豐富天然左旋色胺酸，配合維他命B群輔酶，在白天合成血清素，入夜後方有充足原料轉化為天然褪黑激素。"
-    }
-  },
-  {
-    "id": "34103",
-    "name": "Nn 月見草油1000",
-    "shortDesc": "轉化抗炎前列腺素，降低周邊神經敏化",
-    "price": 196
-        specialPrice: 172,
-        packages: [{"code": "IH0199", "qty": 8, "price": 978, "name": "8件專尚配套"}, {"code": "IH1011", "qty": 2, "price": 278, "name": "2件專尚配套"}],
-    "img": "/images/products/34103.webp",
-    "spec": "1000毫克x 50粒",
-    "origin": "紐西蘭",
-    "intro": "",
-    "target": "",
-    "ingredients": "",
-    "usage": "",
-    "warning": "",
-    "mechanisms": {
-      "4": "月見草油中的 GLA 轉化為抗炎前列腺素 ，改善骨盆腔微循環，降低膀胱三角區神經敏化。"
-    }
+    "intro": "專為樂齡人士研發之「補肌·護心·強免疫」科學均衡營養配方。採用雙專利技術（微囊包覆與微脂體），吸收率大幅提升140%（達240%）。結合獨特HMB（每100ml含0.5g，攔截肌肉分解訊號、重建肌群）、雙重優質蛋白（大豆蛋白+濃縮乳清蛋白，每份提供13g蛋白質）、GreenD3™專利維他命D3結合維他命K2精準引鈣入骨、SoFiber™專利水溶性纖維促進腸道吸收，並補足鐵、葉酸、鋅、膽鹼等微營養，全方位預防肌少症與跌倒風險。",
+    "target": "40歲以上肌肉流失族群、樂齡長者（步履蹣跚、上下樓梯腿軟、起立無力者）、肌少症高危者、需控制糖分人士、輕度乳糖不耐受者、運動後修復肌肉者。",
+    "ingredients": "雙重優質蛋白質（大豆分離蛋白、濃縮乳清蛋白，每份含13克蛋白質）、獨特 HMB (β-羥基-β-甲基丁酸鹽，每100ml含0.5g)、GreenD3™專利維他命D3、維他命K2、SoFiber™專利水溶性纖維、綜合維他命與礦物質（含鐵、葉酸、鋅、磷、膽鹼、不飽和脂肪酸）。",
+    "usage": "每日一次，每次一包。將粉劑溶解於200毫升溫水中，充分攪拌後飲用。最佳飲用時間為早餐時段或運動後。",
+    "warning": "本品低糖（每份僅1.4g糖）、零膽固醇；含有大豆及少量濃縮乳清蛋白（多數輕微乳糖不耐受者可耐受）；糖尿病患者或特殊疾病患者建議飲用前諮詢醫生意見。"
   },
   {
     "id": "0368",
     "name": "SE 紅光光療按摩帶",
-    "shortDesc": "PBM雙光理療，爆發性合成ATP放鬆肌肉",
-    "price": 2580
-        specialPrice: 2580,
-        packages: [{"code": "IH2143", "qty": 1, "price": 1780, "name": "1件專尚配套"}],
-    "img": "/images/products/0368.webp",
-    "spec": "1件裝 (主機+控制器)",
-    "origin": "台灣",
-    "intro": "近紅外線雙光物理光生物調節(PBM)與深層高頻震動按摩雙效合一！具備122組高密度雙晶LED(630nm可見紅光修復表皮微血管，850nm近紅外線深層穿透椎管、關節與神經根)。光波被粒線體細胞色素C氧化酶吸收，爆發性生成ATP供應肌漿網鈣泵(SERCA)收回鈣離子放鬆痙攣肌肉；敷於腰背部直接消退神經根水腫發炎，敷於小腿刺激血管內皮釋放一氧化氮(NO)並解除肌筋膜黏連。",
-    "target": "頸腰椎骨刺壓迫神經麻痛、腕隧道症候群、夜間反覆驚醒、下肢深靜脈淤血水腫、肩頸下背僵硬、自律神經緊繃人士。",
-    "ingredients": "醫療級波長雙光譜LED晶片(630nm可見紅光 + 850nm不可見近紅外線，比例1:2)、4組微型高頻振動馬達、2000mAh大容量鋰電池、超薄人體工學軟帶。",
-    "usage": "每天使用 1–2 次，每次 10–20 分鐘(智能定時)。夜間常醒者：前 10 分鐘敷後枕部或腰薦椎平息交感神經，後 10 分鐘敷小腿腹激發微循環與 ATP。",
-    "warning": "孕婦、惡性腫瘤、急性開放性傷口或嚴重急性發炎處避免照射。850nm為肉眼不可見光譜，燈珠看似微弱為正常現象。",
-    "mechanisms": {
-      "4": "PBM光生物調節直接刺激細胞色素C氧化酶，爆發性合成ATP供應肌漿網鈣泵(SERCA)解開肌肉收縮卡死。",
-      "5": "【對應Block F迷走神經重置】紅光溫熱與物理微震動能深層放鬆後枕部顱底緊繃肌筋膜，釋放迷走神經幹周邊張力；光波能量促進局部血液循環，強制引導大腦由交感警戒切換為副交感修復模式，切斷焦慮清醒的死鎖迴路。物理光療是重置迷走神經的極佳介入手段。此設備能配合按摩震動放鬆緊繃的交感神經，緩解高壓帶來的心身疲勞，全面改善睡眠品質。其850nm近紅外線能深入皮下組織，刺激線粒體產生三磷酸腺苷（ATP），為細胞修復提供能量。睡前將紅光帶應用於後枕部或肩頸，能物理性阻斷安保系統的過度神經質反應。"
-    },
-    "demoImg1": "/images/products/0368-demo1.webp",
-    "demoImg2": "/images/products/0368-demo2.webp"
+    "price": 2580,
+    "specialPrice": 2580,
+    "packages": [
+      {
+        "code": "IH2143",
+        "qty": 1,
+        "price": 1780,
+        "name": "1件專尚配套"
+      }
+    ],
+    "spec": "1件裝",
+    "origin": "",
+    "intro": "非侵入性居家理療突破科技，結合630nm可見紅光與850nm近紅外線雙光理療技術，深入皮下組織、關節腔與韌帶，刺激細胞粒線體生成核心能量ATP，喚醒細胞自癒與組織修復。雙效合一內建4組震動按摩馬達與3段強度調節，物理性放鬆僵硬肌筋膜並加速局部血流；超輕量248g人體工學超薄剪裁，內建2000mAh大容量鋰電池與10分鐘智能安全定時，通過ISO 13485醫療器材系統認證及CE、RoHS國際安全規範。1年免費保養",
+    "target": "久坐上班族與低頭族（下背痛、肩頸僵硬、坐骨神經不適）、長者退化性關節痛（膝關節僵硬、五十肩、晨間痠軟）、運動愛好者肌肉勞損（延遲性肌肉痠痛DOMS、網球肘、足底繃緊）、女性生理期腹部不適、手腳冰冷者。",
+    "ingredients": "高密度雙光LED燈組（630nm紅光 + 850nm近紅外線）、內置4組高頻震動按摩微電機、親膚柔性複合材質、Type-C充電式2000mAh鋰電池模組（通過CE、RoHS、ISO 13485國際認證）。",
+    "usage": "每天使用1-2次，每次10-20分鐘。長按M鍵3秒開關機；單按鎖定鍵固定模式，長按3秒解鎖。全身肩、頸、背、腰、腹、手、腿等部位皆可配戴使用。",
+    "warning": "1. 懷孕婦女、患有惡性腫瘤或嚴重急性發炎者、對光線極度敏感或正服用光敏藥物者使用前請諮詢醫生。2. 皮膚有開放性傷口、濕疹或不明腫塊部位請勿直接照射，並注意避免直射眼睛。3. 內建850nm近紅外線為肉眼不可見光，燈珠看似未亮屬正常物理現象。"
   },
   {
-    "id": "34330",
-    "name": "Nn 三效益生菌- 護腸免疫配",
-    "shortDesc": "專利雙歧桿菌定殖，鞏固腸腦軸神經屏障",
-    "price": 409
-        specialPrice: 327,
-        packages: [],.0,
-    "img": "/images/products/34330.webp",
-    "spec": "2克x 30包",
-    "origin": "韓國",
-    "intro": "三大皇牌優勢：黃金組合 × 頂尖包覆 × 高效存活； 益生菌、益生元、後生元黃金三角組合：結合8大專利IDCC高品質益生菌、低FODMAP益生元、後生元（熱處理17菌株）以及10mg鋅，相輔相成，從根源調整體質，打造壞菌難侵的健康微生態。專利 4 重包覆技術；一般益生菌往往在抵達腸道前就被胃酸消滅？本產品採用先進的 4 重包覆防護網：蛋白質：阻隔空氣，避免氧化；麥芽糊精：提高吸附力，確保穩定繁殖；玻尿酸：阻隔水份，避免過早活化；水溶性聚合物：強力抵抗胃酸破壞；實證數據：能有效提升腸道吸附力達10.8倍，讓益生菌存活率高達90%，每包更保證含100億活性益菌直達戰場！",
-    "target": "飲食失衡人士； 免疫力較差人士； 腸道敏感人士；排便不順人士；生活壓力大人士；需體重管理人士",
-    "ingredients": "8種IDCC專利益生菌：鼠李糖桿菌、乳雙岐桿菌、植物乳桿菌、短雙岐桿菌、羅伊氏乳桿菌、乾酪乳桿菌、嗜熱鏈球菌、唾液乳酸桿菌；低FODMAP益生元；後生元（熱處理17菌株）；鋅 (10mg)",
-    "usage": "每日餐後服用1包，粉末直接倒舌頭溶解或以冷水沖飲。",
-    "warning": "益生菌忌高溫；完全無出血或抗凝血西藥衝突風險，薄血藥(Warfarin/阿斯匹靈)患者首選。",
-    "mechanisms": {
-      "5": "大腦的焦慮警報系統與腸道微生態息息相關。此配方主打透過「腸腦軸連線」來調節情緒與睡眠，幫助找回好心情與好睡眠。其黃金三角組合（益生菌、益生元、後生元）能從腸道根源重塑神經傳導物質的生成環境，協助冷卻HPA壓力軸的暴走警報。"
-    }
+    "id": "38207",
+    "name": "Smart Fitness X 律動拍打機",
+    "price": 22990,
+    "specialPrice": 22990,
+    "packages": [
+      {
+        "code": "IH3005",
+        "qty": 1,
+        "price": 13990,
+        "name": "1件專尚配套"
+      }
+    ],
+    "spec": "16.5Kg / 1台",
+    "origin": "台灣",
+    "intro": "結合「全身垂直律動」與「腳底穴位溫和拍打」之全新升級居家養生儀器。依循《黃帝內經》養生先養腳理念，以溫和適度力度拍打腳底關鍵穴位（湧泉穴、里內庭穴、足心穴等），帶動4-13Hz精準全身垂直律動與體液微循環，不傷筋膜。獲多位國際運動醫學與老年科權威臨床實證，能提升骨質密度、促進新陳代謝排毒、疏通經絡、改善手腳冰冷、維持心血管健康改善三高、降低長者跌倒風險及促進腸道蠕動。合金鋼機身承重達120kg，通過CE、CB、BSMI多國安全認證。",
+    "target": "缺乏運動之現代人、長者與肌肉流失者、久坐辦公室上班族、三高及代謝循環不良者、常年手腳冰冷者、關節不便進行劇烈運動者、欲改善睡眠與排便品質之家庭成員。",
+    "ingredients": "高強度合金鋼機身架構、專利垂直律動馬達傳動系統（頻率4-13Hz、震幅2mm、重力強度約0.68G）、雙腳底穴位拍打按摩模組（通過CE、CB、BSMI國際安全認證）。",
+    "usage": "每次使用自動定時15分鐘。具備7段固定速度調整，可支援站姿、坐姿或針對肩頸、腰腹、腿部進行多種專屬律動模式。",
+    "warning": "不適用人士：孕婦（懷孕前1個月與懷孕後1個月之婦女）、骨折或傷口未癒合者、需要安心靜養者、六歲以下小孩；初次使用若有短暫痠痛好轉反應屬正常現象，請循序漸進調整速度。"
   }
 ];
-
     const BUNDLES_DB = [
   {
-    "id": "A1",
+    "id": "NoctAwaken_Set_A1",
     "code": "NoctAwaken_Set_A1",
-    "name": "緩解扎醒30天套裝A1",
+    "name": "半夜扎醒・30天源頭調養套裝 A1",
+    "topic": "半夜扎醒",
     "causeId": 1,
-    "isWarfarinSafe": true,
-    "img": "/images/packages/NoctAwaken_Set_A1.webp",
-    "price": 425,
-    "origPrice": 488,
-    "discount": "87折",
-    "save": 63,
-    "itemsSummary": "Nn 強效脂質維他命C x 1 盒、ORIYEN 虎乳芝蟲草菌絲體 x 1 盒",
-    "desc": "30天進氣通暢。專利脂質維C穩定氣道黏膜肥大細胞，消退充血微水腫；國寶級虎乳芝深層調理肺道，減少黏液分泌，維持夜間呼吸道物理通暢，告別缺氧微覺醒。"
+    "isWarfarinSafe": false,
+    "price": 6891,
+    "origPrice": 9114,
+    "save": 2223,
+    "discount": "76折",
+    "itemsSummary": "Nn 蝦青素 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 水溶性輔酶 Q10 x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ Nn 腸快適 x 2 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ SE 紅光光療按摩帶 x 1",
+    "desc": "30天呼吸氣道缺氧調養旗艦款。日本 AstaREAL® 蝦青素穿透血腦屏障清除缺氧再灌注引發的爆發性 ROS；微米液鈣鎂調節呼吸肌群神經肌肉接頭膜電位平息痙攣；Totipro™ 腸快適與長者益生菌加固黏膜緊密連接阻斷發炎；NMN 與水溶 Q10 修復呼吸中樞細胞能量池；紅光帶促進局部微循環。"
   },
   {
-    "id": "B1",
+    "id": "NoctAwaken_Set_B1",
     "code": "NoctAwaken_Set_B1",
-    "name": "緩解扎醒30天套裝B1",
+    "name": "半夜扎醒・30天源頭調養套裝 B1",
+    "topic": "半夜扎醒",
     "causeId": 2,
-    "isWarfarinSafe": true,
-    "img": "/images/packages/NoctAwaken_Set_B1.webp",
+    "isWarfarinSafe": false,
     "price": 20881,
     "origPrice": 32104,
-    "discount": "65折",
     "save": 11223,
-    "itemsSummary": "Nn 水溶性輔酶Q10 x 1、Nn 液鈣鎂D3 x 2、Nn 蝦青素 x 1、Nn 腸快適 x 2、Nn 三效益生菌 x 1、ORIYEN 綜合果蔬酵素 x 3、ORIYEN 天然酵母NMN x 1、Smart Fitness X 律動拍打機 x 1",
-    "desc": "30天旗艦全效。Q10支援粒線體能量合成；微米鈣鎂穩定神經膜電位；NMN修復細胞產能；酵素益生菌重塑心腸軸阻斷發炎；律動機垂直律動激發NO與排空淤血，全面平撫夜間代謝供電震盪。"
+    "discount": "65折",
+    "itemsSummary": "Nn 水溶性輔酶 Q10 x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ Nn 蝦青素 x 1 ＋ Nn 腸快適 x 2 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ SE 紅光光療按摩帶 x 1 ＋ Smart Fitness X 律動拍打機 x 1",
+    "desc": "30天血糖谷底震盪調養旗艦款。專利水溶 Q10 穩定夜間粒線體產能；微米液鈣鎂阻斷異常神經興奮；蝦青素保護胰島微血管；NMN 活化 SIRT1 逆轉胰島素阻抗防止夜間反應性低血糖；腸快適、益生菌與果蔬酵素建立平穩心腸軸；律動機與紅光帶平衡自律神經防止驚醒。"
   },
   {
-    "id": "B2",
+    "id": "NoctAwaken_Set_B2",
     "code": "NoctAwaken_Set_B2",
-    "name": "緩解扎醒30天套裝B2",
+    "name": "半夜扎醒・30天源頭調養套裝 B2",
+    "topic": "半夜扎醒",
     "causeId": 2,
-    "isWarfarinSafe": true,
-    "img": "/images/packages/NoctAwaken_Set_B2.webp",
-    "price": 5040,
-    "origPrice": 6410,
-    "discount": "79折",
-    "save": 1370,
-    "itemsSummary": "Nn 水溶性輔酶Q10 x 1、Nn 液鈣鎂D3 x 2、Nn 蝦青素 x 1、Nn 腸快適 x 2、Nn 三效益生菌 x 1、ORIYEN 綜合果蔬酵素 x 3、ORIYEN 天然酵母NMN x 1",
-    "desc": "30天純營養修復。高活性Q10結合微米液鈣鎂平穩自律神經與反調節荷爾蒙，搭配NMN充能粒線體與心腸軸益生酵素，從源頭終結夜間低血糖反彈驚醒。"
+    "isWarfarinSafe": false,
+    "price": 6891,
+    "origPrice": 9114,
+    "save": 2223,
+    "discount": "76折",
+    "itemsSummary": "Nn 水溶性輔酶 Q10 x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ Nn 蝦青素 x 1 ＋ Nn 腸快適 x 2 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ SE 紅光光療按摩帶 x 1",
+    "desc": "30天血糖谷底震盪輕便理療款。專利水溶 Q10 穩定夜間粒線體產能；微米液鈣鎂阻斷異常神經興奮；蝦青素保護微血管；NMN 活化 SIRT1 逆轉胰島素阻抗防止夜間反應性低血糖；腸快適、長者益生菌與果蔬酵素建立平穩心腸軸；紅光帶雙光譜照射促進微循環。"
   },
   {
-    "id": "C1",
+    "id": "NoctAwaken_Set_C1",
     "code": "NoctAwaken_Set_C1",
-    "name": "緩解扎醒30天套裝C1",
+    "name": "半夜扎醒・30天源頭調養套裝 C1",
+    "topic": "半夜扎醒",
     "causeId": 3,
-    "isWarfarinSafe": true,
-    "img": "/images/packages/NoctAwaken_Set_C1.webp",
+    "isWarfarinSafe": false,
     "price": 20594,
     "origPrice": 31721,
-    "discount": "65折",
     "save": 11127,
-    "itemsSummary": "ORIYEN 天然酵母NMN 15000 x 1、ORIYEN 蛋白高營素 x 3",
-    "desc": "30天節律重校。天然酵母NMN及時補充下視丘SCN細胞NAD+，校準生物鐘中樞；雙源優質蛋白提供天然左旋色胺酸與B群，白天合成血清素，入夜轉化充足褪黑激素，守護後半夜深睡。"
+    "discount": "65折",
+    "itemsSummary": "ORIYEN 蛋白高營素 x 3 ＋ Nn 水溶性輔酶 Q10 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ SE 紅光光療按摩帶 x 1 ＋ Smart Fitness X 律動拍打機 x 1",
+    "desc": "30天腦神經遞質失衡調養旗艦款。微脂體蛋白高營素提供充足游離色胺酸與酪胺酸充盈大腦褪黑素與 GABA 合成庫存；NMN 複方麥角硫因提升大腦 GABA 達 4 倍平息大腦過度警覺；水溶 Q10 供應星形膠質細胞能量；果蔬酵素與益生菌修復腸腦軸；律動機與紅光帶深層放鬆骨骼肌與中樞神經。"
   },
   {
-    "id": "D1",
+    "id": "NoctAwaken_Set_C2",
+    "code": "NoctAwaken_Set_C2",
+    "name": "半夜扎醒・30天源頭調養套裝 C2",
+    "topic": "半夜扎醒",
+    "causeId": 3,
+    "isWarfarinSafe": false,
+    "price": 6604,
+    "origPrice": 8731,
+    "save": 2127,
+    "discount": "76折",
+    "itemsSummary": "ORIYEN 蛋白高營素 x 3 ＋ Nn 水溶性輔酶 Q10 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ SE 紅光光療按摩帶 x 1",
+    "desc": "30天腦神經遞質失衡輕便理療款。微脂體蛋白高營素迅速補充神經覺醒受質；NMN 活化長壽基因修復腦神經粒線體 DNA；水溶 Q10 長效緩釋維持神經突觸能量傳導；心腸軸底座透過迷走神經傳遞安神訊號；紅光光療照射促進大腦深層微循環。"
+  },
+  {
+    "id": "NoctAwaken_Set_D1",
     "code": "NoctAwaken_Set_D1",
-    "name": "緩解扎醒30天套裝D1",
+    "name": "半夜扎醒・30天源頭調養套裝 D1",
+    "topic": "半夜扎醒",
     "causeId": 4,
-    "isWarfarinSafe": true,
-    "img": "/images/packages/NoctAwaken_Set_D1.webp",
+    "isWarfarinSafe": false,
     "price": 3608,
     "origPrice": 4485,
-    "discount": "80折",
     "save": 877,
-    "itemsSummary": "Nn 月見草油 x 1、Nn 蝦青素 x 1、Nn 液鈣鎂D3 x 2、Nn 三效益生菌 x 1、ORIYEN 綜合果蔬酵素 x 3、ORIYEN 天然酵母NMN x 1、SE 紅光光療按摩帶 x 1",
-    "desc": "30天周邊管道解壓。紅光帶深層理療改善微循環；益生菌酵素阻斷腸漏發炎降低白天微血管滲漏；微米鈣鎂放鬆骨盆底肌群，徹底消除夜尿倒灌與周邊感覺神經假警報。"
+    "discount": "80折",
+    "itemsSummary": "Nn 蝦青素 x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ Nn 關節靈C+ x 1 ＋ Nn 水溶性輔酶 Q10 x 1 ＋ Nn 腸快適 x 2 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3",
+    "desc": "30天胃食道反流刺激調養款。美國 Balchem 專利二型膠原蛋白關節靈 C+ 修復食道黏膜基底膜與下食道括約肌結締組織彈性；專利蝦青素與微米液鈣鎂抑制局部酸蝕發炎與迷走神經痙攣；水溶 Q10 加速上皮細胞修復；Totipro™ 腸快適與果蔬酵素調節消化道微生態環境。"
   },
   {
-    "id": "E1",
+    "id": "NoctAwaken_Set_E1",
     "code": "NoctAwaken_Set_E1",
-    "name": "緩解扎醒30天套裝E1",
+    "name": "半夜扎醒・30天源頭調養套裝 E1",
+    "topic": "半夜扎醒",
     "causeId": 5,
-    "isWarfarinSafe": true,
-    "img": "/images/packages/NoctAwaken_Set_E1.webp",
+    "isWarfarinSafe": false,
     "price": 21205,
     "origPrice": 32493,
-    "discount": "65折",
     "save": 11288,
-    "itemsSummary": "ORIYEN 天然酵母NMN x 1、Nn 液鈣鎂D3 x 2、Nn 腸快適 x 2、Nn 三效益生菌(護腸免疫) x 1、ORIYEN 綜合果蔬酵素 x 3、SE 紅光光療按摩帶 x 1",
-    "desc": "30天中樞安保冷卻。專利麥角硫因與NMN提升大腦GABA抑制遞質達4倍；微米鎂阻斷NMDA受體過度亢奮；後生元與益生菌調節腦腸軸，平息大腦失控警報與焦慮死鎖。"
+    "discount": "65折",
+    "itemsSummary": "Nn 蝦青素 x 1 ＋ Nn 水溶性輔酶 Q10 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ ORIYEN 蛋白高營素 x 3 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ SE 紅光光療按摩帶 x 1 ＋ Smart Fitness X 律動拍打機 x 1",
+    "desc": "30天膀胱神經過敏調養旗艦款。日本專利蝦青素清除逼尿肌血管微發炎；微米液鈣鎂放鬆骨盆底肌與逼尿肌痙攣擴大夜間儲尿容量；水溶 Q10 與 NMN 修復逼尿肌微血管缺血-再灌注損傷；微脂體高營素強健骨盆支持肌群；酵素益生菌維護盆腔微環境；律動機與紅光帶被動強化盆底肌力與血流。"
+  },
+  {
+    "id": "NoctAwaken_Set_E2",
+    "code": "NoctAwaken_Set_E2",
+    "name": "半夜扎醒・30天源頭調養套裝 E2",
+    "topic": "半夜扎醒",
+    "causeId": 5,
+    "isWarfarinSafe": false,
+    "price": 7215,
+    "origPrice": 9503,
+    "save": 2288,
+    "discount": "76折",
+    "itemsSummary": "Nn 蝦青素 x 1 ＋ Nn 水溶性輔酶 Q10 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ ORIYEN 蛋白高營素 x 3 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ SE 紅光光療按摩帶 x 1",
+    "desc": "30天膀胱神經過敏輕便理療款。蝦青素與微米螯合鈣鎂協同阻斷膀胱三角區神經過度敏感；水溶 Q10 充足供應逼尿肌細胞 ATP；NMN 修復神經末梢傳導；微脂體蛋白高營素補充結締原料；果蔬酵素調節心腸軸；紅光帶促進薦椎神經與骨盆微循環。"
   }
 ];
-
-    const CAUSES_DATA = {
-  "1": {
-    "id": 1,
-    "name": "成因 01：呼吸與夜間缺氧型",
-    "worstCase": "半夜扎醒大喘氣口乾只係開始！最大鑊係長期大腦缺氧血壓暴衝，引發夜間急性中風同心肌梗塞，徹底摧毀心血管！",
-    "bio": "睡眠中平躺仰臥時，咽喉軟組織受重力牽引自然後墜；若同時伴隨呼吸道黏膜慢性發炎、過敏微水腫或分泌物過度黏稠，上呼吸道管腔便會發生動態塌陷與阻塞（即睡眠呼吸障礙／間歇性缺氧）。此時體內血氧飽和度驟跌、二氧化碳迅速堆積，大腦呼吸中樞偵測到窒息危機，被迫緊急啟動交感神經並大劑量釋放兒茶酚胺（壓力荷爾蒙），強烈活化大腦網狀結構引發「微覺醒（Cortical Arousal）」，強制將患者從深度睡眠震醒以恢復咽喉肌張力。",
-    "eng": "就像智慧工廠的「主通風進氣管線」在負壓下被壓扁堵塞，氧氣濃度警報器瞬間拉響最高級警報，中央監控系統被迫中斷夜間維護排程，強制全廠緊急開機重啟排風。",
-    "steps": [
-      {
-        "title": "第 1 步｜側睡重力位移法",
-        "desc": "睡眠時使用專用側睡枕，或在背後放置支撐靠墊，維持穩定側臥姿勢，藉由側向重力防止舌根向後垂直下墜阻擋呼吸道。 2."
-      },
-      {
-        "title": "第 2 步｜晚餐嚴格落實「抗充血低黏液原則」",
-        "desc": "睡前 4 小時完全避開高黏稠全脂乳製品（牛奶、全脂起司）與精緻糖，大幅減少咽喉分泌物的黏稠度與黏膜充血。 3."
-      },
-      {
-        "title": "第 3 步｜睡前鼻腔溫生理鹽水通氣護理",
-        "desc": "睡前以 37℃ 等張溫生理鹽水沖洗鼻腔，配合物理性擴張通氣鼻貼，降低上呼吸道進氣阻抗。"
-      }
-    ],
-    "warn": "洗鼻與側睡只適用於輕度黏膜充血，結構性氣道重度塌陷（中重度 OSA）才是致命主因！放任間歇性缺氧，心血管與中風風險將隨時飆升，切勿用生活小招代替專業醫療檢查！",
-    "nutrition": [
-      "<strong>【實證物理理療】1. 醫療紅旗排查（重度器質性 OSA 標準）：</strong>若伴隨大聲打鼾、被自己嗆醒、睡眠呼吸中斷或晨起嚴重口乾頭痛，首要任務是進行多項睡眠生理檢查（PSG），臨床一線治療黃金標準為配戴「連續正壓呼吸器（CPAP）」以物理氣壓強制撐開氣道，非任何營養補充品所能取代。",
-      "<strong>【實證物理理療】2. 口咽肌群肌力訓練（MFT）：</strong>針對輕度塌陷或軟組織鬆弛者，每日進行 10 分鐘舌肌向上推頂上顎與吞嚥肌力訓練，強化頦舌肌張力，減少睡眠中的軟組織塌陷。",
-      "<strong>【細胞生化關鍵營養】1. 穩定呼吸道黏膜屏障，減少發炎充血：</strong>呼吸道夜間塌陷常與黏膜慢性發炎、過敏水腫息息相關。補充具備呼吸道黏膜修復與調節免疫特性的植物多醣與天然抗氧化成分，下調肥大細胞對組織胺的敏感性，消退氣道微水腫與黏液分泌，維持夜間物理通暢。",
-      "<strong>【細胞生化關鍵營養】2. 強化抗氧化防禦，保護氣道上皮細胞：</strong>補充足量抗氧化維生素與微量元素（如維生素 C、鋅），降低呼吸道氧化壓力，改善夜間氣道阻抗。"
-    ],
-    "emotionQuote": "打開暢通無阻的夜間進氣閥門，撲滅氣道黏膜發炎水腫，享受深層含氧量守護的沉靜好眠！\n________________",
-    "allowedProducts": [
-      "34334",
-      "36278"
-    ],
-    "allowedBundles": [
-      "A1"
-    ],
-    "desc": "你的大腦神經大致正常，核心問題在於夜間平躺時呼吸道軟組織塌陷與黏膜充血水腫，引發間歇性缺氧，大腦呼吸中樞偵測到窒息危機，被迫緊急啟動交感神經將您震醒以恢復呼吸氣道張力。",
-    "testimonials": [
-      {
-        "name": "關先生",
-        "age": "58歲",
-        "role": "業務主管",
-        "issue": "平時打鼾嚴重，半夜經常大喘氣驚醒、口乾舌燥，第二朝頭痛無精神。",
-        "solution": "側睡枕 ＋ 睡前溫鹽水通氣 ＋ 脂質維C ＋ 虎乳芝蟲草",
-        "quote": "呼吸道通暢好多，半夜唔再俾自己嗆醒，晨早起身喉嚨好舒服，精神飽滿！"
-      },
-      {
-        "name": "何太",
-        "age": "63歲",
-        "role": "退休教師",
-        "issue": "一瞓低就覺得咽喉黏液好黏稠，半夜醒咗之後好難再入睡。",
-        "solution": "抗充血低黏液晚餐 ＋ 虎乳芝調理 ＋ 口咽肌力訓練",
-        "quote": "痰涎少咗好多，呼吸平穩安靜，終於可以一覺瞓到天光！"
-      }
-    ],
-    "vimeoD": "",
-    "vimeoE": "",
-    "vimeoF": ""
-  },
-  "2": {
-    "id": 2,
-    "name": "成因 02：夜間生理與代謝喚醒型",
-    "worstCase": "半夜心跳加速冒冷汗驚醒只係開始！最大鑊係粒線體全面斷電同胰島素阻抗惡化，全身血管神經嚴重糖化，最後器官機能衰竭！",
-    "bio": "常見於長期攝取精緻糖與超加工食品引發的高胰島素血症與粒線體功能受損。入睡後 3–4 小時，白天過量分泌的胰島素可能將血糖壓制得過低（反應性低血糖），加上粒線體產能障礙導致肝臟無法平穩進行「糖質新生」提供夜間基線能量。大腦神經元對葡萄糖匱乏極度敏感，一旦偵測到細胞供能斷崖式下跌，便會立刻啟動自我防衛機制，指令腎上腺釋放腎上腺素、皮質醇與胰高血糖素等「反調節荷爾蒙」。強烈的自律神經交感放電會促使心跳驟然加速、冒冷汗，將大腦從深層睡眠強制踢回清醒狀態。",
-    "eng": "就像夜間智慧工廠的主供電壓突然暴跌，中央系統誤以為遭遇斷電危機，緊急啟動「備用柴油發電機（腎上腺素）」，巨大的引擎轟鳴聲瞬間把所有沉睡中的工人強制震醒。",
-    "steps": [
-      {
-        "title": "第 1 步｜落實睡前「緩釋供能餐盤」",
-        "desc": "晚餐以優質蛋白質搭配高水溶性纖維與低 GI 原型碳水。若經常在凌晨 3 點心悸或飢餓醒來，睡前 30 分鐘可微量攝取一小匙純無糖堅果醬或一顆水煮蛋，維持整夜血糖基線平穩。 2."
-      },
-      {
-        "title": "第 2 步｜晚餐徹底戒斷精緻糖與高糖水果",
-        "desc": "晚餐與睡前嚴格杜絕精緻甜食、含糖飲料與高升糖宵夜，切斷入睡後的胰島素暴衝與反彈性低血糖。 3."
-      },
-      {
-        "title": "第 3 步｜晚餐後 15 分鐘平糖慢步法",
-        "desc": "飯後進行 15 分鐘輕鬆步行，誘導骨骼肌細胞膜 GLUT4 葡萄糖轉運蛋白活化，平抑餐後血糖波峰。"
-      }
-    ],
-    "warn": "睡前吃蛋墊胃只是應急緩衝，粒線體能量轉換失靈才是核心！放任代謝震盪與胰島素阻抗，全身神經與血管將持續處於斷電危機！",
-    "nutrition": [
-      "<strong>【實證物理理療】1. 餐後分段微動平糖法：</strong>餐後散步平抑餐後血糖與胰島素震盪波峰，避免入睡後發生反應性低血糖反彈。",
-      "<strong>【實證物理理療】2. 上腹區睡前溫熱敷：</strong>睡前以溫熱墊置於上腹區 15–20 分鐘，促進肝膽內臟微循環，舒緩內臟交感神經張力。",
-      "<strong>【細胞生化關鍵營養】1. 避開碳酸鈣，以「易吸收鈣 ＋ 活性鎂」穩定自律神經：</strong>選擇不造成消化負擔的易吸收鈣型態，並特別重視「鎂質」的攝取。活性鎂有助於改善周邊胰島素敏感度、抑制大腦 NMDA 受體過度興奮；協同鈣質放鬆自律神經與全身平滑肌，平穩夜間膜電位，減少反調節荷爾蒙（腎上腺素）的突發性釋放。",
-      "<strong>【細胞生化關鍵營養】2. 維持粒線體基線發電：</strong>輔酶 Q10： 粒線體能量供應不足會使肝臟夜間釋放葡萄糖的能力出現斷崖式波動。補足輔酶 Q10 支援細胞能量代謝，拉平夜間能量供電曲線，避免系統因能量驟降而強制喚醒大腦。"
-    ],
-    "emotionQuote": "鋪平夜間代謝供電曲線，安撫半夜暴衝的腎上腺素，讓身心平穩深睡到破曉！\n________________",
-    "allowedProducts": [
-      "34269",
-      "34278",
-      "34307",
-      "34316",
-      "34331",
-      "36248",
-      "36281",
-      "38207"
-    ],
-    "allowedBundles": [
-      "B1",
-      "B2"
-    ],
-    "desc": "核心問題在於夜間血糖代謝震盪與細胞粒線體產能不足，入睡數小時後引發反應性低血糖，大腦偵測到供能不足，緊急指令腎上腺釋放腎上腺素等反調節荷爾蒙將大腦強制踢回清醒狀態。",
-    "testimonials": [
-      {
-        "name": "趙先生",
-        "age": "54歲",
-        "role": "IT顧問",
-        "issue": "夜晚常吃甜食宵夜，半夜三點幾心跳突然加速、冒冷汗驚醒，成身好似斷電。",
-        "solution": "戒斷睡前精緻糖 ＋ 飯後慢步 ＋ 水溶性Q10 ＋ 微米液鈣鎂",
-        "quote": "半夜唔再心慌慌驚醒，心跳好平穩，白朝開會精神集中好多！"
-      },
-      {
-        "name": "麥太",
-        "age": "60歲",
-        "role": "會計經理",
-        "issue": "晚飯後血糖不穩，凌晨經常餓醒心悸，之後輾轉反側無法入眠。",
-        "solution": "緩釋供能餐盤 ＋ 水溶Q10 ＋ 天然酵母NMN ＋ 酵素益生菌",
-        "quote": "體內能量供電拉平咗，半夜無再突然嚇醒，個人充滿活力！"
-      }
-    ],
-    "vimeoD": "",
-    "vimeoE": "",
-    "vimeoF": ""
-  },
-  "3": {
-    "id": 3,
-    "name": "成因 03：晝夜節律失配型",
-    "worstCase": "凌晨固定時間早醒異常清醒只係開始！最大鑊係下視丘分子鐘崩潰同抗利尿節律退化，後半夜睡眠維持力徹底瓦解，加速腦部神經退化！",
-    "bio": "人體晝夜節律由下視丘「視交叉上核（SCN，生理主時鐘）」統籌調控。若日間戶外自然光接觸不足、夜間過度暴露於人造高色溫藍光，或隨著年齡增長 SCN 基因調節能力減退，主時鐘的「石英震盪頻率」便會發生相位偏移。這會導致大腦松果體合成褪黑激素的波峰提早結束，而覺醒荷爾蒙（皮質醇）過早於凌晨爬升；同時伴隨腦下垂體夜間「抗利尿激素（ADH）」脈衝分泌衰退，使得後半夜睡眠維持能力斷崖式崩潰，在凌晨固定時間異常清醒。",
-    "eng": "就像中央控制台的「主時鐘信號被環境雜訊嚴重干擾」，在凌晨三點就誤以為是早晨七點，強行提早切換成全廠開工模式。",
-    "steps": [
-      {
-        "title": "第 1 步｜嚴格固定晨間起床時間",
-        "desc": "無論前一晚幾點入睡所睡眠品質如何，每日皆在固定時間起床，強迫錨定中樞生理時鐘相位。 2."
-      },
-      {
-        "title": "第 2 步｜晨起 30 分鐘接觸戶外自然日光",
-        "desc": "起床後走出戶外接觸陽光 15–20 分鐘（不配戴墨鏡），向大腦發送高強度「白天已開始」的校時信號，重設入夜倒數計時器。 3."
-      },
-      {
-        "title": "第 3 步｜日落後色溫階梯遞減",
-        "desc": "日落後關閉刺眼白光頂燈，切換至暖黃低照度間接照明；睡前 1 小時停用高亮度 3C 藍光螢幕。"
-      }
-    ],
-    "warn": "單純早起曬太陽只是外部對時，中樞分子鐘基因老化才是根本！若中樞分子鐘持續失序，晝夜節律崩塌將引發全身自律神經大混亂！",
-    "nutrition": [
-      "<strong>【實證物理理療】1. 晨間戶外自然日光校時（行為基石）：</strong>起床 30 分鐘內走出戶外接觸自然光 15–20 分鐘，向視交叉上核發送強效重置信號（不可被任何補充品取代）。",
-      "<strong>【實證物理理療】2. 體溫下潛物理導引：</strong>睡前 90 分鐘進行 40–42℃ 溫熱足浴或泡澡，促使入睡時周邊血管散熱、核心深層體溫順利下降，誘發天然深層睡眠波。",
-      "<strong>【細胞生化關鍵營養】1. 下視丘中樞分子鐘能量修復：</strong>NAD+： 大腦視交叉上核（SCN）的晝夜節律調控高度依賴細胞內 NAD+ 水平。提升 NAD+ 能活化細胞長壽蛋白（SIRT1/SIRT3），修復分子鐘基因的精準運轉，促使夜間抗利尿激素（ADH）恢復健康脈衝分泌，避免後半夜睡眠維持力崩跌。",
-      "<strong>【細胞生化關鍵營養】2. 提升中樞抑制性遞質：</strong>GABA： 攝取有助於中樞神經安定的天然抗氧化物，拉升大腦內抑制性神經傳導物質 GABA 水平，降低大腦皮質在夜間的異常激惹狀態，協助大腦順利進入休眠模式。"
-    ],
-    "emotionQuote": "從基因與中樞校正內在生理時鐘，拉升腦部深層放鬆訊號，找回順應天地的熟睡節奏！\n________________",
-    "allowedProducts": [
-      "36281",
-      "36283"
-    ],
-    "allowedBundles": [
-      "C1"
-    ],
-    "desc": "核心問題在於大腦下視丘視交叉上核（SCN 生理主時鐘）相位偏移，分子鐘基因調控減退，褪黑激素過早停止分泌而皮質醇過早爬升，造成後半夜睡眠維持能力斷崖式崩潰。",
-    "testimonials": [
-      {
-        "name": "馮太",
-        "age": "67歲",
-        "role": "退休人士",
-        "issue": "每逢凌晨三點半準時清醒，像鬧鐘一樣，腦袋異常清醒但身體好疲倦。",
-        "solution": "晨起接觸自然光20分鐘 ＋ 蛋白高營素 ＋ 天然酵母NMN",
-        "quote": "中樞生物鐘重新校準，後半夜可以繼續安穩深睡，唔再定時早醒！"
-      },
-      {
-        "name": "陸先生",
-        "age": "61歲",
-        "role": "設計總監",
-        "issue": "長期對電腦屏幕工作，生理時鐘紊亂，後半夜極容易早醒且難以入睡。",
-        "solution": "日落後色溫階梯遞減 ＋ 補充NMN修復分子鐘 ＋ 蛋白高營素",
-        "quote": "身體找回自然日夜節律，夜晚好快自然入睡，深睡時間大幅增加！"
-      }
-    ],
-    "vimeoD": "",
-    "vimeoE": "",
-    "vimeoF": ""
-  },
-  "4": {
-    "id": 4,
-    "name": "成因 04：周邊生理與藥物干擾型",
-    "worstCase": "頻繁夜尿或者胃酸湧心口只係開始！最大鑊係西藥副作用掏空微量元素同腸漏毒素入血，導致微血管慢性滲漏發炎，引發腎衰竭！",
-    "bio": "白天久站久坐或因「心腸軸失衡（腸漏症導致內毒素 LPS 入血，引發微血管慢性發炎與通透性大增）」，使大量水分滲入下肢組織間質形成水腫。夜間平躺入睡後，重力壓迫消失，下肢積存的數百毫升體液迅速回流至心臟與肺部，導致心房容量瞬間負荷過重。心臟為了自我保護，緊急釋放大量「心房利尿鈉肽（ANP）」，強迫腎臟劇烈排水，引發「夜間多尿（Nocturnal Polyuria）」，膀胱急遽充盈直接向大腦發出中斷警報；若合併胃食道逆流刺激迷走神經，或服用利尿劑、降壓藥，周邊感覺神經會源源不絕向中樞發送實體痛覺或充盈訊號。",
-    "eng": "就像工廠底層的「儲水槽（膀胱）頻繁被暴衝的污水管倒灌淹沒」，或者「排污管道逆流（胃酸）腐蝕閥門」，感覺感測器只能連續向主機發出硬體緊急中斷信號。",
-    "steps": [
-      {
-        "title": "第 1 步｜睡前 2 小時落實水分斷點",
-        "desc": "睡前嚴格避免大口牛飲；晚餐完全避開高番茄酸、洋蔥、生大蒜、黑巧克力與高油脂油炸物，防止胃酸逆流。 2."
-      },
-      {
-        "title": "第 2 步｜傍晚 17",
-        "desc": "30 重力位移抬腿： 傍晚洗澡前或晚餐前，平躺將雙腿墊高於心臟水平 15–20 分鐘，在白天提早引導下肢積水回流排出，打破夜間平躺後的倒灌利尿循環。 3."
-      },
-      {
-        "title": "第 3 步｜睡眠維持左側臥位",
-        "desc": "利用胃部解剖結構向左傾斜的特點，夜間維持左側臥，使胃食道交界處高於胃酸液面，物理性阻斷胃酸上逆。"
-      }
-    ],
-    "warn": "睡前少喝水只是減少水庫進水，日間微血管滲漏與靜脈回流不良才是真兇！若放任下肢積液夜間倒灌，心臟負擔將與日俱增！",
-    "nutrition": [
-      "<strong>【實證物理理療】1. 下肢動態循環排空（促進淋巴與靜脈回流）：</strong>日間透過溫和下肢運動或被動律動，活化小腿第二心臟肌泵，提早排空滯留體液，瓦解夜間平躺後水分倒灌引發的心房利尿鈉肽（ANP）暴衝與夜尿警報。",
-      "<strong>【實證物理理療】2. 排除器質性前列腺梗阻醫療紅旗：</strong>若夜尿伴隨排尿困難、滴尿或細弱，應前往泌尿科排查攝護腺肥大（BPH）等器質性問題。",
-      "<strong>【細胞生化關鍵營養】1. 心腸軸微生態抗炎，減少微血管滲漏：</strong>透過有助於產生短鏈脂肪酸（SCFA）的益生菌與發酵多酚，修復腸黏膜屏障，阻絕內毒素（LPS）滲入體循環引發微血管慢性發炎，從源頭降低白天組織間隙積水水腫，減少夜間平躺後體液回流心臟的負擔。",
-      "<strong>【細胞生化關鍵營養】2. 骨盆腔微循環深層抗發炎：</strong>攝取天然強效抗氧化物質，穿透微血管雙層膜下調發炎反應，改善骨盆底與膀胱三角區的微循環缺血，降低感覺神經的高敏感性。"
-    ],
-    "emotionQuote": "卸下下肢積水倒灌與周邊管道高壓，排除夜間假警報，還大腦整夜無雜訊的沉靜安寧！\n________________",
-    "allowedProducts": [
-      "34103",
-      "34269",
-      "34316",
-      "34331",
-      "36248",
-      "36281",
-      "0368"
-    ],
-    "allowedBundles": [
-      "D1"
-    ],
-    "desc": "核心問題在於周邊實質物理刺激：日間下肢水分滯留於夜間平躺後回流倒灌，引發心房利尿鈉肽（ANP）暴衝夜尿，或胃酸逆流刺激迷走神經，感覺神經源源不絕向大腦中樞發送中斷警報。",
-    "testimonials": [
-      {
-        "name": "鄧先生",
-        "age": "70歲",
-        "role": "退休公務員",
-        "issue": "每晚平躺後頻繁尿意強烈醒來兩三次，胃酸又成日湧上心口發熱灼痛。",
-        "solution": "傍晚抬腿15分鐘 ＋ 睡前控水 ＋ 三效益生菌 ＋ 綜合果蔬酵素",
-        "quote": "夜尿次數由3次減到0至1次，胃酸都無再反流，成晚一覺瞓到天光！"
-      },
-      {
-        "name": "梁太",
-        "age": "64歲",
-        "role": "退休護士",
-        "issue": "長期服用降血壓藥下肢水腫，夜間平躺小便特別多，關節痠痛容易醒。",
-        "solution": "心腸軸益生菌 ＋ 蝦青素抗炎 ＋ 紅光帶溫敷下肢",
-        "quote": "腳腫消退晒，夜晚唔使頻繁跑洗手間，四肢溫暖放鬆好瞓！"
-      }
-    ],
-    "vimeoD": "",
-    "vimeoE": "",
-    "vimeoF": ""
-  },
-  "5": {
-    "id": 5,
-    "name": "成因 05：中樞過度警覺型",
-    "worstCase": "醒咗之後腦袋高速運轉反覆諗嘢只係開始！最大鑊係大腦安保系統同壓力軸徹底失控，演變成頑固性慢性失眠同自律神經癱瘓！",
-    "bio": "在經歷偶發的夜間驚醒後，患者大腦對「醒來」產生繼發性焦慮與挫折感，逐漸形成病態的「制約性喚醒（Conditioned Arousal）」。床鋪在潛意識中被大腦編碼成一個「焦慮的戰場」，而非放鬆的安全港灣。一旦在後半夜出現生理性淺眠轉換，杏仁核與下視丘-腦下垂體-腎上腺（HPA）壓力軸便瞬間暴走，中樞促醒神經傳導物質暴衝，使得大腦皮質陷入高速運轉、反覆盤算明日待辦事項，形成「越想睡越焦慮、越焦慮越清醒」的神經死鎖迴路。",
-    "eng": "就像中央主機的「安保防火牆防禦層級開得太高、過度神經質」，哪怕只是一陣微風吹過，防火牆立刻判定遭遇嚴重黑客入侵，拉響全面警報並進入無休止的死鎖自檢循環。",
-    "steps": [
-      {
-        "title": "第 1 步｜嚴格實行刺激控制（醒 20 分鐘堅決離床）",
-        "desc": "半夜醒來若超過 20 分鐘仍無法復睡，立刻起身離開床鋪與臥室，到昏暗安靜角落靜坐或閱讀枯燥紙本書，直到再次產生睏意才回床，堅決打破「床 = 焦慮清醒」的條件反射。 2."
-      },
-      {
-        "title": "第 2 步｜嚴禁白天過度補眠與賴床",
-        "desc": "不要因昨夜多醒而於白天補眠或躺床，維持入夜後足夠的「腺苷睡眠驅動力（Sleep Pressure）」。 3."
-      },
-      {
-        "title": "第 3 步｜睡前書寫「大腦傾倒清單（Brain Dump）」",
-        "desc": "睡前 1 小時把所有明日待辦事項與焦慮思緒具體寫在筆記本上，向潛意識發出「今日進度已妥善存檔」的完結信號。"
-      }
-    ],
-    "warn": "躺在床上硬逼自己數綿羊只會加劇大腦焦慮，神經迴路死鎖才是病根！放任制約性喚醒惡化，將演變為頑固性慢性失眠！",
-    "nutrition": [
-      "<strong>【實證物理理療】1. 後枕部深層放鬆與迷走神經重置：</strong>睡前以溫熱敷或溫和按摩放鬆後枕部顱底緊繃肌筋膜，釋放迷走神經幹張力，引導大腦由交感警戒切換為副交感修復模式。",
-      "<strong>【實證物理理療】2. CBT-I 刺激控制法（唯一一線治本黃金標準）：</strong>醒超過 20 分鐘堅決離床，打破「床 = 焦慮清醒」的條件反射；配合生理性嘆氣呼吸法快速降低心率。",
-      "<strong>【細胞生化關鍵營養】1. 中樞抑制性遞質與壓力軸冷卻（GABA ＋ 活性鎂）：</strong>透過天然營養途徑提升大腦抑制性傳導物質 GABA，協同活性鎂離子阻斷過度亢奮的 NMDA 受體，下調過度活躍的 HPA 壓力軸，平息大腦失控的自省警報迴路。"
-    ],
-    "emotionQuote": "為緊繃防禦的大腦安保系統卸載防線，引導自律神經重歸平靜，沉入踏實安穩的無夢深眠！",
-    "allowedProducts": [
-      "34307",
-      "34316",
-      "34330",
-      "36248",
-      "36281",
-      "0368"
-    ],
-    "allowedBundles": [
-      "E1"
-    ],
-    "desc": "核心問題在於經歷偶發夜醒後形成「制約性喚醒」，大腦安保系統防禦層級過高，HPA 壓力軸暴走，中樞促醒神經傳導物質暴衝，使得大腦皮質陷入高速運轉與焦慮死鎖迴路。",
-    "testimonials": [
-      {
-        "name": "許女士",
-        "age": "49歲",
-        "role": "企業高管",
-        "issue": "半夜一醒腦袋立刻高速運轉反覆盤算工作，越想訓越焦慮心跳快，難以復睡。",
-        "solution": "醒20分鐘離床刺激控制 ＋ 睡前傾倒清單 ＋ 微米液鈣鎂 ＋ NMN",
-        "quote": "大腦防線放鬆晒，焦慮感消失，半夜醒咗都能夠幾分鐘內自然睡返！"
-      },
-      {
-        "name": "鍾先生",
-        "age": "56歲",
-        "role": "金融分析師",
-        "issue": "長期高壓精神緊繃，對周圍聲光極度敏感，半夜少少動靜就全醒。",
-        "solution": "迷走神經重置呼吸法 ＋ 後枕部溫敷 ＋ 腸快適後生元 ＋ 益生菌",
-        "quote": "神經安保系統平靜好多，整個人從容放鬆，重拾深層無夢好眠！"
-      }
-    ],
-    "vimeoD": "",
-    "vimeoE": "",
-    "vimeoF": ""
-  }
-};
+    const CAUSES_DATA = TOPIC_CONFIG.causesData;
 
     function toggleDimNone(dim) {
       const noneBox = document.getElementById(dim + '_none');
       const items = document.querySelectorAll('.' + dim + '-item');
       if (noneBox.checked) {
-        items.forEach(el => { el.checked = false; el.disabled = true; });
-      } else {
-        items.forEach(el => { el.disabled = false; });
+        items.forEach(el => { el.checked = false; });
       }
     }
 
@@ -2675,6 +3035,9 @@ ________________
       }
     }
 
+    // =========================================================================
+    // 問卷提交與成因仲裁邏輯 (含無徵狀警號攔截，徹底防止錯誤 Default 至成因一)
+    // =========================================================================
     function submitAssessment() {
       const userName = document.getElementById('quizUserName').value.trim();
       if (!userName) {
@@ -2683,215 +3046,213 @@ ________________
         return;
       }
 
+      // 紅旗檢查 (若頁面有配置紅旗題組)
+      const rfChecked = document.querySelector('input[name="dim_redflag"]:checked');
+      if (rfChecked && rfChecked.value !== 'RF_NONE') {
+        alert('⚠️ 系統安全提示：偵測到您勾選了急性或危急紅旗徵候（如疑似深靜脈血栓或動脈急症）。為保障您的健康安全，請勿大力按揉，並請立即尋求急診或專科醫師進行正規醫療檢查！');
+      }
 
-      // 0. 未填警號（嚴格遵循問卷設計邏輯：作答了單選扎醒時間／瞬間感受或勾選了具體體徵即為有效作答）
-      const hasRadioSymptoms = document.querySelectorAll(
-        '#quiz-section input[type="radio"]:checked:not([value="NONE"])'
-      ).length > 0;
-      const hasCheckSymptoms = document.querySelectorAll(
-        '#quiz-section input[type="checkbox"]:checked:not([value="NONE"]):not([id$="_none"])'
-      ).length > 0;
-      if (!hasRadioSymptoms && !hasCheckSymptoms) {
-        alert('請先填選您的半夜醒來時間、醒來瞬間感受或伴隨體徵，以便為您進行精準生理成因分析！');
+      // 檢查是否全選「沒有上述情況」或完全未填具體徵狀
+      const quizForm = document.getElementById('assessmentForm') || document.getElementById('blockB');
+      const hasPositiveCheck = quizForm ? quizForm.querySelectorAll('input[type="checkbox"]:checked:not([value="NONE"]):not([id$="_none"])').length > 0 : false;
+      const hasPositiveRadio = quizForm ? quizForm.querySelectorAll('input[type="radio"]:checked:not([value="NONE"]):not([value="RF_NONE"]):not([id$="_none"])').length > 0 : false;
+
+      if (!hasPositiveCheck && !hasPositiveRadio) {
+        alert(`提示：您填選的項目中並無任何${TOPIC_CONFIG.topicShortName || '相關'}徵狀（或可能填選有誤）。若您確實有相關症狀，請重新核對並填選符合您身體狀況的選項。`);
+        document.getElementById('blockB').scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
 
+      // 薄血藥審查
       isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementById('med_warfarin').checked : false;
+
       let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+      let hasHardcore = { 1: false, 2: false, 3: false, 4: false, 5: false };
 
-      // 維度 1 (睡眠時間與作息節律)
-      const d1Val = document.querySelector('input[name="dim1"]:checked');
-      if (d1Val && d1Val.value === 'D1_C') {
-        scores[3] += 1;
-      }
-
-      // 維度 2 (瞬間感受表型，權重 +2分)
-      const d2Val = document.querySelector('input[name="dim2"]:checked');
-      if (d2Val) {
-        if (d2Val.value === 'D2_A') scores[1] += 2;
-        else if (d2Val.value === 'D2_B') scores[2] += 2;
-        else if (d2Val.value === 'D2_C') scores[3] += 2;
-        else if (d2Val.value === 'D2_D') scores[4] += 2;
-        else if (d2Val.value === 'D2_E') scores[5] += 2;
-      }
-
-      // 維度 3 (生活軌跡與紅旗警訊，多選 +1分)
-      const d3Items = document.querySelectorAll('input[name="dim3"]:checked');
-      d3Items.forEach(el => {
-        if (el.value === 'D3_1') scores[1] += 1;
-        else if (el.value === 'D3_2') scores[2] += 1;
-        else if (el.value === 'D3_3') scores[3] += 1;
-        else if (el.value === 'D3_4') scores[4] += 1;
-        else if (el.value === 'D3_5') scores[5] += 1;
-      });
-
-      // 維度 4 (西藥調查)
-      const d4Items = document.querySelectorAll('input[name="dim4"]:checked');
-      d4Items.forEach(el => {
-        if (el.value === 'D4_1') scores[4] += 2;
-        else if (el.value === 'D4_2') scores[2] += 2;
-        else if (el.value === 'D4_3') scores[4] += 1;
-        else if (el.value === 'D4_4') scores[5] += 1;
-        else if (el.value === 'D4_5') {
-          scores[4] += 1;
-          isWarfarinUser = true;
-        }
-      });
-
-      // 年齡加權 (乘數)
-      const ageVal = document.getElementById('quizAge').value;
-      let ageMultiplier = 1.0;
-      if (ageVal === '65–75' || ageVal === '75以上') ageMultiplier = 1.2;
-      for (let c = 1; c <= 5; c++) {
-        if (scores[c] > 0) scores[c] = Math.round(scores[c] * ageMultiplier * 10) / 10;
-      }
-
-      // 計算佔比與決勝 (Tie-breaker: C1 > C2 > C3 > C4 > C5)
-      const totalRaw = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
-      let ratios = {};
-      let maxScore = -1;
-      let winningCause = 1;
-
-      for (let c = 1; c <= 5; c++) {
-        let pct = Math.round((scores[c] / totalRaw) * 100);
-        ratios[c] = pct;
-        if (scores[c] > maxScore) {
-          maxScore = scores[c];
-          winningCause = c;
+      if (TOPIC_CONFIG.scoringRules) {
+        for (const [dimName, optionMap] of Object.entries(TOPIC_CONFIG.scoringRules)) {
+          document.querySelectorAll(`input[name="${dimName}"]:checked`).forEach(el => {
+            const rule = optionMap[el.value];
+            if (rule) {
+              if (Array.isArray(rule)) {
+                // 陣列格式 [cause, pts, isHc]
+                const c = rule[0];
+                scores[c] = (scores[c] || 0) + rule[1];
+                if (rule.length > 2 && rule[2]) hasHardcore[c] = true;
+              } else if (typeof rule === 'object') {
+                // 字典格式 {"1": 5, "hardcore": 1} 或 {"4": 4, "3": 3}
+                for (const [k, v] of Object.entries(rule)) {
+                  if (k === 'hardcore') {
+                    hasHardcore[v] = true;
+                  } else {
+                    const c = parseInt(k);
+                    if (!isNaN(c)) scores[c] = (scores[c] || 0) + v;
+                  }
+                }
+              }
+            }
+          });
         }
       }
 
+      if (TOPIC_CONFIG.maxScoreRule && scores[TOPIC_CONFIG.maxScoreRule.cause] > TOPIC_CONFIG.maxScoreRule.max) {
+        scores[TOPIC_CONFIG.maxScoreRule.cause] = TOPIC_CONFIG.maxScoreRule.max;
+      } else if (scores[5] > 7) {
+        scores[5] = 7;
+      }
+
+      // 年齡加權 (65 歲以上乘 1.2)
+      const ageSelect = document.getElementById('quizAge').value;
+      if (ageSelect.includes('65') || ageSelect.includes('75')) {
+        for (let i = 1; i <= 5; i++) {
+          scores[i] = Math.round(scores[i] * 1.2 * 10) / 10;
+        }
+      }
+
+      // 仲裁最高分
+      const maxScore = Math.max(scores[1], scores[2], scores[3], scores[4], scores[5]);
       if (maxScore <= 0) {
-        winningCause = 1;
-        ratios = { 1: 100, 2: 0, 3: 0, 4: 0, 5: 0 };
+        alert(`提示：您填選的項目中並無任何${TOPIC_CONFIG.topicShortName || '相關'}徵狀（或可能填選有誤）。請重新核對並填選符合您身體狀況的選項。`);
+        document.getElementById('blockB').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
       }
 
-      selectedCauseId = winningCause;
-      renderGatedContent(selectedCauseId, ratios);
-
-      // 異步發送自測數據至 Apps Script 自測數據庫
-      if (APPS_SCRIPT_WEBHOOK_URL) {
-        try {
-          const quizData = {
-            type: "quiz",
-            topicName: "半夜扎醒自測記錄",
-            timestamp: new Date().toISOString(),
-            name: userName,
-            gender: document.getElementById('quizGender') ? document.getElementById('quizGender').value : "",
-            age: ageVal,
-            primaryCause: CAUSES_DATA[winningCause].name,
-            ratios: ratios
-          };
-          fetch(APPS_SCRIPT_WEBHOOK_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(quizData)
-          }).catch(err => console.log('Quiz webhook:', err));
-        } catch (e) {}
+      let candidates = [];
+      for (let i = 1; i <= 5; i++) {
+        if (scores[i] === maxScore) candidates.push(i);
       }
 
-      // 解鎖畫面
+      let chosenCause = candidates[0];
+      if (candidates.length > 1) {
+        let hardcoreCandidates = candidates.filter(c => hasHardcore[c]);
+        if (hardcoreCandidates.length === 1) {
+          chosenCause = hardcoreCandidates[0];
+        } else {
+          const priority = TOPIC_CONFIG.arbitrationPriority || [5, 3, 2, 4, 1];
+          const pool = hardcoreCandidates.length > 1 ? hardcoreCandidates : candidates;
+          for (let p of priority) {
+            if (pool.includes(p)) {
+              chosenCause = p;
+              break;
+            }
+          }
+        }
+      }
+
+      selectedCauseId = chosenCause;
+
+      // 解鎖受限內容
       document.getElementById('gated-content').style.display = 'block';
+
+      // 渲染各區塊
+      renderGatedContent(selectedCauseId, scores);
+
+      // 平滑滾動至 Block C
       scrollToId('blockC');
     }
 
-    function renderGatedContent(causeId, ratios) {
+    function renderGatedContent(causeId, scores) {
       const cData = CAUSES_DATA[causeId];
+      if (!cData) return;
 
-      // Block C 完整渲染
+      // 1. Block C
       document.getElementById('diagPrimaryTitle').innerText = `【${cData.name}】`;
-      document.getElementById('diagPrimaryDesc').innerText = cData.desc;
+      document.getElementById('diagPrimaryDesc').innerText = cData.bio;
       document.getElementById('fearQuoteText').innerText = cData.worstCase;
 
-      // 5 大成因佔比長條圖渲染
+      // 佔比進度條
+      let totalScore = scores[1] + scores[2] + scores[3] + scores[4] + scores[5];
+      if (totalScore === 0) totalScore = 1;
       let ratioHtml = '';
-      for (let c = 1; c <= 5; c++) {
-        const pct = ratios[c] || 0;
+      const barColors = { 1: 'c1-bar', 2: 'c2-bar', 3: 'c3-bar', 4: 'c4-bar', 5: 'c5-bar' };
+      for (let i = 1; i <= 5; i++) {
+        let pct = Math.round((scores[i] / totalScore) * 100);
+        let causeName = CAUSES_DATA[i].name;
         ratioHtml += `
           <div class="ratio-bar-wrap">
             <div class="ratio-info">
-              <span>${CAUSES_DATA[c].name}</span>
+              <span>${causeName}</span>
               <span>${pct}%</span>
             </div>
             <div class="ratio-bar-bg">
-              <div class="ratio-bar-fill c${c}-bar" style="width: ${pct}%;"></div>
+              <div class="ratio-bar-fill ${barColors[i]}" style="width: ${pct}%;"></div>
             </div>
           </div>
         `;
       }
       document.getElementById('causeRatioList').innerHTML = ratioHtml;
 
-      // 薄血藥避險警示
-      const thinAlert = document.getElementById('thinBloodAlert');
-      if (isWarfarinUser) {
-        thinAlert.style.display = 'block';
-      } else {
-        thinAlert.style.display = 'none';
-      }
+      // 薄血藥避險卡片
+      document.getElementById('thinBloodAlert').style.display = isWarfarinUser ? 'block' : 'none';
 
-      // Block D
-      document.getElementById('block-d-title').innerText = `成因解碼：${cData.name}`;
-      const vimeoD = document.getElementById('vimeo-block-d');
-      if (cData.vimeoD) {
-        vimeoD.src = `https://player.vimeo.com/video/${cData.vimeoD}`;
-        vimeoD.closest('.video-container').style.display = 'block';
+      // 2. Block D
+      document.getElementById('block-d-title').innerText = `成因解碼：${cData.name.replace(/^成因\s*\d+：/, '')}`;
+      const vBoxD = document.getElementById('vimeo-block-d')?.closest('.video-container') || document.getElementById('vimeo-block-d')?.parentElement;
+      if (cData.vimeoD && cData.vimeoD.trim() !== "") {
+        document.getElementById('vimeo-block-d').src = `https://player.vimeo.com/video/${cData.vimeoD}?title=0&byline=0&portrait=0`;
+        if (vBoxD) vBoxD.style.display = 'block';
       } else {
-        vimeoD.closest('.video-container').style.display = 'none';
+        if (vBoxD) vBoxD.style.display = 'none';
       }
       document.getElementById('block-d-bio').innerText = cData.bio;
       document.getElementById('block-d-eng').innerText = cData.eng;
 
-      // Block E
-      const vimeoE = document.getElementById('vimeo-block-e');
-      if (cData.vimeoE) {
-        vimeoE.src = `https://player.vimeo.com/video/${cData.vimeoE}`;
-        vimeoE.closest('.video-container').style.display = 'block';
+      // 3. Block E
+      const vBoxE = document.getElementById('vimeo-block-e')?.closest('.video-container') || document.getElementById('vimeo-block-e')?.parentElement;
+      if (cData.vimeoE && cData.vimeoE.trim() !== "") {
+        document.getElementById('vimeo-block-e').src = `https://player.vimeo.com/video/${cData.vimeoE}?title=0&byline=0&portrait=0`;
+        if (vBoxE) vBoxE.style.display = 'block';
       } else {
-        vimeoE.closest('.video-container').style.display = 'none';
+        if (vBoxE) vBoxE.style.display = 'none';
       }
       let stepsHtml = '';
       cData.steps.forEach(s => {
         stepsHtml += `
-          <div style="border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 12px;">
+          <div style="margin-bottom: 14px;">
             <div style="font-weight: 800; font-size: 16px; color: var(--color-primary); margin-bottom: 4px;">${s.title}</div>
-            <div style="font-size: 15px; color: var(--color-text-muted); line-height: 1.6;">${s.desc}</div>
+            <p style="margin: 0; font-size: 15px; color: var(--color-text-muted); line-height: 1.65;">${s.desc}</p>
           </div>
         `;
       });
       document.getElementById('block-e-steps').innerHTML = stepsHtml;
       document.getElementById('block-e-warn').innerText = cData.warn;
 
-      // Block F
-      const vimeoF = document.getElementById('vimeo-block-f');
-      if (cData.vimeoF) {
-        vimeoF.src = `https://player.vimeo.com/video/${cData.vimeoF}`;
-        vimeoF.closest('.video-container').style.display = 'block';
+      // 4. Block F
+      const vBoxF = document.getElementById('vimeo-block-f')?.closest('.video-container') || document.getElementById('vimeo-block-f')?.parentElement;
+      if (cData.vimeoF && cData.vimeoF.trim() !== "") {
+        document.getElementById('vimeo-block-f').src = `https://player.vimeo.com/video/${cData.vimeoF}?title=0&byline=0&portrait=0`;
+        if (vBoxF) vBoxF.style.display = 'block';
       } else {
-        vimeoF.closest('.video-container').style.display = 'none';
+        if (vBoxF) vBoxF.style.display = 'none';
       }
       let nutHtml = '';
       cData.nutrition.forEach(n => {
-        nutHtml += `<div style="border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 12px;">${n}</div>`;
+        nutHtml += `<p style="margin-bottom: 12px; line-height: 1.7;">${n}</p>`;
       });
       document.getElementById('block-f-nutrition').innerHTML = nutHtml;
-      document.getElementById('block-f-emotion').innerText = cData.emotionQuote;
+      document.getElementById('block-f-emotion').innerText = cData.emotionQuote || cData.quoteF || '';
 
-      // 成因專屬產品與套裝動態分流計算 (Awakening Dynamic Filtering)
-      let allowedProducts = cData.allowedProducts;
-      let allowedBundles = cData.allowedBundles;
+      // 5. 決定推薦單品與套裝 (含薄血藥避險替換)
+      let allowedProducts = [...cData.allowedProducts];
+      let allowedBundles = [...cData.allowedBundles];
 
-      // Block G (單鍵 Pop-up B)
+      if (isWarfarinUser) {
+        allowedProducts = allowedProducts.filter(id => id !== '36282');
+        if (!allowedProducts.includes('36281')) allowedProducts.push('36281');
+        if (causeId === 2) {
+          allowedBundles = ['Cramp_Set_B3', 'Cramp_Set_B4'];
+        }
+      }
+
+      // 渲染 Block G, Block H, Block J
       renderBlockG(allowedProducts, causeId);
-
-      // Block H (單品自帶「產品詳情」Pop-up A)
       renderBlockH(allowedProducts, allowedBundles);
-
-      // Block J
       renderBlockJ(cData.testimonials);
     }
 
-
+    // =========================================================================
+    // Block G: 精選專屬保健方案 (純淨單鍵卡片，無規格產地字眼干擾)
+    // =========================================================================
     function renderBlockG(allowedProductIds, causeId) {
       const container = document.getElementById('block-g-products-list');
       container.innerHTML = '';
@@ -2899,7 +3260,7 @@ ________________
         if (!allowedProductIds.includes(prod.id)) return;
         const card = document.createElement('div');
         card.className = 'product-single-card';
-        const benefitText = prod.shortDesc || "從源頭深度調理代謝平衡";
+        const benefitText = prod.shortDesc || prod.intro || "從源頭深度調理代謝平衡";
         card.innerHTML = `
           <div class="p-card-top">
             <div class="p-card-name">${prod.name}</div>
@@ -2913,8 +3274,11 @@ ________________
       });
     }
 
+    // =========================================================================
+    // Block H: 選取方案 (緊湊雙行套裝，無頂部促銷橫幅，無內嵌清單，查看套裝明細按鈕)
+    // =========================================================================
     function renderBlockH(allowedProductIds, allowedBundleIds) {
-      // 1. 單品選購列表 (產品名稱 + 價格 + 「產品詳情」按鈕 + 數量調節)
+      // 1. 單品選購列表
       const singleContainer = document.getElementById('block-h-single-products');
       singleContainer.innerHTML = '';
       PRODUCTS_DB.forEach(prod => {
@@ -2972,9 +3336,13 @@ ________________
       recalculateCart();
     }
 
+    // =========================================================================
+    // Block J: 用家真實見證渲染 (客觀真實，零膠囊標籤)
+    // =========================================================================
     function renderBlockJ(testimonials) {
       const container = document.getElementById('block-j-testimonials');
       container.innerHTML = '';
+      if (!testimonials || testimonials.length === 0) return;
       testimonials.forEach(t => {
         const item = document.createElement('div');
         item.style.background = 'var(--color-bg)';
@@ -2995,8 +3363,8 @@ ________________
       });
     }
 
-        // =========================================================================
-    // 購物車核心結算引擎 (滿 HKD 1,200 特別優惠 ✕ 階梯最優配對 ✕ 雙軌下單)
+    // =========================================================================
+    // 購物車核心結算引擎 (階梯最優配對 ✕ 雙軌下單)
     // =========================================================================
     function calcItemOptimalSpecialPrice(prod, qty) {
       if (qty <= 0) return { finalCost: 0, breakdownList: [] };
@@ -3004,7 +3372,6 @@ ________________
       let cost = 0;
       let breakdown = [];
 
-      // packages 已由大至小排序
       if (prod.packages && prod.packages.length > 0) {
         for (let p of prod.packages) {
           if (remaining >= p.qty) {
@@ -3027,18 +3394,16 @@ ________________
       if (!cart[key]) {
         cart[key] = { qty: 0, price: price, title: title };
       }
-      cart[key].qty = Math.max(0, cart[key].qty + delta);
-      if (cart[key].qty === 0) {
-        delete cart[key];
-      }
-      const qtyEl = document.getElementById('qty_' + key);
-      if (qtyEl) {
-        qtyEl.innerText = cart[key] ? cart[key].qty : 0;
-      }
+      cart[key].qty += delta;
+      if (cart[key].qty < 0) cart[key].qty = 0;
+
+      const valEl = document.getElementById('qty_' + key);
+      if (valEl) valEl.innerText = cart[key].qty;
+
       recalculateCart();
     }
 
-            function recalculateCart() {
+    function recalculateCart() {
       let hasBundle = false;
       let singleItemsCount = 0;
       let totalUnitsCount = 0;
@@ -3270,7 +3635,7 @@ ________________
       const orderData = {
         type: "order",
         orderId: orderId,
-        topicName: "半夜扎醒專題",
+        topicName: TOPIC_CONFIG.topicName || "健康專題",
         timestamp: now.toISOString(),
         causeId: selectedCauseId,
         causeName: CAUSES_DATA[selectedCauseId].name,
@@ -3296,7 +3661,7 @@ ________________
         discountLine = `商品小計：HKD ${subtotal.toLocaleString()}%0A`;
       }
 
-      const waText = `【Health Decoder 半夜扎醒專題訂單】%0A` +
+      const waText = `【Health Decoder ${TOPIC_CONFIG.topicName || "專題"}訂單】%0A` +
         `訂單編號：${orderId}%0A` +
         `主診斷成因：${CAUSES_DATA[selectedCauseId].name}%0A` +
         `收件人：${encodeURIComponent(name)}%0A` +
@@ -3329,7 +3694,7 @@ ________________
     }
 
     function openModalWithLock(title, contentHtml) {
-      savedScrollY = window.scrollY;
+      savedScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       document.getElementById('modalTitle').innerText = title;
@@ -3353,18 +3718,12 @@ ________________
       }
     }
 
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    function switchGalleryImage(imgSrc) {
+    function switchGalleryImage(src) {
       const mainImg = document.getElementById('gallery-main-img');
-      if (mainImg) {
-        mainImg.src = imgSrc;
-      }
+      if (mainImg) mainImg.src = src;
     }
 
-    // 彈窗 A：產品詳情 (法定 6 大模組，深色背景 + 獨立純白圖框，零價格零折扣，注意事項去紅色化)
+    // Pop-up A: 產品詳情 (嚴格檢查產地，產地為空時絕不顯示「產地：」)
     function openProductModal(prodId) {
       const prod = PRODUCTS_DB.find(p => p.id === prodId);
       if (!prod) return;
@@ -3434,24 +3793,29 @@ ________________
       const prod = PRODUCTS_DB.find(p => p.id === prodId);
       if (!prod) return;
 
-      const cData = CAUSES_DATA[causeId];
-      const mechText = prod.mechanisms[causeId] || "從源頭修復微血管通透性與代謝平衡，改善夜間水分滯留。";
+      const originHtml = (prod.origin && prod.origin.trim() !== "") ? `<div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #FFF;">產地：</span>${prod.origin}</div>` : '';
+      const warrantyHtml = (prod.warranty && prod.warranty.trim() !== "") ? `<div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #D4A343;">原廠保養：</span><span style="color: #FFFFFF;">${prod.warranty}</span></div>` : '';
 
       const html = `
         <div>
           <div class="modal-white-image-box">
-            <img src="${prod.img}" alt="${prod.name}">
+            <img src="${prod.img || `/images/products/${prod.id}.webp`}" alt="${prod.name}">
           </div>
           <div style="margin-top: 14px;">
-            <div style="font-weight: 800; font-size: 16px; color: #D4A343; margin-bottom: 8px;">${cData.name} 專屬修復機轉</div>
-            <p style="color: #E2E8F0; line-height: 1.75; font-size: 15px;">${mechText}</p>
+            <div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #FFF;">規格/總件數：</span>${prod.spec || '1件裝'}</div>
+            ${originHtml}
+            ${warrantyHtml}
+            <div style="border-top: 1px solid #374151; padding-top: 10px; margin-top: 10px;">
+              <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">本成因調理機轉：</span>
+              <p style="color: #CBD5E1; line-height: 1.65;">${prod.intro || ''}</p>
+            </div>
           </div>
         </div>
       `;
-      openModalWithLock(`${prod.name} · 修復原理`, html);
+      openModalWithLock(`${prod.name} · 調理機轉`, html);
     }
 
-    // 套裝明細彈窗 (30天份量、單品與數量、零價格零折扣)
+    // Pop-up B: 30天套裝明細彈窗 (完整呈現套裝所含單品與機轉)
     function openBundleModal(bundleId) {
       const bundle = BUNDLES_DB.find(b => b.id === bundleId);
       if (!bundle) return;
@@ -3459,7 +3823,7 @@ ________________
       const html = `
         <div>
           <div class="modal-white-image-box">
-            <img src="${bundle.img}" alt="${bundle.name}">
+            <img src="${bundle.img || `/images/packages/${bundle.id}.webp`}" alt="${bundle.name}">
           </div>
           <div style="margin-top: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
@@ -3469,11 +3833,11 @@ ________________
             ${bundle.isWarfarinSafe ? '<div style="background: rgba(120, 53, 15, 0.4); border: 1px solid #D97706; color: #FDE68A; padding: 6px 10px; border-radius: 6px; font-weight: 700; font-size: 13px; margin-bottom: 10px;">【適合薄血藥用家】</div>' : ''}
             <div style="border-top: 1px solid #374151; padding-top: 10px; margin-top: 10px;">
               <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">內含完整單品組合：</span>
-              <p style="color: #E2E8F0; line-height: 1.65;">${bundle.itemsSummary}</p>
+              <p style="color: #E2E8F0; line-height: 1.65;">${bundle.itemsSummary || ''}</p>
             </div>
             <div style="border-top: 1px solid #374151; padding-top: 10px; margin-top: 10px;">
               <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">30 天協同調理機轉：</span>
-              <p style="color: #CBD5E1; line-height: 1.65;">${bundle.desc}</p>
+              <p style="color: #CBD5E1; line-height: 1.65;">${bundle.desc || ''}</p>
             </div>
           </div>
         </div>
@@ -3500,8 +3864,11 @@ ________________
           break;
         }
       }
-      scrollToId(targetSection);
+      const targetEl = document.getElementById(targetSection);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
-</script>
+  </script>
 </body>
 </html>

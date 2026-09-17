@@ -1353,6 +1353,8 @@
         <h2 style="justify-content: center; margin: 0; font-size: 24px;">📋 請完成以下問卷作初步自我診斷。</h2>
       </div>
 
+      <form id="assessmentForm" onsubmit="event.preventDefault(); submitAssessment();">
+
       <!-- 個人資料輸入 -->
       <div class="user-info-grid">
         <div>
@@ -1559,10 +1561,11 @@
       </div>
 
       <div style="margin-top: 28px; text-align: center;">
-        <button type="button" class="btn-primary" onclick="submitAssessment()">
+        <button type="button" class="btn-accent" style="font-size: 19px; padding: 16px 24px; font-weight: 800; width: 100%;" onclick="submitAssessment()">
           請按此提交，以了解真正成因
         </button>
       </div>
+    </form>
     </section>
 
 <div id="gated-content" style="display: none;">
@@ -3147,8 +3150,13 @@
       // 薄血藥審查
       isWarfarinUser = document.getElementById('med_warfarin') ? document.getElementById('med_warfarin').checked : false;
 
-      let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-      let hasHardcore = { 1: false, 2: false, 3: false, 4: false, 5: false };
+      const causeIds = Object.keys(CAUSES_DATA).map(k => parseInt(k)).sort((a, b) => a - b);
+      let scores = {};
+      let hasHardcore = {};
+      causeIds.forEach(id => {
+        scores[id] = 0;
+        hasHardcore[id] = false;
+      });
 
       if (TOPIC_CONFIG.scoringRules) {
         for (const [dimName, optionMap] of Object.entries(TOPIC_CONFIG.scoringRules)) {
@@ -3178,20 +3186,20 @@
 
       if (TOPIC_CONFIG.maxScoreRule && scores[TOPIC_CONFIG.maxScoreRule.cause] > TOPIC_CONFIG.maxScoreRule.max) {
         scores[TOPIC_CONFIG.maxScoreRule.cause] = TOPIC_CONFIG.maxScoreRule.max;
-      } else if (scores[5] > 7) {
+      } else if (scores[5] !== undefined && scores[5] > 7) {
         scores[5] = 7;
       }
 
       // 年齡加權 (65 歲以上乘 1.2)
       const ageSelect = document.getElementById('quizAge').value;
       if (ageSelect.includes('65') || ageSelect.includes('75')) {
-        for (let i = 1; i <= 5; i++) {
-          scores[i] = Math.round(scores[i] * 1.2 * 10) / 10;
-        }
+        causeIds.forEach(i => {
+          scores[i] = Math.round((scores[i] || 0) * 1.2 * 10) / 10;
+        });
       }
 
       // 仲裁最高分
-      const maxScore = Math.max(scores[1], scores[2], scores[3], scores[4], scores[5]);
+      const maxScore = Math.max(...causeIds.map(i => scores[i] || 0));
       if (maxScore <= 0) {
         alert(`提示：您填選的項目中並無任何${TOPIC_CONFIG.topicShortName || '相關'}徵狀（或可能填選有誤）。請重新核對並填選符合您身體狀況的選項。`);
         document.getElementById('blockB').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -3199,9 +3207,9 @@
       }
 
       let candidates = [];
-      for (let i = 1; i <= 5; i++) {
+      causeIds.forEach(i => {
         if (scores[i] === maxScore) candidates.push(i);
-      }
+      });
 
       let chosenCause = candidates[0];
       if (candidates.length > 1) {
@@ -3209,7 +3217,7 @@
         if (hardcoreCandidates.length === 1) {
           chosenCause = hardcoreCandidates[0];
         } else {
-          const priority = TOPIC_CONFIG.arbitrationPriority || [5, 3, 2, 4, 1];
+          const priority = TOPIC_CONFIG.arbitrationPriority || [1, 2, 3, 4, 5];
           const pool = hardcoreCandidates.length > 1 ? hardcoreCandidates : candidates;
           for (let p of priority) {
             if (pool.includes(p)) {
@@ -3228,8 +3236,10 @@
       // 渲染各區塊
       renderGatedContent(selectedCauseId, scores);
 
-      // 平滑滾動至 Block C
-      scrollToId('blockC');
+      // 平滑滾動至 Block C (確保 DOM 佈局完成)
+      setTimeout(() => {
+        setTimeout(() => { scrollToId('blockC'); }, 80);
+      }, 60);
     }
 
     function renderGatedContent(causeId, scores) {
@@ -3241,13 +3251,15 @@
       document.getElementById('diagPrimaryDesc').innerText = cData.bio;
       document.getElementById('fearQuoteText').innerText = cData.worstCase;
 
-      // 佔比進度條
-      let totalScore = scores[1] + scores[2] + scores[3] + scores[4] + scores[5];
+      // 佔比進度條 (動態支援任意成因數量，如 4 成因或 5 成因)
+      const causeIds = Object.keys(CAUSES_DATA).map(k => parseInt(k)).sort((a, b) => a - b);
+      let totalScore = causeIds.reduce((sum, id) => sum + (scores[id] || 0), 0);
       if (totalScore === 0) totalScore = 1;
       let ratioHtml = '';
-      const barColors = { 1: 'c1-bar', 2: 'c2-bar', 3: 'c3-bar', 4: 'c4-bar', 5: 'c5-bar' };
-      for (let i = 1; i <= 5; i++) {
-        let pct = Math.round((scores[i] / totalScore) * 100);
+      const barColors = { 1: 'c1-bar', 2: 'c2-bar', 3: 'c3-bar', 4: 'c4-bar', 5: 'c5-bar', 6: 'c1-bar', 7: 'c2-bar' };
+      for (let i of causeIds) {
+        if (!CAUSES_DATA[i]) continue;
+        let pct = Math.round(((scores[i] || 0) / totalScore) * 100);
         let causeName = CAUSES_DATA[i].name;
         ratioHtml += `
           <div class="ratio-bar-wrap">
@@ -3256,7 +3268,7 @@
               <span>${pct}%</span>
             </div>
             <div class="ratio-bar-bg">
-              <div class="ratio-bar-fill ${barColors[i]}" style="width: ${pct}%;"></div>
+              <div class="ratio-bar-fill ${barColors[i] || 'c1-bar'}" style="width: ${pct}%;"></div>
             </div>
           </div>
         `;
@@ -3270,7 +3282,8 @@
       document.getElementById('block-d-title').innerText = `成因解碼：${cData.name.replace(/^成因\s*\d+：/, '')}`;
       const vBoxD = document.getElementById('vimeo-block-d')?.closest('.video-container') || document.getElementById('vimeo-block-d')?.parentElement;
       if (cData.vimeoD && cData.vimeoD.trim() !== "") {
-        document.getElementById('vimeo-block-d').src = `https://player.vimeo.com/video/${cData.vimeoD}?title=0&byline=0&portrait=0`;
+        let vUrlD = cData.vimeoD.startsWith('http') ? cData.vimeoD : `https://player.vimeo.com/video/${cData.vimeoD}?title=0&byline=0&portrait=0`;
+        document.getElementById('vimeo-block-d').src = vUrlD;
         if (vBoxD) vBoxD.style.display = 'block';
       } else {
         if (vBoxD) vBoxD.style.display = 'none';
@@ -3281,7 +3294,8 @@
       // 3. Block E
       const vBoxE = document.getElementById('vimeo-block-e')?.closest('.video-container') || document.getElementById('vimeo-block-e')?.parentElement;
       if (cData.vimeoE && cData.vimeoE.trim() !== "") {
-        document.getElementById('vimeo-block-e').src = `https://player.vimeo.com/video/${cData.vimeoE}?title=0&byline=0&portrait=0`;
+        let vUrlE = cData.vimeoE.startsWith('http') ? cData.vimeoE : `https://player.vimeo.com/video/${cData.vimeoE}?title=0&byline=0&portrait=0`;
+        document.getElementById('vimeo-block-e').src = vUrlE;
         if (vBoxE) vBoxE.style.display = 'block';
       } else {
         if (vBoxE) vBoxE.style.display = 'none';
@@ -3301,7 +3315,8 @@
       // 4. Block F
       const vBoxF = document.getElementById('vimeo-block-f')?.closest('.video-container') || document.getElementById('vimeo-block-f')?.parentElement;
       if (cData.vimeoF && cData.vimeoF.trim() !== "") {
-        document.getElementById('vimeo-block-f').src = `https://player.vimeo.com/video/${cData.vimeoF}?title=0&byline=0&portrait=0`;
+        let vUrlF = cData.vimeoF.startsWith('http') ? cData.vimeoF : `https://player.vimeo.com/video/${cData.vimeoF}?title=0&byline=0&portrait=0`;
+        document.getElementById('vimeo-block-f').src = vUrlF;
         if (vBoxF) vBoxF.style.display = 'block';
       } else {
         if (vBoxF) vBoxF.style.display = 'none';
@@ -3314,14 +3329,17 @@
       document.getElementById('block-f-emotion').innerText = cData.emotionQuote || cData.quoteF || '';
 
       // 5. 決定推薦單品與套裝 (含薄血藥避險替換)
-      let allowedProducts = [...cData.allowedProducts];
-      let allowedBundles = [...cData.allowedBundles];
+      let allowedProducts = [...(cData.allowedProducts || [])];
+      let allowedBundles = [...(cData.allowedBundles || [])];
 
       if (isWarfarinUser) {
-        allowedProducts = allowedProducts.filter(id => id !== '36282');
-        if (!allowedProducts.includes('36281')) allowedProducts.push('36281');
-        if (causeId === 2) {
-          allowedBundles = ['Cramp_Set_B3', 'Cramp_Set_B4'];
+        if (cData.allowedProductsWarfarin && cData.allowedProductsWarfarin.length > 0) {
+          allowedProducts = [...cData.allowedProductsWarfarin];
+        } else {
+          allowedProducts = allowedProducts.filter(id => id !== '36282' && id !== '34274');
+        }
+        if (cData.allowedBundlesWarfarin && cData.allowedBundlesWarfarin.length > 0) {
+          allowedBundles = [...cData.allowedBundlesWarfarin];
         }
       }
 

@@ -2485,6 +2485,22 @@
         }
       ]
     }
+  },
+  "customShortDesc": {
+    "34274": "補充髓鞘必需磷脂，修復周邊神經絕緣層",
+    "36281": "充盈神經細胞能量，加速受損軸突跳躍傳導",
+    "34278": "活化微血管粒線體，改善末梢神經滋養血流",
+    "36248": "發酵有機酸抗發炎，減輕微血管內皮水腫壓迫",
+    "34331": "調節心腸軸微環境，輔助維他命 B 群解離吸收",
+    "34269": "穿透血腦神經屏障，清除自由基止損氧化損傷",
+    "36282": "疏通微靜脈淤塞，消除腕管與末梢組織水腫",
+    "36283": "游離必需胺基酸，支持神經軸漿長途營養運輸",
+    "34316": "穩定神經膜電位，平息異常放電與麻刺蟻走感",
+    "3491": "提供微量元素與輔酶，深層滋養周邊神經末梢",
+    "34307": "複合後生元修復黏膜，阻斷發炎毒素滲漏入神經",
+    "36277": "解除藥物代謝阻滯，減少外周神經毒性負擔",
+    "0368": "雙光穿透深層微血管，喚醒末梢感覺神經活性",
+    "38207": "正弦諧振牽張刺激，被動喚醒神經本體感受反饋"
   }
 };
     const PRODUCTS_DB = [
@@ -2520,7 +2536,8 @@
     "ingredients": "高活性鈣 (500mg)、維他命D3 (500IU)、鎂 (20mg)、專利發酵巴西莓萃取物（含丁香酸）、士多啤梨濃縮液。",
     "usage": "兒童(2-12歲)：每日飲用1包。成人及12歲以上兒童：每天飲用1-2包。飲用前請搖勻。",
     "warning": "純素產品，素食者可安心食用；每天從飲食及補充劑攝取的總鈣質建議不超過2000毫克；若有腎臟疾病或高鈣血症者請先諮詢醫師。",
-    "img": "https://health-decoder.com/images/products/34316.webp"
+    "img": "https://health-decoder.com/images/products/34316.webp",
+    "shortDesc": "穩定神經膜電位，平息異常放電與麻刺蟻走感"
   },
   {
     "id": "34328",
@@ -2554,7 +2571,8 @@
     "ingredients": "專利二型膠原蛋白 (Type II Collagen)、專利 OptiMSM™ 純天然有機硫化合物、軟骨素 (Chondroitin)、維他命C、天然果汁粉。",
     "usage": "每日兩次，每次一包，餐後服用。將粉末溶於一杯室溫水或果汁中後服用。",
     "warning": "成分含有動物來源成分（如二型膠原蛋白），非素食產品；嚴重關節勞損者可諮詢專業人士配合軟骨素與葡萄糖胺加強修復。",
-    "img": "https://health-decoder.com/images/products/34328.webp"
+    "img": "https://health-decoder.com/images/products/34328.webp",
+    "shortDesc": "雙專利二型膠原，鞏固關節筋膜韌帶"
   },
   {
     "id": "36283",
@@ -2588,7 +2606,8 @@
     "ingredients": "雙重優質蛋白質（大豆分離蛋白、濃縮乳清蛋白，每份含13克蛋白質）、獨特 HMB (β-羥基-β-甲基丁酸鹽，每100ml含0.5g)、GreenD3™專利維他命D3、維他命K2、SoFiber™專利水溶性纖維、綜合維他命與礦物質（含鐵、葉酸、鋅、磷、膽鹼、不飽和脂肪酸）。",
     "usage": "每日一次，每次一包。將粉劑溶解於200毫升溫水中，充分攪拌後飲用。最佳飲用時間為早餐時段或運動後。",
     "warning": "本品低糖（每份僅1.4g糖）、零膽固醇；含有大豆及少量濃縮乳清蛋白（多數輕微乳糖不耐受者可耐受）；糖尿病患者或特殊疾病患者建議飲用前諮詢醫生意見。",
-    "img": "https://health-decoder.com/images/products/36283.webp"
+    "img": "https://health-decoder.com/images/products/36283.webp",
+    "shortDesc": "游離必需胺基酸，支持神經軸漿長途營養運輸"
   },
   {
     "id": "0368",
@@ -2612,7 +2631,8 @@
     "warning": "1. 懷孕婦女、患有惡性腫瘤或嚴重急性發炎者、對光線極度敏感或正服用光敏藥物者使用前請諮詢醫生。2. 皮膚有開放性傷口、濕疹或不明腫塊部位請勿直接照射，並注意避免直射眼睛。3. 內建850nm近紅外線為肉眼不可見光，燈珠看似未亮屬正常物理現象。",
     "img": "https://health-decoder.com/images/products/0368.webp",
     "demoImg1": "https://health-decoder.com/images/products/0368-demo1.webp",
-    "demoImg2": "https://health-decoder.com/images/products/0368-demo2.webp"
+    "demoImg2": "https://health-decoder.com/images/products/0368-demo2.webp",
+    "shortDesc": "雙光穿透深層微血管，喚醒末梢感覺神經活性"
   },
   {
     "id": "38207",
@@ -2634,7 +2654,8 @@
     "ingredients": "高強度合金鋼機身架構、專利垂直律動馬達傳動系統（頻率4-13Hz、震幅2mm、重力強度約0.68G）、雙腳底穴位拍打按摩模組（通過CE、CB、BSMI國際安全認證）。",
     "usage": "每次使用自動定時15分鐘。具備7段固定速度調整，可支援站姿、坐姿或針對肩頸、腰腹、腿部進行多種專屬律動模式。",
     "warning": "不適用人士：孕婦（懷孕前1個月與懷孕後1個月之婦女）、骨折或傷口未癒合者、需要安心靜養者、六歲以下小孩；初次使用若有短暫痠痛好轉反應屬正常現象，請循序漸進調整速度。",
-    "img": "https://health-decoder.com/images/products/38207.webp"
+    "img": "https://health-decoder.com/images/products/38207.webp",
+    "shortDesc": "正弦諧振牽張刺激，被動喚醒神經本體感受反饋"
   },
   {
     "id": "36282",
@@ -2668,7 +2689,8 @@
     "ingredients": "天然水蛭素 (120 ATU)、日本日清專利水溶輔酶Q10 PureSorb-Q™ (50mg)、高純度納豆激酶 (1000 FU)、三七提取物 (5mg)、專利Fatabolizer®絞股藍提取物 (5mg)、葡萄籽提取物 (5mg)。",
     "usage": "每日食用1至2粒 (服用西藥或藥物人士，請相隔1至2小時食用)。",
     "warning": "1. 如正服用薄血藥人士，請先行跟醫生查詢及了解；正在服用抗凝血藥物者切勿食用。2. 服用本品如有不適症狀時請暫停食用並諮詢醫生。3. 孕婦、哺乳期婦女、15歲以下兒童、過敏體質或嚴重肝腎功能不全者請先諮詢醫生意見。",
-    "img": "https://health-decoder.com/images/products/36282.webp"
+    "img": "https://health-decoder.com/images/products/36282.webp",
+    "shortDesc": "疏通微靜脈淤塞，消除腕管與末梢組織水腫"
   },
   {
     "id": "34274",
@@ -2696,7 +2718,8 @@
     "ingredients": "Pronova Pure™專利小型深海魚油（每顆含1000毫克魚油，提供65%高濃度Omega-3：360毫克EPA及240毫克DHA）、明膠、甘油、水。",
     "usage": "每日1至2粒，餐後服用（隨餐或飯後透過食物油脂提升吸收率），或依照醫生或藥劑師的建議。",
     "warning": "孕婦及哺乳期婦女可安心食用；若患有凝血障礙或正在服用抗凝血藥物（薄血丸）人士，食用前請先諮詢醫生意見。",
-    "img": "https://health-decoder.com/images/products/34274.webp"
+    "img": "https://health-decoder.com/images/products/34274.webp",
+    "shortDesc": "補充髓鞘必需磷脂，修復周邊神經絕緣層"
   },
   {
     "id": "36281",
@@ -2730,7 +2753,8 @@
     "ingredients": "天然酵母發酵NMN (500mg/包)、繡球蕈萃取麥角硫因 EGT (20mg/包)、天山雪蓮組織培養物 (100mg/包)、葡萄皮萃取物含白藜蘆醇 (100mg/包)、專利脂質體維他命C (30mg/包)。",
     "usage": "每日早上1包，倒入150ml溫水混合後直接服用，或直接倒入口中食用。",
     "warning": "本品非藥物無依賴性，配方溫和不刺激胃腸；孕婦、哺乳期婦女、長期服藥者或接受特殊治療者食用前建議先諮詢專業醫師意見。",
-    "img": "https://health-decoder.com/images/products/36281.webp"
+    "img": "https://health-decoder.com/images/products/36281.webp",
+    "shortDesc": "充盈神經細胞能量，加速受損軸突跳躍傳導"
   },
   {
     "id": "34269",
@@ -2752,7 +2776,8 @@
     "ingredients": "AstaREAL®專利天然雨生紅球藻萃取物（高純度天然蝦青素 Astaxanthin）、橄欖油、混合生育酚（維他命E）、明膠軟膠囊。",
     "usage": "每日一次，每次一至兩顆膠囊。餐後服用（脂溶性成分隨餐或飯後吸收最佳）。",
     "warning": "軟膠囊含動物來源，不適合素食者；蝦青素提取自微藻類，不含貝殼海產成分，對貝類海產過敏者可安心食用；孕婦、哺乳期婦女及兒童食用前建議諮詢醫生意見。",
-    "img": "https://health-decoder.com/images/products/34269.webp"
+    "img": "https://health-decoder.com/images/products/34269.webp",
+    "shortDesc": "穿透血腦神經屏障，清除自由基止損氧化損傷"
   },
   {
     "id": "34278",
@@ -2780,7 +2805,8 @@
     "ingredients": "專利MicroActive™水溶性輔酶Q10（CoQ10）、微晶纖維素、植物性膠囊成分。",
     "usage": "每日1次，每次1至2粒，空腹或餐後均可隨時食用。",
     "warning": "植物膠囊純素可食；15歲以下兒童、孕婦或哺乳期婦女及正在服用抗凝血藥品（如Warfarin）之病患食用前請先諮詢醫生意見。",
-    "img": "https://health-decoder.com/images/products/34278.webp"
+    "img": "https://health-decoder.com/images/products/34278.webp",
+    "shortDesc": "活化微血管粒線體，改善末梢神經滋養血流"
   },
   {
     "id": "34307",
@@ -2808,7 +2834,8 @@
     "ingredients": "Totipro™專利後生元（含4種益生菌發酵精華及消化酶）、Mushroom Guard™ 6大菇菌萃取（猴頭菇、香菇、舞茸、金針菇、姬松茸、銀耳）、菊苣纖維（菊糖益生元）、針葉櫻桃萃取、柑橘類生物類黃酮、濃縮果汁（含奶素成分）。",
     "usage": "兒童(2-12歲)：每日1包。12歲以上兒童及成人：每日1-2包。撕開即可飲用，餐前或餐後均可。",
     "warning": "本品屬於奶素產品，純素人士不適合食用；含天然果汁與蕈菇成分，有沉澱屬正常現象，飲用前請搖勻；若腸胃問題持續嚴重請就醫。",
-    "img": "https://health-decoder.com/images/products/34307.webp"
+    "img": "https://health-decoder.com/images/products/34307.webp",
+    "shortDesc": "複合後生元修復黏膜，阻斷發炎毒素滲漏入神經"
   },
   {
     "id": "34331",
@@ -2842,7 +2869,8 @@
     "ingredients": "4種IDCC專利雙歧桿菌（乳雙岐桿菌、短雙岐桿菌、長雙岐桿菌、兩歧雙歧桿菌）、低FODMAP益生元、後生元（熱處理17菌株）、維他命D3 (10µg)。",
     "usage": "每日餐後服用1袋。撕開包裝袋，將粉末直接倒在舌頭上待其溶解，或加入室溫水、冷水或果汁中飲用。",
     "warning": "益生菌對溫度敏感，請務必避免使用溫熱水沖泡以防破壞活性；若長期服用處方藥物，食用前建議先諮詢醫生，並與藥物間隔2小時食用。",
-    "img": "https://health-decoder.com/images/products/34331.webp"
+    "img": "https://health-decoder.com/images/products/34331.webp",
+    "shortDesc": "調節心腸軸微環境，輔助維他命 B 群解離吸收"
   },
   {
     "id": "36248",
@@ -2876,7 +2904,8 @@
     "ingredients": "66種綜合果蔬植物深層發酵原液（含羽衣甘藍、舞茸β-葡聚糖、大麥嫩葉、多種蔬菜水果及草本植物精華）、活性消化與代謝酵素群、異麥芽寡糖。",
     "usage": "每日一次，每次30毫升，用2倍冷水或40℃以下溫水稀釋飲用。",
     "warning": "酵素對溫度極為敏感，請勿以高於45°C之熱水沖泡以保持最高酵素活性；慢性病患及產後婦女可溫和調理飲用。",
-    "img": "https://health-decoder.com/images/products/36248.webp"
+    "img": "https://health-decoder.com/images/products/36248.webp",
+    "shortDesc": "發酵有機酸抗發炎，減輕微血管內皮水腫壓迫"
   },
   {
     "id": "36277",
@@ -2916,7 +2945,8 @@
     "ingredients": "專利青棗幼果萃取物、專利青花菜苗萃取物（富含蘿蔔硫素）、牛磺酸 (Taurine)、朝鮮薊萃取物 (Artichoke)、穀胱甘肽 (L-Glutathione)、大豆卵磷脂 (含多烯磷脂醯膽鹼 PPC)、薑黃根萃取物 (Turmeric)。",
     "usage": "一般保健：每日飲用1包；加強保健：每日飲用2包。應酬解酒：酒前30分鐘飲用1包；緩解宿醉：隔天飲用1包。",
     "warning": "純素產品，素食者可安心食用；含有大豆卵磷脂（PPC）成分，對大豆過敏者請留意；肝指數異常者建議配合常規醫療追蹤。",
-    "img": "https://health-decoder.com/images/products/36277.webp"
+    "img": "https://health-decoder.com/images/products/36277.webp",
+    "shortDesc": "解除藥物代謝阻滯，減少外周神經毒性負擔"
   }
 ];
     const BUNDLES_DB = [
@@ -3437,7 +3467,7 @@
         if (!allowedProductIds.includes(prod.id)) return;
         const card = document.createElement('div');
         card.className = 'product-single-card';
-        const benefitText = prod.shortDesc || prod.intro || "從源頭深度調理代謝平衡";
+        const benefitText = (TOPIC_CONFIG.customShortDesc && TOPIC_CONFIG.customShortDesc[prod.id]) || prod.shortDesc || "從源頭深度調理代謝平衡";
         card.innerHTML = `
           <div class="p-card-top">
             <div class="p-card-name">${prod.name}</div>

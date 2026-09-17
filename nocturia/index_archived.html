@@ -1305,25 +1305,6 @@
       line-height: 1.75;
     }
 
-
-    /* 16:9 劇院級自適應影音播放器規格 (全面向抽筋版看齊) */
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      border-radius: var(--radius-md);
-      margin-bottom: 20px;
-      background: #000;
-    }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
   </style>
 </head>
 <body>
@@ -1643,8 +1624,8 @@
       <section id="blockD" class="section-card">
         <h2 id="block-d-title" style="margin-top: 0;">成因解碼：下肢水腫平躺回流型</h2>
         
-        <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-md); margin-bottom: 20px; background: #000;">
-          <iframe id="vimeo-block-d" src="" style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border:0;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container">
+          <iframe id="vimeo-block-d" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <!-- 單一緊湊灰色背景框 (Version 5 雙模組精煉版，無背書標籤) -->
@@ -1677,8 +1658,8 @@
       <section id="blockE" class="section-card">
         <h2 style="margin-top: 0;">生活上嘅改善小貼士</h2>
         
-        <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-md); margin-bottom: 20px; background: #000;">
-          <iframe id="vimeo-block-e" src="" style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border:0;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container">
+          <iframe id="vimeo-block-e" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <!-- 單一緊湊微習慣框 -->
@@ -1696,8 +1677,8 @@
       <section id="blockF" class="section-card">
         <h2 style="margin-top: 0;">重點營養和保健</h2>
         
-        <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-md); margin-bottom: 20px; background: #000;">
-          <iframe id="vimeo-block-f" src="" style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border:0;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container">
+          <iframe id="vimeo-block-f" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <!-- 單一緊湊生化機轉框 (100% 零商品名) -->
@@ -1800,8 +1781,8 @@
               </label>
             </div>
           </div>
-          <button type="button" class="btn-accent btn-whatsapp" style="font-size: 18px; padding: 16px; width: 100%; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="submitOrderDualTrack()">
-            💬 確認送出訂單 (經 WhatsApp)
+          <button type="button" class="btn-accent" style="font-size: 18px; padding: 16px; width: 100%; font-weight: 800;" onclick="submitOrderDualTrack()">
+            確認送出訂單
           </button>
         </form>
       </section>
@@ -3096,28 +3077,18 @@
     }
 
     function submitOrderDualTrack() {
-      // 1. 核心前置攔截：嚴格檢查購物車中是否有已選購之單品或套裝
-      let totalUnits = 0;
-      for (let k in cart) {
-        if (cart[k] && cart[k].qty > 0) {
-          totalUnits += cart[k].qty;
-        }
-      }
-
-      if (totalUnits <= 0) {
-        alert('提示：您尚未選取任何產品或調理套裝。請先在上方選取所需單品或套裝數量後再送出訂單！');
-        return;
-      }
-
-      // 2. 物流與聯絡人資料完整性檢驗
       const name = document.getElementById('order_recipient_name').value.trim();
       const phone = document.getElementById('order_recipient_phone').value.trim();
       const address = document.getElementById('order_recipient_address').value.trim();
       const hasLift = document.getElementById('order_has_lift').checked;
       const paymentMethod = document.querySelector('input[name="order_payment"]:checked')?.value || document.querySelector('input[name="order_payment_method"]:checked')?.value || "FPS 轉數快";
 
+      if (Object.keys(cart).length === 0) {
+        alert('請先選取所需單品或調理套裝！');
+        return;
+      }
       if (!name || !phone || !address) {
-        alert('請完整填寫收件人姓名、聯絡電話及詳細收貨地址！');
+        alert('請完整填寫收件人姓名、電話及詳細收貨地址！');
         return;
       }
 

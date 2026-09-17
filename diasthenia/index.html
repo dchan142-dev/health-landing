@@ -1307,6 +1307,25 @@
     }
 
   
+
+    /* 16:9 劇院級自適應影音播放器規格 (全面向抽筋版看齊) */
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      background: #000;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
   </style>
 </head>
 <body>
@@ -1747,7 +1766,7 @@
 
         <!-- 6. 行動按鍵 (純文字 · 零符號) -->
         <button type="button" class="btn-primary" onclick="scrollToId('blockD')">
-          想知點解會出現呢個成因
+          想知點解？按此為你解碼！
         </button>
       </section>
 
@@ -1772,7 +1791,7 @@
         </div>
 
         <button type="button" class="btn-primary" onclick="scrollToId('blockE')">
-          想知生活上有咩簡單改善小貼士
+          想知有咩可以改善嘅小貼士
         </button>
       </section>
 

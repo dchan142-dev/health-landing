@@ -1830,8 +1830,8 @@
               </label>
             </div>
           </div>
-          <button type="button" class="btn-accent" style="font-size: 18px; padding: 16px; width: 100%; font-weight: 800;" onclick="submitOrderDualTrack()">
-            確認送出訂單
+          <button type="button" class="btn-accent btn-whatsapp" style="font-size: 18px; padding: 16px; width: 100%; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="submitOrderDualTrack()">
+            💬 確認送出訂單 (經 WhatsApp)
           </button>
         </form>
       </section>
@@ -3502,10 +3502,13 @@
         cart[key] = { qty: 0, price: price, title: title };
       }
       cart[key].qty += delta;
-      if (cart[key].qty < 0) cart[key].qty = 0;
+      const currentQty = cart[key].qty;
+      if (cart[key].qty <= 0) {
+        delete cart[key];
+      }
 
       const valEl = document.getElementById('qty_' + key);
-      if (valEl) valEl.innerText = cart[key].qty;
+      if (valEl) valEl.innerText = currentQty > 0 ? currentQty : 0;
 
       recalculateCart();
     }
@@ -3644,18 +3647,28 @@
     }
 
     function submitOrderDualTrack() {
+      // 1. 核心前置攔截：嚴格檢查購物車中是否有已選購之單品或套裝
+      let totalUnits = 0;
+      for (let k in cart) {
+        if (cart[k] && cart[k].qty > 0) {
+          totalUnits += cart[k].qty;
+        }
+      }
+
+      if (totalUnits <= 0) {
+        alert('提示：您尚未選取任何產品或調理套裝。請先在上方選取所需單品或套裝數量後再送出訂單！');
+        return;
+      }
+
+      // 2. 物流與聯絡人資料完整性檢驗
       const name = document.getElementById('order_recipient_name').value.trim();
       const phone = document.getElementById('order_recipient_phone').value.trim();
       const address = document.getElementById('order_recipient_address').value.trim();
       const hasLift = document.getElementById('order_has_lift').checked;
       const paymentMethod = document.querySelector('input[name="order_payment"]:checked')?.value || document.querySelector('input[name="order_payment_method"]:checked')?.value || "FPS 轉數快";
 
-      if (Object.keys(cart).length === 0) {
-        alert('請先選取所需單品或調理套裝！');
-        return;
-      }
       if (!name || !phone || !address) {
-        alert('請完整填寫收件人姓名、電話及詳細收貨地址！');
+        alert('請完整填寫收件人姓名、聯絡電話及詳細收貨地址！');
         return;
       }
 

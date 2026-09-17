@@ -3041,10 +3041,59 @@
 
     function toggleDimNone(dim) {
       const noneBox = document.getElementById(dim + '_none');
-      const items = document.querySelectorAll('.' + dim + '-item');
-      if (noneBox.checked) {
-        items.forEach(el => { el.checked = false; });
+      if (!noneBox) return;
+      const group = noneBox.closest('.quiz-group');
+      if (group) {
+        const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+          if (cb !== noneBox && noneBox.checked) {
+            cb.checked = false;
+          }
+        });
+      } else {
+        const items = document.querySelectorAll('.' + dim + '-item, input[name="' + dim + '"]');
+        items.forEach(el => {
+          if (el !== noneBox && noneBox.checked) {
+            el.checked = false;
+          }
+        });
       }
+    }
+
+    function setupMutualExclusion() {
+      const quizForm = document.getElementById('assessmentForm') || document.getElementById('blockB');
+      if (!quizForm) return;
+
+      quizForm.addEventListener('change', function(e) {
+        const target = e.target;
+        if (!target || target.type !== 'checkbox') return;
+
+        const group = target.closest('.quiz-group');
+        if (!group) return;
+
+        const isNoneBox = (target.id && target.id.endsWith('_none')) || target.value === 'NONE';
+
+        if (isNoneBox) {
+          if (target.checked) {
+            const otherBoxes = group.querySelectorAll('input[type="checkbox"]');
+            otherBoxes.forEach(cb => {
+              if (cb !== target) cb.checked = false;
+            });
+          }
+        } else {
+          if (target.checked) {
+            const noneBoxes = group.querySelectorAll('input[type="checkbox"][id$="_none"], input[type="checkbox"][value="NONE"]');
+            noneBoxes.forEach(nb => {
+              nb.checked = false;
+            });
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', setupMutualExclusion);
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      setupMutualExclusion();
     }
 
     function scrollToId(id) {
@@ -3810,36 +3859,6 @@
               </button>
               <button type="button" onclick="switchGalleryImage('${d2}')" class="gallery-thumb-btn">
                 <img src="${d2}" onerror="handleImgFallback(this, '0368-demo2', false)">
-              </button>
-            </div>
-          </div>
-        `;
-      }
-
-      const prod = PRODUCTS_DB.find(p => p.id === prodId);
-      if (!prod) return;
-
-      let galleryHtml = `
-        <div class="modal-white-image-box">
-          <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
-        </div>
-      `;
-
-      if (prod.id === '0368') {
-        galleryHtml = `
-          <div>
-            <div class="modal-white-image-box">
-              <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
-            </div>
-            <div class="gallery-thumbs">
-              <button type="button" onclick="switchGalleryImage('${prod.img}')" class="gallery-thumb-btn">
-                <img src="${prod.img}">
-              </button>
-              <button type="button" onclick="switchGalleryImage('${prod.demoImg1}')" class="gallery-thumb-btn">
-                <img src="${prod.demoImg1}">
-              </button>
-              <button type="button" onclick="switchGalleryImage('${prod.demoImg2}')" class="gallery-thumb-btn">
-                <img src="${prod.demoImg2}">
               </button>
             </div>
           </div>

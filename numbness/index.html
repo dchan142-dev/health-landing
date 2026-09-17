@@ -1442,23 +1442,23 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_A">
+            <input type="checkbox" name="dim3" value="D3_A" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
             <span><strong>血糖或代謝異常：</strong>確診糖尿病、糖尿病前期，或有體重超標與高血壓。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_B">
+            <input type="checkbox" name="dim3" value="D3_B" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
             <span><strong>職業勞損與脊椎舊傷：</strong>工作需長期低頭、搬重物、頻繁彎曲手腕，或曾有頸/腰椎舊傷骨刺。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_C">
+            <input type="checkbox" name="dim3" value="D3_C" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
             <span><strong>消化吸收不良：</strong>長期吃全素、曾做過切胃/腸道手術，或有慢性萎縮性胃炎。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_D">
+            <input type="checkbox" name="dim3" value="D3_D" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
             <span><strong>自體免疫與慢性發炎：</strong>曾被診斷有免疫系統失調問題，或家族有相關病史。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim3" value="D3_E">
+            <input type="checkbox" name="dim3" value="D3_E" class="dim3-item" onclick="document.getElementById('dim3_none').checked = false;">
             <span><strong>毒性物質暴露：</strong>經常大量飲酒，或曾接受過化學治療。</span>
           </label>
           <label class="option-label none-opt">
@@ -1478,27 +1478,27 @@
         </div>
         <div class="options-grid">
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="MED_DIABETES">
+            <input type="checkbox" name="dim4" value="MED_DIABETES" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
             <span><strong>降血糖藥（如甲福明 Metformin、達美康 Gliclazide）：</strong>長期服用干擾腸道 B12 吸收。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="MED_STATIN">
+            <input type="checkbox" name="dim4" value="MED_STATIN" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
             <span><strong>降膽固醇藥 / 他汀類（如辛伐他汀 Simvastatin、阿托伐他汀）：</strong>耗竭粒線體核心原料 Q10。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="MED_CCB">
+            <input type="checkbox" name="dim4" value="MED_CCB" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
             <span><strong>降血壓藥 - 鈣離子阻斷劑（如氨氯地平 Amlodipine / Norvasc）：</strong>易引發末梢水腫卡壓神經。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="MED_DIURETIC">
+            <input type="checkbox" name="dim4" value="MED_DIURETIC" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
             <span><strong>降血壓藥 - 減心跳類 / 去水丸（如美托洛爾 Metoprolol、Lasix）：</strong>微血管缺血或流失電解質。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" name="dim4" value="MED_PPI">
+            <input type="checkbox" name="dim4" value="MED_PPI" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
             <span><strong>強效胃藥（如 Omeprazole）或無機碳酸鈣片：</strong>抑制胃酸阻斷 B12 游離吸收。</span>
           </label>
           <label class="option-label">
-            <input type="checkbox" id="med_warfarin" name="dim4" value="MED_WARFARIN">
+            <input type="checkbox" id="med_warfarin" name="dim4" value="MED_WARFARIN" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
             <span><strong>薄血藥 / 通血丸（如 Warfarin / Aspirin / Plavix）：</strong>凝血調控中（全域安全門閥）。</span>
           </label>
           <label class="option-label none-opt">
@@ -3135,10 +3135,59 @@
 
     function toggleDimNone(dim) {
       const noneBox = document.getElementById(dim + '_none');
-      const items = document.querySelectorAll('.' + dim + '-item');
-      if (noneBox.checked) {
-        items.forEach(el => { el.checked = false; });
+      if (!noneBox) return;
+      const group = noneBox.closest('.quiz-group');
+      if (group) {
+        const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+          if (cb !== noneBox && noneBox.checked) {
+            cb.checked = false;
+          }
+        });
+      } else {
+        const items = document.querySelectorAll('.' + dim + '-item, input[name="' + dim + '"]');
+        items.forEach(el => {
+          if (el !== noneBox && noneBox.checked) {
+            el.checked = false;
+          }
+        });
       }
+    }
+
+    function setupMutualExclusion() {
+      const quizForm = document.getElementById('assessmentForm') || document.getElementById('blockB');
+      if (!quizForm) return;
+
+      quizForm.addEventListener('change', function(e) {
+        const target = e.target;
+        if (!target || target.type !== 'checkbox') return;
+
+        const group = target.closest('.quiz-group');
+        if (!group) return;
+
+        const isNoneBox = (target.id && target.id.endsWith('_none')) || target.value === 'NONE';
+
+        if (isNoneBox) {
+          if (target.checked) {
+            const otherBoxes = group.querySelectorAll('input[type="checkbox"]');
+            otherBoxes.forEach(cb => {
+              if (cb !== target) cb.checked = false;
+            });
+          }
+        } else {
+          if (target.checked) {
+            const noneBoxes = group.querySelectorAll('input[type="checkbox"][id$="_none"], input[type="checkbox"][value="NONE"]');
+            noneBoxes.forEach(nb => {
+              nb.checked = false;
+            });
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', setupMutualExclusion);
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      setupMutualExclusion();
     }
 
     function scrollToId(id) {
@@ -3904,36 +3953,6 @@
               </button>
               <button type="button" onclick="switchGalleryImage('${d2}')" class="gallery-thumb-btn">
                 <img src="${d2}" onerror="handleImgFallback(this, '0368-demo2', false)">
-              </button>
-            </div>
-          </div>
-        `;
-      }
-
-      const prod = PRODUCTS_DB.find(p => p.id === prodId);
-      if (!prod) return;
-
-      let galleryHtml = `
-        <div class="modal-white-image-box">
-          <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
-        </div>
-      `;
-
-      if (prod.id === '0368') {
-        galleryHtml = `
-          <div>
-            <div class="modal-white-image-box">
-              <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
-            </div>
-            <div class="gallery-thumbs">
-              <button type="button" onclick="switchGalleryImage('${prod.img}')" class="gallery-thumb-btn">
-                <img src="${prod.img}">
-              </button>
-              <button type="button" onclick="switchGalleryImage('${prod.demoImg1}')" class="gallery-thumb-btn">
-                <img src="${prod.demoImg1}">
-              </button>
-              <button type="button" onclick="switchGalleryImage('${prod.demoImg2}')" class="gallery-thumb-btn">
-                <img src="${prod.demoImg2}">
               </button>
             </div>
           </div>

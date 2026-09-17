@@ -3063,7 +3063,7 @@
       ).length > 0;
 
       if (!hasPositiveSymptoms) {
-        alert('提示：您填選的項目中並無任何抽筋相關徵狀（或可能填選有誤）。若您目前並無夜間抽筋困擾，暫無須選購任何專屬調養方案；若您確實有抽筋症狀，請重新核對並填選符合您身體狀況的選項。');
+        alert('提示：您填選的項目中並無任何抽筋相關徵狀（或可能填選有誤）。若您確實有抽筋症狀，請重新核對並填選符合您身體狀況的選項。');
         document.getElementById('blockB').scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
@@ -3127,7 +3127,7 @@
       // 仲裁最高分
       const maxScore = Math.max(scores[1], scores[2], scores[3], scores[4], scores[5]);
       if (maxScore <= 0) {
-        alert('提示：您填選的項目中並無任何抽筋相關徵狀（或可能填選有誤）。若您目前並無夜間抽筋困擾，暫無須選購任何專屬調養方案；若您確實有抽筋症狀，請重新核對並填選符合您身體狀況的選項。');
+        alert('提示：您填選的項目中並無任何抽筋相關徵狀（或可能填選有誤）。若您確實有抽筋症狀，請重新核對並填選符合您身體狀況的選項。');
         document.getElementById('blockB').scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
@@ -3407,9 +3407,10 @@
       let hasBundle = false;
       let singleItemsCount = 0;
       let totalUnitsCount = 0;
-      let referenceRetailTotal = 0;
-      let hiddenSpecialSingleTotal = 0;
-      let actualBundleCost = 0;
+      let referenceRetailTotal = 0; // 原價參考
+      let hiddenSpecialSingleTotal = 0; // 隱藏單品特別優惠總額 (用於門檻檢測)
+      let actualBundleCost = 0; // 套裝實收金額
+
       let singleItemsBreakdown = {};
 
       for (let k in cart) {
@@ -3470,7 +3471,7 @@
           finalGoodsSubtotal += bLineCost;
           summaryHtml += `
             <div class="summary-line">
-              <span>${item.title} × ${item.qty}</span>
+              <span>${item.title} x ${item.qty}</span>
               <span style="font-weight: 700;">HKD ${bLineCost.toLocaleString()}</span>
             </div>
           `;
@@ -3479,52 +3480,68 @@
           const pObj = PRODUCTS_DB.find(p => p.id === pId);
           let pLineCost = 0;
 
-          if (isQualifiedForSpecialOffer && singleItemsBreakdown[pId]) {
-            pLineCost = singleItemsBreakdown[pId].finalCost;
-            const bd = singleItemsBreakdown[pId].breakdownList;
-            let bdTexts = bd.map(b => `${b.name} × ${b.sets}`).join(' ＋ ');
-            summaryHtml += `
-              <div class="summary-line">
-                <span>${item.title} × ${item.qty} (${bdTexts})</span>
-                <span style="font-weight: 700;">HKD ${pLineCost.toLocaleString()}</span>
-              </div>
-            `;
+          if (isQualifiedForSpecialOffer) {
+            pLineCost = singleItemsBreakdown[pId] ? singleItemsBreakdown[pId].finalCost : (item.price * item.qty);
           } else {
-            const pUnit = pObj ? pObj.price : item.price;
-            pLineCost = pUnit * item.qty;
-            summaryHtml += `
-              <div class="summary-line">
-                <span>${item.title} × ${item.qty}</span>
-                <span style="font-weight: 700;">HKD ${pLineCost.toLocaleString()}</span>
-              </div>
-            `;
+            pLineCost = (pObj ? pObj.price : item.price) * item.qty;
           }
           finalGoodsSubtotal += pLineCost;
+          summaryHtml += `
+            <div class="summary-line">
+              <span>${item.title} x ${item.qty}</span>
+              <span style="font-weight: 700;">HKD ${pLineCost.toLocaleString()}</span>
+            </div>
+          `;
         }
       }
 
-      // 運費規則 (滿 HKD 400 免費)
-      let shippingFee = 0;
-      if (finalGoodsSubtotal > 0 && finalGoodsSubtotal < 400) {
-        shippingFee = 40;
+      // 折扣與特別優惠狀態呈現 (零會員字眼，一律使用「特別優惠」)
+      const savedAmount = referenceRetailTotal - finalGoodsSubtotal;
+      let discountRateStr = "";
+      if (referenceRetailTotal > 0 && savedAmount > 0) {
+        const rate = Math.round((finalGoodsSubtotal / referenceRetailTotal) * 10);
+        discountRateStr = rate < 10 ? `${rate}折` : "特別折";
       }
-      const finalPayableTotal = finalGoodsSubtotal + shippingFee;
 
-      document.getElementById('cart-summary-items').innerHTML = summaryHtml;
-      document.getElementById('cart-subtotal').innerText = `HKD ${finalGoodsSubtotal.toLocaleString()}`;
-      document.getElementById('cart-shipping').innerText = shippingFee === 0 ? '免費 (滿額免運)' : `HKD ${shippingFee}`;
-      document.getElementById('cart-total').innerText = `HKD ${finalPayableTotal.toLocaleString()}`;
+      let promoBannerHtml = '';
+      if (isQualifiedForSpecialOffer && savedAmount > 0) {
+        promoBannerHtml = `
+          <div style="background: #CCFBF1; border-left: 4px solid var(--color-accent); border-radius: var(--radius-sm); padding: 9px 14px; margin-bottom: 12px; font-size: 14.5px; font-weight: 800; color: #115E59; display: flex; justify-content: space-between; align-items: center;">
+            <span>✨ 已享特別優惠價</span>
+            <span>已慳 HKD ${savedAmount.toLocaleString()} (${discountRateStr})</span>
+          </div>
+        `;
+      } else if (!hasBundle && singleItemsCount > 0 && !isQualifiedForSpecialOffer) {
+        promoBannerHtml = `
+          <div style="background: #FFFBEB; border-left: 4px solid var(--color-warning); border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 12px; font-size: 13.5px; color: #92400E; font-weight: 600;">
+            💡 提示：單品選購滿 HKD 1,200 即自動啟動「特別優惠」！
+          </div>
+        `;
+      }
+
+      document.getElementById('cart-summary-items').innerHTML = promoBannerHtml + summaryHtml;
+
+      // 顯示原價參考 vs 特別優惠應付金額
+      if (savedAmount > 0) {
+        document.getElementById('cart-subtotal').innerHTML = `
+          <span style="text-decoration: line-through; color: var(--color-text-sub); font-size: 13.5px; margin-right: 6px;">HKD ${referenceRetailTotal.toLocaleString()}</span>
+          <span style="color: var(--color-accent-text); font-weight: 800;">HKD ${finalGoodsSubtotal.toLocaleString()}</span>
+        `;
+      } else {
+        document.getElementById('cart-subtotal').innerText = `HKD ${finalGoodsSubtotal.toLocaleString()}`;
+      }
+
+      let shipping = (finalGoodsSubtotal >= 400) ? 0 : 40;
+      document.getElementById('cart-shipping').innerText = (shipping === 0) ? '免費 (滿額免運)' : `HKD ${shipping}`;
+      document.getElementById('cart-total').innerText = `HKD ${(finalGoodsSubtotal + shipping).toLocaleString()}`;
     }
 
-    // =========================================================================
-    // 雙軌下單提交 (Apps Script Webhook 異步同步 ＋ WhatsApp 即時跳轉)
-    // =========================================================================
     function submitOrderDualTrack() {
       const name = document.getElementById('order_recipient_name').value.trim();
       const phone = document.getElementById('order_recipient_phone').value.trim();
       const address = document.getElementById('order_recipient_address').value.trim();
       const hasLift = document.getElementById('order_has_lift').checked;
-      const paymentMethod = document.querySelector('input[name="order_payment"]:checked')?.value || "FPS 轉數快";
+      const paymentMethod = document.querySelector('input[name="order_payment"]:checked')?.value || document.querySelector('input[name="order_payment_method"]:checked')?.value || "FPS 轉數快";
 
       if (Object.keys(cart).length === 0) {
         alert('請先選取所需單品或調理套裝！');
@@ -3578,8 +3595,8 @@
           const bObj = BUNDLES_DB.find(b => b.id === bId);
           const lineCost = (bObj ? bObj.price : item.price) * item.qty;
           subtotal += lineCost;
-          customerOrderItems.push(`${item.title} × ${item.qty} (HKD ${lineCost.toLocaleString()})`);
-          backendProcurementNotes.push(`套裝: ${item.title} × ${item.qty}`);
+          customerOrderItems.push(`${item.title} x ${item.qty} (HKD ${lineCost.toLocaleString()})`);
+          backendProcurementNotes.push(`套裝: ${item.title} x ${item.qty}`);
         } else if (k.startsWith('prod_')) {
           const pId = k.replace('prod_', '');
           const pObj = PRODUCTS_DB.find(p => p.id === pId);
@@ -3587,54 +3604,72 @@
           if (isQualifiedForSpecialOffer && singleItemsBreakdown[pId]) {
             lineCost = singleItemsBreakdown[pId].finalCost;
             const bd = singleItemsBreakdown[pId].breakdownList;
-            let bdTexts = bd.map(b => `${b.code} (${b.name} × ${b.sets})`).join(' + ');
-            backendProcurementNotes.push(`單品組合 [${pId}]: ${bdTexts}`);
+            let bdTexts = bd.map(b => `${b.code} (${b.name}) x ${b.sets}`).join(', ');
+            backendProcurementNotes.push(`${item.title} x ${item.qty} => [${bdTexts}] 計 HKD ${lineCost}`);
           } else {
-            const unit = pObj ? pObj.price : item.price;
-            lineCost = unit * item.qty;
-            backendProcurementNotes.push(`單品標準零售 [${pId}]: ${item.title} × ${item.qty}`);
+            lineCost = (pObj ? pObj.price : item.price) * item.qty;
+            backendProcurementNotes.push(`${item.title} x ${item.qty} (零售價計 HKD ${lineCost})`);
           }
           subtotal += lineCost;
-          customerOrderItems.push(`${item.title} × ${item.qty} (HKD ${lineCost.toLocaleString()})`);
+          customerOrderItems.push(`${item.title} x ${item.qty} (HKD ${lineCost.toLocaleString()})`);
         }
       }
 
-      let shipping = (subtotal > 0 && subtotal < 400) ? 40 : 0;
+      let shipping = (subtotal >= 400) ? 0 : 40;
       let total = subtotal + shipping;
-      const orderId = 'CR' + Date.now().toString().slice(-6);
-      const liftText = hasLift ? '有升降機' : '無升降機 (需另付樓梯費)';
+      let savedAmount = referenceRetailTotal - subtotal;
+      let discountRateStr = "";
+      if (referenceRetailTotal > 0 && savedAmount > 0) {
+        const rate = Math.round((subtotal / referenceRetailTotal) * 10);
+        discountRateStr = rate < 10 ? `${rate}折` : "特別折";
+      }
 
-      // 訂單物件
+      // 前端生成唯一標準訂單編號 HD-YYYYMMDD-XXXXXX
+      const now = new Date();
+      const dateStr = now.getFullYear().toString() +
+        String(now.getMonth() + 1).padStart(2, '0') +
+        String(now.getDate()).padStart(2, '0');
+      const randomSix = Math.floor(100000 + Math.random() * 900000);
+      const orderId = "HD-" + dateStr + "-" + randomSix;
+
       const orderData = {
-        action: 'submitOrder',
-        topic: '半夜抽筋',
+        type: "order",
         orderId: orderId,
+        topicName: "夜尿專題",
+        timestamp: now.toISOString(),
         causeId: selectedCauseId,
         causeName: CAUSES_DATA[selectedCauseId].name,
-        name: name,
-        phone: phone,
-        address: address,
-        hasLift: hasLift,
+        recipient: { name, phone, address, hasLift: hasLift ? "有升降機" : "無升降機（需行樓梯）" },
         paymentMethod: paymentMethod,
-        isWarfarinUser: isWarfarinUser,
+        items: customerOrderItems,
         subtotal: subtotal,
         shipping: shipping,
         total: total,
-        items: customerOrderItems,
-        backendProcurementNotes: backendProcurementNotes,
-        timestamp: new Date().toISOString()
+        referenceOriginalTotal: referenceRetailTotal,
+        savedAmount: savedAmount > 0 ? savedAmount : 0,
+        discountRate: discountRateStr,
+        backendProcurementNote: backendProcurementNotes.join('; ')
       };
 
-      // 軌道一：組裝 WhatsApp
+      // 軌道一：WhatsApp 對話喚起 (帶入付款方式與唯一訂單編號)
+      const liftText = hasLift ? "有升降機" : "無升降機（唐樓需現場付樓梯費）";
+      let discountLine = "";
+      if (savedAmount > 0) {
+        discountLine = `商品原價：HKD ${referenceRetailTotal.toLocaleString()}%0A` +
+          `特別優惠價：HKD ${subtotal.toLocaleString()} (已慳 HKD ${savedAmount.toLocaleString()} / ${discountRateStr})%0A`;
+      } else {
+        discountLine = `商品小計：HKD ${subtotal.toLocaleString()}%0A`;
+      }
+
       const waText = `【Health Decoder 抽筋專題訂單】%0A` +
         `訂單編號：${orderId}%0A` +
-        `主診斷成因：${encodeURIComponent(CAUSES_DATA[selectedCauseId].name)}%0A` +
+        `主診斷成因：${CAUSES_DATA[selectedCauseId].name}%0A` +
         `收件人：${encodeURIComponent(name)}%0A` +
         `聯絡電話：${encodeURIComponent(phone)}%0A` +
         `送貨地址：${encodeURIComponent(address)} (${encodeURIComponent(liftText)})%0A%0A` +
         `【訂購明細】%0A` +
         customerOrderItems.map(i => `• ${encodeURIComponent(i)}`).join('%0A') + `%0A%0A` +
-        `商品小計：HKD ${subtotal.toLocaleString()}%0A` +
+        discountLine +
         `運費：${shipping === 0 ? "免費 (滿額免運)" : "HKD " + shipping}%0A` +
         `應付總額：HKD ${total.toLocaleString()}%0A` +
         `付款方式：${encodeURIComponent(paymentMethod)}%0A%0A` +
@@ -3649,7 +3684,7 @@
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(orderData)
-          }).catch(err => console.log('Webhook logging error:', err));
+          }).catch(err => console.log('Webhook logging:', err));
         } catch (e) {
           console.log('Webhook skip');
         }
@@ -3658,9 +3693,6 @@
       window.open(waUrl, '_blank');
     }
 
-    // =========================================================================
-    // 全域模態彈窗 (Pop-up A, Pop-up B, 套裝明細彈窗 · 完美滾動鎖定防跳轉)
-    // =========================================================================
     function openModalWithLock(title, contentHtml) {
       savedScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
       document.documentElement.style.overflow = 'hidden';
@@ -3698,19 +3730,19 @@
 
       let galleryHtml = `
         <div class="modal-white-image-box">
-          <img id="gallery-main-img" src="${prod.img || `/images/products/${prod.id}.webp`}" alt="${prod.name}">
+          <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
         </div>
       `;
 
-      if (prod.id === '0368' && prod.demoImg1) {
+      if (prod.id === '0368') {
         galleryHtml = `
           <div>
             <div class="modal-white-image-box">
-              <img id="gallery-main-img" src="${prod.img || `/images/products/${prod.id}.webp`}" alt="${prod.name}">
+              <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
             </div>
             <div class="gallery-thumbs">
-              <button type="button" onclick="switchGalleryImage('${prod.img || `/images/products/${prod.id}.webp`}')" class="gallery-thumb-btn">
-                <img src="${prod.img || `/images/products/${prod.id}.webp`}">
+              <button type="button" onclick="switchGalleryImage('${prod.img}')" class="gallery-thumb-btn">
+                <img src="${prod.img}">
               </button>
               <button type="button" onclick="switchGalleryImage('${prod.demoImg1}')" class="gallery-thumb-btn">
                 <img src="${prod.demoImg1}">
@@ -3723,39 +3755,40 @@
         `;
       }
 
-      const originHtml = (prod.origin && prod.origin.trim() !== "") ? `<div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #FFF;">產地：</span>${prod.origin}</div>` : '';
-      const warrantyHtml = (prod.warranty && prod.warranty.trim() !== "") ? `<div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #D4A343;">原廠保養：</span><span style="color: #FFFFFF;">${prod.warranty}</span></div>` : '';
-
       const html = `
         <div>
           ${galleryHtml}
           <div style="margin-top: 14px;">
-            <div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #FFF;">規格/總件數：</span>${prod.spec || '1件裝'}</div>
-            ${originHtml}
-            ${warrantyHtml}
+            <div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #FFF;">規格/總件數：</span>${prod.spec}</div>
+            ${prod.origin ? `<div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #FFF;">產地：</span>${prod.origin}</div>` : ''}
+            ${prod.warranty ? `<div style="margin-bottom: 6px;"><span style="font-weight: 700; color: #D4A343;">原廠保養：</span><span style="color: #FFFFFF;">${prod.warranty}</span></div>` : ''}
             <div style="border-top: 1px solid #374151; padding-top: 10px; margin-top: 10px;">
               <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">主要功效：</span>
-              <span style="color: #CBD5E1; line-height: 1.65;">${prod.intro || ''}</span>
+              <span style="color: #CBD5E1; line-height: 1.65;">${prod.intro}</span>
             </div>
-            ${prod.target ? `
             <div style="border-top: 1px solid #374151; padding-top: 10px; margin-top: 10px;">
               <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">產品適合對象：</span>
               <span style="color: #CBD5E1; line-height: 1.65;">${prod.target}</span>
-            </div>` : ''}
-            ${prod.packages && prod.packages.length > 0 ? `
+            </div>
             <div style="border-top: 1px solid #374151; padding-top: 10px; margin-top: 10px;">
-              <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">多件裝特惠階梯：</span>
-              <ul style="color: #CBD5E1; padding-left: 20px; margin: 4px 0;">
-                ${prod.packages.map(p => `<li>${p.name}：HKD ${p.price.toLocaleString()} (${p.qty}件裝，折合 HKD ${Math.round(p.price / p.qty).toLocaleString()}/件)</li>`).join('')}
-              </ul>
-            </div>` : ''}
+              <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">成份與技術：</span>
+              <span style="color: #CBD5E1; line-height: 1.65;">${prod.ingredients}</span>
+            </div>
+            <div style="border-top: 1px solid #374151; padding-top: 10px; margin-top: 10px;">
+              <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">建議使用方法：</span>
+              <span style="color: #CBD5E1; line-height: 1.65;">${prod.usage}</span>
+            </div>
+            <div style="border-top: 1px solid #374151; padding-top: 10px; margin-top: 10px;">
+              <span style="font-weight: 800; color: #D4A343; display: block; margin-bottom: 4px;">注意事項：</span>
+              <span style="color: #CBD5E1; line-height: 1.65;">${prod.warning}</span>
+            </div>
           </div>
         </div>
       `;
-      openModalWithLock(`${prod.name} · 產品詳情`, html);
+      openModalWithLock(prod.name, html);
     }
 
-    // Pop-up B: 單品調理機轉彈窗
+    // 彈窗 B：夜尿專屬修復原理 (600x600 圖片 ＋ 5大成因總名稱分類生化機轉，零價格零折扣)
     function openMechanismModal(prodId, causeId) {
       const prod = PRODUCTS_DB.find(p => p.id === prodId);
       if (!prod) return;

@@ -1622,44 +1622,70 @@
       </div>
 
       <!-- 維度 6 (方案 A：6 類獨立分立，純淨西藥排查，零臨床干擾提示，零備註贅字，零特殊紅字) -->
-      <div class="quiz-group" style="background: #FFFBEB; border: 1.5px solid #FDE68A;">
-        <div class="quiz-group-header" style="border-bottom-color: #FDE68A;">
-          <div class="quiz-num" style="background: #F59E0B; color: #FFFFFF;">6</div>
-          <div>
-            <div class="quiz-title" style="color: #92400E;">維度 6：現行西藥審查【可多選】</div>
+              <!-- 組別 6：維度 6：現行或長期處方西藥審查【可多選】 -->
+        <div class="quiz-group" style="background: #FFFBEB; border: 1.5px solid #FDE68A;">
+          <div class="quiz-group-header" style="border-bottom-color: #FDE68A;">
+            <div class="quiz-num" style="background: #F59E0B; color: #FFFFFF;">6</div>
+            <div>
+              <div class="quiz-title" style="color: #92400E;">維度 6：現行或長期處方西藥審查【可多選】</div>
+              <div style="font-size: 13px; color: #B45309; margin-top: 4px;">盤點長期服用之常規處方西藥，評估藥源性夜尿與體液平衡干擾（若無服用請選最後一項）</div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_STATIN" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>降膽固醇藥：他汀類 Statins（例如 Atorvastatin 阿托伐他汀/立普妥、Rosuvastatin 瑞舒伐他汀/可妥、Simvastatin 辛伐他汀）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_METFORMIN" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止、二甲雙胍）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_DIAB_OTHER" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>降血糖藥：其他類別（例如 SGLT-2 排糖藥、磺醯尿素類 Gliclazide 格列齊特、DPP-4 抑制劑、注射胰島素等）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_CCB" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>降血壓藥：鈣離子阻斷劑 CCB（例如 Amlodipine 氨氯地平/絡活喜、Nifedipine、Felodipine）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_BETABLOCKER" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>降血壓或調心率藥：乙型受體阻斷劑 Beta-blocker（例如 Atenolol、Metoprolol、Bisoprolol 康忻、Carvedilol）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_DIURETIC" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>降血壓或消腫藥：利尿劑水丸（例如 Indapamide 吲達帕胺、Furosemide 呋塞米/速尿、Hydrochlorothiazide）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_ACEI" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>降血壓藥：ACEI / ARB 血管緊張素抑制劑（例如 Lisinopril、Ramipril、Losartan 氯沙坦、Valsartan 纈沙坦）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" id="med_warfarin" name="dim6" value="MED_WARFARIN" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>薄血藥／抗凝血／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷/波立維、Warfarin 華法林、新型抗凝藥 NOAC/DOAC 如 Eliquis、Xarelto）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_PPI" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>胃藥：質子泵抑制劑 PPI 或強效制酸劑（例如 Omeprazole 奧美拉唑/洛賽克、Pantoprazole 泮托拉唑、Nexium 耐信、Famotidine）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_CALCIUM" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>骨質補充劑：無機碳酸鈣片（例如 Caltrate 挺立、Calcichew 等常見碳酸鈣片）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_SEDATIVE" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>安眠鎮靜類：安眠藥／抗焦慮鎮靜劑（例如 Zolpidem 唑吡坦/安必恩、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim6" value="MED_NSAIDS" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
+              <span>關節止痛抗炎藥：非類固醇消炎止痛藥 NSAIDs（例如 Ibuprofen 布洛芬、Diclofenac 雙氯芬酸/扶他林、Celebrex 塞來昔布）。</span>
+            </label>
+            <label class="option-label none-opt">
+              <input type="checkbox" id="dim6_none" value="NONE" onchange="toggleDimNone('dim6')">
+              <span>🚫 沒有長期服用上述任何西藥</span>
+            </label>
           </div>
         </div>
-        <div class="options-grid">
-          <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_BP" class="dim6-item">
-            <span>降血壓藥（如 Amlodipine 氨氯地平 / 鈣離子阻斷劑 CCB）</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_WARFARIN" id="med_warfarin" class="dim6-item">
-            <span>薄血藥（如 Warfarin 華法林 / Aspirin 阿斯匹靈 / Plavix）</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_DIURETIC_SGLT2" class="dim6-item">
-            <span>利尿劑或排糖藥（如水丸 / SGLT-2 類排糖藥）</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_DIABETES_GEN" class="dim6-item">
-            <span>降血糖藥（如 Metformin 二甲雙胍等一般降糖藥）</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_STATIN" class="dim6-item">
-            <span>降血脂藥（如 Rosuvastatin 等 Statin 類降膽固醇藥）</span>
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="dim6" value="MED_PPI_CALCIUM" class="dim6-item">
-            <span>強效胃藥或鈣片（如 PPI 抑酸劑 / 碳酸鈣）</span>
-          </label>
-          <label class="option-label none-opt">
-            <input type="checkbox" id="dim6_none" value="NONE" onchange="toggleDimNone('dim6')">
-            <span style="font-weight: 700; color: #92400E;">🚫 沒有服用上述西藥</span>
-          </label>
-        </div>
-      </div>
 
       <div style="margin-top: 28px; text-align: center;">
         <button type="button" class="btn-primary" onclick="submitAssessment()">
@@ -2749,17 +2775,28 @@
         if (el.value === 'D5_C') scores[5] += 2;
       });
 
-      // 維度 6 (方案 A：6 類精準獨立乘數加權)
+      // 維度 6 (統一詳盡版西藥審查乘數加權)
       const d6Items = document.querySelectorAll('input[name="dim6"]:checked');
       d6Items.forEach(el => {
-        if (el.value === 'MED_BP' && scores[1] > 0) scores[1] *= 1.2;
-        if (el.value === 'MED_DIURETIC_SGLT2') {
+        // 降壓藥 (CCB, Beta-blocker, ACEI) 加權成因 1 (下肢水腫回流)
+        if ((el.value === 'MED_BP' || el.value === 'MED_CCB' || el.value === 'MED_BETABLOCKER' || el.value === 'MED_ACEI') && scores[1] > 0) {
+          scores[1] *= 1.2;
+        }
+        // 利尿劑與 SGLT-2 排糖藥 加權成因 1 (體液排出) 與成因 4 (腎濃縮代償)
+        if (el.value === 'MED_DIURETIC_SGLT2' || el.value === 'MED_DIURETIC' || el.value === 'MED_DIAB_OTHER') {
           if (scores[1] > 0) scores[1] *= 1.2;
           if (scores[4] > 0) scores[4] *= 1.2;
         }
-        if (el.value === 'MED_DIABETES_GEN' && scores[4] > 0) scores[4] *= 1.2;
-        if (el.value === 'MED_STATIN' && scores[3] > 0) scores[3] *= 1.2;
-        if (el.value === 'MED_PPI_CALCIUM') {
+        // 降糖藥 (二甲雙胍等) 加權成因 4 (代謝滲透壓)
+        if ((el.value === 'MED_DIABETES_GEN' || el.value === 'MED_METFORMIN') && scores[4] > 0) {
+          scores[4] *= 1.2;
+        }
+        // 他汀類降脂藥 加權成因 3 (血管內皮硬化)
+        if (el.value === 'MED_STATIN' && scores[3] > 0) {
+          scores[3] *= 1.2;
+        }
+        // PPI 胃藥與無機鈣片 加權成因 2 (膀胱功能) 與成因 4 (微量元素吸收)
+        if (el.value === 'MED_PPI_CALCIUM' || el.value === 'MED_PPI' || el.value === 'MED_CALCIUM') {
           if (scores[2] > 0) scores[2] *= 1.15;
           if (scores[4] > 0) scores[4] *= 1.15;
         }

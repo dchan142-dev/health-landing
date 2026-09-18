@@ -1684,46 +1684,68 @@
           </div>
         </div>
 
-        <!-- 第 5 組｜公立醫院專科門診常用西藥排查【可多選】 -->
-        <div class="quiz-group">
-          <div class="quiz-group-header">
-            <div class="quiz-num">5</div>
+        <!-- 第 5 組｜常規專科門診常用西藥排查【可多選】 -->
+                <!-- 組別 5：第 5 組｜現行專科門診處方西藥審查【可多選】 -->
+        <div class="quiz-group" style="background: #FFFBEB; border: 1.5px solid #FDE68A;">
+          <div class="quiz-group-header" style="border-bottom-color: #FDE68A;">
+            <div class="quiz-num" style="background: #F59E0B; color: #FFFFFF;">5</div>
             <div>
-              <div class="quiz-title">第 5 組｜公立醫院專科門診常用西藥排查【可多選】</div>
+              <div class="quiz-title" style="color: #92400E;">第 5 組｜現行專科門診處方西藥審查【可多選】</div>
+              <div style="font-size: 13px; color: #B45309; margin-top: 4px;">盤點長期服用之常規處方西藥，評估中樞神經反彈與夜間供能干擾（若無服用請選最後一項）</div>
             </div>
           </div>
           <div class="options-grid">
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_1" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>正服用糖尿病促胰島素分泌劑（例如 Gliclazide 格列齊特、Glimepiride 格列美匹特、Glipizide 格列吡嗪）。</span>
+              <input type="checkbox" name="dim5" value="MED_STATIN" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降膽固醇藥：他汀類 Statins（例如 Atorvastatin 阿托伐他汀/立普妥、Rosuvastatin 瑞舒伐他汀/可妥、Simvastatin 辛伐他汀）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_2" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>晚間或睡前有注射外源性胰島素（Insulin）習慣。</span>
+              <input type="checkbox" name="dim5" value="MED_METFORMIN" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止、二甲雙胍）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_3" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>正服用高血壓降心率 Beta 受體阻斷劑（例如 Metoprolol 美托洛爾、Atenolol 阿替洛爾、Propranolol 普萘洛爾）。</span>
+              <input type="checkbox" name="dim5" value="MED_DIAB_OTHER" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血糖藥：其他類別（例如 SGLT-2 排糖藥、磺醯尿素類 Gliclazide 格列齊特、DPP-4 抑制劑、注射胰島素等）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_4" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>正定期服用胃酸抑制劑 PPI（例如 Omeprazole 奧美拉唑、Pantoprazole 泮托拉唑、Lansoprazole 蘭索拉唑）。</span>
+              <input type="checkbox" name="dim5" value="MED_CCB" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血壓藥：鈣離子阻斷劑 CCB（例如 Amlodipine 氨氯地平/絡活喜、Nifedipine、Felodipine）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_5" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>長期服用安眠鎮靜西藥（例如 Zolpidem 唑吡坦、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮），自覺劑量越食越大。</span>
+              <input type="checkbox" name="dim5" value="MED_BETABLOCKER" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血壓或調心率藥：乙型受體阻斷劑 Beta-blocker（例如 Atenolol、Metoprolol、Bisoprolol 康忻、Carvedilol）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_6" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>睡前正服用肌肉鬆弛劑或鎮靜抗敏藥。</span>
+              <input type="checkbox" name="dim5" value="MED_DIURETIC" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血壓或消腫藥：利尿劑水丸（例如 Indapamide 吲達帕胺、Furosemide 呋塞米/速尿、Hydrochlorothiazide）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" id="med_warfarin" name="dim5" value="MED_WARFARIN" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>正服用抗凝血薄血藥物（Warfarin 華法林，或新型口服抗凝藥 NOAC 如 Rivaroxaban 利伐沙班、Apixaban 阿哌沙班、Dabigatran 達比加群）。</span>
+              <input type="checkbox" name="dim5" value="MED_ACEI" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血壓藥：ACEI / ARB 血管緊張素抑制劑（例如 Lisinopril、Ramipril、Losartan 氯沙坦、Valsartan 纈沙坦）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" id="med_warfarin" name="dim5" value="MED_WARFARIN" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>薄血藥／抗凝血／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷/波立維、Warfarin 華法林、新型抗凝藥 NOAC/DOAC 如 Eliquis、Xarelto）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="MED_PPI" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>胃藥：質子泵抑制劑 PPI 或強效制酸劑（例如 Omeprazole 奧美拉唑/洛賽克、Pantoprazole 泮托拉唑、Nexium 耐信、Famotidine）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="MED_CALCIUM" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>骨質補充劑：無機碳酸鈣片（例如 Caltrate 挺立、Calcichew 等常見碳酸鈣片）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="MED_SEDATIVE" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>安眠鎮靜類：安眠藥／抗焦慮鎮靜劑（例如 Zolpidem 唑吡坦/安必恩、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="MED_NSAIDS" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>關節止痛抗炎藥：非類固醇消炎止痛藥 NSAIDs（例如 Ibuprofen 布洛芬、Diclofenac 雙氯芬酸/扶他林、Celebrex 塞來昔布）。</span>
             </label>
             <label class="option-label none-opt">
               <input type="checkbox" id="dim5_none" value="NONE" onchange="toggleDimNone('dim5')">
-              <span>🚫 沒有服用上述任何西藥</span>
+              <span>🚫 沒有長期服用上述任何西藥</span>
             </label>
           </div>
         </div>
@@ -2362,25 +2384,30 @@
       }
     },
     "dim5": {
-      "Q5_1": {
-        "2": 2
+      "MED_STATIN": {},
+      "MED_METFORMIN": {
+        "2": 1
       },
-      "Q5_2": {
-        "2": 2
+      "MED_DIAB_OTHER": {
+        "2": 1
       },
-      "Q5_3": {
-        "3": 2
-      },
-      "Q5_4": {
-        "4": 2
-      },
-      "Q5_5": {
-        "5": 2
-      },
-      "Q5_6": {
+      "MED_CCB": {},
+      "MED_BETABLOCKER": {
         "1": 1
       },
-      "MED_WARFARIN": {}
+      "MED_DIURETIC": {
+        "1": 1
+      },
+      "MED_ACEI": {},
+      "MED_WARFARIN": {},
+      "MED_PPI": {
+        "3": 1
+      },
+      "MED_CALCIUM": {},
+      "MED_SEDATIVE": {
+        "5": 2
+      },
+      "MED_NSAIDS": {}
     }
   },
   "causesData": {

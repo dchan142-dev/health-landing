@@ -1503,7 +1503,7 @@
             </label>
             <label class="option-label">
               <input type="radio" name="dim_redflag" value="RF_STROKE">
-              <span><strong>急性中風 TIA 急症紅旗：</strong>突發單側手腳無力、嘴角歪斜、說話含糊不清或視物成雙，即使數分鐘內自行緩解（需即時前往公立醫院急症室）。</span>
+              <span><strong>急性中風 TIA 急症紅旗：</strong>突發單側手腳無力、嘴角歪斜、說話含糊不清或視物成雙，即使數分鐘內自行緩解（需即時前往醫院急症室或致電 999）。</span>
             </label>
             <label class="option-label none-opt">
               <input type="radio" name="dim_redflag" value="RF_NONE" checked>
@@ -1512,54 +1512,64 @@
           </div>
         </div>
 
-        <!-- 模組一：香港公立醫院常規處方排查清單【可多選】 -->
-        <div class="quiz-group">
-          <div class="quiz-group-header">
-            <div class="quiz-num">1</div>
+        <!-- 模組一：常規醫療專科門診常規處方排查清單【可多選】 -->
+                <!-- 組別 1：第 1 組｜現行常規處方西藥全面盤點審查【可多選】 -->
+        <div class="quiz-group" style="background: #FFFBEB; border: 1.5px solid #FDE68A;">
+          <div class="quiz-group-header" style="border-bottom-color: #FDE68A;">
+            <div class="quiz-num" style="background: #F59E0B; color: #FFFFFF;">1</div>
             <div>
-              <div class="quiz-title">第 1 組｜香港公立醫院常規處方排查清單【可多選】</div>
+              <div class="quiz-title" style="color: #92400E;">第 1 組｜現行常規處方西藥全面盤點審查【可多選】</div>
+              <div style="font-size: 13px; color: #B45309; margin-top: 4px;">盤點長期服用之常規處方西藥，評估指標達標後的生化營養枯竭與代謝反噬（若無服用請選最後一項）</div>
             </div>
           </div>
           <div class="options-grid">
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_STATIN" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
-              <span>降膽固醇藥：他汀類 Statins（例如 Atorvastatin 阿托伐他汀、Rosuvastatin 瑞舒伐他汀、Simvastatin）。</span>
+              <input type="checkbox" name="dim1" value="MED_STATIN" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>降膽固醇藥：他汀類 Statins（例如 Atorvastatin 阿托伐他汀/立普妥、Rosuvastatin 瑞舒伐他汀/可妥、Simvastatin 辛伐他汀）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_METFORMIN" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
-              <span>降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止）。</span>
+              <input type="checkbox" name="dim1" value="MED_METFORMIN" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止、二甲雙胍）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_DIAB_OTHER" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
-              <span>降血糖藥：其他類別（例如磺醯尿素類 Gliclazide、SGLT-2 抑制劑排糖藥、注射胰島素等）。</span>
+              <input type="checkbox" name="dim1" value="MED_DIAB_OTHER" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>降血糖藥：其他類別（例如 SGLT-2 排糖藥、磺醯尿素類 Gliclazide 格列齊特、DPP-4 抑制劑、注射胰島素等）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_CCB" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
-              <span>降血壓藥：鈣離子阻斷劑 CCB（例如 Amlodipine 氨氯地平、Nifedipine、Felodipine）。</span>
+              <input type="checkbox" name="dim1" value="MED_CCB" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>降血壓藥：鈣離子阻斷劑 CCB（例如 Amlodipine 氨氯地平/絡活喜、Nifedipine、Felodipine）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_BETABLOCKER" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
-              <span>降血壓或調心率藥：乙型受體阻斷劑 Beta-blocker（例如 Atenolol、Metoprolol、Bisoprolol）。</span>
+              <input type="checkbox" name="dim1" value="MED_BETABLOCKER" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>降血壓或調心率藥：乙型受體阻斷劑 Beta-blocker（例如 Atenolol、Metoprolol、Bisoprolol 康忻、Carvedilol）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_DIURETIC" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
-              <span>降血壓藥：利尿劑水丸（例如 Indapamide、Furosemide、Hydrochlorothiazide）。</span>
+              <input type="checkbox" name="dim1" value="MED_DIURETIC" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>降血壓或消腫藥：利尿劑水丸（例如 Indapamide 吲達帕胺、Furosemide 呋塞米/速尿、Hydrochlorothiazide）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_ACEI" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
-              <span>降血壓藥：血管緊張素轉化酶抑制劑 ACEI（例如 Lisinopril、Ramipril、Enalapril）。</span>
+              <input type="checkbox" name="dim1" value="MED_ACEI" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>降血壓藥：ACEI / ARB 血管緊張素抑制劑（例如 Lisinopril、Ramipril、Losartan 氯沙坦、Valsartan 纈沙坦）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" id="med_warfarin" name="dim1" value="MED_WARFARIN" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
-              <span>薄血藥／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷、Warfarin 華法林、NOAC）。</span>
+              <input type="checkbox" id="med_warfarin" name="dim1" value="MED_WARFARIN" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>薄血藥／抗凝血／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷/波立維、Warfarin 華法林、新型抗凝藥 NOAC/DOAC 如 Eliquis、Xarelto）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_PPI" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
-              <span>胃藥：質子泵抑制劑 PPI（例如 Omeprazole 奧美拉唑、Pantoprazole 泮托拉唑）。</span>
+              <input type="checkbox" name="dim1" value="MED_PPI" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>胃藥：質子泵抑制劑 PPI 或強效制酸劑（例如 Omeprazole 奧美拉唑/洛賽克、Pantoprazole 泮托拉唑、Nexium 耐信、Famotidine）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_CALCIUM" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
-              <span>碳酸鈣片（例如 Caltrate 挺立、Calcichew 等公立醫院常開鈣片）。</span>
+              <input type="checkbox" name="dim1" value="MED_CALCIUM" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>骨質補充劑：無機碳酸鈣片（例如 Caltrate 挺立、Calcichew 等常見碳酸鈣片）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="MED_SEDATIVE" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>安眠鎮靜類：安眠藥／抗焦慮鎮靜劑（例如 Zolpidem 唑吡坦/安必恩、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim1" value="MED_NSAIDS" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
+              <span>關節止痛抗炎藥：非類固醇消炎止痛藥 NSAIDs（例如 Ibuprofen 布洛芬、Diclofenac 雙氯芬酸/扶他林、Celebrex 塞來昔布）。</span>
             </label>
             <label class="option-label none-opt">
               <input type="checkbox" id="dim1_none" value="NONE" onchange="toggleDimNone('dim1')">
@@ -2373,13 +2383,15 @@
       "MED_ACEI": {
         "6": 2
       },
+      "MED_WARFARIN": {},
       "MED_PPI": {
         "7": 2
       },
       "MED_CALCIUM": {
         "7": 2
       },
-      "MED_WARFARIN": {}
+      "MED_SEDATIVE": {},
+      "MED_NSAIDS": {}
     },
     "dim2": {
       "Q2_1": {

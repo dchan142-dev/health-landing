@@ -1326,6 +1326,88 @@
       height: 100%;
       border: 0;
     }
+  
+    /* 多成因同分仲裁卡片樣式 (Tie Breaker Alert) */
+    .tie-breaker-box {
+      background: linear-gradient(135deg, #F0FDFA 0%, #E6FFFA 100%);
+      border: 2px solid #0D9488;
+      border-radius: var(--radius-lg, 16px);
+      padding: 22px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.12), 0 8px 10px -6px rgba(13, 148, 136, 0.08);
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    .tie-breaker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(13, 148, 136, 0.35);
+    }
+    .tie-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #0F766E;
+      letter-spacing: 0.3px;
+    }
+    .tie-score-tag {
+      background: #0D9488;
+      color: #FFFFFF;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+    }
+    .tie-notice-text {
+      font-size: 15.5px;
+      line-height: 1.7;
+      color: #134E4A;
+      margin-bottom: 14px;
+    }
+    .tie-cause-pill {
+      display: inline-block;
+      background: rgba(13, 148, 136, 0.12);
+      color: #0F766E;
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 800;
+      margin: 2px 4px;
+    }
+    .tie-rationale-box {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(13, 148, 136, 0.25);
+      border-left: 4px solid #0D9488;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+    .tie-rationale-header {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #0F766E;
+      margin-bottom: 6px;
+    }
+    .tie-rationale-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #334155;
+    }
+    .tie-recommend-conclusion {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #0F766E;
+      background: rgba(13, 148, 136, 0.08);
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+
   </style>
 </head>
 <body>
@@ -1606,6 +1688,32 @@
 
       <!-- Block C: 診斷結果判定 ✕ 最壞情況直擊 (100% 還原 Version 5 高質感架構) -->
       <section id="blockC" class="section-card">
+        
+        <!-- 0. 多成因同分智能仲裁提示 (動態顯示) -->
+        <div id="tieBreakerAlert" class="tie-breaker-box" style="display: none;">
+          <div class="tie-breaker-header">
+            <div class="tie-badge">
+              <span>⚖️</span>
+              <span>臨床優先級仲裁提示（多於一個成因同分）</span>
+            </div>
+            <div class="tie-score-tag">最高同分：<span id="tieScoreValue">0</span> 分</div>
+          </div>
+          <div class="tie-breaker-body">
+            <div class="tie-notice-text">
+              系統評估發現您的填選結果中，<span id="tieCandidateNames"></span> 得分相同（並列最高分）。
+            </div>
+            <div class="tie-rationale-box">
+              <div class="tie-rationale-header">
+                <span class="tie-rationale-title">🔍 臨床優先處理考量原因：</span>
+              </div>
+              <div id="tieRationaleDesc" class="tie-rationale-desc"></div>
+            </div>
+            <div class="tie-recommend-conclusion">
+              💡 <strong>專家建議策略：</strong>為免多線干預分散身體調度能量，系統建議您第一階段<strong>優先集中處理【<span id="tieWinnerName" style="color: #0D9488; text-decoration: underline;"></span>】</strong>。待核心急迫風險穩固後，再依序針對其他次要成因進行固本調理。
+            </div>
+          </div>
+        </div>
+
         
         <!-- 1. 深色成因判定卡片 -->
         <div class="diagnosis-highlight-card">
@@ -2588,6 +2696,13 @@
     "34307": "專利後生元酸化腸腔，提升小腸鈣鎂離子吸收",
     "0368": "雙光理療活化粒線體，深層放鬆痙攣肌筋膜",
     "38207": "垂直正弦諧振，重置高爾基腱器官抑制煞車"
+  },
+  "arbitrationReasons": {
+    "5": "成因 05 牽涉利尿劑或他汀類等西藥阻斷導致之深層電解質（鉀/鎂）及細胞呼吸鏈 Q10 急性耗竭，具誘發致死性惡性心律失常與全身電生理崩潰之急性生命危險，臨床必須列為最高危險優先排查與處置。",
+    "3": "成因 03 牽涉腰椎椎管狹窄或椎間盤突出對運動神經根之實質機械絞扼，若延誤減壓與神經營養修復，將演變為神經軸突逆行性變性、不可逆肌肉萎縮甚至足下垂，致殘風險極高，優先級高於血管與肌肉症狀。",
+    "2": "成因 02 牽涉靜脈瓣膜高壓造成之深層毛細血管微滲漏、組織缺血缺氧與代謝酸性毒素蓄積，伴隨下肢深靜脈血栓形成之潛在栓塞風險，病理層級高於表淺力學疲勞。",
+    "4": "成因 04 涉及自主神經血管舒縮反射亢進與局部動靜脈短路，比起單純力學短縮更需系統性防護外周微循環受冷痙攣。",
+    "1": "成因 01 屬長時間被動短縮引致之肌梭感受器敏感化與力學性疲勞，無急性器質性危象，透過拉伸與日常活動調整即可迅速緩解。"
   }
 };
     const PRODUCTS_DB = [
@@ -3399,12 +3514,20 @@
         if (scores[i] === maxScore) candidates.push(i);
       });
 
-      let chosenCause = candidates[0];
+            let chosenCause = candidates[0];
+      let tieBreakerInfo = null;
+
       if (candidates.length > 1) {
         let hardcoreCandidates = candidates.filter(c => hasHardcore[c]);
+        let arbitrationType = '';
+        let rationaleText = '';
+
         if (hardcoreCandidates.length === 1) {
           chosenCause = hardcoreCandidates[0];
+          arbitrationType = 'hardcore';
+          rationaleText = `您在自評填選中同時勾選了【${CAUSES_DATA[chosenCause] ? CAUSES_DATA[chosenCause].name : '成因 ' + chosenCause}】之專屬特異性「硬核器質體徵」，顯示該病理機轉已進入器質性實質損傷階段，比起其他尚在功能代償期的同分亞型具有更高之臨床確定性與干預急迫性。`;
         } else {
+          arbitrationType = 'clinical_priority';
           const priority = TOPIC_CONFIG.arbitrationPriority || [1, 2, 3, 4, 5];
           const pool = hardcoreCandidates.length > 1 ? hardcoreCandidates : candidates;
           for (let p of priority) {
@@ -3413,7 +3536,27 @@
               break;
             }
           }
+          const reasons = TOPIC_CONFIG.arbitrationReasons || {};
+          if (reasons[chosenCause]) {
+            rationaleText = reasons[chosenCause];
+          } else {
+            rationaleText = `在多項成因同分的情況下，基於「急性生命威脅 > 不可逆器質損傷 > 系統病理源頭 vs 繼發表象」之臨床避險原則，【${CAUSES_DATA[chosenCause] ? CAUSES_DATA[chosenCause].name : '成因 ' + chosenCause}】具有更高的器質性損害防護優先級。`;
+          }
+          if (hardcoreCandidates.length > 1) {
+            rationaleText = `（多項同分成因皆出現硬核體徵）` + rationaleText;
+          }
         }
+
+        tieBreakerInfo = {
+          isTie: true,
+          score: maxScore,
+          candidates: candidates,
+          candidateNames: candidates.map(cid => CAUSES_DATA[cid] ? CAUSES_DATA[cid].name : '成因 ' + cid),
+          winnerId: chosenCause,
+          winnerName: CAUSES_DATA[chosenCause] ? CAUSES_DATA[chosenCause].name : '成因 ' + chosenCause,
+          rationale: rationaleText,
+          arbitrationType: arbitrationType
+        };
       }
 
       selectedCauseId = chosenCause;
@@ -3422,7 +3565,7 @@
       document.getElementById('gated-content').style.display = 'block';
 
       // 渲染各區塊
-      renderGatedContent(selectedCauseId, scores);
+      renderGatedContent(selectedCauseId, scores, tieBreakerInfo);
 
       // 平滑滾動至 Block C (確保 DOM 佈局完成)
       setTimeout(() => {
@@ -3430,9 +3573,29 @@
       }, 60);
     }
 
-    function renderGatedContent(causeId, scores) {
+    function renderGatedContent(causeId, scores, tieBreakerInfo) {
       const cData = CAUSES_DATA[causeId];
       if (!cData) return;
+
+      // 0. 同分仲裁提報卡片 (Tie Breaker Alert)
+      const tieAlertEl = document.getElementById('tieBreakerAlert');
+      if (tieAlertEl) {
+        if (tieBreakerInfo && tieBreakerInfo.isTie) {
+          tieAlertEl.style.display = 'block';
+          const scoreEl = document.getElementById('tieScoreValue');
+          if (scoreEl) scoreEl.innerText = tieBreakerInfo.score;
+          const namesEl = document.getElementById('tieCandidateNames');
+          if (namesEl) {
+            namesEl.innerHTML = tieBreakerInfo.candidateNames.map(n => `<span class="tie-cause-pill">${n}</span>`).join('、');
+          }
+          const descEl = document.getElementById('tieRationaleDesc');
+          if (descEl) descEl.innerText = tieBreakerInfo.rationale;
+          const winnerEl = document.getElementById('tieWinnerName');
+          if (winnerEl) winnerEl.innerText = tieBreakerInfo.winnerName;
+        } else {
+          tieAlertEl.style.display = 'none';
+        }
+      }
 
       // 1. Block C
       document.getElementById('diagPrimaryTitle').innerText = `【${cData.name}】`;

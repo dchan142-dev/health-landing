@@ -2597,20 +2597,21 @@
 
       isWarfarinUser = document.getElementById('med_warfarin').checked;
       let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+      let hasHardcore = { 1: false, 2: false, 3: false, 4: false, 5: false };
 
       // 維度 1
       const d1Flow = document.querySelector('input[name="dim1"]:checked');
       if (d1Flow) {
         if (d1Flow.value === 'D1_A') scores[1] += 3;
-        if (d1Flow.value === 'D1_B') scores[2] += 3;
+        if (d1Flow.value === 'D1_B') { scores[2] += 3; hasHardcore[2] = true; }
         if (d1Flow.value === 'D1_C') scores[1] += 4;
-        if (d1Flow.value === 'D1_D') scores[5] += 2;
+        if (d1Flow.value === 'D1_D') { scores[5] += 2; hasHardcore[5] = true; }
       }
 
       // 維度 2
       const d2Items = document.querySelectorAll('input[name="dim2"]:checked');
       d2Items.forEach(el => {
-        if (el.value === 'D2_A') scores[2] += 3;
+        if (el.value === 'D2_A') { scores[2] += 3; hasHardcore[2] = true; }
         if (el.value === 'D2_B') scores[2] += 2;
         if (el.value === 'D2_C') scores[2] += 3;
       });
@@ -2619,15 +2620,15 @@
       const d3Items = document.querySelectorAll('input[name="dim3"]:checked');
       d3Items.forEach(el => {
         if (el.value === 'D3_A') scores[1] += 3;
-        if (el.value === 'D3_B') scores[1] += 4;
-        if (el.value === 'D3_C') scores[3] += 3;
+        if (el.value === 'D3_B') { scores[1] += 4; hasHardcore[1] = true; }
+        if (el.value === 'D3_C') { scores[3] += 3; hasHardcore[3] = true; }
         if (el.value === 'D3_D') scores[3] += 2;
       });
 
       // 維度 4
       const d4Items = document.querySelectorAll('input[name="dim4"]:checked');
       d4Items.forEach(el => {
-        if (el.value === 'D4_A') scores[4] += 3;
+        if (el.value === 'D4_A') { scores[4] += 3; hasHardcore[4] = true; }
         if (el.value === 'D4_B') scores[4] += 3;
         if (el.value === 'D4_C') scores[4] += 2;
       });
@@ -2635,7 +2636,7 @@
       // 維度 5
       const d5Items = document.querySelectorAll('input[name="dim5"]:checked');
       d5Items.forEach(el => {
-        if (el.value === 'D5_A') scores[5] += 4;
+        if (el.value === 'D5_A') { scores[5] += 4; hasHardcore[5] = true; }
         if (el.value === 'D5_B') scores[5] += 3;
         if (el.value === 'D5_C') scores[5] += 2;
       });
@@ -2669,20 +2670,41 @@
       // 計算 5 大成因佔比 (百分比)
       const totalRaw = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
       let ratios = {};
-      let maxScore = -1;
+      for (let c = 1; c <= 5; c++) {
+        ratios[c] = Math.round((scores[c] / totalRaw) * 100);
+      }
+
+      // 仲裁最高分（三級臨床仲裁機制）
+      const causeIds = [1, 2, 3, 4, 5];
+      const maxScore = Math.max(...causeIds.map(i => scores[i]));
       let winningCause = 1;
 
-      for (let c = 1; c <= 5; c++) {
-        let pct = Math.round((scores[c] / totalRaw) * 100);
-        ratios[c] = pct;
-        if (scores[c] > maxScore) {
-          maxScore = scores[c];
-          winningCause = c;
-        }
-      }
       if (maxScore <= 0) {
         winningCause = 1;
         ratios = { 1: 100, 2: 0, 3: 0, 4: 0, 5: 0 };
+      } else {
+        let candidates = causeIds.filter(i => scores[i] === maxScore);
+        if (candidates.length === 1) {
+          winningCause = candidates[0];
+        } else {
+          // 多成因同分仲裁
+          // 第 1 級：硬核錨定體徵判定
+          let hardcoreCandidates = candidates.filter(c => hasHardcore[c]);
+          if (hardcoreCandidates.length === 1) {
+            winningCause = hardcoreCandidates[0];
+          } else {
+            // 第 2 級：夜尿專屬臨床病理優先鏈 [1, 4, 2, 3, 5]
+            // (心血管體液過載 > 腎小管濃縮衰退 > 膀胱出口阻抗 > 血管內皮微循環 > 自律神經睡眠)
+            const arbitrationPriority = [1, 4, 2, 3, 5];
+            const pool = hardcoreCandidates.length > 1 ? hardcoreCandidates : candidates;
+            for (let p of arbitrationPriority) {
+              if (pool.includes(p)) {
+                winningCause = p;
+                break;
+              }
+            }
+          }
+        }
       }
 
       selectedCauseId = winningCause;

@@ -3815,10 +3815,12 @@
         if (!allowedProductIds.includes(prod.id)) return;
         const card = document.createElement('div');
         card.className = 'product-single-card';
+        // Block G 產品標題純淨無份量後綴，份量提示只在 Block H 呈現
+        const cleanName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
         const benefitText = (TOPIC_CONFIG.customShortDesc && TOPIC_CONFIG.customShortDesc[prod.id]) || prod.shortDesc || "從源頭深度調理代謝平衡";
         card.innerHTML = `
           <div class="p-card-top">
-            <div class="p-card-name">${prod.name}</div>
+            <div class="p-card-name">${cleanName}</div>
             <button type="button" onclick="openMechanismModal('${prod.id}', ${causeId})" class="btn-more-b">
               想知更多
             </button>
@@ -4408,7 +4410,8 @@
           </div>
         </div>
       `;
-      openModalWithLock(`${prod.name} · 調理機轉`, html);
+      const cleanModalName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
+      openModalWithLock(`${cleanModalName} · 調理機轉`, html);
     }
 
     // Pop-up B: 30天套裝明細彈窗 (完整呈現套裝所含單品與機轉)

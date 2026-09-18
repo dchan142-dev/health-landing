@@ -2165,7 +2165,7 @@
 
   <!-- 前端完整核心數據庫與邏輯引擎 -->
   <script>
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_TGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
+    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
     const DUNCAN_WHATSAPP_PHONE = "85298788564";
 
     let savedScrollY = 0;
@@ -3560,6 +3560,40 @@
       }
 
       selectedCauseId = chosenCause;
+
+      // 計算各成因佔比 (供後台自測數據庫記錄與百分比呈現)
+      let totalRaw = causeIds.reduce((sum, id) => sum + (scores[id] || 0), 0);
+      if (totalRaw <= 0) totalRaw = 1;
+      let ratios = {};
+      for (let i of causeIds) {
+        ratios[i] = Math.round(((scores[i] || 0) / totalRaw) * 100);
+      }
+
+      // 異步發送自測問卷數據至 Apps Script 全站自測數據庫
+      if (APPS_SCRIPT_WEBHOOK_URL) {
+        try {
+          const quizData = {
+            type: "quiz",
+            topicName: TOPIC_CONFIG.topicName || "健康專題",
+            timestamp: new Date().toISOString(),
+            name: userName,
+            gender: document.getElementById('quizGender') ? document.getElementById('quizGender').value : "",
+            age: document.getElementById('quizAge') ? document.getElementById('quizAge').value : "",
+            primaryCause: CAUSES_DATA[chosenCause] ? CAUSES_DATA[chosenCause].name : `成因 ${chosenCause}`,
+            ratios: ratios,
+            scores: scores,
+            tieBreakerInfo: tieBreakerInfo
+          };
+          fetch(APPS_SCRIPT_WEBHOOK_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(quizData)
+          }).catch(err => console.log('Quiz webhook error:', err));
+        } catch (e) {
+          console.log('Quiz webhook skip:', e);
+        }
+      }
 
       // 解鎖受限內容
       document.getElementById('gated-content').style.display = 'block';

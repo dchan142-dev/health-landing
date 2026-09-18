@@ -1406,6 +1406,19 @@
       border-radius: 8px;
     }
 
+      .dosage-tag {
+      display: inline-block;
+      background: #FEF3C7;
+      color: #B45309;
+      border: 1px solid #FDE68A;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 6px;
+      margin-left: 6px;
+      vertical-align: middle;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -3055,9 +3068,10 @@
         if (!allowedProductIds.includes(prod.id)) return;
         const row = document.createElement('div');
         row.className = 'h-single-item-row';
+        const displayTitle = prod.name.replace(/[\(（](\d+天份量)[）\)]/, '<span class="dosage-tag">$1</span>');
         row.innerHTML = `
           <div class="h-item-info">
-            <span class="h-item-title">${prod.name}</span>
+            <span class="h-item-title">${displayTitle}</span>
             <span class="h-item-price">HKD ${prod.price.toLocaleString()}</span>
           </div>
           <button type="button" onclick="openProductModal('${prod.id}')" class="btn-detail-h">

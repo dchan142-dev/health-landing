@@ -2779,7 +2779,7 @@
     const PRODUCTS_DB = [
   {
     "id": "34316",
-    "name": "Nn 液鈣鎂 D3 (15天份量）",
+    "name": "Nn 液鈣鎂 D3",
     "price": 241,
     "specialPrice": 212,
     "packages": [
@@ -2814,7 +2814,7 @@
   },
   {
     "id": "36283",
-    "name": "ORIYEN 蛋白高營素 (10天份量）",
+    "name": "ORIYEN 蛋白高營素",
     "price": 339,
     "specialPrice": 298,
     "packages": [
@@ -2949,7 +2949,7 @@
   },
   {
     "id": "34307",
-    "name": "Nn 腸快適 (15天份量）",
+    "name": "Nn 腸快適",
     "price": 314,
     "specialPrice": 276,
     "packages": [
@@ -3013,7 +3013,7 @@
   },
   {
     "id": "36248",
-    "name": "ORIYEN 綜合果蔬酵素 (10天份量）",
+    "name": "ORIYEN 綜合果蔬酵素",
     "price": 633,
     "specialPrice": 557,
     "packages": [
@@ -3182,7 +3182,7 @@
   },
   {
     "id": "36246",
-    "name": "ORIYEN 金體素 (15天份量）",
+    "name": "ORIYEN 金體素",
     "price": 638,
     "specialPrice": 561,
     "packages": [
@@ -3838,11 +3838,19 @@
       // 1. 單品選購列表
       const singleContainer = document.getElementById('block-h-single-products');
       singleContainer.innerHTML = '';
+      const DOSAGE_BADGES = {
+        '34307': '15天份量',
+        '34316': '15天份量',
+        '36246': '15天份量',
+        '36248': '10天份量',
+        '36283': '10天份量'
+      };
       PRODUCTS_DB.forEach(prod => {
         if (!allowedProductIds.includes(prod.id)) return;
         const row = document.createElement('div');
         row.className = 'h-single-item-row';
-        const displayTitle = prod.name.replace(/[\(（](\d+天份量)[）\)]/, '<span class="dosage-tag">$1</span>');
+        const badge = DOSAGE_BADGES[prod.id] ? ` <span class="dosage-tag">${DOSAGE_BADGES[prod.id]}</span>` : '';
+        const displayTitle = `${prod.name}${badge}`;
         row.innerHTML = `
           <div class="h-item-info">
             <span class="h-item-title">${displayTitle}</span>

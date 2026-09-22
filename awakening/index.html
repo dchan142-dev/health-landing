@@ -3,14 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Health Decoder｜半夜無端扎醒專題 · 從源頭除錯</title>
-  <meta name="description" content="半夜三點反覆扎醒，大腦斷電定係警報暴衝？ 搞清楚源頭，先可以治本。 工程師邏輯 ✕ 代謝底層解碼，3分鐘初步自我診斷。">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Health Decoder｜半夜無端扎醒專題 · 從源頭除錯">
-  <meta property="og:description" content="半夜三點反覆扎醒，大腦斷電定係警報暴衝？ 搞清楚源頭，先可以治本。 工程師邏輯 ✕ 代謝底層解碼，3分鐘初步自我診斷。">
-  <meta property="og:url" content="https://health-decoder.com/awakening/">
-  <meta property="og:image" content="https://health-decoder.com/images/og-awakening.webp">
-  <link rel="icon" type="image/x-icon" href="https://health-decoder.com/favicon.ico">
+  <title>Health Decoder｜半夜無端扎醒專題 · 從源頭除錯</title>
   <style>
 
 
@@ -64,6 +57,33 @@
 
     html {
       scroll-behavior: smooth;
+    }
+
+    html, body {
+      overscroll-behavior-y: contain;
+      overscroll-behavior: none;
+    }
+
+    .restore-toast {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      background: #0D9488;
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 999px;
+      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    .restore-toast.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
 
@@ -1333,6 +1353,101 @@
       height: 100%;
       border: 0;
     }
+  
+    /* 多成因同分仲裁卡片樣式 (Tie Breaker Alert) */
+    .tie-breaker-box {
+      background: linear-gradient(135deg, #F0FDFA 0%, #E6FFFA 100%);
+      border: 2px solid #0D9488;
+      border-radius: var(--radius-lg, 16px);
+      padding: 22px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.12), 0 8px 10px -6px rgba(13, 148, 136, 0.08);
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    .tie-breaker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(13, 148, 136, 0.35);
+    }
+    .tie-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #0F766E;
+      letter-spacing: 0.3px;
+    }
+    .tie-score-tag {
+      background: #0D9488;
+      color: #FFFFFF;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+    }
+    .tie-notice-text {
+      font-size: 15.5px;
+      line-height: 1.7;
+      color: #134E4A;
+      margin-bottom: 14px;
+    }
+    .tie-cause-pill {
+      display: inline-block;
+      background: rgba(13, 148, 136, 0.12);
+      color: #0F766E;
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 800;
+      margin: 2px 4px;
+    }
+    .tie-rationale-box {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(13, 148, 136, 0.25);
+      border-left: 4px solid #0D9488;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+    .tie-rationale-header {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #0F766E;
+      margin-bottom: 6px;
+    }
+    .tie-rationale-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #334155;
+    }
+    .tie-recommend-conclusion {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #0F766E;
+      background: rgba(13, 148, 136, 0.08);
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+
+      .dosage-tag {
+      display: inline-block;
+      background: #FEF3C7;
+      color: #B45309;
+      border: 1px solid #FDE68A;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 6px;
+      margin-left: 6px;
+      vertical-align: middle;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -1374,7 +1489,7 @@
     </section>
 
     <!-- Block B: 初步自我診斷問卷 -->
-        <section id="blockB" class="section-card">
+    <section id="blockB" class="section-card">
       <div style="margin-bottom: 24px; text-align: center;">
         <h2 style="justify-content: center; margin: 0; font-size: 24px;">📋 請完成以下問卷作初步自我診斷。</h2>
       </div>
@@ -1609,46 +1724,68 @@
           </div>
         </div>
 
-        <!-- 第 5 組｜公立醫院專科門診常用西藥排查【可多選】 -->
-        <div class="quiz-group">
-          <div class="quiz-group-header">
-            <div class="quiz-num">5</div>
+        <!-- 第 5 組｜常規專科門診常用西藥排查【可多選】 -->
+                <!-- 組別 5：第 5 組｜現行專科門診處方西藥審查【可多選】 -->
+        <div class="quiz-group" style="background: #FFFBEB; border: 1.5px solid #FDE68A;">
+          <div class="quiz-group-header" style="border-bottom-color: #FDE68A;">
+            <div class="quiz-num" style="background: #F59E0B; color: #FFFFFF;">5</div>
             <div>
-              <div class="quiz-title">第 5 組｜公立醫院專科門診常用西藥排查【可多選】</div>
+              <div class="quiz-title" style="color: #92400E;">第 5 組｜現行專科門診處方西藥審查【可多選】</div>
+              <div style="font-size: 13px; color: #B45309; margin-top: 4px;">盤點長期服用之常規處方西藥，評估中樞神經反彈與夜間供能干擾（若無服用請選最後一項）</div>
             </div>
           </div>
           <div class="options-grid">
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_1" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>正服用糖尿病促胰島素分泌劑（例如 Gliclazide 格列齊特、Glimepiride 格列美匹特、Glipizide 格列吡嗪）。</span>
+              <input type="checkbox" name="dim5" value="MED_STATIN" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降膽固醇藥：他汀類 Statins（例如 Atorvastatin 阿托伐他汀/立普妥、Rosuvastatin 瑞舒伐他汀/可妥、Simvastatin 辛伐他汀）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_2" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>晚間或睡前有注射外源性胰島素（Insulin）習慣。</span>
+              <input type="checkbox" name="dim5" value="MED_METFORMIN" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止、二甲雙胍）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_3" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>正服用高血壓降心率 Beta 受體阻斷劑（例如 Metoprolol 美托洛爾、Atenolol 阿替洛爾、Propranolol 普萘洛爾）。</span>
+              <input type="checkbox" name="dim5" value="MED_DIAB_OTHER" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血糖藥：其他類別（例如 SGLT-2 排糖藥、磺醯尿素類 Gliclazide 格列齊特、DPP-4 抑制劑、注射胰島素等）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_4" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>正定期服用胃酸抑制劑 PPI（例如 Omeprazole 奧美拉唑、Pantoprazole 泮托拉唑、Lansoprazole 蘭索拉唑）。</span>
+              <input type="checkbox" name="dim5" value="MED_CCB" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血壓藥：鈣離子阻斷劑 CCB（例如 Amlodipine 氨氯地平/絡活喜、Nifedipine、Felodipine）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_5" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>長期服用安眠鎮靜西藥（例如 Zolpidem 唑吡坦、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮），自覺劑量越食越大。</span>
+              <input type="checkbox" name="dim5" value="MED_BETABLOCKER" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血壓或調心率藥：乙型受體阻斷劑 Beta-blocker（例如 Atenolol、Metoprolol、Bisoprolol 康忻、Carvedilol）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="Q5_6" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>睡前正服用肌肉鬆弛劑或鎮靜抗敏藥。</span>
+              <input type="checkbox" name="dim5" value="MED_DIURETIC" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血壓或消腫藥：利尿劑水丸（例如 Indapamide 吲達帕胺、Furosemide 呋塞米/速尿、Hydrochlorothiazide）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" id="med_warfarin" name="dim5" value="MED_WARFARIN" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
-              <span>正服用抗凝血薄血藥物（Warfarin 華法林，或新型口服抗凝藥 NOAC 如 Rivaroxaban 利伐沙班、Apixaban 阿哌沙班、Dabigatran 達比加群）。</span>
+              <input type="checkbox" name="dim5" value="MED_ACEI" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>降血壓藥：ACEI / ARB 血管緊張素抑制劑（例如 Lisinopril、Ramipril、Losartan 氯沙坦、Valsartan 纈沙坦）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" id="med_warfarin" name="dim5" value="MED_WARFARIN" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>薄血藥／抗凝血／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷/波立維、Warfarin 華法林、新型抗凝藥 NOAC/DOAC 如 Eliquis、Xarelto）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="MED_PPI" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>胃藥：質子泵抑制劑 PPI 或強效制酸劑（例如 Omeprazole 奧美拉唑/洛賽克、Pantoprazole 泮托拉唑、Nexium 耐信、Famotidine）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="MED_CALCIUM" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>骨質補充劑：無機碳酸鈣片（例如 Caltrate 挺立、Calcichew 等常見碳酸鈣片）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="MED_SEDATIVE" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>安眠鎮靜類：安眠藥／抗焦慮鎮靜劑（例如 Zolpidem 唑吡坦/安必恩、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮）。</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" name="dim5" value="MED_NSAIDS" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
+              <span>關節止痛抗炎藥：非類固醇消炎止痛藥 NSAIDs（例如 Ibuprofen 布洛芬、Diclofenac 雙氯芬酸/扶他林、Celebrex 塞來昔布）。</span>
             </label>
             <label class="option-label none-opt">
               <input type="checkbox" id="dim5_none" value="NONE" onchange="toggleDimNone('dim5')">
-              <span>🚫 沒有服用上述任何西藥</span>
+              <span>🚫 沒有長期服用上述任何西藥</span>
             </label>
           </div>
         </div>
@@ -1660,11 +1797,41 @@
         </div>
       </form>
     </section>
-
 <div id="gated-content" style="display: none;">
 
       <!-- Block C: 診斷結果判定 ✕ 最壞情況直擊 (100% 還原 Version 5 高質感架構) -->
       <section id="blockC" class="section-card">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+          <button type="button" onclick="resetHealthDecoderQuiz()" style="background: none; border: none; color: var(--color-text-sub); font-size: 13.5px; cursor: pointer; text-decoration: underline; padding: 4px 8px;">
+            🔄 重新自測（清除進度）
+          </button>
+        </div>
+        
+        <!-- 0. 多成因同分智能仲裁提示 (動態顯示) -->
+        <div id="tieBreakerAlert" class="tie-breaker-box" style="display: none;">
+          <div class="tie-breaker-header">
+            <div class="tie-badge">
+              <span>⚖️</span>
+              <span>臨床優先級仲裁提示（多於一個成因同分）</span>
+            </div>
+            <div class="tie-score-tag">最高同分：<span id="tieScoreValue">0</span> 分</div>
+          </div>
+          <div class="tie-breaker-body">
+            <div class="tie-notice-text">
+              系統評估發現您的填選結果中，<span id="tieCandidateNames"></span> 得分相同（並列最高分）。
+            </div>
+            <div class="tie-rationale-box">
+              <div class="tie-rationale-header">
+                <span class="tie-rationale-title">🔍 臨床優先處理考量原因：</span>
+              </div>
+              <div id="tieRationaleDesc" class="tie-rationale-desc"></div>
+            </div>
+            <div class="tie-recommend-conclusion">
+              💡 <strong>專家建議策略：</strong>為免多線干預分散身體調度能量，系統建議您第一階段<strong>優先集中處理【<span id="tieWinnerName" style="color: #0D9488; text-decoration: underline;"></span>】</strong>。待核心急迫風險穩固後，再依序針對其他次要成因進行固本調理。
+            </div>
+          </div>
+        </div>
+
         
         <!-- 1. 深色成因判定卡片 -->
         <div class="diagnosis-highlight-card">
@@ -2116,7 +2283,7 @@
 
   <!-- 前端完整核心數據庫與邏輯引擎 -->
   <script>
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_TGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
+    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
     const DUNCAN_WHATSAPP_PHONE = "85298788564";
 
     let savedScrollY = 0;
@@ -2261,25 +2428,30 @@
       }
     },
     "dim5": {
-      "Q5_1": {
-        "2": 2
+      "MED_STATIN": {},
+      "MED_METFORMIN": {
+        "2": 1
       },
-      "Q5_2": {
-        "2": 2
+      "MED_DIAB_OTHER": {
+        "2": 1
       },
-      "Q5_3": {
-        "3": 2
-      },
-      "Q5_4": {
-        "4": 2
-      },
-      "Q5_5": {
-        "5": 2
-      },
-      "Q5_6": {
+      "MED_CCB": {},
+      "MED_BETABLOCKER": {
         "1": 1
       },
-      "MED_WARFARIN": {}
+      "MED_DIURETIC": {
+        "1": 1
+      },
+      "MED_ACEI": {},
+      "MED_WARFARIN": {},
+      "MED_PPI": {
+        "3": 1
+      },
+      "MED_CALCIUM": {},
+      "MED_SEDATIVE": {
+        "5": 2
+      },
+      "MED_NSAIDS": {}
     }
   },
   "causesData": {
@@ -2622,6 +2794,13 @@
     "36283": "游離雙蛋白緩釋，防止夜間空腹蛋白質異化低血糖",
     "0368": "630nm/850nm 深層溫敷，放鬆自律神經引導深睡",
     "38207": "日間垂直正弦律動，釋放內啡肽重塑晝夜節律"
+  },
+  "arbitrationReasons": {
+    "1": "成因 01 牽涉上呼吸道塌陷閉塞引致夜間急性窒息與重度低氧血症，極易誘發夜間惡性心律不齊、急性心肌梗塞、隱匿性夜間中風及猝死，生命危急度最高，必須列為第一阻斷要務。",
+    "2": "成因 02 牽涉夜間反應性低血糖引發大腦緊急下達之交感兒茶酚胺暴衝（腎上腺素風暴），造成血壓劇烈震盪與心動過速，極易誘發冠狀動脈痙攣與夜間心絞痛。",
+    "3": "成因 03 牽涉胃內強酸反流至食道上段及咽喉，具引發反射性急性喉痙攣窒息與吸入性化學性肺炎之突發危險。",
+    "4": "成因 04 牽涉肝臟夜間解毒超載與微發炎細胞因子釋放，屬深層代謝系統性失衡，需優先於神經節律介入。",
+    "5": "成因 05 屬松果體褪黑素分泌延遲與中樞過度警覺，無急性器質器官損傷風險，屬於功能性神經節律失調。"
   }
 };
     const PRODUCTS_DB = [
@@ -2995,6 +3174,21 @@
     "desc": "30天血糖谷底震盪調養旗艦款。專利水溶 Q10 穩定夜間粒線體產能；微米液鈣鎂阻斷異常神經興奮；蝦青素保護胰島微血管；NMN 活化 SIRT1 逆轉胰島素阻抗防止夜間反應性低血糖；腸快適、益生菌與果蔬酵素建立平穩心腸軸；律動機與紅光帶平衡自律神經防止驚醒。"
   },
   {
+    "id": "NoctAwaken_Set_B2",
+    "code": "NoctAwaken_Set_B2",
+    "name": "半夜扎醒・30天源頭調養套裝 B2",
+    "topic": "半夜扎醒",
+    "causeId": 2,
+    "isWarfarinSafe": false,
+    "price": 6891,
+    "origPrice": 9114,
+    "save": 2223,
+    "discount": "76折",
+    "itemsSummary": "Nn 水溶性輔酶 Q10 x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ Nn 蝦青素 x 1 ＋ Nn 腸快適 x 2 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ SE 紅光光療按摩帶 x 1",
+    "desc": "30天血糖谷底震盪輕便理療款。專利水溶 Q10 穩定夜間粒線體產能；微米液鈣鎂阻斷異常神經興奮；蝦青素保護微血管；NMN 活化 SIRT1 逆轉胰島素阻抗防止夜間反應性低血糖；腸快適、長者益生菌與果蔬酵素建立平穩心腸軸；紅光帶雙光譜照射促進微循環。",
+    "img": "https://health-decoder.com/images/packages/NoctAwaken_Set_B2.webp"
+  },
+  {
     "id": "NoctAwaken_Set_C1",
     "code": "NoctAwaken_Set_C1",
     "name": "半夜扎醒・30天源頭調養套裝 C1",
@@ -3134,18 +3328,20 @@
     // =========================================================================
     // 問卷提交與成因仲裁邏輯 (含無徵狀警號攔截，徹底防止錯誤 Default 至成因一)
     // =========================================================================
-    function submitAssessment() {
-      const userName = document.getElementById('quizUserName').value.trim();
-      if (!userName) {
-        alert('請輸入你的稱呼');
-        document.getElementById('quizUserName').focus();
-        return;
-      }
+    function submitAssessment(isRestore = false) {
+      if (!isRestore) {
+        const userName = document.getElementById('quizUserName').value.trim();
+        if (!userName) {
+          alert('請輸入你的稱呼');
+          document.getElementById('quizUserName').focus();
+          return;
+        }
 
-      // 紅旗檢查 (若頁面有配置紅旗題組)
-      const rfChecked = document.querySelector('input[name="dim_redflag"]:checked');
-      if (rfChecked && rfChecked.value !== 'RF_NONE') {
-        alert('⚠️ 系統安全提示：偵測到您勾選了急性或危急紅旗徵候（如疑似深靜脈血栓或動脈急症）。為保障您的健康安全，請勿大力按揉，並請立即尋求急診或專科醫師進行正規醫療檢查！');
+        // 紅旗檢查 (若頁面有配置紅旗題組)
+        const rfChecked = document.querySelector('input[name="dim_redflag"]:checked');
+        if (rfChecked && rfChecked.value !== 'RF_NONE') {
+          alert('⚠️ 系統安全提示：偵測到您勾選了急性或危急紅旗徵候（如疑似深靜脈血栓或動脈急症）。為保障您的健康安全，請勿大力按揉，並請立即尋求急診或專科醫師進行正規醫療檢查！');
+        }
       }
 
       // 檢查是否全選「沒有上述情況」或完全未填具體徵狀
@@ -3154,8 +3350,10 @@
       const hasPositiveRadio = quizForm ? quizForm.querySelectorAll('input[type="radio"]:checked:not([value="NONE"]):not([value="RF_NONE"]):not([id$="_none"])').length > 0 : false;
 
       if (!hasPositiveCheck && !hasPositiveRadio) {
-        alert(`提示：您填選的項目中並無任何${TOPIC_CONFIG.topicShortName || '相關'}徵狀（或可能填選有誤）。若您確實有相關症狀，請重新核對並填選符合您身體狀況的選項。`);
-        document.getElementById('blockB').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (!isRestore) {
+          alert(`提示：您填選的項目中並無任何${TOPIC_CONFIG.topicShortName || '相關'}徵狀（或可能填選有誤）。若您確實有相關症狀，請重新核對並填選符合您身體狀況的選項。`);
+          document.getElementById('blockB').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
         return;
       }
 
@@ -3279,7 +3477,7 @@
       }
 
       // 異步發送自測問卷數據至 Apps Script 全站自測數據庫
-      if (APPS_SCRIPT_WEBHOOK_URL) {
+      if (!isRestore && APPS_SCRIPT_WEBHOOK_URL) {
         try {
           const quizData = {
             type: "quiz",
@@ -3310,15 +3508,42 @@
       // 渲染各區塊
       renderGatedContent(selectedCauseId, scores, tieBreakerInfo);
 
-      // 平滑滾動至 Block C (確保 DOM 佈局完成)
-      setTimeout(() => {
-        setTimeout(() => { scrollToId('blockC'); }, 80);
-      }, 60);
+      // 平滑滾動至 Block C (只有在非還原模式下滾動)
+      if (!isRestore) {
+        setTimeout(() => {
+          setTimeout(() => { scrollToId('blockC'); }, 80);
+        }, 60);
+      }
+
+      // 觸發自測狀態儲存
+      if (window.triggerHealthDecoderSave) {
+        window.triggerHealthDecoderSave();
+      }
     }
 
-    function renderGatedContent(causeId, scores) {
+    function renderGatedContent(causeId, scores, tieBreakerInfo) {
       const cData = CAUSES_DATA[causeId];
       if (!cData) return;
+
+      // 0. 同分仲裁提報卡片 (Tie Breaker Alert)
+      const tieAlertEl = document.getElementById('tieBreakerAlert');
+      if (tieAlertEl) {
+        if (tieBreakerInfo && tieBreakerInfo.isTie) {
+          tieAlertEl.style.display = 'block';
+          const scoreEl = document.getElementById('tieScoreValue');
+          if (scoreEl) scoreEl.innerText = tieBreakerInfo.score;
+          const namesEl = document.getElementById('tieCandidateNames');
+          if (namesEl) {
+            namesEl.innerHTML = tieBreakerInfo.candidateNames.map(n => `<span class="tie-cause-pill">${n}</span>`).join('、');
+          }
+          const descEl = document.getElementById('tieRationaleDesc');
+          if (descEl) descEl.innerText = tieBreakerInfo.rationale;
+          const winnerEl = document.getElementById('tieWinnerName');
+          if (winnerEl) winnerEl.innerText = tieBreakerInfo.winnerName;
+        } else {
+          tieAlertEl.style.display = 'none';
+        }
+      }
 
       // 1. Block C
       document.getElementById('diagPrimaryTitle').innerText = `【${cData.name}】`;
@@ -3433,10 +3658,12 @@
         if (!allowedProductIds.includes(prod.id)) return;
         const card = document.createElement('div');
         card.className = 'product-single-card';
+        // Block G 產品標題純淨無份量後綴，份量提示只在 Block H 呈現
+        const cleanName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
         const benefitText = (TOPIC_CONFIG.customShortDesc && TOPIC_CONFIG.customShortDesc[prod.id]) || prod.shortDesc || "從源頭深度調理代謝平衡";
         card.innerHTML = `
           <div class="p-card-top">
-            <div class="p-card-name">${prod.name}</div>
+            <div class="p-card-name">${cleanName}</div>
             <button type="button" onclick="openMechanismModal('${prod.id}', ${causeId})" class="btn-more-b">
               想知更多
             </button>
@@ -3454,13 +3681,22 @@
       // 1. 單品選購列表
       const singleContainer = document.getElementById('block-h-single-products');
       singleContainer.innerHTML = '';
+      const DOSAGE_BADGES = {
+        '34307': '15天份量',
+        '34316': '15天份量',
+        '36246': '15天份量',
+        '36248': '10天份量',
+        '36283': '10天份量'
+      };
       PRODUCTS_DB.forEach(prod => {
         if (!allowedProductIds.includes(prod.id)) return;
         const row = document.createElement('div');
         row.className = 'h-single-item-row';
+        const badge = DOSAGE_BADGES[prod.id] ? ` <span class="dosage-tag">${DOSAGE_BADGES[prod.id]}</span>` : '';
+        const displayTitle = `${prod.name}${badge}`;
         row.innerHTML = `
           <div class="h-item-info">
-            <span class="h-item-title">${prod.name}</span>
+            <span class="h-item-title">${displayTitle}</span>
             <span class="h-item-price">HKD ${prod.price.toLocaleString()}</span>
           </div>
           <button type="button" onclick="openProductModal('${prod.id}')" class="btn-detail-h">
@@ -3507,6 +3743,9 @@
 
       cart = {};
       recalculateCart();
+      if (window.triggerHealthDecoderSave) {
+        window.triggerHealthDecoderSave();
+      }
     }
 
     // =========================================================================
@@ -3877,6 +4116,9 @@
       }
 
       window.open(waUrl, '_blank');
+      if (window.clearHealthDecoderSessionOnSuccess) {
+        window.clearHealthDecoderSessionOnSuccess();
+      }
     }
 
     function openModalWithLock(title, contentHtml) {
@@ -4025,7 +4267,8 @@
           </div>
         </div>
       `;
-      openModalWithLock(`${prod.name} · 調理機轉`, html);
+      const cleanModalName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
+      openModalWithLock(`${cleanModalName} · 調理機轉`, html);
     }
 
     // Pop-up B: 30天套裝明細彈窗 (完整呈現套裝所含單品與機轉)
@@ -4082,6 +4325,178 @@
         targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
+
+    /* ==========================================================================
+       Health Decoder · Session Recovery Manager (Lean v2.1 - Zero Direct Identifiers)
+       ========================================================================== */
+    (function() {
+      if (!window.sessionStorage) return;
+
+      const SCHEMA_VERSION = 1;
+      const STORAGE_KEY = 'HD_STATE_' + (window.TOPIC_CONFIG && window.TOPIC_CONFIG.topicId ? window.TOPIC_CONFIG.topicId : 'topic');
+      let saveTimer = null;
+
+      function saveState() {
+        try {
+          const isUnlocked = document.getElementById('gated-content') &&
+                             document.getElementById('gated-content').style.display === 'block';
+
+          const radios = {};
+          document.querySelectorAll('#blockB input[type="radio"]:checked').forEach(r => {
+            radios[r.name] = r.value;
+          });
+
+          const checkboxes = {};
+          document.querySelectorAll('#blockB input[type="checkbox"]:checked').forEach(c => {
+            if (!checkboxes[c.name]) checkboxes[c.name] = [];
+            checkboxes[c.name].push(c.value);
+          });
+
+          const cartItems = {};
+          if (window.cart) {
+            for (let k in window.cart) {
+              if (window.cart[k] && window.cart[k].qty > 0) {
+                cartItems[k] = window.cart[k].qty;
+              }
+            }
+          }
+
+          const payload = {
+            v: SCHEMA_VERSION,
+            ts: Date.now(),
+            isUnlocked: isUnlocked,
+            answers: { radios, checkboxes },
+            cartItems: cartItems
+          };
+
+          sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        } catch (e) {}
+      }
+
+      function triggerAutoSave() {
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(saveState, 300);
+      }
+
+      function restoreState() {
+        try {
+          const raw = sessionStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+
+          const state = JSON.parse(raw);
+          if (!state || state.v !== SCHEMA_VERSION || (Date.now() - state.ts > 86400000)) {
+            sessionStorage.removeItem(STORAGE_KEY);
+            return;
+          }
+
+          if (state.answers) {
+            if (state.answers.radios) {
+              for (let name in state.answers.radios) {
+                const val = state.answers.radios[name];
+                try {
+                  const r = document.querySelector(`#blockB input[type="radio"][name="${CSS.escape(name)}"][value="${CSS.escape(val)}"]`);
+                  if (r) r.checked = true;
+                } catch (err) {}
+              }
+            }
+            if (state.answers.checkboxes) {
+              for (let name in state.answers.checkboxes) {
+                const vals = state.answers.checkboxes[name];
+                vals.forEach(val => {
+                  try {
+                    const c = document.querySelector(`#blockB input[type="checkbox"][name="${CSS.escape(name)}"][value="${CSS.escape(val)}"]`);
+                    if (c) c.checked = true;
+                  } catch (err) {}
+                });
+              }
+            }
+          }
+
+          if (document.getElementById('med_warfarin')) {
+            window.isWarfarinUser = document.getElementById('med_warfarin').checked;
+          }
+
+          const quizForm = document.getElementById('assessmentForm') || document.getElementById('blockB');
+          const hasPositiveCheck = quizForm ? quizForm.querySelectorAll('input[type="checkbox"]:checked:not([value="NONE"]):not([id$="_none"])').length > 0 : false;
+          const hasPositiveRadio = quizForm ? quizForm.querySelectorAll('input[type="radio"]:checked:not([value="NONE"]):not([value="RF_NONE"]):not([id$="_none"])').length > 0 : false;
+
+          if (state.isUnlocked && (hasPositiveCheck || hasPositiveRadio) && typeof window.submitAssessment === 'function') {
+            window.submitAssessment(true);
+
+            if (state.cartItems && Object.keys(state.cartItems).length > 0) {
+              window.cart = {};
+              for (let k in state.cartItems) {
+                const qty = state.cartItems[k];
+                if (qty <= 0) continue;
+
+                let itemPrice = 0;
+                let itemTitle = '';
+
+                if (k.startsWith('bun_')) {
+                  const bId = k.replace('bun_', '');
+                  const bObj = (window.BUNDLES_DB || []).find(b => b.id === bId);
+                  if (bObj) { itemPrice = bObj.price; itemTitle = bObj.name; }
+                } else if (k.startsWith('prod_')) {
+                  const pId = k.replace('prod_', '');
+                  const pObj = (window.PRODUCTS_DB || []).find(p => p.id === pId);
+                  if (pObj) { itemPrice = pObj.price; itemTitle = pObj.name; }
+                }
+
+                if (itemTitle) {
+                  window.cart[k] = { qty: qty, price: itemPrice, title: itemTitle };
+                  const valEl = document.getElementById('qty_' + k);
+                  if (valEl) valEl.innerText = qty;
+                }
+              }
+
+              if (typeof window.recalculateCart === 'function') {
+                window.recalculateCart();
+              }
+            }
+
+            showRestoreToast();
+          }
+        } catch (e) {
+          console.log('Session restore skipped:', e);
+        }
+      }
+
+      function showRestoreToast() {
+        let t = document.getElementById('hd-restore-toast');
+        if (!t) {
+          t = document.createElement('div');
+          t.id = 'hd-restore-toast';
+          t.className = 'restore-toast';
+          t.innerText = '✓ 已為您自動恢復上一個有效狀態';
+          document.body.appendChild(t);
+        }
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2000);
+      }
+
+      window.resetHealthDecoderQuiz = function() {
+        if (confirm('重新開始後，今次填寫的體徵進度與已選項目將會清除。確定要重新開始嗎？')) {
+          sessionStorage.removeItem(STORAGE_KEY);
+          window.location.reload();
+        }
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        restoreState();
+
+        const blockB = document.getElementById('blockB');
+        if (blockB) {
+          blockB.addEventListener('change', triggerAutoSave);
+        }
+      });
+
+      window.addEventListener('beforeunload', saveState);
+
+      window.triggerHealthDecoderSave = triggerAutoSave;
+      window.clearHealthDecoderSessionOnSuccess = function() {
+        sessionStorage.removeItem(STORAGE_KEY);
+      };
+    })();
   </script>
 </body>
 </html>

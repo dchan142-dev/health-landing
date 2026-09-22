@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Health Decoder｜午後餐後睏倦專題 · 從源頭除錯</title>
+    <title>Health Decoder｜午後餐後睏倦專題 · 從源頭除錯</title>
+  <meta name="description" content="食飽飯成日昏昏欲睡，係生理自然定係代謝警報？ 搞清楚源頭，先可以治本。 工程師邏輯 ✕ 代謝底層解碼，3分鐘初步自我診斷。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Health Decoder｜午後餐後睏倦專題 · 從源頭除錯">
+  <meta property="og:description" content="食飽飯成日昏昏欲睡，係生理自然定係代謝警報？ 搞清楚源頭，先可以治本。 工程師邏輯 ✕ 代謝底層解碼，3分鐘初步自我診斷。">
+  <meta property="og:url" content="https://health-decoder.com/foodcoma/">
+  <meta property="og:image" content="https://health-decoder.com/images/og-foodcoma.webp">
+  <link rel="icon" type="image/x-icon" href="https://health-decoder.com/favicon.ico">
   <style>
 
 
@@ -1326,101 +1333,6 @@
       height: 100%;
       border: 0;
     }
-  
-    /* 多成因同分仲裁卡片樣式 (Tie Breaker Alert) */
-    .tie-breaker-box {
-      background: linear-gradient(135deg, #F0FDFA 0%, #E6FFFA 100%);
-      border: 2px solid #0D9488;
-      border-radius: var(--radius-lg, 16px);
-      padding: 22px 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.12), 0 8px 10px -6px rgba(13, 148, 136, 0.08);
-      animation: fadeIn 0.4s ease-in-out;
-    }
-    .tie-breaker-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed rgba(13, 148, 136, 0.35);
-    }
-    .tie-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 800;
-      color: #0F766E;
-      letter-spacing: 0.3px;
-    }
-    .tie-score-tag {
-      background: #0D9488;
-      color: #FFFFFF;
-      font-size: 13.5px;
-      font-weight: 700;
-      padding: 4px 14px;
-      border-radius: 20px;
-    }
-    .tie-notice-text {
-      font-size: 15.5px;
-      line-height: 1.7;
-      color: #134E4A;
-      margin-bottom: 14px;
-    }
-    .tie-cause-pill {
-      display: inline-block;
-      background: rgba(13, 148, 136, 0.12);
-      color: #0F766E;
-      border: 1px solid rgba(13, 148, 136, 0.3);
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-weight: 800;
-      margin: 2px 4px;
-    }
-    .tie-rationale-box {
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(13, 148, 136, 0.25);
-      border-left: 4px solid #0D9488;
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin-bottom: 14px;
-    }
-    .tie-rationale-header {
-      font-size: 14.5px;
-      font-weight: 800;
-      color: #0F766E;
-      margin-bottom: 6px;
-    }
-    .tie-rationale-desc {
-      font-size: 15px;
-      line-height: 1.7;
-      color: #334155;
-    }
-    .tie-recommend-conclusion {
-      font-size: 14.5px;
-      line-height: 1.65;
-      color: #0F766E;
-      background: rgba(13, 148, 136, 0.08);
-      padding: 10px 14px;
-      border-radius: 8px;
-    }
-
-      .dosage-tag {
-      display: inline-block;
-      background: #FEF3C7;
-      color: #B45309;
-      border: 1px solid #FDE68A;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 6px;
-      margin-left: 6px;
-      vertical-align: middle;
-      line-height: 1.4;
-    }
   </style>
 </head>
 <body>
@@ -1693,68 +1605,42 @@
           </div>
         </div>
 
-        <!-- 第 5 組｜常規醫療專科門診門診常見西藥審查【可多選】 -->
-                <!-- 組別 5：第 5 組｜現行慢性病處方西藥審查【可多選】 -->
-        <div class="quiz-group" style="background: #FFFBEB; border: 1.5px solid #FDE68A;">
-          <div class="quiz-group-header" style="border-bottom-color: #FDE68A;">
-            <div class="quiz-num" style="background: #F59E0B; color: #FFFFFF;">5</div>
+        <!-- 第 5 組｜香港公立醫院門診常見西藥審查【可多選】 -->
+        <div class="quiz-group">
+          <div class="quiz-group-header">
+            <div class="quiz-num">5</div>
             <div>
-              <div class="quiz-title" style="color: #92400E;">第 5 組｜現行慢性病處方西藥審查【可多選】</div>
-              <div style="font-size: 13px; color: #B45309; margin-top: 4px;">盤點長期服用之常規處方西藥，評估餐後血液動力學與升糖調控干擾（若無服用請選最後一項）</div>
+              <div class="quiz-title">第 5 組｜香港醫院管理局 HA 門診常見慢性西藥審查【可多選】</div>
             </div>
           </div>
           <div class="options-grid">
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_STATIN" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>降膽固醇藥：他汀類 Statins（例如 Atorvastatin 阿托伐他汀/立普妥、Rosuvastatin 瑞舒伐他汀/可妥、Simvastatin 辛伐他汀）。</span>
+              <input type="checkbox" name="dim5" value="Q5_1" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>現正服用磺醯脲類促胰島素分泌降糖藥（如 Gliclazide、Glimepiride）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_METFORMIN" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止、二甲雙胍）。</span>
+              <input type="checkbox" name="dim5" value="Q5_2" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>現正服用格列奈類促胰島素分泌降糖藥（如 Repaglinide）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_DIAB_OTHER" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>降血糖藥：其他類別（例如 SGLT-2 排糖藥、磺醯尿素類 Gliclazide 格列齊特、DPP-4 抑制劑、注射胰島素等）。</span>
+              <input type="checkbox" name="dim5" value="Q5_3" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>現正注射外源性胰島素（Insulin）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_CCB" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>降血壓藥：鈣離子阻斷劑 CCB（例如 Amlodipine 氨氯地平/絡活喜、Nifedipine、Felodipine）。</span>
+              <input type="checkbox" name="dim5" value="Q5_4" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>現正服用利尿劑類降血壓藥物（如 Indapamide、Furosemide 水丸）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_BETABLOCKER" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>降血壓或調心率藥：乙型受體阻斷劑 Beta-blocker（例如 Atenolol、Metoprolol、Bisoprolol 康忻、Carvedilol）。</span>
+              <input type="checkbox" name="dim5" value="Q5_5" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>現正服用鈣離子通道阻斷劑 CCB 類降血壓藥物（如 Amlodipine 氨氯地平）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_DIURETIC" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>降血壓或消腫藥：利尿劑水丸（例如 Indapamide 吲達帕胺、Furosemide 呋塞米/速尿、Hydrochlorothiazide）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_ACEI" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>降血壓藥：ACEI / ARB 血管緊張素抑制劑（例如 Lisinopril、Ramipril、Losartan 氯沙坦、Valsartan 纈沙坦）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" id="med_warfarin" name="dim5" value="MED_WARFARIN" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>薄血藥／抗凝血／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷/波立維、Warfarin 華法林、新型抗凝藥 NOAC/DOAC 如 Eliquis、Xarelto）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_PPI" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>胃藥：質子泵抑制劑 PPI 或強效制酸劑（例如 Omeprazole 奧美拉唑/洛賽克、Pantoprazole 泮托拉唑、Nexium 耐信、Famotidine）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_CALCIUM" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>骨質補充劑：無機碳酸鈣片（例如 Caltrate 挺立、Calcichew 等常見碳酸鈣片）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_SEDATIVE" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>安眠鎮靜類：安眠藥／抗焦慮鎮靜劑（例如 Zolpidem 唑吡坦/安必恩、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim5" value="MED_NSAIDS" class="dim5-item" onclick="if(document.getElementById('dim5_none')) document.getElementById('dim5_none').checked = false;">
-              <span>關節止痛抗炎藥：非類固醇消炎止痛藥 NSAIDs（例如 Ibuprofen 布洛芬、Diclofenac 雙氯芬酸/扶他林、Celebrex 塞來昔布）。</span>
+              <input type="checkbox" id="med_warfarin" name="dim5" value="MED_WARFARIN" class="dim5-item" onclick="document.getElementById('dim5_none').checked = false;">
+              <span>現正服用華法林 Warfarin 或新型口服抗凝血藥 NOAC / DOAC。</span>
             </label>
             <label class="option-label none-opt">
               <input type="checkbox" id="dim5_none" value="NONE" onchange="toggleDimNone('dim5')">
-              <span>🚫 沒有長期服用上述任何西藥</span>
+              <span>🚫 目前無服用上述任何西藥</span>
             </label>
           </div>
         </div>
@@ -1771,32 +1657,6 @@
 
       <!-- Block C: 診斷結果判定 ✕ 最壞情況直擊 (100% 還原 Version 5 高質感架構) -->
       <section id="blockC" class="section-card">
-        
-        <!-- 0. 多成因同分智能仲裁提示 (動態顯示) -->
-        <div id="tieBreakerAlert" class="tie-breaker-box" style="display: none;">
-          <div class="tie-breaker-header">
-            <div class="tie-badge">
-              <span>⚖️</span>
-              <span>臨床優先級仲裁提示（多於一個成因同分）</span>
-            </div>
-            <div class="tie-score-tag">最高同分：<span id="tieScoreValue">0</span> 分</div>
-          </div>
-          <div class="tie-breaker-body">
-            <div class="tie-notice-text">
-              系統評估發現您的填選結果中，<span id="tieCandidateNames"></span> 得分相同（並列最高分）。
-            </div>
-            <div class="tie-rationale-box">
-              <div class="tie-rationale-header">
-                <span class="tie-rationale-title">🔍 臨床優先處理考量原因：</span>
-              </div>
-              <div id="tieRationaleDesc" class="tie-rationale-desc"></div>
-            </div>
-            <div class="tie-recommend-conclusion">
-              💡 <strong>專家建議策略：</strong>為免多線干預分散身體調度能量，系統建議您第一階段<strong>優先集中處理【<span id="tieWinnerName" style="color: #0D9488; text-decoration: underline;"></span>】</strong>。待核心急迫風險穩固後，再依序針對其他次要成因進行固本調理。
-            </div>
-          </div>
-        </div>
-
         
         <!-- 1. 深色成因判定卡片 -->
         <div class="diagnosis-highlight-card">
@@ -2248,7 +2108,7 @@
 
   <!-- 前端完整核心數據庫與邏輯引擎 -->
   <script>
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
+    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_TGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
     const DUNCAN_WHATSAPP_PHONE = "85298788564";
 
     let savedScrollY = 0;
@@ -2408,32 +2268,23 @@
       }
     },
     "dim5": {
-      "MED_STATIN": {},
-      "MED_METFORMIN": {
-        "1": 1
+      "Q5_1": {
+        "1": 2
       },
-      "MED_DIAB_OTHER": {
-        "1": 1
+      "Q5_2": {
+        "1": 2
       },
-      "MED_CCB": {
-        "3": 1
+      "Q5_3": {
+        "1": 3,
+        "hardcore": 1
       },
-      "MED_BETABLOCKER": {
-        "3": 1
+      "Q5_4": {
+        "4": 2
       },
-      "MED_DIURETIC": {
-        "3": 1
+      "Q5_5": {
+        "4": 2
       },
-      "MED_ACEI": {},
-      "MED_WARFARIN": {},
-      "MED_PPI": {
-        "4": 1
-      },
-      "MED_CALCIUM": {},
-      "MED_SEDATIVE": {
-        "2": 1
-      },
-      "MED_NSAIDS": {}
+      "MED_WARFARIN": {}
     }
   },
   "causesData": {
@@ -2441,9 +2292,9 @@
       "id": 1,
       "name": "成因 01：代謝供能震盪型",
       "tag": "餐後血糖與胰島素波動相關 ✕ 反應性低血糖 ✕ 粒線體產能斷層",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228984721",
+      "vimeoE": "1228984674",
+      "vimeoF": "1228984661",
       "worstCase": "飯後心慌虛脫只係開始！最大鑊係胰島素長期過度代償引爆代謝綜合症與微血管病變，全身器官加速老化衰竭，最後成為屋企人沉重嘅負累！",
       "bio": "精製碳水化合物進入消化道迅速水解吸收，動脈血糖急速攀升。胰島素敏感度下降嘅體質，胰島 β 細胞出現延遲兼過量分泌胰島素嘅代償反應。周邊肌肉組織大量攝取葡萄糖，隨住腸道吸收高峰過去，血液葡萄糖水平出現陡峭滑落。大腦神經元高度依賴恆常穩定嘅動脈血糖供應，葡萄糖可利用度於短時間內急劇下跌，即刻刺激交感自律神經系統發出反向調節警報，釋放大量腎上腺素，引發心慌心悸、全身冒冷汗、手指細微震顫以及強烈嘅虛脫飢餓感。",
       "eng": "好似供電網絡負載調控出現過度震盪。用電需求瞬間暴增，控制中心安全反饋機制反應過度，猛烈加大發電輸出；外圍用電高峰一過，超額發電令電力網絡瞬間過載，系統緊急跳掣大幅削減輸出，導致主幹線電壓瞬間斷崖式下跌，終端精密儀器因供電電壓不穩而短暫停機。",
@@ -2506,9 +2357,9 @@
       "id": 2,
       "name": "成因 02：中樞神經傳導物質催眠型",
       "tag": "色胺酸與大型中性胺基酸比例變化 ✕ LAT1 載體競爭失衡 ✕ 中樞催眠放鬆",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228984656",
+      "vimeoE": "1228984596",
+      "vimeoF": "1228984593",
       "worstCase": "眼皮沉重只係前奏！最大鑊係中樞神經傳導物質長期失衡，大腦提前退化、記憶力衰退，嚴重干擾自理生活，最後成為屋企人沉重嘅負累！",
       "bio": "食物蛋白質水解產生嘅色胺酸，係大腦合成血清素同褪黑激素嘅關鍵原料。色胺酸穿越血腦屏障必須透過大型中性胺基酸轉運載體 LAT1，平時同白胺酸、異白胺酸等支鏈胺基酸 BCAA 共同競爭同一個載體通道。進食高碳水化合物午餐刺激體內釋放大量胰島素，促使周邊骨骼肌優先攝取利用支鏈胺基酸，大部分游離色胺酸依然留存喺血漿之中。血漿入面色胺酸相對於其他大分子中性胺基酸嘅比例顯著飆升，穿越血腦屏障進入中樞神經嘅效率大幅提升，喺中樞縫核迅速轉化為 5-羥色胺，啟動深層催眠與神經放鬆機制，帶來眼皮沉重難以睜開、無心慌冷汗嘅安詳嗜睡體感。",
       "eng": "好似內部通訊專線嘅頻寬極之有限，平日多種信號封包一齊排隊傳輸；突然一道指令將其他大型數據封包全部導流去周邊備份伺服器，令特定嘅減速休眠代碼獨佔整條通訊頻寬，長驅直入中央處理器並強制執行深度待機模式。",
@@ -2570,9 +2421,9 @@
       "id": 3,
       "name": "成因 03：食慾素覺醒調節型",
       "tag": "下視丘食慾素神經元代謝反饋 ✕ 雙孔鉀通道超極化 ✕ 覺醒電驛跳掣",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228984588",
+      "vimeoE": "1228984526",
+      "vimeoF": "1228984495",
       "worstCase": "思維遲緩只係警號！最大鑊係下視丘覺醒網絡長期處於超極化休眠，自律神經調節崩潰，全身機能代謝斷層，最後成為屋企人沉重嘅負累！",
       "bio": "下視丘外側區嘅食慾素神經元網絡，係維持大腦清醒度、工作幹勁同自律神經張力嘅總控制中樞。進食純高升糖精製澱粉或者含糖飲品，血液葡萄糖濃度急升。細胞外葡萄糖分子迅速活化食慾素神經元細胞膜上嘅雙孔鉀離子通道，誘發大量鉀離子向外流出，造成神經元細胞膜呈現過度超極化狀態，直接抑制食慾素神經元發放自發動作電位。缺乏蛋白質水解胺基酸提供興奮訊號予以拮抗，大腦皮質覺醒訊號瞬間中斷，自主神經傳導張力驟降，顯現出思維停滯泥濘、工作動機歸零同埋四肢肌肉鬆軟無力嘅沉重體感。",
       "eng": "好似總控制台嘅覺醒電驛受到外部過載能量訊號觸發，安全保險絲瞬間熔斷跳掣，迫使成部原本全速運作嘅中央動力系統，即時由高速運轉強制切換至最低怠速保壓狀態。",
@@ -2634,9 +2485,9 @@
       "id": 4,
       "name": "成因 04：餐後低血壓型",
       "tag": "自主神經心血管代償調節相關 ✕ 腸繫膜血管擴張分流 ✕ 腦動脈灌注不足",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228984481",
+      "vimeoE": "1228984440",
+      "vimeoF": "1228984407",
       "worstCase": "起身眼前發黑只係前兆！最大鑊係餐後血壓斷崖式驟降引發實質性暈厥跌倒骨折，或心腦血管灌注枯竭誘發中風，最後成為屋企人沉重嘅負累！",
       "bio": "進食之後消化道局部黏膜釋放大量血管活性胜肽，腸繫膜動脈血管床顯著舒張充血以滿足消化吸收需求，高達三分之一循環血容量迅速集中至腹腔。健康生理狀態依賴頸動脈竇同主動脈弓感壓反射即時興奮交感神經，透過提升心輸出量同收縮外周血管嚟維持大腦灌注壓。長者、動脈硬化或者長期服用降血壓藥物人士，血管平滑肌反應遲緩兼感壓反射靈敏度下降，周邊阻力未能及時代償，餐後收縮壓驟降超過 20 mmHg，導致腦部動脈灌注壓不足，起身企喺度嗰一瞬間出現頭暈眼花、眼前發黑同全身疲軟無力。",
       "eng": "好似成棟大廈嘅液壓供水管網，底層大型排污灌溉閥門突然全開造成大量分流，而樓頂嘅二次加壓泵反應遲鈍未能即時啟動加壓，導致高層水龍頭瞬間水壓暴跌，出現斷流乾涸。",
@@ -2656,27 +2507,28 @@
       ],
       "warn": "慢慢企起身只係治標，血管感壓反射遲鈍同心血管代償不足先係核心！放任大腦動脈缺血失壓，難道要等到跌倒骨折臥床、連去廁所都要人扶，先嚟後悔做家人負累？",
       "nutrition": [
-        "1. <strong>NAD+ 前驅物（天然酵母 NMN）與水溶性輔酶 Q10：</strong>充盈心肌與大腦細胞質 NAD+ 水平，深入活化粒線體呼吸鏈 Complex I–III 產能，雙引擎強化心肌每搏輸出量（心輸出量代償）以抵抗消化分流，並提升腦神經在低灌注下的耐缺氧自癒力。",
+        "1. <strong>高活性水溶性輔酶 Q10：</strong>為心肌粒線體提供充足 ATP，增強心肌每搏輸出量代償，在消化分流期間輸出足夠心輸出量。（⚠️ 本成因嚴禁使用 NMN，避免促 NO 血管過度擴張誘發暈厥）",
         "2. <strong>微米化有機鈣鎂與維他命 D3：</strong>調節平滑肌細胞膜鈉-鉀-ATP 酶與鈣通道平衡，穩定交感感壓神經反射，防止外周血管張力崩潰。",
-        "3. <strong>心血管微循環與心腸源頭調養（雙軌分流）：</strong>未服薄血藥者配置高活性天然水蛭素與納豆激酶（強心血管通，含專利水溶 Q10）溶解微血管泥狀血栓；長期服用抗凝薄血藥人士嚴格替換為心腸軸屏障修復（專利後生元腸快適 ＋ 果蔬酵素 ＋ 長者雙歧桿菌）延緩胃排空並削平腹腔搶血波峰，協同天然蝦青素穿透血腦屏障抗氧化，100% 零抗凝西藥衝突。",
-        "4. <strong>實證物理理療（全身垂直律動 WBVV ＋ 紅光帶 PBM）：</strong>被動激發小腿肌肉靜脈竇泵血回心；近紅外線改善自主神經反射路徑與末梢微循環。"
+        "3. <strong>心血管微循環疏通（雙軌分流）：</strong>未服薄血藥者配置高活性天然水蛭素與納豆激酶；長期服用抗凝薄血藥人士嚴格替換為雙極性跨膜天然蝦青素，100% 零抗凝西藥衝突。",
+        "4. <strong>心腸軸代謝微環境優化（果蔬酵素 ＋ 長者益生菌）：</strong>降低 TMAO 血管毒素，消除血管平滑肌微發炎，優化大動脈順應性。",
+        "5. <strong>實證物理理療（全身垂直律動 WBVV ＋ 紅光帶 PBM）：</strong>被動激發小腿肌肉靜脈竇泵血回心；近紅外線改善自主神經反射路徑。"
       ],
       "emotionQuote": "用極小嘅代價，從源頭強化血管平滑肌張力同心肌泵血動能，換返起步穩陣踏實同終生自理，唔使成為負累，安心享受生活。",
       "allowedProducts": [
-        "36282",
-        "36281",
+        "34278",
         "34316",
+        "36282",
+        "36248",
+        "34331",
         "0368",
         "38207"
       ],
       "allowedProductsWarfarin": [
         "34278",
+        "34316",
         "34269",
         "36248",
         "34331",
-        "34307",
-        "36281",
-        "34316",
         "0368",
         "38207"
       ],
@@ -2694,7 +2546,7 @@
           "age": "71歲",
           "role": "退休長者",
           "issue": "飯後起身企喺度眼前一黑，差啲跌倒，測量收縮壓跌咗 25 mmHg。",
-          "solution": "餐前飲溫水 ＋ 酵母 NMN ＋ 強心血管通 ＋ 垂直律動機",
+          "solution": "餐前飲溫水 ＋ 水溶 Q10 ＋ 微米液鈣鎂 ＋ 垂直律動機",
           "quote": "起身步履穩陣踏實，不再頭暈發黑，出街行行企企安心好多！"
         },
         {
@@ -2702,7 +2554,7 @@
           "age": "65歲",
           "role": "服降壓藥長者",
           "issue": "大餐後經常心跳代償加速，胸口翳悶全身發軟，擔心外出跌倒。",
-          "solution": "少量多餐 ＋ 酵母 NMN ＋ 蝦青素（薄血避險）＋ 腸道益生菌",
+          "solution": "少量多餐 ＋ 踝泵運動 ＋ 蝦青素（薄血避險）＋ 腸道益生菌",
           "quote": "飯後心跳保持平靜，雙腳踏實有力，同朋友去飲茶唔使再擔驚受怕！"
         }
       ]
@@ -2711,9 +2563,9 @@
       "id": 5,
       "name": "成因 05：晝夜節律與睡眠不足疊加型",
       "tag": "午後節律低谷與睡眠債 ✕ 突觸間隙腺苷沉積 ✕ 中樞覺醒網絡失守",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228984405",
+      "vimeoE": "1228984350",
+      "vimeoF": "1228984343",
       "worstCase": "狂飲咖啡只係遮掩！最大鑊係深層睡眠長期剝奪引爆神經毒性蛋白堆積，加速大腦結構性早衰與認知功能障礙，最後成為屋企人沉重嘅負累！",
       "bio": "按照睡眠調節雙過程生理模型，日間清醒程度受恆定睡眠壓力 Process S 同晝夜節律 Process C 共同調控。清醒狀態下大腦神經元持續消耗 ATP，代謝產物腺苷（Adenosine）不斷累積喺突觸間隙形成持續上升嘅睡眠壓力。下視丘視交叉上核 SCN 生物鐘喺午後時段本來就存在自然嘅警覺度低谷。前一晚睡眠時間少過 6 小時或者伴隨睡眠呼吸障礙，未清除嘅腺苷持續佔據受體產生神經抑制；進食後副交感神經張力進一步上升，三股生理抑制力量疊加共振，誘發中樞覺醒網絡全面失守，呈現出無法抗拒嘅崩潰性昏睡。",
       "eng": "好似電腦主機內部運行記憶體被大量未清理嘅背景垃圾程序佔滿，同時遇上系統排程每日固定嘅低能耗休眠窗口，進食帶來嘅運算負載湧入，直接造成記憶體溢出，觸發系統強制進入深度睡眠防護機制。",
@@ -2776,9 +2628,9 @@
       "id": 6,
       "name": "成因 06：餐後發炎反應型",
       "tag": "高脂代謝內毒素刺激 ✕ 腸漏 LPS 滲漏 ✕ 微血管內皮炎與中樞腦霧",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228984342",
+      "vimeoE": "1228984281",
+      "vimeoF": "1228984263",
       "worstCase": "腦霧發僵只係開始！最大鑊係腸漏引爆全身慢性低度微發炎風暴，微血管內皮全面硬化衰退，演變成嚴重慢病，最後成為屋企人沉重嘅負累！",
       "bio": "進食高飽和脂肪、劣質油炸或過度加工食品，消化道大量分泌膽汁酸並加速形成乳糜微粒。腸道黏膜上皮緊密連接蛋白受損嘅個體，腸腔革蘭氏陰性菌細胞壁上嘅脂多醣（LPS，內毒素）伴隨脂質吸收微量滲漏進入血液循環，引發餐後短暫性內毒素血症。血液中嘅 LPS 活化血管內皮細胞與周邊免疫細胞表面嘅 Toll 樣受體 TLR4，促使身體釋放腫瘤壞死因子 TNF-α 等促炎細胞因子。發炎訊號經由迷走神經傳入或穿越血腦屏障活化中樞小膠質細胞，觸發類似病態倦怠行為（Sickness Behavior）嘅神經反應，造成大腦嚴重泥濘腦霧與周身發僵沉重體感。",
       "eng": "好似高壓液壓主系統嘅精密濾網出現微細縫隙破損，劣質油料入面嘅微米級雜質顆粒直接滲漏進入主油路，引發管線各處傳感器接連鳴響警報，中央處理模組即刻啟動限速自保防護機制。",
@@ -2843,23 +2695,15 @@
     "36246": "平穩血糖吸收峰值，阻斷餐後反應性低血糖震盪",
     "36283": "高密度游離 BCAA，排斥過量色胺酸入腦催眠",
     "34278": "24小時維持呼吸鏈產能，防止餐後粒線體能量斷層",
-    "36281": "激活粒線體呼吸鏈，修復心腦產能與大腦耐缺氧",
+    "36281": "激活 SIRT1/AMPK，逆轉骨骼肌胰島素阻抗",
     "34316": "平衡平滑肌離子通道，穩定自主神經感壓代償反射",
-    "34307": "加固腸道黏膜屏障，削平餐後腹腔暴衝搶血波峰",
-    "34269": "雙極性跨膜抗氧，穿透血腦屏障保護耐缺氧神經元",
+    "34307": "封堵腸漏 LPS 滲漏，終結餐後內毒素腦霧發僵",
+    "34269": "跨膜清除微血管自由基，阻斷內毒素過氧化發炎",
     "36282": "清除微血管沉積，改善餐後腦動脈血液灌注",
     "36248": "發酵有機酸延緩胃排空，刺激腸泌素平穩吸收",
     "34331": "短鏈脂肪酸活化迷走神經，傳遞大腦覺醒訊號",
     "0368": "雙光理療活化細胞色素 C，提振微循環驅散昏沉",
     "38207": "非胰島素途徑消耗血糖，牽張反射對沖覺醒跳掣"
-  },
-  "arbitrationReasons": {
-    "3": "成因 03 牽涉餐後大量血液淤滯於內臟血管床，引致大腦灌注壓瞬間驟降（餐後低血壓），是引發長者立位眩暈、餐後昏厥、摔倒及嚴重髖部骨折之臨床急性隱形殺手，防跌意外避險急迫性最高。",
-    "1": "成因 01 牽涉胰島素過量延遲分泌引發之反應性低血糖風暴，伴隨心慌、冷汗、虛脫手震，頻繁劇烈波動將加速全身血管內皮硬化與認知障礙。",
-    "4": "成因 04 牽涉腸黏膜屏障破損（腸漏）使內毒素 LPS 入血誘發全身低度慢性發炎，為多種心血管與代謝病之系統性源頭。",
-    "5": "成因 05 牽涉皮質醇晝夜節律平坦化與腎上腺儲備枯竭，影響全天抗壓與血糖維持。",
-    "6": "成因 06 牽涉延遲性食物敏感引發微血管滲透性增加與腦霧反應。",
-    "2": "成因 02 屬高碳水進食後色胺酸跨血腦屏障轉化為血清素之生理性催眠反應，無病理性組織損傷，可透過餐飲組合輕易調節。"
   }
 };
     const PRODUCTS_DB = [
@@ -3330,12 +3174,12 @@
     "topic": "餐後睏倦",
     "causeId": 4,
     "isWarfarinSafe": false,
-    "price": 19594,
-    "origPrice": 30530,
-    "save": 10936,
-    "discount": "64折",
-    "itemsSummary": "ORIYEN 強心血管通 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ SE 紅光光療按摩帶 x 1 ＋ Smart Fitness X 律動拍打機 x 1",
-    "desc": "30天心腦血管灌注代償調養旗艦款。天然水蛭素強心血管通（含水溶 Q10）溶解微血管血栓；天然酵母 NMN 充盈心肌與腦神經 NAD+/ATP 能量池提升每搏輸出量；微米液鈣鎂穩定血管平滑肌張力；律動機 4-13Hz 正弦波被動活化下肢回心靜脈竇；紅光帶改善末梢微循環。"
+    "price": 18003,
+    "origPrice": 28380,
+    "save": 10377,
+    "discount": "63折",
+    "itemsSummary": "Nn 水溶性輔酶 Q10 x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ ORIYEN 強心血管通 x 1 ＋ SE 紅光光療按摩帶 x 1 ＋ Smart Fitness X 律動拍打機 x 1",
+    "desc": "30天微血管灌注阻滯調養旗艦款。天然水蛭素強心血管通溶解微血管黏稠栓塞；水溶 Q10 與微米液鈣鎂舒張血管平滑肌；酵素益生菌修復血管內皮糖萼；律動機 4-13Hz 正弦波被動活化末梢毛細血管床；紅光帶雙光譜刺激 eNOS 釋放自體一氧化氮（NO）。"
   },
   {
     "id": "Foodcoma_Set_D2",
@@ -3344,12 +3188,12 @@
     "topic": "餐後睏倦",
     "causeId": 4,
     "isWarfarinSafe": false,
-    "price": 5604,
-    "origPrice": 7540,
-    "save": 1936,
+    "price": 4013,
+    "origPrice": 5390,
+    "save": 1377,
     "discount": "74折",
-    "itemsSummary": "ORIYEN 強心血管通 x 1 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ SE 紅光光療按摩帶 x 1",
-    "desc": "30天心腦血管灌注代償輕便理療款。強心血管通（含水溶 Q10）暢通外周循環；酵母 NMN 為心臟泵血與大腦灌注提供源源不絕的細胞能量；液鈣鎂維持自律神經膜電位；紅光帶 630nm+850nm 光生物調節活化微血管，終結餐後低灌注昏沉。"
+    "itemsSummary": "Nn 水溶性輔酶 Q10 x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ ORIYEN 強心血管通 x 1 ＋ SE 紅光光療按摩帶 x 1",
+    "desc": "30天微血管灌注阻滯輕便理療款。強心血管通暢通全身微循環；水溶 Q10 與液鈣鎂協同維持血管舒張膜電位；心腸軸底座降低血液黏滯度；紅光帶 630nm+850nm 光生物調節活化微血管灌注，終結餐後外周血流阻滯。"
   },
   {
     "id": "Foodcoma_Set_D3",
@@ -3357,13 +3201,13 @@
     "name": "餐後睏倦・30天源頭調養套裝 D3",
     "topic": "餐後睏倦",
     "causeId": 4,
-    "isWarfarinSafe": true,
-    "price": 20881,
-    "origPrice": 32104,
-    "save": 11223,
-    "discount": "65折",
-    "itemsSummary": "Nn 水溶性輔酶 Q10 x 1 ＋ Nn 蝦青素 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ Nn 腸快適 x 2 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ SE 紅光光療按摩帶 x 1 ＋ Smart Fitness X 律動拍打機 x 1",
-    "desc": "30天心腸源頭調養薄血藥安全替代旗艦款。100% 零抗凝西藥衝突。心腸軸（果蔬酵素＋長者益生菌＋腸快適後生元）延緩胃排空並削平腹腔暴衝搶血峰值；酵母 NMN 與專利水溶 Q10 形成粒線體呼吸鏈雙核產能，強化心肌每搏輸出量代償；蝦青素跨血腦屏障保護神經耐缺氧；液鈣鎂安定血管張力；律動機與紅光帶雙重力學光療促進血液回流。"
+    "isWarfarinSafe": false,
+    "price": 18528,
+    "origPrice": 28988,
+    "save": 10460,
+    "discount": "64折",
+    "itemsSummary": "Nn 水溶性輔酶 Q10 x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ Nn 蝦青素 x 1 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ SE 紅光光療按摩帶 x 1 ＋ Smart Fitness X 律動拍打機 x 1",
+    "desc": "30天微血管灌注阻滯薄血藥安全替代旗艦款。100% 零抗凝衝突。日本專利蝦青素穿透血管屏障清除內皮自由基；水溶 Q10 供應能量；微米液鈣鎂安定血管肌膜電位；果蔬酵素與益生菌阻斷內毒素入血；律動機與紅光帶雙重力學光療促進餐後毛細血管灌流。"
   },
   {
     "id": "Foodcoma_Set_D4",
@@ -3371,13 +3215,13 @@
     "name": "餐後睏倦・30天源頭調養套裝 D4",
     "topic": "餐後睏倦",
     "causeId": 4,
-    "isWarfarinSafe": true,
-    "price": 6891,
-    "origPrice": 9114,
-    "save": 2223,
+    "isWarfarinSafe": false,
+    "price": 4538,
+    "origPrice": 5998,
+    "save": 1460,
     "discount": "76折",
-    "itemsSummary": "Nn 水溶性輔酶 Q10 x 1 ＋ Nn 蝦青素 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ Nn 腸快適 x 2 ＋ ORIYEN 天然酵母NMN 15000 Premium x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ SE 紅光光療按摩帶 x 1",
-    "desc": "30天心腸源頭調養薄血藥安全替代款。心腸軸三基石平抑餐後腹腔過度充血；酵母 NMN 與專利水溶 Q10 深入粒線體重構心腦能量代謝；專利蝦青素清除血管內皮氧化損傷；液鈣鎂放鬆微血管平滑肌；紅光光療深層溫熱改善周邊血液動力學。"
+    "itemsSummary": "Nn 水溶性輔酶 Q10 x 1 ＋ Nn 液鈣鎂 D3 x 2 ＋ Nn 蝦青素 x 1 ＋ Nn 三效益生菌 - 長者配方 x 1 ＋ ORIYEN 綜合果蔬酵素 x 3 ＋ SE 紅光光療按摩帶 x 1",
+    "desc": "30天微血管灌注阻滯薄血藥安全替代款。專利蝦青素抗氧化保護血管內皮；水溶 Q10 疏通粒線體電子鏈；液鈣鎂放鬆過度收縮的血管微平滑肌；酵素益生菌修復心腸軸；紅光帶促進末梢微血流循環。"
   },
   {
     "id": "Foodcoma_Set_E1",
@@ -3687,29 +3531,9 @@
       }, 60);
     }
 
-    function renderGatedContent(causeId, scores, tieBreakerInfo) {
+    function renderGatedContent(causeId, scores) {
       const cData = CAUSES_DATA[causeId];
       if (!cData) return;
-
-      // 0. 同分仲裁提報卡片 (Tie Breaker Alert)
-      const tieAlertEl = document.getElementById('tieBreakerAlert');
-      if (tieAlertEl) {
-        if (tieBreakerInfo && tieBreakerInfo.isTie) {
-          tieAlertEl.style.display = 'block';
-          const scoreEl = document.getElementById('tieScoreValue');
-          if (scoreEl) scoreEl.innerText = tieBreakerInfo.score;
-          const namesEl = document.getElementById('tieCandidateNames');
-          if (namesEl) {
-            namesEl.innerHTML = tieBreakerInfo.candidateNames.map(n => `<span class="tie-cause-pill">${n}</span>`).join('、');
-          }
-          const descEl = document.getElementById('tieRationaleDesc');
-          if (descEl) descEl.innerText = tieBreakerInfo.rationale;
-          const winnerEl = document.getElementById('tieWinnerName');
-          if (winnerEl) winnerEl.innerText = tieBreakerInfo.winnerName;
-        } else {
-          tieAlertEl.style.display = 'none';
-        }
-      }
 
       // 1. Block C
       document.getElementById('diagPrimaryTitle').innerText = `【${cData.name}】`;
@@ -3824,12 +3648,10 @@
         if (!allowedProductIds.includes(prod.id)) return;
         const card = document.createElement('div');
         card.className = 'product-single-card';
-        // Block G 產品標題純淨無份量後綴，份量提示只在 Block H 呈現
-        const cleanName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
         const benefitText = (TOPIC_CONFIG.customShortDesc && TOPIC_CONFIG.customShortDesc[prod.id]) || prod.shortDesc || "從源頭深度調理代謝平衡";
         card.innerHTML = `
           <div class="p-card-top">
-            <div class="p-card-name">${cleanName}</div>
+            <div class="p-card-name">${prod.name}</div>
             <button type="button" onclick="openMechanismModal('${prod.id}', ${causeId})" class="btn-more-b">
               想知更多
             </button>
@@ -3847,22 +3669,13 @@
       // 1. 單品選購列表
       const singleContainer = document.getElementById('block-h-single-products');
       singleContainer.innerHTML = '';
-      const DOSAGE_BADGES = {
-        '34307': '15天份量',
-        '34316': '15天份量',
-        '36246': '15天份量',
-        '36248': '10天份量',
-        '36283': '10天份量'
-      };
       PRODUCTS_DB.forEach(prod => {
         if (!allowedProductIds.includes(prod.id)) return;
         const row = document.createElement('div');
         row.className = 'h-single-item-row';
-        const badge = DOSAGE_BADGES[prod.id] ? ` <span class="dosage-tag">${DOSAGE_BADGES[prod.id]}</span>` : '';
-        const displayTitle = `${prod.name}${badge}`;
         row.innerHTML = `
           <div class="h-item-info">
-            <span class="h-item-title">${displayTitle}</span>
+            <span class="h-item-title">${prod.name}</span>
             <span class="h-item-price">HKD ${prod.price.toLocaleString()}</span>
           </div>
           <button type="button" onclick="openProductModal('${prod.id}')" class="btn-detail-h">
@@ -4427,8 +4240,7 @@
           </div>
         </div>
       `;
-      const cleanModalName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
-      openModalWithLock(`${cleanModalName} · 調理機轉`, html);
+      openModalWithLock(`${prod.name} · 調理機轉`, html);
     }
 
     // Pop-up B: 30天套裝明細彈窗 (完整呈現套裝所含單品與機轉)

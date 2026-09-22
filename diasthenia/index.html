@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Health Decoder｜治標反噬失衡專題 · 從源頭除錯</title>
+    <title>Health Decoder｜治標反噬失衡專題 · 從源頭除錯</title>
+  <meta name="description" content="指標正常但體感全面崩潰，長期西藥耗竭定係代謝反噬？ 搞清楚源頭，先可以治本。 工程師邏輯 ✕ 代謝底層解碼，3分鐘初步自我診斷。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Health Decoder｜治標反噬失衡專題 · 從源頭除錯">
+  <meta property="og:description" content="指標正常但體感全面崩潰，長期西藥耗竭定係代謝反噬？ 搞清楚源頭，先可以治本。 工程師邏輯 ✕ 代謝底層解碼，3分鐘初步自我診斷。">
+  <meta property="og:url" content="https://health-decoder.com/diasthenia/">
+  <meta property="og:image" content="https://health-decoder.com/images/og-diasthenia.webp">
+  <link rel="icon" type="image/x-icon" href="https://health-decoder.com/favicon.ico">
   <style>
 
 
@@ -1326,101 +1333,6 @@
       height: 100%;
       border: 0;
     }
-  
-    /* 多成因同分仲裁卡片樣式 (Tie Breaker Alert) */
-    .tie-breaker-box {
-      background: linear-gradient(135deg, #F0FDFA 0%, #E6FFFA 100%);
-      border: 2px solid #0D9488;
-      border-radius: var(--radius-lg, 16px);
-      padding: 22px 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.12), 0 8px 10px -6px rgba(13, 148, 136, 0.08);
-      animation: fadeIn 0.4s ease-in-out;
-    }
-    .tie-breaker-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed rgba(13, 148, 136, 0.35);
-    }
-    .tie-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 800;
-      color: #0F766E;
-      letter-spacing: 0.3px;
-    }
-    .tie-score-tag {
-      background: #0D9488;
-      color: #FFFFFF;
-      font-size: 13.5px;
-      font-weight: 700;
-      padding: 4px 14px;
-      border-radius: 20px;
-    }
-    .tie-notice-text {
-      font-size: 15.5px;
-      line-height: 1.7;
-      color: #134E4A;
-      margin-bottom: 14px;
-    }
-    .tie-cause-pill {
-      display: inline-block;
-      background: rgba(13, 148, 136, 0.12);
-      color: #0F766E;
-      border: 1px solid rgba(13, 148, 136, 0.3);
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-weight: 800;
-      margin: 2px 4px;
-    }
-    .tie-rationale-box {
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(13, 148, 136, 0.25);
-      border-left: 4px solid #0D9488;
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin-bottom: 14px;
-    }
-    .tie-rationale-header {
-      font-size: 14.5px;
-      font-weight: 800;
-      color: #0F766E;
-      margin-bottom: 6px;
-    }
-    .tie-rationale-desc {
-      font-size: 15px;
-      line-height: 1.7;
-      color: #334155;
-    }
-    .tie-recommend-conclusion {
-      font-size: 14.5px;
-      line-height: 1.65;
-      color: #0F766E;
-      background: rgba(13, 148, 136, 0.08);
-      padding: 10px 14px;
-      border-radius: 8px;
-    }
-
-      .dosage-tag {
-      display: inline-block;
-      background: #FEF3C7;
-      color: #B45309;
-      border: 1px solid #FDE68A;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 6px;
-      margin-left: 6px;
-      vertical-align: middle;
-      line-height: 1.4;
-    }
   </style>
 </head>
 <body>
@@ -1516,7 +1428,7 @@
             </label>
             <label class="option-label">
               <input type="radio" name="dim_redflag" value="RF_STROKE">
-              <span><strong>急性中風 TIA 急症紅旗：</strong>突發單側手腳無力、嘴角歪斜、說話含糊不清或視物成雙，即使數分鐘內自行緩解（需即時前往醫院急症室或致電 999）。</span>
+              <span><strong>急性中風 TIA 急症紅旗：</strong>突發單側手腳無力、嘴角歪斜、說話含糊不清或視物成雙，即使數分鐘內自行緩解（需即時前往公立醫院急症室）。</span>
             </label>
             <label class="option-label none-opt">
               <input type="radio" name="dim_redflag" value="RF_NONE" checked>
@@ -1525,64 +1437,54 @@
           </div>
         </div>
 
-        <!-- 模組一：常規醫療專科門診常規處方排查清單【可多選】 -->
-                <!-- 組別 1：第 1 組｜現行常規處方西藥全面盤點審查【可多選】 -->
-        <div class="quiz-group" style="background: #FFFBEB; border: 1.5px solid #FDE68A;">
-          <div class="quiz-group-header" style="border-bottom-color: #FDE68A;">
-            <div class="quiz-num" style="background: #F59E0B; color: #FFFFFF;">1</div>
+        <!-- 模組一：香港公立醫院常規處方排查清單【可多選】 -->
+        <div class="quiz-group">
+          <div class="quiz-group-header">
+            <div class="quiz-num">1</div>
             <div>
-              <div class="quiz-title" style="color: #92400E;">第 1 組｜現行常規處方西藥全面盤點審查【可多選】</div>
-              <div style="font-size: 13px; color: #B45309; margin-top: 4px;">盤點長期服用之常規處方西藥，評估指標達標後的生化營養枯竭與代謝反噬（若無服用請選最後一項）</div>
+              <div class="quiz-title">第 1 組｜香港公立醫院常規處方排查清單【可多選】</div>
             </div>
           </div>
           <div class="options-grid">
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_STATIN" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>降膽固醇藥：他汀類 Statins（例如 Atorvastatin 阿托伐他汀/立普妥、Rosuvastatin 瑞舒伐他汀/可妥、Simvastatin 辛伐他汀）。</span>
+              <input type="checkbox" name="dim1" value="MED_STATIN" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>降膽固醇藥：他汀類 Statins（例如 Atorvastatin 阿托伐他汀、Rosuvastatin 瑞舒伐他汀、Simvastatin）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_METFORMIN" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止、二甲雙胍）。</span>
+              <input type="checkbox" name="dim1" value="MED_METFORMIN" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_DIAB_OTHER" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>降血糖藥：其他類別（例如 SGLT-2 排糖藥、磺醯尿素類 Gliclazide 格列齊特、DPP-4 抑制劑、注射胰島素等）。</span>
+              <input type="checkbox" name="dim1" value="MED_DIAB_OTHER" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>降血糖藥：其他類別（例如磺醯尿素類 Gliclazide、SGLT-2 抑制劑排糖藥、注射胰島素等）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_CCB" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>降血壓藥：鈣離子阻斷劑 CCB（例如 Amlodipine 氨氯地平/絡活喜、Nifedipine、Felodipine）。</span>
+              <input type="checkbox" name="dim1" value="MED_CCB" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>降血壓藥：鈣離子阻斷劑 CCB（例如 Amlodipine 氨氯地平、Nifedipine、Felodipine）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_BETABLOCKER" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>降血壓或調心率藥：乙型受體阻斷劑 Beta-blocker（例如 Atenolol、Metoprolol、Bisoprolol 康忻、Carvedilol）。</span>
+              <input type="checkbox" name="dim1" value="MED_BETABLOCKER" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>降血壓或調心率藥：乙型受體阻斷劑 Beta-blocker（例如 Atenolol、Metoprolol、Bisoprolol）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_DIURETIC" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>降血壓或消腫藥：利尿劑水丸（例如 Indapamide 吲達帕胺、Furosemide 呋塞米/速尿、Hydrochlorothiazide）。</span>
+              <input type="checkbox" name="dim1" value="MED_DIURETIC" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>降血壓藥：利尿劑水丸（例如 Indapamide、Furosemide、Hydrochlorothiazide）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_ACEI" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>降血壓藥：ACEI / ARB 血管緊張素抑制劑（例如 Lisinopril、Ramipril、Losartan 氯沙坦、Valsartan 纈沙坦）。</span>
+              <input type="checkbox" name="dim1" value="MED_ACEI" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>降血壓藥：血管緊張素轉化酶抑制劑 ACEI（例如 Lisinopril、Ramipril、Enalapril）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" id="med_warfarin" name="dim1" value="MED_WARFARIN" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>薄血藥／抗凝血／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷/波立維、Warfarin 華法林、新型抗凝藥 NOAC/DOAC 如 Eliquis、Xarelto）。</span>
+              <input type="checkbox" id="med_warfarin" name="dim1" value="MED_WARFARIN" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>薄血藥／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷、Warfarin 華法林、NOAC）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_PPI" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>胃藥：質子泵抑制劑 PPI 或強效制酸劑（例如 Omeprazole 奧美拉唑/洛賽克、Pantoprazole 泮托拉唑、Nexium 耐信、Famotidine）。</span>
+              <input type="checkbox" name="dim1" value="MED_PPI" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>胃藥：質子泵抑制劑 PPI（例如 Omeprazole 奧美拉唑、Pantoprazole 泮托拉唑）。</span>
             </label>
             <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_CALCIUM" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>骨質補充劑：無機碳酸鈣片（例如 Caltrate 挺立、Calcichew 等常見碳酸鈣片）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_SEDATIVE" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>安眠鎮靜類：安眠藥／抗焦慮鎮靜劑（例如 Zolpidem 唑吡坦/安必恩、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim1" value="MED_NSAIDS" class="dim1-item" onclick="if(document.getElementById('dim1_none')) document.getElementById('dim1_none').checked = false;">
-              <span>關節止痛抗炎藥：非類固醇消炎止痛藥 NSAIDs（例如 Ibuprofen 布洛芬、Diclofenac 雙氯芬酸/扶他林、Celebrex 塞來昔布）。</span>
+              <input type="checkbox" name="dim1" value="MED_CALCIUM" class="dim1-item" onclick="document.getElementById('dim1_none').checked = false;">
+              <span>碳酸鈣片（例如 Caltrate 挺立、Calcichew 等公立醫院常開鈣片）。</span>
             </label>
             <label class="option-label none-opt">
               <input type="checkbox" id="dim1_none" value="NONE" onchange="toggleDimNone('dim1')">
@@ -1831,32 +1733,6 @@
 
       <!-- Block C: 診斷結果判定 ✕ 最壞情況直擊 (100% 還原 Version 5 高質感架構) -->
       <section id="blockC" class="section-card">
-        
-        <!-- 0. 多成因同分智能仲裁提示 (動態顯示) -->
-        <div id="tieBreakerAlert" class="tie-breaker-box" style="display: none;">
-          <div class="tie-breaker-header">
-            <div class="tie-badge">
-              <span>⚖️</span>
-              <span>臨床優先級仲裁提示（多於一個成因同分）</span>
-            </div>
-            <div class="tie-score-tag">最高同分：<span id="tieScoreValue">0</span> 分</div>
-          </div>
-          <div class="tie-breaker-body">
-            <div class="tie-notice-text">
-              系統評估發現您的填選結果中，<span id="tieCandidateNames"></span> 得分相同（並列最高分）。
-            </div>
-            <div class="tie-rationale-box">
-              <div class="tie-rationale-header">
-                <span class="tie-rationale-title">🔍 臨床優先處理考量原因：</span>
-              </div>
-              <div id="tieRationaleDesc" class="tie-rationale-desc"></div>
-            </div>
-            <div class="tie-recommend-conclusion">
-              💡 <strong>專家建議策略：</strong>為免多線干預分散身體調度能量，系統建議您第一階段<strong>優先集中處理【<span id="tieWinnerName" style="color: #0D9488; text-decoration: underline;"></span>】</strong>。待核心急迫風險穩固後，再依序針對其他次要成因進行固本調理。
-            </div>
-          </div>
-        </div>
-
         
         <!-- 1. 深色成因判定卡片 -->
         <div class="diagnosis-highlight-card">
@@ -2308,7 +2184,7 @@
 
   <!-- 前端完整核心數據庫與邏輯引擎 -->
   <script>
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
+    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_TGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
     const DUNCAN_WHATSAPP_PHONE = "85298788564";
 
     let savedScrollY = 0;
@@ -2396,15 +2272,13 @@
       "MED_ACEI": {
         "6": 2
       },
-      "MED_WARFARIN": {},
       "MED_PPI": {
         "7": 2
       },
       "MED_CALCIUM": {
         "7": 2
       },
-      "MED_SEDATIVE": {},
-      "MED_NSAIDS": {}
+      "MED_WARFARIN": {}
     },
     "dim2": {
       "Q2_1": {
@@ -2555,9 +2429,9 @@
       "id": 1,
       "name": "成因 01：肌肉耐力與能量代謝型",
       "tag": "他汀類抑制甲羥戊酸途徑 ✕ 粒線體呼吸鏈輔酶耗竭 ✕ 肌肉痠軟無力",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228983769",
+      "vimeoE": "1228983727",
+      "vimeoF": "1228983724",
       "worstCase": "肌肉痠軟無力只係警號！最大鑊係他汀類引發肌纖維進行性微損傷與粒線體崩潰，演變成橫紋肌溶解症或嚴重肌力喪失無法自理，最後成為屋企人沉重嘅負累！",
       "bio": "他汀類降膽固醇藥物在肝臟同周邊組織競爭性抑制 HMG-CoA 還原酶，直接阻斷甲羥戊酸生化代謝途徑。呢條途徑除咗合成膽固醇，更係細胞合成輔酶 Q10 與各類類異戊二烯分子嘅關鍵上游。體內輔酶 Q10 生成量驟降，細胞粒線體內膜呼吸鏈電子傳遞複合物 I 與 II 之間嘅電子傳遞效率大幅受阻，三磷酸腺苷 ATP 合成產能陷入低谷。骨骼肌細胞膜表面嘅鈉-鉀-ATP 酶失去充足動能維持膜電位平衡，肌質網鈣離子泵回收能力減弱，細胞內游離鈣離子濃度持續偏高，直接觸發肌原纖維過度收縮同肌膜微細損傷，釋放肌酸激酶，引發雙臂與大腿大肌群對稱性痠軟無力。",
       "eng": "好似工廠主發電機嘅重油燃料輸送管道被安全閥門大幅度限流，發電機電力輸出瞬間斷崖式下跌。全廠主電力電壓不足，供電系統唯有自動啟動限電保護，各條重型生產線嘅大摩打轉速被強制調低，設備運轉極度吃力，帶動機械臂顯得寸步難行。",
@@ -2621,9 +2495,9 @@
       "id": 2,
       "name": "成因 02：末梢感官與神經滋養型",
       "tag": "雙胍類干擾迴腸 CUBAM 受體 ✕ 活性 B12 匱乏 ✕ 周邊神經髓鞘變性",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228983719",
+      "vimeoE": "1228983683",
+      "vimeoF": "1228983680",
       "worstCase": "腳趾麻木只係前兆！最大鑊係周邊神經軸突逆行性壞死，腳底痛溫覺喪失踩棉花，誘發突發跌倒骨折或截肢危機，最後成為屋企人沉重嘅負累！",
       "bio": "雙胍類降血糖藥物在消化道管腔內帶有正電荷，會競爭性結合迴腸末端上皮細胞膜表面嘅鈣離子，干擾高度依賴游離鈣離子嘅內在因子-維他命 B12 受體複合物 CUBAM 正常功能。長期服用使飲食中嘅維他命 B12 無法順利透過受體介導胞吞作用入血，導致體內活性輔酶 B12 儲備漸進枯竭。維他命 B12 係甲硫氨酸合成酶同甲基丙二醯輔酶 A 變位酶嘅必需輔因子，缺乏會令髓鞘鹼性蛋白甲基化停滯，引致奇數鏈脂肪酸沉積於神經膜。呢個過程使周邊感覺神經外層嘅髓鞘絕緣結構質變剝落，神經軸漿運輸受阻，微弱感覺訊號無法精準跳躍傳導，在四肢末端尤其足底同腳趾產生對稱性麻木、蟻走感同觸覺遲鈍。",
       "eng": "好似長途地下光纖電纜終端嘅外層絕緣塑膠保護套，因為長年缺乏專用保養油脂滋養，膠皮逐漸硬化脆裂、剝落漏電。線芯直接裸露在外，令原本清晰高速嘅通訊數碼訊號在傳輸途中不斷失真漏失，接收終端機只能接收到斷斷續續嘅雜音訊號。",
@@ -2698,9 +2572,9 @@
       "id": 3,
       "name": "成因 03：微血管壓力與組織水液型",
       "tag": "二氫吡啶類 CCB 擴張前小動脈 ✕ Starling 流體失衡 ✕ 下肢凹陷性水腫",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228983662",
+      "vimeoE": "1228983629",
+      "vimeoF": "1228983619",
       "worstCase": "腳踝水腫發脹只係表象！最大鑊係毛細血管管壁長期高壓滲透壞死，引發鬱血性皮膚炎、潰瘍甚至蜂窩組織炎，最後成為屋企人沉重嘅負累！",
       "bio": "二氫吡啶類鈣離子阻斷劑透過結合血管平滑肌細胞膜 L 型鈣通道，阻止鈣離子內流，達成鬆弛血管降低外周阻力嘅效果。呢類藥物對微血管前阻力小動脈嘅選擇性擴張效應，遠遠強於對微血管後微靜脈嘅擴張能力。前入端水閘全面大開而後出端管道維持原樣，大量動脈血湧入微血管床，微血管內靜水壓顯著飆升，打破經典 Starling 流體動力學平衡。血管內向外嘅跨壁壓差大幅超過血漿膠體滲透壓，促使水分與無蛋白濾出液持續穿透微血管內皮間隙，外滲積聚於皮下軟組織間隙。受日間直立重力同久坐小腿肌泵停擺影響，過量組織液大量蓄積於雙腳腳踝同小腿下段，形成傍晚凹陷性水腫與沉重緊繃感，晚間平躺回流更轉化為夜尿負擔。",
       "eng": "好似灌溉系統嘅總進水總水喉被工人完全擰到最大，排水排污管道嘅口徑依然維持原裝狹窄。水流源源不絕湧入中間嘅微細毛細軟管，管內壓力超載暴升，管壁微細縫隙被硬生生撐開，清水大量向外滲漏，浸滿成個地基表面。",
@@ -2779,9 +2653,9 @@
       "id": 4,
       "name": "成因 04：心率調節與運動耐受型",
       "tag": "乙型受體阻斷劑壓制心率 ✕ 心輸出量動態滯後 ✕ 低氧耐受度下降",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228983606",
+      "vimeoE": "1228983556",
+      "vimeoF": "1228983555",
       "worstCase": "登樓梯氣喘只係警號！最大鑊係心臟動態代償長期被抑制引發隱匿性心肌缺血與心功能減退，失去自主行動能力，最後成為屋企人沉重嘅負累！",
       "bio": "乙型受體阻斷劑競爭性結合心臟竇房結同心肌細胞膜表面嘅 β1 腎上腺素受體，阻斷交感神經兒茶酚胺嘅興奮性訊號傳導，強行減慢竇房結動作電位發放頻率並抑制房室傳導。當身體由靜止狀態轉入走動、行斜路或行樓梯等高耗能活動時，肌肉代謝需要骨骼肌微血管網擴張並要求心臟即時提升每搏輸出量與心跳頻率。受藥理強效壓制，竇房結無法對運動訊號作出即時代償性提速，心輸出量增幅嚴重滯後於外周組織耗氧量激增。骨骼肌組織處於相對缺血缺氧環境，被迫提早啟動無氧糖解途徑，乳酸大量堆積；中樞動脈血流灌注亦未能即時跟進，引致登梯或上斜時氣力提唔上、雙腿沉重如灌鉛以及氣促乏力。",
       "eng": "好似汽車引擎嘅電子油門油路被機械限速閥死死卡住。當車輛駛至陡峭大斜路需要加大供油爬坡嗰陣，踩深油門引擎電腦卻未能及時增加噴油量，引擎轉速始終維持喺怠速低轉，車輛動力嚴重不足，爬坡顯得極其吃力滯後。",
@@ -2859,9 +2733,9 @@
       "id": 5,
       "name": "成因 05：有效血容量與體位轉換型",
       "tag": "利尿劑致循環血容量下降 ✕ 感壓反射遲緩 ✕ 直立性低血壓眩暈",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228983528",
+      "vimeoE": "1228983527",
+      "vimeoF": "1228983505",
       "worstCase": "起身眼前發黑只係前兆！最大鑊係體位性眩暈引致突發跌倒骨折甚至顱腦損傷，高齡長者臥床失能風險極高，最後成為屋企人沉重嘅負累！",
       "bio": "利尿劑抑制腎小管對水鈉嘅重吸收，促使水分與電解質加速排出體外，達成降低血壓目的。長期使用會令循環血容量處於偏低水位。當人體由平臥或久坐突發切換至直立站姿嗰一瞬間，受重力作用血液迅速沉降於腹腔內臟及下肢靜脈血管池中。在血容量充足嘅正常狀態下，頸動脈竇同主動脈弓感壓反射能於數百毫秒內迅速興奮交感神經，收縮周邊血管並加快心率以維持大腦動脈灌注壓。長者自律神經調節遲緩加上基礎血容量不足，感壓反射補償延遲，心輸出量與周邊阻力無法即時代償，大腦動脈平均灌注壓瞬間跌穿臨界閾值，出現一過性腦供血不足，表現為眼前發黑、視線模糊、站立不穩同踩棉花感。",
       "eng": "好似一套水塔儲水量嚴重不足嘅高樓供水管路。底層用水閥門一打開，管網內原本就緊張嘅水流立刻全部流向底層，而頂層供水管內水壓瞬間歸零，高層水龍頭即時斷水乾涸，水泵發出空轉空鳴。",
@@ -2928,9 +2802,9 @@
       "id": 6,
       "name": "成因 06：呼吸道黏膜反應型",
       "tag": "ACEI 降壓藥抑制激肽酶 II ✕ 緩激肽與 P 物質蓄積 ✕ 氣道感覺神經 C 纖維敏感",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228983486",
+      "vimeoE": "1228983392",
+      "vimeoF": "1228983393",
       "worstCase": "頑固乾咳只係警號！最大鑊係緩激肽持續蓄積誘發重度氣道黏膜水腫出血，長期夜間暴咳引致呼吸窒息與心腦缺氧，最後成為屋企人沉重嘅負累！",
       "bio": "血管緊張素轉化酶抑制劑（ACEI）競爭性結合血管緊張素轉化酶（ACE）。該酶同時身兼激肽酶 II（Kininase II），負責體內緩激肽等神經肽類的滅活水解。激肽酶活性被藥理封阻後，其生理受質緩激肽（Bradykinin）及神經肽 P 物質（Substance P）無法正常降解，大量蓄積於氣管、支氣管黏膜及肺組織微環境中。過量緩激肽直接刺激氣道感覺神經 C 纖維，活化軸突反射，釋放神經源性炎性介質，誘發氣道局部黏膜微血管擴張與微水腫，顯著拉低咳嗽感受器閾值。尤其喺夜間平躺入睡時，呼吸道分泌物稍微刺激即誘發陣發性、頑固性刺激性無痰乾咳，常規止咳藥水完全無效。",
       "eng": "好似火警煙霧偵測感應系統嘅中央過載復位保護閥門卡死。管道入面原本應該定期排走嘅無害微量水氣無法及時排放，長年蓄積喺感應探頭周圍，探頭靈敏度被調至最高，稍微有一絲微塵掠過即刻誤拉警報，警笛晝夜響個不停。",
@@ -2994,9 +2868,9 @@
       "id": 7,
       "name": "成因 07：消化吸收與解離屏障型",
       "tag": "碳酸鈣 ＋ PPI 胃藥抑制胃酸 ✕ 未解離鈣皂化 ✕ 便秘腹脹與抽筋反噬",
-      "vimeoD": "",
-      "vimeoE": "",
-      "vimeoF": "",
+      "vimeoD": "1228983394",
+      "vimeoE": "1228983395",
+      "vimeoF": "1228985656",
       "worstCase": "便秘腹脹只係前兆！最大鑊係未解離鈣皂在結腸板結引發急性糞石性腸梗阻或腸穿孔，鎂缺乏誘發夜間嚴重肌痙攣，最後成為屋企人沉重嘅負累！",
       "bio": "許多長者因胃部不適或防範阿斯匹靈胃黏膜損傷而長期服用質子泵抑制劑（PPI），同時又按常規開立碳酸鈣片以防骨質疏鬆。碳酸鈣屬於難溶性鹽類，必須依賴胃酸提供強酸性環境（pH < 2.0）方能充分解離成游離鈣離子。PPI 強效抑制胃壁細胞 H⁺/K⁺-ATP 酶質子泵，使胃腔內酸度大幅減低（pH 升至 4.0 至 5.0 以上）。未經酸解離嘅碳酸鈣大分子團塊直接進入小腸及結腸，在偏鹼性嘅腸腔環境中與未消化嘅脂肪酸結合，形成堅硬不溶嘅「不溶性鈣皂（Calcium Soaps）」。鈣皂大量吸附腸道水分，使大便極度乾硬結塊（羊咩屎樣態），嚴重阻礙腸道蠕動波推進；同時，未解離嘅碳酸鈣在小腸刷狀緣與鎂離子競爭相同嘅轉運通道，嚴重排擠抑制鎂離子吸收，引發組織細胞內游離鎂缺乏，神經肌肉接頭膜電位異常去極化，導致半夜頻繁出現小腿劇烈抽筋。",
       "eng": "好似建築工地嘅混凝土攪拌槽，工人誤將大量未經稀釋攪勻嘅快乾水泥生粉直接倒入狹窄嘅塑料排污管道，同時關閉咗高壓清洗水閥。水泥粉在管道內部迅速板結硬化，形成堅硬嘅水泥硬塊，完全堵死排水系統，導致管道壓力超載隨時爆裂。",
@@ -3073,15 +2947,6 @@
     "36248": "天然有機酸庫酸化腸腔，軟化鈣皂促進排泄",
     "0368": "雙光生物調節活化微循環，促進自體一氧化氮舒張",
     "38207": "被動激發下肢肌肉靜脈竇，泵血回心代償體位降壓"
-  },
-  "arbitrationReasons": {
-    "5": "成因 05 牽涉降壓利尿劑排出過多鉀與鎂離子，低血鉀可直接引發尖端扭轉型室速（TdP）、室性心律失常甚至心搏驟停猝死，為所有藥源性不良反應中最致命之急性危象，必須最優先排查處置。",
-    "4": "成因 04 牽涉心肌 β1 受體過度阻滯引致嚴重竇性心動過緩、高度房室傳導阻滯及支氣管痙攣，具急性血液動力學衰竭風險。",
-    "1": "成因 01 牽涉他汀類阻斷甲羥戊酸途徑致 Q10 枯竭與肌細胞自噬，具進展為橫紋肌溶解症伴急性肌紅蛋白尿腎衰竭之器質損傷危險。",
-    "2": "成因 02 牽涉二甲雙胍拮抗迴腸鈣依賴性 B12 吸收，長期匱乏可引發脊髓亞急性聯合變性與不可逆神經髓鞘脫失。",
-    "6": "成因 06 牽涉緩激肽降解受阻，具誘發突發性喉頭咽喉血管神經性水腫與呼吸道窒息窒命風險。",
-    "3": "成因 03 牽涉動脈前毛細血管舒張引致毛細血管靜水壓過高及下肢組織微水腫滲漏。",
-    "7": "成因 07 牽涉長期抑酸導致之微量元素吸收不良與小腸細菌過度生長，進展相對較緩，列為後續調理。"
   }
 };
     const PRODUCTS_DB = [
@@ -4079,29 +3944,9 @@
       }, 60);
     }
 
-    function renderGatedContent(causeId, scores, tieBreakerInfo) {
+    function renderGatedContent(causeId, scores) {
       const cData = CAUSES_DATA[causeId];
       if (!cData) return;
-
-      // 0. 同分仲裁提報卡片 (Tie Breaker Alert)
-      const tieAlertEl = document.getElementById('tieBreakerAlert');
-      if (tieAlertEl) {
-        if (tieBreakerInfo && tieBreakerInfo.isTie) {
-          tieAlertEl.style.display = 'block';
-          const scoreEl = document.getElementById('tieScoreValue');
-          if (scoreEl) scoreEl.innerText = tieBreakerInfo.score;
-          const namesEl = document.getElementById('tieCandidateNames');
-          if (namesEl) {
-            namesEl.innerHTML = tieBreakerInfo.candidateNames.map(n => `<span class="tie-cause-pill">${n}</span>`).join('、');
-          }
-          const descEl = document.getElementById('tieRationaleDesc');
-          if (descEl) descEl.innerText = tieBreakerInfo.rationale;
-          const winnerEl = document.getElementById('tieWinnerName');
-          if (winnerEl) winnerEl.innerText = tieBreakerInfo.winnerName;
-        } else {
-          tieAlertEl.style.display = 'none';
-        }
-      }
 
       // 1. Block C
       document.getElementById('diagPrimaryTitle').innerText = `【${cData.name}】`;
@@ -4216,12 +4061,10 @@
         if (!allowedProductIds.includes(prod.id)) return;
         const card = document.createElement('div');
         card.className = 'product-single-card';
-        // Block G 產品標題純淨無份量後綴，份量提示只在 Block H 呈現
-        const cleanName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
         const benefitText = (TOPIC_CONFIG.customShortDesc && TOPIC_CONFIG.customShortDesc[prod.id]) || prod.shortDesc || "從源頭深度調理代謝平衡";
         card.innerHTML = `
           <div class="p-card-top">
-            <div class="p-card-name">${cleanName}</div>
+            <div class="p-card-name">${prod.name}</div>
             <button type="button" onclick="openMechanismModal('${prod.id}', ${causeId})" class="btn-more-b">
               想知更多
             </button>
@@ -4239,22 +4082,13 @@
       // 1. 單品選購列表
       const singleContainer = document.getElementById('block-h-single-products');
       singleContainer.innerHTML = '';
-      const DOSAGE_BADGES = {
-        '34307': '15天份量',
-        '34316': '15天份量',
-        '36246': '15天份量',
-        '36248': '10天份量',
-        '36283': '10天份量'
-      };
       PRODUCTS_DB.forEach(prod => {
         if (!allowedProductIds.includes(prod.id)) return;
         const row = document.createElement('div');
         row.className = 'h-single-item-row';
-        const badge = DOSAGE_BADGES[prod.id] ? ` <span class="dosage-tag">${DOSAGE_BADGES[prod.id]}</span>` : '';
-        const displayTitle = `${prod.name}${badge}`;
         row.innerHTML = `
           <div class="h-item-info">
-            <span class="h-item-title">${displayTitle}</span>
+            <span class="h-item-title">${prod.name}</span>
             <span class="h-item-price">HKD ${prod.price.toLocaleString()}</span>
           </div>
           <button type="button" onclick="openProductModal('${prod.id}')" class="btn-detail-h">
@@ -4819,8 +4653,7 @@
           </div>
         </div>
       `;
-      const cleanModalName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
-      openModalWithLock(`${cleanModalName} · 調理機轉`, html);
+      openModalWithLock(`${prod.name} · 調理機轉`, html);
     }
 
     // Pop-up B: 30天套裝明細彈窗 (完整呈現套裝所含單品與機轉)

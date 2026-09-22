@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Health Decoder｜夜尿專題 · 從源頭除錯</title>
+    <title>Health Decoder｜夜尿專題 · 從源頭除錯</title>
+  <meta name="description" content="半夜反覆起身去廁所？搞清楚源頭，先可以治本。工程師邏輯 ✕ 代謝底層解碼，3分鐘初步自我診斷。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Health Decoder｜夜尿專題 · 從源頭除錯">
+  <meta property="og:description" content="半夜反覆起身去廁所？搞清楚源頭，先可以治本。工程師邏輯 ✕ 代謝底層解碼，3分鐘初步自我診斷。">
+  <meta property="og:url" content="https://health-decoder.com/nocturia/">
+  <meta property="og:image" content="https://health-decoder.com/images/og-nocturia.webp">
+  <link rel="icon" type="image/x-icon" href="https://health-decoder.com/favicon.ico">
   <style>
 
     /* ==========================================================================
@@ -1324,101 +1331,6 @@
       height: 100%;
       border: 0;
     }
-  
-    /* 多成因同分仲裁卡片樣式 (Tie Breaker Alert) */
-    .tie-breaker-box {
-      background: linear-gradient(135deg, #F0FDFA 0%, #E6FFFA 100%);
-      border: 2px solid #0D9488;
-      border-radius: var(--radius-lg, 16px);
-      padding: 22px 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.12), 0 8px 10px -6px rgba(13, 148, 136, 0.08);
-      animation: fadeIn 0.4s ease-in-out;
-    }
-    .tie-breaker-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed rgba(13, 148, 136, 0.35);
-    }
-    .tie-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 800;
-      color: #0F766E;
-      letter-spacing: 0.3px;
-    }
-    .tie-score-tag {
-      background: #0D9488;
-      color: #FFFFFF;
-      font-size: 13.5px;
-      font-weight: 700;
-      padding: 4px 14px;
-      border-radius: 20px;
-    }
-    .tie-notice-text {
-      font-size: 15.5px;
-      line-height: 1.7;
-      color: #134E4A;
-      margin-bottom: 14px;
-    }
-    .tie-cause-pill {
-      display: inline-block;
-      background: rgba(13, 148, 136, 0.12);
-      color: #0F766E;
-      border: 1px solid rgba(13, 148, 136, 0.3);
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-weight: 800;
-      margin: 2px 4px;
-    }
-    .tie-rationale-box {
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(13, 148, 136, 0.25);
-      border-left: 4px solid #0D9488;
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin-bottom: 14px;
-    }
-    .tie-rationale-header {
-      font-size: 14.5px;
-      font-weight: 800;
-      color: #0F766E;
-      margin-bottom: 6px;
-    }
-    .tie-rationale-desc {
-      font-size: 15px;
-      line-height: 1.7;
-      color: #334155;
-    }
-    .tie-recommend-conclusion {
-      font-size: 14.5px;
-      line-height: 1.65;
-      color: #0F766E;
-      background: rgba(13, 148, 136, 0.08);
-      padding: 10px 14px;
-      border-radius: 8px;
-    }
-
-      .dosage-tag {
-      display: inline-block;
-      background: #FEF3C7;
-      color: #B45309;
-      border: 1px solid #FDE68A;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 6px;
-      margin-left: 6px;
-      vertical-align: middle;
-      line-height: 1.4;
-    }
   </style>
 </head>
 <body>
@@ -1635,70 +1547,44 @@
       </div>
 
       <!-- 維度 6 (方案 A：6 類獨立分立，純淨西藥排查，零臨床干擾提示，零備註贅字，零特殊紅字) -->
-              <!-- 組別 6：維度 6：現行或長期處方西藥審查【可多選】 -->
-        <div class="quiz-group" style="background: #FFFBEB; border: 1.5px solid #FDE68A;">
-          <div class="quiz-group-header" style="border-bottom-color: #FDE68A;">
-            <div class="quiz-num" style="background: #F59E0B; color: #FFFFFF;">6</div>
-            <div>
-              <div class="quiz-title" style="color: #92400E;">維度 6：現行或長期處方西藥審查【可多選】</div>
-              <div style="font-size: 13px; color: #B45309; margin-top: 4px;">盤點長期服用之常規處方西藥，評估藥源性夜尿與體液平衡干擾（若無服用請選最後一項）</div>
-            </div>
-          </div>
-          <div class="options-grid">
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_STATIN" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>降膽固醇藥：他汀類 Statins（例如 Atorvastatin 阿托伐他汀/立普妥、Rosuvastatin 瑞舒伐他汀/可妥、Simvastatin 辛伐他汀）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_METFORMIN" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止、二甲雙胍）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_DIAB_OTHER" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>降血糖藥：其他類別（例如 SGLT-2 排糖藥、磺醯尿素類 Gliclazide 格列齊特、DPP-4 抑制劑、注射胰島素等）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_CCB" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>降血壓藥：鈣離子阻斷劑 CCB（例如 Amlodipine 氨氯地平/絡活喜、Nifedipine、Felodipine）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_BETABLOCKER" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>降血壓或調心率藥：乙型受體阻斷劑 Beta-blocker（例如 Atenolol、Metoprolol、Bisoprolol 康忻、Carvedilol）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_DIURETIC" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>降血壓或消腫藥：利尿劑水丸（例如 Indapamide 吲達帕胺、Furosemide 呋塞米/速尿、Hydrochlorothiazide）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_ACEI" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>降血壓藥：ACEI / ARB 血管緊張素抑制劑（例如 Lisinopril、Ramipril、Losartan 氯沙坦、Valsartan 纈沙坦）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" id="med_warfarin" name="dim6" value="MED_WARFARIN" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>薄血藥／抗凝血／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷/波立維、Warfarin 華法林、新型抗凝藥 NOAC/DOAC 如 Eliquis、Xarelto）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_PPI" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>胃藥：質子泵抑制劑 PPI 或強效制酸劑（例如 Omeprazole 奧美拉唑/洛賽克、Pantoprazole 泮托拉唑、Nexium 耐信、Famotidine）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_CALCIUM" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>骨質補充劑：無機碳酸鈣片（例如 Caltrate 挺立、Calcichew 等常見碳酸鈣片）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_SEDATIVE" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>安眠鎮靜類：安眠藥／抗焦慮鎮靜劑（例如 Zolpidem 唑吡坦/安必恩、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim6" value="MED_NSAIDS" class="dim6-item" onclick="if(document.getElementById('dim6_none')) document.getElementById('dim6_none').checked = false;">
-              <span>關節止痛抗炎藥：非類固醇消炎止痛藥 NSAIDs（例如 Ibuprofen 布洛芬、Diclofenac 雙氯芬酸/扶他林、Celebrex 塞來昔布）。</span>
-            </label>
-            <label class="option-label none-opt">
-              <input type="checkbox" id="dim6_none" value="NONE" onchange="toggleDimNone('dim6')">
-              <span>🚫 沒有長期服用上述任何西藥</span>
-            </label>
+      <div class="quiz-group" style="background: #FFFBEB; border: 1.5px solid #FDE68A;">
+        <div class="quiz-group-header" style="border-bottom-color: #FDE68A;">
+          <div class="quiz-num" style="background: #F59E0B; color: #FFFFFF;">6</div>
+          <div>
+            <div class="quiz-title" style="color: #92400E;">維度 6：現行西藥審查【可多選】</div>
           </div>
         </div>
+        <div class="options-grid">
+          <label class="option-label">
+            <input type="checkbox" name="dim6" value="MED_BP" class="dim6-item">
+            <span>降血壓藥（如 Amlodipine 氨氯地平 / 鈣離子阻斷劑 CCB）</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="dim6" value="MED_WARFARIN" id="med_warfarin" class="dim6-item">
+            <span>薄血藥（如 Warfarin 華法林 / Aspirin 阿斯匹靈 / Plavix）</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="dim6" value="MED_DIURETIC_SGLT2" class="dim6-item">
+            <span>利尿劑或排糖藥（如水丸 / SGLT-2 類排糖藥）</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="dim6" value="MED_DIABETES_GEN" class="dim6-item">
+            <span>降血糖藥（如 Metformin 二甲雙胍等一般降糖藥）</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="dim6" value="MED_STATIN" class="dim6-item">
+            <span>降血脂藥（如 Rosuvastatin 等 Statin 類降膽固醇藥）</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="dim6" value="MED_PPI_CALCIUM" class="dim6-item">
+            <span>強效胃藥或鈣片（如 PPI 抑酸劑 / 碳酸鈣）</span>
+          </label>
+          <label class="option-label none-opt">
+            <input type="checkbox" id="dim6_none" value="NONE" onchange="toggleDimNone('dim6')">
+            <span style="font-weight: 700; color: #92400E;">🚫 沒有服用上述西藥</span>
+          </label>
+        </div>
+      </div>
 
       <div style="margin-top: 28px; text-align: center;">
         <button type="button" class="btn-primary" onclick="submitAssessment()">
@@ -1712,32 +1598,6 @@
 
       <!-- Block C: 診斷結果判定 ✕ 最壞情況直擊 (100% 還原 Version 5 高質感架構) -->
       <section id="blockC" class="section-card">
-        
-        <!-- 0. 多成因同分智能仲裁提示 (動態顯示) -->
-        <div id="tieBreakerAlert" class="tie-breaker-box" style="display: none;">
-          <div class="tie-breaker-header">
-            <div class="tie-badge">
-              <span>⚖️</span>
-              <span>臨床優先級仲裁提示（多於一個成因同分）</span>
-            </div>
-            <div class="tie-score-tag">最高同分：<span id="tieScoreValue">0</span> 分</div>
-          </div>
-          <div class="tie-breaker-body">
-            <div class="tie-notice-text">
-              系統評估發現您的填選結果中，<span id="tieCandidateNames"></span> 得分相同（並列最高分）。
-            </div>
-            <div class="tie-rationale-box">
-              <div class="tie-rationale-header">
-                <span class="tie-rationale-title">🔍 臨床優先處理考量原因：</span>
-              </div>
-              <div id="tieRationaleDesc" class="tie-rationale-desc"></div>
-            </div>
-            <div class="tie-recommend-conclusion">
-              💡 <strong>專家建議策略：</strong>為免多線干預分散身體調度能量，系統建議您第一階段<strong>優先集中處理【<span id="tieWinnerName" style="color: #0D9488; text-decoration: underline;"></span>】</strong>。待核心急迫風險穩固後，再依序針對其他次要成因進行固本調理。
-            </div>
-          </div>
-        </div>
-
         
         <!-- 1. 深色成因判定卡片 -->
         <div class="diagnosis-highlight-card">
@@ -2262,7 +2122,7 @@
       },
       {
         id: "36283",
-        name: "ORIYEN 蛋白高營素",
+        name: "ORIYEN 蛋白高營素 (10天份量）",
         shortDesc: "抑制肌肉分解，重建小腿肌泵力量",
         price: 339,
         specialPrice: 298,
@@ -2281,7 +2141,7 @@
       },
       {
         id: "36248",
-        name: "ORIYEN 綜合果蔬酵素",
+        name: "ORIYEN 綜合果蔬酵素 (10天份量）",
         shortDesc: "修復腸道屏障，阻斷發炎引致漏水",
         price: 633,
         specialPrice: 557,
@@ -2301,7 +2161,7 @@
       },
       {
         id: "34331",
-        name: "Nn 三效益生菌 - 長者配方",
+        name: "Nn 三效益生菌- 長者配方",
         shortDesc: "平衡腸道微生態，減少微血管損傷",
         price: 409,
         specialPrice: 327,
@@ -2321,7 +2181,7 @@
       },
       {
         id: "34278",
-        name: "Nn 水溶性輔酶 Q10",
+        name: "Nn 水溶性輔酶Q10",
         shortDesc: "為心血管充能，維持平穩回流動力",
         price: 338,
         specialPrice: 297,
@@ -2400,7 +2260,7 @@
       },
       {
         id: "34316",
-        name: "Nn 液鈣鎂 D3",
+        name: "Nn 液鈣鎂D3 (15天份量）",
         shortDesc: "放鬆逼尿肌痙攣，擴大夜間儲尿量",
         price: 241,
         specialPrice: 212,
@@ -2443,7 +2303,7 @@
       },
       {
         id: "38207",
-        name: "Smart Fitness X 律動拍打機",
+        name: "Smart Fitness-X 律動拍打機",
         shortDesc: "精準垂直律動，被動活化深層肌泵",
         price: 22990,
         specialPrice: 22990,
@@ -2468,7 +2328,7 @@
       {
         id: "A1",
         code: "Noct_Set_A1",
-        name: "夜尿・30天源頭調養套裝 A1",
+        name: "緩解夜尿30天套裝A1",
         causeId: 1,
         isWarfarinSafe: false,
         img: "/images/packages/Noct_Set_A1.webp",
@@ -2482,77 +2342,77 @@
       {
         id: "A2",
         code: "Noct_Set_A2",
-        name: "夜尿・30天源頭調養套裝 A2",
+        name: "緩解夜尿30天套裝A2",
         causeId: 1,
         isWarfarinSafe: true,
         img: "/images/packages/Noct_Set_A2.webp",
-        price: 6070,
-        origPrice: 8004,
+        price: 5999,
+        origPrice: 7880,
         discount: "76折",
-        save: 1934,
+        save: 1881,
         itemsSummary: "ORIYEN 天然酵母NMN 15000 Premium x 1 包裝（30包）、ORIYEN 綜合果蔬酵素 x 3 瓶（30天量）、Nn 三效益生菌- 長者配方 x 1 盒（30包）、Nn 蝦青素 x 1 盒（30粒）、Nn 水溶性輔酶Q10 x 1 盒（30粒）、SE 紅光光療按摩帶 x 1 條裝",
         desc: "30天完整份量。【適合薄血藥用家】專利益生菌與果蔬深層發酵多酚修復腸道黏膜緊密連接，切斷腸漏發炎引致嘅微血管滲漏；水溶性輔酶Q10與蝦青素強化心肌與血管抗氧化；紅光帶促進下肢水分代謝，安全不影響凝血機能。"
       },
       {
         id: "B",
         code: "Noct_Set_B",
-        name: "夜尿・30天源頭調養套裝 B1",
+        name: "緩解夜尿30天套裝B",
         causeId: 2,
         isWarfarinSafe: false,
         img: "/images/packages/Noct_Set_B.webp",
-        price: 4451,
-        origPrice: 6036,
+        price: 4438,
+        origPrice: 6022,
         discount: "74折",
-        save: 1585,
+        save: 1584,
         itemsSummary: "ORIYEN 天然酵母NMN 15000 Premium x 1 包裝（30包）、Nn 液鈣鎂D3 x 2 盒（30天量）、Nn 蝦青素 x 1 盒（30粒）、Nn 月見草油1000 x 1 瓶（50粒）、SE 紅光光療按摩帶 x 1 條裝",
         desc: "30天完整份量。活性鎂離子放鬆逼尿肌平滑肌與骨盆底肌痙攣；NMN 維護逼尿肌能量產能；蝦青素與月見草油消除骨盆腔慢性無菌發炎，紅光帶改善骨盆微循環，擴大夜間有效儲尿容量。"
       },
       {
         id: "C1",
         code: "Noct_Set_C1",
-        name: "夜尿・30天源頭調養套裝 C1",
+        name: "緩解夜尿30天套裝C1",
         causeId: 3,
         isWarfarinSafe: false,
         img: "/images/packages/Noct_Set_C1.webp",
-        price: 16922,
-        origPrice: 26785,
+        price: 16909,
+        origPrice: 26771,
         discount: "63折",
-        save: 9863,
+        save: 9862,
         itemsSummary: "ORIYEN 天然酵母NMN 15000 Premium x 1 包裝（30包）、ORIYEN 蛋白高營素 x 3 盒（30天量）、Nn 蝦青素 x 1 盒（30粒）、Smart Fitness-X 律動拍打機 x 1 部裝",
         desc: "30天完整份量。雙源優質蛋白配合 HMB 增強小腿肌泵力量；NMN 與蝦青素修復周邊神經髓鞘；精準垂直正弦律動被動活化深層肌泵與 AMPK 代謝，促進下肢體液高效回流。"
       },
       {
         id: "C2",
         code: "Noct_Set_C2",
-        name: "夜尿・30天源頭調養套裝 C2",
+        name: "緩解夜尿30天套裝C2",
         causeId: 3,
         isWarfarinSafe: false,
         img: "/images/packages/Noct_Set_C2.webp",
-        price: 2932,
-        origPrice: 3795,
+        price: 2919,
+        origPrice: 3781,
         discount: "77折",
-        save: 863,
+        save: 862,
         itemsSummary: "ORIYEN 天然酵母NMN 15000 Premium x 1 包裝（30包）、ORIYEN 蛋白高營素 x 3 盒（30天量）、Nn 蝦青素 x 1 盒（30粒）",
         desc: "30天完整份量。高密度優質蛋白與 HMB 抑制肌肉分解並促進合成，配合 NMN 激活肌纖維粒線體產能，重塑小腿肌泵力量。"
       },
       {
         id: "D",
         code: "Noct_Set_D",
-        name: "夜尿・30天源頭調養套裝 D1",
+        name: "緩解夜尿30天套裝D",
         causeId: 4,
         isWarfarinSafe: false,
         img: "/images/packages/Noct_Set_D.webp",
-        price: 4132,
-        origPrice: 5245,
+        price: 4089,
+        origPrice: 5152,
         discount: "79折",
-        save: 1113,
+        save: 1063,
         itemsSummary: "ORIYEN 天然酵母NMN 15000 Premium x 1 包裝（30包）、ORIYEN 綜合果蔬酵素 x 3 瓶（30天量）、Nn 三效益生菌- 長者配方 x 1 盒（30包）、Nn 奧米加-3深海魚油1000 x 1 瓶（50粒）、Nn 月見草油1000 x 1 瓶（50粒）",
         desc: "30天完整份量。NMN 提升胰島素敏感度以平穩血糖；酵素與益生菌產生短鏈脂肪酸修復腸道黏膜；高純度魚油與月見草油生成消退素抑制全身慢性發炎，減輕微血管滲透壓負荷。"
       },
       {
         id: "E",
         code: "Noct_Set_E",
-        name: "夜尿・30天源頭調養套裝 E1",
+        name: "緩解夜尿30天套裝E",
         causeId: 5,
         isWarfarinSafe: false,
         img: "/images/packages/Noct_Set_E.webp",
@@ -2788,28 +2648,17 @@
         if (el.value === 'D5_C') scores[5] += 2;
       });
 
-      // 維度 6 (統一詳盡版西藥審查乘數加權)
+      // 維度 6 (方案 A：6 類精準獨立乘數加權)
       const d6Items = document.querySelectorAll('input[name="dim6"]:checked');
       d6Items.forEach(el => {
-        // 降壓藥 (CCB, Beta-blocker, ACEI) 加權成因 1 (下肢水腫回流)
-        if ((el.value === 'MED_BP' || el.value === 'MED_CCB' || el.value === 'MED_BETABLOCKER' || el.value === 'MED_ACEI') && scores[1] > 0) {
-          scores[1] *= 1.2;
-        }
-        // 利尿劑與 SGLT-2 排糖藥 加權成因 1 (體液排出) 與成因 4 (腎濃縮代償)
-        if (el.value === 'MED_DIURETIC_SGLT2' || el.value === 'MED_DIURETIC' || el.value === 'MED_DIAB_OTHER') {
+        if (el.value === 'MED_BP' && scores[1] > 0) scores[1] *= 1.2;
+        if (el.value === 'MED_DIURETIC_SGLT2') {
           if (scores[1] > 0) scores[1] *= 1.2;
           if (scores[4] > 0) scores[4] *= 1.2;
         }
-        // 降糖藥 (二甲雙胍等) 加權成因 4 (代謝滲透壓)
-        if ((el.value === 'MED_DIABETES_GEN' || el.value === 'MED_METFORMIN') && scores[4] > 0) {
-          scores[4] *= 1.2;
-        }
-        // 他汀類降脂藥 加權成因 3 (血管內皮硬化)
-        if (el.value === 'MED_STATIN' && scores[3] > 0) {
-          scores[3] *= 1.2;
-        }
-        // PPI 胃藥與無機鈣片 加權成因 2 (膀胱功能) 與成因 4 (微量元素吸收)
-        if (el.value === 'MED_PPI_CALCIUM' || el.value === 'MED_PPI' || el.value === 'MED_CALCIUM') {
+        if (el.value === 'MED_DIABETES_GEN' && scores[4] > 0) scores[4] *= 1.2;
+        if (el.value === 'MED_STATIN' && scores[3] > 0) scores[3] *= 1.2;
+        if (el.value === 'MED_PPI_CALCIUM') {
           if (scores[2] > 0) scores[2] *= 1.15;
           if (scores[4] > 0) scores[4] *= 1.15;
         }
@@ -2832,11 +2681,10 @@
         ratios[c] = Math.round((scores[c] / totalRaw) * 100);
       }
 
-            // 仲裁最高分（三級臨床仲裁機制）
+      // 仲裁最高分（三級臨床仲裁機制）
       const causeIds = [1, 2, 3, 4, 5];
       const maxScore = Math.max(...causeIds.map(i => scores[i]));
       let winningCause = 1;
-      let tieBreakerInfo = null;
 
       if (maxScore <= 0) {
         winningCause = 1;
@@ -2847,16 +2695,13 @@
           winningCause = candidates[0];
         } else {
           // 多成因同分仲裁
+          // 第 1 級：硬核錨定體徵判定
           let hardcoreCandidates = candidates.filter(c => hasHardcore[c]);
-          let arbitrationType = '';
-          let rationaleText = '';
-
           if (hardcoreCandidates.length === 1) {
             winningCause = hardcoreCandidates[0];
-            arbitrationType = 'hardcore';
-            rationaleText = `您在自評填選中同時勾選了【${CAUSES_DATA[winningCause].name}】之專屬特異性「硬核器質體徵」，顯示該病理機轉已進入器質性實質損傷階段，比起其他尚在功能代償期的同分亞型具有更高之臨床確定性與干預急迫性。`;
           } else {
-            arbitrationType = 'clinical_priority';
+            // 第 2 級：夜尿專屬臨床病理優先鏈 [1, 4, 2, 3, 5]
+            // (心血管體液過載 > 腎小管濃縮衰退 > 膀胱出口阻抗 > 血管內皮微循環 > 自律神經睡眠)
             const arbitrationPriority = [1, 4, 2, 3, 5];
             const pool = hardcoreCandidates.length > 1 ? hardcoreCandidates : candidates;
             for (let p of arbitrationPriority) {
@@ -2865,38 +2710,19 @@
                 break;
               }
             }
-            if (NOCTURIA_ARBITRATION_REASONS[winningCause]) {
-              rationaleText = NOCTURIA_ARBITRATION_REASONS[winningCause];
-            } else {
-              rationaleText = `在多項成因同分的情況下，基於「急性生命威脅 > 不可逆器質損傷 > 系統病理源頭 vs 繼發表象」之臨床避險原則，【${CAUSES_DATA[winningCause].name}】具有更高的器質性損害防護優先級。`;
-            }
-            if (hardcoreCandidates.length > 1) {
-              rationaleText = `（多項同分成因皆出現硬核體徵）` + rationaleText;
-            }
           }
-
-          tieBreakerInfo = {
-            isTie: true,
-            score: maxScore,
-            candidates: candidates,
-            candidateNames: candidates.map(cid => CAUSES_DATA[cid].name),
-            winnerId: winningCause,
-            winnerName: CAUSES_DATA[winningCause].name,
-            rationale: rationaleText,
-            arbitrationType: arbitrationType
-          };
         }
       }
 
       selectedCauseId = winningCause;
-      renderGatedContent(selectedCauseId, ratios, tieBreakerInfo);
+      renderGatedContent(selectedCauseId, ratios);
 
       // 異步發送自測數據至 Apps Script 自測數據庫
       if (APPS_SCRIPT_WEBHOOK_URL) {
         try {
           const quizData = {
             type: "quiz",
-            topicName: "夜尿專題",
+            topicName: "夜尿自測記錄",
             timestamp: new Date().toISOString(),
             name: userName,
             gender: document.getElementById('quizGender').value,
@@ -2918,28 +2744,8 @@
       scrollToId('blockC');
     }
 
-    function renderGatedContent(causeId, ratios, tieBreakerInfo) {
+    function renderGatedContent(causeId, ratios) {
       const cData = CAUSES_DATA[causeId];
-
-      // 0. 同分仲裁提報卡片 (Tie Breaker Alert)
-      const tieAlertEl = document.getElementById('tieBreakerAlert');
-      if (tieAlertEl) {
-        if (tieBreakerInfo && tieBreakerInfo.isTie) {
-          tieAlertEl.style.display = 'block';
-          const scoreEl = document.getElementById('tieScoreValue');
-          if (scoreEl) scoreEl.innerText = tieBreakerInfo.score;
-          const namesEl = document.getElementById('tieCandidateNames');
-          if (namesEl) {
-            namesEl.innerHTML = tieBreakerInfo.candidateNames.map(n => `<span class="tie-cause-pill">${n}</span>`).join('、');
-          }
-          const descEl = document.getElementById('tieRationaleDesc');
-          if (descEl) descEl.innerText = tieBreakerInfo.rationale;
-          const winnerEl = document.getElementById('tieWinnerName');
-          if (winnerEl) winnerEl.innerText = tieBreakerInfo.winnerName;
-        } else {
-          tieAlertEl.style.display = 'none';
-        }
-      }
 
       // Block C 完整渲染
       document.getElementById('diagPrimaryTitle').innerText = `【${cData.name}】`;
@@ -3046,12 +2852,10 @@
         if (!allowedProductIds.includes(prod.id)) return;
         const card = document.createElement('div');
         card.className = 'product-single-card';
-        // Block G 產品標題純淨無份量後綴，份量提示只在 Block H 呈現
-        const cleanName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
         const benefitText = prod.shortDesc || "從源頭深度調理代謝平衡";
         card.innerHTML = `
           <div class="p-card-top">
-            <div class="p-card-name">${cleanName}</div>
+            <div class="p-card-name">${prod.name}</div>
             <button type="button" onclick="openMechanismModal('${prod.id}', ${causeId})" class="btn-more-b">
               想知更多
             </button>
@@ -3066,22 +2870,13 @@
       // 1. 單品選購列表 (產品名稱 + 價格 + 「產品詳情」按鈕 + 數量調節)
       const singleContainer = document.getElementById('block-h-single-products');
       singleContainer.innerHTML = '';
-      const DOSAGE_BADGES = {
-        '34307': '15天份量',
-        '34316': '15天份量',
-        '36246': '15天份量',
-        '36248': '10天份量',
-        '36283': '10天份量'
-      };
       PRODUCTS_DB.forEach(prod => {
         if (!allowedProductIds.includes(prod.id)) return;
         const row = document.createElement('div');
         row.className = 'h-single-item-row';
-        const badge = DOSAGE_BADGES[prod.id] ? ` <span class="dosage-tag">${DOSAGE_BADGES[prod.id]}</span>` : '';
-        const displayTitle = `${prod.name}${badge}`;
         row.innerHTML = `
           <div class="h-item-info">
-            <span class="h-item-title">${displayTitle}</span>
+            <span class="h-item-title">${prod.name}</span>
             <span class="h-item-price">HKD ${prod.price.toLocaleString()}</span>
           </div>
           <button type="button" onclick="openProductModal('${prod.id}')" class="btn-detail-h">
@@ -3532,6 +3327,28 @@
       }
     }
 
+
+    const SITE_DOMAIN_BASE = "https://health-decoder.com";
+
+    function getProductImgUrl(prodId) {
+      return `${SITE_DOMAIN_BASE}/images/products/${prodId}.webp`;
+    }
+
+    function getBundleImgUrl(bundleId) {
+      return `${SITE_DOMAIN_BASE}/images/packages/${bundleId}.webp`;
+    }
+
+    function handleImgFallback(imgEl, prodId, isPackage = false) {
+      const folder = isPackage ? "packages" : "products";
+      if (!imgEl.dataset.fbStep) {
+        imgEl.dataset.fbStep = "1";
+        imgEl.src = `/images/${folder}/${prodId}.webp`;
+      } else if (imgEl.dataset.fbStep === "1") {
+        imgEl.dataset.fbStep = "2";
+        imgEl.src = `../images/${folder}/${prodId}.webp`;
+      }
+    }
+
     // 彈窗 A：產品詳情 (法定 6 大模組，深色背景 + 獨立純白圖框，零價格零折扣，注意事項去紅色化)
     function openProductModal(prodId) {
       const prod = PRODUCTS_DB.find(p => p.id === prodId);
@@ -3539,7 +3356,7 @@
 
       let galleryHtml = `
         <div class="modal-white-image-box">
-          <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
+          <img id="gallery-main-img" src="${prod.img}" onerror="handleImgFallback(this, '${prod.id}', false)" alt="${prod.name}">
         </div>
       `;
 
@@ -3547,17 +3364,17 @@
         galleryHtml = `
           <div>
             <div class="modal-white-image-box">
-              <img id="gallery-main-img" src="${prod.img}" alt="${prod.name}">
+              <img id="gallery-main-img" src="${prod.img}" onerror="handleImgFallback(this, '${prod.id}', false)" alt="${prod.name}">
             </div>
             <div class="gallery-thumbs">
               <button type="button" onclick="switchGalleryImage('${prod.img}')" class="gallery-thumb-btn">
-                <img src="${prod.img}">
+                <img src="${prod.img}" onerror="handleImgFallback(this, '${prod.id}', false)">
               </button>
               <button type="button" onclick="switchGalleryImage('${prod.demoImg1}')" class="gallery-thumb-btn">
-                <img src="${prod.demoImg1}">
+                <img src="${prod.demoImg1}" onerror="handleImgFallback(this, '0368-demo1', false)">
               </button>
               <button type="button" onclick="switchGalleryImage('${prod.demoImg2}')" class="gallery-thumb-btn">
-                <img src="${prod.demoImg2}">
+                <img src="${prod.demoImg2}" onerror="handleImgFallback(this, '0368-demo2', false)">
               </button>
             </div>
           </div>
@@ -3608,7 +3425,7 @@
       const html = `
         <div>
           <div class="modal-white-image-box">
-            <img src="${prod.img}" alt="${prod.name}">
+            <img src="${prod.img}" onerror="handleImgFallback(this, '${prod.id}', false)" alt="${prod.name}">
           </div>
           <div style="margin-top: 14px;">
             <div style="font-weight: 800; font-size: 16px; color: #D4A343; margin-bottom: 8px;">${cData.name} 專屬修復機轉</div>
@@ -3627,7 +3444,7 @@
       const html = `
         <div>
           <div class="modal-white-image-box">
-            <img src="${bundle.img}" alt="${bundle.name}">
+            <img src="${bundle.img}" onerror="handleImgFallback(this, '${bundle.id}', true)" alt="${bundle.name}">
           </div>
           <div style="margin-top: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">

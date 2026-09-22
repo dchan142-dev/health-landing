@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Health Decoder｜手腳麻痺專題 · 從源頭除錯</title>
+    <title>Health Decoder｜手腳麻痺專題 · 從源頭除錯</title>
+  <meta name="description" content="手指腳趾發麻刺痛，成日好似著住厚襪戴住手套？ 搞清楚源頭，先可以治本。 工程師邏輯 ✕ 代謝底層解碼，3分鐘初步自我診斷。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Health Decoder｜手腳麻痺專題 · 從源頭除錯">
+  <meta property="og:description" content="手指腳趾發麻刺痛，成日好似著住厚襪戴住手套？ 搞清楚源頭，先可以治本。 工程師邏輯 ✕ 代謝底層解碼，3分鐘初步自我診斷。">
+  <meta property="og:url" content="https://health-decoder.com/numbness/">
+  <meta property="og:image" content="https://health-decoder.com/images/og-numbness.webp">
+  <link rel="icon" type="image/x-icon" href="https://health-decoder.com/favicon.ico">
   <style>
 
 
@@ -1326,101 +1333,6 @@
       height: 100%;
       border: 0;
     }
-  
-    /* 多成因同分仲裁卡片樣式 (Tie Breaker Alert) */
-    .tie-breaker-box {
-      background: linear-gradient(135deg, #F0FDFA 0%, #E6FFFA 100%);
-      border: 2px solid #0D9488;
-      border-radius: var(--radius-lg, 16px);
-      padding: 22px 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.12), 0 8px 10px -6px rgba(13, 148, 136, 0.08);
-      animation: fadeIn 0.4s ease-in-out;
-    }
-    .tie-breaker-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed rgba(13, 148, 136, 0.35);
-    }
-    .tie-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 800;
-      color: #0F766E;
-      letter-spacing: 0.3px;
-    }
-    .tie-score-tag {
-      background: #0D9488;
-      color: #FFFFFF;
-      font-size: 13.5px;
-      font-weight: 700;
-      padding: 4px 14px;
-      border-radius: 20px;
-    }
-    .tie-notice-text {
-      font-size: 15.5px;
-      line-height: 1.7;
-      color: #134E4A;
-      margin-bottom: 14px;
-    }
-    .tie-cause-pill {
-      display: inline-block;
-      background: rgba(13, 148, 136, 0.12);
-      color: #0F766E;
-      border: 1px solid rgba(13, 148, 136, 0.3);
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-weight: 800;
-      margin: 2px 4px;
-    }
-    .tie-rationale-box {
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(13, 148, 136, 0.25);
-      border-left: 4px solid #0D9488;
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin-bottom: 14px;
-    }
-    .tie-rationale-header {
-      font-size: 14.5px;
-      font-weight: 800;
-      color: #0F766E;
-      margin-bottom: 6px;
-    }
-    .tie-rationale-desc {
-      font-size: 15px;
-      line-height: 1.7;
-      color: #334155;
-    }
-    .tie-recommend-conclusion {
-      font-size: 14.5px;
-      line-height: 1.65;
-      color: #0F766E;
-      background: rgba(13, 148, 136, 0.08);
-      padding: 10px 14px;
-      border-radius: 8px;
-    }
-
-      .dosage-tag {
-      display: inline-block;
-      background: #FEF3C7;
-      color: #B45309;
-      border: 1px solid #FDE68A;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 6px;
-      margin-left: 6px;
-      vertical-align: middle;
-      line-height: 1.4;
-    }
   </style>
 </head>
 <body>
@@ -1583,71 +1495,44 @@
       </div>
 
       <!-- Ｑ4：關鍵用藥調查 -->
-              <!-- 組別 4：維度 4：現行慢性病處方西藥審查【可多選】 -->
-        <div class="quiz-group" style="background: #FFFBEB; border: 1.5px solid #FDE68A;">
-          <div class="quiz-group-header" style="border-bottom-color: #FDE68A;">
-            <div class="quiz-num" style="background: #F59E0B; color: #FFFFFF;">4</div>
-            <div>
-              <div class="quiz-title" style="color: #92400E;">維度 4：現行慢性病處方西藥審查【可多選】</div>
-              <div style="font-size: 13px; color: #B45309; margin-top: 4px;">盤點長期服用之常規處方西藥，評估藥源性末梢神經毒性與輔酶耗竭（若無服用請選最後一項）</div>
-            </div>
-          </div>
-          <div class="options-grid">
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_STATIN" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>降膽固醇藥：他汀類 Statins（例如 Atorvastatin 阿托伐他汀/立普妥、Rosuvastatin 瑞舒伐他汀/可妥、Simvastatin 辛伐他汀）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_METFORMIN" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>降血糖藥：雙胍類 Metformin（例如 Glucophage 格華止、二甲雙胍）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_DIAB_OTHER" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>降血糖藥：其他類別（例如 SGLT-2 排糖藥、磺醯尿素類 Gliclazide 格列齊特、DPP-4 抑制劑、注射胰島素等）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_CCB" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>降血壓藥：鈣離子阻斷劑 CCB（例如 Amlodipine 氨氯地平/絡活喜、Nifedipine、Felodipine）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_BETABLOCKER" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>降血壓或調心率藥：乙型受體阻斷劑 Beta-blocker（例如 Atenolol、Metoprolol、Bisoprolol 康忻、Carvedilol）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_DIURETIC" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>降血壓或消腫藥：利尿劑水丸（例如 Indapamide 吲達帕胺、Furosemide 呋塞米/速尿、Hydrochlorothiazide）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_ACEI" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>降血壓藥：ACEI / ARB 血管緊張素抑制劑（例如 Lisinopril、Ramipril、Losartan 氯沙坦、Valsartan 纈沙坦）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" id="med_warfarin" name="dim4" value="MED_WARFARIN" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>薄血藥／抗凝血／抗血小板藥（例如 Aspirin 阿斯匹靈、Clopidogrel 氯吡格雷/波立維、Warfarin 華法林、新型抗凝藥 NOAC/DOAC 如 Eliquis、Xarelto）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_PPI" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>胃藥：質子泵抑制劑 PPI 或強效制酸劑（例如 Omeprazole 奧美拉唑/洛賽克、Pantoprazole 泮托拉唑、Nexium 耐信、Famotidine）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_CALCIUM" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>骨質補充劑：無機碳酸鈣片（例如 Caltrate 挺立、Calcichew 等常見碳酸鈣片）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_SEDATIVE" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>安眠鎮靜類：安眠藥／抗焦慮鎮靜劑（例如 Zolpidem 唑吡坦/安必恩、Zopiclone 佐匹克隆、Lorazepam 勞拉西泮）。</span>
-            </label>
-            <label class="option-label">
-              <input type="checkbox" name="dim4" value="MED_NSAIDS" class="dim4-item" onclick="if(document.getElementById('dim4_none')) document.getElementById('dim4_none').checked = false;">
-              <span>關節止痛抗炎藥：非類固醇消炎止痛藥 NSAIDs（例如 Ibuprofen 布洛芬、Diclofenac 雙氯芬酸/扶他林、Celebrex 塞來昔布）。</span>
-            </label>
-            <label class="option-label none-opt">
-              <input type="checkbox" id="dim4_none" value="NONE" onchange="toggleDimNone('dim4')">
-              <span>🚫 沒有長期服用上述任何西藥</span>
-            </label>
+      <div class="quiz-group">
+        <div class="quiz-group-header">
+          <div class="quiz-num">4</div>
+          <div>
+            <div class="quiz-title">維度 4：公立醫院常見慢性西藥審查【多選】</div>
           </div>
         </div>
-
+        <div class="options-grid">
+          <label class="option-label">
+            <input type="checkbox" name="dim4" value="MED_DIABETES" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+            <span><strong>降血糖藥（如甲福明 Metformin、達美康 Gliclazide）：</strong>長期服用干擾腸道 B12 吸收。</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="dim4" value="MED_STATIN" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+            <span><strong>降膽固醇藥 / 他汀類（如辛伐他汀 Simvastatin、阿托伐他汀）：</strong>耗竭粒線體核心原料 Q10。</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="dim4" value="MED_CCB" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+            <span><strong>降血壓藥 - 鈣離子阻斷劑（如氨氯地平 Amlodipine / Norvasc）：</strong>易引發末梢水腫卡壓神經。</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="dim4" value="MED_DIURETIC" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+            <span><strong>降血壓藥 - 減心跳類 / 去水丸（如美托洛爾 Metoprolol、Lasix）：</strong>微血管缺血或流失電解質。</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="dim4" value="MED_PPI" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+            <span><strong>強效胃藥（如 Omeprazole）或無機碳酸鈣片：</strong>抑制胃酸阻斷 B12 游離吸收。</span>
+          </label>
+          <label class="option-label">
+            <input type="checkbox" id="med_warfarin" name="dim4" value="MED_WARFARIN" class="dim4-item" onclick="document.getElementById('dim4_none').checked = false;">
+            <span><strong>薄血藥 / 通血丸（如 Warfarin / Aspirin / Plavix）：</strong>凝血調控中（全域安全門閥）。</span>
+          </label>
+          <label class="option-label none-opt">
+            <input type="checkbox" id="dim4_none" value="NONE" onchange="toggleDimNone('dim4')">
+            <span style="font-weight: 700; color: #92400E;">🚫 沒有服用上述西藥</span>
+          </label>
+        </div>
+      </div>
 
       <!-- Ｑ5：環境與飲食油脂暴露 -->
       <div class="quiz-group">
@@ -1713,32 +1598,6 @@
 
       <!-- Block C: 診斷結果判定 ✕ 最壞情況直擊 (100% 還原 Version 5 高質感架構) -->
       <section id="blockC" class="section-card">
-        
-        <!-- 0. 多成因同分智能仲裁提示 (動態顯示) -->
-        <div id="tieBreakerAlert" class="tie-breaker-box" style="display: none;">
-          <div class="tie-breaker-header">
-            <div class="tie-badge">
-              <span>⚖️</span>
-              <span>臨床優先級仲裁提示（多於一個成因同分）</span>
-            </div>
-            <div class="tie-score-tag">最高同分：<span id="tieScoreValue">0</span> 分</div>
-          </div>
-          <div class="tie-breaker-body">
-            <div class="tie-notice-text">
-              系統評估發現您的填選結果中，<span id="tieCandidateNames"></span> 得分相同（並列最高分）。
-            </div>
-            <div class="tie-rationale-box">
-              <div class="tie-rationale-header">
-                <span class="tie-rationale-title">🔍 臨床優先處理考量原因：</span>
-              </div>
-              <div id="tieRationaleDesc" class="tie-rationale-desc"></div>
-            </div>
-            <div class="tie-recommend-conclusion">
-              💡 <strong>專家建議策略：</strong>為免多線干預分散身體調度能量，系統建議您第一階段<strong>優先集中處理【<span id="tieWinnerName" style="color: #0D9488; text-decoration: underline;"></span>】</strong>。待核心急迫風險穩固後，再依序針對其他次要成因進行固本調理。
-            </div>
-          </div>
-        </div>
-
         
         <!-- 1. 深色成因判定卡片 -->
         <div class="diagnosis-highlight-card">
@@ -2190,7 +2049,7 @@
 
   <!-- 前端完整核心數據庫與邏輯引擎 -->
   <script>
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_sog9N1WDhPTGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
+    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwCuvvuaVpJoDvHvts9y1AMrJ_TGomqG6HY7k1nJohKh8ca7WmsuYITBFWQ/exec"; 
     const DUNCAN_WHATSAPP_PHONE = "85298788564";
 
     let savedScrollY = 0;
@@ -2304,49 +2163,29 @@
       }
     },
     "dim4": {
-      "MED_STATIN": {
-        "3": 6,
-        "hardcore": 3
-      },
-      "MED_METFORMIN": {
-        "3": 5,
-        "2": 3,
-        "hardcore": 3
-      },
-      "MED_DIAB_OTHER": {
-        "3": 3,
-        "2": 2
-      },
       "MED_DIABETES": {
         "3": 5,
         "2": 3,
+        "hardcore": 3
+      },
+      "MED_STATIN": {
+        "3": 6,
         "hardcore": 3
       },
       "MED_CCB": {
         "1": 3,
         "2": 2
       },
-      "MED_BETABLOCKER": {
-        "1": 2
-      },
       "MED_DIURETIC": {
         "2": 3,
         "3": 2
-      },
-      "MED_ACEI": {
-        "1": 2
-      },
-      "MED_WARFARIN": {
-        "2": 2
       },
       "MED_PPI": {
         "3": 6,
         "hardcore": 3
       },
-      "MED_CALCIUM": {},
-      "MED_SEDATIVE": {},
-      "MED_NSAIDS": {
-        "1": 1
+      "MED_WARFARIN": {
+        "2": 2
       }
     },
     "dim5": {
@@ -2688,12 +2527,6 @@
     "36277": "解除藥物代謝阻滯，減少外周神經毒性負擔",
     "0368": "雙光穿透深層微血管，喚醒末梢感覺神經活性",
     "38207": "正弦諧振牽張刺激，被動喚醒神經本體感受反饋"
-  },
-  "arbitrationReasons": {
-    "2": "成因 02 牽涉神經滋養微血管（Vasa Nervorum）硬化閉塞與糖尿病微血管病變，引致神經纖維末梢『逆行性枯萎』，具糖尿病足潰瘍、壞疽及截肢之重大致殘致死威脅，臨床破壞性與不可逆風險位居首位。",
-    "1": "成因 01 牽涉腕管綜合徵或頸腰椎神經根受骨刺、椎間盤物理性壓迫，持續缺血性卡壓可導致運動神經元髓鞘剝脫與大魚際肌/四肢肌群萎縮，需及早解除絞扼以防永久性功能喪失。",
-    "3": "成因 03 牽涉長期服用二甲雙胍等西藥引致維他命 B12 或神經輔酶匱乏，若進展至脊髓亞急性聯合變性將造成永久性共濟失調與感覺喪失。",
-    "4": "成因 04 多屬功能性自律神經失調或過度換氣所致之短暫末梢灌注不足，無實質神經纖維器質壞死，可逆性最高。"
   }
 };
     const PRODUCTS_DB = [
@@ -3261,7 +3094,7 @@
     "name": "手腳麻痺・30天源頭調養套裝 C3",
     "topic": "手腳麻痺",
     "causeId": 3,
-    "isWarfarinSafe": true,
+    "isWarfarinSafe": false,
     "price": 20522,
     "origPrice": 31602,
     "save": 11080,
@@ -3275,7 +3108,7 @@
     "name": "手腳麻痺・30天源頭調養套裝 C4",
     "topic": "手腳麻痺",
     "causeId": 3,
-    "isWarfarinSafe": true,
+    "isWarfarinSafe": false,
     "price": 6532,
     "origPrice": 8612,
     "save": 2080,
@@ -3317,7 +3150,7 @@
     "name": "手腳麻痺・30天源頭調養套裝 D3",
     "topic": "手腳麻痺",
     "causeId": 4,
-    "isWarfarinSafe": true,
+    "isWarfarinSafe": false,
     "price": 20131,
     "origPrice": 31125,
     "save": 10994,
@@ -3331,7 +3164,7 @@
     "name": "手腳麻痺・30天源頭調養套裝 D4",
     "topic": "手腳麻痺",
     "causeId": 4,
-    "isWarfarinSafe": true,
+    "isWarfarinSafe": false,
     "price": 6141,
     "origPrice": 8135,
     "save": 1994,
@@ -3591,29 +3424,9 @@
       }, 60);
     }
 
-    function renderGatedContent(causeId, scores, tieBreakerInfo) {
+    function renderGatedContent(causeId, scores) {
       const cData = CAUSES_DATA[causeId];
       if (!cData) return;
-
-      // 0. 同分仲裁提報卡片 (Tie Breaker Alert)
-      const tieAlertEl = document.getElementById('tieBreakerAlert');
-      if (tieAlertEl) {
-        if (tieBreakerInfo && tieBreakerInfo.isTie) {
-          tieAlertEl.style.display = 'block';
-          const scoreEl = document.getElementById('tieScoreValue');
-          if (scoreEl) scoreEl.innerText = tieBreakerInfo.score;
-          const namesEl = document.getElementById('tieCandidateNames');
-          if (namesEl) {
-            namesEl.innerHTML = tieBreakerInfo.candidateNames.map(n => `<span class="tie-cause-pill">${n}</span>`).join('、');
-          }
-          const descEl = document.getElementById('tieRationaleDesc');
-          if (descEl) descEl.innerText = tieBreakerInfo.rationale;
-          const winnerEl = document.getElementById('tieWinnerName');
-          if (winnerEl) winnerEl.innerText = tieBreakerInfo.winnerName;
-        } else {
-          tieAlertEl.style.display = 'none';
-        }
-      }
 
       // 1. Block C
       document.getElementById('diagPrimaryTitle').innerText = `【${cData.name}】`;
@@ -3728,12 +3541,10 @@
         if (!allowedProductIds.includes(prod.id)) return;
         const card = document.createElement('div');
         card.className = 'product-single-card';
-        // Block G 產品標題純淨無份量後綴，份量提示只在 Block H 呈現
-        const cleanName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
         const benefitText = (TOPIC_CONFIG.customShortDesc && TOPIC_CONFIG.customShortDesc[prod.id]) || prod.shortDesc || "從源頭深度調理代謝平衡";
         card.innerHTML = `
           <div class="p-card-top">
-            <div class="p-card-name">${cleanName}</div>
+            <div class="p-card-name">${prod.name}</div>
             <button type="button" onclick="openMechanismModal('${prod.id}', ${causeId})" class="btn-more-b">
               想知更多
             </button>
@@ -3751,22 +3562,13 @@
       // 1. 單品選購列表
       const singleContainer = document.getElementById('block-h-single-products');
       singleContainer.innerHTML = '';
-      const DOSAGE_BADGES = {
-        '34307': '15天份量',
-        '34316': '15天份量',
-        '36246': '15天份量',
-        '36248': '10天份量',
-        '36283': '10天份量'
-      };
       PRODUCTS_DB.forEach(prod => {
         if (!allowedProductIds.includes(prod.id)) return;
         const row = document.createElement('div');
         row.className = 'h-single-item-row';
-        const badge = DOSAGE_BADGES[prod.id] ? ` <span class="dosage-tag">${DOSAGE_BADGES[prod.id]}</span>` : '';
-        const displayTitle = `${prod.name}${badge}`;
         row.innerHTML = `
           <div class="h-item-info">
-            <span class="h-item-title">${displayTitle}</span>
+            <span class="h-item-title">${prod.name}</span>
             <span class="h-item-price">HKD ${prod.price.toLocaleString()}</span>
           </div>
           <button type="button" onclick="openProductModal('${prod.id}')" class="btn-detail-h">
@@ -4331,8 +4133,7 @@
           </div>
         </div>
       `;
-      const cleanModalName = prod.name.replace(/[\(（]\s*\d+天份量\s*[）\)]/g, '').trim();
-      openModalWithLock(`${cleanModalName} · 調理機轉`, html);
+      openModalWithLock(`${prod.name} · 調理機轉`, html);
     }
 
     // Pop-up B: 30天套裝明細彈窗 (完整呈現套裝所含單品與機轉)

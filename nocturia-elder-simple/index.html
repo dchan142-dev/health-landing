@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>Health Decoder｜夜尿簡易自測（長者版・免費結果）</title>
+<style>
+  :root {
+    --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --muted: #94a3b8;
+    --accent: #38bdf8; --accent2: #34d399; --warn: #fbbf24; --danger: #f87171;
+    --btn: #2563eb; --btn-hover: #1d4ed8; --border: #334155;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 26px; line-height: 1.4; min-height: 100%;
+  }
+  body { padding: 16px; padding-bottom: 48px; }
+  .wrap { max-width: 520px; margin: 0 auto; }
+  .badge {
+    display: inline-block; font-size: 15px; font-weight: 700; color: #0f172a;
+    background: var(--warn); padding: 8px 14px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .screen {
+    display: none; background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px 20px 32px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+  }
+  .screen.active { display: block; }
+  h1 { font-size: 34px; margin: 0 0 14px; line-height: 1.25; }
+  .sub { color: var(--muted); font-size: 20px; margin: 0 0 28px; }
+  .progress { height: 10px; background: #0f172a; border-radius: 999px; margin-bottom: 22px; overflow: hidden; }
+  .progress > span {
+    display: block; height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width .3s ease;
+  }
+  .choices { display: flex; flex-direction: column; gap: 14px; }
+  button.choice {
+    width: 100%; text-align: center; font-size: 26px; font-weight: 700; line-height: 1.3;
+    padding: 22px 16px; min-height: 72px; border-radius: 18px; border: 3px solid var(--border);
+    background: #0f172a; color: var(--text); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  button.choice:focus { border-color: var(--accent); outline: none; }
+  button.choice:active { transform: scale(0.98); }
+  button.choice.danger-opt { border-color: #7f1d1d; background: #450a0a; font-size: 22px; }
+  button.primary {
+    width: 100%; margin-top: 12px; font-size: 26px; font-weight: 800; padding: 22px 16px;
+    min-height: 72px; border: none; border-radius: 18px; background: var(--btn); color: white; cursor: pointer;
+  }
+  button.ghost {
+    width: 100%; margin-top: 14px; font-size: 20px; padding: 16px; border-radius: 14px;
+    border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer;
+  }
+  .comment {
+    display: none; margin: 8px 0 22px; padding: 18px; border-radius: 14px;
+    background: #0c4a6e; border: 1px solid #0284c7; font-size: 22px;
+  }
+  .comment.show { display: block; }
+  .flag-box {
+    background: #450a0a; border: 2px solid var(--danger); border-radius: 14px;
+    padding: 14px 16px; margin-bottom: 18px; font-size: 18px; color: #fecaca;
+  }
+  .preview-label { font-size: 32px; font-weight: 800; color: var(--accent2); margin: 8px 0 16px; }
+  .para { font-size: 22px; color: #e2e8f0; margin: 0 0 20px; }
+  .chart { background: #0f172a; border-radius: 14px; padding: 16px; margin-bottom: 22px; }
+  .chart-title { font-size: 17px; color: var(--muted); margin-bottom: 12px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 17px; }
+  .bar-row span.label { width: 72px; color: #cbd5e1; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 20px; background: #1e293b; border-radius: 999px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 999px; background: var(--accent2); }
+  .disclaimer { font-size: 15px; color: var(--muted); text-align: center; margin-top: 14px; }
+  .section { margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+  .section h2 { font-size: 24px; margin: 0 0 10px; color: var(--accent); }
+  .section ul { margin: 0; padding-left: 1.15em; font-size: 20px; }
+  .section li { margin-bottom: 10px; }
+  .footer-note { margin-top: 16px; font-size: 13px; color: #64748b; text-align: center; }
+</style>
+</head>
+<body>
+<!-- 題意由現況夜尿六維改寫成短句；對象：認知負荷較低長者；免費結果；未改 live -->
+<div class="wrap">
+  <div class="badge">長者易明版・題目已改寫短句・免費結果・未上線</div>
+
+  <section id="s-entry" class="screen active">
+    <div class="progress"><span style="width:10%"></span></div>
+    <h1>晚上會唔會起身去小便？</h1>
+    <p class="sub">揀一個就得</p>
+    <div class="choices">
+      <button class="choice" data-next="redflag" data-entry="yes">會</button>
+      <button class="choice" data-next="redflag" data-entry="sometimes">有時會</button>
+      <button class="choice" data-next="exit-no" data-entry="no">唔會</button>
+    </div>
+  </section>
+
+  <section id="s-redflag" class="screen">
+    <div class="progress"><span style="width:20%"></span></div>
+    <div class="flag-box"><strong>安全題</strong>：有下面情況，請先睇醫生。</div>
+    <h1>有冇呢啲情況？</h1>
+    <p class="sub">有就揀；冇就揀最後一句</p>
+    <div class="choices">
+      <button class="choice danger-opt" data-next="stop-care">一隻腳突然腫痛、行唔到</button>
+      <button class="choice danger-opt" data-next="stop-care">冇尿、尿有血、或者發燒</button>
+      <button class="choice danger-opt" data-next="stop-care">胸口痛、好難呼吸、半邊身冇力</button>
+      <button class="choice" data-next="q1">以上都冇</button>
+    </div>
+  </section>
+
+  <section id="s-stop-care" class="screen">
+    <div class="flag-box"><strong>請先求醫</strong></div>
+    <h1>請快啲去睇醫生或急症</h1>
+    <p class="para">網上自測唔可以代替醫生。</p>
+    <button class="primary" type="button" onclick="go('entry')">返回</button>
+  </section>
+
+  <section id="s-exit-no" class="screen">
+    <h1>咁你暫時唔使做呢個自測</h1>
+    <p class="para">之後有需要再嚟都得。</p>
+    <button class="primary" type="button" onclick="go('entry')">返回</button>
+  </section>
+
+  <section id="s-q1" class="screen">
+    <div class="progress"><span style="width:40%"></span></div>
+    <h1>一晚大概起幾多次？</h1>
+    <p class="sub">第 1／3 題</p>
+    <div id="c-q1" class="comment" role="status"></div>
+    <div class="choices">
+      <button class="choice" data-q="1" data-val="1" data-comment="明白。一次都影響瞓覺。">大約 1 次</button>
+      <button class="choice" data-q="1" data-val="2-3" data-comment="好多人係咁。再問兩條就得。">大約 2 至 3 次</button>
+      <button class="choice" data-q="1" data-val="4+" data-comment="起身好密會好攰。我哋慢慢睇。">4 次或更多</button>
+      <button class="choice" data-q="1" data-val="unsure" data-comment="唔緊要，大概估都得。">唔記得／唔肯定</button>
+    </div>
+    <button class="primary" id="next-q1" style="display:none" type="button" onclick="go('q2')">下一題</button>
+  </section>
+
+  <section id="s-q2" class="screen">
+    <div class="progress"><span style="width:60%"></span></div>
+    <h1>起身嗰陣，尿係點？</h1>
+    <p class="sub">第 2／3 題・揀最似嗰句</p>
+    <div id="c-q2" class="comment" role="status"></div>
+    <div class="choices">
+      <button class="choice" data-q="2" data-val="lots" data-comment="尿多又急，記住咗。">好多，又好急</button>
+      <button class="choice" data-q="2" data-val="little" data-comment="尿少又急，記住咗。">好少，但好急</button>
+      <button class="choice" data-q="2" data-val="wait" data-comment="出尿慢啲，記住咗。">要等一陣先出到</button>
+      <button class="choice" data-q="2" data-val="incidental" data-comment="醒咗先去，都常見。">唔急，醒咗先去</button>
+    </div>
+    <button class="primary" id="next-q2" style="display:none" type="button" onclick="go('q3')">下一題</button>
+  </section>
+
+  <section id="s-q3" class="screen">
+    <div class="progress"><span style="width:80%"></span></div>
+    <h1>平時邊句最似你？</h1>
+    <p class="sub">第 3／3 題・只揀一句</p>
+    <div id="c-q3" class="comment" role="status"></div>
+    <div class="choices">
+      <button class="choice" data-q="3" data-val="edema" data-label="腳腫多" data-comment="腳容易腫，好多人晚上會起多。">傍晚腳腫、鞋好緊</button>
+      <button class="choice" data-q="3" data-val="outlet" data-label="小便唔順" data-comment="小便唔順，記住咗。">小便要等、線幼、唔乾淨</button>
+      <button class="choice" data-q="3" data-val="meta" data-label="口乾多飲" data-comment="日頭飲得多，晚上都可能起多。">日頭好口乾、飲好多水</button>
+      <button class="choice" data-q="3" data-val="sleep" data-label="瞓得唔穩" data-comment="瞓得淺，醒親就去廁所都常見。">打鼾、瞓得淺、易醒</button>
+      <button class="choice" data-q="3" data-val="pump" data-label="行路少" data-comment="行得少、腳軟，都會影響。">好少行路、腳軟無力</button>
+      <button class="choice" data-q="3" data-val="mix" data-label="幾樣都有" data-comment="幾樣都有少少都得，好常見。">幾樣都有少少／唔清</button>
+    </div>
+    <button class="primary" id="next-q3" style="display:none" type="button" onclick="submitFree()">提交・睇結果（免費）</button>
+  </section>
+
+  <section id="s-results" class="screen">
+    <div class="progress"><span style="width:100%"></span></div>
+    <h1>你嘅結果（免費）</h1>
+    <p class="sub">只供參考・唔係醫生診斷</p>
+    <p class="preview-label" id="tendency-label">你比較似：—</p>
+    <p class="para" id="preview-para"></p>
+    <div class="chart">
+      <div class="chart-title">簡單示意</div>
+      <div class="bar-row">
+        <span class="label" id="bar-main-name">主要</span>
+        <div class="bar-track"><div class="bar-fill" id="bar-main" style="width:65%"></div></div>
+      </div>
+      <div class="bar-row">
+        <span class="label">其他</span>
+        <div class="bar-track"><div class="bar-fill" style="width:35%;background:#64748b"></div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>可能係點</h2>
+      <p class="para" id="full-direction">—</p>
+    </div>
+    <div class="section">
+      <h2>點解會咁</h2>
+      <p class="para" id="full-why">—</p>
+    </div>
+    <div class="section">
+      <h2>而家可以試</h2>
+      <ul>
+        <li>瞓前兩、三個鐘少啲飲大杯水；日頭照常飲。</li>
+        <li>夜晚少食好鹹、少飲酒。</li>
+        <li>日頭行多幾步；坐耐就踮下腳尖。</li>
+        <li>瞓前少睇電話；成日打鼾可同醫生傾。</li>
+      </ul>
+      <p class="para" style="margin-top:12px;font-size:18px;color:var(--muted)">有食醫生開嘅藥，唔好自己停藥。</p>
+    </div>
+    <div class="section">
+      <h2>保健品（最後・可選）</h2>
+      <p class="para">產品名同價錢之後再填。有食薄血藥等，先問醫生。</p>
+    </div>
+    <p class="disclaimer">自測只供個人參考，不作醫療診斷或處方。</p>
+    <button class="ghost" type="button" onclick="restart()">由頭再測</button>
+    <p class="footer-note">夜尿長者易明版・2026-10-06・未改 live 網站</p>
+  </section>
+</div>
+<script>
+(function () {
+  var state = { label: "幾樣都有" };
+  var whyMap = {
+    "腳腫多": "日頭腳容易腫，瞓低之後水返上嚟，晚上就想去小便多啲。",
+    "小便唔順": "出尿要等、線幼或者覺得尿唔清乾淨。呢個只係參考，唔係診斷。",
+    "口乾多飲": "日頭口乾飲得多，晚上尿都可能多啲。",
+    "瞓得唔穩": "瞓得淺、易醒；醒咗之後先去小便，睇落好似起身好密。",
+    "行路少": "行得少、腳軟，日間積水夜晚先多，都會令夜尿多啲。",
+    "幾樣都有": "你嘅情況可能幾樣一齊有，好常見。可以慢慢由生活習慣開始調。"
+  };
+  function $(id) { return document.getElementById(id); }
+  window.go = function (name) {
+    var map = { entry:"s-entry", redflag:"s-redflag", "stop-care":"s-stop-care", "exit-no":"s-exit-no", q1:"s-q1", q2:"s-q2", q3:"s-q3", results:"s-results" };
+    document.querySelectorAll(".screen").forEach(function (s) { s.classList.remove("active"); });
+    var el = $(map[name]);
+    if (el) { el.classList.add("active"); window.scrollTo(0, 0); }
+  };
+  window.restart = function () {
+    state = { label: "幾樣都有" };
+    ["c-q1","c-q2","c-q3"].forEach(function (id) { var c=$(id); c.classList.remove("show"); c.textContent=""; });
+    ["next-q1","next-q2","next-q3"].forEach(function (id) { $(id).style.display="none"; });
+    document.querySelectorAll(".choice").forEach(function (b) { b.disabled=false; b.style.borderColor=""; b.style.opacity=""; });
+    go("entry");
+  };
+  window.submitFree = function () {
+    var label = state.label || "幾樣都有";
+    $("tendency-label").textContent = "你比較似：" + label;
+    $("bar-main-name").textContent = label.length > 4 ? label.slice(0, 4) : label;
+    $("preview-para").textContent = "根據你啱啱三條好簡單嘅答案，你比較似「" + label + "」。呢個只係參考，唔係醫生話你有病。";
+    $("full-direction").textContent = "而家最值得留意：「" + label + "」。";
+    $("full-why").textContent = whyMap[label] || whyMap["幾樣都有"];
+    go("results");
+  };
+  document.body.addEventListener("click", function (e) {
+    var btn = e.target.closest("button.choice");
+    if (!btn) return;
+    var next = btn.getAttribute("data-next");
+    if (next) { go(next); return; }
+    var q = btn.getAttribute("data-q");
+    if (!q) return;
+    var box = $("c-q" + q);
+    box.textContent = btn.getAttribute("data-comment") || "";
+    box.classList.add("show");
+    btn.parentElement.querySelectorAll("button.choice").forEach(function (b) {
+      b.disabled = true;
+      b.style.opacity = b === btn ? "1" : "0.4";
+      if (b === btn) b.style.borderColor = "#34d399";
+    });
+    if (q === "1") $("next-q1").style.display = "block";
+    else if (q === "2") $("next-q2").style.display = "block";
+    else if (q === "3") {
+      state.label = btn.getAttribute("data-label") || "幾樣都有";
+      $("next-q3").style.display = "block";
+    }
+  });
+})();
+</script>
+</body>
+</html>

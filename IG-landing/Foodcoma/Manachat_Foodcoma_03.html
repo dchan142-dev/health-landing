@@ -2,128 +2,428 @@
 <html lang="zh-HK">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>領取專屬健康指南 | 健康解碼</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Health Decoder｜午後餐後睏倦專題 · 影音解碼</title>
+  <meta name="description" content="用工程師邏輯同你拆解生理機制。深入剖析餐後昏睡、午後斷電的代謝成因與應對策略。">
   <style>
+    /* ==========================================================================
+       Health-Decoder.com 全站統一設計規範 (Design System v5.0 - Dark Theme)
+       標準：WCAG 2.1 AA 無障礙規範 | 2026 DTC Bento Grid 模組化佈局
+       ========================================================================== */
+    :root {
+      --color-bg-dark: #0B0F19;
+      --color-card-bg: rgba(15, 23, 42, 0.75);
+      --color-card-border: #1E293B;
+      --color-card-hover: #334155;
+      
+      --color-primary-text: #F8FAFC;
+      --color-muted-text: #94A3B8;
+      --color-sub-text: #64748B;
+      
+      --color-accent-teal: #0D9488;
+      --color-accent-teal-light: #CCFBF1;
+      --color-accent-cyan: #38BDF8;
+      
+      --color-gold: #FACC15;
+      --color-gold-hover: #EAB308;
+      --color-gold-text: #713F12;
+      
+      --color-wa: #25D366;
+      --color-wa-hover: #1EBE5D;
+      
+      --color-fb: #1877F2;
+      --color-fb-hover: #0E65D9;
+      
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+      --shadow-btn: 0 4px 14px rgba(250, 204, 21, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Noto Sans TC', sans-serif;
-      background-color: #0B1320; /* 專頁標準深藍墨色底 */
+      font-family: var(--font-stack);
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--color-primary-text);
+      background-color: var(--color-bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(13, 148, 136, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.1) 0px, transparent 50%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 32px 16px 60px;
+      min-height: 100vh;
+    }
+
+    /* === 主版面容器 === */
+    .container {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* === Hero 標題區 === */
+    .hero-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(13, 148, 136, 0.2);
+      border: 1px solid rgba(13, 148, 136, 0.4);
+      color: #5EEAD4;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 6px 18px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 32px;
+      line-height: 1.35;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--color-muted-text);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* === 卡片模組 === */
+    .card {
+      background: var(--color-card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 24px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    /* === 響應式 16:9 影片容器 === */
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background-color: #000000;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* === 影片下方 Lead Magnet 下載條 === */
+    .video-cta-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      text-align: center;
+      padding-top: 8px;
+    }
+
+    @media (min-width: 640px) {
+      .video-cta-block {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    .video-cta-text h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+
+    .video-cta-text p {
+      font-size: 15px;
+      color: var(--color-muted-text);
+      line-height: 1.5;
+    }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--color-gold);
+      color: var(--color-gold-text);
+      font-size: 17px;
+      font-weight: 800;
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      box-shadow: var(--shadow-btn);
+      transition: background 0.2s ease, transform 0.1s ease;
+      white-space: nowrap;
+      min-height: 52px;
+    }
+
+    .btn-gold:hover {
+      background: var(--color-gold-hover);
+      transform: translateY(-1px);
+    }
+
+    /* === Bento Grid 雙欄佈局 === */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .bento-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .tag-badge {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .tag-cyan {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38BDF8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .tag-blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60A5FA;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+      line-height: 1.45;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: var(--color-muted-text);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    /* === 按鈕樣式 === */
+    .btn-outline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background: rgba(30, 41, 59, 0.6);
       color: #E2E8F0;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 13px 20px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      border: 1px solid var(--color-card-border);
+      transition: all 0.2s ease;
+      min-height: 50px;
     }
-    .gold-glow {
-      box-shadow: 0 0 25px -5px rgba(212, 175, 55, 0.15);
+
+    .btn-outline:hover {
+      background: #1E293B;
+      color: #FFFFFF;
+      border-color: #475569;
     }
-    .bento-card {
-      background: #111C2E;
-      border: 1px solid #1E2E45;
+
+    .btn-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: rgba(37, 211, 102, 0.15);
+      color: #4ADE80;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 13px 20px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      margin-bottom: 10px;
+      transition: all 0.2s ease;
+      min-height: 50px;
+    }
+
+    .btn-wa:hover {
+      background: rgba(37, 211, 102, 0.25);
+      color: #FFFFFF;
+      border-color: var(--color-wa);
+    }
+
+    .btn-fb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: rgba(24, 119, 242, 0.15);
+      color: #60A5FA;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 13px 20px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      border: 1px solid rgba(24, 119, 242, 0.3);
+      transition: all 0.2s ease;
+      min-height: 50px;
+    }
+
+    .btn-fb:hover {
+      background: rgba(24, 119, 242, 0.25);
+      color: #FFFFFF;
+      border-color: var(--color-fb);
+    }
+
+    /* === 頁尾 === */
+    footer {
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-brand {
+      font-size: 17px;
+      font-weight: 800;
+      color: #E2E8F0;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .footer-disclaimer {
+      font-size: 13px;
+      color: var(--color-sub-text);
+      line-height: 1.6;
+      max-width: 640px;
+      margin: 0 auto;
     }
   </style>
 </head>
-<body class="min-h-screen py-8 px-4 sm:px-6 flex flex-col justify-between">
+<body>
 
-  <!-- 主容器 -->
-  <main class="w-full max-w-2xl mx-auto space-y-6">
+  <div class="container">
+    
+    <!-- 頂部 Hero 標題區 -->
+    <header class="hero-header">
+      <div class="badge-pill">• Duncan Chan 健康專頁 專屬資源 • 影音解碼</div>
+      <h1>用工程師邏輯同你拆解生理機制</h1>
+      <p class="hero-subtitle">餐後「斷電」與飯氣攻心，唔係意志力問題，而係身體發出的生化震盪警號。觀看下方完整解碼影片：</p>
+    </header>
 
-    <!-- Header 識別標記 -->
-    <div class="text-center space-y-3">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider text-[#D4AF37] bg-[#1A2638] border border-[#2D3F58]">
-        <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
-        Duncan Chan 健康專頁 專屬資源 · 領取通道
-      </div>
-      <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-        您的健康調理指南已準備就緒
-      </h1>
-      <p class="text-[17px] text-slate-300">
-        點擊下方模組即可立即存取完整資料
-      </p>
-    </div>
+    <!-- 主區塊：Facebook 嵌入影片與 Lead Magnet 下載條 -->
+    <main>
+      <section class="card">
+        <!-- 響應式 16:9 Facebook 影片播放器 -->
+        <div class="video-container">
+          <iframe 
+            src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2F61584455229392%2Fvideos%2F4546845712236561%2F&show_text=false&width=560&t=0" 
+            style="border:none;overflow:hidden;position:absolute;top:0;left:0;width:100%;height:100%;" 
+            scrolling="no" 
+            frameborder="0" 
+            allowfullscreen="true" 
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+          </iframe>
+        </div>
 
-    <!-- Bento Grid 主佈局 -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-      <!-- Bento 1: Lead Magnet 下載 (跨全欄 Primary Hero) -->
-      <div class="md:col-span-3 bento-card rounded-2xl p-6 sm:p-7 relative overflow-hidden gold-glow border-[#2E4362]">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-          <div class="space-y-1.5">
-            <span class="text-xs font-semibold text-[#D4AF37] tracking-wider uppercase">PDF 免費完整版</span>
-            <h2 class="text-xl sm:text-2xl font-bold text-white">用工程師邏輯同你拆解生理機制</h2>
-            <p class="text-[15px] text-slate-300">系統化了解餐後/午後睏倦成因及改善的關鍵路徑</p>
+        <!-- 影片下方立即領取條 -->
+        <div class="video-cta-block">
+          <div class="video-cta-text">
+            <h2>系統化了解餐後/午後睏倦成因</h2>
+            <p>搭配完整文字指南，掌握源頭除錯關鍵生活微習慣與調養對策</p>
           </div>
-          <!-- 建議使用直接下載或相容性最佳之 Drive 連結 -->
-          <a href="https://drive.google.com/file/d/1fblQpzL_v2fwL2-j2RjbKwnBph-16mcs/view?usp=drivesdk" target="_blank" rel="noopener noreferrer"
-             class="w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-950 bg-[#D4AF37] hover:bg-[#C5A028] transition-all active:scale-[0.98]">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-            立即獲取指南
+          <a href="https://health-decoder.com/IG-landing/Foodcoma/lead-magnet-guide.pdf" class="btn-gold" target="_blank" rel="noopener">
+            📥 立即獲取完整指南 (PDF)
           </a>
         </div>
-      </div>
+      </section>
 
-      <!-- Bento 2: 餐後/午後睏倦檢測卡 (跨 2 欄，高權重導流) -->
-      <div class="md:col-span-2 bento-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between border-[#2E4560] bg-gradient-to-br from-[#111C2E] to-[#132338]">
-        <div class="space-y-3">
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#172A40] text-[#60A5FA] border border-[#233E5E] text-xs font-semibold">
-            自我檢測
-          </div>
-          <h3 class="text-lg sm:text-xl font-bold text-white">
-單睇飲食同數據指南，未必完全反映到你日常嘅真實代謝反應。
-          </h3>
-          <p class="text-[15px] text-slate-300 leading-relaxed">
-每個人體質、胰島素敏感度都唔同，想快啲摸清自己平時嘅「飯氣攻心」、「下午斷電」到底係單純攰定係代謝亮紅燈？
-建議你抽 2 分鐘做個免費嘅「餐後血糖與代謝狀態快速檢測」，睇下自己嘅風險指數去到邊!
-          </p>
-        </div>
-
-        <div class="pt-5">
-          <a href="https://health-decoder.com/foodcoma/index.html"
-             class="inline-flex items-center justify-center w-full py-3.5 px-5 rounded-xl font-semibold text-white bg-[#1E3A5F] hover:bg-[#254673] border border-[#3A608F] transition-all">
+      <!-- Bento Grid 輔助轉化區 -->
+      <section class="bento-grid">
+        <!-- 卡片 1：自我檢測評估 -->
+        <div class="card" style="margin-bottom: 0;">
+          <span class="tag-badge tag-cyan">自我檢測</span>
+          <h3>單睇飲食同數據指南，未必完全反映到你日常嘅真實代謝反應。</h3>
+          <p>個人體質、胰島素敏感度都唔同，想快啲摸清自己平時嘅「飯氣攻心」、「下午斷電」到底係單純茹定係代謝亮紅燈？建議你抽 2 分鐘做個免費嘅「餐後血糖與代謝狀態快速檢測」，睇下自己嘅風險指數去到邊！</p>
+          <a href="https://health-decoder.com/foodcoma/" class="btn-outline">
             開始成因評估 →
           </a>
         </div>
-      </div>
 
-      <!-- Bento 3: 替代支援路徑 (跨 1 欄，社群入口) -->
-      <div class="md:col-span-1 bento-card rounded-2xl p-6 flex flex-col justify-between space-y-4">
-        <div class="space-y-2">
-          <span class="text-xs font-semibold text-slate-400">專屬交流區</span>
-          <h4 class="text-base font-bold text-white">暫時不想做檢測？</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            先加入私密交流圈，觀看真實改善案例與問答：
-          </p>
-        </div>
-
-        <div class="space-y-2.5 pt-2">
-          <!-- WhatsApp 群組 -->
-          <a href="https://chat.whatsapp.com/LPHAndy6hjH8gRLVzZacrw" target="_blank" rel="noopener noreferrer"
-             class="flex items-center justify-between p-3 rounded-xl bg-[#0F221E] hover:bg-[#152E29] text-emerald-300 border border-[#1C453B] transition-colors text-xs font-semibold">
-            <span class="flex items-center gap-2">💬 WhatsApp 討論群</span>
-            <span>→</span>
+        <!-- 卡片 2：私密交流圈 -->
+        <div class="card" style="margin-bottom: 0;">
+          <span class="tag-badge tag-blue">專屬交流區</span>
+          <h3>暫時不想做檢測？</h3>
+          <p>先加入私密交流圈，觀看真實改善案例與問答：</p>
+          <a href="https://wa.me/85298788564?text=%E4%BD%A0%E5%A5%BDDuncan%EF%BC%8C%E6%88%91%E6%83%B3%E5%85%8D%E8%B2%BB%E5%8A%A0%E5%85%A5WhatsApp%E5%81%A5%E5%BA%B7%E7%A4%BE%E7%BE%A4" class="btn-wa" target="_blank" rel="noopener">
+            💬 WhatsApp 討論群 →
           </a>
-          <!-- Facebook 群組 -->
-          <a href="https://www.facebook.com/share/g/1CCM9AMEyw/" target="_blank" rel="noopener noreferrer"
-             class="flex items-center justify-between p-3 rounded-xl bg-[#141E2F] hover:bg-[#1C2B42] text-blue-300 border border-[#233857] transition-colors text-xs font-semibold">
-            <span class="flex items-center gap-2">👥 Facebook VIP 群</span>
-            <span>→</span>
+          <a href="https://www.facebook.com/groups/healthdecoder" class="btn-fb" target="_blank" rel="noopener">
+            👥 Facebook VIP 群 →
           </a>
         </div>
-      </div>
+      </section>
+    </main>
 
-    </div>
-
-    <!-- 底部資訊宣告 (符合全站免責規範) -->
-    <footer class="text-center pt-4 space-y-1">
-      <p class="text-xs text-slate-400">
-        Health-Decoder 健康解碼
-      </p>
-      <p class="text-[11px] text-slate-400">
-        免責聲明：本頁面及指南內容僅供健康衛教與生活習慣優化參考，不能取代專業醫療診斷與治療。
-      </p>
+    <!-- 頁尾 -->
+    <footer>
+      <div class="footer-brand">Health-Decoder 健康解碼</div>
+      <p class="footer-disclaimer">免責聲明：本頁面及指南內容僅供健康衛教與生活習慣優化參考，不能取代專業醫療診斷與治療。</p>
     </footer>
 
-  </main>
+  </div>
 
 </body>
 </html>

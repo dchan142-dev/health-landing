@@ -1,0 +1,178 @@
+{
+  "01-welcome": {
+    "title": "由你嘅一晚開始",
+    "seconds": 16.25,
+    "script": "你好，我係 Duncan。夜晚成日起身，最攰可能係瞓唔返。我用六個簡單問題，同你睇下邊啲線索值得留意。唔使識醫學，揀最接近你嘅答案就得。",
+    "placement": "入口；開始按鈕一直可撳，唔需要等影片播完。",
+    "file": "01-welcome.mp4",
+    "id": "01-welcome",
+    "bytes": 1459178,
+    "url": "media/01-welcome.mp4",
+    "poster": "media/01-welcome.jpg"
+  },
+  "02-frequency": {
+    "title": "一晚起身幾次？",
+    "seconds": 11.88,
+    "script": "先諗返平時一晚，你大概起身去幾多次廁所？唔使計得好準，揀最接近嘅就得。",
+    "placement": "第1題；回答後出現相應安慰與下一步。",
+    "file": "02-frequency.mp4",
+    "id": "02-frequency",
+    "bytes": 794833,
+    "url": "media/02-frequency.mp4",
+    "poster": "media/02-frequency.jpg"
+  },
+  "03-waking": {
+    "title": "邊個感覺行先？",
+    "seconds": 11.96,
+    "script": "呢條好重要：你係尿急先醒，定係醒咗之後，順便去廁所？兩種情況都可能有，唔肯定都可以。",
+    "placement": "第2題；「醒先」分支顯示睡眠線索，不套用飲水案例。",
+    "file": "03-waking.mp4",
+    "id": "03-waking",
+    "bytes": 1066294,
+    "url": "media/03-waking.mp4",
+    "poster": "media/03-waking.jpg"
+  },
+  "04-volume": {
+    "title": "每次係多定少？",
+    "seconds": 14.42,
+    "script": "夜晚每次去廁所，同日頭一次比較，大概差唔多，定係明顯少啲？未量過唔緊要，呢度先講你嘅感覺。",
+    "placement": "第3題；用三個逐步亮起的線索點顯示已有資料。",
+    "file": "04-volume.mp4",
+    "id": "04-volume",
+    "bytes": 1200800,
+    "url": "media/04-volume.mp4",
+    "poster": "media/04-volume.jpg"
+  },
+  "05-drinks": {
+    "title": "瞓前飲啲乜？",
+    "seconds": 16.42,
+    "script": "瞓前兩三個鐘，你通常飲啲乜？水、湯、茶，定係冇特別飲？呢度冇啱錯，我哋係睇時間同習慣。",
+    "placement": "第4題；答案與之前線索一同保存，不單憑這题判因。",
+    "file": "05-drinks.mp4",
+    "id": "05-drinks",
+    "bytes": 1490518,
+    "url": "media/05-drinks.mp4",
+    "poster": "media/05-drinks.jpg"
+  },
+  "06-other": {
+    "title": "仲有冇其他線索？",
+    "seconds": 16.92,
+    "script": "仲有冇腳腫、打鼻鼾、食利尿藥，或者排尿唔順？揀最接近嘅。呢啲資料會影響方向，冇留意過就揀唔肯定。",
+    "placement": "第5題；未知不自動當沒有，藥物不建議自行改。",
+    "file": "06-other.mp4",
+    "id": "06-other",
+    "bytes": 1725588,
+    "url": "media/06-other.mp4",
+    "poster": "media/06-other.jpg"
+  },
+  "07-safety": {
+    "title": "最後確認有冇新不適",
+    "seconds": 15.54,
+    "script": "最後確認一下：最近有冇血尿、尿痛、發燒，或者想去但排唔到？有嘅話，要先搵醫護，唔好等份報告。",
+    "placement": "第6題；有警號免費顯示求醫提醒並停止解鎖銷售。",
+    "file": "07-safety.mp4",
+    "id": "07-safety",
+    "bytes": 1565955,
+    "url": "media/07-safety.mp4",
+    "poster": "media/07-safety.jpg"
+  },
+  "08-preview": {
+    "title": "線索開始連得起來",
+    "seconds": 28.5,
+    "script": "你揀咗尿意先醒、每次尿量唔少，仲有瞓前飲得集中。呢幾條線索連埋，飲水時間值得先了解。完整解讀會講點解、仲有咩未能排除，同你可以點揀下一步。呢個係方向，唔係確診。",
+    "placement": "只限明示假設案例符合的答案；其他組合不播放。付款前顯示實際短解讀及完整版新增內容。",
+    "file": "08-preview.mp4",
+    "id": "08-preview",
+    "bytes": 2657172,
+    "url": "media/08-preview.mp4",
+    "poster": "media/08-preview.jpg"
+  },
+  "09-hna": {
+    "title": "只補你嘅需要",
+    "seconds": 16.92,
+    "script": "頭先嘅答案已經帶過嚟，唔使重填。再揀你最想了解啲乜，同希望自己先睇，定係想了解有人協助。",
+    "placement": "逐項HNA示意在付款前，正式字段及位置未定。",
+    "file": "09-hna.mp4",
+    "id": "09-hna",
+    "bytes": 1231463,
+    "url": "media/09-hna.mp4",
+    "poster": "media/09-hna.jpg"
+  },
+  "10-report-why": {
+    "title": "點解先睇飲水時間",
+    "seconds": 27.04,
+    "script": "我哋先睇飲水時間，係因為你提到瞓前飲得集中，同夜晚每次尿量唔少。晚間飲水可能增加夜晚要排嘅尿。不過，尿量未量過，睡眠、藥物同其他健康因素，仲未能排除。",
+    "placement": "模擬付款後報告第一章；顯示答案→關聯→尚未確定三層圖。",
+    "file": "10-report-why.mp4",
+    "id": "10-report-why",
+    "bytes": 2056247,
+    "url": "media/10-report-why.mp4",
+    "poster": "media/10-report-why.jpg"
+  },
+  "11-report-next": {
+    "title": "你可以點樣揀下一步",
+    "seconds": 23.25,
+    "script": "呢個方向唔係叫你全日少飲水。如果冇醫護特別指示，可以先考慮將飲水分散到日間，避免瞓前一次飲好多。唔好令自己缺水，亦唔好自行改藥。持續困擾，就要搵醫護進一步了解。",
+    "placement": "報告第二章；重點是解釋選擇及限制，不售賣功課包。",
+    "file": "11-report-next.mp4",
+    "id": "11-report-next",
+    "bytes": 2292305,
+    "url": "media/11-report-next.mp4",
+    "poster": "media/11-report-next.jpg"
+  },
+  "12-routes": {
+    "title": "下一步由你揀",
+    "seconds": 14.42,
+    "script": "你可以自己睇產品資料，按需要決定；如果想有人同你梳理更完整嘅需要，就先了解 HMCS。唔使而家承諾買嘢。",
+    "placement": "報告後兩條路：商店示意、HMCS介紹。產品不聲稱治療夜尿。",
+    "file": "12-routes.mp4",
+    "id": "12-routes",
+    "bytes": 1327834,
+    "url": "media/12-routes.mp4",
+    "poster": "media/12-routes.jpg"
+  },
+  "13-hmcs": {
+    "title": "HMCS 會點樣幫你",
+    "seconds": 22.92,
+    "script": "HMCS 會先確認你嘅需要。合適嘅話，再安排線下數據評估、詳細報告解讀，同你一齊討論方案同費用。你認同安排先開始。頭先填過嘅資料會沿用，唔使由頭講。",
+    "placement": "介紹後才問有無意願了解按需要報價的服務，再入預約意向。不是付費報告已含陪跑。",
+    "file": "13-hmcs.mp4",
+    "id": "13-hmcs",
+    "bytes": 2163568,
+    "url": "media/13-hmcs.mp4",
+    "poster": "media/13-hmcs.jpg"
+  },
+  "14-booking": {
+    "title": "先確認，再見面",
+    "seconds": 15.96,
+    "script": "如果你想進一步了解，留低方便聯絡嘅方式同時段。我哋會先確認需要、服務同費用，再一齊落實見面，唔係撳完就當約好咗。",
+    "placement": "示範只填測試資料；提交不傳送，終點待確認。",
+    "file": "14-booking.mp4",
+    "id": "14-booking",
+    "bytes": 1275412,
+    "url": "media/14-booking.mp4",
+    "poster": "media/14-booking.jpg"
+  },
+  "15-sleep-reply": {
+    "title": "選拍：先醒再去",
+    "seconds": 13.63,
+    "script": "你係先醒咗，再順便去廁所。呢個先後好有意思，可能要一齊了解睡眠，唔好一開始就只怪膀胱。",
+    "placement": "可選分支回應；第2題選「醒先」播放，否則只顯示文字。",
+    "file": "15-sleep-reply.mp4",
+    "id": "15-sleep-reply",
+    "bytes": 1329814,
+    "url": "media/15-sleep-reply.mp4",
+    "poster": "media/15-sleep-reply.jpg"
+  },
+  "16-safety-reply": {
+    "title": "選拍：先處理不適",
+    "seconds": 15.96,
+    "script": "呢個提醒唔需要付費。有新血尿、尿痛或者發燒，請盡快求醫。如果想排但排唔到，請即時求醫，唔好等報告。",
+    "placement": "可選安全分支；文字提醒始終提供，不依賴影片。",
+    "file": "16-safety-reply.mp4",
+    "id": "16-safety-reply",
+    "bytes": 1739984,
+    "url": "media/16-safety-reply.mp4",
+    "poster": "media/16-safety-reply.jpg"
+  }
+}

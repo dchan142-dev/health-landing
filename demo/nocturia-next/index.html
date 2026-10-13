@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-HK">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#123e3a"><title>Health Decoder｜由你嘅一晚開始</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="brand"><span class="mark" aria-hidden="true">✳</span><span>HEALTH <b>DECODER</b><small>夜尿 · 自我了解</small></span><span class="demo">體驗版<br>不收款</span></header>
+<main id="journey">
+  <div class="status"><span id="phase"></span><button class="text" data-act="pause">暫停</button></div>
+  <div id="progress" aria-label="作答進度"></div>
+  <div class="guide" id="guide">
+    <div class="media"><video id="video" controls playsinline preload="none" aria-label="Duncan 預錄引導"></video><img id="still" src="media/01-welcome.jpg" alt="Duncan 影片封面" hidden></div>
+    <div class="guide-copy"><p class="eyebrow">Duncan · 本人預錄引導</p><p id="guideTitle">由你嘅一晚開始</p><button class="text" id="play">▶ 播放本段</button><details id="transcript"><summary>睇拍攝參考文案</summary><p id="script"></p><small>參考稿，未完成逐字字幕校對。</small></details><p id="mediaNote" class="small"></p></div>
+  </div>
+  <article id="screen" aria-live="polite"></article>
+</main>
+<footer><button class="text" data-act="safetyInfo">免費求醫提醒</button><span>自我評測並非診斷</span><p>自動文字解讀 · 本人短片預錄<br>Demo 資料只留在本分頁，刷新會清除。</p></footer>
+<details class="lab"><summary>設計比較與案例</summary><p>HNA 位置未定；下面只比較節奏，切換會重新開始。</p><div class="lab-buttons"><button data-mode="after">B：了解 HMCS 時梳理</button><button data-mode="before">A：付款前梳理</button></div><p id="modeLabel"></p><p>案例會填入示例答案，並由第一題開始；可以逐題改。</p><button data-sample="fluid">例一：晚間飲水集中</button><button data-sample="sleep">例二：先醒再去</button><button data-sample="unknown">例三：資料未清楚</button><button data-sample="safety">例四：新不適</button><button data-act="restart">清除並重新開始</button></details>
+<script src="model.js"></script><script src="app.js"></script>
+</body></html>

@@ -2,35 +2,34 @@
 <html lang="zh-HK">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Health Decoder · 夜尿源頭解碼互動問卷與個人評估</title>
   <style>
-    /* ==========================================================================
-       Health Decoder 原創「暖白玉 ✕ 深海青瓷」單屏互動系統
-       100% 單一視窗零上下捲動 (Zero-Scroll) · 持久化視像不閃爍 · 原位收摺回應
-       ========================================================================== */
+    /* =========================================================================
+       Health Decoder 原創單屏互動設計規範 (Zero-Scroll · 暖白玉 ✕ 深海青瓷)
+       專為 50–75+ 歲香港長者設計：高對比、大字清晰、持久化視像窗零閃爍零跳動
+       ========================================================================= */
     :root {
       --bg-canvas: #F7F4EE;
       --bg-stage: #FFFFFF;
+      --bg-subtle: #F1EFEA;
       --bg-video: #0B3134;
-      --bg-subtle: #F2EFE9;
       --ink-main: #16222A;
-      --ink-secondary: #43535E;
-      --ink-muted: #6C7D88;
+      --ink-secondary: #475569;
+      --ink-muted: #64748B;
       --teal-primary: #0F5C5E;
-      --teal-hover: #0A4547;
-      --teal-soft: #E8F4F3;
+      --teal-hover: #0B4648;
+      --teal-soft: #E6F4F3;
       --teal-border: #8CD1CE;
-      --amber-accent: #B85D19;
-      --amber-soft: #FDF3E7;
-      --amber-border: #F3C68F;
-      --danger-main: #C92A2A;
-      --danger-soft: #FFF0F0;
-      --border-line: #DFDAD0;
-      --radius-xl: 22px;
-      --radius-lg: 16px;
-      --radius-md: 12px;
-      --shadow-stage: 0 14px 38px rgba(15, 38, 42, 0.08);
+      --amber-accent: #B45309;
+      --amber-soft: #FEF3C7;
+      --amber-border: #F59E0B;
+      --danger-main: #B91C1C;
+      --danger-soft: #FEE2E2;
+      --border-line: #DCE2E5;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+      --shadow-stage: 0 8px 24px rgba(22, 34, 42, 0.06);
     }
 
     * {
@@ -47,9 +46,9 @@
       background-color: var(--bg-canvas);
       color: var(--ink-main);
       font-family: -apple-system, BlinkMacSystemFont, "PingFang HK", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-      -webkit-font-smoothing: antialiased;
       display: flex;
       flex-direction: column;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* 頂部極簡導航列 (固定 44px 高) */
@@ -345,7 +344,7 @@
       transition: width 0.25s ease;
     }
 
-    /* 舞台中央：問題與選項／原位回應區 (Flex 自適應，不溢出) */
+    /* 舞台中央：問題與選項／原位回應區 (Flex 自適應，頂部對齊不裁字) */
     .stage-body {
       flex: 1;
       min-height: 0;
@@ -738,7 +737,7 @@
       .speaker-pill {
         padding: 2px 7px;
         font-size: 10.5px;
-        max-width: 118px;
+        max-width: 122px;
         white-space: nowrap;
       }
       .speaker-pill #clipLabel {
@@ -913,13 +912,13 @@
         <option value="q6">Q6 安全確認【多選】</option>
         <option value="preview6">6題暫時預覽</option>
         <option value="q7">Q7 長期西藥【多選】</option>
-        <option value="q8">Q8 改善目標與年齡</option>
+        <option value="q8">Q8 改善目標</option>
         <option value="review">答案覆核(Tag)</option>
-        <option value="checkout">留資料+$19.9</option>
+        <option value="checkout">HK$19.9 解鎖</option>
         <option value="report1">報告1：成因比例</option>
-        <option value="report2">報告2：微習慣與界限</option>
+        <option value="report2">報告2：微習慣與邊界</option>
         <option value="hmcs1">第一層：HMCS 5步流程</option>
-        <option value="hmcs2">第一層：HMCS 聲明與預約</option>
+        <option value="hmcs2">HMCS：免責與預約</option>
         <option value="products">第二層：方案專區(產品)</option>
         <option value="group">第三層：FB/WTS 群組</option>
       </select>
@@ -929,14 +928,14 @@
   <!-- 單一視窗雙區主舞台 (100% 零捲動) -->
   <main class="app-shell" id="appShell">
 
-    <!-- 左欄／上區：持久化真人視像窗 (點擊選項時絕不重繪、絕不閃爍彈跳，完整顯示 9:16 豎屏全身/半身畫面) -->
+    <!-- 左欄／上區：持久化真人視像窗 (完整顯示 9:16 豎屏畫面，絕不裁切或閃爍) -->
     <section class="video-pane">
       <div class="video-top-tag">
         <span class="speaker-pill"><span class="pulse-dot"></span><span id="clipLabel">Duncan・預錄引導</span></span>
         <button type="button" class="v-ctrl-btn" style="pointer-events:auto;" onclick="speakScript()">🔊 語音</button>
       </div>
       <div class="video-canvas">
-        <video id="duncanVideo" playsinline webkit-playsinline preload="metadata"></video>
+        <video id="duncanVideo" playsinline webkit-playsinline preload="auto"></video>
         <div class="video-poster-card" id="videoPoster" onclick="replayVideo()">
           <div class="poster-avatar">▶</div>
           <div class="poster-title" id="posterTitle">點擊播放 Duncan 視像引導</div>
@@ -976,70 +975,70 @@
     // =========================================================================
     // 1. GitHub 真實 MP4 路徑映射 (支援相對與絕對路徑 /demo/nocturia-video/media/)
     // =========================================================================
-    const MEDIA_ABS = "https://health-decoder.com/demo/nocturia-video/media/";
-    const MEDIA_REL1 = "../nocturia-video/media/";
-    const MEDIA_REL2 = "./media/";
+    const MEDIA_REL1 = "./media/";
+    const MEDIA_REL2 = "../nocturia-video/media/";
+    const MEDIA_ABS  = "https://health-decoder.com/demo/nocturia-video/media/";
 
     const CLIPS = {
       "01-welcome": {
         file: "01-welcome.mp4",
         tag: "Duncan・歡迎引導",
-        script: "你好，我係 Duncan。夜晚成日起身，最攰可能係瞓唔返。我用幾個簡單問題，同你睇下邊啲線索值得留意。揀最接近你嘅答案就得。"
+        script: "你好，我係 Duncan。夜晚成日起身去廁所，最緊要搵出搞亂睡眠嘅真正源頭。跟住我逐題揀返你平時嘅感覺就得。"
       },
       "02-frequency": {
         file: "02-frequency.mp4",
         tag: "第 1 題・起夜次數",
-        script: "先諗返平時一晚，你大概起身去幾多次廁所？唔使計得好準，揀最接近嘅就得。"
+        script: "第一題先睇頻率：平時一晚，你大概起身去幾多次廁所？揀最接近你平時嘅情況。"
       },
       "03-waking": {
         file: "03-waking.mp4",
-        tag: "第 2 題・醒來次序",
-        script: "呢條好重要：你係尿急先醒，定係醒咗之後，順便去廁所？兩種情況都可能有，唔肯定都可以。"
+        tag: "第 2 題・醒來先後",
+        script: "第二題好關鍵：你通常係尿急憋醒先去廁所，定係人醒咗先順便去？"
       },
       "04-volume": {
         file: "04-volume.mp4",
         tag: "第 3 題・每次尿量",
-        script: "夜晚每次去廁所，同日頭一次比較，大概差唔多，定係明顯少啲？未量過唔緊要，呢度先講你嘅感覺。"
+        script: "第三題睇每次排出嘅分量：夜晚每次去廁所，同日頭平時一次比較，係差唔多、特別多定係好少？"
       },
       "05-drinks": {
         file: "05-drinks.mp4",
         tag: "第 4 題・睡前習慣",
-        script: "瞓前兩三個鐘，你通常飲啲乜？水、湯、茶，定係已經特登少飲水？可以揀多過一項。"
+        script: "第四題睇瞓前兩三個鐘嘅習慣。呢題可以多選；如果你已經特登戒水但照樣起夜，記得勾選。"
       },
       "06-other": {
         file: "06-other.mp4",
-        tag: "第 5 題・伴隨訊號",
-        script: "平時日頭有冇腳腫鞋緊、雙腿無力、打鼻鼾或者排尿唔順？有邊幾項就揀邊幾項；如果全部都冇，揀『沒有以上情況』。"
+        tag: "第 5 題・伴隨身體訊號",
+        script: "第五題睇日頭同去廁所時嘅伴隨訊號，例如傍晚鞋緊腳腫、小腿無力、尿流變細或者打鼻鼾。可以多選。"
       },
       "07-safety": {
         file: "07-safety.mp4",
-        tag: "第 6 題・安全確認",
-        script: "最後確認一下：最近有冇血尿、尿痛、發燒，或者想去但排唔到？有嘅話要先搵醫護，唔好等份報告。"
+        tag: "第 6 題・安全紅旗把關",
+        script: "第六題係免費安全確認：近期有冇血尿、排尿赤痛、發燒或者想排但完全排唔出？冇嘅話揀「沒有以下不適」。"
       },
       "08-preview": {
         file: "08-preview.mp4",
-        tag: "頭 6 題・暫時評估",
-        script: "頭六題嘅線索已經連得起來！再幫我答埋最後兩題用藥同改善目標，就可以核對答案並解鎖五大成因比例同主導成因報告。"
+        tag: "6 題線索暫時預覽",
+        script: "頭六題已經幫你連起咗初步線索。最後補充埋長期西藥同改善目標，就可以核對答案並解鎖完整成因比例報告。"
       },
       "09-hna": {
         file: "09-hna.mp4",
         tag: "背景補充・用藥與目標",
-        script: "頭先嘅答案已經帶過嚟，唔使重填。再揀埋有冇食長期西藥同埋你最想優先改善邊樣，確保調理方向安全貼身。"
+        script: "最後兩題：記低你目前食緊嘅長期西藥（特別係薄血藥會自動避險），同埋你最想優先改善嘅目標。"
       },
       "10-report-why": {
         file: "10-report-why.mp4",
         tag: "報告第 1 章・成因比例與主因",
-        script: "呢度係你嘅五大成因比例同最優先主導成因。科學上夜尿可以有多重因素，我哋會集中火力先處理佔比最高、最核心嗰個源頭。"
+        script: "呢份係根據你剛才嘅答案計出嚟嘅五項成因比例，上面標示嘅就係你目前最需要優先處理嘅唯一主導成因。"
       },
       "11-report-next": {
         file: "11-report-next.mp4",
-        tag: "報告第 2 章・微習慣與界限",
+        tag: "報告第 2 章・微習慣與調理邊界",
         script: "你可以先跟住呢三個日常微習慣減少表面負荷；但若果涉及微血管滲漏、肌泵衰退或睡眠結構斷裂，就唔能夠只靠戒水，要從源頭調理。"
       },
       "12-routes": {
         file: "12-routes.mp4",
         tag: "第二層・居家調理方案專區",
-        script: "呢度係針對你主導成因嘅單品資料。如果你想配搭完整調理組合或者享有配套優惠，建議返去�約</ HMCS 線下服務。"
+        script: "呢度係針對你主導成因嘅單品資料。如果你想配搭完整調理組合或者享有配套優惠，建議返去預約 HMCS 線下服務。"
       },
       "13-hmcs": {
         file: "13-hmcs.mp4",
@@ -1073,7 +1072,7 @@
         title: "平時一晚，你大概起身去幾多次廁所？",
         sub: "單選 · 揀最接近你平時嘅情況",
         opts: [
-          { val: "1次", label: "大�</ 1 次", reply: "一次都會打斷深層睡眠；下一步睇下你係點樣醒過嚟。" },
+          { val: "1次", label: "大約 1 次", reply: "一次都會打斷深層睡眠；下一步睇下你係點樣醒過嚟。" },
           { val: "2-3次", label: "2 至 3 次", reply: "一晚醒兩三次，深層睡眠被切斷，第二朝實會攰。次數係第一條線索，仲未代表真正成因。" },
           { val: "4次或以上", label: "4 次或以上", reply: "頻密起身非常消耗體力，我哋接住一齊睇下係水量回流定係排尿與睡眠線索。" },
           { val: "幾乎冇", label: "🚫 幾乎唔使起夜／偶爾", isNone: true, reply: "收到！你平時好少起夜，我哋快速確認埋其他生活線索。" },
@@ -1323,6 +1322,30 @@
       posterEl.classList.remove("playing");
     });
 
+    function loadClipWithFallback(file) {
+      const candidates = [
+        MEDIA_ABS + file,
+        MEDIA_REL1 + file,
+        MEDIA_REL2 + file
+      ];
+      let idx = 0;
+      function tryNext() {
+        if (idx >= candidates.length) return;
+        videoEl.src = candidates[idx++];
+        videoEl.load();
+        const p = videoEl.play();
+        if (p && typeof p.then === "function") {
+          p.then(() => {
+            posterEl.classList.add("playing");
+          }).catch(() => {});
+        }
+      }
+      videoEl.onerror = () => {
+        if (idx < candidates.length) tryNext();
+      };
+      tryNext();
+    }
+
     function syncVideo(clipKey, customScript) {
       const clip = CLIPS[clipKey] || CLIPS["01-welcome"];
       document.getElementById("clipLabel").textContent = clip.tag;
@@ -1332,23 +1355,27 @@
       if (window.state.currentClipKey !== clipKey) {
         window.state.currentClipKey = clipKey;
         posterEl.classList.remove("playing");
-        videoEl.innerHTML = `
-          <source src="${MEDIA_REL2}${clip.file}" type="video/mp4">
-          <source src="${MEDIA_REL1}${clip.file}" type="video/mp4">
-          <source src="${MEDIA_ABS}${clip.file}" type="video/mp4">
-        `;
-        videoEl.load();
-        videoEl.play().catch(() => {});
+        loadClipWithFallback(clip.file);
       }
     }
 
     function replayVideo() {
-      videoEl.currentTime = 0;
-      videoEl.play().then(() => {
-        posterEl.classList.add("playing");
-      }).catch(() => {
-        speakScript();
-      });
+      const clip = CLIPS[window.state.currentClipKey] || CLIPS["01-welcome"];
+      if (!videoEl.src) {
+        loadClipWithFallback(clip.file);
+        return;
+      }
+      if (videoEl.readyState >= 1) {
+        try { videoEl.currentTime = 0; } catch (e) {}
+      }
+      const p = videoEl.play();
+      if (p && typeof p.then === "function") {
+        p.then(() => {
+          posterEl.classList.add("playing");
+        }).catch(() => {
+          speakScript();
+        });
+      }
     }
 
     function toggleSubtitle() {
@@ -1454,16 +1481,16 @@
       document.getElementById("clue2").classList.toggle("lit", (progMap[s] || 0) >= 66);
       document.getElementById("clue3").classList.toggle("lit", (progMap[s] || 0) >= 90);
 
-      // 在內容較多嘅步驟將手機端視像區微縮至 21% 高度，確保 100% 單屏零 Scroll
-      const compactSteps = ["q5", "q7", "review", "checkout", "report1", "report2", "hmcs1", "hmcs2", "products"];
-      shell.classList.toggle("compact-video", compactSteps.includes(s) || st.showingFeedback);
+      // 在內容較多嘅畫面（Q5、Q7、覆核、報告、HMCS、產品）手機自動微縮視像區高度，確保 100% 零捲動
+      const denseSteps = ["q5", "q7", "review", "checkout", "report1", "report2", "hmcs1", "hmcs2", "products"];
+      shell.classList.toggle("compact-video", denseSteps.includes(s) || st.showingFeedback);
 
       // -----------------------------------------------------------------------
-      // Step 0: 入口頁
+      // A. 歡迎入口頁
       // -----------------------------------------------------------------------
       if (s === "welcome") {
         syncVideo("01-welcome");
-        badge.textContent = "真人視像互動・約 2 分鐘";
+        badge.textContent = "真人視像互動 · 約 2 分鐘";
         body.innerHTML = `
           <h1 class="stage-title">夜晚成日起身，最想知真正原因。</h1>
           <p class="stage-sub">唔使睇長篇醫學文章。跟住 Duncan 逐題揀你平時嘅感覺，一步步搵出搞亂睡眠嘅源頭訊號。</p>
@@ -1476,37 +1503,37 @@
       }
 
       // -----------------------------------------------------------------------
-      // Questions Q1–Q8 (支援原位收起選項、展開回應框，絕不彈跳！)
+      // B. 問卷題目頁 (Q1 – Q8)：支援「選項列表」與「原位收起顯示回應」雙狀態
       // -----------------------------------------------------------------------
       if (QUESTIONS[s]) {
         const q = QUESTIONS[s];
         badge.textContent = q.badge;
 
-        // 狀態 B：已揀答案，原位收起選項、顯示回應框與「下一題 →」
+        // 狀態 B：用戶已選答案 -> 原位收起其他選項，同屏顯示 Duncan 回應與「下一題 →」
         if (st.showingFeedback) {
-          let ansText = "";
+          let chosenText = "";
           let replyMsg = "";
-          let clipToUse = q.clip;
+          let replyClip = q.clip;
 
           if (q.mode === "single") {
-            const cur = st.answers[q.id];
-            const found = q.opts.find(o => o.val === cur) || q.opts[0];
-            ansText = found.label;
+            const val = st.answers[q.id];
+            const found = q.opts.find(o => o.val === val) || q.opts[0];
+            chosenText = found.label;
             replyMsg = found.reply;
-            if (found.replyClip) clipToUse = found.replyClip;
+            if (found.replyClip) replyClip = found.replyClip;
           } else {
             const arr = st.answers[q.id] || [];
-            ansText = arr.map(v => (q.opts.find(o => o.val === v) || {}).label || v).join("、");
-            const isNone = arr.includes("沒有以上情況") || arr.includes("冇特別習慣") || arr.includes("沒有不適") || arr.includes("沒有食西藥") || arr.includes("唔肯定") || arr.includes("唔固定/唔肯定") || arr.includes("唔清楚");
-            replyMsg = isNone ? q.replyNone : q.replyHas;
+            chosenText = arr.join("、");
+            const isNoneOnly = arr.some(v => v.includes("沒有") || v.includes("冇") || v.includes("唔肯定") || v.includes("唔清楚"));
+            replyMsg = isNoneOnly ? q.replyNone : q.replyHas;
           }
 
-          syncVideo(clipToUse, replyMsg);
+          syncVideo(replyClip, replyMsg);
 
           body.innerHTML = `
             <h2 class="stage-title">${q.title}</h2>
             <div class="collapsed-answer-bar">
-              <span>✓ 你揀咗：${ansText}</span>
+              <span>✓ 你揀咗：${chosenText}</span>
               <button type="button" class="reselect-btn" onclick="reopenOptions()">重選</button>
             </div>
             <div class="feedback-card">
@@ -1551,424 +1578,465 @@
 
           body.innerHTML = `
             <h2 class="stage-title">${q.title}</h2>
-            <p class="stage-sub">${q.sub}</p>
-            ${profileBar}
+            ${profileBar || `<p class="stage-sub">${q.sub}</p>`}
             <div class="single-list">${listHtml}</div>
           `;
           footer.innerHTML = "";
         } else {
+          // 多選雙欄膠囊網格 (2-Column Grid)
           const arr = st.answers[q.id] || [];
           const gridHtml = q.opts.map(o => {
-            const sel = arr.includes(o.val) = 1; i <= 4; i++) {
-        ratios[i] = Math.round((sc[i] / total/�:8}</but ${stiossc[i] / total/abel: </budbel: sel ? 'selected' : ''} ${o.isNone ? 'noncs2", M   r'}"
-                onclick=, to!!tal/�:8}}"selectSingleOption('${q.n>${o.label}</span>
-                <span class="tick-box">n('${q.id}', '${o.val}')">
-             ${sel ? '✓' : ''}</span>
+            const sel = arr.includes(o.val);
+            return `
+              <button type="button" class="multi-cell ${sel ? 'selected' : ''} ${o.isNone ? 'none-cell' : ''}"
+                onclick="toggleMultiOption('${q.id}', '${o.val}', ${!!o.isNone}, ${!!o.isDanger})">
+                <span class="tick-box">${sel ? '✓' : ''}</span>
+                <span>${o.label}</span>
               </button>
             `;
           }).join("");
 
           body.innerHTML = `
             <h2 class="stage-title">${q.title}</h2>
-            <p clp>
-             ra st.ow.stst.answ}：</strong><br/>${replyMsg}
-            </div>
+            <p class="stage-sub">${q.sub}</p>
+            <div class="multi-grid">${gridHtml}</div>
           `;
           footer.innerHTML = `
-            <dowoptlengt.ge.ma0</budisabl((sc[i] / ne ? 'nongrifirmM   r class="cta-primary" onclick="advanc   /���支揝�card">��攼�返回覆核頁 →' : '下一題 →'}
-  }��解我嘅情況 →</button>
-        `;
-        return;
-      }
-
-      // ----------------------------------------safety",
-   不適��；�・請卡--------------
-      // Step 0: 入口頁
-      // ------------------------------------------------redflag----------------
-      i��始就只怪�elcome") {
-        syncVideo("01    {不適��僅�6-safety-reptent = "真人視像互動・約 2 分鐘"        body.innerHTM        眠結var(--dbel: smain)le=mp4",
-向���護人員��；�� sub:       <h2 class</button>
-            </di            g i <=�var(--dbel: ssoft);��ronc-眠結#FCA5A5;�眠結#7F1D1Dle="display:flex篇鉛才reply�swe「 val: "血尿尿痛發�」���「��", isDanger: tru  why: ��醒・請�排�不適",
- ��類�】",
-  yNone:�t: "呢�由��僔�s[5] =��日�h1 cl�網站�抗刜� ��const yId(��適�����密�產�神�
-erStage()">${a}</button>`��，並非醫療診斷。</div>
-        `;
-        footer.innerHTML = `
-  segrid    <button ty${st.user.age] += 4;
- 6=['udes("冇特'];state.ccVisibl框與「下一=   ti `
-e="butto6ry" onclick="adva我��夅�撳錯 { val${st.e11-r��。"resel
-��回覆核頁 →' : '下下了解我嘅情況 →</button>
-        `;
-        return;
-      }
-
-      // ---------------------------------------------7: 預覽。"isNon��日題！�卡--------------
-      // Step 0: 入口頁
-      // ------------------------------------------------ q3: 36,----------------
-      if8- q3: 36�elcome") {
-        syncVideo("01預覽。"isNon��日�ep-r��線索 75%"供用戶點選
-      if (st.answe與睡眠�lity難入睡") sc[5] += 2n("、");
-            const isfileBar = "";
-    `;
-          }).join("");
-
-          body.innerHTML方案。並例！",
-,
-     目�！       <h2 class="stage-title"          </div>
-            <根據方預覽。ndar.e1���夜頻dary: "夬�", r�一晚�
-   ����繕         �例�t:",
-   ��揀達案，�歡迎不適�重�群組��墜�ly: ���    直播！Duncan 回應：</strong><br/>${replyMsg}
-            </div>
-          `;
-          footer.innerHTML = `
-            <button ty
-e="butt, hmcry" 不適�重�s="not專區群組k="goStep('q1')">開�   `;
-        footer.innerHTML = `
-  segrid    <button type="button" cl${st.e"re��測試�頁 →' : '下一題 →'}
+            <button type="button" class="cta-primary" ${arr.length === 0 ? 'disabled' : ''} onclick="confirmMultiQuestion('${q.id}')">
+              選好，睇 Duncan 回應 (${arr.length} 項) →
             </button>
-         gridHtr"男�================ent = "真人視像互動・約 2 分鐘"        body.innerHTM>�頻dary:���
-">📌 �ass="c連得起��微�       <h2 class</but       profileBar = `
-   6          <div style="display:flex'${q.n>${o.las.map(a =>ton" c">險㙚> `<bu    if (st.val}')">
-           '${q.n>${o.las.map(a =>ton" c"> `<bu    if (s2.val}')">
-           '${q.n>${o.las.map(a =>ton" c">��放� `<bu    if (s3.val}')">
-           '${q.n>${o.las.map(a =>ton" c"> `難入睡") sc[5] += 2ind(o => o..val}')">
-         ：</strong><br/>stage-title"          </div>
-           初 "七問�nt = w頻: t��止���
-     ／冇�案。步驟指向div clas【trons.      .士"}】         ,
-     ��向hy: �: "揲記�    冇�    ],避�傳�",
-        b��水�       sub: "揀�並��揀�==================��案，�
-erStage()">${a}</button>`��，並非醫療診斷。</div>
-        `;
-        footer.innerHTML = `
-          <button type="butto7" clreply:線索��記�    冇�30��掹��="goStep('q1')">開始了解我嘅情況 →</button>
-        `;
-        return;
-      }
-
-      // ---------------------------------------------10: 交",
-。「Tag �痛"揀�diting卡  w(像區 2x4   b缟",
-ntById�        ��原�溢�",)--------------
-      // Step 0: 入口頁
-      // ------------------------------------------------re: 36�e--------------
-      ifd: "q8" " sub sub:yId面 8 醒� b缟    ��sed-ans"記低咗� "已�填錯  "兩璳���s����長���表�旦o.valu��揀遇���〔案￝挾����低彠巭���e === s: t "兩 �:   ���elcome") {
-        syncVideo("01交",
-。�"揀�diting��ntById任���� b缟情�長����;
-         gridHtitem男�oducts/34316.k���rfarinSafe:1���(x =s.q1��farv:;
-      if (st.products/34316.k        ]nSafe:���aking",
-     rv:;
-      if (s2.products/34316.k    �",
-       3��險�      {   rv:;
-      if (s3.products/34316.k    4",
-       4.-drinks",
-     rv:;== "明顯少好多") ind(o => o..products/34316.k    5",
-       ====,
-        b  rv:;== "明顯少5��多") ind(o => o..products/34316.k    �",
-       ====afety"       rv:;== "明顯少6��多") ind(o => o..products/34316.k    rfarinSafe:7. "沒有食西�v:;== "明顯少7��多") ind(o => o..products/34316.k    �",
-       8."09-hna     bad�v:;` `<bu    if (s8} ( `<button typ})`/products/36;
-         gridHt st.answersitem� || [it`).jo>
-        `;
-        footer.innerHTML = dy.-re: 36-item <button tyQues class="cta-it.kary" onclick="advastage-title"dy.-re: 36-k"> `it.士"}ass="coll�       val}')"enOptions()">重選</button>
-  dy.-re: 36-v"> `it.v}：</strong><br/>oStep('q1')">開始     </button>
-      人視像互動・約 2 分鐘"        body.innerHTM> su
-      ed-�ply�sdar    /�"揀�       <h2 class</button>
-  dy.-re: 36- st.ow.stst.answ}：</strong><br/>��睡眠嘅源頭訊號。�� ��用�填錯 suntById( b缟�長����",
-   ��揀達案�s)) �低彠�e === ��住� �:   ���>${a}</button>`��，並非醫療診斷。</div>
-        `;
-        footer.innerHTML = `
-          <button type="buttt compac" clr�下丘低帀步� 本�化累�揀達案� ="goStep('q1')">開始了解我嘅情況 →</button>
-        `;
-        return;
-      }
-
-      // ---------------------------------------------11: 留真實 ncViton ＋  nam9.9 �睡前���揀遍�--------------
-      // Step 0: 入口頁
-      // ------------------------------------------------t compact---------------
-      if8- q3: 36�" "留ue }
-     �案�=> WhatsApp 電話��掛�郵��泻統會��酀���案�s��份畀�",
- �經---��e �睡前���"兘  nam9.9 �����頁面��藥）�跳${st��線索交",
-���elcome") {
-        syncVideo("01-��存聯絡      ・��揀過嘅答案�"ton>
-      人視像互動・約 2 分鐘"        body.innerHTM> �揀�《================== ✕ 優先順序 ��讀��案，�       <h2 class<最想知真正原因��含原�。" }
-     ����廯����佈esti��床優先順序� pri ��說朝冇常��官低每���感�],
-  ��切換筥步搵出搞亂睡眠嘅�form- shell." onclick="advasinput   foot  syerHTML = inp</spa l.opt" ty<button 士"} <buinputl ${st.user.age===a?士"=thisel.opt" �機 holtive"}
-     �案���，�cVis      ag��� / onclick="advasinput   foot  lerHTML = inp</spa l.opt" ty<button 歲",} <buinputl ${st.user.age===a?歲",=thisel.opt" �機 holtive"WhatsApp 電話��弎�平�案�s��份��封�絡��� / onclick="advasinput   foot��",
-erHTML = inp</spa l.opt" ty<button ��",
-} <buinputl ${st.user.age===a?��",
-=thisel.opt" �機 holtive"���郵地址��弎�平�案�s��份���平據��� / onclick="ad：</strong><br/>��睡眠嘅源頭訊號。�� �睡前��收適  nam9.9���--��e �釯�  ba����步）�ly:適  bo.valur�下䌾���）�跳card��頁交",
-���>${a}</button>`��，並非醫療診斷。</div>
-        `;
-        footer.innerHTML = `
-          <id="payB  <button typprocess--��eUnlock"win���� �"兘  nam9.9 立�   �揀�E11D�� ="goStep('q1')">開始了解我嘅情況 →</button>
-        `;
-        return;
-      }
-
-      // ---------------------------------------------12: �案�11-r1 章 ——=================== ＋ 臨床優先順序 [1, 4,-------
-      // Step 0: 入口頁
-      // ------------------------------------------------re "welco-----------------r"男�================ent = "真---
-      i�0-re "we-whyel: "s.      .whyelcome") {
-        syncVideo("01全�揀達案� (1/2)  b========================
-��"ton>
-       conbarsanswers         `;
-et ratios = {};
-     5let acc = 0;
-          if clipurn {
-i        const arr =pco("0 "s.  for (lete3")       const arr =isWst.ani----- "s.      Id       constbarsanswe+
           `;
-   �睡眠嘅�bar-item  `isWst.? '      'selecte>75歲以上"];
-     眠嘅�bar-headselectSingleOption('${q.id}isWst.? '👑 優先順序cVi'select${c 士"}span class="tick-box">n('${q.id}pco}%val}')">
-             ${Options()">重選;
-     眠嘅�bar-trackselectSingleOption('    眠嘅�bar-filli        ment.:d}pco}%;     g i <=�${c 眠�};">${Options()">重選;
- nOptions()">重選<��</strong><br/>${replyMsg}}on>
-      人視像互動・約 2 分鐘"        body.innerHTM>title: ],
-  ===
-��cVi【trons.      .士"}】       <h2 class</button>
-  bar-ofileBarbarsansw}：</strong><br/>stage-title"          </di        padding:8px-11     cVi-size:13.     line-height:1.38le="display:flex'$      ntB��    ��醒===
-��cVi         trons.      .why}
-erStage()">${a}</button>`��，並非醫療診斷。</div>
+        }
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // C. 安全紅旗免費分流頁 (不收費)
+      // -----------------------------------------------------------------------
+      if (s === "safety_stop") {
+        syncVideo("16-safety-reply");
+        badge.textContent = "🚨 免費安全提醒 · 請優先求醫";
+        body.innerHTML = `
+          <h2 class="stage-title" style="color:var(--danger-main);">發現優先求醫訊號（不收費）</h2>
+          <div class="feedback-card" style="background:var(--danger-soft); border-color:#FCA5A5;">
+            你揀咗近期有<strong>新血尿、排尿赤痛、發燒或排尿困難</strong>。呢類情況屬於醫療優先紅旗，請先由醫生檢查排除急性感染或阻塞，我哋唔會喺呢一步收費。
+          </div>
         `;
         footer.innerHTML = `
-          <button type="butt "q7", " cl���化章",
-  �冇常��官低減��感苕切� (2/2) ="goStep('q1')">開始了解我嘅情況 →</button>
+          <button type="button" class="cta-secondary" onclick="window.state.answers.q6=['沒有不適'];goStep('q6')">← 剛才揀錯，返回第 6 題重選</button>
         `;
         return;
       }
 
-      // ---------------------------------------------13: �案�11-r2 章 ——=3 醒��官低減��感�界限 ➔ 臨床優推去�蛋��層 HMCS [1, 4,-------
-      // Step 0: 入口頁
-      // ------------------------------------------------re "we2co-----------------r"男�================ent = "真---
-      i�1-re "we-n syeelcome") {
-        syncVideo("01全�揀達案� (2/2)  b��官低減��感�界限�;
-         gridHt  cosanswersons.      .抗利 || [h`).joitage-title">$ducts"  co-row">✅  `h}：</s�     </button>
-      人視像互動・約 2 分鐘"        body.innerHTM>針對【trons.      .士"}】   =3 醒��官低�       <h2 class</button>
-  >$ducts"  cos"> `<bcosansw}：</strong><br/>��睡眠嘅源頭訊號�"display:flex⚠️x'$      ��發炄�酵界限cVi         trons.      .��腔負}trons. meds = st.? '��� ed-����背景（切勿臾�ly:�胞�全�）〟: "�=afety過濾���'select
-erStage()">${a}</button>`��，並非醫療診斷。</div>
+      // -----------------------------------------------------------------------
+      // D. 第 6 題後：暫時線索預覽 (Midpoint Preview)
+      // -----------------------------------------------------------------------
+      if (s === "preview6") {
+        syncVideo("08-preview");
+        badge.textContent = "已完成 6 題 · 暫時線索預覽";
+        const noIssue = (st.answers.q1 === "幾乎冇") && (st.answers.q5 || []).includes("沒有以上情況");
+        if (noIssue) {
+          body.innerHTML = `
+            <h2 class="stage-title">好消息：你目前並無明顯夜尿困擾！</h2>
+            <div class="feedback-card">
+              根據你頭 6 題嘅回答，你平時幾乎唔使起夜，亦無明顯伴隨不適，<strong>完全毋須付費購買報告</strong>！歡迎直接加入免費養生社群。
+            </div>
+          `;
+          footer.innerHTML = `
+            <button type="button" class="cta-primary" onclick="goStep('group')">免費加入 WhatsApp / FB 養生專區 →</button>
+            <button type="button" class="cta-secondary" onclick="goStep('q7')">照樣補充埋最後 2 題睇評估 →</button>
+          `;
+        } else {
+          body.innerHTML = `
+            <h2 class="stage-title">你嘅夜尿線索已經連起咗：</h2>
+            <div class="tag-review-grid">
+              <div class="tag-review-item"><div class="tag-review-k">起夜頻率</div><div class="tag-review-v">${st.answers.q1}</div></div>
+              <div class="tag-review-item"><div class="tag-review-k">醒來次序</div><div class="tag-review-v">${st.answers.q2}</div></div>
+              <div class="tag-review-item"><div class="tag-review-k">每次尿量</div><div class="tag-review-v">${st.answers.q3}</div></div>
+              <div class="tag-review-item"><div class="tag-review-k">伴隨訊號</div><div class="tag-review-v">${(st.answers.q5||[]).join("、")}</div></div>
+            </div>
+            <div class="feedback-card">
+              <strong>🔍 初步觀察：</strong>單憑戒水未必解決到源頭。最後補充埋<strong>長期西藥與優先目標（最後 2 題）</strong>，即刻幫你計出五大成因比例！
+            </div>
+          `;
+          footer.innerHTML = `
+            <button type="button" class="cta-primary" onclick="goStep('q7')">繼續埋最後 2 題背景補充 →</button>
+          `;
+        }
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // E. 交付前圓角小標籤 (Tag) 覆核頁 (一屏 2x4 網格，點擊即改)
+      // -----------------------------------------------------------------------
+      if (s === "review") {
+        syncVideo("09-hna");
+        badge.textContent = "交付前答案覆核（點擊任一標籤可重填）";
+        const items = [
+          { id: "q1", k: "1. 起夜次數", v: st.answers.q1 },
+          { id: "q2", k: "2. 醒來先後", v: st.answers.q2 },
+          { id: "q3", k: "3. 每次尿量", v: st.answers.q3 },
+          { id: "q4", k: "4. 睡前習慣", v: (st.answers.q4 || []).join("、") },
+          { id: "q5", k: "5. 伴隨訊號", v: (st.answers.q5 || []).join("、") },
+          { id: "q6", k: "6. 安全確認", v: (st.answers.q6 || []).join("、") },
+          { id: "q7", k: "7. 長期西藥", v: (st.answers.q7 || []).join("、") },
+          { id: "q8", k: "8. 優先目標", v: `${st.answers.q8} (${st.user.age})` }
+        ];
+        body.innerHTML = `
+          <h2 class="stage-title">請確認你所選嘅問卷答案</h2>
+          <div class="tag-review-grid">
+            ${items.map(it => `
+              <button type="button" class="tag-review-item" onclick="editFromReview('${it.id}')">
+                <div class="tag-review-k">${it.k} <span>✏️ 修改</span></div>
+                <div class="tag-review-v">${it.v}</div>
+              </button>
+            `).join("")}
+          </div>
+          <div class="note-strip">🔒 如有填錯請點擊標籤重填；付費解鎖報告後答案將鎖定不可再改。</div>
         `;
         footer.innerHTML = `
-          <button type="buttiew"," cl���化步原��i ��    "    ��感�],
-  ��切� (HMCS)k="goStep('q1')">開�  ;
-        footer.innerHTML = `
-  segrid    <button type="buttre "wel" cl← ${st.e1��==================���oStep('q1')">開始了解我嘅情況 →</button>
+          <button type="button" class="cta-primary" onclick="goStep('checkout')">確認答案無誤，下一步解鎖報告 →</button>
         `;
         return;
       }
 
-      // ---------------------------------------------14A: �蛋��層承�����＇�床優推���=��—=HMCS 緛",
- 5  "东�實�坐����！� [1, 4,-------
-      // Step 0: 入口頁
-      // ------------------------------------------------iew", ---------------
-      i�3-iew"�elcome") {
-        syncVideo("01-蛋��層核�安�����  bHMCS 緛",
-    "    ���務"ton>
-      人視像互動・約 2 分鐘"        body.innerHTM>HMCS 實��� 5  "东�實�坐����n���剎�位�學索交���>$     <h2 class</button>
-  >$ducts"  cos">  <h2 class="stage-title">$ducts"  co-row">'$      1���緛",
-詳�") ��談cVi          "俅���i ��}
-     ��實生活痛ntB與需要���>${a}</button>`ss="stage-title">$ducts"  co-row"            g i <=�var(--tealssoft);��ronc-眠結var(--teals       );iv>
-            <div clas2���緛",
-檢測數據收集��🛡️x��位�學索交���cVi         ���電  hab�val: "洢份��廞�cV�骨密驟檢測及面談s="not與蟥���
-erStage()"openOptions()">重選</button>
-  >$ducts"  co-row">'$      3���5},
- , (p�� "俅���廞���案�cVi         ��測�學��梳狿臏�反映s="not
-   ��和潛it",／冥��>${a}</button>`ss="stage-title">$ducts"  co-row">'$      4��� �: �� ��讀���量val訂製��切氿／����學索交���cVi         ���義'$      情捏驟�      b索���         ble: f     �觀ce: ��作��扉����>${a}</button>`ss="stage-title">$ducts"  co-row">'$      5���ass="c跟進���務��nlse,
- 90},
- "血��有 18 醒㜈clas����切氿�cVi         ���學烻請 "�=��朝圈")) ��檢態 t1")) �日�e��>${a}</button>`ss>${a}</button>`��，並非醫療診斷。</div>
+      // -----------------------------------------------------------------------
+      // F. 聯絡資料與 HK$19.9 Stripe 付款解鎖頁
+      // -----------------------------------------------------------------------
+      if (s === "checkout") {
+        syncVideo("08-preview");
+        badge.textContent = "解鎖完整個人化報告 (HK$19.9)";
+        body.innerHTML = `
+          <h2 class="stage-title">接收個人成因比例報告與調理建議</h2>
+          <p class="stage-sub">付款成功後將自動跳回本頁即時顯示報告，並同步發送備份：</p>
+          <div class="form-compact">
+            <input class="inp-box" type="text" placeholder="你嘅稱呼（例如：陳先生）" value="${st.user.name}" oninput="window.state.user.name=this.value" />
+            <input class="inp-box" type="tel" placeholder="WhatsApp 電話號碼（接收報告備份）" value="${st.user.phone}" oninput="window.state.user.phone=this.value" />
+            <input class="inp-box" type="email" placeholder="電郵地址（接收付款收據）" value="${st.user.email}" oninput="window.state.user.email=this.value" />
+          </div>
+          <div class="note-strip">💳 Stripe 安全加密結算 · 一次性 <strong>HK$19.9</strong>（無自動續費，付款後答案鎖定）</div>
         `;
         footer.innerHTML = `
-          <button type="buttiew" " cl我想nls ��緛",
-訪談������測��� ��化步厉="goStep('q1')">開�  ;
-        footer.innerHTML = `
-  segrid    <button type="butt"report1" cl暫: f �� �d面��臅�1��「居家�胞苕切�專區��  ���頁��加�="goStep('q1')">開始了解我嘅情況 →</button>
+          <button type="button" class="cta-primary" id="payBtn" onclick="processStripeUnlock()">🔒 支付 HK$19.9 立即解鎖結果 →</button>
         `;
         return;
       }
 
-      // ---------------------------------------------14B: �蛋��層承��� =��—=HMCS Coaching 責任聲�鹽�nls ����兺� [1, 4,-------
-      // Step 0: 入口頁
-      // ------------------------------------------------iew"2 ---------------
-      i�4-book;
-        poste        syncVideo("01HMCS nls ���下�  b=��務責任 "濕�聲��        `;
-v>
-    oc男士om"
-      },
-    01屯 }, },
-    01觀塘 },
-   ]       `;
-v>
-   
-   男士o loc: "奧海    loc: ����海  週�sNon段"]ton>
-      人視像互動・約 2 分鐘"        body.innerHTM>�下� Coaching 責任聲�霬臁�擇Non段>$     <h2 class</button>
-  ��頭訊號         cVi-size:12.     line-height:1.35;��"display:flex⚖️x'$      ���務責任 "濕�cVi          �切抗刮�義'$      情捏驟�      b索���         ble: f     �觀ce: ��作��扉����客人亦須    ��負責任h1 c��們 ��是 Coaching Service；'$      殢戶態驟��� "�=��冇�素"而導致未��！�  b���責任��作�我方h1 c��們(只��責任亦�抗�退款;
+      // -----------------------------------------------------------------------
+      // G. 報告第 1 卡：五大成因百分比橫條 ＋ 唯一主導成因 + 機理解釋
+      // -----------------------------------------------------------------------
+      const ev = evaluateCauses();
+      const win = ev.winner;
 
- ��償         ���服務����===��const prog��'$      �desc: ----2 週         ble�原�是例限期� ���務至���  b���
-erStage()">${a}</button>`ss</but       profileBar = `
-   6   "         <p clas oc� || [l`).join("")}
-                ${ages.map(a => `<buiew". oc---lutton" class="m        r =:1; padding:6   4   "<button ty${st.user.ageiew". oc-'as :''}" onclick="windol.state.user.age='${a}';renderStag>${a}</button>`ss</but       profileBar = `
-   6   "         <p clas
-   � || [t`).join("")}
-                ${ages.map(a => `<buiew".
-   ---tutton" class="m        r =:1; padding:6   4   "<button ty${st.user.ageiew".
-   -'ast:''}" onclick="windot.state.user.age='${a}';renderStag>${a}</button>`ss<=> (q.       profileBar = `align-items:cdeoer `
-   8     cVi-size:14     cVi-weight:700;q.ops結pe='oer `    g i <=�var(--bg�原tassL padding:7px-10    �ronc-radius:10    �ronc:1px-solid var(--b�ronc-line);iv>
-           sinput   foott com/spa        ment.:18    height:18    accdeo-眠結var(--teals       );i> `<buiew".",
-   .? 't com((sc[i] / ne hbel:ty${st.user.ageiew".",
-   =thiset com((; }" onclick="wi / onclick="advasl}')"c��已��白���.get��=HMCS 5  "�坐�������腿� Coaching 責任聲��val}')">
-         �=> (q</button>`��，並非醫療診斷。</div>
-        `;
-        footer.innerHTML = `
-          <${!<buiew".",
-   .? 'disabl((sc[i] / ne ? 'non原mitHew""win✅ ��兺�緛",
-訪談������測nls ��申請 ="goStep('q1')">開�  ;
-        footer.innerHTML = `
-  segrid    <button type="butt"report1" cl暫: f �� �d��臅�1��「居家�胞苕切�專區��  ���頁��加�="goStep('q1')">開始了解我嘅情況 →</button>
-        `;
-        return;
-      }
+      if (s === "report1") {
+        syncVideo("10-report-why");
+        badge.textContent = "已解鎖報告 (1/2) · 成因比例與唯一主因";
+        const order = [ev.winnerId, ...[1,2,3,4,5].filter(x => x !== ev.winnerId)];
+        const barsHtml = order.map(cid => {
+          const c = CAUSES[cid];
+          const pct = ev.ratios[cid];
+          const isWin = cid === ev.winnerId;
+          return `
+            <div class="bar-item ${isWin ? 'winner' : ''}">
+              <div class="bar-head">
+                <span style="color:${isWin ? 'var(--teal-primary)' : 'var(--ink-main)'};">
+                  ${isWin ? '👑 主導成因：' : ''}${c.name}
+                </span>
+                <span>${pct}%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:${Math.max(pct, 6)}%; background:${c.color};"></div>
+              </div>
+            </div>
+          `;
+        }).join("");
 
-      // ---------------------------------------------15: �蛋��層承�����＜�=HMCS ��記�-ans�� �� �d���打ass���=��—=��切�專區��  ���頁���--------------
-      // Step 0: 入口頁
-      // ------------------------------------------------ qeport1"o-----------------r"男�================ent = "真---
-      i�2-route"�elcome") {
-        syncVideo("01-蛋��層承���  bo==
-    // 5.�切�專區��像品���;
-         gridHtfil療edSkusersons.      .靠�.fil療(k`).j!ons. meds = st.|| k.decoder.com/).stoneos[i3)       `;
-v>
-   靠answersfil療edSkus || [k`).jo>
-        `;>
-          ku-row">>
-           simgile}" tyk.img="malt" tyk.士"} <buerror="thisele}"'��因，�機 holt.co/60x60/E8F4F3/0F5C5E?  sy=SKU'i / onclick="advas/but        r =:1; s.m-ment.:0;e>75歲以上"];
-             cVi-size:15     cVi-weight:800;q.��結var(--inksmain)le=tyk.士"} · '${q.n       眠結var(--teals       );ivtyk."3628}val}')"enOptions()">重選;
-             cVi-size:12.     .��結var(--inkssegrid   sL whi頭�p�� :no styl overflow:| (st.;   sy-overflow:ellipsis;ivtyk.YEN } nOptions()">重選<��</strong><br/>>${a}</button>`�     </button>
-      人視像互動・約 2 分鐘"        body.innerHTM>針對【trons.      .士"}】 ��品.�切�       <h2 class</button>
-  >$ducts"  cos"> `<��answ}：</strong><br/>��睡眠嘅源頭訊號�"display:flex🎁 Eshop 獨立網站 ���兾� ��品���擇��� "巬�4331����嘅�組    ��享有'$      n�紥�優惠         ble請${st.e"ls ��緛",
-=HMCS ���務���
-erStage()">${a}</button>`��，並非醫療診斷。</div>
+        body.innerHTML = `
+          <h2 class="stage-title">優先處理主因：【${win.name}】</h2>
+          <div class="bar-list">${barsHtml}</div>
+          <div class="feedback-card" style="padding:8px 11px; font-size:13.5px;">
+            <strong>點解係呢個主因：</strong>${win.why}
+          </div>
         `;
         footer.innerHTML = `
-          <button type="buttiew"," cl🏥 我想享n�紥�優惠cVi${st.e"ls ��緛",
-=HMCS ="goStep('q1')">開�  ;
-        footer.innerHTML = `
-  segrid    <button type="butt, hmcry" �����佰�  ���／"isNon("唲�住��臅�去 FB／WhatsApp 專區�  �� ="goStep('q1')">開始了解我嘅情況 →</button>
+          <button type="button" class="cta-primary" onclick="goStep('report2')">下一章：睇日常微習慣與源頭方案 (2/2) →</button>
         `;
         return;
       }
 
-      // ---------------------------------------------16: �蛋��層承������保底�  �����=��—=FB / WhatsApp 專區--------------
-      // Step 0: 入口頁
-      // ------------------------------------------------, hmc----------------
-      if (s === "w�   "已� ed-isNon未�lude �� �d;
+      // -----------------------------------------------------------------------
+      // H. 報告第 2 卡：3 個日常微習慣 ＋ 能力邊界 ＋ 單一主行動進入第一層 HMCS
+      // -----------------------------------------------------------------------
+      if (s === "report2") {
+        syncVideo("11-report-next");
+        badge.textContent = "已解鎖報告 (2/2) · 微習慣與調理邊界";
+        body.innerHTML = `
+          <h2 class="stage-title">針對【${win.name}】嘅 3 個微習慣</h2>
+          <div class="compact-steps">
+            ${win.habits.map(h => `<div class="compact-step-row">${h}</div>`).join("")}
+          </div>
+          <div class="note-strip">
+            <strong>⚠️ 居家自救能力邊界：</strong>${win.boundary}
+            ${ev.isWarfarin ? '<br/>🛡️ 已記錄你正服用<strong>薄血藥</strong>，後續方案已自動隔離抗凝衝突成分。' : ''}
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" onclick="goStep('hmcs1')">了解 1 對 1 源頭逆轉方案 (HMCS) →</button>
+          <button type="button" class="cta-secondary" onclick="goStep('report1')">← 返回睇成因百分比圖表</button>
+        `;
+        return;
+      }
 
- �����  ���住���歡迎丈�重�c��哋   =F�� book ;
+      // -----------------------------------------------------------------------
+      // I. 第一層漏斗 (1/2)：HMCS 線下 5 步真實流程（底部設拒絕按鈕降級去第二層產品）
+      // -----------------------------------------------------------------------
+      if (s === "hmcs1") {
+        syncVideo("13-hmcs");
+        badge.textContent = "第一層核心承接 · HMCS 線下 1 對 1 服務";
+        body.innerHTML = `
+          <h2 class="stage-title">HMCS 實況 5 步真實流程（首次不即時成交）</h2>
+          <div class="compact-steps">
+            <div class="compact-step-row"><strong>1) 線下詳細訪談：</strong>深入了解你嘅真實生活痛點與需要。</div>
+            <div class="compact-step-row" style="background:var(--teal-soft); border-color:var(--teal-border);"><strong>2) 線下檢測數據收集（🛡️ 不即時成交）：</strong>微電流／身體成份分析／骨密度檢測及面談健康調查。</div>
+            <div class="compact-step-row"><strong>3) 5 天內出深入分析報告：</strong>非醫學診斷，只反映健康狀況和潛在問題。</div>
+            <div class="compact-step-row"><strong>4) 再約解讀及量身訂製方案（可即時成交）：</strong>定義<strong>可量度的目標成果</strong>，不以主觀感受作準則。</div>
+            <div class="compact-step-row"><strong>5) 開始跟進服務（預設 90 天／另有 18 個月最抵方案）：</strong>定時提醒行動、月度覆檢、進度評估。</div>
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" onclick="goStep('hmcs2')">我想預約線下訪談及檢測（下一步） →</button>
+          <button type="button" class="cta-secondary" onclick="goStep('products')">暫不約見面，先睇「居家調理方案專區（產品頁）」 →</button>
+        `;
+        return;
+      }
 
- �� WhatsApp 專區���每星期睇直播學���更多���  �����K$1,8
-   ��扂�好都t "兩隨   ���c��哋���elcome") {
-        syncVideo("01-蛋��層承���  ba��群陪伴��叛�播�  ��"ton>
-      人視像互動・約 2 分鐘"        body.innerHTM>丈�重�s="not專區ble�tage-���播��丅���i ��       <h2 class</button>
-            </di="display:flex篇阅醒=�� �日��案�s��聯絡      ���<       tr<button 士"} · ty<button 歲",}         bl�已��盦�善保存K$1c��們���透過���郵��� WhatsApp 為sed-a兾� ��ly:實用   �，�
-erStage()">${a}</button>`��，並非醫療診斷。</div>
-        `;a href=基因， hbt.whatsapp�波�LPHAndy6hjH8gRLVzZacrw" target" _blankerHTML = `
-          <           g i <=�#16A34A;   sy-"912  forn:t ${;�。<� �重� WhatsApp �="not專區 ="goSa>>
-        `;a href=基因，www.f�� book�波�, hmcs/const phone:ylife" target" _blankerHTML = `
-  segrid    <         sy-"912  forn:t ${;�眠結#1D4ED8;��ronc-眠結#93C5FD;�。�� �重� F�� book 專題���坐��組k="goSa</button>`��，並�日日間",
-        agreed: false
+      // -----------------------------------------------------------------------
+      // J. 第一層漏斗 (2/2)：HMCS Coaching 責任免責勾選 ＋ 門市時段預約
+      // -----------------------------------------------------------------------
+      if (s === "hmcs2") {
+        syncVideo("14-booking");
+        badge.textContent = "HMCS 預約 · 責任邊界確認與門市選擇";
+        const locs = ["奧海城門市", "屯門門市", "觀塘門市"];
+        const times = ["平日日間", "平日傍晚", "週末時段"];
+        body.innerHTML = `
+          <h2 class="stage-title">Coaching 服務責任邊界與線下預約</h2>
+          <div class="note-strip" style="font-size:12.5px;">
+            ⚖️ <strong>重要免責聲明：</strong>HMCS 屬健康管理指導（Coaching），會共同設定<strong>可量度目標成果</strong>（不以主觀感受為準）。客人須為自身健康負起執行責任；<strong>如因客人態度或行動不配合而未能達成目標，本公司恕不負責，亦不設任何形式之退款或賠償</strong>。如遇特殊情況，服務期可酌情延長 1–2 週，並非無限期服務。
+          </div>
+          <label class="collapsed-answer-bar" style="cursor:pointer; font-size:13.5px;">
+            <span style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" style="width:18px; height:18px; accent-color:var(--teal-primary);" ${st.hmcs.agreed ? 'checked' : ''} onchange="window.state.hmcs.agreed=this.checked;renderStage()" />
+              我已詳閱並同意上述責任邊界及不設退款條款
+            </span>
+          </label>
+          <div style="display:flex; gap:5px; flex-wrap:wrap;">
+            ${locs.map(l => `<button type="button" class="mini-pill ${st.hmcs.loc===l?'active':''}" onclick="window.state.hmcs.loc='${l}';renderStage()">📍 ${l}</button>`).join("")}
+            ${times.map(t => `<button type="button" class="mini-pill ${st.hmcs.time===t?'active':''}" onclick="window.state.hmcs.time='${t}';renderStage()">🕒 ${t}</button>`).join("")}
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" ${!st.hmcs.agreed ? 'disabled' : ''} onclick="submitHmcsBooking()">
+            ✅ 確認預約首次線下訪談及檢測 (${st.hmcs.loc}) →
+          </button>
+          <button type="button" class="cta-secondary" onclick="goStep('products')">暫不約見面，改睇「居家調理方案專區（產品頁）」 →</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // K. 第二層漏斗：居家調理方案專區（單品展示 ＋ 薄血藥安全過濾 ＋ 底部降級去第三層）
+      // -----------------------------------------------------------------------
+      if (s === "products") {
+        syncVideo("12-routes");
+        badge.textContent = "第二層承接 · 主導成因方案專區（單品）";
+        const safeSkus = win.skus.filter(k => !ev.isWarfarin || k.warfarinSafe).slice(0, 3);
+        body.innerHTML = `
+          <h2 class="stage-title">針對【${win.name}】單品方案</h2>
+          <div class="compact-steps">
+            ${safeSkus.map(k => `
+              <div class="sku-row">
+                <img src="${k.img}" alt="${k.name}" onerror="this.style.display='none'" />
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:14.5px; font-weight:800; color:var(--ink-main);">${k.name} · <span style="color:var(--teal-primary);">${k.price}</span></div>
+                  <div style="font-size:12.5px; color:var(--ink-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${k.desc}</div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+          <div class="note-strip">
+            🎁 <strong>Eshop 獨立網站只提供單品選擇</strong>；如欲配搭完整組合或享有配套優惠，請返回預約線下 HMCS 服務。
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" onclick="goStep('hmcs1')">🏥 我想享配套優惠：返回預約線下 HMCS →</button>
+          <button type="button" class="cta-secondary" onclick="goStep('group')">選不對產品／暫時唔買住，先去 FB／WhatsApp 專區養粉 →</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // L. 第三層漏斗：免費 WhatsApp 與 Facebook 養生社群
+      // -----------------------------------------------------------------------
+      if (s === "group") {
+        syncVideo("01-welcome");
+        badge.textContent = "第三層承接 · 免費加入健康養生社群";
+        body.innerHTML = `
+          <h2 class="stage-title">先入群接收 Duncan 日常養生與源頭解碼資訊</h2>
+          <p class="stage-sub">暫時未決定預約或選購產品都唔緊要！歡迎免費加入官方社群，隨時睇實例拆解：</p>
+          <div class="single-list">
+            <a href="https://chat.whatsapp.com/LPHAndy6hjH8gRLVzZacrw" target="_blank" rel="noopener" class="opt-pill" style="text-decoration:none; border-color:#10B981; background:#ECFDF5;">
+              <span>💬 加入 WhatsApp 養生專區</span>
+              <span style="color:#047857; font-size:14px;">免費入群 →</span>
+            </a>
+            <a href="https://www.facebook.com/groups/duncanhealthylife" target="_blank" rel="noopener" class="opt-pill" style="text-decoration:none; border-color:#3B82F6; background:#EFF6FF;">
+              <span>📘 加入 Facebook 健康生活群組</span>
+              <span style="color:#1D4ED8; font-size:14px;">免費入群 →</span>
+            </a>
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-secondary" onclick="goStep('hmcs1')">← 返回第一層：了解 HMCS 1 對 1 線下服務</button>
+        `;
+        return;
       }
     };
 
-    // ========================================7====    ======邏輯 (e;
+    // =========================================================================
+    // 7. 交互事件控制 (不自動跳題，揀完原位收起選項顯示回應)
+    // =========================================================================
+    window.selectSingleOption = function(qid, val) {
+      if (window.state.paidLocked) return;
+      window.state.answers[qid] = val;
+      window.state.showingFeedback = true;
+      renderStage();
+    };
 
-   =====�支�頁面� in-place 收起選項顯示回應，零跳動)
-    // =============================================-style' : ''}"
-  ============qId, l.o  });
-    }
+    window.toggleMultiOption = function(qid, val, isNone, isDanger) {
+      if (window.state.paidLocked) return;
+      let cur = [...(window.state.answers[qid] || [])];
+      const q = QUESTIONS[qid];
+      const noneVals = q.opts.filter(o => o.isNone).map(o => o.val);
 
-    functi       } Icons o => {
-    tate.ccVisibl框與「下一ns ome"> {
-    tate.cc}" onclick="w;日日間",
- tate.cccs2", M   r'}"
-  ============qId, l.o,udes("�  });
-          = ""Arra視sArra�(}
+      if (isNone) {
+        cur = [val];
+      } else {
+        cur = cur.filter(v => !noneVals.includes(v));
+        if (cur.includes(val)) {
+          cur = cur.filter(v => v !== val);
+        } else {
+          cur.push(val);
+        }
+      }
+      window.state.answers[qid] = cur;
+      renderStage();
+    };
 
-    functi       } Icome" ntBy}
+    window.confirmMultiQuestion = function(qid) {
+      const arr = window.state.answers[qid] || [];
+      if (arr.length === 0) return;
+      if (qid === "q6" && (arr.includes("血尿尿痛發燒") || arr.includes("想排但排唔到"))) {
+        window.state.step = "safety_stop";
+        window.state.showingFeedback = false;
+        renderStage();
+        return;
+      }
+      window.state.showingFeedback = true;
+      renderStage();
+    };
 
-    functi       } Ico] : });
+    window.reopenOptions = function() {
+      window.state.showingFeedback = false;
+      renderStage();
+    };
 
-      constt ${Val男士            const i�   ("沒有以上�  udes("冇特�  udes("s("沒有�   "唔肯宷   "�ncludes("唔肯宷   "唔固�]= document.gdes("�  });
-        = ""[l.o / total)          footer.  = ""woptfil療(});
+    window.advanceFromQuestion = function(qid) {
+      window.state.showingFeedback = false;
+      if (window.state.editingFromReview) {
+        window.state.editingFromReview = false;
+        window.state.step = "review";
+        renderStage();
+        return;
+      }
+      const nextMap = {
+        q1: "q2", q2: "q3", q3: "q4", q4: "q5", q5: "q6",
+        q6: "preview6", q7: "q8", q8: "review"
+      };
+      window.state.step = nextMap[qid] || "review";
+      renderStage();
+    };
 
-!t ${Val�2n("、");x))f (x === "口�.opts.map(o =l.o cc = 0;
-        = ""woptfil療(});
+    window.editFromReview = function(qid) {
+      if (window.state.paidLocked) return;
+      window.state.editingFromReview = true;
+      window.state.showingFeedback = false;
+      window.state.step = qid;
+      renderStage();
+    };
 
-xt;
+    window.goStep = function(target) {
+      window.state.showingFeedback = false;
+      window.state.step = target;
+      renderStage();
+    };
 
- {
-                      footer.inwoptpush({
-              total) * 100);}
+    window.jumpStep = function(target) {
+      if (["report1", "report2", "hmcs1", "hmcs2", "products", "group"].includes(target)) {
+        window.state.paidLocked = true;
+      } else {
+        window.state.paidLocked = false;
+      }
+      window.state.showingFeedback = false;
+      window.state.step = target;
+      renderStage();
+    };
 
-    functi       } Icons wop> {
-    tate.cc}" onclick="w;日日間",
- tate.ccgrifirmM   r class="============qId隱藏";
-    }qI   let p6"o-----------------a6w.state.ccVisibl明顯少6��多"f (x === "口�.6s.q7 || [];
-val: �尿尛發燮�") ||6s.q7 || [];��", isDanger: truisfileBar = "";
-tate.ccVisibl�-------redflag-;eBar = "";
-tate.ccVisibl框與「下一ns    ti eBar = "";
-tate.cc}" onclick="w;日�}
-            </button>
-total) * 100);}
+    window.stepBack = function() {
+      if (window.state.showingFeedback) {
+        window.state.showingFeedback = false;
+        renderStage();
+        return;
+      }
+      const prevMap = {
+        q1: "welcome", q2: "q1", q3: "q2", q4: "q3", q5: "q4", q6: "q5",
+        safety_stop: "q6", preview6: "q6", q7: "preview6", q8: "q7",
+        review: "q8", checkout: "review",
+        report2: "report1", hmcs1: "report2", hmcs2: "hmcs1",
+        products: "hmcs1", group: "products"
+      };
+      const p = prevMap[window.state.step];
+      if (p && !(window.state.paidLocked && ["review", "q8", "checkout"].includes(p))) {
+        window.state.step = p;
+        renderStage();
+      }
+    };
 
-    functi框與「下一ns ome"> {
-    tate.cc}" onclick="w;日日間",
- tate.cce="button" cl==================
-   tate.ccVisibl框與「下一ns    ti eBar = tate.cc}" onclick="w;日日間",
- tate.ccpe="button" class="============qId隱藏";
- tate.ccVisibl框與「下一ns    ti eBar = nt = customScriptQuestion('${q.id} (window.state.currentCliQuestion('${q.id}'s    ti eBar = ""tate.ccVisibl�-------re: 36� eBar = ""tate.cc}" onclick="w;日�}
-  ��情況 →</bu
-      constt sy進度與三點�   c       pro  �",
- = {  4",
-      5",
-come  �",��三點� 6: - q3: 36,- 46, q  �",
-     re: 36�00, hmcs2: 100, tate.ccVisibl�------t sy進} Icon) |-re: 36� eBar = tate.cc}" onclick="w;日日間",
- tate.ccQues class="============qId隱藏";
- tate.ccVisiblQuestion('${q.id}'s ome"> {
-    tate.ccVisibl框與「下一ns    ti eBar = tate.ccVisibl�------qId       ctate.cc}" onclick="w;日日間",
- tate.ccpe="bu============target======
-   tate.ccVisibl框與「下一ns    ti eBar = tate.ccVisibl�------target       ctate.cc}" onclick="w;日日間",
- tate.ccjnst "bu============target======
-   tate.ccVisibl框與「下一ns    ti eBar = tate.ccVisibl�------target       ctate.cc}" onclick="w;日日間",
- tate.cc  cons��ns  ==============
-   nt = customScript框與「下一題 →」
- tate.ccVisibl框與「下一ns    ti eBar = ""tate.cc}" onclick="w;日�}
-  ��情況 →</bu
-     nt = customScriptQuestion('${q.id} (window.state.currentCliQuestion('${q.id}'s    ti eBar = ""tate.ccVisibl�-------re: 36� eBar = ""tate.cc}" onclick="w;日�}
-  ��情況 →</bu
-      const q3:進度與三點�   c s === "w�  pro  1",
- = {  2",
-      3",
-come  4",
- 6    5",, q2: 26, q3: 36, q  �",
-6, q  q3: 36,- 468    rfar6,
-       �",
-review6: 7
-      coq7: 82, q8: 90,2:teps = ["q5" 98,
-  , "q7", "re reportview", "c0, report2view", "c, hmcs1- qeport1"00, hmcs2: 100, nt = q3:進[tate.ccVisibl�---]題 →」
- tate.ccVisibl�------ q3:進[tate.ccVisibl�---] eBar = ""tate.cc}" onclick="w;日�}
-}日日間",
- tate.ccprocess--��eUnlock==================
-    windoementById("subtitleDrawer");
-  payB  < = document.geme題 →」
- gle(disabl(('s ome"> {
-    oggle("on", window.s"🔄---��e 平�lur�下�中���正在��）�跳car交",
-tBy"�� →</bu
-     setion w6:.classList.add("ptate.ccVisiblyle.visibils ome"> {
-    ogtate.ccVisibl�-------re = ["q eBar = ""tate.cc}" onclick="w;日�}
-}, 9atios[i] �間",
- tate.cc ��mitHew"==================
-    windor"男�================ent = "�alert(/button>`�✅ 已收tru篇阅=HMCS 緛",
-訪談������測nls ��申請！\n\n` +/button>`�•  �案����${${st.user.age===a?士"} ( `${st.user.age===a?歲",})\n` +/button>`�• title: ],
-  ===
-��cVitrons.      .士"}\n` +/button>`�• nls �� },
-  ����on段���${${st.user.ageiew". oc}（${${st.user.ageiew".
-   }）\n\n` +/button>`�c��們���透過 WhatsApp  ? "��b sub:�on間。n���� �d面���做詳�") ��談====��器數據收集��援原位�場��密�索交���v>
-     ios[i] �間",
- ---s�����
-= ""tate.cc}" onclick="w;日</s幕�>
-</人�>
+    window.processStripeUnlock = function() {
+      const btn = document.getElementById("payBtn");
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ Stripe 安全結算中，正在自動返回報告...";
+      }
+      setTimeout(() => {
+        window.state.paidLocked = true;
+        window.state.step = "report1";
+        renderStage();
+      }, 650);
+    };
+
+    window.submitHmcsBooking = function() {
+      const st = window.state;
+      const ev = evaluateCauses();
+      alert(
+        "✅ 已收到你嘅 HMCS 線下訪談及檢測預約申請！\n\n" +
+        "• 預約人：" + st.user.name + " (" + st.user.phone + ")\n" +
+        "• 首選門市：" + st.hmcs.loc + " (" + st.hmcs.time + ")\n" +
+        "• 優先主因：" + ev.winner.name + "\n\n" +
+        "健康管理團隊會透過 WhatsApp 與你落實具體時間（首次見面只做詳細訪談與檢測數據收集，絕不即時成交）。"
+      );
+    };
+
+    // 初始化渲染
+    renderStage();
+  </script>
+</body>
 </html>

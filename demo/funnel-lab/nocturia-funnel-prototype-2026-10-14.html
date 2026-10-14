@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Health Decoder · 夜尿源頭解碼全屏互動原型 (Zero-Scroll 9:16 Prototype)</title>
+  <style>
+    :root {
+      --bg-dark: #070d17;
+      --card-glass: rgba(13, 23, 42, 0.88);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --teal: #14b8a6;
+      --teal-bright: #2dd4bf;
+      --amber: #f59e0b;
+      --amber-soft: rgba(245, 158, 11, 0.16);
+      --danger: #ef4444;
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background: #020617;
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang HK", "Microsoft JhengHei", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    /* 頂部開發者快速測試列（僅桌面或頂部極窄條顯示，方便 Duncan 一鍵跳頁與載入短片） */
+    .dev-bar {
+      width: 100%;
+      max-width: 430px;
+      height: 36px;
+      background: #0f172a;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      font-size: 12px;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+    .dev-bar select, .dev-bar button, .dev-bar label {
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      padding: 3px 7px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .dev-bar input[type="file"] {
+      display: none;
+    }
+
+    /* 9:16 單屏全屏手機容器（100% 鎖定單屏，零上下滾動） */
+    .phone-viewport {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      height: calc(100dvh - 36px);
+      max-height: 900px;
+      background: var(--bg-dark);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.75);
+    }
+    @media (min-width: 500px) {
+      .phone-viewport {
+        border-radius: 28px;
+        border: 3px solid #1e293b;
+        height: min(calc(100dvh - 48px), 850px);
+      }
+      .dev-bar {
+        border-radius: 12px;
+        margin-bottom: 6px;
+        border: 1px solid rgba(255,255,255,0.15);
+      }
+    }
+
+    /* 背景全屏影片舞台（佔全屏，上半 54% 為 Duncan 頭像構圖安全區） */
+    .video-stage {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: radial-gradient(circle at 50% 24%, #134e4a 0%, #0f172a 52%, #020617 100%);
+      overflow: hidden;
+    }
+    .video-stage video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .video-stage.has-video video {
+      display: block;
+    }
+    /* 當未載入真實 MOV 時的構圖安全區視覺模擬 */
+    .framing-guide {
+      position: absolute;
+      top: 44px;
+      left: 14px;
+      right: 14px;
+      height: 44%;
+      border: 1.5px dashed rgba(45, 212, 191, 0.35);
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(15,23,42,0.25) 0%, rgba(15,23,42,0.55) 100%);
+      pointer-events: none;
+    }
+    .video-stage.has-video .framing-guide {
+      display: none;
+    }
+    .avatar-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0d9488, #0284c7);
+      border: 2.5px solid #5eead4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+      box-shadow: 0 0 24px rgba(20, 184, 166, 0.45);
+      position: relative;
+    }
+    .sound-wave {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      height: 18px;
+      margin-top: 4px;
+    }
+    .sound-wave span {
+      width: 3.5px;
+      background: var(--teal-bright);
+      border-radius: 3px;
+      animation: wave 1.1s infinite ease-in-out;
+    }
+    .sound-wave span:nth-child(1) { height: 8px; animation-delay: 0s; }
+    .sound-wave span:nth-child(2) { height: 16px; animation-delay: 0.2s; }
+    .sound-wave span:nth-child(3) { height: 11px; animation-delay: 0.4s; }
+    .sound-wave span:nth-child(4) { height: 18px; animation-delay: 0.1s; }
+    .sound-wave span:nth-child(5) { height: 9px; animation-delay: 0.3s; }
+    @keyframes wave {
+      0%, 100% { transform: scaleY(0.55); opacity: 0.6; }
+      50% { transform: scaleY(1.15); opacity: 1; }
+    }
+    .clip-badge {
+      font-size: 12px;
+      color: #5eead4;
+      background: rgba(13, 148, 136, 0.22);
+      border: 1px solid rgba(94, 234, 212, 0.4);
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 4px;
+    }
+    .framing-note {
+      font-size: 12px;
+      color: var(--text-sub);
+      max-width: 90%;
+      line-height: 1.35;
+    }
+
+    /* 頂部常駐控制列（進度條 ＋ 返回 ＋ CC 字幕開關 ＋ 語音朗讀） */
+    .top-hud {
+      position: relative;
+      z-index: 10;
+      padding: 8px 12px 4px;
+      background: linear-gradient(180deg, rgba(2,6,23,0.85) 0%, rgba(2,6,23,0) 100%);
+    }
+    .progress-track {
+      width: 100%;
+      height: 5px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #14b8a6, #38bdf8);
+      width: 10%;
+      transition: width 0.28s ease;
+    }
+    .hud-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .hud-btn {
+      background: rgba(15, 23, 42, 0.78);
+      color: #f8fafc;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .hud-btn.active {
+      background: rgba(20, 184, 166, 0.28);
+      border-color: #2dd4bf;
+      color: #5eead4;
+    }
+
+    /* 可開關隱藏字幕區（CC Subtitle Box，浮現於畫面中段偏上，不遮擋底部按鈕） */
+    .cc-box {
+      position: relative;
+      z-index: 10;
+      margin: auto 12px 6px;
+      background: rgba(2, 6, 23, 0.84);
+      border: 1px solid rgba(94, 234, 212, 0.35);
+      border-radius: 14px;
+      padding: 9px 12px;
+      font-size: 14.5px;
+      line-height: 1.42;
+      color: #fef08a;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      backdrop-filter: blur(6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .cc-box.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      height: 0;
+      padding: 0;
+      margin: 0 12px;
+      border: none;
+      overflow: hidden;
+    }
+    .cc-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #2dd4bf;
+      margin-right: 6px;
+    }
+
+    /* 下半屏單屏操作面板（Glassmorphism Action Deck，不超過單屏，零上下滾動） */
+    .action-deck {
+      position: relative;
+      z-index: 10;
+      background: var(--card-glass);
+      border-top: 1px solid var(--card-border);
+      border-radius: 22px 22px 0 0;
+      padding: 14px 14px 16px;
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      max-height: 64%;
+      justify-content: flex-end;
+    }
+    .step-kicker {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal-bright);
+      letter-spacing: 0.03em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .screen-title {
+      font-size: 18.5px;
+      font-weight: 800;
+      line-height: 1.28;
+      color: #ffffff;
+    }
+    .disclaimer-pill {
+      font-size: 12px;
+      line-height: 1.35;
+      color: #fde68a;
+      background: rgba(245, 158, 11, 0.14);
+      border: 1px solid rgba(245, 158, 11, 0.38);
+      border-radius: 10px;
+      padding: 6px 9px;
+    }
+
+    /* 大字高對比選項按鈕 */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      background: rgba(30, 41, 59, 0.88);
+      color: #f8fafc;
+      border: 1.5px solid rgba(255,255,255,0.16);
+      border-radius: 13px;
+      padding: 11px 13px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.25;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+    }
+    .opt-btn:hover, .opt-btn:active {
+      border-color: var(--teal-bright);
+      background: rgba(15, 118, 110, 0.28);
+    }
+    .opt-btn.selected {
+      background: rgba(20, 184, 166, 0.25);
+      border-color: #2dd4bf;
+      color: #ffffff;
+      box-shadow: 0 0 0 1px #2dd4bf;
+    }
+    .opt-btn.danger-opt {
+      border-color: rgba(239, 68, 68, 0.45);
+      color: #fecaca;
+    }
+
+    /* 主行動大掣 */
+    .primary-cta {
+      width: 100%;
+      background: linear-gradient(135deg, #14b8a6 0%, #0284c7 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      padding: 13px 16px;
+      font-size: 17px;
+      font-weight: 800;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(20, 184, 166, 0.35);
+    }
+    .primary-cta:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .secondary-cta {
+      width: 100%;
+      background: rgba(30, 41, 59, 0.9);
+      color: #e2e8f0;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 13px;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    /* 緊湊 3x3 答案覆核格（單屏零 Scroll） */
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .review-cell {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 10px;
+      padding: 6px 7px;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .review-cell:hover {
+      border-color: var(--teal-bright);
+    }
+    .review-q {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    .review-q span {
+      color: var(--teal-bright);
+      font-weight: 700;
+    }
+    .review-a {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 緊湊表單輸入 */
+    .compact-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 6px;
+    }
+    .input-field {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 10px;
+      padding: 9px 10px;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    /* 單屏小卡片組件（用於報告關鍵詞、單品卡、HMCS 5 步） */
+    .mini-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mini-card {
+      background: rgba(30, 41, 59, 0.82);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 11px;
+      padding: 8px 10px;
+      font-size: 13.5px;
+      line-height: 1.32;
+    }
+    .mini-card strong {
+      color: var(--teal-bright);
+    }
+    .product-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid rgba(45, 212, 191, 0.35);
+      border-radius: 12px;
+      padding: 8px 10px;
+    }
+    .product-row img {
+      width: 46px;
+      height: 46px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #fff;
+      flex-shrink: 0;
+    }
+    .product-info {
+      flex: 1;
+    }
+    .product-info h4 {
+      font-size: 14px;
+      color: #fff;
+    }
+    .product-info p {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+    .chip-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .chip-btn {
+      flex: 1;
+      min-width: 30%;
+      background: rgba(30, 41, 59, 0.85);
+      border: 1.5px solid rgba(255,255,255,0.18);
+      color: #f8fafc;
+      padding: 8px 6px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+    }
+    .chip-btn.selected {
+      background: rgba(20, 184, 166, 0.28);
+      border-color: #2dd4bf;
+      color: #5eead4;
+    }
+
+    /* Stripe 模擬跳轉覆蓋層 */
+    .stripe-modal {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      background: rgba(2, 6, 23, 0.94);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      gap: 14px;
+    }
+    .stripe-modal.show {
+      display: flex;
+    }
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 4px solid rgba(45, 212, 191, 0.25);
+      border-top-color: #2dd4bf;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部開發測試工具列（方便 Duncan 快速跳頁及載入本機 01-16 短片） -->
+  <div class="dev-bar">
+    <span>🛠️ 原型預視：</span>
+    <select id="quickJump" onchange="jumpToScreen(this.value)">
+      <option value="0">0. 入口全屏短片</option>
+      <option value="1">1. Q1 起夜次數</option>
+      <option value="2">2. Q2 最想改善困擾</option>
+      <option value="3">3. Q3 尿意先定醒先</option>
+      <option value="4">4. Q4 夜間尿量感覺</option>
+      <option value="5">5. Q5 排尿順暢與紅旗</option>
+      <option value="6">6. Q6 睡前飲水習慣</option>
+      <option value="7">7. 第6題暫時評估過場</option>
+      <option value="8">8. Q7 日間身體訊號</option>
+      <option value="9">9. Q8 長期用藥門閥</option>
+      <option value="10">10. Q9 年齡與傾向</option>
+      <option value="11">11. 付款前答案覆核與重填</option>
+      <option value="12">12. 留資料＋Stripe $19.9</option>
+      <option value="13">13. 報告卡 1/3：唯一成因解碼</option>
+      <option value="14">14. 報告卡 2/3：日常微習慣</option>
+      <option value="15">15. 報告卡 3/3：三大成交出口</option>
+      <option value="16">16. 出口①：Eshop 單品網</option>
+      <option value="17">17. 出口②：HMCS 5步流程</option>
+      <option value="18">18. 出口②：HMCS 責任聲明與預約</option>
+      <option value="19">19. 出口③：WhatsApp/FB 群組</option>
+    </select>
+    <label for="videoLoader" title="可一次過選取本機 01-welcome.MOV 等短片">📂 載入短片</label>
+    <input type="file" id="videoLoader" accept="video/*" multiple onchange="loadLocalVideos(this.files)" />
+  </div>
+
+  <!-- 9:16 單屏全屏互動容器（Zero Scroll） -->
+  <div class="phone-viewport">
+    <!-- 背景全屏影片舞台 -->
+    <div class="video-stage" id="videoStage">
+      <video id="bgVideo" playsinline webkit-playsinline controlslist="nodownload"></video>
+      <div class="framing-guide">
+        <div class="clip-badge" id="clipBadge">🎬 鏡頭位：01-welcome.MOV</div>
+        <div class="avatar-circle">Duncan</div>
+        <div class="sound-wave"><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="framing-note" id="framingNote" style="margin-top:6px;">
+          【9:16 拍片構圖安全區】<br/>上半屏 55% 為 Duncan 頭像至心口區，下半屏 45% 留給按鈕浮層（零上下滾動）
+        </p>
+      </div>
+    </div>
+
+    <!-- 頂部常駐控制列 -->
+    <div class="top-hud">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn" id="backBtn" onclick="goBack()">⬅ 上一頁</button>
+        <div style="display:flex; gap:6px;">
+          <button class="hud-btn" id="ttsBtn" onclick="speakCurrentScript()">🔊 聽語音</button>
+          <button class="hud-btn active" id="ccToggleBtn" onclick="toggleCC()">CC 字幕：開</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 可開關隱藏字幕浮層（CC） -->
+    <div class="cc-box" id="ccBox">
+      <span class="cc-tag">[口播字幕]</span>
+      <span id="ccText">載入中...</span>
+    </div>
+
+    <!-- 下半屏單屏操作區（文字極簡，只作操作引導與重要聲明） -->
+    <div class="action-deck" id="actionDeck"></div>
+
+    <!-- Stripe 自動回跳模擬層 -->
+    <div class="stripe-modal" id="stripeModal">
+      <div class="spinner"></div>
+      <h3 style="font-size:20px;">Stripe 安全收款確認中（HK$19.9）</h3>
+      <p style="font-size:14px; color:#cbd5e1; line-height:1.5;">
+        正在核對一次性付款並鎖定你嘅問卷答案...<br/>
+        <strong style="color:#5eead4;">確認完成後將自動跳回頁面並交付專屬報告</strong>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // 狀態管理
+    const state = {
+      screen: 0,
+      ccOpen: true,
+      paidLocked: false,
+      editingFromReview: false,
+      localVideos: {},
+      answers: {
+        q1: "2 至 3 次",
+        q2: "醒咗眼光光好難瞓返",
+        q3: "明顯係尿急谷醒我",
+        q4: "同日頭差唔多，甚至仲多",
+        q5: "以上都冇，排尿順暢",
+        q6: "已特登戒水，瞓前只濕下口",
+        q7: "傍晚對鞋緊咗／除襪有明顯襪印",
+        q8: "冇食任何長期西藥",
+        q9: "60–69 歲｜想先自己調理"
+      },
+      user: {
+        name: "陳先生 (測試)",
+        phone: "9123 4567",
+        email: "demo@health-decoder.com"
+      },
+      hmcsConsent: false,
+      hmcsLoc: "奧海城門市",
+      hmcsTime: "平日日間"
+    };
+
+    // 五大單一成因資料庫（每次只按客戶回答判定並交付「唯一 1 個成因」，絕不顯示其餘四型干擾客人）
+    const SINGLE_CAUSE_DB = {
+      edema: {
+        title: "下肢水腫平躺回流型",
+        clipWhy: "10-report-why.MOV",
+        clipNext: "11-report-next.MOV",
+        ccWhy: "你明明瞓前已經戒咗水，但一晚仲要起身兩三次，每次尿量都唔少，而且傍晚覺得鞋緊或者有襪印。呢個係因為日頭地心吸力令 300 至 500 毫升水分積喺小腿組織；當你夜晚一平躺，呢啲積水就湧返入血管，腎臟以為水太多，唯有通宵加班排水！",
+        ccNext: "要減少夜間回流，今日開始做三個微習慣：第一，全日七成水分喺下晝四點前飲晒；第二，晚飯後做小腿踮腳泵水運動；第三，瞓前兩個鐘墊高小腿十五分鐘。不過微習慣只能幫手排走表面積水，要修復底層循環與肌泵力，就需要針對性營養或物理支持。",
+        habits: [
+          "1. 日間飲水前移：下午 4 點前飲夠全日 7 成水分",
+          "2. 黃昏肌泵運動：晚飯後慢行或踮腳尖 10 分鐘",
+          "3. 睡前預先回流：睡前 2 小時墊高小腿 15 分鐘"
+        ],
+        products: [
+          {
+            id: "36283",
+            name: "ORIYEN 蛋白高營素",
+            desc: "補充優質白蛋白與肌肉合成原料，維持血管滲透壓與小腿肌泵張力",
+            img: "https://health-decoder.com/images/products/36283.webp"
+          },
+          {
+            id: "0368",
+            name: "紅光光療按摩帶",
+            desc: "深層溫熱與紅光理療，促進下肢微循環與組織液回流",
+            img: "https://health-decoder.com/images/products/0368.webp"
+          }
+        ]
+      },
+      pump: {
+        title: "小腿肌少肌泵衰退型",
+        clipWhy: "10-report-why.MOV",
+        clipNext: "11-report-next.MOV",
+        ccWhy: "小腿係人體嘅「第二個心臟」。你提到小腿冇以前咁有力或者經常久坐，日頭小腿肌肉唔夠力將下肢血液同水分泵返上心臟，結果水分滯留喺下半身，一到夜晚瞓低就變相湧返去腎臟，搞到頻頻夜尿。",
+        ccNext: "日常微習慣可以由每日練習坐姿勾腳、踮腳同埋分段飲水開始。但因為肌肉量同細胞粒線體能量流失唔係單靠戒水可以逆轉，想從源頭養返起小腿肌泵力，可以配合優質蛋白質同律動理療。",
+        habits: [
+          "1. 打破久坐滯留：每坐 45 分鐘起身活動或勾腳尖 20 下",
+          "2. 溫水小口慢飲：避免一次過大口灌水造成滲透壓波動",
+          "3. 下肢保暖與抬腿：睡前溫水浸腳或墊高小腿放鬆"
+        ],
+        products: [
+          {
+            id: "36283",
+            name: "ORIYEN 蛋白高營素",
+            desc: "提供好吸收胺基酸，支持長者下肢肌肉質量與肌泵收縮力",
+            img: "https://health-decoder.com/images/products/36283.webp"
+          },
+          {
+            id: "38207",
+            name: "Smart Fitness X 律動拍打機",
+            desc: "被動垂直律動刺激下肢肌群收縮，輔助日間水分回流",
+            img: "https://health-decoder.com/images/products/38207.webp"
+          }
+        ]
+      },
+      sleep: {
+        title: "睡眠結構崩解偽性夜尿型",
+        clipWhy: "15-sleep-reply.MOV",
+        clipNext: "11-report-next.MOV",
+        ccWhy: "你揀咗「人醒咗先順便去廁所」，而且每次尿量唔多，仲好難瞓返。呢種情況往往係睡眠結構先斷裂，大腦入唔到深層睡眠，抗利尿荷爾蒙分泌減少，你醒咗覺得膀胱有少少脹就去廁所，重點其實喺睡眠神經穩定度！",
+        ccNext: "日常微習慣建議睡前一小時調暗燈光、放低手機，而且半夜醒咗如果唔係好急，唔好即刻開大燈去廁所。若果神經長期處於繃緊淺眠狀態，可以配合鈣鎂同細胞能量營養幫助放鬆入睡。",
+        habits: [
+          "1. 走廊微光夜燈：半夜起身切忌開刺眼白光打斷褪黑激素",
+          "2. 睡前神經降溫：睡前 1 小時停止睇新聞或劇集刺激大腦",
+          "3. 區分習慣性如廁：醒來若無明顯尿急，先深呼吸放鬆嘗試入睡"
+        ],
+        products: [
+          {
+            id: "34316",
+            name: "Nn 液鈣鎂 D3",
+            desc: "液態易吸收鈣鎂比例，幫助舒緩夜間神經繃緊與肌肉張力",
+            img: "https://health-decoder.com/images/products/34316.webp"
+          },
+          {
+            id: "36281",
+            name: "NMN 15000 Premium",
+            desc: "補充 NAD+ 前驅物（NMN），調節生理時鐘與深層睡眠修復",
+            img: "https://health-decoder.com/images/products/36281.webp"
+          }
+        ]
+      },
+      bladder: {
+        title: "膀胱逼尿肌出口張力型",
+        clipWhy: "10-report-why.MOV",
+        clipNext: "11-report-next.MOV",
+        ccWhy: "你提到去廁所要等、尿流較幼或者去完好似排唔清，而且每次尿量偏少。呢個反映盆腔與膀胱逼尿肌嘅微循環同收縮張力下降，每次排尿清唔晒殘餘尿量，變相令膀胱可用容量縮細，所以好快又急醒。",
+        ccNext: "日常微習慣可以試下「二次排尿法」，即係去完坐多十幾秒再排一次，同埋夜晚少飲濃茶咖啡刺激膀胱。想進一步改善盆腔微循環同神經張力，可以考慮針對性抗氧化營養與紅光溫敷。",
+        habits: [
+          "1. 睡前二次排尿法：排尿後放鬆 20 秒再輕排一次減少殘尿",
+          "2. 減少刺激性飲品：午後避免濃茶、咖啡及凍飲刺激逼尿肌",
+          "3. 下腹與盆腔保暖：避免夜間冷氣直吹腰腹影響局部循環"
+        ],
+        products: [
+          {
+            id: "34269",
+            name: "天然蝦青素",
+            desc: "高強度脂溶性抗氧化，保護平滑肌與微血管免受氧化壓力損傷",
+            img: "https://health-decoder.com/images/products/34269.webp"
+          },
+          {
+            id: "0368",
+            name: "紅光光療按摩帶",
+            desc: "溫和深層紅光穿透，舒緩下腹與盆腔緊繃、促進局部循環",
+            img: "https://health-decoder.com/images/products/0368.webp"
+          }
+        ]
+      },
+      metabolic: {
+        title: "代謝滲透壓心腸軸型",
+        clipWhy: "10-report-why.MOV",
+        clipNext: "11-report-next.MOV",
+        ccWhy: "你提到經常口乾口渴、餐後易眼瞓或者腸胃容易脹氣，同時夜晚尿量唔少。當身體代謝碳水同鹽分嘅滲透壓失衡，血液會不斷抽走組織水分經腎臟排出，形成滲透性多尿，連帶影響埋夜間睡眠。",
+        ccNext: "日常微習慣最緊要係晚餐減少高鹽濃湯同精製澱粉，餐後散步十五分鐘幫助穩定滲透壓。如果想從腸道菌群同細胞代謝源頭調理，可以配合益生菌、消化酵素同輔酶 Q10。",
+        habits: [
+          "1. 晚餐減鹽減濃湯：避免高鈉與高糖飲食拉高夜間血液滲透壓",
+          "2. 餐後黃金散步：晚飯後慢行 15 分鐘幫助代謝平穩",
+          "3. 分次小口補水：口乾時小口含水潤喉，避免睡前大量灌水"
+        ],
+        products: [
+          {
+            id: "36248",
+            name: "ORIYEN 綜合果蔬酵素",
+            desc: "減輕晚餐後消化道負荷，改善餐後腹脹與心腸軸代謝壓力",
+            img: "https://health-decoder.com/images/products/36248.webp"
+          },
+          {
+            id: "34278",
+            name: "水溶性 Q10",
+            desc: "支持心腎與全身細胞粒線體能量轉換，零抗凝血衝突",
+            img: "https://health-decoder.com/images/products/34278.webp"
+          }
+        ]
+      }
+    };
+
+    // 根據客人回答判定「唯一 1 個成因」
+    function getResolvedCause() {
+      const q3 = state.answers.q3 || "";
+      const q5 = state.answers.q5 || "";
+      const q7 = state.answers.q7 || "";
+      if (q7.includes("鞋緊") || q7.includes("襪印")) return SINGLE_CAUSE_DB.edema;
+      if (q7.includes("小腿") || q7.includes("久坐")) return SINGLE_CAUSE_DB.pump;
+      if (q7.includes("口乾") || q7.includes("腸胃")) return SINGLE_CAUSE_DB.metabolic;
+      if (q3.includes("人醒咗") || q7.includes("淺眠")) return SINGLE_CAUSE_DB.sleep;
+      if (q5.includes("等一陣") || q5.includes("排唔清") || q7.includes("排尿")) return SINGLE_CAUSE_DB.bladder;
+      return SINGLE_CAUSE_DB.edema;
+    }
+
+    // 畫面配置表
+    function renderScreen() {
+      const s = state.screen;
+      document.getElementById("quickJump").value = String(s);
+      const pct = Math.min(100, Math.round(((s + 1) / 16) * 100));
+      document.getElementById("progressFill").style.width = pct + "%";
+
+      const backBtn = document.getElementById("backBtn");
+      // 付款解鎖後（Screen >= 13）鎖定答案，不可返回問卷修改
+      if (s === 0 || s === 13) {
+        backBtn.style.visibility = "hidden";
+      } else {
+        backBtn.style.visibility = "visible";
+      }
+
+      const deck = document.getElementById("actionDeck");
+      const ccText = document.getElementById("ccText");
+      const clipBadge = document.getElementById("clipBadge");
+
+      // 0. 入口畫面
+      if (s === 0) {
+        setVideoClip("01-welcome.MOV", "鏡頭 01：直拍上半身，親切自然打招呼（約 12 秒）");
+        ccText.textContent = "「你好，我係 Duncan。夜晚成日起身去廁所，最辛苦往往係瞓唔返，第二朝成個人散晒。其實夜尿唔一定係腎虧或者膀胱細，我用幾條簡單問題同你搵出真正嘅源頭線索。」";
+        deck.innerHTML = `
+          <div class="step-kicker"><span>HEALTH DECODER · 夜尿源頭解碼</span><span>約 2 分鐘</span></div>
+          <div class="screen-title">夜晚成日起身，最辛苦係醒咗瞓唔返，定第二朝成個人散晒？</div>
+          <div class="disclaimer-pill">📌 聲明：本互動檢測僅供梳理生活與健康體感訊號，並非醫學診斷。</div>
+          <button class="primary-cta" onclick="goNext(1)">開始 2 分鐘自我檢測 ➔</button>
+        `;
+        return;
+      }
+
+      // Q1–Q6 及 Q7–Q9 題目定義
+      const questions = {
+        1: {
+          key: "q1",
+          kicker: "問題 1 / 9 · 起夜頻率",
+          clip: "02-frequency.MOV",
+          title: "平時一晚，你大概起身去幾多次廁所？",
+          cc: "「先諗返最近呢個禮拜，你平時一晚大概起身去幾多次廁所？唔使計得好準，揀最接近你嘅感覺就得。」",
+          opts: ["1 次", "2 至 3 次", "4 次或以上"]
+        },
+        2: {
+          key: "q2",
+          kicker: "問題 2 / 9 · 核心困擾",
+          clip: "01-welcome.MOV",
+          title: "半夜起身去廁所，邊樣令你最辛苦、最想優先改善？",
+          cc: "「每個人最辛苦嘅位都唔同：有人係醒咗眼光光瞓唔返，有人係第二朝頭重重冇精神，亦有人驚半夜摸黑跌親。邊樣最困擾你？」",
+          opts: [
+            "醒咗眼光光好難瞓返",
+            "第二朝頭重重、日頭冇精神",
+            "半夜摸黑行去廁所覺得煩或驚跌親",
+            "擔心身體機能係咪開始衰退"
+          ]
+        },
+        3: {
+          key: "q3",
+          kicker: "問題 3 / 9 · 醒來先後",
+          clip: "03-waking.MOV",
+          title: "通常係「尿急谷醒你」，定係「人醒咗先順便去廁所」？",
+          cc: "「呢條好重要：你係俾尿意谷醒先去，定係人已經醒咗、瞓唔著先順便去廁所？兩種背後嘅原因好唔同。」",
+          opts: [
+            "明顯係尿急谷醒我",
+            "人醒咗先順便去廁所",
+            "兩樣都有，有時急醒、有時醒先"
+          ]
+        },
+        4: {
+          key: "q4",
+          kicker: "問題 4 / 9 · 夜間尿量",
+          clip: "04-volume.MOV",
+          title: "同日頭平時比較，夜晚每次排出嚟嘅尿量大概點樣？",
+          cc: "「夜晚每次去廁所，同日頭平時一次比較，感覺係差唔多甚至仲多，定係明顯少好多？講你平時嘅感覺就可以。」",
+          opts: [
+            "同日頭差唔多，甚至仲多",
+            "明顯少好多，有時去得少少但好急",
+            "一時多一時少，唔太固定"
+          ]
+        },
+        5: {
+          key: "q5",
+          kicker: "問題 5 / 9 · 排尿感受與安全確認",
+          clip: "07-safety.MOV",
+          title: "平時去廁所時，有冇以下排尿感覺或新出現嘅不適？",
+          cc: "「去廁所嗰陣順唔順暢？有冇要等一陣先出到尿、或者排唔清？另外如果有血尿、赤痛發燒或者排唔到尿，記得先搵醫生檢查。」",
+          opts: [
+            "以上都冇，排尿順暢",
+            "要等一陣先出到尿、或者尿流變幼",
+            "去完好似排唔清，或者一急就忍唔住",
+            "🚨 有血尿、排尿赤痛發燒或排唔到尿"
+          ]
+        },
+        6: {
+          key: "q6",
+          kicker: "問題 6 / 9 · 睡前飲水習慣",
+          clip: "05-drinks.MOV",
+          title: "瞓前兩三個鐘，你通常有冇飲嘢嘅習慣？",
+          cc: "「瞓前兩三個鐘，你通常會飲湯、飲茶，定係已經特登戒咗水、只係濕下口但照樣要起身？」",
+          opts: [
+            "已特登戒水，瞓前只濕下口",
+            "晚飯後會飲唔少老火湯或水",
+            "夜晚會飲茶、咖啡或少少酒",
+            "冇固定習慣"
+          ]
+        },
+        8: {
+          key: "q7",
+          kicker: "問題 7 / 9 · 日間身體訊號",
+          clip: "06-other.MOV",
+          title: "日頭或者傍晚，你有冇留意到以下最明顯嘅身體訊號？",
+          cc: "「日頭同傍晚嘅身體訊號往往藏住夜尿嘅真正答案：例如傍晚覺得對鞋緊咗、小腿冇力、成日口乾，定係成晚都好淺眠？」",
+          opts: [
+            "傍晚對鞋緊咗／除襪有明顯襪印",
+            "小腿冇以前咁有力／行路慢咗或常久坐",
+            "經常口乾口渴／餐後易眼瞓或腸胃脹",
+            "成晚淺眠易醒／伴侶話我有打鼻鼾"
+          ]
+        },
+        9: {
+          key: "q8",
+          kicker: "問題 8 / 9 · 用藥安全避險",
+          clip: "06-other.MOV",
+          title: "你目前有冇長期食緊以下處方藥物？（用於避開成分衝突）",
+          cc: "「為咗確保陣間報告嘅調理建議百份百安全，你有冇食緊薄血藥、血壓藥、去水丸或者血糖藥？系統會自動幫你避開有衝突嘅成分。」",
+          opts: [
+            "冇食任何長期西藥",
+            "薄血藥／抗凝血藥（華法林、阿士匹靈等）",
+            "血壓藥或去水丸（利尿劑）",
+            "血糖藥／膽固醇藥／前列腺或助眠藥"
+          ]
+        },
+        10: {
+          key: "q9",
+          kicker: "問題 9 / 9 · 年齡與期望步調",
+          clip: "09-hna.MOV",
+          title: "最後一題：你嘅年齡層與期望改善方式係？",
+          cc: "「最後一題！揀返你嘅年齡層，同埋睇完報告之後，你傾向自己先跟住調理，定係想了解專人一對一幫你規劃？」",
+          opts: [
+            "50–59 歲｜想先自己跟住調理",
+            "60–69 歲｜想先自己跟住調理",
+            "60 歲或以上｜想了解專人一對一跟進",
+            "其他年齡｜先睇報告再決定"
+          ]
+        }
+      };
+
+      if (questions[s]) {
+        const q = questions[s];
+        setVideoClip(q.clip, `鏡頭：${q.clip}（單屏問題互動）`);
+        ccText.textContent = q.cc;
+        const currentVal = state.answers[q.key];
+        const optsHtml = q.opts.map(opt => {
+          const isDanger = opt.includes("🚨");
+          const isSel = currentVal === opt;
+          return `<button class="opt-btn ${isSel ? 'selected' : ''} ${isDanger ? 'danger-opt' : ''}" onclick="selectAnswer('${q.key}', '${opt}', ${s})">
+            <span>${opt}</span>
+            <span>${isSel ? '✓' : '›'}</span>
+          </button>`;
+        }).join("");
+
+        deck.innerHTML = `
+          <div class="step-kicker">
+            <span>${q.kicker}</span>
+            <span>${state.editingFromReview ? '🔄 修改完成後直接返回覆核頁' : '點擊即選'}</span>
+          </div>
+          <div class="screen-title">${q.title}</div>
+          <div class="options-list">${optsHtml}</div>
+        `;
+        return;
+      }
+
+      // Screen 7：第 6 題後「暫時評估」單屏過場卡
+      if (s === 7) {
+        setVideoClip("08-preview.MOV", "鏡頭 08：暫時評估過場（吊胃口引導完成最後 3 題）");
+        ccText.textContent = `「頭 6 題已經幫你鎖定初步方向！你一晚起身 ${state.answers.q1}、${state.answers.q3}，而且${state.answers.q6}。呢個組合反映問題好可能喺日夜水分調度或循環回流。答埋最後 3 條簡單身體背景題，就可以核對答案並解鎖專屬報告！」`;
+        deck.innerHTML = `
+          <div class="step-kicker"><span>📊 頭 6 題暫時評估已完成 (65%)</span><span>尚餘 3 題</span></div>
+          <div class="screen-title">你嘅初步夜尿線索已成形！</div>
+          <div class="mini-cards">
+            <div class="mini-card">
+              <strong>已捕捉訊號：</strong>每晚 ${state.answers.q1} · ${state.answers.q3} · ${state.answers.q4}
+            </div>
+            <div class="mini-card">
+              <strong>初步方向：</strong>單靠戒水未必能解決，需結合日間循環與用藥背景鎖定唯一源頭成因。
+            </div>
+          </div>
+          <button class="primary-cta" onclick="goNext(8)">繼續完成最後 3 題（約 45 秒）➔</button>
+        `;
+        return;
+      }
+
+      // Screen 11：付款前「答案覆核與重填」單屏卡
+      if (s === 11) {
+        setVideoClip("09-hna.MOV", "鏡頭 09：提醒客人核對答案，付款後鎖定不可更改");
+        ccText.textContent = "「你已經答晒全部 9 題！喺解鎖報告之前，請幫我望一望下面 9 格係咪你揀嘅答案。如果撳錯咗任何一格，而家撳入去就可以重填；一旦付款解鎖出咗報告之後，答案就會正式鎖定唔可以再改㗎喇。」";
+        const labels = [
+          { q: "Q1 次數", k: "q1", sc: 1 },
+          { q: "Q2 困擾", k: "q2", sc: 2 },
+          { q: "Q3 先後", k: "q3", sc: 3 },
+          { q: "Q4 尿量", k: "q4", sc: 4 },
+          { q: "Q5 順暢", k: "q5", sc: 5 },
+          { q: "Q6 飲水", k: "q6", sc: 6 },
+          { q: "Q7 日間", k: "q7", sc: 8 },
+          { q: "Q8 用藥", k: "q8", sc: 9 },
+          { q: "Q9 年齡", k: "q9", sc: 10 }
+        ];
+        const gridHtml = labels.map(item => `
+          <button class="review-cell" onclick="editQuestionFromReview(${item.sc})">
+            <div class="review-q">${item.q} <span>修改</span></div>
+            <div class="review-a">${state.answers[item.k]}</div>
+          </button>
+        `).join("");
+
+        deck.innerHTML = `
+          <div class="step-kicker"><span>✅ 交付前答案覆核（點擊任一格可重填）</span><span>步驟 1 / 2</span></div>
+          <div class="screen-title">請確認你所選嘅問卷答案無誤</div>
+          <div class="review-grid">${gridHtml}</div>
+          <div class="disclaimer-pill">
+            🔒 <strong>重要聲明：</strong>如有填錯請即點擊上方格仔重填。<strong>一旦付款解鎖生成報告後，答案將正式鎖定不可再改。</strong>
+          </div>
+          <button class="primary-cta" onclick="goNext(12)">確認答案無誤，前往解鎖報告 ➔</button>
+        `;
+        return;
+      }
+
+      // Screen 12：留聯絡資料 ＋ Stripe HK$19.9 一次性解鎖單屏卡
+      if (s === 12) {
+        setVideoClip("08-preview.MOV", "鏡頭：引導留 WhatsApp 備份報告並以 Stripe $19.9 解鎖");
+        ccText.textContent = "「最後一步，填低你嘅稱呼、WhatsApp 電話同電郵，系統會將報告備份連結同步發畀你。用 Stripe 一次性支付 HK$19.9 之後，頁面會自動跳返嚟，即刻為你揭曉專屬成因同調理方案！」";
+        deck.innerHTML = `
+          <div class="step-kicker"><span>💳 留存備份資料 ＋ Stripe 自動解鎖</span><span>步驟 2 / 2</span></div>
+          <div class="screen-title">解鎖你嘅《夜尿唯一成因個人報告》</div>
+          <div class="compact-inputs">
+            <input class="input-field" id="inName" placeholder="你嘅稱呼" value="${state.user.name}" oninput="state.user.name=this.value" />
+            <input class="input-field" id="inPhone" placeholder="WhatsApp 電話" value="${state.user.phone}" oninput="state.user.phone=this.value" />
+          </div>
+          <input class="input-field" id="inEmail" placeholder="電郵地址（接收報告備份與收據）" value="${state.user.email}" oninput="state.user.email=this.value" />
+          <div class="disclaimer-pill">
+            🛡️ <strong>一次性收費 HK$19.9（絕無自動續費）：</strong>經 Stripe 安全收款確認後，系統會自動跳回本頁並即時完成交付。
+          </div>
+          <button class="primary-cta" onclick="triggerSimulatedStripe()">🔒 支付 HK$19.9 立即解鎖結果（模擬 Stripe）</button>
+        `;
+        return;
+      }
+
+      // Screen 13：報告卡 1/3（唯一判定成因解碼，絕不顯示其餘四型）
+      if (s === 13) {
+        const cause = getResolvedCause();
+        const isWarfarin = (state.answers.q8 || "").includes("薄血藥");
+        setVideoClip(cause.clipWhy, `鏡頭 ${cause.clipWhy}：講解唯一判定成因【${cause.title}】`);
+        ccText.textContent = `「${cause.ccWhy}」`;
+        deck.innerHTML = `
+          <div class="step-kicker"><span>🔓 已解鎖專屬報告（答案已鎖定）</span><span>報告卡 1 / 3</span></div>
+          <div class="screen-title">判定核心方向：【${cause.title}】</div>
+          <div class="mini-cards">
+            <div class="mini-card">
+              <strong>對應你嘅答案：</strong>每晚 ${state.answers.q1} · ${state.answers.q3} · ${state.answers.q7}
+            </div>
+            <div class="mini-card">
+              <strong>最想優先改善：</strong>${state.answers.q2}（詳細原理解說請聽上方影片或睇 CC 字幕）
+            </div>
+          </div>
+          <div class="disclaimer-pill">
+            ⚠️ <strong>重要聲明：</strong>本報告僅反映健康狀況與潛在生理訊號，並非醫學診斷。${isWarfarin ? '<br/>🩸 <strong>臨床用藥避險：</strong>你已申報服用薄血藥，後續方案已自動隔離抗凝衝突成分。' : ''}
+          </div>
+          <button class="primary-cta" onclick="goNext(14)">下一卡：針對性日常微習慣 (2/3) ➔</button>
+        `;
+        return;
+      }
+
+      // Screen 14：報告卡 2/3（針對性日常微習慣 ＋ 能力邊界）
+      if (s === 14) {
+        const cause = getResolvedCause();
+        setVideoClip(cause.clipNext, `鏡頭 ${cause.clipNext}：針對【${cause.title}】嘅微習慣與能力邊界`);
+        ccText.textContent = `「${cause.ccNext}」`;
+        const habitsHtml = cause.habits.map(h => `<div class="mini-card">${h}</div>`).join("");
+        deck.innerHTML = `
+          <div class="step-kicker"><span>🌿 針對【${cause.title}】</span><span>報告卡 2 / 3</span></div>
+          <div class="screen-title">今晚開始可以做嘅 3 個微習慣</div>
+          <div class="mini-cards">${habitsHtml}</div>
+          <div class="disclaimer-pill">
+            💡 <strong>能力邊界提示：</strong>日常微習慣有助減少表面水分負荷；若要修復深層機能或處理複雜成因，建議配合針對性營養支持或線下數據評估。
+          </div>
+          <button class="primary-cta" onclick="goNext(15)">下一卡：專屬調理方案與下一步 (3/3) ➔</button>
+        `;
+        return;
+      }
+
+      // Screen 15：報告卡 3/3（收窄引導去三大成交／承接出口）
+      if (s === 15) {
+        const cause = getResolvedCause();
+        setVideoClip("12-routes.MOV", "鏡頭 12：收窄引導三大下一步出口（Eshop 單品 / HMCS 度身配套 / 群組）");
+        ccText.textContent = "「睇完你嘅專屬成因同微習慣，下一步有三個選擇：如果你想自己買單品試下，可以去 Eshop 獨立網站；但如果你想有配套優惠、或者透過科學儀器數據度身訂造完整調理方案，我建議你揀第二個選項，了解我哋嘅 HMCS 線下服務！」";
+        deck.innerHTML = `
+          <div class="step-kicker"><span>🎯 針對【${cause.title}】下一步行動</span><span>報告卡 3 / 3</span></div>
+          <div class="screen-title">請選擇最適合你嘅改善出口：</div>
+          <div class="options-list">
+            <button class="primary-cta" style="text-align:left; display:flex; justify-content:space-between; align-items:center;" onclick="goNext(17)">
+              <span>② 了解及預約 HMCS 線下度身服務<br/><small style="font-weight:500; font-size:12.5px; opacity:0.92;">含科學儀器檢測 · 度身方案 · 專屬配套優惠</small></span>
+              <span>➔</span>
+            </button>
+            <button class="opt-btn" onclick="goNext(16)">
+              <span>① 前往 Eshop 獨立網自助選購（僅提供單品）</span>
+              <span>›</span>
+            </button>
+            <button class="opt-btn" onclick="goNext(19)">
+              <span>③ 先加入 WhatsApp／FB 群組慢慢了解</span>
+              <span>›</span>
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      // Screen 16：出口 ① Eshop 獨立網站（只提供單品選擇，如欲配套或優惠引流回線下 HMCS）
+      if (s === 16) {
+        const cause = getResolvedCause();
+        setVideoClip("12-routes.MOV", "鏡頭：Eshop 單品展示（強調配套與優惠須返回預約線下 HMCS）");
+        ccText.textContent = `「呢度係對應你【${cause.title}】嘅單品選擇，撳入去會去到獨立 Eshop 網站按單品原價購買。提提你，如果你想配搭完整調理組合或者享有配套優惠，記得揀下面個掣，返去預約線下 HMCS 服務！」`;
+        const prodHtml = cause.products.map(p => `
+          <div class="product-row">
+            <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/80x80/0f172a/2dd4bf?text=Product'" />
+            <div class="product-info">
+              <h4>${p.name}（單品）</h4>
+              <p>${p.desc}</p>
+            </div>
+          </div>
+        `).join("");
+
+        deck.innerHTML = `
+          <div class="step-kicker"><span>🛒 出口 ① · 獨立 Eshop 單品選購</span><span>只售單品</span></div>
+          <div class="screen-title">對應【${cause.title}】之單品選擇</div>
+          <div class="mini-cards">${prodHtml}</div>
+          <div class="disclaimer-pill">
+            🎁 <strong>配套與優惠提示：</strong>Eshop 獨立網站<strong>只提供單品選擇</strong>。如欲配搭完整調理組合或享有<strong>配套優惠</strong>，請預約線下 HMCS 服務。
+          </div>
+          <button class="primary-cta" onclick="goNext(17)">🔥 我想享配套優惠：改去預約線下 HMCS ➔</button>
+          <button class="secondary-cta" onclick="alert('【原型示範】將開啟獨立 Eshop 單品網站（只供單品結帳）')">前往獨立 Eshop 網站購買單品 ↗</button>
+        `;
+        return;
+      }
+
+      // Screen 17：出口 ② HMCS 真實 5 步流程單屏卡（實況影片 ＋ 不講價錢 ＋ 強調首次檢測不即時成交）
+      if (s === 17) {
+        setVideoClip("13-hmcs.MOV", "鏡頭 13：HMCS 實況流程講解影片（不講價錢，展示專業 5 步流程）");
+        ccText.textContent = "「喺 HMCS 線下服務，我哋唔會一見面就向你推銷。第一步係詳細訪談了解你真實需要；第二步用微電流、身體成份同骨密度儀器收集數據，首次見面絕對唔會即時成交；我哋會用五日時間出深入分析報告，再約第二次見面解讀同訂立有明確目標嘅 90 日或 18 個月方案！」";
+        deck.innerHTML = `
+          <div class="step-kicker"><span>🏥 出口 ② · HMCS 線下健康管理服務</span><span>流程預覽 (1/2)</span></div>
+          <div class="screen-title">HMCS 實況 5 步真實流程（首次見面不即時成交）</div>
+          <div class="mini-cards">
+            <div class="mini-card"><strong>1）線下詳細訪談：</strong>一對一深入了解你嘅真實需要。</div>
+            <div class="mini-card"><strong>2）科學儀器數據收集（不即時成交）：</strong>微電流／身體成份分析／骨密度檢測及面談健康調查。</div>
+            <div class="mini-card"><strong>3）5 天內出深入分析報告：</strong>非醫學診斷，只反映健康狀況和潛在問題。</div>
+            <div class="mini-card"><strong>4）再約線下解讀及量身方案（可即時成交）：</strong>定義可量度的目標成果，不以主觀感受作準則。</div>
+            <div class="mini-card"><strong>5）正式啟動跟進（預設 90 天／另有 18 個月最抵方案）：</strong>包括定時提醒行動、月度覆檢、進度評估。</div>
+          </div>
+          <button class="primary-cta" onclick="goNext(18)">下一步：閱讀 Coaching 責任聲明並預約 ➔</button>
+        `;
+        return;
+      }
+
+      // Screen 18：出口 ② HMCS Coaching 責任邊界聲明 ＋ 單屏預約提交
+      if (s === 18) {
+        setVideoClip("14-booking.MOV", "鏡頭 14：HMCS 責任邊界確認與預約時段提交");
+        ccText.textContent = "「我哋嘅方案會定義可量度嘅目標成果，但因為 HMCS 係 Coaching 指導服務，你亦要為自己嘅行動負責任。如果因為態度或行動唔配合而未達標，我哋唔會負責或退款，但可視情況延長一至兩星期。確認明白之後，揀返方便嘅門市同時段就可以提交預約！」";
+        const locs = ["屯門門市", "奧海城門市", "觀塘門市"];
+        const times = ["平日日間", "平日晚間", "週末時段"];
+        deck.innerHTML = `
+          <div class="step-kicker"><span>📋 HMCS 責任聲明與預約申請</span><span>步驟 (2/2)</span></div>
+          <div class="screen-title">服務責任邊界聲明及預約時段</div>
+          <div class="disclaimer-pill" style="font-size:12px; line-height:1.38;">
+            ⚖️ <strong>Coaching Service 重要聲明：</strong>方案會定義<strong>可量度的目標成果</strong>，不以主觀感受作準則。客人亦須自我負責任，我們只是 Coaching Service；<strong>若因客戶態度及行動不配合而導致未能達標，責任不在我方，我們不負責任亦不會退款或賠償</strong>。服務（預設 90 天，另設 18 個月最抵方案）可因應情況容許<strong>延長 1–2 週</strong>，而非無限期服務至達標。
+          </div>
+          <div class="chip-row">
+            ${locs.map(l => `<button class="chip-btn ${state.hmcsLoc===l?'selected':''}" onclick="state.hmcsLoc='${l}';renderScreen()">${l}</button>`).join("")}
+          </div>
+          <div class="chip-row">
+            ${times.map(t => `<button class="chip-btn ${state.hmcsTime===t?'selected':''}" onclick="state.hmcsTime='${t}';renderScreen()">${t}</button>`).join("")}
+          </div>
+          <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer; color:#f8fafc;">
+            <input type="checkbox" style="width:18px; height:18px;" ${state.hmcsConsent ? 'checked' : ''} onchange="state.hmcsConsent=this.checked; renderScreen()" />
+            <span>我已閱讀並同意上述 HMCS 5 步流程及 Coaching 責任聲明</span>
+          </label>
+          <button class="primary-cta" ${!state.hmcsConsent ? 'disabled' : ''} onclick="submitHmcsBooking()">
+            提交線下詳細訪談及檢測預約 ➔
+          </button>
+        `;
+        return;
+      }
+
+      // Screen 19：出口 ③ WhatsApp／FB 群組承接單屏卡
+      if (s === 19) {
+        setVideoClip("12-routes.MOV", "鏡頭：引導加入 WhatsApp / Facebook 私域群組持續收看直播");
+        ccText.textContent = "「如果你今日想先慢慢了解，歡迎加入我哋嘅 WhatsApp 或者 Facebook 健康解碼群組，入面會有我每星期直播提醒同埋日常調養貼士，隨時準備好都可以再返嚟睇報告或者約見！」";
+        deck.innerHTML = `
+          <div class="step-kicker"><span>💬 出口 ③ · 社群陪伴與直播通知</span><span>免費加入</span></div>
+          <div class="screen-title">先加入群組，跟住直播慢慢了解</div>
+          <div class="options-list">
+            <button class="primary-cta" onclick="alert('【原型示範】跳轉加入 WhatsApp 群組')">📲 加入 WhatsApp 健康解碼群組</button>
+            <button class="secondary-cta" onclick="alert('【原型示範】跳轉加入 Facebook 專題群組')">👥 加入 Facebook 專題交流群組</button>
+            <button class="secondary-cta" onclick="goNext(15)">⬅ 返回報告三大出口選擇</button>
+          </div>
+        `;
+        return;
+      }
+
+      // Screen 99：紅旗急症免費阻斷單屏卡
+      if (s === 99) {
+        setVideoClip("16-safety-reply.MOV", "鏡頭 16：紅旗安全免費求醫提醒（停止收費推銷）");
+        ccText.textContent = "「呢個提醒係完全免費嘅：如果你最近有新出現嘅血尿、排尿赤痛發燒，或者想排但排唔到，請即刻搵醫生或者去急症室檢查清楚先，唔好等網上報告！」";
+        deck.innerHTML = `
+          <div class="step-kicker"><span style="color:#fca5a5;">🚨 免費醫療安全優先提醒</span><span>已暫停收費流程</span></div>
+          <div class="screen-title">請優先向醫生或急症室求醫核對</div>
+          <div class="disclaimer-pill" style="border-color:#ef4444; color:#fecaca; background:rgba(239,68,68,0.18);">
+            你剛才勾選咗「血尿、排尿赤痛發燒或排唔到尿」。此類情況需即時由醫護人員作臨床檢查，本網站不會在此情況下收取報告費或推銷產品。
+          </div>
+          <button class="secondary-cta" onclick="state.answers.q5='以上都冇，排尿順暢'; goNext(5)">我頭先撳錯咗，返回第 5 題重選</button>
+        `;
+      }
+    }
+
+    // 點選問卷答案
+    function selectAnswer(key, val, currentScreen) {
+      state.answers[key] = val;
+      if (key === "q5" && val.includes("🚨")) {
+        state.screen = 99;
+        renderScreen();
+        return;
+      }
+      if (state.editingFromReview) {
+        state.editingFromReview = false;
+        state.screen = 11;
+        renderScreen();
+        return;
+      }
+      state.screen = currentScreen + 1;
+      renderScreen();
+    }
+
+    function editQuestionFromReview(targetScreen) {
+      state.editingFromReview = true;
+      state.screen = targetScreen;
+      renderScreen();
+    }
+
+    function goNext(target) {
+      state.screen = target;
+      renderScreen();
+    }
+
+    function goBack() {
+      if (state.paidLocked && state.screen <= 13) return;
+      if (state.editingFromReview) {
+        state.editingFromReview = false;
+        state.screen = 11;
+        renderScreen();
+        return;
+      }
+      if (state.screen === 16 || state.screen === 17 || state.screen === 19) {
+        state.screen = 15;
+        renderScreen();
+        return;
+      }
+      if (state.screen > 0) {
+        state.screen -= 1;
+        renderScreen();
+      }
+    }
+
+    function jumpToScreen(val) {
+      state.screen = parseInt(val, 10);
+      renderScreen();
+    }
+
+    function toggleCC() {
+      state.ccOpen = !state.ccOpen;
+      const box = document.getElementById("ccBox");
+      const btn = document.getElementById("ccToggleBtn");
+      if (state.ccOpen) {
+        box.classList.remove("hidden");
+        btn.classList.add("active");
+        btn.textContent = "CC 字幕：開";
+      } else {
+        box.classList.add("hidden");
+        btn.classList.remove("active");
+        btn.textContent = "CC 字幕：關";
+      }
+    }
+
+    // 模擬 Stripe 自動收款確認後跳回頁面並鎖定答案
+    function triggerSimulatedStripe() {
+      const modal = document.getElementById("stripeModal");
+      modal.classList.add("show");
+      setTimeout(() => {
+        modal.classList.remove("show");
+        state.paidLocked = true;
+        state.screen = 13;
+        renderScreen();
+      }, 1300);
+    }
+
+    function submitHmcsBooking() {
+      const cause = getResolvedCause();
+      alert(
+        `✅ 【HMCS 線下詳細訪談及檢測申請已提交】\n\n` +
+        `• 客戶稱呼：${state.user.name}\n` +
+        `• WhatsApp：${state.user.phone}\n` +
+        `• 唯一判定成因：${cause.title}\n` +
+        `• 預約門市與時段：${state.hmcsLoc}（${state.hmcsTime}）\n` +
+        `• 已確認同意：5步真實流程（首次檢測不即時成交）及 Coaching 責任邊界聲明`
+      );
+    }
+
+    // 支援載入本機 01–16 短片即時配對播放
+    function loadLocalVideos(files) {
+      for (const f of files) {
+        const key = f.name.toLowerCase().replace(/\.(mov|mp4|webm)$/, "");
+        state.localVideos[key] = URL.createObjectURL(f);
+      }
+      alert(`已載入 ${files.length} 條本機短片！畫面將自動配對播放。`);
+      renderScreen();
+    }
+
+    function setVideoClip(clipName, noteText) {
+      document.getElementById("clipBadge").textContent = `🎬 鏡頭位：${clipName}`;
+      document.getElementById("framingNote").innerHTML = `${noteText}<br/><small style="opacity:0.8">（可點頂部「📂 載入短片」放入本機 MOV 實測，或點「🔊 聽語音」試聽口播）</small>`;
+      const baseKey = clipName.toLowerCase().replace(/\.(mov|mp4|webm)$/, "");
+      const videoEl = document.getElementById("bgVideo");
+      const stageEl = document.getElementById("videoStage");
+      if (state.localVideos[baseKey]) {
+        stageEl.classList.add("has-video");
+        if (videoEl.src !== state.localVideos[baseKey]) {
+          videoEl.src = state.localVideos[baseKey];
+        }
+        videoEl.play().catch(() => {});
+      } else {
+        stageEl.classList.remove("has-video");
+        videoEl.pause();
+      }
+    }
+
+    // 廣東話 TTS 模擬口播朗讀（無片時亦可聽節奏）
+    function speakCurrentScript() {
+      if (!("speechSynthesis" in window)) {
+        alert("此瀏覽器不支援語音合成預覽");
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const text = document.getElementById("ccText").textContent.replace(/[「」]/g, "");
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = "zh-HK";
+      utter.rate = 1.02;
+      window.speechSynthesis.speak(utter);
+    }
+
+    // 初始化
+    renderScreen();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Health Decoder · 夜尿源頭解碼互動問卷與個人評估</title>
+  <style>
+    /* =========================================================================
+       Health Decoder 原創單屏互動設計規範 (Zero-Scroll · 暖白玉 ✕ 深海青瓷)
+       專為 50–75+ 歲香港長者設計：高對比、大字清晰、持久化視像窗零閃爍零跳動
+       ========================================================================= */
+    :root {
+      --bg-canvas: #F7F4EE;
+      --bg-stage: #FFFFFF;
+      --bg-subtle: #F1EFEA;
+      --bg-video: #0B3134;
+      --ink-main: #16222A;
+      --ink-secondary: #475569;
+      --ink-muted: #64748B;
+      --teal-primary: #0F5C5E;
+      --teal-hover: #0B4648;
+      --teal-soft: #E6F4F3;
+      --teal-border: #8CD1CE;
+      --amber-accent: #B45309;
+      --amber-soft: #FEF3C7;
+      --amber-border: #F59E0B;
+      --danger-main: #B91C1C;
+      --danger-soft: #FEE2E2;
+      --border-line: #DCE2E5;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+      --shadow-stage: 0 8px 24px rgba(22, 34, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background-color: var(--bg-canvas);
+      color: var(--ink-main);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang HK", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 頂部極簡導航列 (固定 44px 高) */
+    .top-bar {
+      height: 44px;
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .brand-mark {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    .brand-mark span {
+      color: var(--teal-primary);
+    }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mini-pill {
+      background: #FFFFFF;
+      color: var(--ink-main);
+      border: 1px solid var(--border-line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .mini-pill.active {
+      background: var(--teal-soft);
+      color: var(--teal-primary);
+      border-color: var(--teal-primary);
+    }
+
+    /* 主舞台：桌面左右雙欄並排，手機上下緊湊單屏 (絕不超出 100dvh) */
+    .app-shell {
+      flex: 1;
+      width: 100%;
+      max-width: 1040px;
+      height: calc(100dvh - 44px);
+      margin: 0 auto;
+      padding: 4px 12px 12px;
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 14px;
+      overflow: hidden;
+    }
+
+    /* 左欄／上區：持久化真人視像同伴窗 (Persistent Video Companion) */
+    .video-pane {
+      background: var(--bg-video);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: var(--shadow-stage);
+      border: 1px solid rgba(15, 92, 94, 0.25);
+    }
+    .video-top-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .speaker-pill {
+      background: rgba(11, 49, 52, 0.85);
+      color: #F8FAFC;
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(6px);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2DD4BF;
+      box-shadow: 0 0 8px #2DD4BF;
+    }
+    .video-canvas {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      min-height: 0;
+      background: radial-gradient(circle at 50% 35%, #165B5E 0%, #092224 85%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .video-canvas video {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* 視像底層預覽面板（當瀏覽器阻擋自動播放或離線預覽時顯示，點擊即播） */
+    .video-poster-card {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 35%, rgba(22,91,94,0.88) 0%, rgba(9,34,36,0.94) 85%);
+      color: #F8FAFC;
+      cursor: pointer;
+      transition: opacity 0.25s ease;
+    }
+    .video-poster-card.playing {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .poster-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #14B8A6, #0F5C5E);
+      border: 2.5px solid #99F6E4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #FFFFFF;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      margin-bottom: 8px;
+    }
+    .poster-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #CCFBF1;
+      margin-bottom: 4px;
+    }
+    .poster-sub {
+      font-size: 12.5px;
+      color: #CBD5E1;
+      max-width: 240px;
+      line-height: 1.35;
+    }
+
+    /* 隱藏字幕浮層 (預設關閉，按「字幕」才顯示於影片底部，不佔下方卡片高度) */
+    .subtitle-drawer {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 44px;
+      z-index: 6;
+      background: rgba(9, 30, 32, 0.92);
+      color: #FEF3C7;
+      border: 1px solid rgba(140, 209, 206, 0.45);
+      border-radius: 12px;
+      padding: 8px 11px;
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 600;
+      backdrop-filter: blur(6px);
+      display: none;
+    }
+    .subtitle-drawer.show {
+      display: block;
+    }
+    .video-controls-bar {
+      height: 40px;
+      background: #082325;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      z-index: 6;
+    }
+    .v-ctrl-btn {
+      background: rgba(255,255,255,0.1);
+      color: #F1F5F9;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .v-ctrl-btn.on {
+      background: #14B8A6;
+      color: #042F2E;
+      border-color: #5EEAD4;
+    }
+
+    /* 右欄／下區：單屏互動卡片舞台 (Interactive Stage Card) */
+    .stage-card {
+      background: var(--bg-stage);
+      border: 1.5px solid var(--border-line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-stage);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* 舞台頂部：進度條與三顆線索燈 */
+    .stage-top {
+      flex-shrink: 0;
+      margin-bottom: 6px;
+    }
+    .stage-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--teal-soft);
+      color: var(--teal-primary);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .clue-lights {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-muted);
+    }
+    .clue-dot {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-line);
+      color: var(--ink-muted);
+    }
+    .clue-dot.lit {
+      background: var(--amber-soft);
+      border-color: var(--amber-border);
+      color: var(--amber-accent);
+    }
+    .progress-rail {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal-primary), #189A96);
+      width: 12%;
+      transition: width 0.25s ease;
+    }
+
+    /* 舞台中央：問題與選項／原位回應區 (Flex 自適應，頂部對齊不裁字) */
+    .stage-body {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 7px;
+      overflow: hidden;
+    }
+    .stage-title {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.28;
+      color: var(--ink-main);
+      letter-spacing: -0.01em;
+    }
+    .stage-sub {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      line-height: 1.38;
+      margin-top: -2px;
+    }
+
+    /* 單選按鈕列表 (最多 5 項，高度緊湊好撳) */
+    .single-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .opt-pill {
+      width: 100%;
+      min-height: 44px;
+      background: #FFFFFF;
+      color: var(--ink-main);
+      border: 2px solid var(--border-line);
+      border-radius: 13px;
+      padding: 8px 14px;
+      font-size: 17.5px;
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .opt-pill:hover {
+      border-color: var(--teal-primary);
+      background: var(--teal-soft);
+    }
+    .opt-pill.selected {
+      background: var(--teal-soft);
+      border-color: var(--teal-primary);
+      color: var(--teal-primary);
+    }
+    .opt-pill.none-style {
+      background: var(--bg-subtle);
+      border-style: dashed;
+      color: var(--ink-secondary);
+    }
+    .opt-pill.danger-style {
+      background: var(--danger-soft);
+      border-color: #FCA5A5;
+      color: var(--danger-main);
+    }
+
+    /* 多選雙欄膠囊網格 (2-Column Grid，令 6-8 個選項喺手機單屏只佔 3-4 行！) */
+    .multi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+    .multi-cell {
+      min-height: 44px;
+      background: #FFFFFF;
+      color: var(--ink-main);
+      border: 2px solid var(--border-line);
+      border-radius: 12px;
+      padding: 7px 9px;
+      font-size: 15.5px;
+      font-weight: 700;
+      line-height: 1.22;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.15s ease;
+    }
+    .multi-cell.selected {
+      background: var(--teal-soft);
+      border-color: var(--teal-primary);
+      color: var(--teal-primary);
+    }
+    .multi-cell.none-cell {
+      background: var(--bg-subtle);
+      border-style: dashed;
+    }
+    .multi-cell.none-cell.selected {
+      background: #E2E8F0;
+      border-style: solid;
+      border-color: var(--ink-secondary);
+      color: var(--ink-main);
+    }
+    .tick-box {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 2px solid #94A3B8;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+    .multi-cell.selected .tick-box,
+    .opt-pill.selected .tick-box {
+      background: var(--teal-primary);
+      border-color: var(--teal-primary);
+    }
+
+    /* 揀完選項後「原位收起選項、原位展開回應」組件 */
+    .collapsed-answer-bar {
+      background: var(--bg-subtle);
+      border: 1.5px solid var(--border-line);
+      border-radius: 12px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--ink-main);
+    }
+    .reselect-btn {
+      background: #FFFFFF;
+      color: var(--teal-primary);
+      border: 1.5px solid var(--teal-primary);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .feedback-card {
+      background: var(--teal-soft);
+      border: 2px solid var(--teal-border);
+      border-radius: var(--radius-lg);
+      padding: 12px 14px;
+      font-size: 16.5px;
+      line-height: 1.48;
+      color: var(--ink-main);
+      font-weight: 600;
+    }
+    .feedback-card strong {
+      color: var(--teal-primary);
+    }
+
+    /* 圓角小標籤 (Tag) 覆核網格 —— 一屏睇晒全部已選答案，點擊即改 */
+    .tag-review-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .tag-review-item {
+      background: var(--bg-subtle);
+      border: 1.5px solid var(--border-line);
+      border-radius: 10px;
+      padding: 6px 9px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .tag-review-item:hover {
+      border-color: var(--teal-primary);
+      background: var(--teal-soft);
+    }
+    .tag-review-k {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    .tag-review-k span {
+      color: var(--teal-primary);
+    }
+    .tag-review-v {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 大字主行動按鈕與次要按鈕 */
+    .stage-footer {
+      flex-shrink: 0;
+      padding-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .cta-primary {
+      width: 100%;
+      min-height: 48px;
+      background: var(--teal-primary);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 13px;
+      padding: 10px 16px;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 16px rgba(15, 92, 94, 0.22);
+    }
+    .cta-primary:hover {
+      background: var(--teal-hover);
+    }
+    .cta-primary:disabled {
+      background: #94A3B8;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+    .cta-secondary {
+      width: 100%;
+      min-height: 38px;
+      background: var(--bg-subtle);
+      color: var(--ink-secondary);
+      border: 1.5px solid var(--border-line);
+      border-radius: 11px;
+      padding: 6px 12px;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+    .note-strip {
+      background: var(--amber-soft);
+      border: 1px solid var(--amber-border);
+      color: var(--amber-accent);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    /* 成因百分比條 */
+    .bar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .bar-item {
+      background: var(--bg-subtle);
+      border-radius: 9px;
+      padding: 5px 9px;
+      border: 1px solid var(--border-line);
+    }
+    .bar-item.winner {
+      background: var(--teal-soft);
+      border: 2px solid var(--teal-primary);
+    }
+    .bar-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    .bar-track {
+      height: 7px;
+      background: #E2E8F0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    /* 表單輸入列 */
+    .form-compact {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .inp-box {
+      width: 100%;
+      padding: 9px 12px;
+      font-size: 15.5px;
+      font-weight: 600;
+      border: 1.5px solid var(--border-line);
+      border-radius: 10px;
+      color: var(--ink-main);
+      background: #FFFFFF;
+    }
+
+    /* 緊湊步驟列表 (用於 HMCS 5 步及微習慣) */
+    .compact-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .compact-step-row {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-line);
+      border-radius: 9px;
+      padding: 6px 9px;
+      font-size: 13.5px;
+      line-height: 1.32;
+      font-weight: 600;
+    }
+    .compact-step-row strong {
+      color: var(--teal-primary);
+    }
+
+    /* 單品橫卡 */
+    .sku-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--bg-subtle);
+      border: 1.5px solid var(--border-line);
+      border-radius: 11px;
+      padding: 6px 9px;
+    }
+    .sku-row img {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      object-fit: contain;
+      background: #FFFFFF;
+      border: 1px solid var(--border-line);
+      flex-shrink: 0;
+    }
+
+    /* 手機直向單屏適配 (< 820px)：上片下卡，嚴格鎖定 100dvh 零捲動 */
+    @media (max-width: 820px) {
+      .top-bar {
+        height: 36px;
+        padding: 0 8px;
+      }
+      .brand-mark {
+        font-size: 13px;
+        gap: 4px;
+      }
+      .mini-pill {
+        padding: 3px 8px;
+        font-size: 12px;
+      }
+      #quickJumpSel {
+        max-width: 132px;
+      }
+      .clue-lights {
+        display: none;
+      }
+      .app-shell {
+        grid-template-columns: 1fr;
+        grid-template-rows: 27% 73%;
+        height: calc(100dvh - 36px);
+        gap: 6px;
+        padding: 2px 8px 6px;
+      }
+      .app-shell.compact-video {
+        grid-template-rows: 19.5% 80.5%;
+      }
+      .video-top-tag {
+        top: 6px;
+        left: 8px;
+        right: 8px;
+      }
+      .speaker-pill {
+        padding: 2px 8px;
+        font-size: 11px;
+      }
+      .video-poster-card {
+        padding: 22px 10px 4px;
+      }
+      .poster-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+      .poster-title {
+        font-size: 13px;
+        margin-bottom: 1px;
+      }
+      .poster-sub {
+        font-size: 11px;
+      }
+      .video-controls-bar {
+        height: 30px;
+        padding: 0 8px;
+      }
+      .v-ctrl-btn {
+        padding: 2px 8px;
+        font-size: 11px;
+      }
+      .stage-card {
+        padding: 9px 12px;
+      }
+      .stage-top {
+        margin-bottom: 4px;
+      }
+      .stage-meta-row {
+        margin-bottom: 4px;
+      }
+      .stage-body {
+        gap: 6px;
+      }
+      .stage-title {
+        font-size: 18px;
+        line-height: 1.24;
+      }
+      .stage-sub {
+        font-size: 12.5px;
+      }
+      .opt-pill {
+        min-height: 39px;
+        padding: 6px 11px;
+        font-size: 15.5px;
+      }
+      .multi-cell {
+        min-height: 38px;
+        padding: 5px 8px;
+        font-size: 14px;
+      }
+      .feedback-card {
+        padding: 8px 11px;
+        font-size: 14.5px;
+      }
+      .bar-list {
+        gap: 4px;
+      }
+      .bar-item {
+        padding: 4px 8px;
+      }
+      .bar-head {
+        font-size: 12.5px;
+      }
+      .compact-steps {
+        gap: 4px;
+      }
+      .compact-step-row {
+        padding: 5px 8px;
+        font-size: 12.8px;
+        line-height: 1.28;
+      }
+      .sku-row {
+        padding: 5px 8px;
+      }
+      .sku-row img {
+        width: 38px;
+        height: 38px;
+      }
+      .cta-primary {
+        min-height: 42px;
+        padding: 8px 12px;
+        font-size: 16px;
+      }
+      .cta-secondary {
+        min-height: 34px;
+        padding: 5px 10px;
+        font-size: 13.5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部極簡導航列 -->
+  <header class="top-bar">
+    <div class="brand-mark">🔬 Health Decoder <span>夜尿源頭解碼</span></div>
+    <div class="top-actions">
+      <button type="button" class="mini-pill" id="topBackBtn" onclick="stepBack()">← 上一步</button>
+      <select class="mini-pill" id="quickJumpSel" onchange="jumpStep(this.value)" title="預視跳頁">
+        <option value="welcome">入口頁</option>
+        <option value="q1">Q1 起夜次數</option>
+        <option value="q2">Q2 醒來先後</option>
+        <option value="q3">Q3 每次尿量</option>
+        <option value="q4">Q4 睡前習慣【多選】</option>
+        <option value="q5">Q5 伴隨訊號【多選】</option>
+        <option value="q6">Q6 安全確認【多選】</option>
+        <option value="preview6">6題暫時預覽</option>
+        <option value="q7">Q7 長期西藥【多選】</option>
+        <option value="q8">Q8 改善目標</option>
+        <option value="review">答案覆核(Tag)</option>
+        <option value="checkout">HK$19.9 解鎖</option>
+        <option value="report1">報告1：成因比例</option>
+        <option value="report2">報告2：微習慣與邊界</option>
+        <option value="hmcs1">第一層：HMCS 5步流程</option>
+        <option value="hmcs2">HMCS：免責與預約</option>
+        <option value="products">第二層：方案專區(產品)</option>
+        <option value="group">第三層：FB/WTS 群組</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- 單一視窗雙區主舞台 (100% 零捲動) -->
+  <main class="app-shell" id="appShell">
+
+    <!-- 左欄／上區：持久化真人視像窗 (點擊選項時絕不重繪、絕不閃爍彈跳) -->
+    <section class="video-pane">
+      <div class="video-top-tag">
+        <span class="speaker-pill"><span class="pulse-dot"></span><span id="clipLabel">Duncan・預錄引導</span></span>
+      </div>
+      <div class="video-canvas">
+        <video id="duncanVideo" playsinline webkit-playsinline preload="metadata"></video>
+        <div class="video-poster-card" id="videoPoster" onclick="replayVideo()">
+          <div class="poster-avatar">▶</div>
+          <div class="poster-title" id="posterTitle">點擊播放 Duncan 視像引導</div>
+          <div class="poster-sub">毋須等影片播完，隨時可撳下方選項作答</div>
+        </div>
+        <div class="subtitle-drawer" id="subtitleDrawer"></div>
+      </div>
+      <div class="video-controls-bar">
+        <div style="display:flex; gap:6px;">
+          <button type="button" class="v-ctrl-btn" onclick="replayVideo()">▶ 播放 / 重播</button>
+          <button type="button" class="v-ctrl-btn" onclick="speakScript()">🔊 語音</button>
+        </div>
+        <button type="button" class="v-ctrl-btn" id="ccBtn" onclick="toggleSubtitle()">字幕：隱藏</button>
+      </div>
+    </section>
+
+    <!-- 右欄／下區：互動問答與報告卡 -->
+    <section class="stage-card">
+      <div class="stage-top">
+        <div class="stage-meta-row">
+          <span class="step-pill" id="stepBadge">開始檢測</span>
+          <div class="clue-lights">
+            <span class="clue-dot" id="clue1">① 醒來與尿量</span>
+            <span class="clue-dot" id="clue2">② 循環與睡眠</span>
+            <span class="clue-dot" id="clue3">③ 用藥與目標</span>
+          </div>
+        </div>
+        <div class="progress-rail">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="stage-body" id="stageBody"></div>
+      <div class="stage-footer" id="stageFooter"></div>
+    </section>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // 1. GitHub 真實 MP4 路徑映射 (支援相對與絕對路徑 /demo/nocturia-video/media/)
+    // =========================================================================
+    const MEDIA_REL1 = "./media/";
+    const MEDIA_REL2 = "../nocturia-video/media/";
+    const MEDIA_ABS  = "https://health-decoder.com/demo/nocturia-video/media/";
+
+    const CLIPS = {
+      "01-welcome": {
+        file: "01-welcome.mp4",
+        tag: "Duncan・歡迎引導",
+        script: "你好，我係 Duncan。夜晚成日起身去廁所，最緊要搵出搞亂睡眠嘅真正源頭。跟住我逐題揀返你平時嘅感覺就得。"
+      },
+      "02-frequency": {
+        file: "02-frequency.mp4",
+        tag: "第 1 題・起夜次數",
+        script: "第一題先睇頻率：平時一晚，你大概起身去幾多次廁所？揀最接近你平時嘅情況。"
+      },
+      "03-waking": {
+        file: "03-waking.mp4",
+        tag: "第 2 題・醒來先後",
+        script: "第二題好關鍵：你通常係尿急憋醒先去廁所，定係人醒咗先順便去？"
+      },
+      "04-volume": {
+        file: "04-volume.mp4",
+        tag: "第 3 題・每次尿量",
+        script: "第三題睇每次排出嘅分量：夜晚每次去廁所，同日頭平時一次比較，係差唔多、特別多定係好少？"
+      },
+      "05-drinks": {
+        file: "05-drinks.mp4",
+        tag: "第 4 題・睡前習慣",
+        script: "第四題睇瞓前兩三個鐘嘅習慣。呢題可以多選；如果你已經特登戒水但照樣起夜，記得勾選。"
+      },
+      "06-other": {
+        file: "06-other.mp4",
+        tag: "第 5 題・伴隨身體訊號",
+        script: "第五題睇日頭同去廁所時嘅伴隨訊號，例如傍晚鞋緊腳腫、小腿無力、尿流變細或者打鼻鼾。可以多選。"
+      },
+      "07-safety": {
+        file: "07-safety.mp4",
+        tag: "第 6 題・安全紅旗把關",
+        script: "第六題係免費安全確認：近期有冇血尿、排尿赤痛、發燒或者想排但完全排唔出？冇嘅話揀「沒有以下不適」。"
+      },
+      "08-preview": {
+        file: "08-preview.mp4",
+        tag: "6 題線索暫時預覽",
+        script: "頭六題已經幫你連起咗初步線索。最後補充埋長期西藥同改善目標，就可以核對答案並解鎖完整成因比例報告。"
+      },
+      "09-hna": {
+        file: "09-hna.mp4",
+        tag: "背景補充・用藥與目標",
+        script: "最後兩題：記低你目前食緊嘅長期西藥（特別係薄血藥會自動避險），同埋你最想優先改善嘅目標。"
+      },
+      "10-report-why": {
+        file: "10-report-why.mp4",
+        tag: "報告第 1 章・成因比例與主因",
+        script: "呢份係根據你剛才嘅答案計出嚟嘅五項成因比例，上面標示嘅就係你目前最需要優先處理嘅唯一主導成因。"
+      },
+      "11-report-next": {
+        file: "11-report-next.mp4",
+        tag: "報告第 2 章・微習慣與調理邊界",
+        script: "你可以先跟住呢三個日常微習慣減少表面負荷；但若果涉及微血管滲漏、肌泵衰退或睡眠結構斷裂，就唔能夠只靠戒水，要從源頭調理。"
+      },
+      "12-routes": {
+        file: "12-routes.mp4",
+        tag: "第二層・居家調理方案專區",
+        script: "呢度係針對你主導成因嘅單品資料。如果你想配搭完整調理組合或者享有配套優惠，建議返去預約 HMCS 線下服務。"
+      },
+      "13-hmcs": {
+        file: "13-hmcs.mp4",
+        tag: "第一層・HMCS 線下 5 步服務",
+        script: "HMCS 首次線下見面只做詳細訪談同微電流、身體成份、骨密度數據收集，絕對唔會即時推銷成交；五日內出深入報告，再同你度身訂製可量度目標嘅方案。"
+      },
+      "14-booking": {
+        file: "14-booking.mp4",
+        tag: "HMCS・責任邊界與預約",
+        script: "確認明白我哋嘅 Coaching 責任邊界之後，揀返你方便去嘅門市同時段，我哋會透過 WhatsApp 同你核對落實。"
+      },
+      "15-sleep-reply": {
+        file: "15-sleep-reply.mp4",
+        tag: "分支回應・先醒再去",
+        script: "你係先醒咗，再順便去廁所。呢個先後好有意思，可能要一齊了解睡眠結構，唔好一開始就只怪膀胱。"
+      },
+      "16-safety-reply": {
+        file: "16-safety-reply.mp4",
+        tag: "免費安全提醒・請先求醫",
+        script: "呢個提醒唔需要付費。有新血尿、尿痛或者發燒，請盡快求醫；如果想排但排唔到，請即時求醫，唔好等報告。"
+      }
+    };
+
+    // =========================================================================
+    // 2. 問卷題目定義 (支援單選、可多選、沒有/唔肯定互斥、原位收起選項顯示回應)
+    // =========================================================================
+    const QUESTIONS = {
+      q1: {
+        id: "q1", num: 1, mode: "single", clip: "02-frequency",
+        badge: "問題 1 / 8 · 起夜頻率",
+        title: "平時一晚，你大概起身去幾多次廁所？",
+        sub: "單選 · 揀最接近你平時嘅情況",
+        opts: [
+          { val: "1次", label: "大約 1 次", reply: "一次都會打斷深層睡眠；下一步睇下你係點樣醒過嚟。" },
+          { val: "2-3次", label: "2 至 3 次", reply: "一晚醒兩三次，深層睡眠被切斷，第二朝實會攰。次數係第一條線索，仲未代表真正成因。" },
+          { val: "4次或以上", label: "4 次或以上", reply: "頻密起身非常消耗體力，我哋接住一齊睇下係水量回流定係排尿與睡眠線索。" },
+          { val: "幾乎冇", label: "🚫 幾乎唔使起夜／偶爾", isNone: true, reply: "收到！你平時好少起夜，我哋快速確認埋其他生活線索。" },
+          { val: "唔肯定", label: "唔肯定", isNone: true, reply: "唔使計得好準，先由你記得嘅感覺開始。" }
+        ]
+      },
+      q2: {
+        id: "q2", num: 2, mode: "single", clip: "03-waking",
+        badge: "問題 2 / 8 · 醒來先後",
+        title: "你係「尿急憋醒先去」，定「人醒咗先順便去」？",
+        sub: "單選 · 幫我哋區分係排尿訊號行先定睡眠中斷行先",
+        opts: [
+          { val: "尿急叫醒", label: "尿急憋醒我先去", reply: "係尿意行先，代表夜間膀胱確實收到排尿訊號。下一題睇每次大概排出幾多。" },
+          { val: "醒先順便去", label: "先醒咗，再順便去", replyClip: "15-sleep-reply", reply: "呢個先後好關鍵：有時係睡眠結構先中斷，醒咗順便去廁所，唔一定全由膀胱引起。" },
+          { val: "兩樣都有", label: "兩種情況都有", reply: "同一晚可以有唔同經過，我哋會將排尿同睡眠兩條線索一齊保留。" },
+          { val: "唔肯定", label: "唔肯定／冇留意", isNone: true, reply: "冇問題，呢條暫時留白，繼續睇每次排尿感覺。" }
+        ]
+      },
+      q3: {
+        id: "q3", num: 3, mode: "single", clip: "04-volume",
+        badge: "問題 3 / 8 · 夜間尿量",
+        title: "夜晚每次排尿，同日頭平時一次比較大概幾多？",
+        sub: "單選 · 唔使量度，憑平時感覺揀就得",
+        opts: [
+          { val: "差唔多或較多", label: "同日頭差唔多，甚至較多", reply: "夜晚每次尿量都唔少，代表夜間確實有較多水分經腎臟排出，要重點睇日間水分滯留同飲水節奏。" },
+          { val: "大量清尿", label: "單次尿量極大，清澈如水", reply: "夜間排出大量清尿，往往同日夜排水節律或下肢積水回流有關。" },
+          { val: "明顯少好多", label: "明顯少好多（幾滴但好急）", reply: "「量少但好急」同大量排尿係兩條唔同路線，多數同膀胱儲尿空間或出口張力有關。" },
+          { val: "每次唔同/唔肯定", label: "每次唔同 ／ 唔肯定", isNone: true, reply: "記低每次有變化，接住睇埋瞓前習慣同日間身體訊號。" }
+        ]
+      },
+      q4: {
+        id: "q4", num: 4, mode: "multi", clip: "05-drinks",
+        badge: "問題 4 / 8 · 睡前習慣【可多選】",
+        title: "瞓前兩三個鐘，你有冇以下習慣？（可多選）",
+        sub: "可選多項 · 如無特別習慣請揀「🚫 冇特別習慣」",
+        opts: [
+          { val: "已戒水仍起夜", label: "已特登戒水仍起夜" },
+          { val: "飲唔少水或湯", label: "飲唔少老火湯或水" },
+          { val: "茶咖啡或酒", label: "飲茶、咖啡或酒" },
+          { val: "睇手機難入睡", label: "睇手機／腦轉不停" },
+          { val: "冇特別習慣", label: "🚫 冇特別習慣", isNone: true },
+          { val: "唔固定/唔肯定", label: "唔固定 ／ 唔肯定", isNone: true }
+        ],
+        replyHas: "已記低你嘅睡前習慣！特別係如果你已經特登少飲水但照樣起夜，就更加說明啲水係日頭積喺身體入面、夜晚平躺先回流。",
+        replyNone: "收到！既然瞓前冇特別大量飲水，我哋更要從下一題嘅日間下肢循環與身體訊號搵原因。"
+      },
+      q5: {
+        id: "q5", num: 5, mode: "multi", clip: "06-other",
+        badge: "問題 5 / 8 · 身體伴隨訊號【可多選】",
+        title: "平時日頭或去廁所時，有冇以下情況？（可多選）",
+        sub: "可選多項 · 完全無相關情況請揀「🚫 沒有以上情況」",
+        opts: [
+          { val: "傍晚腳腫襪印", label: "傍晚鞋緊／有襪印" },
+          { val: "雙腿無力久坐", label: "雙腿無力／常久坐" },
+          { val: "尿流細要等", label: "排尿要等／尿流細" },
+          { val: "排唔清或尿急", label: "感覺排唔清／尿急" },
+          { val: "口乾多飲胃脹", label: "口乾多飲／易胃脹" },
+          { val: "打鼻鼾淺眠", label: "打鼻鼾／淺眠易醒" },
+          { val: "沒有以上情況", label: "🚫 沒有以上情況", isNone: true },
+          { val: "唔肯定", label: "唔肯定", isNone: true }
+        ],
+        replyHas: "呢幾個身體訊號係解開夜尿源頭嘅關鍵拼圖（例如傍晚鞋緊代表下肢積水、小腿無力代表肌泵減退、尿流細代表出口張力），陣間會幫你計出各項成因比例！",
+        replyNone: "已記低你無明顯日間伴隨症狀，會保留喺個人評估入面。"
+      },
+      q6: {
+        id: "q6", num: 6, mode: "multi", clip: "07-safety",
+        badge: "問題 6 / 8 · 安全紅旗確認【可多選】",
+        title: "近期有冇以下新出現嘅不適？（可多選）",
+        sub: "免費安全把關 · 如無不適請揀「🚫 沒有以下不適」",
+        opts: [
+          { val: "沒有不適", label: "🚫 沒有以下不適", isNone: true },
+          { val: "血尿尿痛發燒", label: "🚨 血尿／尿痛／發燒", isDanger: true },
+          { val: "想排但排唔到", label: "🚨 想排但完全排唔到", isDanger: true },
+          { val: "唔肯定", label: "唔肯定", isNone: true }
+        ],
+        replyHas: "已完成頭 6 題核心問題！下一步即刻睇你目前嘅線索預覽。",
+        replyNone: "已完成頭 6 題核心問題！下一步即刻睇你目前嘅線索預覽。"
+      },
+      q7: {
+        id: "q7", num: 7, mode: "multi", clip: "09-hna",
+        badge: "問題 7 / 8 · 長期西藥審查【可多選】",
+        title: "你目前有冇長期食緊以下處方西藥？（可多選）",
+        sub: "用於成因加權及自動隔離有衝突嘅保健成分",
+        opts: [
+          { val: "降血壓藥", label: "降血壓藥 (CCB等)" },
+          { val: "薄血藥", label: "薄血藥 (華法林等)" },
+          { val: "去水丸/排糖藥", label: "去水丸／排糖藥" },
+          { val: "降血糖藥", label: "降血糖藥" },
+          { val: "降膽固醇藥", label: "降膽固醇藥 (他汀)" },
+          { val: "胃藥/鈣片/其他", label: "胃藥／鈣片／助眠" },
+          { val: "沒有食西藥", label: "🚫 沒有食長期西藥", isNone: true },
+          { val: "唔清楚", label: "唔清楚藥名", isNone: true }
+        ],
+        replyHas: "已記錄你嘅用藥背景（切勿自行停藥）。如有服用薄血藥，報告會自動切換為零抗凝衝突嘅安全調理方案。",
+        replyNone: "已記低你目前無服用長期西藥。最後一題揀埋你最想優先改善嘅目標！"
+      },
+      q8: {
+        id: "q8", num: 8, mode: "single", clip: "09-hna",
+        badge: "問題 8 / 8 · 優先改善目標",
+        title: "半夜起身最困擾你、最想優先解決邊樣？",
+        sub: "揀埋性別與年齡層，即可核對答案",
+        opts: [
+          { val: "醒咗難瞓返", label: "醒咗眼光光好難瞓返", reply: "記低咗！下一步請覆核你揀過嘅答案，確認無誤就可以解鎖完整報告。" },
+          { val: "第二朝冇精神", label: "第二朝頭重重、日頭冇精神", reply: "記低咗！下一步請覆核你揀過嘅答案，確認無誤就可以解鎖完整報告。" },
+          { val: "半夜驚跌親", label: "半夜摸黑行去廁所驚跌親", reply: "記低咗！下一步請覆核你揀過嘅答案，確認無誤就可以解鎖完整報告。" },
+          { val: "擔心機能退化", label: "擔心身體機能退化累及家人", reply: "記低咗！下一步請覆核你揀過嘅答案，確認無誤就可以解鎖完整報告。" }
+        ]
+      }
+    };
+
+    // 五大成因精煉資料庫
+    const CAUSES = {
+      1: {
+        id: 1,
+        name: "下肢水腫平躺回流型",
+        color: "#0F5C5E",
+        why: "日間下肢微血管滲漏令 300–500ml 水分積聚於小腿組織；夜間一平躺，積水倒灌回流心臟，刺激分泌利尿激素迫使腎臟通宵加班排水（如同日間水管漏水積喺地下室，夜晚倒抽上天台水箱被迫洩洪）。",
+        habits: [
+          "1. 傍晚抬腿引流：17:00–18:00 墊高雙腳 20 分鐘提早回流",
+          "2. 飲水階梯管理：全日 7 成水分於下午 4 點前飲完，晚餐低鈉",
+          "3. 日間勾腳運動：每坐 1 小時做 20 下勾腳尖帶動靜脈回流"
+        ],
+        boundary: "抬腿少飲水只處理表面積水；若微血管內皮滲漏與夜間抗利尿節律未修復，平躺倒灌仍會反覆發生。",
+        skus: [
+          { id: "36281", name: "ORIYEN 天然酵母NMN", price: "HK$1,888", desc: "修復血管內皮防漏水，鞏固夜間抗利尿節律", img: "https://health-decoder.com/images/products/36281.webp", warfarinSafe: true },
+          { id: "36282", name: "ORIYEN 強心血管通", price: "HK$1,580", desc: "強化微血管壁彈性，加速下肢靜脈引流", img: "https://health-decoder.com/images/products/36282.webp", warfarinSafe: false },
+          { id: "34278", name: "Nn 水溶性輔酶Q10 (薄血藥安全)", price: "HK$390", desc: "強化心泵動力與微循環壓差，零抗凝衝突", img: "https://health-decoder.com/images/products/34278.webp", warfarinSafe: true },
+          { id: "0368", name: "SE 紅光光療按摩帶", price: "HK$1,780", desc: "630/850nm 雙光譜活化粒線體，傍晚提早排走積水", img: "https://health-decoder.com/images/products/0368.webp", warfarinSafe: true }
+        ]
+      },
+      2: {
+        id: 2,
+        name: "膀胱逼尿肌缺血出口型",
+        color: "#D97706",
+        why: "下尿路出口阻抗增加，令膀胱逼尿肌長期高壓收縮而缺血繃緊，每次排唔清殘餘尿，變相縮細夜間可用儲尿空間（如同水龍頭出口塞住，加壓水泵過載令水箱容量縮水）。",
+        habits: [
+          "1. 二次排尿法：睡前排尿後放鬆等 15 秒再輕排一次清走殘尿",
+          "2. 睡前下腹溫敷：溫熱敷下腹 15 分鐘舒緩骨盆底肌群張力",
+          "3. 午後戒刺激飲品：下午 2 點後避免濃茶、咖啡刺激膀胱神經"
+        ],
+        boundary: "熱敷與二次排尿僅屬輔助；骨盆腔微血管缺血與平滑肌能量枯竭需靠底層營養與理療修復。",
+        skus: [
+          { id: "34316", name: "Nn 液鈣鎂 D3", price: "HK$212", desc: "活性鎂離子放鬆逼尿肌痙攣，擴大夜間儲尿量", img: "https://health-decoder.com/images/products/34316.webp", warfarinSafe: true },
+          { id: "34269", name: "Nn 天然蝦青素", price: "HK$360", desc: "抑制骨盆腔慢性無菌發炎，改善局部微循環", img: "https://health-decoder.com/images/products/34269.webp", warfarinSafe: true },
+          { id: "0368", name: "SE 紅光光療按摩帶", price: "HK$1,780", desc: "深紅光敷貼下腹改善逼尿肌微血管缺血", img: "https://health-decoder.com/images/products/0368.webp", warfarinSafe: true }
+        ]
+      },
+      3: {
+        id: 3,
+        name: "小腿肌少肌泵衰退型",
+        color: "#7C3AED",
+        why: "小腿係人體「第二個心臟」。小腿肌肉流失與久坐令日間靜脈擠壓回流力不足，水分滯留於下半身，到夜晚平躺先回流腎臟造成多尿，同時伴隨半夜摸黑跌倒風險。",
+        habits: [
+          "1. 每日扶椅提踵：早晚扶穩椅背踮腳尖 15–20 次鍛鍊小腿肌泵",
+          "2. 每餐充足優質蛋白：為小腿肌纖維提供合成原料",
+          "3. 走廊微光防跌：保持去廁所通道柔和夜燈與防滑"
+        ],
+        boundary: "單靠散步難以逆轉已流失嘅小腿肌纖維與神經傳導退化，需配合高吸收蛋白質與被動律動刺激。",
+        skus: [
+          { id: "36283", name: "ORIYEN 蛋白高營素", price: "HK$325", desc: "雙蛋白配合 HMB，專一性重建小腿第二心臟肌泵", img: "https://health-decoder.com/images/products/36283.webp", warfarinSafe: true },
+          { id: "36281", name: "ORIYEN 天然酵母NMN", price: "HK$1,888", desc: "激發肌肉粒線體產能，修復周邊神經傳導", img: "https://health-decoder.com/images/products/36281.webp", warfarinSafe: true },
+          { id: "38207", name: "Smart Fitness X 律動拍打機", price: "HK$13,990", desc: "精準垂直律動被動活化深層小腿肌泵與回流", img: "https://health-decoder.com/images/products/38207.webp", warfarinSafe: true }
+        ]
+      },
+      4: {
+        id: 4,
+        name: "代謝滲透壓心腸軸型",
+        color: "#059669",
+        why: "夜間血糖與血液滲透壓波動強行拉扯組織水分經腎臟排出（滲透性多尿），加上腸道屏障受損引發慢性微血管發炎與口乾多尿。",
+        habits: [
+          "1. 晚餐後平地慢行：飯後散步 15 分鐘平穩夜間滲透壓",
+          "2. 晚餐減鹽減精製糖：避免濃湯與高升糖飲食拉高滲透壓",
+          "3. 小口含水潤喉：口乾時分次小口飲水，避免睡前大口灌水"
+        ],
+        boundary: "少甜少鹽只係基本功；心腸軸黏膜發炎與細胞胰島素敏感度需從源頭代謝調理。",
+        skus: [
+          { id: "36248", name: "ORIYEN 綜合果蔬酵素", price: "HK$380", desc: "深層發酵多酚修復腸道屏障，減輕心腸軸發炎", img: "https://health-decoder.com/images/products/36248.webp", warfarinSafe: true },
+          { id: "34331", name: "Nn 三效益生菌－長者配方", price: "HK$340", desc: "重塑長者腸道菌群，阻斷內毒素入血滲漏", img: "https://health-decoder.com/images/products/34331.webp", warfarinSafe: true },
+          { id: "36281", name: "ORIYEN 天然酵母NMN", price: "HK$1,888", desc: "提升胰島素敏感度，平穩夜間滲透壓", img: "https://health-decoder.com/images/products/36281.webp", warfarinSafe: true }
+        ]
+      },
+      5: {
+        id: 5,
+        name: "睡眠結構崩解偽性夜尿型",
+        color: "#E11D48",
+        why: "深層慢波睡眠結構斷裂或打鼻鼾微覺醒，令大腦感覺門控失效，稍微少少膀胱積尿就觸發警鈴醒來「順便去廁所」，同時中樞抗利尿激素分泌紊亂。",
+        habits: [
+          "1. 晨早日照 20 分鐘：校準中樞生理時鐘與夜間抗利尿節律",
+          "2. 睡前溫水浸腳放鬆：睡前 1 小時調暗燈光、放低手機",
+          "3. 側臥保持氣道暢通：減少打鼻鼾引發之夜間胸腔負壓與覺醒"
+        ],
+        boundary: "調暗燈光只屬環境輔助；中樞生物鐘震盪減弱與交感神經繃緊需靠神經安定營養支持。",
+        skus: [
+          { id: "34316", name: "Nn 液鈣鎂 D3", price: "HK$212", desc: "安定中樞神經膜電位，減少淺睡驚醒頻率", img: "https://health-decoder.com/images/products/34316.webp", warfarinSafe: true },
+          { id: "36281", name: "ORIYEN 天然酵母NMN", price: "HK$1,888", desc: "修復中樞生理時鐘基因，延長深層慢波睡眠", img: "https://health-decoder.com/images/products/36281.webp", warfarinSafe: true }
+        ]
+      }
+    };
+
+    // =========================================================================
+    // 3. 全域狀態機 (掛載於 window.state，支援 in-place 收起選項顯示回應，零跳動)
+    // =========================================================================
+    window.state = {
+      step: "welcome",
+      showingFeedback: false,   // true 時原位收起選項、顯示綠框回應與「下一題 →」
+      editingFromReview: false,
+      paidLocked: false,
+      ccVisible: false,         // 預設隱藏字幕，不霸佔畫面高度
+      currentClipKey: "",
+      answers: {
+        q1: "2-3次",
+        q2: "尿急叫醒",
+        q3: "差唔多或較多",
+        q4: ["已戒水仍起夜"],
+        q5: ["傍晚腳腫襪印"],
+        q6: ["沒有不適"],
+        q7: ["沒有食西藥"],
+        q8: "醒咗難瞓返"
+      },
+      user: {
+        gender: "男士",
+        age: "66–75歲",
+        name: "陳先生",
+        phone: "9123 4567",
+        email: "demo@health-decoder.com"
+      },
+      hmcs: {
+        loc: "奧海城門市",
+        time: "平日日間",
+        agreed: false
+      }
+    };
+
+    // =========================================================================
+    // 4. 持久化影片控制 (絕不重建 <video> 元素)
+    // =========================================================================
+    const videoEl = document.getElementById("duncanVideo");
+    const posterEl = document.getElementById("videoPoster");
+
+    videoEl.addEventListener("playing", () => {
+      posterEl.classList.add("playing");
+    });
+    videoEl.addEventListener("pause", () => {
+      posterEl.classList.remove("playing");
+    });
+    videoEl.addEventListener("ended", () => {
+      posterEl.classList.remove("playing");
+    });
+
+    function syncVideo(clipKey, customScript) {
+      const clip = CLIPS[clipKey] || CLIPS["01-welcome"];
+      document.getElementById("clipLabel").textContent = clip.tag;
+      document.getElementById("posterTitle").textContent = "▶ 點擊播放：" + clip.tag;
+      document.getElementById("subtitleDrawer").textContent = customScript || clip.script;
+
+      if (window.state.currentClipKey !== clipKey) {
+        window.state.currentClipKey = clipKey;
+        posterEl.classList.remove("playing");
+        videoEl.innerHTML = `
+          <source src="${MEDIA_REL2}${clip.file}" type="video/mp4">
+          <source src="${MEDIA_REL1}${clip.file}" type="video/mp4">
+          <source src="${MEDIA_ABS}${clip.file}" type="video/mp4">
+        `;
+        videoEl.load();
+        videoEl.play().catch(() => {});
+      }
+    }
+
+    function replayVideo() {
+      videoEl.currentTime = 0;
+      videoEl.play().then(() => {
+        posterEl.classList.add("playing");
+      }).catch(() => {
+        speakScript();
+      });
+    }
+
+    function toggleSubtitle() {
+      window.state.ccVisible = !window.state.ccVisible;
+      const drawer = document.getElementById("subtitleDrawer");
+      const btn = document.getElementById("ccBtn");
+      drawer.classList.toggle("show", window.state.ccVisible);
+      btn.classList.toggle("on", window.state.ccVisible);
+      btn.textContent = window.state.ccVisible ? "字幕：顯示中" : "字幕：隱藏";
+    }
+
+    function speakScript() {
+      if (!("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      const txt = document.getElementById("subtitleDrawer").textContent;
+      const u = new SpeechSynthesisUtterance(txt);
+      u.lang = "zh-HK";
+      u.rate = 1.0;
+      window.speechSynthesis.speak(u);
+    }
+
+    // =========================================================================
+    // 5. 五大成因比例與唯一主導成因演算
+    // =========================================================================
+    function evaluateCauses() {
+      const st = window.state;
+      let sc = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 };
+      if (st.answers.q1 === "2-3次" || st.answers.q1 === "4次或以上") sc[1] += 2;
+      if (st.answers.q2 === "尿急叫醒") { sc[1] += 2; sc[2] += 1; }
+      if (st.answers.q2 === "醒先順便去") sc[5] += 5;
+
+      if (st.answers.q3 === "差唔多或較多" || st.answers.q3 === "大量清尿") sc[1] += 3;
+      if (st.answers.q3 === "明顯少好多") sc[2] += 4;
+
+      (st.answers.q4 || []).forEach(x => {
+        if (x === "已戒水仍起夜") { sc[1] += 3; sc[3] += 2; }
+        if (x === "睇手機難入睡") sc[5] += 2;
+      });
+
+      (st.answers.q5 || []).forEach(x => {
+        if (x === "傍晚腳腫襪印") sc[1] += 5;
+        if (x === "雙腿無力久坐") sc[3] += 5;
+        if (x === "尿流細要等" || x === "排唔清或尿急") sc[2] += 4;
+        if (x === "口乾多飲胃脹") sc[4] += 5;
+        if (x === "打鼻鼾淺眠") sc[5] += 4;
+      });
+
+      const meds = st.answers.q7 || [];
+      const isWarfarin = meds.includes("薄血藥");
+      if (meds.includes("降血壓藥") || meds.includes("去水丸/排糖藥")) sc[1] += 2;
+      if (meds.includes("降血糖藥")) sc[4] += 2;
+      if (meds.includes("降膽固醇藥")) sc[3] += 2;
+
+      const total = Object.values(sc).reduce((a, b) => a + b, 0) || 1;
+      let ratios = {};
+      let acc = 0;
+      for (let i = 1; i <= 4; i++) {
+        ratios[i] = Math.round((sc[i] / total) * 100);
+        acc += ratios[i];
+      }
+      ratios[5] = Math.max(0, 100 - acc);
+
+      // 臨床優先順序 [1, 4, 2, 3, 5] 選出唯一主導成因
+      const priority = [1, 4, 2, 3, 5];
+      const maxScore = Math.max(...Object.values(sc));
+      const winnerId = priority.find(id => sc[id] === maxScore) || 1;
+
+      return {
+        winnerId,
+        winner: CAUSES[winnerId],
+        ratios,
+        isWarfarin
+      };
+    }
+
+    // =========================================================================
+    // 6. 單屏舞台渲染 (只更新右側/下方卡片內容，絕不觸碰 scrollTo 或重載影片)
+    // =========================================================================
+    window.renderStage = function() {
+      const st = window.state;
+      const s = st.step;
+      const shell = document.getElementById("appShell");
+      const body = document.getElementById("stageBody");
+      const footer = document.getElementById("stageFooter");
+      const badge = document.getElementById("stepBadge");
+      const backBtn = document.getElementById("topBackBtn");
+
+      // 同步預視下拉
+      const sel = document.getElementById("quickJumpSel");
+      if (sel && [...sel.options].some(o => o.value === s)) sel.value = s;
+
+      // 付款鎖定後禁止退回修改問卷
+      backBtn.style.visibility = (s === "welcome" || (st.paidLocked && s === "report1")) ? "hidden" : "visible";
+
+      // 進度與三點線索燈
+      const progMap = {
+        welcome: 8, q1: 16, q2: 26, q3: 36, q4: 46, q5: 56, q6: 66,
+        preview6: 74, q7: 82, q8: 90, review: 95, checkout: 98,
+        report1: 100, report2: 100, hmcs1: 100, hmcs2: 100, products: 100, group: 100
+      };
+      document.getElementById("progressBar").style.width = (progMap[s] || 50) + "%";
+      document.getElementById("clue1").classList.toggle("lit", (progMap[s] || 0) >= 36);
+      document.getElementById("clue2").classList.toggle("lit", (progMap[s] || 0) >= 66);
+      document.getElementById("clue3").classList.toggle("lit", (progMap[s] || 0) >= 90);
+
+      // 在內容較多嘅畫面（Q5、Q7、覆核、報告、HMCS、產品）手機自動微縮視像區高度，確保 100% 零捲動
+      const denseSteps = ["q5", "q7", "review", "checkout", "report1", "report2", "hmcs1", "hmcs2", "products"];
+      shell.classList.toggle("compact-video", denseSteps.includes(s) || st.showingFeedback);
+
+      // -----------------------------------------------------------------------
+      // A. 歡迎入口頁
+      // -----------------------------------------------------------------------
+      if (s === "welcome") {
+        syncVideo("01-welcome");
+        badge.textContent = "真人視像互動 · 約 2 分鐘";
+        body.innerHTML = `
+          <h1 class="stage-title">夜晚成日起身，最想知真正原因。</h1>
+          <p class="stage-sub">唔使睇長篇醫學文章。跟住 Duncan 逐題揀你平時嘅感覺，一步步搵出搞亂睡眠嘅源頭訊號。</p>
+          <div class="note-strip">📌 本自測僅供梳理健康體感線索，並非醫療診斷。</div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" onclick="goStep('q1')">開始了解我嘅情況 →</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // B. 問卷題目頁 (Q1 – Q8)：支援「選項列表」與「原位收起顯示回應」雙狀態
+      // -----------------------------------------------------------------------
+      if (QUESTIONS[s]) {
+        const q = QUESTIONS[s];
+        badge.textContent = q.badge;
+
+        // 狀態 B：用戶已選答案 -> 原位收起其他選項，同屏顯示 Duncan 回應與「下一題 →」
+        if (st.showingFeedback) {
+          let chosenText = "";
+          let replyMsg = "";
+          let replyClip = q.clip;
+
+          if (q.mode === "single") {
+            const val = st.answers[q.id];
+            const found = q.opts.find(o => o.val === val) || q.opts[0];
+            chosenText = found.label;
+            replyMsg = found.reply;
+            if (found.replyClip) replyClip = found.replyClip;
+          } else {
+            const arr = st.answers[q.id] || [];
+            chosenText = arr.join("、");
+            const isNoneOnly = arr.some(v => v.includes("沒有") || v.includes("冇") || v.includes("唔肯定") || v.includes("唔清楚"));
+            replyMsg = isNoneOnly ? q.replyNone : q.replyHas;
+          }
+
+          syncVideo(replyClip, replyMsg);
+
+          body.innerHTML = `
+            <h2 class="stage-title">${q.title}</h2>
+            <div class="collapsed-answer-bar">
+              <span>✓ 你揀咗：${chosenText}</span>
+              <button type="button" class="reselect-btn" onclick="reopenOptions()">重選</button>
+            </div>
+            <div class="feedback-card">
+              <strong>💬 Duncan 回應：</strong><br/>${replyMsg}
+            </div>
+          `;
+          footer.innerHTML = `
+            <button type="button" class="cta-primary" onclick="advanceFromQuestion('${q.id}')">
+              ${st.editingFromReview ? '確認修改，返回覆核頁 →' : '下一題 →'}
+            </button>
+          `;
+          return;
+        }
+
+        // 狀態 A：展示選項供用戶點選
+        syncVideo(q.clip);
+
+        if (q.mode === "single") {
+          const cur = st.answers[q.id];
+          let profileBar = "";
+          if (q.id === "q8") {
+            const genders = ["男士", "女士"];
+            const ages = ["55歲或以下", "56–65歲", "66–75歲", "75歲以上"];
+            profileBar = `
+              <div style="display:flex; gap:5px; flex-wrap:wrap;">
+                ${genders.map(g => `<button type="button" class="mini-pill ${st.user.gender===g?'active':''}" onclick="window.state.user.gender='${g}';renderStage()">${g}</button>`).join("")}
+                ${ages.map(a => `<button type="button" class="mini-pill ${st.user.age===a?'active':''}" onclick="window.state.user.age='${a}';renderStage()">${a}</button>`).join("")}
+              </div>
+            `;
+          }
+
+          const listHtml = q.opts.map(o => {
+            const sel = cur === o.val;
+            return `
+              <button type="button" class="opt-pill ${sel ? 'selected' : ''} ${o.isNone ? 'none-style' : ''}"
+                onclick="selectSingleOption('${q.id}', '${o.val}')">
+                <span>${o.label}</span>
+                <span class="tick-box">${sel ? '✓' : ''}</span>
+              </button>
+            `;
+          }).join("");
+
+          body.innerHTML = `
+            <h2 class="stage-title">${q.title}</h2>
+            ${profileBar || `<p class="stage-sub">${q.sub}</p>`}
+            <div class="single-list">${listHtml}</div>
+          `;
+          footer.innerHTML = "";
+        } else {
+          // 多選雙欄膠囊網格 (2-Column Grid)
+          const arr = st.answers[q.id] || [];
+          const gridHtml = q.opts.map(o => {
+            const sel = arr.includes(o.val);
+            return `
+              <button type="button" class="multi-cell ${sel ? 'selected' : ''} ${o.isNone ? 'none-cell' : ''}"
+                onclick="toggleMultiOption('${q.id}', '${o.val}', ${!!o.isNone}, ${!!o.isDanger})">
+                <span class="tick-box">${sel ? '✓' : ''}</span>
+                <span>${o.label}</span>
+              </button>
+            `;
+          }).join("");
+
+          body.innerHTML = `
+            <h2 class="stage-title">${q.title}</h2>
+            <p class="stage-sub">${q.sub}</p>
+            <div class="multi-grid">${gridHtml}</div>
+          `;
+          footer.innerHTML = `
+            <button type="button" class="cta-primary" ${arr.length === 0 ? 'disabled' : ''} onclick="confirmMultiQuestion('${q.id}')">
+              選好，睇 Duncan 回應 (${arr.length} 項) →
+            </button>
+          `;
+        }
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // C. 安全紅旗免費分流頁 (不收費)
+      // -----------------------------------------------------------------------
+      if (s === "safety_stop") {
+        syncVideo("16-safety-reply");
+        badge.textContent = "🚨 免費安全提醒 · 請優先求醫";
+        body.innerHTML = `
+          <h2 class="stage-title" style="color:var(--danger-main);">發現優先求醫訊號（不收費）</h2>
+          <div class="feedback-card" style="background:var(--danger-soft); border-color:#FCA5A5;">
+            你揀咗近期有<strong>新血尿、排尿赤痛、發燒或排尿困難</strong>。呢類情況屬於醫療優先紅旗，請先由醫生檢查排除急性感染或阻塞，我哋唔會喺呢一步收費。
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-secondary" onclick="window.state.answers.q6=['沒有不適'];goStep('q6')">← 剛才揀錯，返回第 6 題重選</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // D. 第 6 題後：暫時線索預覽 (Midpoint Preview)
+      // -----------------------------------------------------------------------
+      if (s === "preview6") {
+        syncVideo("08-preview");
+        badge.textContent = "已完成 6 題 · 暫時線索預覽";
+        const noIssue = (st.answers.q1 === "幾乎冇") && (st.answers.q5 || []).includes("沒有以上情況");
+        if (noIssue) {
+          body.innerHTML = `
+            <h2 class="stage-title">好消息：你目前並無明顯夜尿困擾！</h2>
+            <div class="feedback-card">
+              根據你頭 6 題嘅回答，你平時幾乎唔使起夜，亦無明顯伴隨不適，<strong>完全毋須付費購買報告</strong>！歡迎直接加入免費養生社群。
+            </div>
+          `;
+          footer.innerHTML = `
+            <button type="button" class="cta-primary" onclick="goStep('group')">免費加入 WhatsApp / FB 養生專區 →</button>
+            <button type="button" class="cta-secondary" onclick="goStep('q7')">照樣補充埋最後 2 題睇評估 →</button>
+          `;
+        } else {
+          body.innerHTML = `
+            <h2 class="stage-title">你嘅夜尿線索已經連起咗：</h2>
+            <div class="tag-review-grid">
+              <div class="tag-review-item"><div class="tag-review-k">起夜頻率</div><div class="tag-review-v">${st.answers.q1}</div></div>
+              <div class="tag-review-item"><div class="tag-review-k">醒來次序</div><div class="tag-review-v">${st.answers.q2}</div></div>
+              <div class="tag-review-item"><div class="tag-review-k">每次尿量</div><div class="tag-review-v">${st.answers.q3}</div></div>
+              <div class="tag-review-item"><div class="tag-review-k">伴隨訊號</div><div class="tag-review-v">${(st.answers.q5||[]).join("、")}</div></div>
+            </div>
+            <div class="feedback-card">
+              <strong>🔍 初步觀察：</strong>單憑戒水未必解決到源頭。最後補充埋<strong>長期西藥與優先目標（最後 2 題）</strong>，即刻幫你計出五大成因比例！
+            </div>
+          `;
+          footer.innerHTML = `
+            <button type="button" class="cta-primary" onclick="goStep('q7')">繼續埋最後 2 題背景補充 →</button>
+          `;
+        }
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // E. 交付前圓角小標籤 (Tag) 覆核頁 (一屏 2x4 網格，點擊即改)
+      // -----------------------------------------------------------------------
+      if (s === "review") {
+        syncVideo("09-hna");
+        badge.textContent = "交付前答案覆核（點擊任一標籤可重填）";
+        const items = [
+          { id: "q1", k: "1. 起夜次數", v: st.answers.q1 },
+          { id: "q2", k: "2. 醒來先後", v: st.answers.q2 },
+          { id: "q3", k: "3. 每次尿量", v: st.answers.q3 },
+          { id: "q4", k: "4. 睡前習慣", v: (st.answers.q4 || []).join("、") },
+          { id: "q5", k: "5. 伴隨訊號", v: (st.answers.q5 || []).join("、") },
+          { id: "q6", k: "6. 安全確認", v: (st.answers.q6 || []).join("、") },
+          { id: "q7", k: "7. 長期西藥", v: (st.answers.q7 || []).join("、") },
+          { id: "q8", k: "8. 優先目標", v: `${st.answers.q8} (${st.user.age})` }
+        ];
+        body.innerHTML = `
+          <h2 class="stage-title">請確認你所選嘅問卷答案</h2>
+          <div class="tag-review-grid">
+            ${items.map(it => `
+              <button type="button" class="tag-review-item" onclick="editFromReview('${it.id}')">
+                <div class="tag-review-k">${it.k} <span>✏️ 修改</span></div>
+                <div class="tag-review-v">${it.v}</div>
+              </button>
+            `).join("")}
+          </div>
+          <div class="note-strip">🔒 如有填錯請點擊標籤重填；付費解鎖報告後答案將鎖定不可再改。</div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" onclick="goStep('checkout')">確認答案無誤，下一步解鎖報告 →</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // F. 聯絡資料與 HK$19.9 Stripe 付款解鎖頁
+      // -----------------------------------------------------------------------
+      if (s === "checkout") {
+        syncVideo("08-preview");
+        badge.textContent = "解鎖完整個人化報告 (HK$19.9)";
+        body.innerHTML = `
+          <h2 class="stage-title">接收個人成因比例報告與調理建議</h2>
+          <p class="stage-sub">付款成功後將自動跳回本頁即時顯示報告，並同步發送備份：</p>
+          <div class="form-compact">
+            <input class="inp-box" type="text" placeholder="你嘅稱呼（例如：陳先生）" value="${st.user.name}" oninput="window.state.user.name=this.value" />
+            <input class="inp-box" type="tel" placeholder="WhatsApp 電話號碼（接收報告備份）" value="${st.user.phone}" oninput="window.state.user.phone=this.value" />
+            <input class="inp-box" type="email" placeholder="電郵地址（接收付款收據）" value="${st.user.email}" oninput="window.state.user.email=this.value" />
+          </div>
+          <div class="note-strip">💳 Stripe 安全加密結算 · 一次性 <strong>HK$19.9</strong>（無自動續費，付款後答案鎖定）</div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" id="payBtn" onclick="processStripeUnlock()">🔒 支付 HK$19.9 立即解鎖結果 →</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // G. 報告第 1 卡：五大成因百分比橫條 ＋ 唯一主導成因 + 機理解釋
+      // -----------------------------------------------------------------------
+      const ev = evaluateCauses();
+      const win = ev.winner;
+
+      if (s === "report1") {
+        syncVideo("10-report-why");
+        badge.textContent = "已解鎖報告 (1/2) · 成因比例與唯一主因";
+        const order = [ev.winnerId, ...[1,2,3,4,5].filter(x => x !== ev.winnerId)];
+        const barsHtml = order.map(cid => {
+          const c = CAUSES[cid];
+          const pct = ev.ratios[cid];
+          const isWin = cid === ev.winnerId;
+          return `
+            <div class="bar-item ${isWin ? 'winner' : ''}">
+              <div class="bar-head">
+                <span style="color:${isWin ? 'var(--teal-primary)' : 'var(--ink-main)'};">
+                  ${isWin ? '👑 主導成因：' : ''}${c.name}
+                </span>
+                <span>${pct}%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:${Math.max(pct, 6)}%; background:${c.color};"></div>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        body.innerHTML = `
+          <h2 class="stage-title">優先處理主因：【${win.name}】</h2>
+          <div class="bar-list">${barsHtml}</div>
+          <div class="feedback-card" style="padding:8px 11px; font-size:13.5px;">
+            <strong>點解係呢個主因：</strong>${win.why}
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" onclick="goStep('report2')">下一章：睇日常微習慣與源頭方案 (2/2) →</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // H. 報告第 2 卡：3 個日常微習慣 ＋ 能力邊界 ＋ 單一主行動進入第一層 HMCS
+      // -----------------------------------------------------------------------
+      if (s === "report2") {
+        syncVideo("11-report-next");
+        badge.textContent = "已解鎖報告 (2/2) · 微習慣與調理邊界";
+        body.innerHTML = `
+          <h2 class="stage-title">針對【${win.name}】嘅 3 個微習慣</h2>
+          <div class="compact-steps">
+            ${win.habits.map(h => `<div class="compact-step-row">${h}</div>`).join("")}
+          </div>
+          <div class="note-strip">
+            <strong>⚠️ 居家自救能力邊界：</strong>${win.boundary}
+            ${ev.isWarfarin ? '<br/>🛡️ 已記錄你正服用<strong>薄血藥</strong>，後續方案已自動隔離抗凝衝突成分。' : ''}
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" onclick="goStep('hmcs1')">了解 1 對 1 源頭逆轉方案 (HMCS) →</button>
+          <button type="button" class="cta-secondary" onclick="goStep('report1')">← 返回睇成因百分比圖表</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // I. 第一層漏斗 (1/2)：HMCS 線下 5 步真實流程（底部設拒絕按鈕降級去第二層產品）
+      // -----------------------------------------------------------------------
+      if (s === "hmcs1") {
+        syncVideo("13-hmcs");
+        badge.textContent = "第一層核心承接 · HMCS 線下 1 對 1 服務";
+        body.innerHTML = `
+          <h2 class="stage-title">HMCS 實況 5 步真實流程（首次不即時成交）</h2>
+          <div class="compact-steps">
+            <div class="compact-step-row"><strong>1) 線下詳細訪談：</strong>深入了解你嘅真實生活痛點與需要。</div>
+            <div class="compact-step-row" style="background:var(--teal-soft); border-color:var(--teal-border);"><strong>2) 線下檢測數據收集（🛡️ 不即時成交）：</strong>微電流／身體成份分析／骨密度檢測及面談健康調查。</div>
+            <div class="compact-step-row"><strong>3) 5 天內出深入分析報告：</strong>非醫學診斷，只反映健康狀況和潛在問題。</div>
+            <div class="compact-step-row"><strong>4) 再約解讀及量身訂製方案（可即時成交）：</strong>定義<strong>可量度的目標成果</strong>，不以主觀感受作準則。</div>
+            <div class="compact-step-row"><strong>5) 開始跟進服務（預設 90 天／另有 18 個月最抵方案）：</strong>定時提醒行動、月度覆檢、進度評估。</div>
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" onclick="goStep('hmcs2')">我想預約線下訪談及檢測（下一步） →</button>
+          <button type="button" class="cta-secondary" onclick="goStep('products')">暫不約見面，先睇「居家調理方案專區（產品頁）」 →</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // J. 第一層漏斗 (2/2)：HMCS Coaching 責任免責勾選 ＋ 門市時段預約
+      // -----------------------------------------------------------------------
+      if (s === "hmcs2") {
+        syncVideo("14-booking");
+        badge.textContent = "HMCS 預約 · 責任邊界確認與門市選擇";
+        const locs = ["奧海城門市", "屯門門市", "觀塘門市"];
+        const times = ["平日日間", "平日傍晚", "週末時段"];
+        body.innerHTML = `
+          <h2 class="stage-title">Coaching 服務責任邊界與線下預約</h2>
+          <div class="note-strip" style="font-size:12.5px;">
+            ⚖️ <strong>重要免責聲明：</strong>HMCS 屬健康管理指導（Coaching），會共同設定<strong>可量度目標成果</strong>（不以主觀感受為準）。客人須為自身健康負起執行責任；<strong>如因客人態度或行動不配合而未能達成目標，本公司恕不負責，亦不設任何形式之退款或賠償</strong>。如遇特殊情況，服務期可酌情延長 1–2 週，並非無限期服務。
+          </div>
+          <label class="collapsed-answer-bar" style="cursor:pointer; font-size:13.5px;">
+            <span style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" style="width:18px; height:18px; accent-color:var(--teal-primary);" ${st.hmcs.agreed ? 'checked' : ''} onchange="window.state.hmcs.agreed=this.checked;renderStage()" />
+              我已詳閱並同意上述責任邊界及不設退款條款
+            </span>
+          </label>
+          <div style="display:flex; gap:5px; flex-wrap:wrap;">
+            ${locs.map(l => `<button type="button" class="mini-pill ${st.hmcs.loc===l?'active':''}" onclick="window.state.hmcs.loc='${l}';renderStage()">📍 ${l}</button>`).join("")}
+            ${times.map(t => `<button type="button" class="mini-pill ${st.hmcs.time===t?'active':''}" onclick="window.state.hmcs.time='${t}';renderStage()">🕒 ${t}</button>`).join("")}
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" ${!st.hmcs.agreed ? 'disabled' : ''} onclick="submitHmcsBooking()">
+            ✅ 確認預約首次線下訪談及檢測 (${st.hmcs.loc}) →
+          </button>
+          <button type="button" class="cta-secondary" onclick="goStep('products')">暫不約見面，改睇「居家調理方案專區（產品頁）」 →</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // K. 第二層漏斗：居家調理方案專區（單品展示 ＋ 薄血藥安全過濾 ＋ 底部降級去第三層）
+      // -----------------------------------------------------------------------
+      if (s === "products") {
+        syncVideo("12-routes");
+        badge.textContent = "第二層承接 · 主導成因方案專區（單品）";
+        const safeSkus = win.skus.filter(k => !ev.isWarfarin || k.warfarinSafe).slice(0, 3);
+        body.innerHTML = `
+          <h2 class="stage-title">針對【${win.name}】單品方案</h2>
+          <div class="compact-steps">
+            ${safeSkus.map(k => `
+              <div class="sku-row">
+                <img src="${k.img}" alt="${k.name}" onerror="this.style.display='none'" />
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:14.5px; font-weight:800; color:var(--ink-main);">${k.name} · <span style="color:var(--teal-primary);">${k.price}</span></div>
+                  <div style="font-size:12.5px; color:var(--ink-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${k.desc}</div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+          <div class="note-strip">
+            🎁 <strong>Eshop 獨立網站只提供單品選擇</strong>；如欲配搭完整組合或享有配套優惠，請返回預約線下 HMCS 服務。
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-primary" onclick="goStep('hmcs1')">🏥 我想享配套優惠：返回預約線下 HMCS →</button>
+          <button type="button" class="cta-secondary" onclick="goStep('group')">選不對產品／暫時唔買住，先去 FB／WhatsApp 專區養粉 →</button>
+        `;
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // L. 第三層漏斗：免費 WhatsApp 與 Facebook 養生社群
+      // -----------------------------------------------------------------------
+      if (s === "group") {
+        syncVideo("01-welcome");
+        badge.textContent = "第三層承接 · 免費加入健康養生社群";
+        body.innerHTML = `
+          <h2 class="stage-title">先入群接收 Duncan 日常養生與源頭解碼資訊</h2>
+          <p class="stage-sub">暫時未決定預約或選購產品都唔緊要！歡迎免費加入官方社群，隨時睇實例拆解：</p>
+          <div class="single-list">
+            <a href="https://chat.whatsapp.com/LPHAndy6hjH8gRLVzZacrw" target="_blank" rel="noopener" class="opt-pill" style="text-decoration:none; border-color:#10B981; background:#ECFDF5;">
+              <span>💬 加入 WhatsApp 養生專區</span>
+              <span style="color:#047857; font-size:14px;">免費入群 →</span>
+            </a>
+            <a href="https://www.facebook.com/groups/duncanhealthylife" target="_blank" rel="noopener" class="opt-pill" style="text-decoration:none; border-color:#3B82F6; background:#EFF6FF;">
+              <span>📘 加入 Facebook 健康生活群組</span>
+              <span style="color:#1D4ED8; font-size:14px;">免費入群 →</span>
+            </a>
+          </div>
+        `;
+        footer.innerHTML = `
+          <button type="button" class="cta-secondary" onclick="goStep('hmcs1')">← 返回第一層：了解 HMCS 1 對 1 線下服務</button>
+        `;
+        return;
+      }
+    };
+
+    // =========================================================================
+    // 7. 交互事件控制 (不自動跳題，揀完原位收起選項顯示回應)
+    // =========================================================================
+    window.selectSingleOption = function(qid, val) {
+      if (window.state.paidLocked) return;
+      window.state.answers[qid] = val;
+      window.state.showingFeedback = true;
+      renderStage();
+    };
+
+    window.toggleMultiOption = function(qid, val, isNone, isDanger) {
+      if (window.state.paidLocked) return;
+      let cur = [...(window.state.answers[qid] || [])];
+      const q = QUESTIONS[qid];
+      const noneVals = q.opts.filter(o => o.isNone).map(o => o.val);
+
+      if (isNone) {
+        cur = [val];
+      } else {
+        cur = cur.filter(v => !noneVals.includes(v));
+        if (cur.includes(val)) {
+          cur = cur.filter(v => v !== val);
+        } else {
+          cur.push(val);
+        }
+      }
+      window.state.answers[qid] = cur;
+      renderStage();
+    };
+
+    window.confirmMultiQuestion = function(qid) {
+      const arr = window.state.answers[qid] || [];
+      if (arr.length === 0) return;
+      if (qid === "q6" && (arr.includes("血尿尿痛發燒") || arr.includes("想排但排唔到"))) {
+        window.state.step = "safety_stop";
+        window.state.showingFeedback = false;
+        renderStage();
+        return;
+      }
+      window.state.showingFeedback = true;
+      renderStage();
+    };
+
+    window.reopenOptions = function() {
+      window.state.showingFeedback = false;
+      renderStage();
+    };
+
+    window.advanceFromQuestion = function(qid) {
+      window.state.showingFeedback = false;
+      if (window.state.editingFromReview) {
+        window.state.editingFromReview = false;
+        window.state.step = "review";
+        renderStage();
+        return;
+      }
+      const nextMap = {
+        q1: "q2", q2: "q3", q3: "q4", q4: "q5", q5: "q6",
+        q6: "preview6", q7: "q8", q8: "review"
+      };
+      window.state.step = nextMap[qid] || "review";
+      renderStage();
+    };
+
+    window.editFromReview = function(qid) {
+      if (window.state.paidLocked) return;
+      window.state.editingFromReview = true;
+      window.state.showingFeedback = false;
+      window.state.step = qid;
+      renderStage();
+    };
+
+    window.goStep = function(target) {
+      window.state.showingFeedback = false;
+      window.state.step = target;
+      renderStage();
+    };
+
+    window.jumpStep = function(target) {
+      if (["report1", "report2", "hmcs1", "hmcs2", "products", "group"].includes(target)) {
+        window.state.paidLocked = true;
+      } else {
+        window.state.paidLocked = false;
+      }
+      window.state.showingFeedback = false;
+      window.state.step = target;
+      renderStage();
+    };
+
+    window.stepBack = function() {
+      if (window.state.showingFeedback) {
+        window.state.showingFeedback = false;
+        renderStage();
+        return;
+      }
+      const prevMap = {
+        q1: "welcome", q2: "q1", q3: "q2", q4: "q3", q5: "q4", q6: "q5",
+        safety_stop: "q6", preview6: "q6", q7: "preview6", q8: "q7",
+        review: "q8", checkout: "review",
+        report2: "report1", hmcs1: "report2", hmcs2: "hmcs1",
+        products: "hmcs1", group: "products"
+      };
+      const p = prevMap[window.state.step];
+      if (p && !(window.state.paidLocked && ["review", "q8", "checkout"].includes(p))) {
+        window.state.step = p;
+        renderStage();
+      }
+    };
+
+    window.processStripeUnlock = function() {
+      const btn = document.getElementById("payBtn");
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ Stripe 安全結算中，正在自動返回報告...";
+      }
+      setTimeout(() => {
+        window.state.paidLocked = true;
+        window.state.step = "report1";
+        renderStage();
+      }, 650);
+    };
+
+    window.submitHmcsBooking = function() {
+      const st = window.state;
+      const ev = evaluateCauses();
+      alert(
+        "✅ 已收到你嘅 HMCS 線下訪談及檢測預約申請！\n\n" +
+        "• 預約人：" + st.user.name + " (" + st.user.phone + ")\n" +
+        "• 首選門市：" + st.hmcs.loc + " (" + st.hmcs.time + ")\n" +
+        "• 優先主因：" + ev.winner.name + "\n\n" +
+        "健康管理團隊會透過 WhatsApp 與你落實具體時間（首次見面只做詳細訪談與檢測數據收集，絕不即時成交）。"
+      );
+    };
+
+    // 初始化渲染
+    renderStage();
+  </script>
+</body>
+</html>

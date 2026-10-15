@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>Health Decoder｜夜尿自測・專業親切樣本</title>
+<style>
+  :root {
+    --bg: #f3f6f5;
+    --card: #ffffff;
+    --ink: #1e293b;
+    --muted: #526174;
+    --line: #d5e2df;
+    --accent: #0f766e;
+    --choice: #fff;
+    --ok: #0f766e;
+    --warn-bg: #9f1239;
+    --paper: #f0fdfa;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "WenQuanYi Micro Hei", sans-serif;
+    font-size: 22px;
+    line-height: 1.45;
+  }
+  body { padding: 14px 14px 40px; }
+  .wrap { max-width: 480px; margin: 0 auto; }
+  .top-badge {
+    display: inline-block;
+    background: #ccfbf1;
+    color: #115e59;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 8px 12px;
+    border-radius: 999px;
+    margin: 4px 0 12px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-top: 6px solid var(--accent);
+    border-radius: 22px;
+    padding: 22px 16px 20px;
+    box-shadow: 0 8px 24px rgba(15, 118, 110, 0.06);
+  }
+  h1 { font-size: 32px; line-height: 1.25; margin: 0 0 10px; letter-spacing: -0.3px; }
+  h2 { font-size: 22px; margin: 0 0 10px; color: #115e59; }
+  .sub { color: var(--muted); font-size: 20px; margin: 0 0 16px; }
+  .step-label { font-size: 16px; font-weight: 800; color: var(--accent); margin: 8px 0 14px; letter-spacing: 0.02em; }
+  .progress { height: 8px; background: #e2eeeb; border-radius: 999px; overflow: hidden; }
+  .progress > span { display: block; height: 100%; background: var(--accent); }
+  .safety-note {
+    background: #f8fafc;
+    border-left: 6px solid var(--accent);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    font-size: 20px;
+  }
+  .choices { display: flex; flex-direction: column; gap: 12px; }
+  button.choice, button.primary, button.ghost, button.slot-btn {
+    width: 100%;
+    font: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button.choice {
+    min-height: 72px;
+    padding: 16px 14px;
+    border-radius: 16px;
+    border: 2px solid #c9ddd9;
+    background: var(--choice);
+    color: var(--ink);
+    font-size: 23px;
+    font-weight: 700;
+    text-align: left;
+  }
+  button.choice.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+  button.choice.danger-opt { border-color: #fb7185; background: #fff1f2; }
+  button.choice.danger-opt.selected { background: var(--warn-bg); border-color: var(--warn-bg); color: #fff; }
+  button.primary {
+    margin-top: 14px;
+    min-height: 72px;
+    border: none;
+    border-radius: 16px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 23px;
+    font-weight: 900;
+  }
+  button.primary.pay { background: #115e59; }
+  button.ghost {
+    margin-top: 10px;
+    min-height: 56px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .slot { margin-top: 16px; }
+  .slot-kicker { margin: 0 0 8px; font-size: 15px; font-weight: 800; color: #0f766e; }
+  button.slot-btn {
+    min-height: 68px;
+    border-radius: 16px;
+    border: 2px solid #99f6e4;
+    background: var(--paper);
+    color: #115e59;
+    font-size: 20px;
+    font-weight: 900;
+    text-align: left;
+    padding: 12px 14px;
+  }
+  .slot-script {
+    margin-top: 10px;
+    background: var(--paper);
+    border: 1px solid #99f6e4;
+    border-radius: 16px;
+    padding: 14px;
+  }
+  .draft-tag { margin: 0 0 6px; font-size: 14px; font-weight: 800; color: #0f766e; }
+  .script-text { margin: 0; font-size: 21px; }
+  .flag-box {
+    background: var(--warn-bg);
+    color: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    margin: 8px 0 4px;
+    scroll-margin-top: 12px;
+  }
+  .flag-box strong { display: block; font-size: 26px; margin-bottom: 6px; }
+  .flag-box p { margin: 0; font-size: 20px; }
+  .slot { scroll-margin-top: 12px; }
+  .result-label { font-size: 28px; font-weight: 900; color: var(--ok); margin: 8px 0; }
+  .blurb { margin: 0 0 8px; font-size: 20px; }
+  .tease, .unlock {
+    margin-top: 18px;
+    padding: 16px;
+    background: #f8fbfa;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+  .tease ol { margin: 0; padding-left: 1.2em; }
+  .tease li { margin: 0 0 12px; }
+  .tease li span { display: block; font-size: 18px; color: var(--muted); font-weight: 500; }
+  .mask {
+    margin-top: 4px;
+    color: transparent !important;
+    text-shadow: 0 0 8px #94a3b8;
+    user-select: none;
+  }
+  .price { text-align: center; font-size: 34px; font-weight: 900; margin: 8px 0 0; color: #115e59; }
+  .price-note, .unlock-lead, .fine { color: var(--muted); font-size: 18px; }
+  form label { display: block; font-size: 18px; font-weight: 800; margin-top: 12px; }
+  form input {
+    width: 100%;
+    margin-top: 6px;
+    min-height: 58px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    padding: 12px 14px;
+    font: inherit;
+    font-size: 21px;
+    background: #fff;
+  }
+  .pay-hint {
+    margin: 12px 0 0;
+    padding: 14px;
+    border-radius: 14px;
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+    font-weight: 800;
+    font-size: 18px;
+  }
+  .fine { font-size: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-badge">樣本頁・專業親切版・聲帶講稿・未上線</div>
+  <div id="app"></div>
+  <p class="fine" style="text-align:center;margin-top:16px;">只供個人參考，唔係醫生診斷或處方。有不適請睇醫生。</p>
+</div>
+<script src="/nocturia-samples/quiz-data.js"></script>
+<script src="/nocturia-samples/quiz-engine.js"></script>
+<script>
+NocturiaSample.start({
+  formatLabel: "聲帶",
+  buttonLabel: "▶ Duncan 會講（聲帶・文字稿）",
+  welcomeTitle: "夜尿自測",
+  welcomeSub: "六條短問題，一按就得。答完先講方向同報告有咩，再先到解鎖。唔使急。",
+  resultTitle: "你嘅方向，大概係咁",
+  scripts: {
+    "welcome": "你好，我係 Duncan。呢個夜尿小測試有六條短問題，字大，一按就得。答完我會先同你講，你嘅答案大概指向邊個方向，同埋完整報告會有邊三部分。你準備好就開始，唔使急。",
+    "q1.once": "收到。一晚大約一次，已經會影響休息。我哋去下一題。",
+    "q1.few": "收到。兩至三次，好多人都會遇到。下一題會再清楚少少。",
+    "q1.many": "收到。四次或以上，休息會受影響，辛苦你。我哋穩陣繼續。",
+    "q1.unsure": "唔緊要。唔肯定都得，我哋用你而家嘅感覺繼續。",
+    "q2.lots": "尿量偏多，而且急，我記住咗。呢項會幫我整理方向。",
+    "q2.little": "尿少，但尿意好急，我記住咗。",
+    "q2.wait": "要等一等先出到尿，我記住咗。呢度只係參考，唔係話你有病。",
+    "q2.incidental": "尿意唔強，醒咗先去，我記住咗。呢種情況都常見。",
+    "q3.edema": "傍晚腳腫、鞋變緊，我記住咗。報告會將呢點同夜尿一齊睇。",
+    "q3.weak": "行路少、腳軟，我記住咗。呢項會放進你嘅方向入面。",
+    "q3.both": "腳腫同行路少兩樣都有，我一齊記住。",
+    "q3.none": "腳部暫時冇呢啲情況，都好。我哋繼續。",
+    "q4.slow": "出尿要等、尿線偏幼，我記住咗。",
+    "q4.residual": "尿完仍覺得未清，我記住咗。",
+    "q4.urge": "尿意急、難忍，我記住咗。呢種感覺會影響日常生活。",
+    "q4.ok": "小便大致順暢，我記住咗。仲有兩題。",
+    "q5.thirst": "日頭口乾、飲水偏多，我記住咗。晚上可能會起多啲。",
+    "q5.sleep": "打鼾、瞓得淺、容易醒，我記住咗。醒咗再去廁所都常見。",
+    "q5.both": "口乾同瞓得淺兩樣都有，我一齊記住。",
+    "q5.none": "呢兩項暫時唔係你嘅主要情況。最後一題係安全題。",
+    "q6.leg": "你揀咗一隻腳突然腫痛、行唔到。請盡快睇醫生或急症，唔好只靠呢個網頁。你仍可以繼續睇參考方向，但請第一時間求醫。",
+    "q6.blood": "你揀咗冇尿、尿有血、或者發燒。請盡快睇醫生或急症。網頁唔可以代替診症。你可以繼續，但求醫優先。",
+    "q6.chest": "你揀咗胸口痛、呼吸困難、或者半邊身冇力。請而家去急症。呢份參考唔可以幫你判斷呢個情況。",
+    "q6.none": "好。暫時冇呢啲需要即刻求醫嘅情況。下面我會同你講個大概方向。",
+    "anticipation": "六題完成，多謝你。按你嘅答案，而家比較似「{{方向}}」呢個方向。完整報告會分開三部分：可能係點、點解會咁、而家可以試嘅生活做法。解鎖之後先顯示全文。呢份只供個人參考，唔係醫生診斷。"
+  }
+});
+</script>
+</body>
+</html>

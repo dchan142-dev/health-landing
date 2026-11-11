@@ -104,17 +104,144 @@ test("repeating deployment setup leaves the existing administrator and password 
     }),
   );
 });
-test("the public cannot self-register or create an administrator", async () => {
+test("self-registration creates only a client who can save and resume their own record", async () => {
   const response = await request("/auth/sign-up/email", {
     method: "POST",
     body: {
-      email: "outsider@example.test",
-      password: "Outsider-password-123!",
-      name: "Outsider",
-      role: "admin",
+      email: "self-signup@example.test",
+      password: "Self-signup-password-123!",
+      name: "自行登記測試",
+      consent: true,
     },
   });
-  assert.equal(response.status, 403);
+  assert.equal(response.status, 200, await response.clone().text());
+  let cookie = await login(
+    "self-signup@example.test",
+    "Self-signup-password-123!",
+  );
+  assert.equal(
+    (await (await request("/session", { cookie })).json()).user.role,
+    "user",
+  );
+  assert.equal((await request("/admin/records", { cookie })).status, 403);
+  assert.equal(
+    (
+      await request("/record", {
+        method: "PUT",
+        cookie,
+        body: {
+          version: 0,
+          step: 2,
+          answers: { clientName: "自行登記測試", goal: "續填測試" },
+        },
+      })
+    ).status,
+    200,
+  );
+  assert.equal(
+    (await request("/auth/sign-out", { method: "POST", cookie, body: {} }))
+      .status,
+    200,
+  );
+  cookie = await login("self-signup@example.test", "Self-signup-password-123!");
+  assert.equal(
+    (await (await request("/record", { cookie })).json()).answers.goal,
+    "續填測試",
+  );
+});
+test("self-registration rejects privilege fields, missing consent and cross-site requests", async () => {
+  const ordinary = {
+    email: "rejected@example.test",
+    password: "Rejected-password-123!",
+    name: "不應建立",
+    consent: true,
+  };
+  for (const body of [
+    { ...ordinary, role: "admin" },
+    { ...ordinary, emailVerified: true },
+    { ...ordinary, userId: "existing-user" },
+    { ...ordinary, consent: false },
+  ])
+    assert.equal(
+      (await request("/auth/sign-up/email", { method: "POST", body })).status,
+      400,
+    );
+  assert.equal(
+    (
+      await request("/auth/sign-up/email", {
+        method: "POST",
+        body: ordinary,
+        requestOrigin: "https://attacker.example",
+      })
+    ).status,
+    403,
+  );
+  assert.equal(
+    (
+      await request("/auth/admin/create-user", {
+        method: "POST",
+        body: ordinary,
+      })
+    ).status,
+    403,
+  );
+  assert.equal(
+    (await db.query('SELECT id FROM "user" WHERE email=$1', [ordinary.email]))
+      .rows.length,
+    0,
+  );
+});
+test("registering an existing email cannot replace its password, role or saved answers", async () => {
+  for (const email of ["self-signup@example.test", "admin@example.test"]) {
+    assert.equal(
+      (
+        await request("/auth/sign-up/email", {
+          method: "POST",
+          body: {
+            email,
+            name: "不可取代",
+            password: "Replacement-password-123!",
+            consent: true,
+          },
+        })
+      ).status,
+      200,
+    );
+    assert.equal(
+      (
+        await request("/auth/sign-in/email", {
+          method: "POST",
+          body: { email, password: "Replacement-password-123!" },
+        })
+      ).status,
+      401,
+    );
+  }
+  const cookie = await login(
+    "self-signup@example.test",
+    "Self-signup-password-123!",
+  );
+  assert.equal(
+    (await (await request("/record", { cookie })).json()).answers.goal,
+    "續填測試",
+  );
+  const administrator = await login(
+    "admin@example.test",
+    "Admin-test-password-123!",
+  );
+  assert.equal(
+    (await (await request("/session", { cookie: administrator })).json()).user
+      .role,
+    "admin",
+  );
+  assert.equal(
+    (
+      await db.query("SELECT action FROM hd_audit WHERE action=$1", [
+        "self_register_consent_v1",
+      ])
+    ).rows.length,
+    1,
+  );
 });
 test("a wrong password is rejected and the administrator can create separate client accounts", async () => {
   assert.equal(
@@ -454,4 +581,24 @@ test("deployment cleanup removes only its marked test account and revokes access
     1,
   );
   assert.equal(await cleanupVerificationUsers(databasePool, [email]), 0);
+});
+
+test("public registration acknowledgements do not reveal existing account membership", async () => {
+  const body = {
+    name: "私隱註冊測試",
+    email: "privacy-signup@example.test",
+    password: "Privacy-signup-password-123!",
+    consent: true,
+  };
+  const fresh = await request("/auth/sign-up/email", { method: "POST", body });
+  const duplicate = await request("/auth/sign-up/email", {
+    method: "POST",
+    body,
+  });
+  assert.equal(fresh.status, 200);
+  assert.equal(duplicate.status, 200);
+  const first = await fresh.json(),
+    again = await duplicate.json();
+  assert.deepEqual(first, again);
+  assert.deepEqual(first, { ok: true });
 });

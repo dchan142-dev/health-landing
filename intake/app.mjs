@@ -198,7 +198,7 @@ function loginForm(parent, onSuccess) {
       () => {
         const { panel } = modal("重設登入密碼");
         panel.append(
-          el("p", "", "請透過原有聯絡方法，私下聯絡提供帳號的跟進者。"),
+          el("p", "", "請透過原有聯絡方法，私下聯絡你的健康跟進者。"),
           el(
             "p",
             "help",
@@ -211,9 +211,129 @@ function loginForm(parent, onSuccess) {
     el(
       "p",
       "help",
-      "帳號由跟進者提供。如忘記密碼，請私下聯絡跟進者重設。請勿共用帳號。",
+      "已有帳號可直接登入續填。如忘記密碼，請私下聯絡跟進者重設。",
     ),
   );
+}
+function showRegistration() {
+  const layout = el("div", "login-layout"),
+    card = el("section", "login-card"),
+    form = el("form", "registration-form");
+  card.append(
+    heading("h2", "自行註冊"),
+    el(
+      "p",
+      "muted",
+      "建立自己的帳號及密碼，便可開始填寫；之後用同一電郵登入續填。",
+    ),
+  );
+  const name = field("你的稱呼", "text", "name"),
+    email = field("登入電郵", "email", "username"),
+    password = field("設定密碼（最少12個字元）", "password", "new-password"),
+    repeat = field("再次輸入密碼", "password", "new-password");
+  for (const [item, key] of [
+    [name, "name"],
+    [email, "email"],
+    [password, "password"],
+    [repeat, "passwordConfirm"],
+  ]) {
+    item.input.name = key;
+    item.input.required = true;
+  }
+  name.input.maxLength = 100;
+  email.input.maxLength = 254;
+  password.input.minLength = repeat.input.minLength = 12;
+  password.input.maxLength = repeat.input.maxLength = 128;
+  const consent = el("input");
+  consent.type = "checkbox";
+  consent.name = "consent";
+  consent.required = true;
+  const consentLabel = el("label", "option registration-consent");
+  consentLabel.append(
+    consent,
+    el(
+      "span",
+      "",
+      "我同意使用以上資料建立健康記錄帳號。已儲存的問卷草稿可由指定跟進者查看，用於了解情況及後續跟進。",
+    ),
+  );
+  const submit = el("button", "btn primary full", "註冊並開始填寫");
+  submit.type = "submit";
+  form.append(
+    name.wrap,
+    email.wrap,
+    password.wrap,
+    repeat.wrap,
+    consentLabel,
+    el(
+      "p",
+      "help",
+      "請確認電郵拼寫。帳號及問卷由本站及其資料庫服務儲存；查閱、更正或刪除請聯絡跟進者。",
+    ),
+    submit,
+  );
+  const showError = errorBox(form);
+  let submitting = false;
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (submitting) return;
+    showError("");
+    if (password.input.value !== repeat.input.value)
+      return showError("兩次密碼不一致，請重新確認。");
+    if (!consent.checked) return showError("請先確認資料使用同意。");
+    submitting = true;
+    submit.disabled = true;
+    submit.textContent = "正在建立帳號…";
+    let registrationAccepted = false;
+    const address = email.input.value.trim().toLowerCase();
+    try {
+      await api("/auth/sign-up/email", {
+        method: "POST",
+        body: {
+          name: name.input.value.trim(),
+          email: address,
+          password: password.input.value,
+          consent: true,
+        },
+      });
+      registrationAccepted = true;
+      await api("/auth/sign-in/email", {
+        method: "POST",
+        body: { email: address, password: password.input.value },
+      });
+      password.input.value = repeat.input.value = "";
+      await load();
+    } catch (error) {
+      if (registrationAccepted) {
+        showLogin(
+          "登記已處理，但尚未完成登入。首次登記請用剛設定的密碼；已有帳號請用原有密碼登入。",
+        );
+        const input = root.querySelector("input[type=email]");
+        if (input) input.value = address;
+      } else
+        showError(
+          error.status === 422
+            ? "未能使用這個電郵註冊；如已登記，請直接登入。"
+            : error.status === 429
+              ? "註冊次數較多，請稍後再試。"
+              : error.message,
+        );
+    } finally {
+      submitting = false;
+      submit.disabled = false;
+      submit.textContent = "註冊並開始填寫";
+      password.input.value = repeat.input.value = "";
+    }
+  });
+  card.append(
+    form,
+    button("已有帳號？返回登入", () => showLogin(), "quiet full"),
+  );
+  layout.append(card);
+  root.replaceChildren(layout);
+  root.querySelector("h2").tabIndex = -1;
+  root.querySelector("h2").focus();
+  window.scrollTo(0, 0);
 }
 function showLogin(message = "") {
   user = null;
@@ -250,12 +370,18 @@ function showLogin(message = "") {
     heading("h2", "登入你的記錄"),
   );
   if (message) card.append(el("p", "note", message));
+  const signup = el("div", "signup-entry");
+  signup.append(
+    el("p", "help", "第一次填寫？"),
+    button("自行註冊", showRegistration, "secondary full"),
+  );
+  card.append(signup);
   loginForm(card, load);
   card.append(
     el(
       "p",
       "note",
-      "這份記錄用於 HealthDecoder 健康情況整理及跟進。開始儲存草稿後，指定管理員便可查看答案；資料會儲存在本站及其資料庫服務。若需查閱、更正、撤回或刪除，請聯絡提供帳號的跟進者。",
+      "這份記錄用於 HealthDecoder 健康情況整理及跟進。開始儲存草稿後，指定管理員便可查看答案；資料會儲存在本站及其資料庫服務。若需查閱、更正、撤回或刪除，請聯絡你的健康跟進者。",
     ),
   );
   layout.append(card, welcome);

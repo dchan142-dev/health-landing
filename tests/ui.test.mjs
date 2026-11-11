@@ -12,7 +12,8 @@ test("client interface: real authentication, reload, network failure, recovery, 
   let dom,
     cookie = "",
     offline = false,
-    invalidResponse = false;
+    invalidResponse = false,
+    failNextSignIn = false;
   const query = async (text, params) => {
     const r = await db.query(
       typeof text === "string" ? text : text.text,
@@ -34,6 +35,10 @@ test("client interface: real authentication, reload, network failure, recovery, 
   });
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (path, options = {}) => {
+    if (failNextSignIn && path.endsWith("/auth/sign-in/email")) {
+      failNextSignIn = false;
+      throw new TypeError("測試註冊後連線中斷");
+    }
     if (offline) throw new TypeError("測試斷線，請重試");
     if (invalidResponse && options.method === "PUT")
       return new Response("<html>connection interrupted</html>", {
@@ -134,17 +139,63 @@ test("client interface: real authentication, reload, network failure, recovery, 
     click("＋ 建立客人帳號");
     const form = document.querySelector(".modal form");
     set(form.querySelector("input[type=text]"), "介面測試客人");
-    set(form.querySelector("input[type=email]"), "ui-client@example.test");
+    set(form.querySelector("input[type=email]"), "ui-existing@example.test");
     set(form.querySelector("input[type=password]"), "Ui-client-test-password!");
     submit(form);
     await wait(
       () =>
         !document.querySelector(".modal") &&
-        text().includes("ui-client@example.test"),
+        text().includes("ui-existing@example.test"),
     );
     click("登出");
     await wait(() => text().includes("登入你的記錄"));
-    await login("ui-client@example.test", "Ui-client-test-password!");
+    click("自行註冊");
+    const fallbackForm = document.querySelector(".registration-form");
+    set(fallbackForm.querySelector("input[name=name]"), "登入重試測試");
+    set(
+      fallbackForm.querySelector("input[name=email]"),
+      "ui-fallback@example.test",
+    );
+    set(
+      fallbackForm.querySelector("input[name=password]"),
+      "Fallback-password-123!",
+    );
+    set(
+      fallbackForm.querySelector("input[name=passwordConfirm]"),
+      "Fallback-password-123!",
+    );
+    fallbackForm.querySelector("input[type=checkbox]").click();
+    failNextSignIn = true;
+    submit(fallbackForm);
+    await wait(() => text().includes("登記已處理，但尚未完成登入"));
+    assert.equal(
+      document.querySelector("input[type=email]").value,
+      "ui-fallback@example.test",
+    );
+    await login("ui-fallback@example.test", "Fallback-password-123!");
+    await wait(() => !!document.querySelector("#field-clientName"));
+    click("登出");
+    await wait(() => text().includes("登入你的記錄"));
+    click("自行註冊");
+    const signup = document.querySelector(".registration-form");
+    set(signup.querySelector("input[name=name]"), "介面自行註冊客人");
+    set(signup.querySelector("input[name=email]"), "ui-client@example.test");
+    set(
+      signup.querySelector("input[name=password]"),
+      "Ui-client-test-password!",
+    );
+    set(
+      signup.querySelector("input[name=passwordConfirm]"),
+      "Mismatch-password-123!",
+    );
+    signup.querySelector("input[type=checkbox]").click();
+    submit(signup);
+    await wait(() => signup.textContent.includes("兩次密碼不一致"));
+    set(
+      signup.querySelector("input[name=passwordConfirm]"),
+      "Ui-client-test-password!",
+    );
+    submit(signup);
     await wait(() => !!document.querySelector("#field-clientName"));
     set(
       document.querySelector("#field-clientName"),

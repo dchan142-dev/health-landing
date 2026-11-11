@@ -55,10 +55,13 @@ export function createApplication({
       storage: "database",
       window: 60,
       max: 30,
-      customRules: { "/sign-in/email": { window: 60, max: 5 } },
+      customRules: {
+        "/sign-in/email": { window: 60, max: 5 },
+        "/sign-up/email": { window: 600, max: 5 },
+      },
     },
     advanced: { useSecureCookies: production },
-    plugins: [admin()],
+    plugins: [admin({ defaultRole: "user" })],
     logger: { disabled: true },
   });
   function seal(answers) {
@@ -145,6 +148,64 @@ export function createApplication({
     )
       return json({ error: "請從本站頁面操作，重新登入後再試" }, 403);
     if (path.startsWith("/auth/")) {
+      if (path === "/auth/sign-up/email") {
+        if (request.method !== "POST")
+          return json({ error: "不支援此操作" }, 405);
+        const v = await body(request);
+        if (
+          Object.keys(v).some(
+            (key) => !["name", "email", "password", "consent"].includes(key),
+          ) ||
+          typeof v.name !== "string" ||
+          !v.name.trim() ||
+          v.name.length > 100 ||
+          typeof v.email !== "string" ||
+          v.email.trim().length > 254 ||
+          !/^\S+@\S+\.\S+$/.test(v.email.trim()) ||
+          typeof v.password !== "string" ||
+          v.password.length < 12 ||
+          v.password.length > 128 ||
+          v.consent !== true
+        )
+          return json(
+            {
+              error:
+                "請填寫稱呼、有效電郵及12字元以上密碼，並確認資料使用同意。",
+            },
+            400,
+          );
+        const headers = new Headers(request.headers);
+        headers.delete("content-length");
+        const response = await auth.handler(
+          new Request(origin + prefix + "/auth/sign-up/email", {
+            method: "POST",
+            headers,
+            body: JSON.stringify({
+              name: v.name.trim(),
+              email: v.email.trim().toLowerCase(),
+              password: v.password,
+            }),
+          }),
+        );
+        if (response.ok) {
+          const created = await response.clone().json();
+          // Better Auth can return a synthetic user for an existing email.
+          // Only a real new user ID receives a registration-consent audit row.
+          await pool.query(
+            'INSERT INTO hd_audit (id,actor_id,action) SELECT $1,id,$2 FROM "user" WHERE id=$3',
+            [randomUUID(), "self_register_consent_v1", created.user.id],
+          );
+          // Do not expose the SDK's different real/synthetic user fields.
+          const acknowledgementHeaders = new Headers(response.headers);
+          for (const key of ["content-length", "content-encoding", "etag"])
+            acknowledgementHeaders.delete(key);
+          return Response.json(
+            { ok: true },
+            { status: response.status, headers: acknowledgementHeaders },
+          );
+        }
+        return response;
+      }
       if (
         ![
           "/auth/sign-in/email",
@@ -153,7 +214,7 @@ export function createApplication({
           "/auth/change-password",
         ].includes(path)
       )
-        return json({ error: "帳號由跟進者建立，請聯絡跟進者" }, 403);
+        return json({ error: "不支援此帳號操作" }, 403);
       return auth.handler(request);
     }
     const session = await auth.api.getSession({ headers: request.headers });

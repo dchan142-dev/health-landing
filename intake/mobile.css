@@ -483,3 +483,22 @@ body:has(input:focus, textarea:focus) .sheet-nav {
     transition-duration: 0.01ms !important;
   }
 }
+.signup-entry {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.signup-entry .help {
+  margin: 0 0 8px;
+}
+.registration-consent {
+  margin: 24px 0 12px;
+}
+.registration-consent span {
+  font-size: 15px;
+  line-height: 1.65;
+}
+.registration-form > .help {
+  font-size: 14px;
+  margin-bottom: 22px;
+}

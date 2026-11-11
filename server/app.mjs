@@ -386,11 +386,18 @@ export function createApplication({
         await pool.query(statement);
     },
     async bootstrapAdmin({ name, email, password }) {
-      if (
-        (await pool.query('SELECT id FROM "user" WHERE role=$1', ["admin"]))
-          .rows.length
-      )
-        throw new Error("Administrator already exists");
+      const administrators = (
+        await pool.query('SELECT id,email FROM "user" WHERE role=$1', ["admin"])
+      ).rows;
+      if (administrators.length) {
+        if (
+          administrators.some(
+            (row) => row.email.toLowerCase() === email.trim().toLowerCase(),
+          )
+        )
+          return { created: false };
+        throw new Error("A different administrator already exists");
+      }
       const result = await auth.api.signUpEmail({
         body: { name, email, password },
       });
@@ -398,6 +405,7 @@ export function createApplication({
         "admin",
         result.user.id,
       ]);
+      return { created: true };
     },
     async fetch(request) {
       let response;

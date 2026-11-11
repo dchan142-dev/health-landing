@@ -1,4 +1,5 @@
-import { application } from "../server/runtime.mjs";
+import { application, productionDatabasePool } from "../server/runtime.mjs";
+import { cleanupVerificationUsers } from "./verification-cleanup.mjs";
 
 try {
   const app = application();
@@ -14,13 +15,26 @@ try {
       throw new Error(
         "Provide all administrator fields; password must contain at least 12 characters",
       );
-    await app.bootstrapAdmin({
+    const result = await app.bootstrapAdmin({
       email: HD_ADMIN_EMAIL,
       name: HD_ADMIN_NAME,
       password: HD_ADMIN_PASSWORD,
     });
-    console.log("Database initialized; first administrator created.");
+    console.log(
+      result.created
+        ? "Database initialized; first administrator created."
+        : "Database initialized; existing administrator unchanged.",
+    );
   } else console.log("Database schema initialized.");
+  if (process.env.HD_VERIFICATION_CLEANUP_EMAILS) {
+    const count = await cleanupVerificationUsers(
+      productionDatabasePool(),
+      JSON.parse(process.env.HD_VERIFICATION_CLEANUP_EMAILS),
+    );
+    console.log(
+      "Deployment verification cleanup completed: " + count + " test accounts.",
+    );
+  }
   process.exit(0);
 } catch {
   console.error(

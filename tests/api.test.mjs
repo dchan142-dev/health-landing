@@ -2,9 +2,10 @@ import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { PGlite } from "@electric-sql/pglite";
 import { createApplication } from "../server/app.mjs";
+import { cleanupVerificationUsers } from "../scripts/verification-cleanup.mjs";
 
 const origin = "http://localhost:3010";
-let db, app, adminCookie, aliceCookie, bobCookie;
+let db, app, adminCookie, aliceCookie, bobCookie, databasePool;
 const accountByCookie = new Map();
 // A real PostgreSQL engine implements the pg boundary; no clinical data is used.
 before(async () => {
@@ -21,6 +22,7 @@ before(async () => {
     connect: async () => ({ query, release() {} }),
     end: async () => {},
   };
+  databasePool = pool;
   app = createApplication({
     pool,
     origin,
@@ -73,6 +75,34 @@ async function login(email, password) {
 test("anonymous requests cannot read the client record or administrative records", async () => {
   for (const path of ["/record", "/admin/records"])
     assert.equal((await request(path)).status, 401);
+});
+test("repeating deployment setup leaves the existing administrator and password unchanged", async () => {
+  const result = await app.bootstrapAdmin({
+    name: "Ignored replacement",
+    email: "admin@example.test",
+    password: "Must-not-replace-password-456!",
+  });
+  assert.equal(result.created, false);
+  await login("admin@example.test", "Admin-test-password-123!");
+  assert.equal(
+    (
+      await request("/auth/sign-in/email", {
+        method: "POST",
+        body: {
+          email: "admin@example.test",
+          password: "Must-not-replace-password-456!",
+        },
+      })
+    ).status,
+    401,
+  );
+  await assert.rejects(
+    app.bootstrapAdmin({
+      name: "Different administrator",
+      email: "different@example.test",
+      password: "Different-admin-password-456!",
+    }),
+  );
 });
 test("the public cannot self-register or create an administrator", async () => {
   const response = await request("/auth/sign-up/email", {
@@ -375,4 +405,53 @@ test("questionnaire contents are encrypted and audit entries omit medical answer
   const audit = (await db.query("SELECT * FROM hd_audit")).rows;
   assert.ok(audit.length);
   assert.doesNotMatch(JSON.stringify(audit), /每三天一次|bowelFrequency/);
+});
+test("deployment cleanup removes only its marked test account and revokes access", async () => {
+  const email =
+    "hd-deploy-check-01234567-abcd-abcd-abcd-0123456789ab@example.test";
+  assert.equal(
+    (
+      await request("/admin/clients", {
+        method: "POST",
+        cookie: adminCookie,
+        body: {
+          name: "部署驗證專用",
+          email,
+          password: "Verification-test-password-123!",
+        },
+      })
+    ).status,
+    201,
+  );
+  const cookie = await login(email, "Verification-test-password-123!");
+  assert.equal(
+    (
+      await request("/record", {
+        method: "PUT",
+        cookie,
+        body: { version: 0, step: 2, answers: { clientName: "部署驗證專用" } },
+      })
+    ).status,
+    200,
+  );
+  await assert.rejects(
+    cleanupVerificationUsers(databasePool, [email, "alice@example.test"]),
+  );
+  assert.equal((await request("/record", { cookie })).status, 200);
+  assert.equal(await cleanupVerificationUsers(databasePool, [email]), 1);
+  assert.equal((await request("/record", { cookie })).status, 401);
+  assert.equal(
+    (await db.query('SELECT id FROM "user" WHERE email=$1', [email])).rows
+      .length,
+    0,
+  );
+  assert.equal(
+    (
+      await db.query('SELECT id FROM "user" WHERE email=$1', [
+        "alice@example.test",
+      ])
+    ).rows.length,
+    1,
+  );
+  assert.equal(await cleanupVerificationUsers(databasePool, [email]), 0);
 });

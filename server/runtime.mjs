@@ -2,6 +2,11 @@ import pg from "pg";
 import { createApplication } from "./app.mjs";
 
 let instance;
+let databasePool;
+export function productionDatabasePool() {
+  application();
+  return databasePool;
+}
 export function application() {
   if (instance) return instance;
   const { DATABASE_URL, APP_ORIGIN, BETTER_AUTH_SECRET, DATA_ENCRYPTION_KEY } =
@@ -22,6 +27,7 @@ export function application() {
     connectionTimeoutMillis: 10000,
     idleTimeoutMillis: 20000,
   });
+  databasePool = pool;
   instance = createApplication({
     pool,
     origin: APP_ORIGIN,

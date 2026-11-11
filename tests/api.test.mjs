@@ -1,0 +1,378 @@
+import { test, before, after } from "node:test";
+import assert from "node:assert/strict";
+import { PGlite } from "@electric-sql/pglite";
+import { createApplication } from "../server/app.mjs";
+
+const origin = "http://localhost:3010";
+let db, app, adminCookie, aliceCookie, bobCookie;
+const accountByCookie = new Map();
+// A real PostgreSQL engine implements the pg boundary; no clinical data is used.
+before(async () => {
+  db = new PGlite();
+  const query = async (text, params) => {
+    const result = await db.query(
+      typeof text === "string" ? text : text.text,
+      params || text.values,
+    );
+    return { ...result, rowCount: result.affectedRows ?? result.rows.length };
+  };
+  const pool = {
+    query,
+    connect: async () => ({ query, release() {} }),
+    end: async () => {},
+  };
+  app = createApplication({
+    pool,
+    origin,
+    secret: "integration-test-secret-32-characters-minimum",
+    production: false,
+  });
+  await app.initialize();
+  await app.bootstrapAdmin({
+    name: "測試管理員",
+    email: "admin@example.test",
+    password: "Admin-test-password-123!",
+  });
+});
+after(async () => {
+  await db?.close();
+});
+
+async function request(
+  path,
+  { method = "GET", body, cookie, requestOrigin = origin } = {},
+) {
+  if (body && ((path === "/record" && method === "PUT") || path === "/submit"))
+    body = { accountId: accountByCookie.get(cookie), ...body };
+  return app.fetch(
+    new Request(origin + "/api/health-intake" + path, {
+      method,
+      headers: {
+        ...(body !== undefined ? { "content-type": "application/json" } : {}),
+        ...(cookie ? { cookie } : {}),
+        ...(requestOrigin ? { origin: requestOrigin } : {}),
+      },
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+    }),
+  );
+}
+async function login(email, password) {
+  const response = await request("/auth/sign-in/email", {
+    method: "POST",
+    body: { email, password },
+  });
+  assert.equal(response.status, 200, await response.clone().text());
+  const cookie = response.headers
+    .getSetCookie()
+    .map((value) => value.split(";")[0])
+    .join("; ");
+  accountByCookie.set(cookie, (await response.json()).user.id);
+  return cookie;
+}
+
+test("anonymous requests cannot read the client record or administrative records", async () => {
+  for (const path of ["/record", "/admin/records"])
+    assert.equal((await request(path)).status, 401);
+});
+test("the public cannot self-register or create an administrator", async () => {
+  const response = await request("/auth/sign-up/email", {
+    method: "POST",
+    body: {
+      email: "outsider@example.test",
+      password: "Outsider-password-123!",
+      name: "Outsider",
+      role: "admin",
+    },
+  });
+  assert.equal(response.status, 403);
+});
+test("a wrong password is rejected and the administrator can create separate client accounts", async () => {
+  assert.equal(
+    (
+      await request("/auth/sign-in/email", {
+        method: "POST",
+        body: { email: "admin@example.test", password: "incorrect-password" },
+      })
+    ).status,
+    401,
+  );
+  adminCookie = await login("admin@example.test", "Admin-test-password-123!");
+  for (const name of ["alice", "bob"]) {
+    const response = await request("/admin/clients", {
+      method: "POST",
+      cookie: adminCookie,
+      body: {
+        name: name === "alice" ? "測試甲" : "測試乙",
+        email: `${name}@example.test`,
+        password: `${name}-test-password-123!`,
+      },
+    });
+    assert.equal(response.status, 201, await response.clone().text());
+  }
+  aliceCookie = await login("alice@example.test", "alice-test-password-123!");
+  bobCookie = await login("bob@example.test", "bob-test-password-123!");
+});
+test("a tab cannot save or submit after its cookie changes to another account", async () => {
+  const aliceId = accountByCookie.get(aliceCookie);
+  for (const accountId of [undefined, aliceId]) {
+    const response = await request("/record", {
+      method: "PUT",
+      cookie: bobCookie,
+      body: {
+        accountId,
+        version: 0,
+        step: 0,
+        answers: { clientName: "應屬測試甲的答案" },
+      },
+    });
+    assert.equal(response.status, accountId ? 409 : 400);
+  }
+  assert.deepEqual(
+    (await (await request("/record", { cookie: bobCookie })).json()).answers,
+    {},
+  );
+  assert.equal(
+    (
+      await request("/submit", {
+        method: "POST",
+        cookie: bobCookie,
+        body: { accountId: aliceId, version: 0 },
+      })
+    ).status,
+    409,
+  );
+});
+test("the draft and current step survive a fresh request, and another client sees no answers", async () => {
+  const saved = await request("/record", {
+    method: "PUT",
+    cookie: aliceCookie,
+    body: {
+      version: 0,
+      step: 2,
+      answers: {
+        clientName: "測試甲",
+        bowelChanges: ["乾硬／粒狀"],
+        bowelFrequency: "每三天一次",
+      },
+    },
+  });
+  assert.equal(saved.status, 200, await saved.clone().text());
+  const restored = await (
+    await request("/record", { cookie: aliceCookie })
+  ).json();
+  assert.equal(restored.version, 1);
+  assert.equal(restored.step, 2);
+  assert.equal(restored.answers.bowelFrequency, "每三天一次");
+  const bob = await (await request("/record", { cookie: bobCookie })).json();
+  assert.deepEqual(bob.answers, {});
+  assert.equal(
+    (await request("/admin/records", { cookie: aliceCookie })).status,
+    403,
+  );
+});
+test("client-supplied user IDs cannot change whose record is saved", async () => {
+  const response = await request("/record", {
+    method: "PUT",
+    cookie: bobCookie,
+    body: {
+      version: 0,
+      step: 0,
+      userId: "someone-else",
+      answers: { clientName: "測試乙" },
+    },
+  });
+  assert.equal(response.status, 400);
+});
+test("stale tabs cannot overwrite a more recent draft", async () => {
+  const response = await request("/record", {
+    method: "PUT",
+    cookie: aliceCookie,
+    body: { version: 0, step: 0, answers: { clientName: "舊分頁" } },
+  });
+  assert.equal(response.status, 409);
+  assert.equal(
+    (await (await request("/record", { cookie: aliceCookie })).json()).answers
+      .clientName,
+    "測試甲",
+  );
+});
+test("cross-site writes and malformed answer payloads are rejected", async () => {
+  assert.equal(
+    (
+      await request("/record", {
+        method: "PUT",
+        cookie: aliceCookie,
+        requestOrigin: "https://attacker.example",
+        body: { version: 1, step: 0, answers: {} },
+      })
+    ).status,
+    403,
+  );
+  assert.equal(
+    (
+      await request("/record", {
+        method: "PUT",
+        cookie: aliceCookie,
+        requestOrigin: null,
+        body: { version: 1, step: 0, answers: {} },
+      })
+    ).status,
+    403,
+  );
+  for (const answers of [
+    { hiddenRole: "admin" },
+    { bowelChanges: "not-an-array" },
+    { bowelChanges: ["not-an-option"] },
+    { clientName: "x".repeat(10001) },
+  ]) {
+    assert.equal(
+      (
+        await request("/record", {
+          method: "PUT",
+          cookie: aliceCookie,
+          body: { version: 1, step: 0, answers },
+        })
+      ).status,
+      400,
+    );
+  }
+});
+test("submission needs explicit consent and then locks the versioned record", async () => {
+  assert.equal(
+    (
+      await request("/submit", {
+        method: "POST",
+        cookie: aliceCookie,
+        body: { version: 1 },
+      })
+    ).status,
+    422,
+  );
+  const save = await request("/record", {
+    method: "PUT",
+    cookie: aliceCookie,
+    body: {
+      version: 1,
+      step: 7,
+      answers: {
+        clientName: "測試甲",
+        consent: true,
+        bowelChanges: ["乾硬／粒狀"],
+        bowelFrequency: "每三天一次",
+      },
+    },
+  });
+  assert.equal(save.status, 200);
+  assert.equal(
+    (
+      await request("/submit", {
+        method: "POST",
+        cookie: aliceCookie,
+        body: { version: 2 },
+      })
+    ).status,
+    200,
+  );
+  const record = await (
+    await request("/record", { cookie: aliceCookie })
+  ).json();
+  assert.equal(record.status, "submitted");
+  assert.equal(
+    (
+      await request("/record", {
+        method: "PUT",
+        cookie: aliceCookie,
+        body: { version: record.version, step: 0, answers: {} },
+      })
+    ).status,
+    423,
+  );
+});
+test("only an administrator can see another record and reopen it for corrections", async () => {
+  const records = await (
+    await request("/admin/records", { cookie: adminCookie })
+  ).json();
+  const alice = records.records.find(
+    (row) => row.email === "alice@example.test",
+  );
+  assert.ok(alice);
+  assert.equal("answers" in alice, false);
+  assert.equal(
+    (await request(`/admin/records/${alice.id}`, { cookie: bobCookie })).status,
+    403,
+  );
+  const detail = await (
+    await request(`/admin/records/${alice.id}`, { cookie: adminCookie })
+  ).json();
+  assert.equal(detail.answers.clientName, "測試甲");
+  assert.equal(
+    (
+      await request(`/admin/records/${alice.id}/reopen`, {
+        method: "POST",
+        cookie: adminCookie,
+        body: { version: detail.version },
+      })
+    ).status,
+    200,
+  );
+  assert.equal(
+    (await (await request("/record", { cookie: aliceCookie })).json()).status,
+    "draft",
+  );
+});
+test("sign-out invalidates the session and record responses cannot be cached", async () => {
+  const response = await request("/record", { cookie: aliceCookie });
+  assert.match(response.headers.get("cache-control"), /no-store/);
+  assert.equal(
+    (
+      await request("/auth/sign-out", {
+        method: "POST",
+        cookie: aliceCookie,
+        body: {},
+      })
+    ).status,
+    200,
+  );
+  assert.equal((await request("/record", { cookie: aliceCookie })).status, 401);
+});
+
+test("administrator password reset revokes client sessions and accepts only the new password", async () => {
+  const { records } = await (
+    await request("/admin/records", { cookie: adminCookie })
+  ).json();
+  const bob = records.find((row) => row.email === "bob@example.test");
+  assert.equal(
+    (
+      await request("/admin/reset-password", {
+        method: "POST",
+        cookie: adminCookie,
+        body: { userId: bob.userId, password: "bob-new-password-456!" },
+      })
+    ).status,
+    200,
+  );
+  assert.equal((await request("/record", { cookie: bobCookie })).status, 401);
+  assert.equal(
+    (
+      await request("/auth/sign-in/email", {
+        method: "POST",
+        body: { email: "bob@example.test", password: "bob-test-password-123!" },
+      })
+    ).status,
+    401,
+  );
+  bobCookie = await login("bob@example.test", "bob-new-password-456!");
+  assert.equal((await request("/record", { cookie: bobCookie })).status, 200);
+});
+test("questionnaire contents are encrypted and audit entries omit medical answers", async () => {
+  const rows = (await db.query("SELECT answers_ciphertext FROM hd_record"))
+    .rows;
+  assert.ok(rows.length);
+  for (const row of rows) {
+    assert.doesNotMatch(row.answers_ciphertext, /測試甲|每三天一次|clientName/);
+    assert.ok(Buffer.from(row.answers_ciphertext, "base64").length > 28);
+  }
+  const audit = (await db.query("SELECT * FROM hd_audit")).rows;
+  assert.ok(audit.length);
+  assert.doesNotMatch(JSON.stringify(audit), /每三天一次|bowelFrequency/);
+});

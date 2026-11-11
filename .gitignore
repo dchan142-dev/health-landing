@@ -1,2 +1,12 @@
 .DS_Store
 **/.DS_Store
+node_modules/
+dist/
+.local-data/
+.vercel/
+.env
+.env.*
+!.env.example
+*.log
+test-results/
+playwright-report/

@@ -11,7 +11,8 @@ test("client interface: real authentication, reload, network failure, recovery, 
     db = new PGlite();
   let dom,
     cookie = "",
-    offline = false;
+    offline = false,
+    invalidResponse = false;
   const query = async (text, params) => {
     const r = await db.query(
       typeof text === "string" ? text : text.text,
@@ -34,6 +35,10 @@ test("client interface: real authentication, reload, network failure, recovery, 
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (path, options = {}) => {
     if (offline) throw new TypeError("測試斷線，請重試");
+    if (invalidResponse && options.method === "PUT")
+      return new Response("<html>connection interrupted</html>", {
+        status: 200,
+      });
     const headers = new Headers(options.headers);
     headers.set("origin", origin);
     if (cookie) headers.set("cookie", cookie);
@@ -112,6 +117,18 @@ test("client interface: real authentication, reload, network failure, recovery, 
   try {
     await open();
     assert.match(text(), /登入你的記錄/);
+    assert.equal(
+      document
+        .querySelector("input[type=email]")
+        .getAttribute("autocapitalize"),
+      "none",
+    );
+    click("顯示密碼");
+    assert.equal(
+      document.querySelector('input[autocomplete="current-password"]').type,
+      "text",
+    );
+    click("隱藏密碼");
     await login("ui-admin@example.test", "Ui-admin-test-password!");
     await wait(() => text().includes("客人健康記錄"));
     click("＋ 建立客人帳號");
@@ -149,6 +166,12 @@ test("client interface: real authentication, reload, network failure, recovery, 
     );
     click("儲存進度");
     await saved();
+    click("儲存並離開");
+    await wait(() => text().includes("登入你的記錄"));
+    assert.match(text(), /進度已儲存/);
+    await open();
+    await login("ui-client@example.test", "Ui-client-test-password!");
+    await wait(() => !!document.querySelector("#field-bowelFrequency"));
     await open();
     assert.equal(
       document.querySelector("#field-bowelFrequency").value,
@@ -158,9 +181,26 @@ test("client interface: real authentication, reload, network failure, recovery, 
       document.querySelector('input[value="乾硬／粒狀"]').checked,
       true,
     );
+    invalidResponse = true;
+    set(
+      document.querySelector("#field-bowelFrequency"),
+      "等待伺服器確認的答案",
+    );
+    click("儲存並離開");
+    await wait(
+      () => document.querySelector(".save-status")?.dataset.state === "error",
+    );
+    assert.equal(
+      document.querySelector("#field-bowelFrequency").value,
+      "等待伺服器確認的答案",
+    );
+    assert.doesNotMatch(text(), /登入你的記錄/);
+    invalidResponse = false;
+    click("重試儲存");
+    await saved();
     offline = true;
     set(document.querySelector("#field-bowelFrequency"), "離線未儲存答案");
-    click("儲存進度");
+    click("儲存並離開");
     await wait(
       () => document.querySelector(".save-status")?.dataset.state === "error",
     );
@@ -168,6 +208,7 @@ test("client interface: real authentication, reload, network failure, recovery, 
       document.querySelector("#field-bowelFrequency").value,
       "離線未儲存答案",
     );
+    assert.doesNotMatch(text(), /登入你的記錄/);
     assert.doesNotMatch(
       document.querySelector(".save-status").textContent,
       /^已儲存/,
@@ -250,8 +291,9 @@ test("client interface: real authentication, reload, network failure, recovery, 
     await login("ui-client@example.test", "Ui-client-test-password!");
     await wait(() => !!document.querySelector(".row-card input"));
     assert.equal(document.querySelector(".row-card input").value, "2026-01-01");
-    const reviewButton = [...document.querySelectorAll(".steps button")].at(-1);
-    reviewButton.click();
+    const picker = document.querySelector(".chapter-select");
+    picker.value = "7";
+    picker.dispatchEvent(new dom.window.Event("change"));
     await wait(() => !!document.querySelector(".consent input"));
     await saved();
     assert.equal(document.querySelectorAll("#root img").length, 0);
@@ -265,9 +307,21 @@ test("client interface: real authentication, reload, network failure, recovery, 
     );
     await open();
     assert.match(text(), /你的健康記錄已提交/);
+    click("更改密碼");
+    const passwordForm = document.querySelector(".modal form");
+    const passwordFields = passwordForm.querySelectorAll("input");
+    set(passwordFields[0], "Ui-client-test-password!");
+    set(passwordFields[1], "Ui-client-updated-password!");
+    set(passwordFields[2], "Ui-client-updated-password!");
+    submit(passwordForm);
+    await wait(() => !document.querySelector(".modal"));
     click("登出");
     await wait(() => text().includes("登入你的記錄"));
     assert.doesNotMatch(text(), /離線未儲存答案/);
+    await login("ui-client@example.test", "Ui-client-updated-password!");
+    await wait(() => text().includes("你的健康記錄已提交"));
+    click("登出");
+    await wait(() => text().includes("登入你的記錄"));
   } finally {
     globalThis.fetch = originalFetch;
     dom?.window.close();

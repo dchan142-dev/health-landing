@@ -11,6 +11,7 @@ let user,
   savedRevision = 0,
   saving = null,
   timer,
+  leaving = false,
   conflict = false,
   saveError = "";
 const el = (tag, cls, text) => {
@@ -30,31 +31,42 @@ const date = (value) =>
   value ? new Date(value).toLocaleString("zh-HK") : "尚未儲存";
 const dirty = () => revision !== savedRevision;
 async function api(path, { method = "GET", body } = {}) {
-  const response = await fetch(apiBase + path, {
-    method,
-    credentials: "same-origin",
-    cache: "no-store",
-    headers: body === undefined ? {} : { "content-type": "application/json" },
-    body: body === undefined ? undefined : JSON.stringify(body),
-  });
-  let data;
+  const controller = new AbortController(),
+    timeout = setTimeout(() => controller.abort(), 15000);
   try {
-    data = await response.json();
-  } catch {
-    data = {};
-  }
-  if (!response.ok) {
-    const error = new Error(
-      data.error?.message ||
-        data.error ||
-        (response.status === 401
-          ? "登入已過期，請重新登入"
-          : "連線未能完成，請稍後重試"),
-    );
-    error.status = response.status;
+    const response = await fetch(apiBase + path, {
+      method,
+      credentials: "same-origin",
+      cache: "no-store",
+      headers: body === undefined ? {} : { "content-type": "application/json" },
+      body: body === undefined ? undefined : JSON.stringify(body),
+      signal: controller.signal,
+    });
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      throw new Error("伺服器回覆不完整，未確認儲存。請保留這頁，再重試。");
+    }
+    if (!response.ok) {
+      const error = new Error(
+        data.error?.message ||
+          data.error ||
+          (response.status === 401
+            ? "登入已過期，請重新登入"
+            : "連線未能完成，請稍後重試"),
+      );
+      error.status = response.status;
+      throw error;
+    }
+    return data;
+  } catch (error) {
+    if (controller.signal.aborted)
+      throw new Error("連線逾時，未確認儲存。請保留這頁，再重試。");
     throw error;
+  } finally {
+    clearTimeout(timeout);
   }
-  return data;
 }
 function toast(message) {
   const node = document.querySelector("#toast");
@@ -73,7 +85,28 @@ function field(label, type = "text", autocomplete = "off") {
   input.autocomplete = autocomplete;
   const title = el("label", "", label);
   title.htmlFor = id;
-  wrap.append(title, input);
+  if (type === "email") {
+    input.inputMode = "email";
+    input.setAttribute("autocapitalize", "none");
+    input.spellcheck = false;
+  }
+  if (type === "password") {
+    const control = el("div", "password-control");
+    const toggle = button(
+      "顯示密碼",
+      () => {
+        const visible = input.type === "password";
+        input.type = visible ? "text" : "password";
+        toggle.textContent = visible ? "隱藏密碼" : "顯示密碼";
+        toggle.setAttribute("aria-pressed", String(visible));
+      },
+      "quiet password-toggle",
+    );
+    toggle.setAttribute("aria-pressed", "false");
+    toggle.setAttribute("aria-controls", id);
+    control.append(input, toggle);
+    wrap.append(title, control);
+  } else wrap.append(title, input);
   return { wrap, input };
 }
 function errorBox(parent) {
@@ -137,6 +170,7 @@ function loginForm(parent, onSuccess) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     submit.disabled = true;
+    submit.textContent = "登入中…";
     showError("");
     try {
       await api("/auth/sign-in/email", {
@@ -154,10 +188,26 @@ function loginForm(parent, onSuccess) {
       );
     } finally {
       submit.disabled = false;
+      submit.textContent = "登入";
     }
   });
   parent.append(
     form,
+    button(
+      "忘記密碼？",
+      () => {
+        const { panel } = modal("重設登入密碼");
+        panel.append(
+          el("p", "", "請透過原有聯絡方法，私下聯絡提供帳號的跟進者。"),
+          el(
+            "p",
+            "help",
+            "跟進者核實身份後，會提供新密碼；你不需要交出舊密碼。重設後其他裝置會登出，已儲存的問卷仍會保留。",
+          ),
+        );
+      },
+      "quiet forgot-password",
+    ),
     el(
       "p",
       "help",
@@ -165,7 +215,7 @@ function loginForm(parent, onSuccess) {
     ),
   );
 }
-function showLogin() {
+function showLogin(message = "") {
   user = null;
   account.replaceChildren();
   const layout = el("div", "login-layout"),
@@ -173,11 +223,11 @@ function showLogin() {
     card = el("section", "login-card");
   welcome.append(
     el("p", "eyebrow", "YOUR HEALTH, STEP BY STEP"),
-    heading("h1", "先了解你，\n再一起慢慢改善。"),
+    heading("h1", "按你的步伐，慢慢填。"),
     el(
       "p",
       "muted",
-      "我的健康記錄，讓你按自己的步伐，整理飲食、腸胃、用藥與日常體力。",
+      "可以分次填寫。每次離開前儲存，下次登入便可接續原來的部分。",
     ),
   );
   const steps = el("ol", "welcome-steps");
@@ -199,6 +249,7 @@ function showLogin() {
     el("p", "eyebrow", "PRIVATE CLIENT AREA"),
     heading("h2", "登入你的記錄"),
   );
+  if (message) card.append(el("p", "note", message));
   loginForm(card, load);
   card.append(
     el(
@@ -207,7 +258,7 @@ function showLogin() {
       "這份記錄用於 HealthDecoder 健康情況整理及跟進。開始儲存草稿後，指定管理員便可查看答案；資料會儲存在本站及其資料庫服務。若需查閱、更正、撤回或刪除，請聯絡提供帳號的跟進者。",
     ),
   );
-  layout.append(welcome, card);
+  layout.append(card, welcome);
   root.replaceChildren(layout);
 }
 function reauthenticate() {
@@ -230,11 +281,31 @@ function reauthenticate() {
   });
 }
 function renderAccount() {
-  account.replaceChildren(
-    el("span", "", user.name),
+  const menu = el("details", "account-menu"),
+    summary = el("summary", "", "帳號"),
+    items = el("div", "account-menu-items");
+  items.append(
+    el("p", "help", user.name),
     button("更改密碼", changePassword, "quiet"),
     button("登出", logout, "quiet"),
   );
+  menu.append(summary, items);
+  account.replaceChildren(menu);
+}
+async function saveAndExit() {
+  if (leaving) return;
+  leaving = true;
+  root.inert = account.inert = true;
+  try {
+    if (record.version === 0 && !dirty()) revision++;
+    await flush();
+    await endSession("進度已儲存。下次用同一帳號登入，即可繼續填寫。");
+  } catch (error) {
+    toast("尚未儲存，請保留這頁。" + error.message);
+  } finally {
+    leaving = false;
+    root.inert = account.inert = false;
+  }
 }
 async function logout() {
   if (record && dirty()) {
@@ -263,14 +334,14 @@ async function logout() {
   }
   await endSession();
 }
-async function endSession() {
+async function endSession(message = "") {
   try {
     await api("/auth/sign-out", { method: "POST", body: {} });
     clearTimeout(timer);
     record = null;
     answers = {};
     revision = savedRevision = 0;
-    showLogin();
+    showLogin(message);
     return true;
   } catch (error) {
     toast("未能登出：" + error.message);
@@ -285,6 +356,7 @@ function changePassword() {
     repeat = field("再次輸入新密碼", "password", "new-password");
   for (const item of [old, next, repeat]) item.input.required = true;
   next.input.minLength = repeat.input.minLength = 12;
+  next.input.maxLength = repeat.input.maxLength = 128;
   const submit = el("button", "btn primary", "儲存新密碼");
   submit.type = "submit";
   form.append(old.wrap, next.wrap, repeat.wrap, submit);
@@ -406,11 +478,18 @@ function saveTools() {
   const login = button("重新登入", reauthenticate, "quiet");
   login.dataset.login = "";
   login.hidden = true;
+  const extra = el("details", "extra-tools"),
+    summary = el("summary", "", "其他功能");
+  extra.append(
+    summary,
+    button("下載目前答案", () => download(answers), "quiet"),
+  );
   box.append(
     state,
     retry,
     login,
-    button("下載目前答案", () => download(answers), "quiet"),
+    button("儲存並離開", saveAndExit, "secondary save-exit"),
+    extra,
   );
   return box;
 }
@@ -461,15 +540,9 @@ function renderForm() {
     el("p", "eyebrow", "MY HEALTH RECORD"),
     heading(
       "h1",
-      record.status === "submitted"
-        ? "你的健康記錄已提交"
-        : "一點一點，整理你的健康。",
+      record.status === "submitted" ? "你的健康記錄已提交" : "我的健康記錄",
     ),
-    el(
-      "p",
-      "muted",
-      "可以分次完成。顯示「已儲存」後，下次用同一帳號登入便可續填。",
-    ),
+    el("p", "muted", "可分次填寫。離開前請確認「已儲存」，下次登入便可續填。"),
   );
   if (record.status === "draft") hero.append(saveTools());
   root.append(hero);
@@ -508,18 +581,20 @@ function renderForm() {
     bar,
     el("p", "help", "未填／不清楚也可提交。"),
   );
-  const nav = el("nav", "steps");
-  nav.setAttribute("aria-label", "問卷章節");
+  const nav = el("div", "chapter-picker"),
+    pickerLabel = el("label", "", "跳到其他部分"),
+    picker = el("select", "chapter-select");
+  picker.id = "chapter-select";
+  pickerLabel.htmlFor = picker.id;
   [...sections.map((s) => s.short), "確認與提交"].forEach((label, index) => {
-    const link = button(
-      "",
-      () => navigate(index),
-      "step" + (index === step ? " active" : ""),
-    );
-    if (index === step) link.setAttribute("aria-current", "step");
-    link.append(el("span", "num", String(index + 1)), el("span", "", label));
-    nav.append(link);
+    picker.append(new Option(index + 1 + " / 8 · " + label, String(index)));
   });
+  picker.value = String(step);
+  picker.addEventListener("change", async () => {
+    await navigate(Number(picker.value));
+    picker.value = String(step);
+  });
+  nav.append(pickerLabel, picker);
   sidebar.append(
     card,
     nav,
@@ -580,8 +655,11 @@ function renderForm() {
   }
   const controls = el("div", "sheet-nav"),
     next = el("div", "nav-next");
-  if (step > 0)
-    controls.append(button("← 上一部分", () => navigate(step - 1), "quiet"));
+  if (step > 0) {
+    const previous = button("←", () => navigate(step - 1), "quiet previous");
+    previous.setAttribute("aria-label", "上一部分");
+    controls.append(previous);
+  }
   controls.append(
     button(
       "儲存進度",
@@ -647,9 +725,7 @@ function renderField(f) {
   }
   if (f.type === "table") {
     const rows = el("div");
-    let values =
-      answers[f.id] ||
-      Array.from({ length: f.rows }, () => f.columns.map(() => ""));
+    let values = answers[f.id] || [f.columns.map(() => "")];
     const redraw = () => {
       rows.replaceChildren();
       values.forEach((row, index) => {
@@ -715,6 +791,8 @@ function renderField(f) {
     input.maxLength = 10000;
   }
   input.id = id;
+  if (["height", "age", "currentWeight"].includes(f.id))
+    input.inputMode = "decimal";
   input.value = answers[f.id] || "";
   if (f.placeholder) input.placeholder = f.placeholder;
   input.addEventListener(f.type === "select" ? "change" : "input", () => {

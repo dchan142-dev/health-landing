@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-HK">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="no-referrer">
+    <title>Reels 問卷紀錄 | Health Decoder</title>
+    <link rel="stylesheet" href="/reels-quiz/admin/style.css">
+    <script type="module" src="/reels-quiz/admin/app.mjs"></script>
+  </head>
+  <body>
+    <main>
+      <header class="page-header">
+        <div>
+          <p class="brand">Health Decoder</p>
+          <h1>Reels 問卷紀錄</h1>
+        </div>
+        <div class="actions">
+          <button id="refresh" type="button">重新載入</button>
+          <a class="primary" id="download-csv" href="/api/export" download hidden>下載 CSV</a>
+        </div>
+      </header>
+      <p class="status" id="status" role="status" aria-live="polite">正在載入紀錄…</p>
+      <div class="sign-in" id="sign-in" hidden>
+        <a href="/intake/" target="_blank" rel="noopener">前往管理員登入（另開分頁）</a>
+        <p>登入後回到此頁，按「重新載入」。</p>
+      </div>
+      <noscript><p>請啟用 JavaScript，以載入管理員問卷紀錄。</p></noscript>
+      <label class="record-search" id="search-wrap" hidden>
+        搜尋稱呼或查閱編號
+        <input id="record-search" type="search" autocomplete="off">
+      </label>
+      <div class="record-table" id="table" hidden>
+        <table aria-label="Reels 問卷紀錄">
+          <thead>
+            <tr>
+              <th scope="col">提交時間</th>
+              <th scope="col">稱呼</th>
+              <th scope="col">進度</th>
+              <th scope="col">預約意向</th>
+              <th scope="col">客人報告</th>
+            </tr>
+          </thead>
+          <tbody id="records"></tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>

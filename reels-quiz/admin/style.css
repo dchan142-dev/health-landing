@@ -69,12 +69,25 @@ a { color: var(--link); text-underline-offset: 0.2em; }
 :focus-visible { outline: 2px solid #147f64; outline-offset: 3px; }
 .status { color: var(--secondary); min-height: 1.5em; margin: 1.1rem 0; line-height: 1.5; }
 .sign-in {
+  max-width: 30rem;
   border-left: 3px solid var(--link);
   padding: 1rem 1.2rem;
   background: var(--paper);
 }
-.sign-in a { display: inline-block; padding: 0.35rem 0; font-weight: 700; }
-.sign-in p { margin: 0.35rem 0 0; line-height: 1.6; }
+.sign-in h2 { margin: 0; font-size: 1.3rem; }
+.sign-in p { margin: 0.35rem 0 1rem; line-height: 1.6; color: var(--secondary); }
+.sign-in form, .sign-in label { display: grid; gap: 0.45rem; }
+.sign-in form { gap: 0.8rem; }
+.sign-in label { font-size: 0.95rem; font-weight: 650; }
+.sign-in input, .sign-in button {
+  min-height: 2.75rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 0.38rem;
+  font: inherit;
+}
+.sign-in button { background: var(--ink); color: white; cursor: pointer; }
+.sign-in button:disabled { opacity: 0.7; cursor: wait; }
 
 .record-table {
   border: 1px solid var(--line);

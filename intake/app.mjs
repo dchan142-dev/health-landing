@@ -1000,9 +1000,12 @@ async function renderAdmin() {
       ),
     );
     const tools = el("div", "admin-head");
+    const reels = el("a", "btn secondary", "Reels 問卷管理");
+    reels.href = "/reels-quiz/admin/";
     tools.append(
       button("＋ 建立客人帳號", () => clientModal(), "primary"),
       button("更新列表", renderAdmin, "secondary"),
+      reels,
     );
     const list = el("div", "admin-list");
     if (!records.length)

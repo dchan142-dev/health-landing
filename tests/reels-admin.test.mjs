@@ -169,40 +169,60 @@ test("dashboard list exposes a download URL and omits health answers from its su
   assert.equal(records[0].user, undefined);
 });
 
-test("admin dashboard offers sign-in when signed out and one-click downloads for reports", async () => {
+test("the Reels dashboard signs in on its own page and loads only Reels records", async () => {
   const [{ readFile }, { JSDOM }] = await Promise.all([import("node:fs/promises"), import("jsdom")]);
   const folder = new URL("../reels-quiz/admin/", import.meta.url);
   const [markup, script] = await Promise.all([
     readFile(new URL("index.html", folder), "utf8"),
     readFile(new URL("app.mjs", folder), "utf8"),
   ]);
-  const dom = new JSDOM(markup, { url: origin + "/reels-quiz/admin/", runScripts: "outside-only" });
+  const dashboardUrl = origin + "/reels-quiz/admin/";
+  const dom = new JSDOM(markup, { url: dashboardUrl, runScripts: "outside-only" });
   try {
     const { document } = dom.window;
-    let signedIn = false;
-    dom.window.fetch = async () => signedIn
-      ? new Response(JSON.stringify({ records: [
-          { submission_id: id, submitted_at: submission.submitted_at, event_type: submission.event_type,
-            name: "陳小姐<script>", booking: submission.booking, report_url: origin + "/api/report-pdf?id=" + id },
-          { submission_id: triageId, submitted_at: triage.submitted_at, event_type: triage.event_type,
-            name: null, booking: null, report_url: null },
-        ] }))
-      : new Response(null, { status: 401 });
+    let cookie;
+    const requests = [];
+    dom.window.fetch = async (path, options) => {
+      requests.push(path);
+      if (path === "/api/health-intake/auth/sign-in/email") {
+        assert.equal(options.method, "POST");
+        const response = await app.fetch(new Request(origin + path, {
+          method: options.method,
+          headers: { ...options.headers, origin },
+          body: options.body,
+        }));
+        cookie = response.headers.getSetCookie().map(value => value.split(";")[0]).join("; ");
+        return response;
+      }
+      assert.equal(path, "/api/export?format=json");
+      return adminRequest("exportCsv", path, cookie ? { cookie } : {});
+    };
     dom.window.eval(script);
-    await new Promise((resolve) => setImmediate(resolve));
+    await new Promise(resolve => setImmediate(resolve));
+    const form = document.querySelector("#sign-in form");
+    assert.ok(form, "The Reels login must stay on the Reels dashboard");
     assert.equal(document.querySelector("#sign-in").hidden, false);
-    assert.equal(document.querySelector("#sign-in a").getAttribute("href"), "/intake/");
     assert.equal(document.querySelector("#download-csv").hidden, true);
 
-    signedIn = true;
-    document.querySelector("#refresh").click();
-    await new Promise((resolve) => setImmediate(resolve));
-    assert.equal(document.querySelector("#download-csv").getAttribute("href"), "/api/export");
+    form.elements.email.value = "admin@example.test";
+    form.elements.password.value = "Admin-test-password-123!";
+    form.dispatchEvent(new dom.window.Event("submit", { cancelable: true }));
+    for (let attempt = 0; document.querySelector("#download-csv").hidden && attempt < 50; attempt++)
+      await new Promise(resolve => setTimeout(resolve, 20));
+    assert.deepEqual(requests, [
+      "/api/export?format=json",
+      "/api/health-intake/auth/sign-in/email",
+      "/api/export?format=json",
+    ]);
+    assert.equal(dom.window.location.href, dashboardUrl);
+    assert.equal(document.querySelector("#sign-in").hidden, true);
+    assert.equal(form.elements.password.value, "");
     assert.equal(document.querySelector("#download-csv").hidden, false);
+    assert.equal(document.querySelector("#download-csv").getAttribute("href"), "/api/export");
     const links = document.querySelectorAll("#records a");
     assert.equal(links.length, 1);
     assert.equal(links[0].getAttribute("href"), "/api/report-pdf?id=" + id);
-    assert.match(document.querySelector("#records").textContent, /陳小姐<script>/);
+    assert.match(document.querySelector("#records").textContent, /測試客人陳小姐/);
     assert.equal(document.querySelector("#records script"), null);
   } finally {
     dom.window.close();

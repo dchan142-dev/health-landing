@@ -5,10 +5,10 @@ import { test } from "node:test";
 import { JSDOM } from "jsdom";
 
 const root = new URL("../reels-quiz-v2/", import.meta.url);
-async function openPage(path = "index.html", search = "") {
+async function openPage(path = "index.html", search = "", origin = "https://example.test") {
   const file = new URL(path, root);
   assert.ok(existsSync(file), `Missing V2 page: ${path}`);
-  return new JSDOM(await readFile(file, "utf8"), { url: "https://example.test/reels-quiz-v2/" + path + search });
+  return new JSDOM(await readFile(file, "utf8"), { url: origin + "/reels-quiz-v2/" + path + search });
 }
 
 test("first paint offers direct answers with the V2 assets before the module runs", async () => {
@@ -60,8 +60,8 @@ const validResponse = () => Response.json({ ok: true });
 const settle = () => new Promise(resolve => setImmediate(resolve));
 
 async function quiz(t, options = {}) {
-  const { search = "", storage = {}, saved, submit = validResponse, event = validResponse, mediaFails = false } = options;
-  const dom = await openPage("index.html", search);
+  const { origin, search = "", storage = {}, saved, submit = validResponse, event = validResponse, mediaFails = false } = options;
+  const dom = await openPage("index.html", search, origin);
   const win = dom.window;
   const doc = win.document;
   t.after(() => dom.window.close());
@@ -109,6 +109,17 @@ async function quiz(t, options = {}) {
   };
 }
 
+function activateFocusedOption(app, name, index = 0, pressed = "true") {
+  const options = () => app.all(`[data-click="${name}"]`);
+  const option = options()[index];
+  option.focus();
+  assert.equal(app.doc.activeElement, option);
+  // jsdom lacks the keyboard default action. A focused button's click activates the same handler as Space.
+  app.click(option);
+  assert.equal(app.doc.activeElement, options()[index], `Focus stays on ${name}`);
+  assert.equal(app.doc.activeElement.getAttribute("aria-pressed"), pressed);
+}
+
 test("direct answers survive video failure, persist across reload, replay the current clip and return to Welcome", async t => {
   const legacy = JSON.stringify({ ts: Date.now(), step: "booking_done", paidLocked: true });
   let app = await quiz(t, { storage: { [v1Key]: legacy }, mediaFails: true });
@@ -152,6 +163,17 @@ test("video viewers keep the manual end-of-clip action and the day-specific Q1 v
   app.panel("q1");
   await settle();
   assert.deepEqual(app.events().map(e => [e.event, e.platform, e.reel]), [["landing", "ig", "30"], ["start", "ig", "30"]]);
+});
+
+test("single-answer options retain focus and expose the updated pressed state", async t => {
+  const app = await quiz(t, { saved: { step: "q1", answers: {}, textFirst: true } });
+  activateFocusedOption(app, "pickSingle", 1);
+});
+
+test("multi-answer options retain focus as they are selected and deselected", async t => {
+  const app = await quiz(t, { saved: { step: "q2", answers: {}, textFirst: true } });
+  activateFocusedOption(app, "pickMulti", 1);
+  activateFocusedOption(app, "pickMulti", 1, "false");
 });
 
 for (const guard of ["q6", "checkout"]) {
@@ -202,6 +224,40 @@ test("checkout identifies the first invalid field and clears only corrected erro
   app.click(app.one("#unlockBtn"));
   assert.equal(app.doc.activeElement, email);
   assert.equal(app.posts().length, 0);
+});
+
+test("checkout focuses a native-invalid email address without submitting", async t => {
+  const app = await quiz(t, { saved: { step: "checkout", user: { ...user, email: "qa@-example.test" } } });
+  const email = app.one("#inpEmail");
+  assert.equal(email.validity.typeMismatch, true);
+  app.click(app.one("#unlockBtn"));
+  await settle();
+  app.panel("checkout");
+  assert.equal(app.doc.activeElement, email);
+  assert.equal(email.getAttribute("aria-invalid"), "true");
+  assert.equal(app.posts().length, 0);
+});
+
+test("review discards stale literal answer text and preserves known labels", async t => {
+  const literal = "<em>Legacy answer label</em>";
+  const record = { ...answers, q2: ["體檢有脂肪肝／血脂超標", literal], q7: literal };
+  const app = await quiz(t, { saved: { step: "review", answers: record } });
+  const chips = id => app.all(`[data-arg1="${id}"] .ans-chip`).map(el => el.textContent);
+  assert.equal(app.one(".ans-chip em"), null);
+  assert.deepEqual(chips("q2"), ["脂肪肝／血脂"]);
+  assert.deepEqual(chips("q7"), ["未選"]);
+  assert.deepEqual(app.win.state.answers.q2, ["體檢有脂肪肝／血脂超標"]);
+  assert.equal(app.win.state.answers.q7, "");
+});
+
+test("restored wrong-type and duplicate answers cannot drive question navigation", async t => {
+  const record = { ...answers, q1: [answers.q1], q2: "體檢有脂肪肝／血脂超標", q3: ["唔肯定", "以上皆無", "唔肯定"] };
+  const app = await quiz(t, { saved: { step: "q2", answers: record, textFirst: true } });
+  assert.equal(app.action("submitQuestion").disabled, true);
+  assert.equal(app.one('[data-click="pickMulti"][aria-pressed="true"]'), null);
+  assert.equal(app.win.state.answers.q1, "");
+  assert.deepEqual(app.win.state.answers.q2, []);
+  assert.deepEqual(app.win.state.answers.q3, ["唔肯定"]);
 });
 
 for (const signal of [false, true]) {
@@ -323,6 +379,61 @@ test("booking revalidates the date at submit time", async t => {
   app.panel("booking");
   assert.ok(app.one("#bookingSubmitBtn").disabled);
   assert.equal(app.posts().length, 0);
+});
+
+test("progressive booking options retain focus after keyboard-style activation", async t => {
+  const app = await quiz(t, { saved: { step: "booking", user, paidLocked: true } });
+  for (const action of ["selectBookingStore", "selectBookingDate", "selectBookingSlot"]) {
+    activateFocusedOption(app, action, 1);
+  }
+  assert.equal(app.one("#bookingSubmitBtn").disabled, false);
+});
+
+test("a hosted dev query cannot skip durable quiz unlock or booking", async t => {
+  let bookingAvailable = false;
+  const saved = { step: "checkout", user, textFirst: true };
+  const app = await quiz(t, {
+    search: "?dev=1", saved,
+    storage: { [`${draftKey}:dev`]: JSON.stringify({ ts: Date.now(), phase: "panel", answers, ...saved }) },
+    submit: body => body.event_type === "quiz_unlocked" || bookingAvailable
+      ? validResponse() : Response.json({ error: "unavailable" }, { status: 503 }),
+  });
+  app.click(app.one("#unlockBtn"));
+  await settle();
+  app.panel("report1");
+  app.click(app.one("#panelFooter .btn-primary"));
+  for (const name of ["selectBookingStore", "selectBookingDate", "selectBookingSlot"]) app.click(app.action(name));
+  app.click(app.one("#bookingSubmitBtn"));
+  await settle();
+  app.panel("booking");
+  assert.deepEqual(app.posts().map(post => post.event_type), ["quiz_unlocked", "booking_intent"]);
+  assert.equal(app.one('a[href^="https://wa.me/"]'), null);
+  assert.equal(app.doc.body.classList.contains("dev-mode"), false);
+  const jump = app.one("#quickJumpSel");
+  jump.value = "booking_done";
+  jump.dispatchEvent(new app.win.Event("change", { bubbles: true }));
+  app.panel("booking");
+  bookingAvailable = true;
+  app.click(app.one("#bookingSubmitBtn"));
+  await settle();
+  app.panel("booking_done");
+  assert.deepEqual(app.posts().map(post => post.event_type), ["quiz_unlocked", "booking_intent", "booking_intent"]);
+});
+
+test("localhost keeps the questionnaire developer preview and simulated unlock", async t => {
+  const app = await quiz(t, {
+    origin: "http://localhost:3010", search: "?dev=1",
+    storage: { [`${draftKey}:dev`]: JSON.stringify({ ts: Date.now(), phase: "panel", step: "checkout", user, textFirst: true }) },
+  });
+  assert.equal(app.doc.body.classList.contains("dev-mode"), true);
+  app.click(app.one("#unlockBtn"));
+  await settle();
+  app.panel("report1");
+  assert.equal(app.posts().length, 0);
+  const jump = app.one("#quickJumpSel");
+  jump.value = "q2";
+  jump.dispatchEvent(new app.win.Event("change", { bubbles: true }));
+  app.panel("q2");
 });
 
 test("legacy group page without explicit confirmation returns to WhatsApp", async t => {

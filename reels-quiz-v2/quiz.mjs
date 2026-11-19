@@ -11,7 +11,8 @@ const dayParam = (params.get("day") || "").padStart(2, "0");
 const day = Object.hasOwn(DAY_TO_AXIS, dayParam) ? dayParam : "01";
 const axisParam = params.get("axis");
 const axis = Object.hasOwn(AXES_META, axisParam) ? axisParam : DAY_TO_AXIS[day];
-const devMode = params.get("dev") === "1";
+const localPreview = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname);
+const devMode = localPreview && params.get("dev") === "1";
 const storageKey = `hd_reels_v4:${day}:${axis}${devMode ? ":dev" : ""}`;
 const reportSteps = new Set(["report1", "offline_flow", "booking", "booking_done", "post_whatsapp"]);
 const savedSteps = new Set(["welcome", "q1", ...Object.keys(QUESTIONS), "safety_stop", "review", "checkout", ...reportSteps]);
@@ -60,6 +61,23 @@ function saveTabState() {
   }
 }
 
+function restoreAnswers(savedAnswers) {
+  const questions = { q1: { mode: "single", opts: AXES_META[state.axis].q1Opts }, ...QUESTIONS };
+  const answers = {};
+  for (const [id, { mode, opts }] of Object.entries(questions)) {
+    const saved = savedAnswers?.[id];
+    const validOptions = new Map(opts.map(option => [option.val, option]));
+    if (mode === "single") {
+      answers[id] = validOptions.has(saved) ? saved : "";
+      continue;
+    }
+    const validSelections = Array.isArray(saved) ? [...new Set(saved)].filter(value => validOptions.has(value)) : [];
+    const selected = validSelections.filter(value => !validOptions.get(value).isNone);
+    answers[id] = selected.length ? selected : validSelections.slice(0, 1);
+  }
+  return answers;
+}
+
 function restoreTabState() {
   try {
     const saved = JSON.parse(window.sessionStorage.getItem(storageKey));
@@ -67,7 +85,7 @@ function restoreTabState() {
       window.sessionStorage.removeItem(storageKey);
       return;
     }
-    state.answers = { ...emptyAnswers, ...saved.answers };
+    state.answers = restoreAnswers(saved.answers);
     state.unmuted = saved.unmuted !== false;
     state.rate = [1, 1.5, 2, 0.8].includes(saved.rate) ? saved.rate : 1;
     state.submissionId = saved.submissionId || state.submissionId;
@@ -393,7 +411,8 @@ function syncUserFieldsFromDOM() {
 function getFieldError(id) {
   const { key, valid, message } = checkoutFields[id];
   const value = String(state.user[key] ?? "").trim();
-  return valid(value) ? null : { id, errorId: `${id}Error`, message };
+  const control = document.getElementById(id);
+  return valid(value) && !control?.validity.typeMismatch ? null : { id, errorId: `${id}Error`, message };
 }
 
 function getUnlockErrors() {
@@ -654,7 +673,7 @@ function renderStage() {
           return `
             <button type="button" class="review-row" data-click="editFromReview" data-arg1="${it.id}">
               <div class="review-row-head">${it.label} <span>修改 ✎</span></div>
-              <div class="chip-wrap">${tags.map(t => `<span class="ans-chip">${t}</span>`).join("")}</div>
+              <div class="chip-wrap">${tags.map(t => `<span class="ans-chip">${escapeHtml(t)}</span>`).join("")}</div>
             </button>
           `;
         }).join("")}
@@ -895,27 +914,42 @@ function confirmWhatsAppSent() {
   goStep("post_whatsapp", "panel");
 }
 
+function saveOptionSelection() {
+  const panel = document.getElementById("panelBody");
+  const optionSelector = "button[data-click][aria-pressed]";
+  const active = document.activeElement;
+  const focused = panel.contains(active) && active.matches(optionSelector) ? active.dataset : null;
+  const scrollTop = panel.scrollTop;
+
+  saveTabState();
+  renderStage();
+  panel.scrollTop = scrollTop;
+  if (!focused) return;
+
+  const replacement = [...panel.querySelectorAll(optionSelector)].find(({ dataset }) =>
+    dataset.click === focused.click && dataset.arg1 === focused.arg1 && dataset.arg2 === focused.arg2,
+  );
+  replacement?.focus({ preventScroll: true });
+}
+
 function selectBookingDate(iso) {
   if (submissionPending || !STORES.includes(state.hmcs.loc)) return;
   const date = buildBookingDates().find(entry => entry.iso === iso);
   if (!date || date.iso === state.hmcs.date) return;
   Object.assign(state.hmcs, { date: date.iso, weekday: date.weekday, dateLabel: date.label, time: "" });
-  saveTabState();
-  renderStage();
+  saveOptionSelection();
 };
 function selectBookingStore(store) {
   if (submissionPending || !STORES.includes(store)) return;
   state.hmcs.loc = store;
-  saveTabState();
-  renderStage();
+  saveOptionSelection();
 };
 function selectBookingSlot(slot) {
   if (submissionPending || !STORES.includes(state.hmcs.loc)) return;
   const date = buildBookingDates().find(({ iso }) => iso === state.hmcs.date);
   if (!date?.slots.includes(slot)) return;
   state.hmcs.time = slot;
-  saveTabState();
-  renderStage();
+  saveOptionSelection();
 };
 async function confirmBookingSubmit() {
   if (submissionPending || state.step !== "booking") return;
@@ -947,8 +981,7 @@ function onUserFieldInput(event) {
 function pickSingle(qid, val) {
   if (state.paidLocked) return;
   state.answers[qid] = val;
-  saveTabState();
-  renderStage();
+  saveOptionSelection();
 };
 function pickMulti(qid, val, isNone) {
   if (state.paidLocked) return;
@@ -963,8 +996,7 @@ function pickMulti(qid, val, isNone) {
     else cur.push(val);
   }
   state.answers[qid] = cur;
-  saveTabState();
-  renderStage();
+  saveOptionSelection();
 };
 function reviseSafetyAnswer() {
   state.answers.q6 = [];

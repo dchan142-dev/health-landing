@@ -7,7 +7,11 @@ import { PGlite } from "@electric-sql/pglite";
 import { createApplication } from "./app.mjs";
 import { serveApi } from "./bridge.mjs";
 import { submitReels } from "../api/submit.js";
+import { recordReelsV2Event } from "../api/event-v2.js";
+import { submitReelsV2 } from "../api/submit-v2.js";
 import { createReelsStore } from "./reels-store.mjs";
+import { createReelsV2Events } from "./reels-v2-events.mjs";
+import { createReelsV2Store } from "./reels-v2-store.mjs";
 import { createReelsAdmin, sendReelsAdminResponse } from "./reels-admin.mjs";
 
 // Local development only. Production always uses PostgreSQL via runtime.mjs.
@@ -46,6 +50,8 @@ if (!reelsKey) {
   reelsKey = await readFile(reelsKeyPath, "utf8");
 }
 const reelsStore = createReelsStore({ pool, encryptionKey: reelsKey });
+const reelsV2Store = createReelsV2Store({ pool, encryptionKey: reelsKey });
+const reelsV2Events = createReelsV2Events({ pool });
 const reelsAdmin = createReelsAdmin({
   origin,
   getSession: headers => app.auth.api.getSession({ headers }),
@@ -79,6 +85,10 @@ createServer(async (req, res) => {
     return serveApi(req, res, app, origin);
   if (path === "/api/submit")
     return serveApi(req, res, { fetch: request => submitReels(request, { store: reelsStore, origin }) }, origin);
+  if (path === "/api/submit-v2")
+    return serveApi(req, res, { fetch: request => submitReelsV2(request, { store: reelsV2Store, origin }) }, origin);
+  if (path === "/api/event-v2")
+    return serveApi(req, res, { fetch: request => recordReelsV2Event(request, { store: reelsV2Events, origin }) }, origin);
   if (path === "/api/export" || path === "/api/report-pdf")
     return sendReelsAdminResponse(req, res, path === "/api/export" ? reelsAdmin.exportCsv : reelsAdmin.reportPdf, origin);
   try {

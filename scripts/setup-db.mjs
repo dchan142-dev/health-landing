@@ -1,4 +1,6 @@
 import { productionReelsStore } from "../server/reels-store.mjs";
+import { productionReelsV2Events } from "../server/reels-v2-events.mjs";
+import { productionReelsV2Store } from "../server/reels-v2-store.mjs";
 import { application, productionDatabasePool } from "../server/runtime.mjs";
 import { cleanupVerificationUsers } from "./verification-cleanup.mjs";
 
@@ -6,6 +8,8 @@ try {
   const app = application();
   await app.initialize();
   await productionReelsStore().initialize();
+  await productionReelsV2Store().initialize();
+  await productionReelsV2Events().initialize();
   const { HD_ADMIN_EMAIL, HD_ADMIN_NAME, HD_ADMIN_PASSWORD } = process.env;
   if (HD_ADMIN_EMAIL || HD_ADMIN_NAME || HD_ADMIN_PASSWORD) {
     if (

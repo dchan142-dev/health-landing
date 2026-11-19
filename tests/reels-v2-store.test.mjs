@@ -290,6 +290,60 @@ test("V2 submission rejects invalid versions, identity, source, timestamp, answe
   assert.equal((await submit({ ...payload, submitted_at: "2026-11-18T02:05:30.000Z" })).status, 200);
 });
 
+test("V2 submission enforces checkout email syntax and length before writing a row", async () => {
+  const longest = `${"a".repeat(64)}@${"b".repeat(63)}.${"c".repeat(63)}.${"d".repeat(61)}`;
+  for (const email of [
+    "qa@-example.test",
+    "qa@example-.test",
+    "qa@example..test",
+    "qa:contact@example.test",
+    `qa@${"e".repeat(64)}.test`,
+    `${longest}e`,
+  ]) {
+    const payload = unlock();
+    payload.user.email = email;
+    assert.equal((await submit(payload)).status, 400, email);
+    assert.equal(await store.find(payload.submission_id), null, email);
+  }
+  for (const email of ["qa+health@sub-example.test", longest]) {
+    const payload = unlock();
+    payload.user.email = email;
+    assert.equal((await submit(payload)).status, 200, email);
+    assert.equal((await store.find(payload.submission_id)).user.email, email);
+  }
+});
+
+test("V2 submission normalizes valid HTML number measurements before calculating BMI", async () => {
+  for (const [heightCm, weightKg] of [
+    ["1.65e2", "6.5E+1"],
+    [".165E+3", "650e-1"],
+    ["000000000000165", "65.0000000000"],
+    [165, 65],
+  ]) {
+    const payload = unlock({ bmi: { bmi: 5 } });
+    Object.assign(payload.user, { heightCm, weightKg });
+    assert.equal((await submit(payload)).status, 200, `${heightCm}, ${weightKg}`);
+    const saved = await store.find(payload.submission_id);
+    assert.equal(saved.user.heightCm, 165);
+    assert.equal(saved.user.weightKg, 65);
+    assert.equal(saved.bmi.bmi, 23.9);
+  }
+});
+
+test("V2 submission rejects measurements outside HTML number syntax or BMI limits", async () => {
+  for (const [field, values] of [
+    ["heightCm", ["0xa5", "+165", "165.", "1e309", "2.11e2"]],
+    ["weightKg", ["0x41", "+65", "65.", "1e309", "1.81e2"]],
+  ]) {
+    for (const value of values) {
+      const payload = unlock();
+      payload.user[field] = value;
+      assert.equal((await submit(payload)).status, 400, `${field} ${value}`);
+      assert.equal(await store.find(payload.submission_id), null);
+    }
+  }
+});
+
 test("V2 submission enforces the public HTTP boundary and hides storage errors", async () => {
   const payload = unlock();
   const method = await submit(undefined, { method: "GET" });

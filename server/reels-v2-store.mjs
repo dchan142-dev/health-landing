@@ -14,6 +14,9 @@ import {
 } from "../reels-quiz-v2/quiz-data.mjs";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+// HTML email syntax with the checkout requirement for a dotted domain.
+const CHECKOUT_EMAIL = /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$/i;
+const HTML_NUMBER = /^-?(?:\d+|\d*\.\d+)(?:[eE][+-]?\d+)?$/;
 const EVENT_RANK = { triage_aborted_level1: 0, quiz_unlocked: 1, booking_intent: 2 };
 
 const TABLE = "hd_reels_v2_submissions";
@@ -61,23 +64,26 @@ function readAnswers(candidate, axis, triage) {
   return answers;
 }
 
+function readMeasurement(value) {
+  if (typeof value === "number") return value;
+  const text = cleanText(value);
+  return HTML_NUMBER.test(text) ? Number(text) : NaN;
+}
+
 function readUser(candidate) {
   if (!object(candidate)) throw inputError();
   const { ageRange, gender, marketingConsent } = candidate;
   const name = cleanText(candidate.name);
   const phone = cleanText(candidate.phone);
   const email = cleanText(candidate.email);
-  const numeric = value => typeof value === "number" ? String(value) : cleanText(value);
-  const heightCm = numeric(candidate.heightCm);
-  const weightKg = numeric(candidate.weightKg);
   if (!name || name.length > 100 || /[\u0000-\u001f\u007f]/.test(name) ||
-      !/^\d{8}$/.test(phone) || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+      !/^\d{8}$/.test(phone) || email.length > 254 || !CHECKOUT_EMAIL.test(email) ||
       !AGE_RANGES.includes(ageRange) || !GENDERS.includes(gender) ||
-      (marketingConsent !== undefined && typeof marketingConsent !== "boolean") ||
-      !/^\d+(\.\d+)?$/.test(heightCm) || !/^\d+(\.\d+)?$/.test(weightKg) ||
-      heightCm.length > 12 || weightKg.length > 12) {
+      (marketingConsent !== undefined && typeof marketingConsent !== "boolean")) {
     throw inputError();
   }
+  const heightCm = readMeasurement(candidate.heightCm);
+  const weightKg = readMeasurement(candidate.weightKg);
   return { name, phone, email, ageRange, gender, heightCm, weightKg, marketingConsent: marketingConsent === true };
 }
 

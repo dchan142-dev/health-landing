@@ -1,5 +1,7 @@
 const status = document.querySelector("#status");
 const signIn = document.querySelector("#sign-in");
+const signInForm = signIn.querySelector("form");
+const signInButton = signInForm.querySelector("button");
 const refresh = document.querySelector("#refresh");
 const downloadCsv = document.querySelector("#download-csv");
 const table = document.querySelector("#table");
@@ -88,4 +90,33 @@ async function load() {
 
 refresh.addEventListener("click", load);
 search.addEventListener("input", renderRecords);
+signInForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  if (signInButton.disabled) return;
+  signInButton.disabled = true;
+  signInButton.textContent = "登入中…";
+  status.textContent = "正在驗證管理員帳戶…";
+  const { email, password } = signInForm.elements;
+  try {
+    const response = await fetch("/api/health-intake/auth/sign-in/email", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email: email.value.trim(), password: password.value }),
+    });
+    if (response.status === 401) {
+      status.textContent = "電郵或密碼不正確，請重試。";
+      password.focus();
+      return;
+    }
+    if (!response.ok) throw new Error("Unable to sign in");
+    password.value = "";
+    await load();
+  } catch {
+    status.textContent = "暫時未能登入，請稍後再試。";
+  } finally {
+    signInButton.disabled = false;
+    signInButton.textContent = "登入 Reels 問卷管理";
+  }
+});
 load();

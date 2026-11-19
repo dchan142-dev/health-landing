@@ -33,6 +33,10 @@ function json(body, status, headers = {}) {
   });
 }
 
+function methodNotAllowed() {
+  return json({ error: "不支援此操作" }, 405, { allow: "GET" });
+}
+
 function download(body, type, filename) {
   return new Response(body, {
     headers: {
@@ -110,7 +114,7 @@ function recordSummary(record, origin) {
 export function createReelsV2Admin({ getStore, getSession, exportKey, origin = mainOrigin }) {
   function secure(handler) {
     return async request => {
-      if (request.method !== "GET") return json({ error: "不支援此操作" }, 405, { allow: "GET" });
+      if (request.method !== "GET") return methodNotAllowed();
       try {
         if (!bearerMatches(request.headers.get("authorization"), exportKey)) {
           const session = request.headers.has("cookie") ? await getSession(request.headers) : null;
@@ -149,14 +153,19 @@ export function createReelsV2Admin({ getStore, getSession, exportKey, origin = m
 }
 
 export async function sendReelsV2AdminResponse(req, res, handler, origin) {
-  const headers = new Headers();
-  for (const [name, value] of Object.entries(req.headers)) {
-    if (value === undefined) continue;
-    const separator = name.toLowerCase() === "cookie" ? "; " : ", ";
-    headers.set(name, Array.isArray(value) ? value.join(separator) : value);
+  let response;
+  if (req.method === "GET") {
+    const headers = new Headers();
+    for (const [name, value] of Object.entries(req.headers)) {
+      if (value === undefined) continue;
+      const separator = name.toLowerCase() === "cookie" ? "; " : ", ";
+      headers.set(name, Array.isArray(value) ? value.join(separator) : value);
+    }
+    response = await handler(new Request(new URL(req.url, origin), { headers }));
+  } else {
+    // Fetch rejects some HTTP methods before the handler can send a response.
+    response = methodNotAllowed();
   }
-  const request = new Request(new URL(req.url, origin), { headers, method: req.method });
-  const response = await handler(request);
   res.writeHead(response.status, Object.fromEntries(response.headers));
   res.end(Buffer.from(await response.arrayBuffer()));
 }

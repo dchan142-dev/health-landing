@@ -13,6 +13,7 @@ import { createReelsStore } from "./reels-store.mjs";
 import { createReelsV2Events } from "./reels-v2-events.mjs";
 import { createReelsV2Store } from "./reels-v2-store.mjs";
 import { createReelsAdmin, sendReelsAdminResponse } from "./reels-admin.mjs";
+import { createReelsV2Admin, sendReelsV2AdminResponse } from "./reels-v2-admin.mjs";
 
 // Local development only. Production always uses PostgreSQL via runtime.mjs.
 if (process.env.NODE_ENV === "production")
@@ -57,6 +58,12 @@ const reelsAdmin = createReelsAdmin({
   getSession: headers => app.auth.api.getSession({ headers }),
   getStore: () => reelsStore,
 });
+const reelsV2Admin = createReelsV2Admin({
+  origin,
+  exportKey: process.env.ADMIN_EXPORT_KEY,
+  getSession: headers => app.auth.api.getSession({ headers }),
+  getStore: () => reelsV2Store,
+});
 if (process.env.HD_ADMIN_EMAIL && process.env.HD_ADMIN_PASSWORD) {
   const admins = await query('SELECT id FROM "user" WHERE role=$1', ["admin"]);
   if (!admins.rows.length)
@@ -91,6 +98,8 @@ createServer(async (req, res) => {
     return serveApi(req, res, { fetch: request => recordReelsV2Event(request, { store: reelsV2Events, origin }) }, origin);
   if (path === "/api/export" || path === "/api/report-pdf")
     return sendReelsAdminResponse(req, res, path === "/api/export" ? reelsAdmin.exportCsv : reelsAdmin.reportPdf, origin);
+  if (path === "/api/export-v2" || path === "/api/report-v2-pdf")
+    return sendReelsV2AdminResponse(req, res, path === "/api/export-v2" ? reelsV2Admin.exportCsv : reelsV2Admin.reportPdf, origin);
   try {
     let file = resolve(base, "." + decodeURIComponent(path));
     if (!file.startsWith(base + sep) && file !== base) throw new Error();

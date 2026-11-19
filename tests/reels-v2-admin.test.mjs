@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { spawn } from "node:child_process";
+import { once } from "node:events";
+import { cp, mkdtemp, readFile, rm } from "node:fs/promises";
+import { createServer } from "node:net";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { setImmediate as tick } from "node:timers/promises";
 import { after, before, test } from "node:test";
+import { fileURLToPath } from "node:url";
 import { inflateSync } from "node:zlib";
 import { PGlite } from "@electric-sql/pglite";
 import { JSDOM } from "jsdom";
@@ -460,6 +466,15 @@ test("the V2 dashboard recovers from network failure and distinguishes empty, un
   }
 });
 
+async function callVercel(handler, url, { method = "GET", authorization } = {}) {
+  let status, headers, body;
+  await handler({ url, method, headers: { authorization } }, {
+    writeHead(code, values) { status = code; headers = values; },
+    end(value) { body = value; },
+  });
+  return new Response(body, { status, headers });
+}
+
 test("Vercel handlers bridge HTTP requests to their dedicated V2 operations", async t => {
   const environment = { APP_ORIGIN: origin, ADMIN_EXPORT_KEY: exportKey, DATABASE_URL: "" };
   for (const [key, value] of Object.entries(environment)) {
@@ -474,23 +489,140 @@ test("Vercel handlers bridge HTTP requests to their dedicated V2 operations", as
     import("../api/export-v2.js"),
     import("../api/report-v2-pdf.js"),
   ]);
-  async function call(handler, url, authorization) {
-    let status, headers, body;
-    await handler({ url, method: "GET", headers: { authorization } }, {
-      writeHead(code, values) { status = code; headers = values; },
-      end(value) { body = value; },
-    });
-    return new Response(body, { status, headers });
-  }
-  assert.equal((await call(exportV2, "/api/export-v2?format=json")).status, 401);
-  assert.equal((await call(reportV2, reportPath + id)).status, 401);
-  const authorized = "Bearer " + exportKey;
-  const download = await call(exportV2, "/api/export-v2?format=json", authorized);
+  assert.equal((await callVercel(exportV2, "/api/export-v2?format=json")).status, 401);
+  assert.equal((await callVercel(reportV2, reportPath + id)).status, 401);
+  const authorized = { authorization: "Bearer " + exportKey };
+  const download = await callVercel(exportV2, "/api/export-v2?format=json", authorized);
   assert.equal(download.status, 503);
   assertPrivate(download);
-  const malformed = await call(reportV2, reportPath + "not-a-uuid", authorized);
+  const malformed = await callVercel(reportV2, reportPath + "not-a-uuid", authorized);
   assert.equal(malformed.status, 400);
   assertPrivate(malformed);
+});
+
+test("both V2 Vercel handlers return private 405 responses for Fetch-forbidden methods", async t => {
+  const [{ default: exportV2 }, { default: reportV2 }] = await Promise.all([
+    import("../api/export-v2.js"),
+    import("../api/report-v2-pdf.js"),
+  ]);
+  for (const [handler, path] of [[exportV2, "/api/export-v2?format=json"], [reportV2, reportPath + id]]) {
+    for (const method of ["TRACE", "TRACK", "CONNECT"]) {
+      await t.test(`${method} ${path}`, async () => {
+        const response = await callVercel(handler, path, { method });
+        assert.equal(response.status, 405);
+        assert.equal(response.headers.get("allow"), "GET");
+        assertPrivate(response);
+        assert.deepEqual(await response.json(), { error: "不支援此操作" });
+      });
+    }
+  }
+});
+
+async function startLocalServer(t) {
+  const directory = await mkdtemp(join(tmpdir(), "reels-v2-admin-"));
+  let child, stopped;
+  t.after(async () => {
+    if (child) {
+      child.kill();
+      await stopped;
+    }
+    await rm(directory, { recursive: true, force: true });
+  });
+  await cp(folder, join(directory, "reels-quiz-v2", "admin"), { recursive: true });
+
+  const listener = createServer().listen(0, "127.0.0.1");
+  await once(listener, "listening");
+  const { port } = listener.address();
+  const released = once(listener, "close");
+  listener.close();
+  await released;
+
+  const entry = fileURLToPath(new URL("../server/local.mjs", import.meta.url));
+  child = spawn(process.execPath, [entry], {
+    cwd: directory,
+    env: {
+      ...process.env,
+      NODE_ENV: "development",
+      PORT: String(port),
+      BETTER_AUTH_SECRET: "reels-v2-local-admin-test-only-secret",
+      DATA_ENCRYPTION_KEY: encryptionKey,
+      ADMIN_EXPORT_KEY: exportKey,
+      HD_ADMIN_NAME: "本機測試管理員",
+      HD_ADMIN_EMAIL: credentials.email,
+      HD_ADMIN_PASSWORD: credentials.password,
+    },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  stopped = new Promise(resolve => child.once("close", resolve));
+  const localOrigin = "http://localhost:" + port;
+  await new Promise((resolve, reject) => {
+    let output = "";
+    const timer = setTimeout(() => reject(new Error(`Local server startup timed out\n${output}`)), 20_000);
+    child.stderr.on("data", bytes => { output += bytes; });
+    child.stdout.on("data", bytes => {
+      output += bytes;
+      if (output.includes(`Local development server: ${localOrigin}/intake/`)) {
+        clearTimeout(timer);
+        resolve();
+      }
+    });
+    child.once("error", error => {
+      clearTimeout(timer);
+      reject(error);
+    });
+    child.once("close", code => {
+      clearTimeout(timer);
+      reject(new Error(`Local server exited with ${code}\n${output}`));
+    });
+  });
+  return localOrigin;
+}
+
+test("the real local entry point serves V2 admin login, the isolated list, CSV and PDF", { timeout: 40_000 }, async t => {
+  const localOrigin = await startLocalServer(t);
+  const get = (path, headers) => fetch(localOrigin + path, { headers });
+  const post = (path, body) => fetch(localOrigin + path, {
+    method: "POST",
+    headers: { origin: localOrigin, "content-type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const dashboard = await get("/reels-quiz-v2/admin/");
+  assert.equal(dashboard.status, 200);
+  assert.match(await dashboard.text(), /<h1>Reels 問卷 V2 管理<\/h1>/);
+
+  const listPath = "/api/export-v2?format=json";
+  const pdfPath = reportPath + id;
+  const anonymous = await Promise.all([get(listPath), get(pdfPath)]);
+  assert.deepEqual(anonymous.map(response => response.status), [401, 401]);
+  anonymous.forEach(assertPrivate);
+
+  const signedIn = await post("/api/health-intake/auth/sign-in/email", credentials);
+  assert.equal(signedIn.status, 200, await signedIn.clone().text());
+  const cookie = cookieFrom(signedIn);
+  assert.ok(cookie);
+  const payload = { ...unlock, submitted_at: new Date().toISOString() };
+  const v2Saved = await post("/api/submit-v2", payload);
+  assert.equal(v2Saved.status, 200, await v2Saved.clone().text());
+  const v1Saved = await post("/api/submit", { ...payload, submission_id: v1Id });
+  assert.equal(v1Saved.status, 200, await v1Saved.clone().text());
+
+  const [list, csv, pdf, v1List] = await Promise.all([
+    get(listPath, { cookie }),
+    get("/api/export-v2", { authorization: "Bearer " + exportKey }),
+    get(pdfPath, { cookie }),
+    get("/api/export?format=json", { cookie }),
+  ]);
+  assert.deepEqual([list, csv, pdf, v1List].map(response => response.status), [200, 200, 200, 200]);
+  [list, csv, pdf].forEach(assertPrivate);
+  const { records } = await list.json();
+  assert.deepEqual(records.map(record => record.submission_id), [id]);
+  assert.equal(records[0].report_url, localOrigin + pdfPath);
+  assert.deepEqual((await v1List.json()).records.map(record => record.submission_id), [v1Id]);
+  assert.equal(csv.headers.get("content-disposition"), 'attachment; filename="health-decoder-reels-v2.csv"');
+  assert.ok((await csv.text()).includes(localOrigin + pdfPath));
+  assert.equal(pdf.headers.get("content-disposition"), `attachment; filename="health-decoder-v2-report-${id}.pdf"`);
+  const report = compact(parseReport(Buffer.from(await pdf.arrayBuffer())));
+  assert.ok(report.includes(compact(noSignal)));
 });
 
 test("unbooked V2 unlocks expose neutral and nonzero stored summaries and both retain report access", async () => {

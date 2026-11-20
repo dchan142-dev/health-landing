@@ -201,7 +201,7 @@ export function createReelsV2Store({ pool, encryptionKey, now = () => new Date()
     return record;
   }
 
-  function reconcile(current, incoming, receivedAt) {
+  function reconcile(current, incoming, receivedAt, expectedUnlockRevision) {
     const { event_type, submitted_at } = incoming;
     if (event_type === "triage_aborted_level1") {
       const retain = current && (current.event_type !== event_type || current.submitted_at >= submitted_at);
@@ -219,10 +219,19 @@ export function createReelsV2Store({ pool, encryptionKey, now = () => new Date()
       if (!eligibleDate(incoming.booking, receivedAt)) throw inputError();
       return { record: { ...current, unlock_submitted_at: unlockTime, event_type, submitted_at, booking: incoming.booking } };
     }
-    if (current?.user && unlockTime >= submitted_at) {
-      const matches = current.day_entry === incoming.day_entry && current.axis_entry === incoming.axis_entry &&
+    if (current?.user) {
+      const currentRevision = current.unlock_revision ?? unlockTime;
+      // Early booked rows lost the unlock time. An unversioned replay with the
+      // same normalized contents can acknowledge that row without changing it.
+      const legacyRetry = !current.unlock_revision && incoming.unlock_revision === submitted_at && submitted_at <= unlockTime;
+      const sameRevision = incoming.unlock_revision === currentRevision && submitted_at === unlockTime;
+      const retry = (sameRevision || legacyRetry) &&
+        current.day_entry === incoming.day_entry && current.axis_entry === incoming.axis_entry &&
         isDeepStrictEqual(current.user, incoming.user) && isDeepStrictEqual(current.answers, incoming.answers);
-      return { record: current, conflict: matches ? undefined : "superseded_unlock" };
+      if (retry) return { record: current };
+      if (expectedUnlockRevision !== currentRevision || incoming.unlock_revision === currentRevision || submitted_at <= unlockTime) {
+        return { record: current, conflict: "superseded_unlock" };
+      }
     }
     const record = { ...incoming, unlock_submitted_at: submitted_at };
     if (current?.booking) Object.assign(record, {
@@ -235,13 +244,18 @@ export function createReelsV2Store({ pool, encryptionKey, now = () => new Date()
     const receivedAt = now();
     const { id, tokenHash } = readIdentity(payload);
     const incoming = normalize(payload, receivedAt);
+    const expectedUnlockRevision = payload.expected_unlock_revision;
+    if (incoming.event_type === "quiz_unlocked") {
+      if (payload.unlock_revision !== undefined && !isUuid(payload.unlock_revision)) throw inputError();
+      incoming.unlock_revision = payload.unlock_revision ?? incoming.submitted_at;
+    }
     await initialize();
     // Compare the exact ciphertext read. A concurrent change in either the booking
     // or the report forces a fresh authorized read and a new merge of both fields.
     for (;;) {
       const row = await authorizedRow(id, tokenHash);
       const current = row && unseal(row);
-      const result = reconcile(current, incoming, receivedAt);
+      const result = reconcile(current, incoming, receivedAt, expectedUnlockRevision);
       const { record } = result;
       if (record === current) return result;
       const values = [id, tokenHash, EVENT_RANK[record.event_type], record.submitted_at, seal(record)];

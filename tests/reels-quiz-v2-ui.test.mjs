@@ -96,6 +96,22 @@ async function quiz(t, options = {}) {
   const dom = await openPage("index.html", search, origin);
   const win = dom.window;
   const doc = win.document;
+  const handoffs = [];
+  // jsdom has no popup navigation. Capture the destination at the browser boundary.
+  function captureNavigation(event) {
+    const anchor = event.target.closest("a[href]");
+    if (!anchor) return;
+    event.preventDefault();
+    handoffs.push(new URL(anchor.href));
+  }
+  doc.addEventListener("click", captureNavigation);
+  win.open = () => {
+    if (options.blockPopup) return null;
+    const popup = new JSDOM("", { url: "about:blank" }).window;
+    popup.document.addEventListener("click", captureNavigation);
+    t.after(() => popup.close());
+    return popup;
+  };
   if (options.connectedTabs) {
     win.BroadcastChannel = class extends BroadcastChannel {
       constructor(name) {
@@ -160,11 +176,21 @@ async function quiz(t, options = {}) {
     assert.equal(win.state.phase, "panel");
     assert.equal(one("#glassPanel").inert, false);
   }
-  return { win, doc, one, all, click, panel, requests, action, idle,
+  return { win, doc, one, all, click, panel, requests, action, idle, handoffs,
     events: () => requests.filter(r => r.path === "/api/event-v2").map(r => r.body),
     posts: () => requests.filter(r => r.path === "/api/submit-v2" && r.body.event_type).map(r => r.body),
     snapshot: () => Object.fromEntries(Object.keys(win.sessionStorage).map(k => [k, win.sessionStorage.getItem(k)])),
   };
+}
+
+async function openWhatsApp(app) {
+  const count = app.handoffs.length;
+  app.click(app.one("#bookingWhatsAppLink"));
+  await app.idle();
+  assert.equal(app.handoffs.length, count + 1);
+  const url = app.handoffs.at(-1);
+  assert.equal(url.origin + url.pathname, "https://wa.me/85298788564");
+  return url.searchParams.get("text");
 }
 
 function activateFocusedOption(app, name, index = 0, pressed = "true") {
@@ -394,10 +420,9 @@ test("booking requires store, date, time and a durable submit, then explicit Wha
   app.panel("booking_done");
   assert.equal(app.posts().at(-1).schema_version, 2);
   assert.ok(app.one("#glassPanel").textContent.includes("開啟後請喺 WhatsApp 按「傳送」，等團隊回覆確認。"));
-  const link = app.one('a[href^="https://wa.me/85298788564?"]');
-  assert.ok(link);
-  assert.equal(link.dispatchEvent(new app.win.MouseEvent("click", { bubbles: true, cancelable: true })), true);
-  await new Promise(resolve => setTimeout(resolve, 325));
+  assert.equal(app.one('a[href^="https://wa.me/"]'), null);
+  assert.equal(app.one("#confirmWhatsAppBtn").disabled, true);
+  await openWhatsApp(app);
   app.panel("booking_done");
   assert.deepEqual(app.events().map(e => e.event), ["landing", "booking_intent", "whatsapp_opened"]);
   const [first] = app.events();
@@ -414,7 +439,7 @@ test("booking requires store, date, time and a durable submit, then explicit Wha
   assert.equal(Object.hasOwn(post, "analytics_id"), false);
   app = await quiz(t, { search: "?platform=fb", storage: app.snapshot() });
   app.panel("booking_done");
-  assert.match(app.one('a[href^="https://wa.me/"]').textContent, /重新打開 WhatsApp/);
+  assert.match(app.one("#bookingWhatsAppLink").textContent, /重新打開 WhatsApp/);
   const confirm = app.action("confirmWhatsAppSent");
   assert.equal(confirm.textContent, "我已喺 WhatsApp 按「傳送」");
   app.click(confirm);
@@ -465,7 +490,7 @@ test("a hosted dev query cannot skip durable quiz unlock or booking", async t =>
   await app.idle();
   app.panel("booking");
   assert.deepEqual(app.posts().map(post => post.event_type), ["quiz_unlocked", "booking_intent"]);
-  assert.equal(app.one('a[href^="https://wa.me/"]'), null);
+  assert.equal(app.one("#bookingWhatsAppLink"), null);
   assert.equal(app.doc.body.classList.contains("dev-mode"), false);
   const jump = app.one("#quickJumpSel");
   jump.value = "booking_done";
@@ -498,7 +523,7 @@ test("legacy confirmation without both original credentials recovers at checkout
   for (const identity of [{}, { submissionId: crypto.randomUUID() }, { submissionToken: crypto.randomUUID() }]) {
     const app = await quiz(t, { saved: { ...identity, step: "post_whatsapp", user, paidLocked: true } });
     app.panel("checkout");
-    assert.equal(app.one('a[href^="https://wa.me/"]'), null);
+    assert.equal(app.one("#bookingWhatsAppLink"), null);
     assert.equal(app.one("#inpEmail").value, user.email);
     assert.equal(app.posts().length, 0);
   }
@@ -508,7 +533,7 @@ test("legacy confirmation with a real unlock but no accepted booking returns to 
   const saved = { ...await unlockedDraft(), step: "booking_done", whatsappOpened: true };
   const app = await quiz(t, { saved });
   app.panel("booking");
-  assert.equal(app.one('a[href^="https://wa.me/"]'), null);
+  assert.equal(app.one("#bookingWhatsAppLink"), null);
   assert.equal(app.one("#bookingSubmitBtn").disabled, true);
   assert.equal((await store.find(saved.submissionId)).booking, null);
 });
@@ -522,9 +547,9 @@ test("an intact legacy booking reopens the original accepted past slot and looku
   };
   const app = await quiz(t, { saved });
   app.panel("booking_done");
-  const text = new URL(app.one("#bookingWhatsAppLink").href).searchParams.get("text");
-  for (const value of [saved.submissionId, booking.store, booking.date, booking.timeSlot]) assert.ok(text.includes(value));
   assert.equal(app.one("#confirmWhatsAppBtn").disabled, false);
+  const text = await openWhatsApp(app);
+  for (const value of [saved.submissionId, booking.store, booking.date, booking.timeSlot]) assert.ok(text.includes(value));
   const absent = await quiz(t, { saved: { ...saved, submissionId: crypto.randomUUID() } });
   absent.panel("checkout");
   assert.equal(absent.one("#bookingWhatsAppLink"), null);
@@ -650,6 +675,67 @@ test("a stale unlock loads the accepted answers and contact into checkout for an
   assert.equal(saved.user.email, "other-tab@example.test");
 });
 
+test("a later height-only edit in a stale checkout preserves corrected contact and withdrawn consent in Admin", async t => {
+  const older = await quiz(t, {
+    saved: { step: "checkout", user: { ...user, marketingConsent: true }, textFirst: true },
+    connectedTabs: true, submit: async (body, request) => {
+      const response = await realSubmit(body, request);
+      if (older.posts().length === 1) throw new TypeError("Lost accepted unlock reply");
+      return response;
+    },
+  });
+  older.click(older.one("#unlockBtn"));
+  await older.idle();
+  older.panel("checkout");
+  const newer = await quiz(t, { storage: older.snapshot(), connectedTabs: true });
+  newer.one("#inpEmail").value = "corrected@example.test";
+  newer.click(newer.one("#inpMarketing"));
+  newer.click(newer.one("#unlockBtn"));
+  await newer.idle();
+  newer.panel("report1");
+  const admin = createReelsV2Admin({ origin, exportKey: "test-key", getStore: () => store });
+  async function adminRow() {
+    const csv = await admin.exportCsv(new Request(origin + "/api/export-v2", { headers: { authorization: "Bearer test-key" } }));
+    return (await csv.text()).split("\r\n").find(line => line.includes(older.posts()[0].submission_id));
+  }
+  const correctedRow = await adminRow();
+  assert.match(correctedRow, /"corrected@example.test".*"未同意"/);
+  older.one("#inpHeight").value = "166";
+  older.click(older.one("#unlockBtn"));
+  await older.idle();
+  assert.ok(older.posts().at(-1).submitted_at > newer.posts().at(-1).submitted_at);
+  assert.ok(await adminRow() === correctedRow, "A stale height-only edit must leave the corrected Admin row intact");
+  older.panel("checkout");
+  assert.equal(older.one("#inpEmail").value, "corrected@example.test");
+  assert.equal(older.one("#inpMarketing").checked, false);
+  assert.match(older.one("#submissionStatus").textContent, /請核對/);
+  const reconciled = await quiz(t, { storage: older.snapshot() });
+  reconciled.one("#inpHeight").value = "166";
+  reconciled.click(reconciled.one("#unlockBtn"));
+  await reconciled.idle();
+  reconciled.panel("report1");
+  assert.equal((await store.find(older.posts()[0].submission_id)).user.heightCm, 166);
+  assert.match(await adminRow(), /"corrected@example.test".*"未同意"/);
+});
+
+test("editing a legacy pending checkout cannot guess a base from a colliding clock time", async t => {
+  const submittedAt = new Date().toISOString();
+  const saved = await unlockedDraft(submittedAt);
+  const original = {
+    schema_version: 2, event_type: "quiz_unlocked", submission_id: saved.submissionId,
+    submission_token: saved.submissionToken, submitted_at: submittedAt, day_entry: "01", axis_entry: "metabolic",
+    answers, user: { ...user, email: "old@example.test", marketingConsent: true },
+  };
+  const app = await quiz(t, { saved: { ...saved, user: original.user, pendingSubmission: original, paidLocked: false, step: "checkout" } });
+  app.one("#inpHeight").value = "166";
+  app.click(app.one("#unlockBtn"));
+  await app.idle();
+  app.panel("checkout");
+  assert.equal(app.one("#inpEmail").value, user.email);
+  assert.equal(app.one("#inpMarketing").checked, false);
+  assert.equal((await store.find(saved.submissionId)).user.marketingConsent, false);
+});
+
 test("a superseded booking displays the stored store, contact and WhatsApp message", async t => {
   const saved = await unlockedDraft();
   const app = await quiz(t, { saved, submit: async (body, request) => {
@@ -663,7 +749,8 @@ test("a superseded booking displays the stored store, contact and WhatsApp messa
   app.click(app.one("#bookingSubmitBtn"));
   await app.idle();
   app.panel("booking_done");
-  const text = new URL(app.one("#bookingWhatsAppLink").href).searchParams.get("text");
+  assert.match(app.one("#panelBody").textContent, /觀塘門市/);
+  const text = await openWhatsApp(app);
   assert.equal((await store.find(saved.submissionId)).booking.store, "觀塘");
   assert.match(text, /意向門市：觀塘/);
   assert.doesNotMatch(text, /灣仔/);
@@ -696,14 +783,14 @@ for (const delayReply of [false, true]) {
     await later.idle();
     deliver.resolve();
     await first.idle();
-    const message = app => new URL(app.one("#bookingWhatsAppLink")?.href ?? origin).searchParams.get("text") ?? "";
-    for (let i = 0; i < 30 && !message(first).includes("意向門市：觀塘"); i++) {
+    for (let i = 0; i < 30 && !first.one("#panelBody").textContent.includes("觀塘門市"); i++) {
       await new Promise(resolve => setTimeout(resolve, 10));
       await first.idle();
     }
     for (const app of [first, later]) {
       app.panel("booking_done");
-      assert.match(message(app), /意向門市：觀塘/);
+      assert.match(app.one("#panelBody").textContent, /觀塘門市/);
+      assert.match(await openWhatsApp(app), /意向門市：觀塘/);
     }
     assert.match(first.one("#panelBody").textContent, /另一個分頁/);
     assert.equal((await store.find(saved.submissionId)).booking.store, "觀塘");
@@ -727,8 +814,80 @@ test("a late successful booking response without tab messaging reconciles before
   app.click(app.one("#bookingSubmitBtn"));
   await app.idle();
   app.panel("booking_done");
-  assert.match(new URL(app.one("#bookingWhatsAppLink").href).searchParams.get("text"), /意向門市：荃灣/);
+  assert.match(app.one("#panelBody").textContent, /荃灣門市/);
+  assert.match(await openWhatsApp(app), /意向門市：荃灣/);
   assert.match(app.one("#panelBody").textContent, /另一個分頁/);
+});
+
+test("WhatsApp activation after a delayed foreground read opens the current booking without tab messaging", async t => {
+  const saved = await unlockedDraft();
+  const read = Promise.withResolvers();
+  const deliver = Promise.withResolvers();
+  const queued = Promise.withResolvers();
+  const write = Promise.withResolvers();
+  let holdRead = false;
+  const first = await quiz(t, { saved, submit: async (body, request) => {
+    const response = await realSubmit(body, request);
+    if (body.action === "resume" && holdRead) {
+      holdRead = false;
+      read.resolve((await response.clone().json()).record.booking.store);
+      await deliver.promise;
+    }
+    return response;
+  } });
+  const second = await quiz(t, { saved, submit: async (body, request) => {
+    if (body.event_type === "booking_intent") {
+      queued.resolve();
+      await write.promise;
+    }
+    return realSubmit(body, request);
+  } });
+  assert.equal(first.win.BroadcastChannel, undefined);
+  for (const [app, shop] of [[first, "灣仔"], [second, "觀塘"]]) {
+    app.click(app.one(`[data-click="selectBookingStore"][data-arg1="${shop}"]`));
+    app.click(app.action("selectBookingDate"));
+    app.click(app.action("selectBookingSlot"));
+  }
+  first.click(first.one("#bookingSubmitBtn"));
+  await first.idle();
+  second.click(second.one("#bookingSubmitBtn"));
+  await queued.promise;
+  holdRead = true;
+  Object.defineProperty(first.doc, "visibilityState", { value: "visible" });
+  first.doc.dispatchEvent(new first.win.Event("visibilitychange"));
+  assert.equal(await read.promise, "灣仔");
+  write.resolve();
+  await second.idle();
+  assert.equal((await store.find(saved.submissionId)).booking.store, "觀塘");
+  deliver.resolve();
+  await first.idle();
+  const message = await openWhatsApp(first);
+  assert.match(message, /意向門市：觀塘/);
+  assert.doesNotMatch(message, /意向門市：灣仔/);
+  assert.match(first.one("#panelBody").textContent, /觀塘/);
+  for (const value of [saved.submissionToken, user.name, user.email, user.phone, answers.q1]) assert.ok(!message.includes(value));
+  assert.ok(message.includes(saved.submissionId));
+  assert.equal(first.one("#confirmWhatsAppBtn").disabled, false);
+});
+
+test("a failed handoff read keeps WhatsApp closed and allows a fresh retry", async t => {
+  const booking = { store: "觀塘", date: "2024-05-04", weekday: "星期六", timeSlot: "2pm-4pm" };
+  const saved = { ...await unlockedDraft("2024-05-01T02:00:00.000Z", booking), step: "booking_done" };
+  let offline = false;
+  const app = await quiz(t, { saved, blockPopup: true, submit: (body, request) => {
+    if (offline) throw new TypeError("Offline");
+    return realSubmit(body, request);
+  } });
+  offline = true;
+  app.click(app.one("#bookingWhatsAppLink"));
+  await app.idle();
+  assert.equal(app.handoffs.length, 0);
+  assert.equal(app.one("#confirmWhatsAppBtn").disabled, true);
+  assert.equal(app.events().some(e => e.event === "whatsapp_opened"), false);
+  assert.match(app.one("#submissionStatus").textContent, /再試/);
+  offline = false;
+  assert.match(await openWhatsApp(app), /意向門市：觀塘/);
+  assert.equal(app.one("#confirmWhatsAppBtn").disabled, false);
 });
 
 test("blocked tab notifications leave successful unlock and booking usable", async t => {
@@ -772,7 +931,7 @@ test("an accepted booking whose response was lost can be retried after its slot 
   await app.idle();
   app.panel("booking_done");
   assert.deepEqual(app.posts(), [original, original]);
-  assert.ok(new URL(app.one("#bookingWhatsAppLink").href).searchParams.get("text").includes(original.booking.date));
+  assert.ok((await openWhatsApp(app)).includes(original.booking.date));
 });
 
 test("the original credentials reopen a stored legacy booking when the local unlock flag is missing", async t => {
@@ -780,7 +939,7 @@ test("the original credentials reopen a stored legacy booking when the local unl
   const saved = { ...await unlockedDraft("2024-05-01T02:00:00.000Z", booking), step: "booking_done", paidLocked: false };
   const app = await quiz(t, { saved });
   app.panel("booking_done");
-  const text = new URL(app.one("#bookingWhatsAppLink").href).searchParams.get("text");
+  const text = await openWhatsApp(app);
   assert.ok(text.includes(saved.submissionId));
   assert.ok(text.includes(booking.date));
 });

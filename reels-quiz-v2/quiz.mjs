@@ -33,6 +33,7 @@ const state = window.state = {
   submissionToken: null,
   pendingSubmission: null,
   lastSubmittedAt: "",
+  unlockRevision: null,
   bookingSuperseded: false,
   day,
   axis,
@@ -68,7 +69,7 @@ function saveTabState() {
       editingFromReview: state.editingFromReview, unmuted: state.unmuted, rate: state.rate,
       submissionId: state.submissionId, submissionToken: state.submissionToken,
       user: state.user, hmcs: state.hmcs, paidLocked: state.paidLocked,
-      pendingSubmission: state.pendingSubmission, lastSubmittedAt: state.lastSubmittedAt,
+      pendingSubmission: state.pendingSubmission, lastSubmittedAt: state.lastSubmittedAt, unlockRevision: state.unlockRevision,
       bookingSuperseded: state.bookingSuperseded,
     }));
   } catch {
@@ -112,6 +113,7 @@ function restoreTabState() {
           ["quiz_unlocked", "booking_intent"].includes(pending.event_type) && Number.isFinite(Date.parse(pending.submitted_at))) {
         state.pendingSubmission = pending;
       }
+      if (typeof saved.unlockRevision === "string") state.unlockRevision = saved.unlockRevision;
       if (Number.isFinite(Date.parse(saved.lastSubmittedAt))) state.lastSubmittedAt = saved.lastSubmittedAt;
     }
     state.hmcs = { ...state.hmcs, ...saved.hmcs };
@@ -483,7 +485,16 @@ function submissionPayload(eventType) {
   };
   if (pending?.event_type === eventType &&
       (eventType === "booking_intent" ? sameBooking(pending.booking, payload.booking) :
-        JSON.stringify(pending) === JSON.stringify(payload))) return pending;
+        pending.day_entry === payload.day_entry && pending.axis_entry === payload.axis_entry &&
+        JSON.stringify(pending.user) === JSON.stringify(payload.user) &&
+        JSON.stringify(pending.answers) === JSON.stringify(payload.answers))) return pending;
+  if (eventType === "quiz_unlocked") {
+    // Only a unique pending proposal can identify the snapshot after a lost reply.
+    // Legacy pending timestamps can collide, so a changed legacy draft must reconcile.
+    payload.expected_unlock_revision = pending?.event_type === eventType
+      ? pending.unlock_revision ?? null : state.unlockRevision;
+    payload.unlock_revision = crypto.randomUUID();
+  }
   const previous = Math.max(Date.parse(state.lastSubmittedAt) || 0, Date.parse(pending?.submitted_at) || 0);
   payload.submitted_at = new Date(Math.max(Date.now(), previous + 1)).toISOString();
   if (!triage) state.pendingSubmission = structuredClone(payload);
@@ -517,6 +528,7 @@ function isAcceptedRecord(record) {
 
 function useAcceptedRecord(record) {
   acceptedRecord = record;
+  state.unlockRevision = record.unlock_revision ?? record.unlock_submitted_at ?? record.submitted_at;
   state.day = record.day_entry;
   state.axis = record.axis_entry;
   state.user = { ...record.user };
@@ -562,6 +574,12 @@ function watchRecordChanges() {
   }
 }
 
+function requestCurrentRecord() {
+  return requestRecord({
+    schema_version: 2, action: "resume", submission_id: state.submissionId, submission_token: state.submissionToken,
+  });
+}
+
 async function resumeSavedStep() {
   if (!resumeTarget || loadingSaved) return;
   recordNeedsRefresh = false;
@@ -569,11 +587,10 @@ async function resumeSavedStep() {
   resumeError = "";
   renderStage();
   try {
-    const { response, reply } = await requestRecord({
-      schema_version: 2, action: "resume", submission_id: state.submissionId, submission_token: state.submissionToken,
-    });
+    const { response, reply } = await requestCurrentRecord();
     if ([403, 404].includes(response.status)) {
       acceptedRecord = null;
+      state.unlockRevision = null;
       state.paidLocked = false;
       state.pendingSubmission = null;
       state.hmcs = { ...emptyBooking };
@@ -1056,8 +1073,6 @@ function renderStage() {
     title.textContent = "✅ 請經 WhatsApp 確認預約";
     const booking = devMode ? acceptedRecord?.booking ?? { ...draftBooking(), weekday: st.hmcs.weekday } : acceptedRecord.booking;
     const contact = devMode ? st.user : acceptedRecord.user;
-    const id = devMode ? st.submissionId : acceptedRecord.submission_id;
-    const waText = encodeURIComponent(`你好 Duncan 團隊，我想確認線下見面預約，並領取個人問卷分析報告 PDF 版。\n稱呼：${contact.name.trim()}\n意向門市：${booking.store}\n意向日期：${booking.date}\n意向時段：${booking.timeSlot}\n查閱編號：${id}`);
     body.innerHTML = `
       ${st.bookingSuperseded ? '<p class="warn-box" role="status">另一個分頁已更新預約意向。以下係最新儲存嘅門市、日期同時段。</p>' : ""}
       <div class="info-box">
@@ -1068,11 +1083,12 @@ function renderStage() {
         確認電郵：<strong>${escapeHtml(contact.email)}</strong>
       </div>
       <div class="warn-box">
-        開啟後請喺 WhatsApp 按「傳送」，等團隊回覆確認。團隊確認預約後，會經 WhatsApp 送返你嘅個人問卷分析報告 PDF 版。
+        開啟後請喺 WhatsApp 按「傳送」，等團隊回覆確認。訊息會帶上最新門市、日期、時段同查閱編號。團隊確認預約後，會經 WhatsApp 送返你嘅個人問卷分析報告 PDF 版。
       </div>
     `;
     footer.innerHTML = `
-      <a href="https://wa.me/85298788564?text=${waText}" target="_blank" rel="noopener" class="btn-primary" id="bookingWhatsAppLink" data-click="onWhatsAppBookingClicked">${st.whatsappOpened ? '重新打開 WhatsApp' : '打開 WhatsApp 確認預約 →'}</a>
+      <button type="button" class="btn-primary" id="bookingWhatsAppLink" data-click="onWhatsAppBookingClicked">${st.whatsappOpened ? '重新打開 WhatsApp' : '打開 WhatsApp 確認預約 →'}</button>
+      <p class="submission-status" id="submissionStatus" role="status"></p>
       <button type="button" class="btn-secondary" id="confirmWhatsAppBtn" data-click="confirmWhatsAppSent" ${st.whatsappOpened ? '' : 'disabled'}>我已喺 WhatsApp 按「傳送」</button>
       <button type="button" class="btn-secondary" data-click="goStep" data-arg1="booking" data-arg2="panel">← 修改意向門市或時間</button>
     `;
@@ -1105,13 +1121,58 @@ function renderStage() {
     return;
   }
 };
-function onWhatsAppBookingClicked() {
-  if (state.step !== "booking_done") return;
-  state.whatsappOpened = true;
-  saveTabState();
-  document.getElementById("bookingWhatsAppLink").textContent = "重新打開 WhatsApp";
-  document.getElementById("confirmWhatsAppBtn").disabled = false;
-  void trackEvent("whatsapp_opened");
+async function onWhatsAppBookingClicked() {
+  if (state.step !== "booking_done" || resumeTarget || submissionPending) return;
+  const footer = document.getElementById("panelFooter");
+  const status = document.getElementById("submissionStatus");
+  let popup;
+  submissionPending = true;
+  footer.inert = true;
+  status.textContent = "正在核對最新預約意向…";
+  try {
+    // Reserve the browsing context during the click. A webview that blocks new
+    // windows can still open the verified conversation in the current tab.
+    popup = window.open("about:blank", "_blank");
+    if (popup) {
+      popup.opener = null;
+      popup.document.body.textContent = status.textContent;
+    }
+    let record;
+    do {
+      recordNeedsRefresh = false;
+      const { response, reply } = await requestCurrentRecord();
+      if (!response.ok || reply.ok !== true || !isAcceptedRecord(reply.record) || !reply.record.booking) throw new Error();
+      record = reply.record;
+    } while (recordNeedsRefresh);
+    if (popup?.closed) throw new Error();
+
+    if (!sameBooking(record.booking, draftBooking())) {
+      state.bookingSuperseded = true;
+      state.whatsappConfirmed = false;
+    }
+    useAcceptedRecord(record);
+    setBookingSelection(record.booking);
+    const { store, date, timeSlot } = record.booking;
+    const message = `你好 Duncan 團隊，我想確認線下見面預約，並領取個人問卷分析報告 PDF 版。\n意向門市：${store}\n意向日期：${date}\n意向時段：${timeSlot}\n查閱編號：${record.submission_id}`;
+    const link = (popup?.document ?? document).createElement("a");
+    link.href = "https://wa.me/85298788564?text=" + encodeURIComponent(message);
+    link.rel = "noreferrer";
+    link.referrerPolicy = "no-referrer";
+    link.ownerDocument.body.append(link);
+    link.click();
+    link.remove();
+    state.whatsappOpened = true;
+    saveTabState();
+    renderStage();
+    void trackEvent("whatsapp_opened");
+  } catch {
+    popup?.close();
+    status.textContent = "暫時未能開啟 WhatsApp。請檢查網絡，再試一次。";
+  } finally {
+    footer.inert = false;
+    submissionPending = false;
+    refreshOpenRecord();
+  }
 }
 
 function confirmWhatsAppSent() {
@@ -1175,7 +1236,7 @@ async function confirmBookingSubmit() {
   state.bookingSuperseded = reply.conflict === "superseded_booking";
   if (!state.bookingSuperseded) void trackEvent("booking_intent");
   // A successful HTTP reply can arrive after a newer booking from another tab.
-  // Recheck the saved selection before exposing the external WhatsApp link.
+  // Show the current selection on the confirmation screen, then check again at handoff.
   recordNeedsRefresh = !devMode;
   goStep("booking_done", "panel");
 };

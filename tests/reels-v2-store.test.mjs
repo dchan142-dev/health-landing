@@ -241,7 +241,7 @@ test("a stale unlock cannot restore withdrawn consent and corrected contact can 
   const original = unlock();
   await store.save(original);
   const corrected = {
-    ...original, submitted_at: "2026-11-18T02:00:10.000Z",
+    ...original, expected_unlock_revision: original.submitted_at, submitted_at: "2026-11-18T02:00:10.000Z",
     user: { ...original.user, email: "correct@example.test", marketingConsent: false },
     answers: { ...original.answers, q2: [metabolicAnswer] },
   };
@@ -263,6 +263,42 @@ test("a stale unlock cannot restore withdrawn consent and corrected contact can 
   assert.equal(retry.status, 200);
   assert.deepEqual((await retry.json()).record, saved);
   assert.deepEqual(await store.find(original.submission_id), saved);
+});
+
+test("unlock corrections require the exact base even when two pending mutations have the same timestamp", async () => {
+  const original = unlock({ unlock_revision: randomUUID(), expected_unlock_revision: null });
+  await store.save(original);
+  const corrected = {
+    ...original, expected_unlock_revision: original.unlock_revision, unlock_revision: randomUUID(),
+    submitted_at: "2026-11-18T02:00:10.000Z",
+    user: { ...original.user, email: "corrected@example.test", marketingConsent: false },
+  };
+  const accepted = await submit(corrected);
+  assert.equal(accepted.status, 200);
+  const { record } = await accepted.json();
+  const stale = {
+    ...original, unlock_revision: randomUUID(), expected_unlock_revision: original.unlock_revision,
+    submitted_at: "2026-11-18T02:00:20.000Z", user: { ...original.user, heightCm: 166 },
+  };
+  for (const expected_unlock_revision of [original.unlock_revision, null, undefined, randomUUID()]) {
+    const response = await submit({ ...stale, expected_unlock_revision });
+    assert.equal(response.status, 409);
+    assert.equal(response.headers.get("cache-control"), "no-store");
+    assert.deepEqual(await response.json(), { ok: false, conflict: "superseded_unlock", record });
+  }
+  // A lost reply to a competing proposal in the same millisecond cannot name the accepted base.
+  const loser = { ...stale, submitted_at: corrected.submitted_at };
+  assert.equal((await submit(loser)).status, 409);
+  assert.equal((await submit({ ...stale, expected_unlock_revision: loser.unlock_revision })).status, 409);
+  assert.deepEqual((await (await submit(corrected)).json()).record, record);
+  const reconciled = await submit({
+    ...stale, expected_unlock_revision: record.unlock_revision, user: { ...record.user, heightCm: 166 },
+  });
+  assert.equal(reconciled.status, 200);
+  const final = await store.find(original.submission_id);
+  assert.equal(final.user.heightCm, 166);
+  assert.equal(final.user.email, "corrected@example.test");
+  assert.equal(final.user.marketingConsent, false);
 });
 
 for (const delayed of ["earlier", "later"]) {

@@ -1,4 +1,5 @@
 import { createCipheriv, createDecipheriv, createHash, randomBytes, timingSafeEqual } from "node:crypto";
+import { isDeepStrictEqual } from "node:util";
 import pg from "pg";
 import {
   AGE_RANGES,
@@ -98,11 +99,17 @@ function readBooking(candidate, now) {
   return { store: candidate.store, date: available.iso, weekday: available.weekday, timeSlot: candidate.timeSlot };
 }
 
+function readIdentity(payload) {
+  if (payload?.schema_version !== 2 || !isUuid(payload.submission_id) || !isUuid(payload.submission_token)) throw inputError();
+  const id = payload.submission_id.toLowerCase();
+  const token = payload.submission_token.toLowerCase();
+  if (id === token) throw inputError();
+  return { id, tokenHash: createHash("sha256").update(token).digest("hex") };
+}
+
 function normalize(payload, now) {
-  if (!object(payload) || payload.schema_version !== 2) throw inputError();
-  const { submission_id, submission_token, submitted_at, event_type, day_entry, axis_entry } = payload;
-  if (!isUuid(submission_id) || !isUuid(submission_token) || submission_id.toLowerCase() === submission_token.toLowerCase() ||
-      typeof submitted_at !== "string" || typeof event_type !== "string" || !Object.hasOwn(EVENT_RANK, event_type) ||
+  const { submission_id, submitted_at, event_type, day_entry, axis_entry } = payload;
+  if (typeof submitted_at !== "string" || typeof event_type !== "string" || !Object.hasOwn(EVENT_RANK, event_type) ||
       typeof day_entry !== "string" || !Object.hasOwn(DAY_TO_AXIS, day_entry) ||
       typeof axis_entry !== "string" || !Object.hasOwn(AXES_META, axis_entry)) {
     throw inputError();
@@ -177,54 +184,76 @@ export function createReelsV2Store({ pool, encryptionKey, now = () => new Date()
     }
   }
 
-  async function saveBooking(record, tokenHash, receivedAt) {
-    const { rows: [existing] } = await pool.query(`
-      SELECT id, token_hash, event_rank, payload_ciphertext, client_submitted_at >= $2 AS newer_or_same
-      FROM ${TABLE} WHERE id = $1`, [record.submission_id, record.submitted_at]);
-    verifyToken(existing, tokenHash);
-    if (!existing || existing.event_rank < EVENT_RANK.quiz_unlocked) throw inputError(409);
-    if (existing.event_rank === EVENT_RANK.booking_intent && existing.newer_or_same) return;
-    if (!eligibleDate(record.booking, receivedAt)) throw inputError();
-
-    const booked = {
-      ...unseal(existing),
-      event_type: record.event_type,
-      submitted_at: record.submitted_at,
-      booking: record.booking,
-    };
-    // The original unlock snapshot is immutable. The write predicate also protects against a
-    // newer booking committing between the read and this update.
-    await pool.query(`
-      UPDATE ${TABLE}
-      SET event_rank = $3, client_submitted_at = $4, payload_ciphertext = $5, updated_at = NOW()
-      WHERE id = $1 AND token_hash = $2 AND event_rank >= 1
-        AND (event_rank < $3 OR client_submitted_at < $4)`,
-      [record.submission_id, tokenHash, EVENT_RANK.booking_intent, record.submitted_at, seal(booked)],
+  async function authorizedRow(id, tokenHash) {
+    const { rows: [row] } = await pool.query(
+      `SELECT id, token_hash, payload_ciphertext FROM ${TABLE} WHERE id = $1`, [id],
     );
+    verifyToken(row, tokenHash);
+    return row;
+  }
+
+  async function resume(payload) {
+    const { id, tokenHash } = readIdentity(payload);
+    await initialize();
+    const row = await authorizedRow(id, tokenHash);
+    const record = row && unseal(row);
+    if (!record?.user) throw inputError(404);
+    return record;
+  }
+
+  function reconcile(current, incoming, receivedAt) {
+    const { event_type, submitted_at } = incoming;
+    if (event_type === "triage_aborted_level1") {
+      const retain = current && (current.event_type !== event_type || current.submitted_at >= submitted_at);
+      return { record: retain ? current : incoming };
+    }
+    // Older encrypted rows predate the separate unlock revision. A booking keeps its
+    // own timestamp when a visitor corrects the report or withdraws consent.
+    const unlockTime = current?.unlock_submitted_at ?? current?.submitted_at;
+    if (event_type === "booking_intent") {
+      if (!current?.user) throw inputError(409);
+      if (current.booking && current.submitted_at >= submitted_at) {
+        const conflict = isDeepStrictEqual(current.booking, incoming.booking) ? undefined : "superseded_booking";
+        return { record: current, conflict };
+      }
+      if (!eligibleDate(incoming.booking, receivedAt)) throw inputError();
+      return { record: { ...current, unlock_submitted_at: unlockTime, event_type, submitted_at, booking: incoming.booking } };
+    }
+    if (current?.user && unlockTime >= submitted_at) {
+      const matches = current.day_entry === incoming.day_entry && current.axis_entry === incoming.axis_entry &&
+        isDeepStrictEqual(current.user, incoming.user) && isDeepStrictEqual(current.answers, incoming.answers);
+      return { record: current, conflict: matches ? undefined : "superseded_unlock" };
+    }
+    const record = { ...incoming, unlock_submitted_at: submitted_at };
+    if (current?.booking) Object.assign(record, {
+      event_type: current.event_type, submitted_at: current.submitted_at, booking: current.booking,
+    });
+    return { record };
   }
 
   async function save(payload) {
     const receivedAt = now();
-    const record = normalize(payload, receivedAt);
-    const rank = EVENT_RANK[record.event_type];
-    const tokenHash = createHash("sha256").update(payload.submission_token.toLowerCase()).digest("hex");
+    const { id, tokenHash } = readIdentity(payload);
+    const incoming = normalize(payload, receivedAt);
     await initialize();
-    if (record.event_type === "booking_intent") return saveBooking(record, tokenHash, receivedAt);
-
-    const { rows } = await pool.query(`
-      INSERT INTO ${TABLE} AS saved (id, token_hash, event_rank, client_submitted_at, payload_ciphertext)
-      VALUES ($1, $2, $3, $4, $5)
-      ON CONFLICT (id) DO UPDATE SET event_rank = excluded.event_rank,
-        client_submitted_at = excluded.client_submitted_at,
-        payload_ciphertext = excluded.payload_ciphertext, updated_at = NOW()
-      WHERE saved.token_hash = excluded.token_hash
-        AND (saved.event_rank < excluded.event_rank OR
-          (saved.event_rank = 0 AND excluded.event_rank = 0 AND saved.client_submitted_at < excluded.client_submitted_at))
-      RETURNING id`, [record.submission_id, tokenHash, rank, record.submitted_at, seal(record)]);
-    if (rows.length) return;
-
-    const { rows: [existing] } = await pool.query(`SELECT token_hash FROM ${TABLE} WHERE id = $1`, [record.submission_id]);
-    verifyToken(existing, tokenHash);
+    // Compare the exact ciphertext read. A concurrent change in either the booking
+    // or the report forces a fresh authorized read and a new merge of both fields.
+    for (;;) {
+      const row = await authorizedRow(id, tokenHash);
+      const current = row && unseal(row);
+      const result = reconcile(current, incoming, receivedAt);
+      const { record } = result;
+      if (record === current) return result;
+      const values = [id, tokenHash, EVENT_RANK[record.event_type], record.submitted_at, seal(record)];
+      const written = row
+        ? await pool.query(`
+            UPDATE ${TABLE} SET event_rank = $3, client_submitted_at = $4, payload_ciphertext = $5, updated_at = NOW()
+            WHERE id = $1 AND token_hash = $2 AND payload_ciphertext = $6 RETURNING id`, [...values, row.payload_ciphertext])
+        : await pool.query(`
+            INSERT INTO ${TABLE} (id, token_hash, event_rank, client_submitted_at, payload_ciphertext)
+            VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING RETURNING id`, values);
+      if (written.rows.length) return result;
+    }
   }
 
   async function find(id) {
@@ -242,7 +271,7 @@ export function createReelsV2Store({ pool, encryptionKey, now = () => new Date()
     return rows.map(unseal);
   }
 
-  return { initialize, save, find, list };
+  return { initialize, save, resume, find, list };
 }
 
 let productionStore;

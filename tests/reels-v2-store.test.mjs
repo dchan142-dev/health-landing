@@ -113,12 +113,13 @@ test("V2 unlock stores only server-computed BMI and evidence under V2-specific a
   });
   const response = await submit(payload);
   assert.equal(response.status, 200, await response.clone().text());
-  assert.deepEqual(await response.json(), { ok: true });
+  const acknowledgement = await response.json();
   assert.equal(response.headers.get("cache-control"), "no-store");
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
 
   const id = payload.submission_id.toLowerCase();
   const saved = await store.find(payload.submission_id);
+  assert.deepEqual(acknowledgement, { ok: true, record: saved });
   assert.equal(saved.submission_id, id);
   assert.equal(saved.user.email, payload.user.email);
   assert.equal(saved.user.marketingConsent, true);
@@ -220,6 +221,90 @@ test("V2 booking preserves the unlock snapshot across retry and out-of-order upd
   });
   assert.equal((await store.list()).filter(row => row.submission_id === payload.submission_id).length, 1);
 });
+
+test("token-authorized resume exposes only the existing V2 snapshot and never creates a record", async () => {
+  const payload = unlock();
+  const read = { schema_version: 2, action: "resume", submission_id: payload.submission_id, submission_token: payload.submission_token };
+  assert.equal((await submit(read)).status, 404);
+  assert.equal(await store.find(payload.submission_id), null);
+  await store.save(payload);
+  const wrong = await submit({ ...read, submission_token: randomUUID() });
+  assert.equal(wrong.status, 403);
+  assert.deepEqual(Object.keys(await wrong.json()), ["error"]);
+  const resumed = await submit(read);
+  assert.equal(resumed.status, 200);
+  assert.equal(resumed.headers.get("cache-control"), "no-store");
+  assert.deepEqual(await resumed.json(), { ok: true, record: await store.find(payload.submission_id) });
+});
+
+test("a stale unlock cannot restore withdrawn consent and corrected contact can be saved on a booked record", async () => {
+  const original = unlock();
+  await store.save(original);
+  const corrected = {
+    ...original, submitted_at: "2026-11-18T02:00:10.000Z",
+    user: { ...original.user, email: "correct@example.test", marketingConsent: false },
+    answers: { ...original.answers, q2: [metabolicAnswer] },
+  };
+  const booked = { ...original, event_type: "booking_intent", booking, submitted_at: "2026-11-18T02:00:20.000Z" };
+  await store.save(booked);
+  const accepted = await submit(corrected);
+  assert.equal(accepted.status, 200);
+  const saved = await store.find(original.submission_id);
+  assert.equal(saved.user.marketingConsent, false);
+  assert.equal(saved.user.email, "correct@example.test");
+  assert.equal(saved.top_axis, "metabolic");
+  assert.deepEqual(saved.booking, booking);
+  assert.equal(saved.submitted_at, booked.submitted_at);
+  assert.deepEqual((await accepted.json()).record, saved);
+  const stale = await submit(original);
+  assert.equal(stale.status, 409);
+  assert.deepEqual(await stale.json(), { ok: false, conflict: "superseded_unlock", record: saved });
+  const retry = await submit(corrected);
+  assert.equal(retry.status, 200);
+  assert.deepEqual((await retry.json()).record, saved);
+  assert.deepEqual(await store.find(original.submission_id), saved);
+});
+
+for (const delayed of ["earlier", "later"]) {
+  test("overlapping booking writes acknowledge the canonical intent when the " + delayed + " write is delayed", async () => {
+    const unlocked = unlock();
+    await store.save(unlocked);
+    const earlier = { ...unlocked, event_type: "booking_intent", booking, submitted_at: "2026-11-18T02:00:10.000Z" };
+    const later = { ...earlier, booking: { ...booking, store: "觀塘" }, submitted_at: "2026-11-18T02:00:20.000Z" };
+    // Hold one real SQL write after its initial read; the other request completes first.
+    const atWrite = Promise.withResolvers();
+    const release = Promise.withResolvers();
+    const waiting = createReelsV2Store({ encryptionKey, now, pool: { query: async (sql, params) => {
+      if (/^\s*UPDATE /i.test(sql)) {
+        atWrite.resolve();
+        await release.promise;
+      }
+      return db.query(sql, params);
+    } } });
+    const [queued, immediate] = delayed === "earlier" ? [earlier, later] : [later, earlier];
+    const inFlight = submit(queued, undefined, waiting);
+    await atWrite.promise;
+    const first = await submit(immediate);
+    const firstRecord = await store.find(unlocked.submission_id);
+    release.resolve();
+    const last = await inFlight;
+    const saved = await store.find(unlocked.submission_id);
+    assert.equal(first.status, 200);
+    assert.deepEqual((await first.json()).record?.booking, firstRecord.booking);
+    assert.deepEqual(firstRecord.booking, immediate.booking);
+    assert.equal(last.status, delayed === "earlier" ? 409 : 200);
+    const lastReply = await last.json();
+    assert.deepEqual(lastReply.record, saved);
+    assert.equal(lastReply.conflict, delayed === "earlier" ? "superseded_booking" : undefined);
+    assert.deepEqual(saved.booking, later.booking);
+    const retry = await submit(later);
+    assert.equal(retry.status, 200);
+    assert.deepEqual((await retry.json()).record, saved);
+    const superseded = await submit(earlier);
+    assert.equal(superseded.status, 409);
+    assert.deepEqual(await superseded.json(), { ok: false, conflict: "superseded_booking", record: saved });
+  });
+}
 
 test("V2 booking checks the request and server Hong Kong slot windows while allowing an accepted expired retry", async () => {
   const payload = unlock();

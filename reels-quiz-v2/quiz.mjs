@@ -3,6 +3,7 @@ import {
   STORES, buildBookingDates, computeBMI, evaluateAxes, hasRedFlags,
 } from "./quiz-data.mjs";
 
+const window = globalThis.window;
 const { document, location, crypto } = window;
 const MEDIA_ROOT = "/demo/reels-quiz/media/";
 const STORAGE_TTL_MS = 48 * 60 * 60 * 1000;
@@ -18,9 +19,21 @@ const reportSteps = new Set(["report1", "offline_flow", "booking", "booking_done
 const savedSteps = new Set(["welcome", "q1", ...Object.keys(QUESTIONS), "safety_stop", "review", "checkout", ...reportSteps]);
 const emptyAnswers = { q1: "", q2: [], q3: [], q4: [], q5: [], q6: [], q7: "" };
 const emptyUser = { name: "", phone: "", email: "", ageRange: "", gender: "", heightCm: "", weightKg: "", marketingConsent: false };
+const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const emptyBooking = { loc: "", date: "", weekday: "", dateLabel: "", time: "" };
+let acceptedRecord = null;
+let resumeTarget = null;
+let loadingSaved = false;
+let resumeError = "";
+let checkoutNotice = "";
+let changesChannel = null;
+let recordNeedsRefresh = false;
 const state = window.state = {
-  submissionId: crypto.randomUUID(),
-  submissionToken: crypto.randomUUID(),
+  submissionId: null,
+  submissionToken: null,
+  pendingSubmission: null,
+  lastSubmittedAt: "",
+  bookingSuperseded: false,
   day,
   axis,
   step: "welcome",
@@ -34,7 +47,7 @@ const state = window.state = {
   localVideos: {},
   answers: { ...emptyAnswers },
   user: { ...emptyUser },
-  hmcs: { loc: "", date: "", weekday: "", dateLabel: "", time: "" },
+  hmcs: { ...emptyBooking },
   unmuted: true,
   rate: 1,
 };
@@ -55,6 +68,8 @@ function saveTabState() {
       editingFromReview: state.editingFromReview, unmuted: state.unmuted, rate: state.rate,
       submissionId: state.submissionId, submissionToken: state.submissionToken,
       user: state.user, hmcs: state.hmcs, paidLocked: state.paidLocked,
+      pendingSubmission: state.pendingSubmission, lastSubmittedAt: state.lastSubmittedAt,
+      bookingSuperseded: state.bookingSuperseded,
     }));
   } catch {
     // The current session remains usable in browsers that block Web Storage.
@@ -88,33 +103,42 @@ function restoreTabState() {
     state.answers = restoreAnswers(saved.answers);
     state.unmuted = saved.unmuted !== false;
     state.rate = [1, 1.5, 2, 0.8].includes(saved.rate) ? saved.rate : 1;
-    state.submissionId = saved.submissionId || state.submissionId;
-    state.submissionToken = saved.submissionToken || state.submissionToken;
+    if (uuid.test(saved.submissionId) && uuid.test(saved.submissionToken) &&
+        saved.submissionId.toLowerCase() !== saved.submissionToken.toLowerCase()) {
+      state.submissionId = saved.submissionId.toLowerCase();
+      state.submissionToken = saved.submissionToken.toLowerCase();
+      const pending = saved.pendingSubmission;
+      if (pending?.submission_id === state.submissionId && pending.submission_token === state.submissionToken &&
+          ["quiz_unlocked", "booking_intent"].includes(pending.event_type) && Number.isFinite(Date.parse(pending.submitted_at))) {
+        state.pendingSubmission = pending;
+      }
+      if (Number.isFinite(Date.parse(saved.lastSubmittedAt))) state.lastSubmittedAt = saved.lastSubmittedAt;
+    }
     state.hmcs = { ...state.hmcs, ...saved.hmcs };
     state.user = { ...emptyUser, ...saved.user };
     state.textFirst = saved.textFirst === true;
     state.whatsappOpened = saved.whatsappOpened === true;
     state.whatsappConfirmed = saved.whatsappConfirmed === true;
-    state.paidLocked = saved.paidLocked === true;
+    state.paidLocked = saved.paidLocked === true && Boolean(state.submissionId);
+    state.bookingSuperseded = saved.bookingSuperseded === true;
     if (savedSteps.has(saved.step)) {
       state.step = saved.step;
       state.phase = saved.phase === "panel" ? "panel" : "video";
       state.editingFromReview = saved.editingFromReview === true;
     }
     if (state.step === "welcome") state.phase = "video";
-    if (state.step === "post_whatsapp" && !state.whatsappConfirmed) {
-      state.step = "booking_done";
-      state.phase = "panel";
-    }
-    if (reportSteps.has(state.step) && !state.paidLocked) {
+    if (reportSteps.has(state.step) && !state.submissionId && !devMode) {
       state.step = "checkout";
       state.phase = "panel";
+      state.hmcs = { ...emptyBooking };
+      state.whatsappOpened = state.whatsappConfirmed = false;
     }
     if (hasRedFlags(state.answers) && (reportSteps.has(state.step) || ["q7", "review", "checkout"].includes(state.step))) {
       state.step = "safety_stop";
       state.phase = "panel";
       state.paidLocked = false;
     }
+    if (!devMode && reportSteps.has(state.step)) resumeTarget = { step: state.step, phase: state.phase };
   } catch {
     // A corrupted or unavailable draft must not prevent the quiz from opening.
   }
@@ -373,7 +397,7 @@ function switchAxis(newAxis) {
   goStep("q1", "video");
 };
 const checkoutFields = {
-  inpName: { key: "name", valid: value => value.length > 0 && value.length <= 80, message: "請輸入稱呼或姓名（最多 80 個字）。" },
+  inpName: { key: "name", valid: value => value.length > 0 && value.length <= 80 && !/[\u0000-\u001f\u007f]/.test(value), message: "請輸入稱呼或姓名（最多 80 個字），字與字之間可以用空格。" },
   inpPhone: { key: "phone", valid: value => /^\d{8}$/.test(value), message: "請輸入 8 位數字嘅香港 WhatsApp 電話。" },
   inpEmail: { key: "email", valid: value => value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), message: "請輸入有效電郵地址。" },
   inpAgeRange: { key: "ageRange", valid: value => AGE_RANGES.includes(value), message: "請選擇年齡範圍。" },
@@ -429,67 +453,219 @@ function showCheckoutErrors() {
 }
 let submissionPending = false;
 
-async function sendRecordToBackend(eventType, button) {
-  if (devMode) return true;
-  if (submissionPending) return false;
-  const st = state;
+function submissionPayload(eventType) {
+  if (!state.submissionId) {
+    state.submissionId = crypto.randomUUID();
+    state.submissionToken = crypto.randomUUID();
+    watchRecordChanges();
+  }
   const triage = eventType === "triage_aborted_level1";
-  const ev = triage ? null : evaluateAxes(st.axis, st.answers);
+  const report = triage ? null : evaluateAxes(state.axis, state.answers);
+  const pending = state.pendingSubmission;
   const payload = {
     schema_version: 2,
-    submission_id: st.submissionId,
-    submission_token: st.submissionToken,
-    submitted_at: new Date().toISOString(),
+    submission_id: state.submissionId,
+    submission_token: state.submissionToken,
+    submitted_at: pending?.submitted_at ?? "",
     event_type: eventType,
     user: triage ? null : {
-      ...st.user, name: st.user.name.trim(), phone: st.user.phone.trim(), email: st.user.email.trim(),
+      ...state.user, name: state.user.name.trim(), phone: state.user.phone.trim(), email: state.user.email.trim(),
     },
-    day_entry: st.day,
-    axis_entry: st.axis,
-    bmi: triage ? null : computeBMI(st.user.heightCm, st.user.weightKg),
-    top_axis: triage ? null : ev.winnerId,
-    ratios: triage ? null : ev.ratios,
-    answers: triage ? { q6: st.answers.q6 } : st.answers,
+    day_entry: state.day,
+    axis_entry: state.axis,
+    bmi: triage ? null : computeBMI(state.user.heightCm, state.user.weightKg),
+    top_axis: report?.winnerId ?? null,
+    ratios: report?.ratios ?? null,
+    answers: triage ? { q6: state.answers.q6 } : state.answers,
     booking: eventType === "booking_intent" ? {
-      store: st.hmcs.loc, date: st.hmcs.date, weekday: st.hmcs.weekday, timeSlot: st.hmcs.time,
+      store: state.hmcs.loc, date: state.hmcs.date, weekday: state.hmcs.weekday, timeSlot: state.hmcs.time,
     } : null,
   };
-  const status = document.getElementById("submissionStatus");
+  if (pending?.event_type === eventType &&
+      (eventType === "booking_intent" ? sameBooking(pending.booking, payload.booking) :
+        JSON.stringify(pending) === JSON.stringify(payload))) return pending;
+  const previous = Math.max(Date.parse(state.lastSubmittedAt) || 0, Date.parse(pending?.submitted_at) || 0);
+  payload.submitted_at = new Date(Math.max(Date.now(), previous + 1)).toISOString();
+  if (!triage) state.pendingSubmission = structuredClone(payload);
+  saveTabState();
+  return payload;
+}
+
+function sameBooking(a, b) {
+  return Boolean(a && b && a.store === b.store && a.date === b.date && a.timeSlot === b.timeSlot);
+}
+
+function draftBooking() {
+  return { store: state.hmcs.loc, date: state.hmcs.date, timeSlot: state.hmcs.time };
+}
+
+function setBookingSelection(booking) {
+  state.hmcs = {
+    loc: booking.store, date: booking.date, weekday: booking.weekday,
+    dateLabel: `${booking.date}（${booking.weekday}）`, time: booking.timeSlot,
+  };
+}
+
+function isAcceptedRecord(record) {
+  if (record?.schema_version !== 2 || record.scoring_version !== "v2" || record.submission_id !== state.submissionId ||
+      !["quiz_unlocked", "booking_intent"].includes(record.event_type) || !record.user?.name || !record.answers?.q7 ||
+      !Number.isFinite(record.bmi?.bmi) || (record.top_axis !== null && !Object.hasOwn(AXES_META, record.top_axis))) return false;
+  if (record.event_type === "booking_intent" && (!STORES.includes(record.booking?.store) ||
+      !record.booking.date || !record.booking.weekday || !record.booking.timeSlot)) return false;
+  return Object.keys(AXES_META).every(id => Number.isFinite(record.ratios?.[id]) && Array.isArray(record.evidence?.[id]));
+}
+
+function useAcceptedRecord(record) {
+  acceptedRecord = record;
+  state.day = record.day_entry;
+  state.axis = record.axis_entry;
+  state.user = { ...record.user };
+  state.answers = structuredClone(record.answers);
+  state.lastSubmittedAt = [state.lastSubmittedAt, record.submitted_at, record.unlock_submitted_at ?? ""].sort().at(-1);
+}
+
+async function requestRecord(payload, keepalive = false) {
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), 12000);
+  try {
+    const response = await window.fetch("/api/submit-v2", {
+      method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload),
+      signal: controller.signal, keepalive, credentials: "omit", referrerPolicy: "no-referrer", cache: "no-store",
+    });
+    return { response, reply: await response.json() };
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
+
+function refreshOpenRecord() {
+  if (!recordNeedsRefresh || resumeTarget || submissionPending || !state.paidLocked ||
+      !["report1", "booking_done", "post_whatsapp"].includes(state.step)) return;
+  recordNeedsRefresh = false;
+  resumeTarget = { step: state.step, phase: state.phase };
+  void resumeSavedStep();
+}
+
+function watchRecordChanges() {
+  changesChannel?.close();
+  changesChannel = null;
+  if (devMode || !state.submissionId || !window.BroadcastChannel) return;
+  try {
+    // Tabs exchange an invalidation only. Each tab reads the private record with its own token.
+    changesChannel = new window.BroadcastChannel(`hd_reels_v4:change:${state.submissionId}`);
+    changesChannel.onmessage = () => {
+      recordNeedsRefresh = true;
+      refreshOpenRecord();
+    };
+  } catch {
+    // Returning to the page also refreshes its confirmation when tab messaging is unavailable.
+  }
+}
+
+async function resumeSavedStep() {
+  if (!resumeTarget || loadingSaved) return;
+  recordNeedsRefresh = false;
+  loadingSaved = true;
+  resumeError = "";
+  renderStage();
+  try {
+    const { response, reply } = await requestRecord({
+      schema_version: 2, action: "resume", submission_id: state.submissionId, submission_token: state.submissionToken,
+    });
+    if ([403, 404].includes(response.status)) {
+      acceptedRecord = null;
+      state.paidLocked = false;
+      state.pendingSubmission = null;
+      state.hmcs = { ...emptyBooking };
+      state.whatsappOpened = state.whatsappConfirmed = false;
+      if (response.status === 403) state.submissionId = state.submissionToken = null;
+      checkoutNotice = "未能重開原有報告，請核對資料再解鎖。";
+      resumeTarget = null;
+      goStep("checkout", "panel");
+      return;
+    }
+    if (!response.ok || reply.ok !== true || !isAcceptedRecord(reply.record)) throw new Error();
+    const { record } = reply;
+    useAcceptedRecord(record);
+    state.paidLocked = true;
+    let { step, phase } = resumeTarget;
+    resumeTarget = null;
+    const pending = state.pendingSubmission;
+    const pendingBooked = pending?.event_type === "booking_intent" && sameBooking(pending.booking, draftBooking()) &&
+      record.booking && record.submitted_at >= pending.submitted_at;
+    if (step === "booking_done" || step === "post_whatsapp" || (step === "booking" && pendingBooked)) {
+      phase = "panel";
+      if (record.booking) {
+        if (!sameBooking(record.booking, draftBooking())) {
+          state.whatsappOpened = state.whatsappConfirmed = false;
+          state.bookingSuperseded = true;
+        }
+        setBookingSelection(record.booking);
+        step = step === "post_whatsapp" && state.whatsappConfirmed ? "post_whatsapp" : "booking_done";
+      } else {
+        state.hmcs = { ...emptyBooking };
+        state.whatsappOpened = state.whatsappConfirmed = false;
+        step = "booking";
+      }
+      state.pendingSubmission = null;
+    }
+    goStep(step, phase);
+  } catch {
+    resumeError = "暫時載入唔到已儲存嘅資料。請檢查網絡，再試一次。";
+  } finally {
+    loadingSaved = false;
+    if (resumeTarget) renderStage();
+    else refreshOpenRecord();
+  }
+}
+
+async function sendRecordToBackend(eventType, button) {
+  if (submissionPending) return null;
+  const payload = submissionPayload(eventType);
+  const triage = eventType === "triage_aborted_level1";
+  if (devMode) {
+    const report = evaluateAxes(state.axis, state.answers);
+    state.pendingSubmission = null;
+    return { record: { ...payload, evidence: report.evidence, unlock_submitted_at: payload.submitted_at } };
+  }
+  const status = document.getElementById("submissionStatus");
   const label = button?.textContent;
   const panelBody = document.getElementById("panelBody");
   if (!triage) {
     submissionPending = true;
     panelBody.inert = true;
-    if (button) {
-      button.disabled = true;
-      button.textContent = "正在儲存資料…";
-    }
-    if (status) status.textContent = "";
+    button.disabled = true;
+    button.textContent = "正在儲存資料…";
+    status.textContent = "";
   }
   try {
-    const response = await window.fetch("/api/submit-v2", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-      keepalive: triage,
-    });
-    if (!response.ok || (await response.json()).ok !== true) throw new Error("Submission failed");
-    return true;
+    const { response, reply } = await requestRecord(payload, triage);
+    if (triage) return null;
+    const expectedConflict = eventType === "booking_intent" ? "superseded_booking" : "superseded_unlock";
+    const conflict = response.status === 409 && reply.conflict === expectedConflict;
+    if (!((response.ok && reply.ok === true) || conflict) || !isAcceptedRecord(reply.record) ||
+        (eventType === "booking_intent" && !reply.record.booking)) {
+      if (response.status === 400) {
+        state.pendingSubmission = null;
+        saveTabState();
+        renderStage();
+        document.getElementById("submissionStatus").textContent = "請核對答案、聯絡資料及預約時段，再撳掣重試。";
+        return null;
+      }
+      throw new Error();
+    }
+    state.pendingSubmission = null;
+    return reply;
   } catch {
     if (status) status.textContent = "暫時儲存唔到資料。請檢查網絡，再撳掣重試。";
-    return false;
+    return null;
   } finally {
-    window.clearTimeout(timeout);
     if (!triage) {
       submissionPending = false;
       panelBody.inert = false;
-      if (button) {
-        button.disabled = false;
-        button.textContent = label;
-      }
+      button.disabled = false;
+      button.textContent = label;
+      try { changesChannel?.postMessage("refresh"); } catch { /* Some webviews block tab messaging. */ }
     }
   }
 }
@@ -506,17 +682,26 @@ function getShortLabels(qid) {
   return arr.length ? arr.map(v => map.get(v) || v) : ["未選"];
 }
 function goStep(targetStep, startPhase) {
-  if (submissionPending || !savedSteps.has(targetStep)) return;
+  if (resumeTarget || submissionPending || !savedSteps.has(targetStep)) return;
   if (reportSteps.has(targetStep) && !state.paidLocked) {
     targetStep = "checkout";
     startPhase = "panel";
+  }
+  if (!devMode && ["booking_done", "post_whatsapp"].includes(targetStep) && !acceptedRecord?.booking) {
+    targetStep = "booking";
+    startPhase = "panel";
+  }
+  if (["q7", "review", "checkout"].includes(targetStep) && hasRedFlags(state.answers)) {
+    openSafetyStop();
+    return;
   }
   const noVideoSteps = ["checkout", "booking_done", "post_whatsapp"];
   const defaultPhase = state.textFirst || noVideoSteps.includes(targetStep) ? "panel" : "video";
   state.step = targetStep;
   state.phase = targetStep === "welcome" ? "video" : (startPhase || defaultPhase);
   saveTabState();
-  renderStage();
+  if (!loadingSaved) refreshOpenRecord();
+  if (!resumeTarget) renderStage();
   document.getElementById('panelBody').scrollTop = 0;
 };
 function renderStage() {
@@ -526,6 +711,15 @@ function renderStage() {
   const title = document.getElementById("panelTitle");
   const body = document.getElementById("panelBody");
   const footer = document.getElementById("panelFooter");
+  if (resumeTarget) {
+    st.phase = "panel";
+    applyPhaseUI();
+    badge.textContent = "";
+    title.textContent = "重開已儲存嘅資料";
+    body.textContent = resumeError || "正在核對報告同預約紀錄…";
+    footer.innerHTML = resumeError ? '<button type="button" class="btn-primary" data-click="resumeSavedStep">重新載入</button>' : "";
+    return;
+  }
   const sel = document.getElementById("quickJumpSel");
   if (sel && [...sel.options].some(o => o.value === s)) sel.value = s;
   const progMap = {
@@ -724,10 +918,17 @@ function renderStage() {
         <button type="button" class="btn-secondary" data-click="replayStepVideo">↺ 重溫提示影片</button>
       </div>
     `;
+    document.getElementById("submissionStatus").textContent = checkoutNotice;
     return;
   }
   if (s === "report1") {
-    const result = evaluateAxes(st.axis, st.answers);
+    const record = acceptedRecord;
+    const preview = devMode && !record ? evaluateAxes(st.axis, st.answers) : null;
+    const result = preview ?? {
+      winnerId: record.top_axis, winner: AXES_META[record.top_axis], ratios: record.ratios, evidence: record.evidence,
+      sortedIds: Object.keys(AXES_META).sort((a, b) => record.ratios[b] - record.ratios[a]),
+    };
+    const { user, answers } = record ?? st;
     badge.textContent = "專屬 4 軸分析報告";
     title.textContent = result.winner ? `你今次嘅自評重點：${result.winner.name}` : "暫未見明顯自評重點";
     const barsHtml = result.sortedIds.map(cid => {
@@ -746,12 +947,12 @@ function renderStage() {
         </div>
       `;
     }).join("");
-    const bmiInfo = computeBMI(st.user.heightCm, st.user.weightKg);
+    const bmiInfo = preview ? computeBMI(user.heightCm, user.weightKg) : record.bmi;
     const bmiHtml = bmiInfo ? `
       <div class="info-box" style="padding:9px 12px; font-size:14.5px; border-color:${bmiInfo.color};">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
           <strong>📊 你的 BMI：${bmiInfo.bmi}（${bmiInfo.status}）</strong>
-          <span style="font-size:12.5px; color:var(--ink-muted);">${escapeHtml(st.user.gender)} · ${escapeHtml(st.user.ageRange)}</span>
+          <span style="font-size:12.5px; color:var(--ink-muted);">${escapeHtml(user.gender)} · ${escapeHtml(user.ageRange)}</span>
         </div>
         <div style="font-size:13.5px; line-height:1.38; color:var(--ink-sub);">${bmiInfo.risk}</div>
       </div>
@@ -762,8 +963,8 @@ function renderStage() {
         <p class="info-box">你喺第 2 至第 5 題未有揀到明確相關訊號，暫時未能分出重點。第一次見面可以由你最想了解嘅方向開始梳理。</p>`}
       <div class="ratio-stack">${barsHtml}</div>
       <dl class="report-priorities info-box">
-        <dt>你一開始想了解</dt><dd>${escapeHtml(st.answers.q1 || "未選")}</dd>
-        <dt>第一次見面最想優先傾</dt><dd>${escapeHtml(st.answers.q7 || "未選")}</dd>
+        <dt>你一開始想了解</dt><dd>${escapeHtml(answers.q1 || "未選")}</dd>
+        <dt>第一次見面最想優先傾</dt><dd>${escapeHtml(answers.q7 || "未選")}</dd>
       </dl>
       ${result.winner ? `
         <section class="report-evidence info-box">
@@ -819,6 +1020,7 @@ function renderStage() {
     const store = STORES.includes(st.hmcs.loc) ? st.hmcs.loc : "";
     const date = store ? bookingDates.find(d => d.iso === st.hmcs.date) : undefined;
     const time = date?.slots.includes(st.hmcs.time) ? st.hmcs.time : "";
+    const retry = sameBooking(st.pendingSubmission?.booking, draftBooking());
     body.innerHTML = `
       <h2 class="booking-label">1. 選擇就腳門市</h2>
       <div class="grid-2col">
@@ -839,7 +1041,7 @@ function renderStage() {
       </div>
     `;
     footer.innerHTML = `
-      <button type="button" class="btn-primary" id="bookingSubmitBtn" data-click="confirmBookingSubmit" ${time ? '' : 'disabled'}>送出意向預約 →</button>
+      <button type="button" class="btn-primary" id="bookingSubmitBtn" data-click="confirmBookingSubmit" ${time || retry ? '' : 'disabled'}>${retry ? "重試原有預約意向" : "送出意向預約 →"}</button>
       <p class="submission-status" id="submissionStatus" role="status"></p>
       <div class="footer-row-2">
         <button type="button" class="btn-secondary" data-click="goStep" data-arg1="offline_flow" data-arg2="panel">← 返回流程圖</button>
@@ -852,14 +1054,18 @@ function renderStage() {
   if (s === "booking_done") {
     badge.textContent = "已登記預約意向";
     title.textContent = "✅ 請經 WhatsApp 確認預約";
-    const waText = encodeURIComponent(`你好 Duncan 團隊，我想確認線下見面預約，並領取個人問卷分析報告 PDF 版。\n稱呼：${st.user.name.trim()}\n意向門市：${st.hmcs.loc}\n意向日期：${st.hmcs.date}\n意向時段：${st.hmcs.time}\n查閱編號：${st.submissionId}`);
+    const booking = devMode ? acceptedRecord?.booking ?? { ...draftBooking(), weekday: st.hmcs.weekday } : acceptedRecord.booking;
+    const contact = devMode ? st.user : acceptedRecord.user;
+    const id = devMode ? st.submissionId : acceptedRecord.submission_id;
+    const waText = encodeURIComponent(`你好 Duncan 團隊，我想確認線下見面預約，並領取個人問卷分析報告 PDF 版。\n稱呼：${contact.name.trim()}\n意向門市：${booking.store}\n意向日期：${booking.date}\n意向時段：${booking.timeSlot}\n查閱編號：${id}`);
     body.innerHTML = `
+      ${st.bookingSuperseded ? '<p class="warn-box" role="status">另一個分頁已更新預約意向。以下係最新儲存嘅門市、日期同時段。</p>' : ""}
       <div class="info-box">
-        意向門市：<strong>${escapeHtml(st.hmcs.loc)}門市</strong><br/>
-        意向日期：<strong>${escapeHtml(st.hmcs.dateLabel)}</strong><br/>
-        意向時段：<strong>${escapeHtml(st.hmcs.time)}</strong><br/>
-        聯絡電話：<strong>${escapeHtml(st.user.phone)}</strong><br/>
-        確認電郵：<strong>${escapeHtml(st.user.email)}</strong>
+        意向門市：<strong>${escapeHtml(booking.store)}門市</strong><br/>
+        意向日期：<strong>${escapeHtml(booking.date + "（" + booking.weekday + "）")}</strong><br/>
+        意向時段：<strong>${escapeHtml(booking.timeSlot)}</strong><br/>
+        聯絡電話：<strong>${escapeHtml(contact.phone)}</strong><br/>
+        確認電郵：<strong>${escapeHtml(contact.email)}</strong>
       </div>
       <div class="warn-box">
         開啟後請喺 WhatsApp 按「傳送」，等團隊回覆確認。團隊確認預約後，會經 WhatsApp 送返你嘅個人問卷分析報告 PDF 版。
@@ -954,18 +1160,24 @@ function selectBookingSlot(slot) {
 async function confirmBookingSubmit() {
   if (submissionPending || state.step !== "booking") return;
   const date = buildBookingDates().find(({ iso }) => iso === state.hmcs.date);
-  if (!STORES.includes(state.hmcs.loc) || !date?.slots.includes(state.hmcs.time)) {
+  const retry = sameBooking(state.pendingSubmission?.booking, draftBooking());
+  if (!retry && (!STORES.includes(state.hmcs.loc) || !date?.slots.includes(state.hmcs.time))) {
     renderStage();
     document.getElementById("submissionStatus").textContent = "原先時段已過，請重新揀選。";
     return;
   }
-  Object.assign(state.hmcs, { weekday: date.weekday, dateLabel: date.label });
-  if (await sendRecordToBackend("booking_intent", document.getElementById("bookingSubmitBtn"))) {
-    state.whatsappOpened = false;
-    state.whatsappConfirmed = false;
-    void trackEvent("booking_intent");
-    goStep("booking_done", "panel");
-  }
+  if (date) Object.assign(state.hmcs, { weekday: date.weekday, dateLabel: date.label });
+  const reply = await sendRecordToBackend("booking_intent", document.getElementById("bookingSubmitBtn"));
+  if (!reply) return;
+  useAcceptedRecord(reply.record);
+  setBookingSelection(reply.record.booking);
+  state.whatsappOpened = state.whatsappConfirmed = false;
+  state.bookingSuperseded = reply.conflict === "superseded_booking";
+  if (!state.bookingSuperseded) void trackEvent("booking_intent");
+  // A successful HTTP reply can arrive after a newer booking from another tab.
+  // Recheck the saved selection before exposing the external WhatsApp link.
+  recordNeedsRefresh = !devMode;
+  goStep("booking_done", "panel");
 };
 function onUserFieldInput(event) {
   syncUserFieldsFromDOM();
@@ -1000,8 +1212,7 @@ function pickMulti(qid, val, isNone) {
 };
 function reviseSafetyAnswer() {
   state.answers.q6 = [];
-  state.submissionId = crypto.randomUUID();
-  state.submissionToken = crypto.randomUUID();
+  if (!state.pendingSubmission) state.submissionId = state.submissionToken = null;
   goStep("q6", "panel");
 };
 function openSafetyStop() {
@@ -1088,18 +1299,25 @@ async function processUnlockReport() {
     goStep("review", "panel");
     return;
   }
-  if (await sendRecordToBackend("quiz_unlocked", document.getElementById("unlockBtn"))) {
-    state.paidLocked = true;
-    void trackEvent("report_unlocked");
-    goStep("report1");
+  const reply = await sendRecordToBackend("quiz_unlocked", document.getElementById("unlockBtn"));
+  if (!reply) return;
+  useAcceptedRecord(reply.record);
+  if (reply.conflict === "superseded_unlock") {
+    checkoutNotice = "另一個分頁已更新資料。已載入最新答案、聯絡資料同推廣選擇，請核對或修改後再儲存。";
+    goStep("checkout", "panel");
+    return;
   }
+  checkoutNotice = "";
+  state.paidLocked = true;
+  void trackEvent("report_unlocked");
+  goStep("report1");
 };
 
 const actions = Object.freeze({
   confirmBookingSubmit, confirmWhatsAppSent, cyclePlaybackRate, directAnswer, editFromReview, enterPanelPhase, goStep, jumpStep,
   loadLocalVideos, manualStartVideo, onUserFieldInput, onWhatsAppBookingClicked, pickMulti,
   pickSingle, processUnlockReport, replayCurrentVideo, replayStepVideo, reviseSafetyAnswer,
-  selectBookingDate, selectBookingSlot, selectBookingStore, stepBack, submitQuestion,
+  resumeSavedStep, selectBookingDate, selectBookingSlot, selectBookingStore, stepBack, submitQuestion,
   switchAxis, toggleMuteVideo, toggleTheme,
 });
 
@@ -1117,5 +1335,16 @@ for (const type of ["click", "input", "change"]) {
   });
 }
 
+function refreshOnReturn() {
+  if (devMode || !state.paidLocked) return;
+  recordNeedsRefresh = true;
+  refreshOpenRecord();
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") refreshOnReturn();
+});
+window.addEventListener("pageshow", event => { if (event.persisted) refreshOnReturn(); });
+watchRecordChanges();
 void trackEvent("landing");
-renderStage();
+if (resumeTarget) void resumeSavedStep();
+else renderStage();

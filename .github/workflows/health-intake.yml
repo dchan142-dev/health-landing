@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "intake/**"
+      - "reels-quiz-v2/**"
       - "server/**"
       - "api/**"
       - "scripts/**"

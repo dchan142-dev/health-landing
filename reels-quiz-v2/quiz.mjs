@@ -1159,6 +1159,7 @@ async function onWhatsAppBookingClicked() {
     link.rel = "noreferrer";
     link.referrerPolicy = "no-referrer";
     link.ownerDocument.body.append(link);
+    if (!popup) window.opener = null;
     link.click();
     link.remove();
     state.whatsappOpened = true;

@@ -870,7 +870,7 @@ test("WhatsApp activation after a delayed foreground read opens the current book
   assert.equal(first.one("#confirmWhatsAppBtn").disabled, false);
 });
 
-test("a failed handoff read keeps WhatsApp closed and allows a fresh retry", async t => {
+test("a failed handoff read stays on the quiz and a successful current-tab retry detaches its opener", async t => {
   const booking = { store: "觀塘", date: "2024-05-04", weekday: "星期六", timeSlot: "2pm-4pm" };
   const saved = { ...await unlockedDraft("2024-05-01T02:00:00.000Z", booking), step: "booking_done" };
   let offline = false;
@@ -878,15 +878,23 @@ test("a failed handoff read keeps WhatsApp closed and allows a fresh retry", asy
     if (offline) throw new TypeError("Offline");
     return realSubmit(body, request);
   } });
+  const launcher = {};
+  app.win.opener = launcher;
+  let openerAtNavigation;
+  app.doc.addEventListener("click", event => {
+    if (event.target.matches('a[href^="https://wa.me/"]')) openerAtNavigation = app.win.opener;
+  });
   offline = true;
   app.click(app.one("#bookingWhatsAppLink"));
   await app.idle();
   assert.equal(app.handoffs.length, 0);
+  assert.equal(app.win.opener, launcher);
   assert.equal(app.one("#confirmWhatsAppBtn").disabled, true);
   assert.equal(app.events().some(e => e.event === "whatsapp_opened"), false);
   assert.match(app.one("#submissionStatus").textContent, /再試/);
   offline = false;
   assert.match(await openWhatsApp(app), /意向門市：觀塘/);
+  assert.equal(openerAtNavigation, null);
   assert.equal(app.one("#confirmWhatsAppBtn").disabled, false);
 });
 

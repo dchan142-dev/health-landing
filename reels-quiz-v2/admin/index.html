@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-HK">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="no-referrer">
+    <title>Reels 問卷 V2 管理</title>
+    <link rel="stylesheet" href="/reels-quiz-v2/admin/style.css">
+    <script type="module" src="/reels-quiz-v2/admin/app.mjs"></script>
+  </head>
+  <body>
+    <main>
+      <header class="page-header">
+        <div>
+          <p class="brand">Health Decoder</p>
+          <h1>Reels 問卷 V2 管理</h1>
+        </div>
+        <div class="actions">
+          <button id="refresh" type="button">重新載入</button>
+          <a class="primary" id="download-csv" href="/api/export-v2" download hidden>下載 CSV</a>
+        </div>
+      </header>
+      <p class="status" id="status" role="status" aria-live="polite">正在載入紀錄…</p>
+      <section class="sign-in" id="sign-in" aria-labelledby="sign-in-title" hidden>
+        <h2 id="sign-in-title">管理員登入</h2>
+        <p>使用現有管理員帳戶查看 Reels V2 問卷紀錄。</p>
+        <form method="post" action="/api/health-intake/auth/sign-in/email">
+          <label>
+            登入電郵
+            <input name="email" type="email" autocomplete="username" required>
+          </label>
+          <label>
+            密碼
+            <input name="password" type="password" autocomplete="current-password" required>
+          </label>
+          <button type="submit">登入 Reels V2 問卷管理</button>
+        </form>
+      </section>
+      <noscript><p>請啟用 JavaScript，以載入管理員問卷紀錄。</p></noscript>
+      <label class="record-search" id="search-wrap" hidden>
+        搜尋稱呼、查閱編號、電郵或電話
+        <input id="record-search" type="search" autocomplete="off">
+      </label>
+      <div class="record-table" id="table" hidden>
+        <table aria-label="Reels V2 問卷紀錄">
+          <thead>
+            <tr>
+              <th scope="col">提交時間</th>
+              <th scope="col">稱呼</th>
+              <th scope="col">電郵／WhatsApp</th>
+              <th scope="col">Reel Day</th>
+              <th scope="col">進度</th>
+              <th scope="col">預約意向</th>
+              <th scope="col">客人報告</th>
+            </tr>
+          </thead>
+          <tbody id="records"></tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>

@@ -27,8 +27,18 @@ for (const name of await readdir(base)) {
     filter: (source) => !source.split("/").some((p) => p.startsWith(".")),
   });
 }
-await stat(join(out, "index.html"));
-await stat(join(out, "intake/index.html"));
+for (const page of [
+  "index.html",
+  "intake/index.html",
+  "reels-quiz/index.html",
+  "reels-quiz-v2/index.html",
+  "reels-quiz-v2/admin/index.html",
+]) {
+  const entry = join(out, page);
+  if (!(await stat(entry)).isFile()) {
+    throw new Error(`Required entry point is not a file: ${entry}`);
+  }
+}
 console.log(
-  "Static site and intake built. Server code and private configuration excluded.",
+  "Static site, intake, and Reels Quiz V1 and V2 built. Server code and private configuration excluded.",
 );

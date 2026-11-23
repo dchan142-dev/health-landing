@@ -105,6 +105,7 @@ test("the static build retains the website and both Reels versions while excludi
     "index.html",
     "shared/js/site-config.js",
     "intake/index.html",
+    "daily/index.html",
     "intake/app.mjs",
     "intake/schema.mjs",
     "reels-quiz/index.html",
@@ -176,6 +177,7 @@ test("the static build requires every entry point to be an HTML file", async (t)
   const pages = [
     "index.html",
     "intake/index.html",
+    "daily/index.html",
     "reels-quiz/index.html",
     "reels-quiz-v2/index.html",
     "reels-quiz-v2/admin/index.html",

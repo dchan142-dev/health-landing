@@ -30,6 +30,7 @@ for (const name of await readdir(base)) {
 for (const page of [
   "index.html",
   "intake/index.html",
+  "daily/index.html",
   "reels-quiz/index.html",
   "reels-quiz-v2/index.html",
   "reels-quiz-v2/admin/index.html",

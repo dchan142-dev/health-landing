@@ -10,6 +10,7 @@ export async function serveApi(req, res, app, origin) {
       if (value !== undefined)
         headers.set(name, Array.isArray(value) ? value.join(", ") : value);
     }
+    const limit = path.startsWith("/api/health-intake/tracker/") ? 1048576 : 262144;
     let body;
     if (!["GET", "HEAD"].includes(req.method)) {
       if (req.body !== undefined)
@@ -20,7 +21,7 @@ export async function serveApi(req, res, app, origin) {
         let bytes = 0;
         for await (const chunk of req) {
           bytes += chunk.length;
-          if (bytes > 262144) {
+          if (bytes > limit) {
             res.writeHead(413, {
               "content-type": "application/json",
               "cache-control": "no-store",
@@ -32,7 +33,7 @@ export async function serveApi(req, res, app, origin) {
         }
         body = Buffer.concat(chunks);
       }
-      if (Buffer.byteLength(body) > 262144) {
+      if (Buffer.byteLength(body) > limit) {
         res.writeHead(413, {
           "content-type": "application/json",
           "cache-control": "no-store",

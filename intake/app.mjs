@@ -417,6 +417,16 @@ function renderAccount() {
   );
   menu.append(summary, items);
   account.replaceChildren(menu);
+  const accountId = user.id;
+  api("/tracker").then(() => {
+    if (user?.id !== accountId || !items.isConnected) return;
+    items.prepend(button("飲食生活打卡", async () => {
+      try {
+        if (dirty()) await flush();
+        window.location.assign("/daily/");
+      } catch (error) { toast(error.message); }
+    }, "quiet"));
+  }).catch(() => {});
 }
 async function saveAndExit() {
   if (leaving) return;

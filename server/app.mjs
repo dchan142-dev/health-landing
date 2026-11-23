@@ -1,3 +1,4 @@
+import { trackerRoutes, bindWingTung } from "./tracker.mjs";
 import { betterAuth } from "better-auth";
 import { admin } from "better-auth/plugins";
 import { getMigrations } from "better-auth/db/migration";
@@ -116,7 +117,7 @@ export function createApplication({
     if (!request.headers.get("content-type")?.startsWith("application/json"))
       throw Object.assign(new Error("請使用JSON格式"), { status: 415 });
     const raw = await request.text();
-    if (Buffer.byteLength(raw) > 262144)
+    if (Buffer.byteLength(raw) > (new URL(request.url).pathname.includes("/tracker/") ? 1048576 : 262144))
       throw Object.assign(new Error("資料太大，請縮短內容"), { status: 413 });
     let value;
     try {
@@ -128,6 +129,7 @@ export function createApplication({
       throw Object.assign(new Error("資料格式不正確"), { status: 400 });
     return value;
   }
+  const tracker = trackerRoutes({pool, seal, unseal, body, audit});
   const validDraft = (v) =>
     Object.keys(v).every((k) =>
       ["accountId", "version", "step", "answers"].includes(k),
@@ -231,6 +233,7 @@ export function createApplication({
       });
     if (path.startsWith("/admin/") && user.role !== "admin")
       return json({ error: "你沒有管理員權限" }, 403);
+    if (path === "/tracker" || path.startsWith("/tracker/")) return tracker(request,path,user);
     if (path === "/record") {
       if (request.method === "GET")
         return json(
@@ -446,6 +449,7 @@ export function createApplication({
         .filter(Boolean))
         await pool.query(statement);
     },
+    async bindWingTung() { await bindWingTung(pool,unseal); },
     async bootstrapAdmin({ name, email, password }) {
       const administrators = (
         await pool.query('SELECT id,email FROM "user" WHERE role=$1', ["admin"])

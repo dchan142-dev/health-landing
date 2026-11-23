@@ -7,6 +7,8 @@ import { cleanupVerificationUsers } from "./verification-cleanup.mjs";
 try {
   const app = application();
   await app.initialize();
+  await app.bindWingTung();
+  console.log("WingTung tracker account binding confirmed.");
   await productionReelsStore().initialize();
   await productionReelsV2Store().initialize();
   await productionReelsV2Events().initialize();
@@ -42,7 +44,8 @@ try {
     );
   }
   process.exit(0);
-} catch {
+} catch (error) {
+  if (error.message === "Tracker requires exactly one existing WingTung account") console.error(error.message);
   console.error(
     "Setup failed. Check private environment settings and database access. If an administrator already exists, omit HD_ADMIN_* and rerun.",
   );

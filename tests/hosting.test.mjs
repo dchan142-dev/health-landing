@@ -241,3 +241,15 @@ test("Vercel applies the Reels security policy to both versions and their subpat
     }
   }
 });
+
+test('daily entry and assets use private no-store, noindex and same-origin CSP', async () => {
+  const config=JSON.parse(await readFile('vercel.json','utf8'));
+  for(const source of ['/daily','/daily/','/daily/:path*']){
+    const rule=config.headers.find(r=>r.source===source);
+    assert.ok(rule,source);
+    const headers=Object.fromEntries(rule.headers.map(h=>[h.key.toLowerCase(),h.value]));
+    assert.match(headers['cache-control'],/private, no-store/);
+    assert.match(headers['x-robots-tag'],/noindex/);
+    assert.match(headers['content-security-policy'],/default-src 'self'/);
+  }
+});

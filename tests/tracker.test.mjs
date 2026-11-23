@@ -16,7 +16,7 @@ test('rejects invalid dates, out-of-range values, extra fields and external phot
 test('initial binding freezes one matching submitted account and fails closed on ambiguity',async()=>{let inserted=null;const pool={query:async(sql,args)=>{if(sql.startsWith('SELECT user_id'))return{rows:[]};if(sql.startsWith('SELECT u.id'))return{rows:[{id:'existing-owner',name:'Lai Wing Tung',answers_ciphertext:'{}'}]};inserted=args[0];return{rows:[]};}};await bindWingTung(pool,JSON.parse);assert.equal(inserted,'existing-owner');const ambiguous={query:async sql=>({rows:sql.startsWith('SELECT user_id')?[]:[{id:'a',name:'WingTung Lai',answers_ciphertext:'{}'},{id:'b',name:'WingTung Lai',answers_ciphertext:'{}'}]})};await assert.rejects(()=>bindWingTung(ambiguous,JSON.parse));});
 
 test('original preview page and audio script require the same client permission',async()=>{
- for(const path of ['/tracker/preview','/tracker/preview-script']){
+ for(const path of ['/tracker/preview','/tracker/preview-script','/tracker/daily','/tracker/daily-script']){
   assert.equal((await req(path)).status,401);
   assert.equal((await req(path,other)).status,403);
   const r=await req(path,owner);assert.equal(r.status,200);assert.match(r.headers.get('cache-control'),/private, no-store/);

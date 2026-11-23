@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ms Lai｜30天五品配合與每餐拍照紀錄</title>
+  <link rel="stylesheet" href="/daily-preview/assets/tailwind.css" />
+  <script src="/daily-preview/assets/chart.umd.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/daily-preview/assets/original.css" />
+</head>
+<body class="min-h-screen pb-24">
+<div class="bg-teal-50 border-b border-teal-100 px-3 py-2 text-center text-xs text-teal-900" id="cloud-account-toolbar"><a href="/intake/?view=questionnaire" class="underline">我的健康問卷</a> · <button id="cloud-logout" class="underline" type="button">登出</button><div id="cloud-status" role="status" aria-live="polite">正在連接你的雲端紀錄…</div><button id="cloud-backup" type="button" class="underline hidden">下載本頁未儲存備份</button></div>
+
+  <!-- 頂部標題與提醒 -->
+  <header class="bg-teal-800 text-white shadow-md sticky top-0 z-30">
+    <div class="max-w-2xl mx-auto px-4 py-3.5 flex items-center justify-between gap-2">
+      <div>
+        <h1 class="text-lg sm:text-xl font-bold tracking-tight">Ms Lai｜每日膳食拍照與五品打卡</h1>
+        <p id="header-subtitle" class="text-xs sm:text-sm text-teal-100 mt-0.5">30天計劃：每餐拍照・改善吸收・穩步增重</p>
+      </div>
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button id="btn-toggle-sound" type="button" aria-label="切換音效" class="tap-btn px-2.5 py-2 rounded-xl bg-teal-700 hover:bg-teal-600 text-xs sm:text-sm font-medium flex items-center gap-1 border border-teal-500/40">
+          <span id="sound-icon">🔊</span>
+          <span id="sound-label" class="hidden sm:inline">音效開</span>
+        </button>
+        <button id="btn-open-reminder" type="button" class="tap-btn px-3 py-2 rounded-xl bg-teal-700 hover:bg-teal-600 text-xs sm:text-sm font-medium flex items-center gap-1.5 border border-teal-500/40">
+          <span>⏰</span>
+          <span id="reminder-badge-text">每日提醒</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主導航分頁 -->
+  <nav class="max-w-2xl mx-auto px-4 pt-4">
+    <div class="grid grid-cols-3 gap-2">
+      <button id="tab-today" type="button" class="tap-btn rounded-xl text-sm sm:text-base font-medium py-2.5 px-2 tab-active">📝 今日打卡</button>
+      <button id="tab-history" type="button" class="tap-btn rounded-xl text-sm sm:text-base font-medium py-2.5 px-2 tab-inactive">📷 過往相簿</button>
+      <button id="tab-progress" type="button" class="tap-btn rounded-xl text-sm sm:text-base font-medium py-2.5 px-2 tab-inactive">📈 30天進度</button>
+    </div>
+  </nav>
+
+  <main class="max-w-2xl mx-auto px-4 pt-4 space-y-4">
+
+    <!-- ==================== 分頁一：今日打卡 ==================== -->
+    <section id="view-today" class="space-y-4">
+
+      <!-- 超清晰大日期導覽＋30天進度看板 -->
+      <div class="bg-gradient-to-br from-teal-800 via-teal-700 to-emerald-700 text-white rounded-3xl p-4 sm:p-5 shadow-md space-y-3.5">
+        <!-- 大日期與第幾天 -->
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="day-number-pill" class="px-3 py-1 rounded-full text-xs sm:text-sm font-bold bg-amber-300 text-teal-950 shadow-sm">第 1 天／共 30 天</span>
+              <span id="day-today-tag" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 text-white">今日</span>
+            </div>
+            <h2 id="hero-date-display" class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-2 leading-tight">2026年11月23日（星期一）</h2>
+          </div>
+          <span id="top-progress-pct" class="px-3 py-1.5 rounded-2xl bg-white/20 text-sm sm:text-base font-extrabold shrink-0">0%</span>
+        </div>
+
+        <!-- 長者友善：大按鈕上一天／揀日子／下一天 -->
+        <div class="grid grid-cols-3 gap-2">
+          <button id="btn-prev-day" type="button" class="tap-btn rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs sm:text-sm font-bold py-2 px-2">◀ 上一天</button>
+          <label for="input-date" class="tap-btn rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs sm:text-sm font-bold py-2 px-2 flex items-center justify-center gap-1 cursor-pointer relative overflow-hidden">
+            <span>📅 轉日期</span>
+            <input id="input-date" type="date" min="2026-11-23" max="2026-12-22" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
+          </label>
+          <button id="btn-next-day" type="button" class="tap-btn rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs sm:text-sm font-bold py-2 px-2">下一天 ▶</button>
+        </div>
+
+        <!-- 30天進度條與累積星星 -->
+        <div class="bg-teal-950/30 rounded-2xl p-3 space-y-2">
+          <div class="flex items-center justify-between text-xs sm:text-sm font-semibold">
+            <span id="top-progress-text">⭐ 已完成 0 / 30 天（累積 0 顆金星）</span>
+            <span id="top-remaining-text" class="text-teal-100">仲有 30 天</span>
+          </div>
+          <div class="w-full h-3.5 bg-teal-950/50 rounded-full overflow-hidden">
+            <div id="top-progress-bar" class="h-full bg-gradient-to-r from-amber-300 to-yellow-200 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 醒目溫暖情感打氣卡（會隨今日完成度即時回應讚賞） -->
+      <div class="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 rounded-2xl p-4 sm:p-5 shadow-sm border-2 border-amber-200 space-y-2">
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">💛</span>
+            <h3 id="cheer-card-title" class="text-base sm:text-lg font-extrabold text-amber-950">Ms Lai，今日都陪住你慢慢行！</h3>
+          </div>
+          <span id="today-live-score" class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-200/80 text-amber-950 shrink-0">今日進度 0%</span>
+        </div>
+        <p id="top-encouragement" class="text-sm sm:text-base text-amber-900 leading-relaxed font-medium">
+          唔使急、唔使勉強，只要今日跟住食好每一餐、影低相片，已經係送畀自己最好嘅一份照顧。
+        </p>
+      </div>
+
+      <!-- 階段提示與一日時間表 -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <p class="text-sm font-bold text-slate-800">📌 今日階段與覆診提示</p>
+          <button id="btn-toggle-schedule" type="button" class="tap-btn px-3 py-2 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-800 text-xs sm:text-sm font-bold border border-teal-200">
+            📋 查看一日時間表
+          </button>
+        </div>
+
+        <div id="phase-banner" class="text-xs sm:text-sm bg-emerald-50 text-emerald-900 px-3 py-2.5 rounded-xl border border-emerald-200">
+          第一階段（第 1–14 日）：酵素限量 10 mL／日，其餘四品按正常份量服用，配合每餐拍照與熟蛋白優先。
+        </div>
+
+        <div id="next-visit-banner" class="text-xs sm:text-sm bg-amber-50 text-amber-900 px-3 py-2 rounded-xl border border-amber-200">
+          <span id="next-visit-text">近期覆診：12月7日 內科、12月8日 營養部、12月11日 免疫科</span>
+        </div>
+
+        <!-- 可展開的一日零衝突時間表 -->
+        <div id="daily-schedule-box" class="hidden rounded-xl bg-teal-50/70 border border-teal-200 p-3.5 text-xs sm:text-sm text-slate-700 space-y-1.5">
+          <p class="font-bold text-teal-900">一日零衝突服用參考時間表（限水 800–1000 mL）：</p>
+          <p>• <strong>起床後：</strong>如廁後量晨起體重；按藥袋服空腹胃藥。</p>
+          <p>• <strong>早餐後（~07:30）：</strong>處方藥（Doxycycline 坐直 30 分鐘）＋ <strong>蝦青素</strong>（正常份量，隨餐）＋ <strong>酵素</strong>（首14日限量 10 mL）。</p>
+          <p>• <strong>上午餐間（~10:30，隔開抗生素 ≥2 小時）：</strong><strong>三效益生菌 1 包</strong> ＋ 營養奶。</p>
+          <p>• <strong>午餐後（~13:00）：</strong><strong>Q10</strong>（正常份量，餐後服用避開睡前失眠）。</p>
+          <p>• <strong>下午／晚餐前（~17:00，避開晚間抗生素）：</strong><strong>腸快適 1 包</strong>（約 20 mL 計入限水）。</p>
+          <p>• <strong>晚餐後（~19:00）：</strong>晚間處方藥（坐直 30 分鐘）；第15–28日酵素 20 mL 可分早晚各 10 mL（第29日起視耐受才考慮 30 mL）。</p>
+        </div>
+      </div>
+
+      <!-- 1. 每一餐膳食拍照上載（核心亮點） -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3.5">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-800">1. 每餐膳食拍照與紀錄</h2>
+            <p class="text-xs text-slate-500">食邊餐就即刻影低邊餐（正餐先食軟嫩熟蛋白）</p>
+          </div>
+          <span id="meal-photo-total-badge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-teal-50 text-teal-800 border border-teal-200 shrink-0">今日已傳 0 張</span>
+        </div>
+
+        <!-- 四餐獨立卡片 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="meal-cards-container">
+          <!-- 早餐 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5" data-meal-card="breakfast">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-800 text-sm sm:text-base">🌅 早餐</span>
+              <label for="photo-breakfast" class="px-3 py-1.5 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs font-semibold cursor-pointer flex items-center gap-1">
+                <span>📷</span><span>拍照／上載</span>
+                <input id="photo-breakfast" data-meal="breakfast" type="file" accept="image/*" multiple class="meal-photo-input hidden" />
+              </label>
+            </div>
+            <input id="note-breakfast" data-meal-note="breakfast" type="text" placeholder="例如：三文治半份＋蒸蛋..." class="w-full text-sm bg-white border border-slate-300 rounded-lg px-2.5 py-2 focus:outline-none focus:ring-2 focus:ring-teal-600" />
+            <div id="grid-breakfast" class="grid grid-cols-3 gap-2"></div>
+          </div>
+
+          <!-- 午餐 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5" data-meal-card="lunch">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-800 text-sm sm:text-base">☀️ 午餐</span>
+              <label for="photo-lunch" class="px-3 py-1.5 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs font-semibold cursor-pointer flex items-center gap-1">
+                <span>📷</span><span>拍照／上載</span>
+                <input id="photo-lunch" data-meal="lunch" type="file" accept="image/*" multiple class="meal-photo-input hidden" />
+              </label>
+            </div>
+            <input id="note-lunch" data-meal-note="lunch" type="text" placeholder="例如：蒸魚配飯約八成..." class="w-full text-sm bg-white border border-slate-300 rounded-lg px-2.5 py-2 focus:outline-none focus:ring-2 focus:ring-teal-600" />
+            <div id="grid-lunch" class="grid grid-cols-3 gap-2"></div>
+          </div>
+
+          <!-- 餐間營養奶／加餐 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5" data-meal-card="snack">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-800 text-sm sm:text-base">🥛 營養奶／餐間加餐</span>
+              <label for="photo-snack" class="px-3 py-1.5 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs font-semibold cursor-pointer flex items-center gap-1">
+                <span>📷</span><span>拍照／上載</span>
+                <input id="photo-snack" data-meal="snack" type="file" accept="image/*" multiple class="meal-photo-input hidden" />
+              </label>
+            </div>
+            <input id="note-snack" data-meal-note="snack" type="text" placeholder="例如：倍力康 1 杯 / 羊奶..." class="w-full text-sm bg-white border border-slate-300 rounded-lg px-2.5 py-2 focus:outline-none focus:ring-2 focus:ring-teal-600" />
+            <div id="grid-snack" class="grid grid-cols-3 gap-2"></div>
+          </div>
+
+          <!-- 晚餐 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5" data-meal-card="dinner">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-800 text-sm sm:text-base">🌙 晚餐</span>
+              <label for="photo-dinner" class="px-3 py-1.5 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs font-semibold cursor-pointer flex items-center gap-1">
+                <span>📷</span><span>拍照／上載</span>
+                <input id="photo-dinner" data-meal="dinner" type="file" accept="image/*" multiple class="meal-photo-input hidden" />
+              </label>
+            </div>
+            <input id="note-dinner" data-meal-note="dinner" type="text" placeholder="例如：雞柳炒熟菜＋飯..." class="w-full text-sm bg-white border border-slate-300 rounded-lg px-2.5 py-2 focus:outline-none focus:ring-2 focus:ring-teal-600" />
+            <div id="grid-dinner" class="grid grid-cols-3 gap-2"></div>
+          </div>
+        </div>
+
+        <!-- 全日食量比例與餐後感受 -->
+        <div class="pt-1 space-y-3 border-t border-slate-200">
+          <div>
+            <p class="text-xs font-medium text-slate-500 mb-1.5">今日整體食量（相對平時，基線約 75%）</p>
+            <div class="grid grid-cols-4 gap-2">
+              <button type="button" data-intake="50" class="intake-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">50%</button>
+              <button type="button" data-intake="75" class="intake-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">75%</button>
+              <button type="button" data-intake="90" class="intake-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">90%</button>
+              <button type="button" data-intake="100" class="intake-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">100%</button>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs font-medium text-slate-500 mb-1.5">今日餐後腸胃感受</p>
+            <div class="grid grid-cols-3 gap-2">
+              <button type="button" data-comfort="舒服" class="comfort-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">舒服</button>
+              <button type="button" data-comfort="輕微頂住或脹" class="comfort-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">輕微頂住／脹</button>
+              <button type="button" data-comfort="不適" class="comfort-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">不適</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 五款產品每日打卡 -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="text-base sm:text-lg font-bold text-slate-800">2. 今日五品服用打卡</h2>
+          <span id="fluid-product-hint" class="text-xs font-medium text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200">產品流質：0 mL</span>
+        </div>
+
+        <!-- 酵素 -->
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <p class="font-bold text-slate-800 text-sm sm:text-base">① 酵素（10 mL → 20 mL → 視反應 30 mL）</p>
+              <p id="enzyme-target-hint" class="text-xs text-teal-700">頭14日 10 mL → 第15–28日 20 mL → 無不適才考慮 30 mL</p>
+            </div>
+            <span id="enzyme-status-badge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-200 text-slate-700">未填</span>
+          </div>
+          <div class="grid grid-cols-4 gap-2">
+            <button type="button" data-enzyme="0" class="enzyme-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">未飲</button>
+            <button type="button" data-enzyme="10" class="enzyme-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">10 mL</button>
+            <button type="button" data-enzyme="20" class="enzyme-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">20 mL</button>
+            <button type="button" data-enzyme="30" class="enzyme-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">30 mL</button>
+          </div>
+        </div>
+
+        <!-- 三效益生菌長者配方 -->
+        <div id="card-probiotic" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+          <div>
+            <p class="font-bold text-slate-800 text-sm sm:text-base">② 三效益生菌長者配方（每日 1 包）</p>
+            <p class="text-xs text-amber-700 mt-0.5">必須與 Doxycycline 抗生素相隔 ≥2 小時</p>
+          </div>
+          <button id="toggle-probiotic" type="button" class="tap-btn px-4 py-2 rounded-xl border border-slate-300 bg-white text-sm font-semibold text-slate-700 shrink-0">未完成</button>
+        </div>
+
+        <!-- 腸快適 -->
+        <div id="card-gut" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+          <div>
+            <p class="font-bold text-slate-800 text-sm sm:text-base">③ 腸快適（每日 1 包）</p>
+            <p class="text-xs text-slate-500 mt-0.5">約 20 mL 計入限水，避開晚間抗生素</p>
+          </div>
+          <button id="toggle-gut" type="button" class="tap-btn px-4 py-2 rounded-xl border border-slate-300 bg-white text-sm font-semibold text-slate-700 shrink-0">未完成</button>
+        </div>
+
+        <!-- 蝦青素 -->
+        <div id="card-asta" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+          <div>
+            <p class="font-bold text-slate-800 text-sm sm:text-base">④ 蝦青素（每日正常份量）</p>
+            <p class="text-xs text-slate-500 mt-0.5">早餐後隨餐服用，保護皮膚與體力恢復</p>
+          </div>
+          <button id="toggle-asta" type="button" class="tap-btn px-4 py-2 rounded-xl border border-slate-300 bg-white text-sm font-semibold text-slate-700 shrink-0">未完成</button>
+        </div>
+
+        <!-- Q10 -->
+        <div id="card-q10" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+          <div>
+            <p class="font-bold text-slate-800 text-sm sm:text-base">⑤ Q10（每日正常份量）</p>
+            <p class="text-xs text-amber-700 mt-0.5">午餐後服用（避開睡前），留意血壓及胃口</p>
+          </div>
+          <button id="toggle-q10" type="button" class="tap-btn px-4 py-2 rounded-xl border border-slate-300 bg-white text-sm font-semibold text-slate-700 shrink-0">未完成</button>
+        </div>
+      </div>
+
+      <!-- 3. 體重、排便與血壓安全位 -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-4">
+        <h2 class="text-base sm:text-lg font-bold text-slate-800">3. 體重、排便與血壓紀錄</h2>
+
+        <!-- 晨起體重 -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-semibold text-slate-700">晨起體重 (kg)</span>
+            <span class="text-xs text-slate-500">基線：39.0 kg</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btn-weight-minus" type="button" class="tap-btn w-14 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-lg font-bold text-slate-700">−0.1</button>
+            <input id="input-weight" type="number" step="0.1" min="25" max="80" placeholder="39.0" class="flex-1 text-center text-2xl font-bold text-teal-900 bg-slate-50 border border-slate-300 rounded-xl py-2.5 focus:outline-none focus:ring-2 focus:ring-teal-600" />
+            <button id="btn-weight-plus" type="button" class="tap-btn w-14 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-lg font-bold text-slate-700">+0.1</button>
+          </div>
+          <p id="weight-diff-hint" class="text-xs text-slate-500 text-center">如廁後、早餐前量度；請同時留意腳腫有否增加</p>
+        </div>
+
+        <!-- 排便 -->
+        <div class="space-y-2 pt-2 border-t border-slate-200">
+          <p class="text-sm font-semibold text-slate-700">排便次數與狀態</p>
+          <div class="grid grid-cols-4 gap-2">
+            <button type="button" data-stool-count="0次" class="stool-count-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">0 次</button>
+            <button type="button" data-stool-count="1次" class="stool-count-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">1 次</button>
+            <button type="button" data-stool-count="2次" class="stool-count-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">2 次</button>
+            <button type="button" data-stool-count="3次或以上" class="stool-count-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">3 次+</button>
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            <button type="button" data-stool-type="成形順暢" class="stool-type-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">成形順暢</button>
+            <button type="button" data-stool-type="偏硬難排" class="stool-type-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">偏硬難排</button>
+            <button type="button" data-stool-type="偏軟或稀" class="stool-type-btn tap-btn rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700">偏軟／稀</button>
+          </div>
+        </div>
+
+        <!-- 血壓安全位（特別配合 Q10 與原處方藥） -->
+        <div class="space-y-2 pt-2 border-t border-slate-200">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-semibold text-slate-700">血壓紀錄（選填｜服 Q10 期間建議順手量度）</span>
+            <span class="text-xs text-slate-500">mmHg</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <input id="input-sbp" type="number" min="60" max="220" placeholder="上壓 (如 107)" class="w-full text-center text-base font-semibold bg-slate-50 border border-slate-300 rounded-xl py-2.5 focus:outline-none focus:ring-2 focus:ring-teal-600" />
+            <input id="input-dbp" type="number" min="30" max="140" placeholder="下壓 (如 56)" class="w-full text-center text-base font-semibold bg-slate-50 border border-slate-300 rounded-xl py-2.5 focus:outline-none focus:ring-2 focus:ring-teal-600" />
+          </div>
+          <div id="bp-warning" class="hidden text-xs bg-rose-50 text-rose-800 border border-rose-200 rounded-xl px-3 py-2 font-medium">
+            ⚠️ 上壓低於 95 mmHg：請先坐下休息，如有頭暈請按醫囑處理並通知 Duncan／醫護。
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 備註與儲存／傳送 -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+        <label for="input-notes" class="block text-sm font-bold text-slate-800">其他備註（腳腫、頭暈、精神等，選填）</label>
+        <input id="input-notes" type="text" placeholder="例如：今日精神幾好、腳腫無加重..." class="w-full text-sm sm:text-base bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-teal-600" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+          <button id="btn-save-day" type="button" class="tap-btn w-full rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-base py-3 shadow-sm">
+            💾 儲存今日紀錄
+          </button>
+          <button id="btn-copy-whatsapp" type="button" class="tap-btn w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base py-3 shadow-sm">
+            📤 複製今日摘要傳給 Duncan
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== 分頁二：過往相簿與紀錄 ==================== -->
+    <section id="view-history" class="hidden space-y-4">
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-800">每日膳食相簿與紀錄</h2>
+          <p class="text-xs text-slate-500">按餐次查看已上載的相片，點選日期可補拍或修改</p>
+        </div>
+        <button id="btn-export-csv" type="button" class="tap-btn px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs sm:text-sm font-medium">
+          ⬇️ 匯出 CSV 總表
+        </button>
+      </div>
+      <div id="history-list" class="space-y-3"></div>
+    </section>
+
+    <!-- ==================== 分頁三：30天進度 ==================== -->
+    <section id="view-progress" class="hidden space-y-4">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200">
+          <p class="text-xs text-slate-500">已打卡天數</p>
+          <p id="kpi-days" class="text-2xl font-bold text-teal-800 mt-1">0 / 30</p>
+        </div>
+        <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200">
+          <p class="text-xs text-slate-500">最新體重</p>
+          <p id="kpi-weight" class="text-2xl font-bold text-slate-800 mt-1">-- kg</p>
+          <p id="kpi-weight-diff" class="text-xs text-slate-500 mt-0.5">基線 39.0 kg</p>
+        </div>
+        <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200">
+          <p class="text-xs text-slate-500">平均食量</p>
+          <p id="kpi-intake" class="text-2xl font-bold text-emerald-700 mt-1">--%</p>
+          <p class="text-xs text-slate-500 mt-0.5">目標 90–100%</p>
+        </div>
+        <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200">
+          <p class="text-xs text-slate-500">已上載餐食相</p>
+          <p id="kpi-photos" class="text-2xl font-bold text-teal-700 mt-1">0 張</p>
+          <p id="kpi-products" class="text-xs text-slate-500 mt-0.5">五品達成：--%</p>
+        </div>
+      </div>
+
+      <!-- 30天星星打卡牆 -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <h3 class="text-base font-bold text-slate-800">⭐ 30天星星打卡牆</h3>
+            <p class="text-xs text-slate-500">每打卡一天點亮一顆星，點選日期可直接查看或補填</p>
+          </div>
+          <span id="progress-star-count" class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200">⭐ 0 / 30</span>
+        </div>
+        <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+          <div id="progress-wall-bar" class="h-full bg-gradient-to-r from-teal-600 to-amber-400 rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <div id="star-calendar-grid" class="grid grid-cols-5 sm:grid-cols-6 gap-2"></div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-2">
+        <h3 class="text-base font-bold text-slate-800">30 天酵素三階段進階路線圖</h3>
+        <div class="p-3 rounded-xl bg-teal-50 border border-teal-200 text-xs sm:text-sm text-teal-900 space-y-1.5">
+          <p><strong>第一階段｜第 1–14 日（11/23–12/06）：</strong><strong>酵素限量 10 mL／日</strong>（連稀釋水約 30 mL 計入限水）；三效益生菌、腸快適、蝦青素、Q10 正常服用（益生菌與抗生素隔 ≥2 小時），每餐拍照並觀察腸胃與排便耐受。</p>
+          <p><strong>第二階段｜第 15–28 日（12/07–12/20）：</strong>若頭 14 日無不適，<strong>酵素進階至 20 mL／日</strong>（連稀釋水約 60 mL，可分早晚各 10 mL），其餘四品維持正常份量；同步配合 12/07 內科、12/08 營養部、12/11 免疫科覆診，目標食量推向 90–100%。</p>
+          <p><strong>第三階段｜第 29 日起（12/21–12/22 及之後）：</strong>若前 28 日均無特殊反應或不適且限水額度充足，<strong>才考慮加至正常份量 30 mL／日</strong>（連稀釋水約 90 mL），目標體重微升 +0.5 至 1.0 kg。</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-2">
+        <h3 class="text-base font-bold text-slate-800">體重 (kg) 與食量 (%) 趨勢</h3>
+        <div class="relative h-72 w-full">
+          <canvas id="progress-chart"></canvas>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== 首次使用引導＆每日自動提示設定 Modal ==================== -->
+  <div id="modal-reminder" class="hidden fixed inset-0 z-50 bg-slate-900/65 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto">
+    <div class="bg-white w-full sm:max-w-lg rounded-t-3xl sm:rounded-2xl p-5 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <span id="onboarding-pill" class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-teal-100 text-teal-800 mb-1">首次使用設定（30秒完成）</span>
+          <h3 class="text-lg font-bold text-slate-800">⏰ 設定手機／電郵／Tasks 自動提示</h3>
+          <p class="text-xs sm:text-sm text-slate-600 mt-0.5">幫你一次過設定好早晚提醒，每天準時輕鬆打卡。</p>
+        </div>
+        <button id="btn-close-reminder" type="button" class="tap-btn px-3 py-1 rounded-lg bg-slate-100 text-slate-600 font-bold shrink-0">✕</button>
+      </div>
+
+      <!-- 1. 早晚提醒時間 -->
+      <div class="space-y-2.5">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wide">步驟一：選擇每日早晚提示時間</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div class="flex items-center justify-between gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <div>
+              <p class="font-semibold text-sm text-slate-800">🌅 早上提示</p>
+              <p class="text-xs text-slate-500">體重＋早餐相＋酵素</p>
+            </div>
+            <input id="input-morning-time" type="time" value="08:00" class="border border-slate-300 rounded-lg px-2 py-1.5 text-sm font-bold bg-white" />
+          </div>
+          <div class="flex items-center justify-between gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <div>
+              <p class="font-semibold text-sm text-slate-800">🌙 晚上提示</p>
+              <p class="text-xs text-slate-500">晚餐相＋排便＋回報</p>
+            </div>
+            <input id="input-evening-time" type="time" value="20:30" class="border border-slate-300 rounded-lg px-2 py-1.5 text-sm font-bold bg-white" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 聯絡資料（電郵與手機，供電郵及自動提示串接） -->
+      <div class="space-y-2.5">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wide">步驟二：啟用提醒渠道（可複選）</p>
+
+        <!-- 手機提示 -->
+        <div class="p-3 rounded-xl bg-teal-50/70 border border-teal-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <label for="chk-phone-remind" class="font-bold text-sm text-teal-900 flex items-center gap-2 cursor-pointer">
+              <input id="chk-phone-remind" type="checkbox" checked class="w-4 h-4 accent-teal-700" />
+              <span>📱 手機自動響鬧提示（行事曆／通知）</span>
+            </label>
+          </div>
+          <input id="input-user-phone" type="tel" placeholder="手機號碼（選填，例如 9123 4567，供 WhatsApp／SMS 串接）" class="w-full text-sm bg-white border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-600" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <button id="btn-download-ics" type="button" class="tap-btn w-full rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs sm:text-sm py-2.5 px-3">
+              📲 加入手機行事曆 (.ics)
+            </button>
+            <button id="btn-enable-browser-notif" type="button" class="tap-btn w-full rounded-xl bg-white hover:bg-slate-100 text-teal-900 font-semibold text-xs sm:text-sm py-2.5 px-3 border border-teal-300">
+              🔔 開啟手機網頁通知
+            </button>
+          </div>
+        </div>
+
+        <!-- 電郵提示 -->
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <label for="chk-email-remind" class="font-bold text-sm text-slate-800 flex items-center gap-2 cursor-pointer">
+            <input id="chk-email-remind" type="checkbox" checked class="w-4 h-4 accent-teal-700" />
+            <span>📧 每日電郵提示（待接駁）</span>
+          </label>
+          <input id="input-user-email" type="email" placeholder="輸入電郵地址（例如 mslai@gmail.com）" class="w-full text-sm bg-white border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-600" />
+          <p class="text-[11px] text-slate-500">電郵排程尚待接駁；目前請使用手機行事曆提醒。</p>
+        </div>
+
+        <!-- Google Tasks / 日曆任務 -->
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <label for="chk-tasks-remind" class="font-bold text-sm text-slate-800 flex items-center gap-2 cursor-pointer">
+            <input id="chk-tasks-remind" type="checkbox" checked class="w-4 h-4 accent-teal-700" />
+            <span>✅ Google Tasks / 日曆每日任務提示</span>
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <a id="link-gcal-morning" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ms+Lai+%E6%97%A9%E4%B8%8A%E6%89%93%E5%8D%A1%EF%BC%9A%E9%AB%94%E9%87%8D%EF%BC%8B%E6%97%A9%E9%A4%90%E6%8B%8D%E7%85%A7%EF%BC%8B%E9%85%B5%E7%B4%A0&dates=20261123T080000/20261123T081500&ctz=Asia/Hong_Kong&recur=RRULE:FREQ=DAILY;COUNT=30" target="_blank" rel="noopener noreferrer" class="tap-btn flex items-center justify-center rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-semibold text-xs sm:text-sm py-2 px-3 border border-slate-300 text-center">
+              📅 加早上重複任務到 Google
+            </a>
+            <a id="link-gcal-evening" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ms+Lai+%E6%99%9A%E4%B8%8A%E6%89%93%E5%8D%A1%EF%BC%9A%E6%99%9A%E9%A4%90%E6%8B%8D%E7%85%A7%EF%BC%8B%E6%8E%92%E4%BE%BF%EF%BC%8B%E5%9B%9E%E5%A0%B1&dates=20261123T203000/20261123T204500&ctz=Asia/Hong_Kong&recur=RRULE:FREQ=DAILY;COUNT=30" target="_blank" rel="noopener noreferrer" class="tap-btn flex items-center justify-center rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-semibold text-xs sm:text-sm py-2 px-3 border border-slate-300 text-center">
+              📅 加晚上重複任務到 Google
+            </a>
+          </div>
+          <p class="text-[11px] text-slate-500">點選即可直接加入 Google 日曆／Tasks 30天每日重複提醒，雲端自動同步尚待接駁。</p>
+        </div>
+      </div>
+
+      <!-- 3. 完成按鈕 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 border-t border-slate-200">
+        <button id="btn-save-onboarding" type="button" class="tap-btn w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm sm:text-base py-3">
+          ✅ 儲存提示設定並開始打卡
+        </button>
+        <button id="btn-skip-onboarding" type="button" class="tap-btn w-full rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-sm py-3">
+          稍後再設定
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 圖片放大檢視 Modal ==================== -->
+  <div id="modal-image" class="hidden fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-4">
+    <div class="relative max-w-xl w-full flex flex-col items-center">
+      <button id="btn-close-image" type="button" class="self-end mb-2 px-4 py-2 rounded-xl bg-white/20 text-white font-bold text-sm">關閉 ✕</button>
+      <img id="modal-image-src" src="" alt="放大相片" class="max-w-full max-h-[80vh] rounded-xl object-contain" />
+    </div>
+  </div>
+
+  <!-- ==================== 打卡完成動畫星星獎勵 Modal ==================== -->
+  <div id="modal-reward" class="hidden fixed inset-0 z-50 bg-slate-900/65 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl p-6 text-center space-y-4 shadow-2xl relative overflow-hidden">
+      <div id="star-burst-stage" class="relative h-28 flex items-center justify-center">
+        <div id="reward-main-star" class="text-7xl select-none star-hero">⭐</div>
+      </div>
+      <div class="space-y-2">
+        <span id="reward-badge" class="inline-block px-3.5 py-1 rounded-full text-xs sm:text-sm font-extrabold bg-amber-200 text-amber-950">打卡完成・獲得 1 顆同行金星 ⭐</span>
+        <h3 id="reward-title" class="text-2xl font-extrabold text-slate-800">好叻呀 Ms Lai！今日任務完成</h3>
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3.5 mt-2">
+          <p id="reward-message" class="text-base sm:text-lg text-amber-950 font-semibold leading-relaxed"></p>
+        </div>
+      </div>
+      <div class="bg-teal-50 border border-teal-200 rounded-2xl p-3.5 space-y-2 text-left">
+        <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-teal-900">
+          <span id="reward-progress-label">30天進度：1 / 30 天</span>
+          <span id="reward-progress-pct">3%</span>
+        </div>
+        <div class="w-full h-3 bg-white rounded-full overflow-hidden border border-teal-200">
+          <div id="reward-progress-bar" class="h-full bg-gradient-to-r from-teal-600 to-amber-400 rounded-full transition-all duration-700" style="width: 0%"></div>
+        </div>
+        <p id="reward-streak-text" class="text-xs text-teal-800"></p>
+      </div>
+      <div class="grid grid-cols-1 gap-2 pt-1">
+        <button id="btn-reward-copy" type="button" class="tap-btn w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm sm:text-base py-3">
+          📤 順手複製今日摘要傳給 Duncan
+        </button>
+        <button id="btn-close-reward" type="button" class="tap-btn w-full rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm sm:text-base py-2.5">
+          繼續加油 👍
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white text-sm font-medium px-4 py-2.5 rounded-xl shadow-lg toast-enter max-w-[90vw] text-center"></div>
+
+  <script type="module" src="/api/health-intake/tracker/daily-script"></script>
+</body>
+</html>

@@ -32,3 +32,10 @@ Before replacing `/daily/`, the user should review the mobile preview, tap chime
 celebration sound, mute control and reward modal. Deploying this isolated preview
 adds the preview route and backward-compatible metadata support; it does not
 replace the current daily page.
+
+## Approved formal release
+
+On 2026-11-23 the user explicitly requested immediate formal release of this
+restored original. The official entry is `/daily/`. Production records and
+preview records remain separate. Future deployments must retain the original
+feedback and audio features unless the user requests a change.

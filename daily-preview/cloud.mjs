@@ -1,4 +1,7 @@
 const BASE='/api/health-intake';
+const IS_PREVIEW=location.pathname.endsWith('/tracker/preview');
+const DAYS=IS_PREVIEW?'/tracker/preview-days':'/tracker/days';
+const ENTRY=IS_PREVIEW?'/daily-preview/':'/daily/';
 const FIELDS=['weight','sbp','dbp','sleep','activity','stress','stoolCount','stoolType','comfort','notes','intake'];
 const MEALS=['breakfast','lunch','snack','dinner'];
 let sessionId, overlay, loginResolver;
@@ -29,21 +32,21 @@ function toCanonical(record,existing,reminder){const value=existing?structuredCl
 }
 export async function bootCloud(){
  const profile=await api('/tracker');sessionId=profile.accountId;
- const index=await api('/tracker/preview-days'),cache=new Map(),records={};
+ const index=await api(DAYS),cache=new Map(),records={};
  // Limit concurrent photo requests. Actual dates are fully loaded for the original
  // history gallery, charts and CSV; health data stays out of persistent browser storage.
- for(let i=0;i<index.days.length;i+=3){await Promise.all(index.days.slice(i,i+3).map(async row=>{const d=await api('/tracker/preview-days/'+row.date);cache.set(d.date,d);records[d.date]=fromCanonical(d);}));}
+ for(let i=0;i<index.days.length;i+=3){await Promise.all(index.days.slice(i,i+3).map(async row=>{const d=await api(DAYS+'/' +row.date);cache.set(d.date,d);records[d.date]=fromCanonical(d);}));}
  const mostRecent=[...cache.values()].sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).find(d=>d.content.original?.reminder);
  const cloud={records,reminder:mostRecent?.content.original.reminder||null,ready:false,loading:false,photosBusy:false,status,
-  async refreshDay(date){const d=await api('/tracker/preview-days/'+date);cache.set(date,d);if(d.content)records[date]=fromCanonical(d);else delete records[date];},
+  async refreshDay(date){const d=await api(DAYS+'/' +date);cache.set(date,d);if(d.content)records[date]=fromCanonical(d);else delete records[date];},
   async save(record,reminder){
    status('正在儲存到雲端…');
-   try{let old=cache.get(record.date);if(!old){old=await api('/tracker/preview-days/'+record.date);cache.set(record.date,old);}
-    const saved=await api('/tracker/preview-days/'+record.date,{method:'PUT',body:JSON.stringify({accountId:sessionId,version:old.version,content:toCanonical(record,old.content,reminder)})});cache.set(record.date,saved);status('已儲存至雲端預覽 · '+new Date(saved.updatedAt).toLocaleTimeString('zh-HK',{timeZone:'Asia/Hong_Kong',hour:'2-digit',minute:'2-digit'}));document.getElementById('cloud-backup').classList.add('hidden');return saved;
+   try{let old=cache.get(record.date);if(!old){old=await api(DAYS+'/' +record.date);cache.set(record.date,old);}
+    const saved=await api(DAYS+'/' +record.date,{method:'PUT',body:JSON.stringify({accountId:sessionId,version:old.version,content:toCanonical(record,old.content,reminder)})});cache.set(record.date,saved);status((IS_PREVIEW?'已儲存至雲端預覽 · ':'已儲存至雲端 · ')+new Date(saved.updatedAt).toLocaleTimeString('zh-HK',{timeZone:'Asia/Hong_Kong',hour:'2-digit',minute:'2-digit'}));document.getElementById('cloud-backup').classList.add('hidden');return saved;
    }catch(e){status(e.message+' 本頁內容已保留，可重試儲存或下載備份。',true);document.getElementById('cloud-backup').classList.remove('hidden');throw e;}
   },
   backup(record){const link=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(record,null,2)],{type:'application/json'}));link.href=url;link.download='Ms-Lai-'+record.date+'-未儲存備份.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),2000);},
-  async logout(){try{await api('/auth/sign-out',{method:'POST',body:'{}'});location.replace('/daily-preview/');}catch(e){status(e.message,true);}}
+  async logout(){try{await api('/auth/sign-out',{method:'POST',body:'{}'});location.replace(ENTRY);}catch(e){status(e.message,true);}}
  };
- status('已連接原有帳戶 · 預覽記錄獨立保存，正式紀錄保持完整');return cloud;
+ status(IS_PREVIEW?'已連接原有帳戶 · 預覽記錄獨立保存，正式紀錄保持完整':'已連接你的每日紀錄 · 填寫後會自動儲存');return cloud;
 }

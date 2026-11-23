@@ -4,7 +4,7 @@ const PRODUCTS = ['enzyme', 'gut', 'probiotic', 'q10', 'astaxanthin'];
 export function validDay(day) {
   return typeof day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(day) && day >= '2026-11-23' && day <= '2026-12-22' && new Date(day + 'T00:00:00Z').toISOString().slice(0, 10) === day;
 }
-export function validateDaily(value, {maxPhotos=2}={}) {
+export function validateDaily(value, {maxPhotos=8}={}) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
   if (value.original !== undefined) {
     const m=value.original;
@@ -56,11 +56,11 @@ export function trackerRoutes({pool,seal,unseal,body,audit}) {
     const table=previewDays?'hd_daily_preview':'hd_daily';
     const subjectId=previewDays?user.id:grant.user_id;
     const format = r=>({date:typeof r.day==='string'?r.day.slice(0,10):r.day.toISOString().slice(0,10),version:r.version,updatedAt:r.updated_at,content:unseal(r.content_ciphertext)});
-    if(path==='/tracker/preview-script' && request.method==='GET') {
+    if((path==='/tracker/preview-script'||path==='/tracker/daily-script') && request.method==='GET') {
       return new Response(await readFile(new URL('./tracker-preview.mjs',import.meta.url),'utf8'),{headers:{'content-type':'application/javascript; charset=utf-8','x-robots-tag':'noindex, nofollow, noarchive'}});
     }
-    if(path==='/tracker/preview' && request.method==='GET') {
-      const html=await readFile(new URL('./tracker-preview.html',import.meta.url),'utf8');
+    if((path==='/tracker/preview'||path==='/tracker/daily') && request.method==='GET') {
+      const html=path==='/tracker/daily'?await readFile(new URL('./tracker-daily.html',import.meta.url),'utf8'):await readFile(new URL('./tracker-preview.html',import.meta.url),'utf8');
       return new Response(html,{headers:{'content-type':'text/html; charset=utf-8','x-robots-tag':'noindex, nofollow, noarchive','content-security-policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'",'referrer-policy':'same-origin'}});
     }
     if(path==='/tracker' && request.method==='GET') return respond({accountId:user.id,clientName:grant.name,admin:user.role==='admin',start:'2026-11-23',end:'2026-12-22'});
@@ -80,7 +80,7 @@ export function trackerRoutes({pool,seal,unseal,body,audit}) {
     if(request.method!=='PUT')return respond({error:'不支援此操作'},405);
     const v=await body(request);
     if(v.accountId!==user.id)return respond({error:'登入帳戶已改變，請以原有帳戶重新登入。',code:'SESSION_CHANGED'},409);
-    if(!Number.isSafeInteger(v.version)||v.version<0||!validateDaily(v.content,{maxPhotos:previewDays?8:2}))return respond({error:'請檢查數值、文字及相片大小後再儲存。'},400);
+    if(!Number.isSafeInteger(v.version)||v.version<0||!validateDaily(v.content,{maxPhotos:8}))return respond({error:'請檢查數值、文字及相片大小後再儲存。'},400);
     let rows;
     if(v.version===0) rows=(await pool.query(`INSERT INTO ${table}(user_id,day,content_ciphertext) VALUES($1,$2,$3) ON CONFLICT DO NOTHING RETURNING *`,[subjectId,day,seal(v.content)])).rows;
     else rows=(await pool.query(`UPDATE ${table} SET content_ciphertext=$3,version=version+1,updated_at=CURRENT_TIMESTAMP WHERE user_id=$1 AND day=$2 AND version=$4 RETURNING *`,[subjectId,day,seal(v.content),v.version])).rows;

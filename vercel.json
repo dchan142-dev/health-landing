@@ -3,7 +3,7 @@
   "outputDirectory": "dist",
   "functions": {
     "api/health-intake.js": {
-      "includeFiles": "server/{schema.sql,tracker-preview.html,tracker-preview.mjs}",
+      "includeFiles": "server/{schema.sql,tracker-preview.html,tracker-daily.html,tracker-preview.mjs}",
       "maxDuration": 30
     },
     "api/report-pdf.js": {

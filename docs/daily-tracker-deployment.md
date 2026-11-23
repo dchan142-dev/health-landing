@@ -27,9 +27,9 @@ The API rejects stale writes and changed sessions. A daily record includes meals
 photos, weight, blood pressure, sleep, activity, stress, digestion and actual
 supplement-use statuses. This page does not prescribe or escalate product doses.
 
-The initial record period is 2026-11-23 through 2026-12-22. Each meal allows two
-compressed JPEGs, at most eight per day. Individual data URLs are capped at
-100,000 characters; the daily request limit is 1MiB. Questionnaire requests retain
+The initial record period is 2026-11-23 through 2026-12-22. Each meal allows eight
+compressed JPEGs, at most 32 per day. Individual data URLs are capped at
+100,000 characters; the daily request limit is 4MiB. Questionnaire requests retain
 the original 256KiB limit. Compressed images are encrypted in the database in
 this release. Google Drive upload is a separate future integration.
 
@@ -53,3 +53,19 @@ tracker APIs. Confirm deployment logs show the existing account binding.
 The schema change is additive; existing questionnaire and Reels data are retained.
 A rollback can promote the preceding Vercel deployment. Keep the new tables and
 existing encryption key so daily records can be restored in the next release.
+
+## Gemini original release — 2026-11-23
+
+The user approved the restored Gemini draft for formal release. `/daily/` now
+provides the existing-account sign-in and opens the authenticated original page
+at `/api/health-intake/tracker/daily`. The previous redesigned `daily/app.mjs` and
+`daily/style.css` have been removed. The original sound, encouragement, star
+particles and reward modal remain intact. Formal saves use `hd_daily`; the
+independent preview continues to use `hd_daily_preview`.
+
+WingTung opening the old questionnaire login is directed to `/daily/` after
+authentication. The original questionnaire remains accessible through
+`/intake/?view=questionnaire`. Existing passwords and account IDs are unchanged.
+Previously stored sleep/activity/stress fields are retained when saving through
+the original interface. Administrator preview test records were cleared once
+through an audited, scoped maintenance operation.

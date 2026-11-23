@@ -1160,6 +1160,10 @@ async function load() {
   try {
     const current = await api("/session");
     user = current.user;
+    if (user.role !== "admin" && new URL(window.location.href).searchParams.get("view") !== "questionnaire") {
+      try { await api("/tracker"); window.location.replace("/daily/"); return; }
+      catch (error) { if (error.status === 401) throw error; }
+    }
     renderAccount();
     if (user.role === "admin") {
       record = null;

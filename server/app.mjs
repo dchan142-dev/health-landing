@@ -117,7 +117,7 @@ export function createApplication({
     if (!request.headers.get("content-type")?.startsWith("application/json"))
       throw Object.assign(new Error("請使用JSON格式"), { status: 415 });
     const raw = await request.text();
-    if (Buffer.byteLength(raw) > (new URL(request.url).pathname.includes("/tracker/preview-days/") ? 4194304 : new URL(request.url).pathname.includes("/tracker/") ? 1048576 : 262144))
+    if (Buffer.byteLength(raw) > (new URL(request.url).pathname.includes("/tracker/") ? 4194304 : 262144))
       throw Object.assign(new Error("資料太大，請縮短內容"), { status: 413 });
     let value;
     try {

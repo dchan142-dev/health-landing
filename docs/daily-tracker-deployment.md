@@ -9,9 +9,10 @@ password reset or secret rotation is part of deployment.
 ## Access
 
 `hd_app_access` stores the immutable existing user ID for `wingtung-daily`.
-During the first production build, the binding selects exactly one submitted
+During the first production build, the binding selects exactly one existing
 questionnaire belonging to an account created before 2026-11-23 UTC, matching
-WingTung Lai / Lai Wing Tung in the existing account or clientName answer.
+WingTung Lai / Lai Wing Tung / Ms Lai in the existing account or clientName answer.
+Both saved drafts and submitted questionnaires qualify; the match must be unique.
 A zero/ambiguous match stops deployment. Once bound, later registrations and
 name changes cannot grant access. Existing administrators can view and edit the
 same client record. Other logged-in accounts receive 403 at the API boundary.

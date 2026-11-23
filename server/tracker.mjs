@@ -25,14 +25,14 @@ export function validateDaily(value) {
   }
   return PRODUCTS.every(k=>['','done','skip'].includes(value.products[k]));
 }
-// Bind only the existing, submitted WingTung record. The deployment freezes the
+// Bind only the existing WingTung questionnaire record. The deployment freezes the
 // actual account ID; later registrations and display-name changes cannot gain access.
 export async function bindWingTung(pool, unseal) {
   if ((await pool.query("SELECT user_id FROM hd_app_access WHERE app_key='wingtung-daily'")).rows.length) return;
-  const rows = (await pool.query('SELECT u.id,u.name,r.answers_ciphertext FROM "user" u JOIN hd_record r ON r.user_id=u.id WHERE r.status=\'submitted\' AND COALESCE(u.role,\'user\') <> \'admin\' AND u."createdAt" < \'2026-11-23T00:00:00Z\'')).rows;
+  const rows = (await pool.query('SELECT u.id,u.name,r.answers_ciphertext FROM "user" u JOIN hd_record r ON r.user_id=u.id WHERE COALESCE(u.role,\'user\') <> \'admin\' AND u."createdAt" < \'2026-11-23T00:00:00Z\'')).rows;
   const normalize = s => String(s || '').toLowerCase().replace(/[^a-z]/g,'');
-  const candidates = rows.filter(r=>[r.name,unseal(r.answers_ciphertext).clientName].some(n=>['laiwingtung','wingtunglai'].includes(normalize(n))));
-  if (candidates.length !== 1) throw new Error('Tracker requires exactly one existing WingTung account');
+  const candidates = rows.filter(r=>[r.name,unseal(r.answers_ciphertext).clientName].some(n=>['laiwingtung','wingtunglai','mslai'].includes(normalize(n).replace(/s?record$/, ''))));
+  if (candidates.length !== 1) { console.error('Tracker binding: '+candidates.length+' matching accounts across '+rows.length+' existing questionnaires.'); throw new Error('Tracker requires exactly one existing WingTung account'); }
   await pool.query("INSERT INTO hd_app_access(app_key,user_id) VALUES('wingtung-daily',$1) ON CONFLICT DO NOTHING", [candidates[0].id]);
 }
 export function trackerRoutes({pool,seal,unseal,body,audit}) {

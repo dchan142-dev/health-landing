@@ -4,8 +4,8 @@ const DAYS=IS_PREVIEW?'/tracker/preview-days':'/tracker/days';
 const ENTRY=IS_PREVIEW?'/daily-preview/':'/daily/';
 const FIELDS=['weight','sbp','dbp','sleep','activity','stress','stoolCount','stoolType','comfort','notes','intake'];
 const MEALS=['breakfast','lunch','snack','dinner'];
-let sessionId, overlay, loginResolver;
-function status(message,error=false){const e=document.getElementById('cloud-status');e.textContent=message;e.classList.toggle('text-red-700',error);}
+let sessionId, overlay, loginResolver, storagePending=false;
+function status(message,error=false){const e=document.getElementById('cloud-status');e.textContent=message+(storagePending?" · 相片上載待連接":"");e.classList.toggle('text-red-700',error);}
 async function api(path,options={}){
  let response;try{response=await fetch(BASE+path,{...options,credentials:'same-origin',cache:'no-store',headers:{...(options.body?{'content-type':'application/json'}:{}),...options.headers},signal:AbortSignal.timeout(options.method==='PUT'?125000:30000)});}catch{throw new Error('網絡暫時未連接，內容仍在本頁。請保持頁面開啟並重試。');}
  const value=await response.json();
@@ -32,6 +32,9 @@ function toCanonical(record,existing,reminder){const value=existing?structuredCl
 }
 export async function bootCloud(){
  const profile=await api('/tracker');sessionId=profile.accountId;
+ storagePending=profile.photoStorageReady===false;
+ if(storagePending)for(const input of document.querySelectorAll('input[type="file"]')){input.disabled=true;const label=input.closest('label');if(label){label.style.opacity='.5';label.title='相片儲存服務正在接駁，請先將相片保留在手機。';}}
+
  const index=await api(DAYS),cache=new Map(),records={};
  // Limit concurrent photo requests. Actual dates are fully loaded for the original
  // history gallery, charts and CSV; health data stays out of persistent browser storage.

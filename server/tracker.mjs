@@ -69,7 +69,7 @@ export function trackerRoutes({pool,seal,unseal,body,audit,photoArchive}) {
       const html=path==='/tracker/daily'?await readFile(new URL('./tracker-daily.html',import.meta.url),'utf8'):await readFile(new URL('./tracker-preview.html',import.meta.url),'utf8');
       return new Response(html,{headers:{'content-type':'text/html; charset=utf-8','x-robots-tag':'noindex, nofollow, noarchive','content-security-policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'",'referrer-policy':'same-origin'}});
     }
-    if(path==='/tracker' && request.method==='GET') return respond({accountId:user.id,clientName:grant.name,admin:user.role==='admin',start:'2026-11-23',end:'2026-12-22'});
+    if(path==='/tracker' && request.method==='GET') return respond({accountId:user.id,clientName:grant.name,admin:user.role==='admin',photoStorageReady:!photoArchive||photoArchive.configured,start:'2026-11-23',end:'2026-12-22'});
     if((path==='/tracker/days'||path==='/tracker/preview-days') && request.method==='GET') {
       let rows=(await pool.query(`SELECT * FROM ${table} WHERE user_id=$1 ORDER BY day DESC`,[subjectId])).rows;
       if(previewDays){const actual=(await pool.query('SELECT * FROM hd_daily WHERE user_id=$1 ORDER BY day DESC',[grant.user_id])).rows;const merged=new Map(actual.map(r=>[format(r).date,{...r,version:0}]));for(const r of rows)merged.set(format(r).date,r);rows=[...merged.values()].sort((a,b)=>format(b).date.localeCompare(format(a).date));}
@@ -87,7 +87,11 @@ export function trackerRoutes({pool,seal,unseal,body,audit,photoArchive}) {
     const v=await body(request);
     if(v.accountId!==user.id)return respond({error:'登入帳戶已改變，請以原有帳戶重新登入。',code:'SESSION_CHANGED'},409);
     if(!Number.isSafeInteger(v.version)||v.version<0||!validateDaily(v.content,{maxPhotos:8}))return respond({error:'請檢查數值、文字及相片大小後再儲存。'},400);
-    if(photoArchive)v.content=await photoArchive.archive(v.content,{userId:subjectId,day,kind:previewDays?'preview':'actual',sourceUserId:grant.user_id});
+    if(photoArchive){
+      const previous=(await pool.query(`SELECT content_ciphertext FROM ${table} WHERE user_id=$1 AND day=$2`,[subjectId,day])).rows[0];
+      if(previous){const oldContent=unseal(previous.content_ciphertext);if(Object.values(oldContent.meals).some(m=>m.photos.some(p=>p.startsWith('data:image/'))))await photoArchive.archive(oldContent,{userId:subjectId,day,kind:previewDays?'preview':'actual',sourceUserId:grant.user_id});}
+      v.content=await photoArchive.archive(v.content,{userId:subjectId,day,kind:previewDays?'preview':'actual',sourceUserId:grant.user_id});
+    }
     else if(Object.values(v.content.meals).some(m=>m.photos.some(p=>p.startsWith(PHOTO_PREFIX))))return respond({error:'圖片索引未能核實'},400);
     let rows;
     if(v.version===0) rows=(await pool.query(`INSERT INTO ${table}(user_id,day,content_ciphertext) VALUES($1,$2,$3) ON CONFLICT DO NOTHING RETURNING *`,[subjectId,day,seal(v.content)])).rows;

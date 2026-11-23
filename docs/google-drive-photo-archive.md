@@ -1,8 +1,10 @@
 # Private Google Drive photo archive
 
-State: implemented and tested locally; owner Google authorization/deployment is
-required before production activation. Keep the live deployment unchanged until
-the signed bridge check and real Drive readback succeed.
+State: photo-write protection is ready for production. Owner Google
+authorization/deployment is required before Drive uploads and migration activate.
+Without the configured bridge, image inputs are disabled, new photo writes fail
+closed, and existing image-containing records are preserved. Text-only records
+continue to save. Enable the Drive bridge only after real readback succeeds.
 
 ## Storage flow
 

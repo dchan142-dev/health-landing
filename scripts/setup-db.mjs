@@ -50,6 +50,7 @@ try {
   });
   console.log("Administrator preview cleanup: " + JSON.stringify(previewCleanup));
   if(process.env.HD_DRIVE_WEBAPP_URL)console.log("Drive archive migration: "+JSON.stringify(await app.migratePhotosToDrive()));
+  else console.log("Drive photo write guard active; awaiting owner connection; existing originals retained.");
   process.exit(0);
 } catch (error) {
   if (error.message === "Tracker requires exactly one existing WingTung account") console.error(error.message);

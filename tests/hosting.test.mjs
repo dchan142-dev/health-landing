@@ -133,6 +133,7 @@ test("the static build retains the website and both Reels versions while excludi
     "api/submit-v2.js",
     "scripts",
     "docs",
+    "integrations",
     "node_modules",
     "package.json",
     "package-lock.json",

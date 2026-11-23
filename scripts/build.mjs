@@ -11,6 +11,7 @@ const excluded = new Set([
   "scripts",
   "tests",
   "docs",
+  "integrations",
   "package.json",
   "package-lock.json",
   "vercel.json",

@@ -1,3 +1,4 @@
+import { clearAdminPreview } from "./clear-admin-preview.mjs";
 import { productionReelsStore } from "../server/reels-store.mjs";
 import { productionReelsV2Events } from "../server/reels-v2-events.mjs";
 import { productionReelsV2Store } from "../server/reels-v2-store.mjs";
@@ -43,6 +44,11 @@ try {
       "Deployment verification cleanup completed: " + count + " test accounts.",
     );
   }
+  const previewCleanup = await clearAdminPreview(productionDatabasePool(), {
+    email: "dchan142@gmail.com",
+    operationId: "maintenance:clear-admin-preview:2026-11-23-v1",
+  });
+  console.log("Administrator preview cleanup: " + JSON.stringify(previewCleanup));
   process.exit(0);
 } catch (error) {
   if (error.message === "Tracker requires exactly one existing WingTung account") console.error(error.message);

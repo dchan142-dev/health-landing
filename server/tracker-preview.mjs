@@ -456,7 +456,7 @@ import { bootCloud } from "/daily-preview/cloud.mjs";
           CLOUD.photosBusy = true;
           let added = 0;
           for (const f of files) {
-            if (formState.meals[mealKey].photos.length >= 2) { showToast("每餐最多兩張相片，請先移除相片再加入。"); break; }
+            if (formState.meals[mealKey].photos.length >= 8) { showToast("每餐最多八張相片，請先移除相片再加入。"); break; }
             try {
               const dataUrl = await compressImage(f);
               formState.meals[mealKey].photos.push(dataUrl);

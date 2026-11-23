@@ -26,3 +26,14 @@ test('original preview page and audio script require the same client permission'
  const r=await req('/tracker/days/2026-11-24',owner,'PUT',{accountId:owner.id,version:0,content:c});assert.equal(r.status,200,await r.clone().text());assert.deepEqual((await r.json()).content,c);
  c.original.reminder.secret='extra';assert.equal(validateDaily(c),false);
 });
+
+test('preview interactions persist separately and keep customer actual records intact',async()=>{
+ const before=await(await req('/tracker/days/2026-11-23',owner)).json();
+ const initial=await(await req('/tracker/preview-days/2026-11-23',admin)).json();assert.equal(initial.version,0);assert.deepEqual(initial.content,before.content);
+ const c=structuredClone(initial.content);c.notes='管理員聲效預覽測試';
+ const saved=await req('/tracker/preview-days/2026-11-23',admin,'PUT',{accountId:admin.id,version:0,content:c});assert.equal(saved.status,200);
+ assert.deepEqual(await(await req('/tracker/days/2026-11-23',owner)).json(),before);
+ assert.equal((await(await req('/tracker/preview-days/2026-11-23',admin)).json()).content.notes,'管理員聲效預覽測試');
+ assert.deepEqual((await(await req('/tracker/preview-days/2026-11-23',owner)).json()).content,before.content);
+ assert.equal((await req('/tracker/preview-days/2026-11-23',other)).status,403);
+});

@@ -10,7 +10,7 @@ export async function serveApi(req, res, app, origin) {
       if (value !== undefined)
         headers.set(name, Array.isArray(value) ? value.join(", ") : value);
     }
-    const limit = path.startsWith("/api/health-intake/tracker/") ? 1048576 : 262144;
+    const limit = path.startsWith("/api/health-intake/tracker/preview-days/") ? 4194304 : path.startsWith("/api/health-intake/tracker/") ? 1048576 : 262144;
     let body;
     if (!["GET", "HEAD"].includes(req.method)) {
       if (req.body !== undefined)

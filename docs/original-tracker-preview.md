@@ -4,7 +4,9 @@ Review URL: https://health-decoder.com/daily-preview/
 
 The existing `/daily/` page stays in place pending the user's visual and audio
 review. This isolated entry reuses the existing authenticated tracker API, client
-permission and encrypted records. Its personalized original HTML and JavaScript
+permission and encryption. Preview edits are stored separately per signed-in
+account in `hd_daily_preview`; existing actual records seed the view read-only.
+Preview interactions never overwrite the customer's actual daily records. Its personalized original HTML and JavaScript
 are served only after the same server-side authorization check.
 
 Source: supplied `ms_lai_tracker_v5.html`. Preserve original DOM element IDs,
@@ -20,7 +22,8 @@ Integration changes:
   reminder preferences in validated optional metadata.
 - Keep unsaved changes in the open page and offer a JSON backup on save failure.
 - Retain the original layout; replace runtime CDN scripts with pinned local assets.
-- Use the existing limit of two compressed JPEG photos per meal.
+- Support multiple photos as in the original, with a platform limit of eight
+  compressed JPEG photos per meal for this preview.
 - Mark email/background synchronization as awaiting connection; phone calendar
   reminders remain available. Preserve original reminder controls and layout.
 - Enable normal browser zoom for accessibility.

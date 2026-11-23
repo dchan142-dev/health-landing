@@ -19,6 +19,7 @@ export function createApplication({
   secret,
   encryptionKey,
   production = true,
+  photoArchive = null,
 }) {
   const key = encryptionKey
     ? Buffer.from(encryptionKey, "base64")
@@ -129,7 +130,7 @@ export function createApplication({
       throw Object.assign(new Error("資料格式不正確"), { status: 400 });
     return value;
   }
-  const tracker = trackerRoutes({pool, seal, unseal, body, audit});
+  const tracker = trackerRoutes({pool, seal, unseal, body, audit, photoArchive});
   const validDraft = (v) =>
     Object.keys(v).every((k) =>
       ["accountId", "version", "step", "answers"].includes(k),
@@ -448,6 +449,30 @@ export function createApplication({
         .map((s) => s.trim())
         .filter(Boolean))
         await pool.query(statement);
+    },
+    async migratePhotosToDrive() {
+      if(!photoArchive?.configured)throw new Error("Google Drive archive is not configured");
+      const sourceUserId=(await pool.query("SELECT user_id FROM hd_app_access WHERE app_key='wingtung-daily'")).rows[0]?.user_id;
+      let migrated=0;
+      for(const [table,kind] of [["hd_daily","actual"],["hd_daily_preview","preview"]]) {
+        const rows=(await pool.query(`SELECT * FROM ${table} ORDER BY day`)).rows;
+        for(const row of rows) {
+          const old=unseal(row.content_ciphertext);
+          if(!Object.values(old.meals).some(m=>m.photos.some(p=>p.startsWith('data:image/'))))continue;
+          const day=typeof row.day==='string'?row.day.slice(0,10):row.day.toISOString().slice(0,10);
+          const archived=await photoArchive.archive(old,{userId:row.user_id,day,kind,sourceUserId});
+          const saved=await pool.query(`UPDATE ${table} SET content_ciphertext=$1,version=version+1,updated_at=CURRENT_TIMESTAMP WHERE user_id=$2 AND day=$3 AND version=$4`,[seal(archived),row.user_id,day,row.version]);
+          if(!saved.rowCount)throw new Error("Daily record changed during photo migration; retry safely");
+          await audit(row.user_id,'migrate_photos_verified_drive',day);
+          migrated++;
+        }
+      }
+      for(const table of ['hd_daily','hd_daily_preview']){
+        for(const row of (await pool.query(`SELECT content_ciphertext FROM ${table}`)).rows){
+          if(Object.values(unseal(row.content_ciphertext).meals).some(m=>m.photos.some(p=>p.startsWith('data:image/'))))throw new Error('Embedded photo verification failed');
+        }
+      }
+      return {migratedRecords:migrated,embeddedPhotosRemaining:0};
     },
     async bindWingTung() { await bindWingTung(pool,unseal); },
     async bootstrapAdmin({ name, email, password }) {

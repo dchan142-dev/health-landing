@@ -7,7 +7,7 @@ const MEALS=['breakfast','lunch','snack','dinner'];
 let sessionId, overlay, loginResolver;
 function status(message,error=false){const e=document.getElementById('cloud-status');e.textContent=message;e.classList.toggle('text-red-700',error);}
 async function api(path,options={}){
- let response;try{response=await fetch(BASE+path,{...options,credentials:'same-origin',cache:'no-store',headers:{...(options.body?{'content-type':'application/json'}:{}),...options.headers},signal:AbortSignal.timeout(30000)});}catch{throw new Error('網絡暫時未連接，內容仍在本頁。請保持頁面開啟並重試。');}
+ let response;try{response=await fetch(BASE+path,{...options,credentials:'same-origin',cache:'no-store',headers:{...(options.body?{'content-type':'application/json'}:{}),...options.headers},signal:AbortSignal.timeout(options.method==='PUT'?125000:30000)});}catch{throw new Error('網絡暫時未連接，內容仍在本頁。請保持頁面開啟並重試。');}
  const value=await response.json();
  if(!response.ok){if(response.status===401)showLogin();const e=new Error(value.error||value.message||'暫時未能連接，請重試。');e.status=response.status;throw e;}return value;
 }

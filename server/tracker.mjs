@@ -1,3 +1,4 @@
+import { PHOTO_PREFIX } from "./drive-archive.mjs";
 import { readFile } from "node:fs/promises";
 const MEALS = ['breakfast', 'lunch', 'snack', 'dinner'];
 const PRODUCTS = ['enzyme', 'gut', 'probiotic', 'q10', 'astaxanthin'];
@@ -30,6 +31,7 @@ export function validateDaily(value, {maxPhotos=8}={}) {
     const meal = value.meals[k];
     if (!meal || Object.keys(meal).some(k=>!['note','photos'].includes(k)) || typeof meal.note !== 'string' || meal.note.length > 1000 || /[<>]/.test(meal.note) || !Array.isArray(meal.photos) || meal.photos.length > maxPhotos) return false;
     for (const photo of meal.photos) {
+      if (typeof photo === 'string' && /^\/api\/health-intake\/tracker\/photos\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(photo))continue;
       if (typeof photo !== 'string' || photo.length > 100000 || !/^data:image\/jpeg;base64,\/9j\/[A-Za-z0-9+/]*={0,2}$/.test(photo)) return false;
       const bytes = Buffer.from(photo.slice(23),'base64');
       if (bytes[0] !== 255 || bytes[1] !== 216 || bytes.at(-2) !== 255 || bytes.at(-1) !== 217) return false;
@@ -47,11 +49,15 @@ export async function bindWingTung(pool, unseal) {
   if (candidates.length !== 1) { console.error('Tracker binding: '+candidates.length+' matching accounts across '+rows.length+' existing questionnaires.'); throw new Error('Tracker requires exactly one existing WingTung account'); }
   await pool.query("INSERT INTO hd_app_access(app_key,user_id) VALUES('wingtung-daily',$1) ON CONFLICT DO NOTHING", [candidates[0].id]);
 }
-export function trackerRoutes({pool,seal,unseal,body,audit}) {
+export function trackerRoutes({pool,seal,unseal,body,audit,photoArchive}) {
   return async (request,path,user) => {
     const grant=(await pool.query('SELECT a.user_id,u.name FROM hd_app_access a JOIN "user" u ON u.id=a.user_id WHERE a.app_key=$1',['wingtung-daily'])).rows[0];
     if (!grant || (user.role!=='admin' && grant.user_id!==user.id)) return Response.json({error:'此打卡服務現階段供指定客戶使用。請聯絡跟進者確認帳戶。'},{status:403});
     const respond=(v,status=200)=>Response.json(v,{status});
+    if(path.startsWith('/tracker/photos/') && request.method==='GET'){
+      if(!photoArchive)return respond({error:'圖片服務尚未連接'},503);
+      return photoArchive.download(path.slice('/tracker/photos/'.length),{userId:grant.user_id,actorId:user.id,isAdmin:user.role==='admin'});
+    }
     const previewDays=path==='/tracker/preview-days'||path.startsWith('/tracker/preview-days/');
     const table=previewDays?'hd_daily_preview':'hd_daily';
     const subjectId=previewDays?user.id:grant.user_id;
@@ -81,6 +87,8 @@ export function trackerRoutes({pool,seal,unseal,body,audit}) {
     const v=await body(request);
     if(v.accountId!==user.id)return respond({error:'登入帳戶已改變，請以原有帳戶重新登入。',code:'SESSION_CHANGED'},409);
     if(!Number.isSafeInteger(v.version)||v.version<0||!validateDaily(v.content,{maxPhotos:8}))return respond({error:'請檢查數值、文字及相片大小後再儲存。'},400);
+    if(photoArchive)v.content=await photoArchive.archive(v.content,{userId:subjectId,day,kind:previewDays?'preview':'actual',sourceUserId:grant.user_id});
+    else if(Object.values(v.content.meals).some(m=>m.photos.some(p=>p.startsWith(PHOTO_PREFIX))))return respond({error:'圖片索引未能核實'},400);
     let rows;
     if(v.version===0) rows=(await pool.query(`INSERT INTO ${table}(user_id,day,content_ciphertext) VALUES($1,$2,$3) ON CONFLICT DO NOTHING RETURNING *`,[subjectId,day,seal(v.content)])).rows;
     else rows=(await pool.query(`UPDATE ${table} SET content_ciphertext=$3,version=version+1,updated_at=CURRENT_TIMESTAMP WHERE user_id=$1 AND day=$2 AND version=$4 RETURNING *`,[subjectId,day,seal(v.content),v.version])).rows;

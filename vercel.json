@@ -4,7 +4,7 @@
   "functions": {
     "api/health-intake.js": {
       "includeFiles": "server/{schema.sql,tracker-preview.html,tracker-daily.html,tracker-preview.mjs}",
-      "maxDuration": 30
+      "maxDuration": 120
     },
     "api/report-pdf.js": {
       "includeFiles": "server/fonts/*.otf",

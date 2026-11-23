@@ -35,3 +35,17 @@ CREATE TABLE IF NOT EXISTS hd_daily_preview (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (user_id, day)
 );
+
+CREATE TABLE IF NOT EXISTS hd_photo (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+  day DATE NOT NULL,
+  meal TEXT NOT NULL CHECK (meal IN ('breakfast','lunch','snack','dinner')),
+  kind TEXT NOT NULL CHECK (kind IN ('actual','preview')),
+  sha256 TEXT NOT NULL,
+  drive_file_id TEXT NOT NULL,
+  drive_folder_id TEXT NOT NULL,
+  byte_size INTEGER NOT NULL CHECK(byte_size>0),
+  verified_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(user_id,day,meal,kind,sha256)
+);

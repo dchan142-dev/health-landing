@@ -49,6 +49,7 @@ try {
     operationId: "maintenance:clear-admin-preview:2026-11-23-v1",
   });
   console.log("Administrator preview cleanup: " + JSON.stringify(previewCleanup));
+  if(process.env.HD_DRIVE_WEBAPP_URL)console.log("Drive archive migration: "+JSON.stringify(await app.migratePhotosToDrive()));
   process.exit(0);
 } catch (error) {
   if (error.message === "Tracker requires exactly one existing WingTung account") console.error(error.message);

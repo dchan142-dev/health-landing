@@ -1,0 +1,20 @@
+import{test}from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';import{createHash,createHmac,randomUUID}from'node:crypto';import vm from'node:vm';import{createDriveBridge}from'../server/drive-archive.mjs';
+test('actual Apps Script checks signatures, private ancestry, folder classification and byte readback',async()=>{
+ const key='a'.repeat(64),objects=new Map(),cache=new Map();let counter=0,publicRoot=false;
+ const iter=a=>({hasNext:()=>a.length>0,next:()=>a.shift()});
+ const blob=(data,mime='image/jpeg',name='photo.jpg')=>({getBytes:()=>[...Buffer.from(data)],mime,name});
+ class Item{constructor(name,parent,folder=false,id){this.name=name;this.parent=parent;this.folder=folder;this.id=id||'item-'+(++counter);this.trashed=false;objects.set(this.id,this);}getId(){return this.id}isTrashed(){return this.trashed}getOwner(){return{getEmail:()=> 'dchan142@gmail.com'}}getSharingAccess(){return this.id==='root-test'&&publicRoot?'ANYONE':'PRIVATE'}getEditors(){return[]}getViewers(){return[]}getParents(){return iter(this.parent?[this.parent]:[])}getFoldersByName(n){return iter([...objects.values()].filter(i=>i.parent===this&&i.folder&&i.name===n&&!i.trashed))}createFolder(n){return new Item(n,this,true)}getFilesByName(n){return iter([...objects.values()].filter(i=>i.parent===this&&!i.folder&&i.name===n&&!i.trashed))}createFile(b){const f=new Item(b.name,this);f.bytes=b.getBytes();return f}getBlob(){return blob(this.bytes)}setTrashed(v){this.trashed=v}}
+ const root=new Item('archive',null,true,'root-test');
+ const context={Date,JSON,Error,Array,Math,DriveApp:{Access:{PRIVATE:'PRIVATE'},getFolderById:id=>{if(!objects.has(id))throw Error('missing');return objects.get(id)},getFileById:id=>{if(!objects.has(id))throw Error('missing');return objects.get(id)}},Utilities:{DigestAlgorithm:{SHA_256:'sha256'},Charset:{UTF_8:'utf8'},computeDigest:(type,b)=>[...createHash(type).update(Buffer.from(b)).digest()],computeHmacSha256Signature:(m,k)=>[...createHmac('sha256',k).update(m).digest()],base64Decode:x=>[...Buffer.from(x,'base64')],base64Encode:x=>Buffer.from(x).toString('base64'),newBlob:(x,mime,name)=>blob(typeof x==='string'?Buffer.from(x):x,mime,name),getUuid:randomUUID},ContentService:{MimeType:{JSON:'application/json'},createTextOutput:body=>({body,setMimeType(){return this}})},LockService:{getScriptLock:()=>({waitLock(){},hasLock:()=>true,releaseLock(){}})},CacheService:{getScriptCache:()=>({get:k=>cache.get(k),put:(k,v)=>cache.set(k,v)})}};
+ vm.createContext(context);vm.runInContext((await readFile('integrations/google-drive/Code.gs','utf8')).replace('REPLACE_ROOT_FOLDER_ID','root-test').replace('REPLACE_SHARED_SECRET',key),context);
+ let lastEnvelope;const bridge=createDriveBridge({url:'https://script.google.com/macros/s/test/exec',secret:key,fetchImpl:async(url,options)=>{lastEnvelope=options.body;return Response.json(JSON.parse(context.doPost({postData:{contents:options.body}}).body));}});
+ assert.equal((await bridge.check()).readWriteVerified,true);
+ const bytes=Buffer.from('/9j/4P/Z','base64'),sha256=createHash('sha256').update(bytes).digest('hex');
+ const upload=await bridge.upload({clientKey:'client-id',kind:'actual',day:'2026-11-23',photos:[{meal:'breakfast',base64:bytes.toString('base64'),sha256,size:bytes.length}]});
+ assert.equal(upload.files[0].private,true);const file=objects.get(upload.files[0].fileId);assert.equal(file.parent.name,'早餐');assert.equal(file.parent.parent.name,'2026-11-23');assert.equal(file.parent.parent.parent.name,'WingTung Lai');
+ const image=await bridge.download({fileId:file.id,folderId:file.parent.id});assert.deepEqual(Buffer.from(image.base64,'base64'),bytes);
+ const repeated=JSON.parse(context.doPost({postData:{contents:lastEnvelope}}).body);assert.equal(repeated.ok,false);
+ assert.equal(JSON.parse(context.doPost({postData:{contents:JSON.stringify({message:'{}',signature:'0'.repeat(64)})}}).body).ok,false);
+ publicRoot=true;await assert.rejects(()=>bridge.check());
+ assert.equal(root.name,'archive');
+});

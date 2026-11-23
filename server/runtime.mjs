@@ -1,3 +1,4 @@
+import { createDriveBridge, createPhotoArchive } from "./drive-archive.mjs";
 import pg from "pg";
 import { createApplication } from "./app.mjs";
 
@@ -34,6 +35,7 @@ export function application() {
     secret: BETTER_AUTH_SECRET,
     encryptionKey: DATA_ENCRYPTION_KEY,
     production: true,
+    photoArchive: createPhotoArchive({pool,bridge:createDriveBridge({url:process.env.HD_DRIVE_WEBAPP_URL,secret:process.env.HD_DRIVE_SHARED_SECRET})}),
   });
   return instance;
 }

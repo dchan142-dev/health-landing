@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 const MEALS = ['breakfast', 'lunch', 'snack', 'dinner'];
 const PRODUCTS = ['enzyme', 'gut', 'probiotic', 'q10', 'astaxanthin'];
 export function validDay(day) {
@@ -5,8 +6,19 @@ export function validDay(day) {
 }
 export function validateDaily(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  if (value.original !== undefined) {
+    const m=value.original;
+    if (!m || typeof m !== 'object' || Array.isArray(m) || Object.keys(m).some(k=>!['enzymeMl','intakePct','reminder','stoolCountLabel'].includes(k))) return false;
+    if (m.enzymeMl!==null && ![0,10,20,30].includes(m.enzymeMl)) return false;
+    if (m.intakePct!==null && (!Number.isInteger(m.intakePct)||m.intakePct<0||m.intakePct>100)) return false;
+    if(m.stoolCountLabel!==undefined && !['','0次','1次','2次','3次或以上'].includes(m.stoolCountLabel))return false;
+    const r=m.reminder;
+    if (!r || typeof r!=='object' || Array.isArray(r) || JSON.stringify(r).length>2048 || Object.keys(r).some(k=>!['morning','evening','phoneEnabled','phone','emailEnabled','email','tasksEnabled','onboarded'].includes(k))) return false;
+    for(const [k,v] of Object.entries(r)) { if(['phoneEnabled','emailEnabled','tasksEnabled','onboarded'].includes(k)){if(typeof v!=='boolean')return false;}else if(typeof v!=='string'||v.length>254||/[<>]/.test(v))return false; }
+    for(const k of ['morning','evening'])if(r[k]!==undefined&&!/^([01]\d|2[0-3]):[0-5]\d$/.test(r[k]))return false;
+  }
   const keys = ['weight','sbp','dbp','sleep','activity','stress','stoolCount','stoolType','comfort','notes','meals','products','intake'];
-  if (Object.keys(value).some(k => !keys.includes(k))) return false;
+  if (Object.keys(value).some(k => k!=='original' && !keys.includes(k))) return false;
   for (const k of keys.filter(k => !['meals','products'].includes(k))) {
     if (typeof value[k] !== 'string' || value[k].length > (k === 'notes' ? 2000 : 100) || /[<>]/.test(value[k])) return false;
   }
@@ -41,6 +53,13 @@ export function trackerRoutes({pool,seal,unseal,body,audit}) {
     if (!grant || (user.role!=='admin' && grant.user_id!==user.id)) return Response.json({error:'此打卡服務現階段供指定客戶使用。請聯絡跟進者確認帳戶。'},{status:403});
     const respond=(v,status=200)=>Response.json(v,{status});
     const format = r=>({date:typeof r.day==='string'?r.day.slice(0,10):r.day.toISOString().slice(0,10),version:r.version,updatedAt:r.updated_at,content:unseal(r.content_ciphertext)});
+    if(path==='/tracker/preview-script' && request.method==='GET') {
+      return new Response(await readFile(new URL('./tracker-preview.mjs',import.meta.url),'utf8'),{headers:{'content-type':'application/javascript; charset=utf-8','x-robots-tag':'noindex, nofollow, noarchive'}});
+    }
+    if(path==='/tracker/preview' && request.method==='GET') {
+      const html=await readFile(new URL('./tracker-preview.html',import.meta.url),'utf8');
+      return new Response(html,{headers:{'content-type':'text/html; charset=utf-8','x-robots-tag':'noindex, nofollow, noarchive','content-security-policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'",'referrer-policy':'same-origin'}});
+    }
     if(path==='/tracker' && request.method==='GET') return respond({accountId:user.id,clientName:grant.name,admin:user.role==='admin',start:'2026-11-23',end:'2026-12-22'});
     if(path==='/tracker/days' && request.method==='GET') {
       const rows=(await pool.query('SELECT * FROM hd_daily WHERE user_id=$1 ORDER BY day DESC',[grant.user_id])).rows;

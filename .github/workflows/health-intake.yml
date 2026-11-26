@@ -1,10 +1,12 @@
-name: Health intake checks
+name: Production checks
 
 on:
   pull_request:
     paths:
       - "intake/**"
-      - "reels-quiz-v2/**"
+      - "reels-quiz/**"
+      - "demo/reels-quiz/**"
+      - "shared/**"
       - "server/**"
       - "api/**"
       - "scripts/**"
@@ -12,8 +14,6 @@ on:
       - "package*.json"
       - "vercel.json"
       - ".github/workflows/health-intake.yml"
-  push:
-    branches: ["feat/client-health-intake"]
 
 permissions:
   contents: read

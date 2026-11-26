@@ -33,8 +33,6 @@ for (const page of [
   "intake/index.html",
   "daily/index.html",
   "reels-quiz/index.html",
-  "reels-quiz-v2/index.html",
-  "reels-quiz-v2/admin/index.html",
 ]) {
   const entry = join(out, page);
   if (!(await stat(entry)).isFile()) {
@@ -42,5 +40,5 @@ for (const page of [
   }
 }
 console.log(
-  "Static site, intake, and Reels Quiz V1 and V2 built. Server code and private configuration excluded.",
+  "Static site, intake, daily tracker, and production Reels Quiz built. Server code and private configuration excluded.",
 );

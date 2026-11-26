@@ -815,7 +815,7 @@ window.renderStage = function() {
       </div>
     `;
     footer.innerHTML = `
-      <a href="https://wa.me/85252116202?text=${waText}" target="_blank" rel="noopener" class="btn-primary" data-click="onWhatsAppBookingClicked">💬 打開 WhatsApp 確認預約 →</a>
+      <a href="https://wa.me/85294997604?text=${waText}" target="_blank" rel="noopener" class="btn-primary" data-click="onWhatsAppBookingClicked">💬 打開 WhatsApp 確認預約 →</a>
       <button type="button" class="btn-secondary" data-click="goStep" data-arg1="booking" data-arg2="panel">← 修改意向門市或時間</button>
     `;
     return;
